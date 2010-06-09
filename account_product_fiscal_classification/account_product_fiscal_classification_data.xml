@@ -2,7 +2,7 @@
 <openerp>
 	<data>
 
-		<record id="fiscal_position_rule_group" model="ir.rule.group">
+		<!--record id="fiscal_position_rule_group" model="ir.rule.group">
 			<field name="name">Product Fiscal Classification</field>
 			<field model="ir.model" name="model_id" search="[('model','=','account.product.fiscal.classification')]" />
 			<field eval="True" name="global" />
@@ -10,7 +10,7 @@
 		<record id="fiscal_position_rule" model="ir.rule">
 			<field name="domain_force">['|', ['company_id', '=', user.company_id.id], ['company_id','=', False]]</field>
 			<field name="rule_group" ref="fiscal_position_rule_group" />
-		</record>
+		</record-->
 
 	</data>
 </openerp>
