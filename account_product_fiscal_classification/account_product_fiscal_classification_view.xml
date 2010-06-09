@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<record model="ir.ui.view" id="fiscal_classification_normal_form_view_form">
+			<field name="name">fiscal_classification_normal_form_view_form</field>
+			<field name="model">account.product.fiscal.classification</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Fiscal Classification">					
+						<field name="name"/>
+						<field name="company_id" />
+						<field colspan="4" name="description"/>
+						<newline/>
+						<separator string="Sale Taxes" colspan="2"/>
+						<separator string="Purchase Taxes" colspan="2"/>
+						<field colspan="2" nolabel="1" name="sale_base_tax_ids" />
+						<field colspan="2" nolabel="1" name="purchase_base_tax_ids" />
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="fiscal_classification_normal_form_view_tree">
+			<field name="name">fiscal_classification_normal_form_view_tree</field>
+			<field name="model">account.product.fiscal.classification</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field select="1" name="name"/>
+					<field name="description"/>
+					<field select="1" name="company_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="fiscal_classification__template_normal_form_view_form">
+			<field name="name">fiscal_classification_normal_form_view_form</field>
+			<field name="model">account.product.fiscal.classification.template</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Fiscal Classification Template">
+						<field name="name"/>
+						<field colspan="4" name="description"/>
+						<newline/>
+						<separator string="Sale Taxes" colspan="2"/>
+						<separator string="Purchase Taxes" colspan="2"/>
+						<field colspan="2" nolabel="1" name="sale_base_tax_ids" />
+						<field colspan="2" nolabel="1" name="purchase_base_tax_ids" />
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="fiscal_classification__template_normal_form_view_tree">
+			<field name="name">fiscal_classification_normal_form_view_tree</field>
+			<field name="model">account.product.fiscal.classification.template</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field select="1" name="name"/>
+					<field name="description"/>
+				</tree>
+			</field>
+		</record>
+		
+		<!--  Wizard product fiscal classification -->
+
+        <record id="view_wizard_account_product_fiscal_classification" model="ir.ui.view">
+            <field name="name">Generate Product Fiscal Classification from Templates</field>
+            <field name="model">wizard.account.product.fiscal.classification</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Generate Product Fiscal Classification from Templates">
+                    <separator col="4" colspan="4" string="Generate Product Fiscal Classification from Templates"/>
+                    <label align="0.0" string="This will automatically configure all product fiscal classification" colspan="4"/>
+                    <field name="company_id" />
+                    <separator string="" colspan="4"/>
+                    <label string="" colspan="2"/>
+                    <group col="2" colspan="2">
+                        <button icon="gtk-cancel" special="cancel" type="object" name="action_cancel" string="Cancel"/>
+                        <button icon="gtk-ok" name="action_create" string="Create" type="object"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_wizard_account_product_fiscal_classification" model="ir.actions.act_window">
+            <field name="name">Generate Product Fiscal Classification from Templates</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.account.product.fiscal.classification</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem parent="account.account_template_folder" action="action_wizard_account_product_fiscal_classification" id="menu_wizard_account_product_fiscal_classification"/>
+
+		<record id="product_fiscal_classifications_action" model="ir.actions.act_window">
+		    <field name="name">Product Fiscal Classifications</field>
+		    <field name="res_model">account.product.fiscal.classification</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record>
+
+		<record id="product_fiscal_classifications_template_action" model="ir.actions.act_window">
+		    <field name="name">Product Fiscal Classifications Template</field>
+		    <field name="res_model">account.product.fiscal.classification.template</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record>
+
+ 		<menuitem id="menu_product_fiscal_classifications" action="product_fiscal_classifications_action" name="Product Fiscal Classifications" parent="account.menu_finance_accounting"/>
+
+		<menuitem action="product_fiscal_classifications_template_action" id="menu_product_fiscal_classifications_template" parent="account.account_template_folder" sequence="22"/>
+	</data>
+</openerp>
