@@ -39,7 +39,7 @@ class product_product(osv.osv):
         if fiscal_classification_id:
             fiscal_classification = self.pool.get('account.product.fiscal.classification').browse(cr, uid, fiscal_classification_id)
             
-            current_company_id = self.pool.get('res.users').browse(cr, uid, uid).company_id.partner_id.id
+            current_company_id = self.pool.get('res.users').browse(cr, uid, uid).company_id.id
             to_keep_sale_tax_ids = self.pool.get('account.tax').search(cr, uid, [('id', 'in', sale_tax_ids[0][2]), ('company_id', '!=', current_company_id)])
             to_keep_purchase_tax_ids = self.pool.get('account.tax').search(cr, uid, [('id', 'in', purchase_tax_ids[0][2]), ('company_id', '!=', current_company_id)])
             
