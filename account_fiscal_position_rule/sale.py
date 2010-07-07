@@ -36,9 +36,10 @@ class sale_order(osv.osv):
             return result
 
         #Use the current user to get the company_id
-        partner_id = self.pool.get('res.users').browse(cr, uid, uid).company_id.partner_id
+        #partner_id = self.pool.get('res.users').browse(cr, uid, uid).company_id.partner_id
+        obj_company = partner_id = self.pool.get('res.users').browse(cr, uid, uid).company_id
 
-        company_addr = self.pool.get('res.partner').address_get(cr, uid, [partner_id.id], ['default'])
+        company_addr = self.pool.get('res.partner').address_get(cr, uid, [obj_company.partner_id.id], ['default'])
         company_addr_default = self.pool.get('res.partner.address').browse(cr, uid, [company_addr['default']])[0]
         
         from_country = company_addr_default.country_id.id
@@ -52,9 +53,10 @@ class sale_order(osv.osv):
         to_country = partner_addr_default.country_id.id
         to_state = partner_addr_default.state_id.id
         
-        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, [('from_country','=',from_country),('from_state','=',from_state),('to_country','=',to_country),('to_state','=',to_state),('use_sale','=',True)])
-        if fsc_pos_id: 
-            result['value']['fiscal_position'] = fsc_pos_id[0]
+        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, [('company_id','=', obj_company.id),('from_country','=',from_country),('from_state','=',from_state),('to_country','=',to_country),('to_state','=',to_state),('use_sale','=',True)])
+        if fsc_pos_id:
+            obj_fpo_rule = self.pool.get('account.fiscal.position.rule').browse(cr, uid, fsc_pos_id)[0]
+            result['value']['fiscal_position'] = obj_fpo_rule.fiscal_position_id.id
         
         return result
         
@@ -73,9 +75,9 @@ class sale_order(osv.osv):
             result['value']['fiscal_position'] = fiscal_position
             return result
 
-        user_partner_id = self.pool.get('res.users').browse(cr, uid, usr_id).company_id.partner_id
+        obj_company = self.pool.get('res.users').browse(cr, uid, usr_id).company_id
 
-        company_addr = self.pool.get('res.partner').address_get(cr, uid, [user_partner_id.id], ['default'])
+        company_addr = self.pool.get('res.partner').address_get(cr, uid, [obj_company.partner_id.id], ['default'])
         company_addr_default = self.pool.get('res.partner.address').browse(cr, uid, [company_addr['default']])[0]
 
         from_country = company_addr_default.country_id.id
@@ -86,9 +88,11 @@ class sale_order(osv.osv):
         to_country = partner_addr_invoice.country_id.id
         to_state = partner_addr_invoice.state_id.id
         
-        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, [('from_country','=',from_country),('from_state','=',from_state),('to_country','=',to_country),('to_state','=',to_state),('use_sale','=',True)])
+        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, [('company_id','=',obj_company.id), ('from_country','=',from_country),('from_state','=',from_state),('to_country','=',to_country),('to_state','=',to_state),('use_sale','=',True)])
+        
         if fsc_pos_id:
-            result['value']['fiscal_position'] = fsc_pos_id[0]
+            obj_fpo_rule = self.pool.get('account.fiscal.position.rule').browse(cr, uid, fsc_pos_id)[0]
+            result['value']['fiscal_position'] = obj_fpo_rule.fiscal_position_id.id
 
         return result
 
@@ -106,9 +110,9 @@ class sale_order(osv.osv):
             result['value']['fiscal_position'] = fiscal_position
             return result
 
-        user_partner_id = self.pool.get('res.users').browse(cr, uid, usr_id).company_id.partner_id
+        obj_company = self.pool.get('res.users').browse(cr, uid, usr_id).company_id
 
-        company_addr = self.pool.get('res.partner').address_get(cr, uid, [user_partner_id.id], ['default'])
+        company_addr = self.pool.get('res.partner').address_get(cr, uid, [obj_company.partner_id.id], ['default'])
         company_addr_default = self.pool.get('res.partner.address').browse(cr, uid, [company_addr['default']])[0]
 
         from_country = company_addr_default.country_id.id
@@ -120,8 +124,10 @@ class sale_order(osv.osv):
         to_state = partner_addr_invoice.state_id.id
         
         fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, [('from_country','=',from_country),('from_state','=',from_state),('to_country','=',to_country),('to_state','=',to_state),('use_sale','=',True)])
+        
         if fsc_pos_id:
-            result['value']['fiscal_position'] = fsc_pos_id[0]
+            obj_fpo_rule = self.pool.get('account.fiscal.position.rule').browse(cr, uid, fsc_pos_id)[0]
+            result['value']['fiscal_position'] = obj_fpo_rule.fiscal_position_id.id
 
         return result
 
