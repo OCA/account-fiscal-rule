@@ -7,7 +7,7 @@
 			<field name="model">account.product.fiscal.classification</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-				<form string="Fiscal Classification">					
+				<form string="Fiscal Classification">
 						<field name="name"/>
 						<field name="company_id" />
 						<field colspan="4" name="description"/>
