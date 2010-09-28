@@ -31,7 +31,7 @@ class account_invoice(osv.osv):
 
         result = super(account_invoice, self).onchange_partner_id(cr, uid, ids, type, partner_id, date_invoice, payment_term, partner_bank_id, company_id)
 
-        if not partner_id or not company_id:
+        if not partner_id or not company_id or not result['value']['address_invoice_id']:
             return result
 
         if result['value']['fiscal_position']:
@@ -44,11 +44,8 @@ class account_invoice(osv.osv):
 
         from_country = company_addr_default.country_id.id
         from_state = company_addr_default.state_id.id
-
-        if result['value']['address_invoice_id']:
-            ptn_invoice_id = result['value']['address_invoice_id']
-
-        partner_addr_default = self.pool.get('res.partner.address').browse(cr, uid, [ptn_invoice_id])[0]
+        
+        partner_addr_default = self.pool.get('res.partner.address').browse(cr, uid, [result['value']['address_invoice_id']])[0]
 
         to_country = partner_addr_default.country_id.id
         to_state = partner_addr_default.state_id.id
