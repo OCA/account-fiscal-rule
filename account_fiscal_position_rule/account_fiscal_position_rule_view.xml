@@ -3,7 +3,6 @@
     <data>
 
 		<!-- Fiscal Position Rule Template -->
-
         <record id="view_account_fiscal_position_rule_template_form" model="ir.ui.view">
             <field name="name">account.fiscal.position.rule.template.form</field>
             <field name="model">account.fiscal.position.rule.template</field>
@@ -25,10 +24,12 @@
 		    		<newline/>
                     <field name="use_sale"/>
                     <field name="use_invoice"/>
+                    <field name="use_purchase"/>
+                    <field name="use_picking"/>
                 </form>
             </field>
         </record>
-        
+
         <record id="view_account_fiscal_position_rule_template_tree" model="ir.ui.view">
             <field name="name">account.fiscal.position.rule.template.tree</field>
             <field name="model">account.fiscal.position.rule.template</field>
@@ -38,13 +39,43 @@
                     <field name="name"/>
                     <field name="from_country"/>
                     <field name="from_state"/>
-		    		<field name="to_country"/>
+    		    <field name="to_country"/>
                     <field name="to_state"/>
-		    		<field name="fiscal_position_id"/>
                 </tree>
             </field>
         </record>
 
+	<!--
+	<field name="fiscal_position_id"/>
+    	<field name="fiscal_operation_category_id"/>
+        <field name="partner_fiscal_type_id"/>
+	-->
+
+	<record id="view_account_fiscal_position_rule_template_search" model="ir.ui.view">
+            <field name="name">account.fiscal.position.rule.template.search</field>
+            <field name="model">account.fiscal.position.rule.template</field>
+            <field name="type">search</field>
+            <field eval="3" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Fiscal Position Rule Template">
+                    <group col="14" colspan="4">
+                        <filter icon="terp-gtk-jump-to-ltr" string="Use in Sale" name="use_sale" domain="[('use_sale','=',True)]" help="Used in Sales orders"/>
+                        <filter icon="terp-gtk-jump-to-ltr" string="Use in Invoice" name="use_invoice" domain="[('use_invoice','=',True)]" help="used in invoices"/>
+                        <filter icon="terp-gtk-jump-to-ltr" string="Use in Picking" name="use_picking" domain="[('use_picking','=',True)]" help="used in Picking lists"/>
+                        <filter icon="terp-gtk-jump-to-rtl" string="Use in Purchase" name="use_purchase" domain="[('use_purchase','=',True)]" help="used in purchase"/>
+                        <separator orientation="vertical"/>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="from_country"/>
+                        <field name="from_state"/>
+                        <field name="to_country"/>
+                        <field name="to_state"/>
+                    </group>
+                    <newline/>
+                </search>
+            </field>
+        </record>		
+		
         <record id="action_account_fiscal_position_rule_template_form" model="ir.actions.act_window">
             <field name="name">Fiscal Position Rule Template</field>
             <field name="res_model">account.fiscal.position.rule.template</field>
@@ -70,14 +101,16 @@
                     <field name="from_country"/>
                     <field name="from_state"/>
                     <separator string="To" colspan="4"/>
-		    		<field name="to_country"/>
+    		    <field name="to_country"/>
                     <field name="to_state"/>
                     <separator string="Configuration" colspan="4"/>
                     <field name="company_id"/>
-		    		<field name="fiscal_position_id"/>
-		    		<newline/>
+		    <field name="fiscal_position_id"/>
+		    <newline/>
                     <field name="use_sale"/>
                     <field name="use_invoice"/>
+                    <field name="use_purchase"/>
+                    <field name="use_picking"/>
                 </form>
             </field>
         </record>
@@ -92,10 +125,34 @@
                     <field name="name"/>
                     <field name="from_country"/>
                     <field name="from_state"/>
-		    		<field name="to_country"/>
+		    <field name="to_country"/>
                     <field name="to_state"/>
-		    		<field name="fiscal_position_id"/>
                 </tree>
+            </field>
+        </record>
+        
+		<record id="view_account_fiscal_position_rule_search" model="ir.ui.view">
+            <field name="name">account.fiscal.position.rule.search</field>
+            <field name="model">account.fiscal.position.rule</field>
+            <field name="type">search</field>
+            <field eval="3" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Fiscal Position Rule">
+                    <group col="14" colspan="4">
+                        <filter icon="terp-gtk-jump-to-ltr" string="Use in Sale" name="use_sale" domain="[('use_sale','=',True)]" help="Used in Sales Orders"/>
+                        <filter icon="terp-gtk-jump-to-ltr" string="Use in Invoice" name="use_invoice" domain="[('use_invoice','=',True)]" help="used in invoices"/>
+                        <filter icon="terp-gtk-jump-to-ltr" string="Use in Picking" name="use_picking" domain="[('use_picking','=',True)]" help="used in Picking list"/>
+                        <filter icon="terp-gtk-jump-to-rtl" string="Use in Purchase" name="use_purchase" domain="[('use_purchase','=',True)]" help="used in purchase"/>
+                        <separator orientation="vertical"/>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="from_country"/>
+                        <field name="from_state"/>
+                        <field name="to_country"/>
+                        <field name="to_state"/>
+                    </group>
+                    <newline/>
+                </search>
             </field>
         </record>
         

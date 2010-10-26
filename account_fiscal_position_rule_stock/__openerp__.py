@@ -18,9 +18,25 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#############################################################################
+##############################################################################
 
-import account_fiscal_position_rule
-import invoice
 
+{
+    'name': 'Account Fiscal Position Rule Stock',
+    'version': '1.1',
+    'category': 'Generic Modules/Accounting',
+    'description': """Include a rule to decide the correct fiscal position for Stock""",
+    'author': 'Akretion',
+    'website': 'http://www.akretion.com',
+    'depends': ['account', 'sale','purchase'],
+    'init_xml': [],
+    'update_xml': 
+                [
+                'stock_view.xml',
+                'security/account_fiscal_position_rule_security.xml',
+                'security/ir.model.access.csv',
+                ],
+    'demo_xml': [],
+    'installable': True,
+}
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
