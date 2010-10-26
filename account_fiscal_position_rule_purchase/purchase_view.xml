@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+	
+		<record model="ir.ui.view" id="view_account_fiscal_position_rule_purchase_order_form1">
+			<field name="name">account.fiscal.position.rule.purchase.order.form1</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form"/>
+			<field name="arch" type="xml">
+				<field name="partner_id" position="replace" >
+                			<field name="partner_id" on_change="onchange_partner_id(partner_id, company_id)" context="{'search_default_supplier':1}"/>
+				</field>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_account_fiscal_position_rule_purchase_order_form2">
+			<field name="name">account.fiscal.position.rule.purchase.order.form2</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form"/>
+			<field name="arch" type="xml">
+				<field name="partner_address_id" position="replace" >
+	               			<field name="partner_address_id" on_change="onchange_partner_address_id(partner_address_id, company_id)"/>
+				</field>
+			</field>
+		</record>
+
+	</data>
+	
+</openerp>
