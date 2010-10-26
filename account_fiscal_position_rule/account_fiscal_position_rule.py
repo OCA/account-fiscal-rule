@@ -31,10 +31,12 @@ class account_fiscal_position_rule(osv.osv):
     	'from_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',from_country)]"),
     	'to_country': fields.many2one('res.country', 'Country To'),
     	'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
-        'company_id': fields.many2one('res.company', 'Company', required=True),
-    	'fiscal_position_id': fields.many2one('account.fiscal.position', 'Fiscal Position', domain="[('company_id','=',company_id)]", required=True),
+        'company_id': fields.many2one('res.company', 'Company', required=True, select=True),
+    	'fiscal_position_id': fields.many2one('account.fiscal.position', 'Fiscal Position', domain="[('company_id','=',company_id)]", required=True, select=True),
         'use_sale' : fields.boolean('Use in sales order'),
         'use_invoice' : fields.boolean('Use in Invoices'),
+        'use_purchase' : fields.boolean('Use in Purchases'),
+        'use_picking' : fields.boolean('Use in Picking'),
     }
 account_fiscal_position_rule()
 
@@ -50,6 +52,8 @@ class account_fiscal_position_rule_template(osv.osv):
         'fiscal_position_id': fields.many2one('account.fiscal.position.template', 'Fiscal Position', required=True),
         'use_sale' : fields.boolean('Use in sales order'),
         'use_invoice' : fields.boolean('Use in Invoices'),
+        'use_purchase' : fields.boolean('Use in Purchases'),
+        'use_picking' : fields.boolean('Use in Picking'),
     }
 account_fiscal_position_rule_template()
 
@@ -85,7 +89,9 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
                     'fiscal_position_id': fpr_template.fiscal_position_id.id,
                     'fiscal_operaton_id': fpr_template.fiscal_operation_id.id,
                     'use_sale' : fpr_template.use_sale,
-                    'use_invoice' : fpr_template.use_invoice
+                    'use_invoice' : fpr_template.use_invoice,
+                    'use_purchase' : fpr_template.use_purchase,
+                    'use_picking' : fpr_template.use_picking,
                     }
             obj_fiscal_position_rule.create(cr,uid,vals)
 

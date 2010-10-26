@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.7\n"
+"Project-Id-Version: OpenERP Server 6.0.0-rc1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-01-22 23:14:05+0000\n"
-"PO-Revision-Date: 2010-01-22 23:14:05+0000\n"
+"POT-Creation-Date: 2010-10-26 06:03:04+0000\n"
+"PO-Revision-Date: 2010-10-26 06:03:04+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,49 +16,26 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_fiscal_position_rule
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr ""
-
-#. module: account_fiscal_position_rule
-#: view:account.fiscal.position.rule:0
-#: view:account.fiscal.position.rule.template:0
-msgid "Configuration"
-msgstr "Configuração"
-
-#. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:0
 #: view:account.fiscal.position.rule.template:0
 msgid "From"
 msgstr "De"
 
 #. module: account_fiscal_position_rule
-#: field:account.fiscal.position.rule,description:0
-#: field:account.fiscal.position.rule.template,description:0
-msgid "Description"
-msgstr "Descrição"
+#: constraint:ir.actions.act_window:0
+msgid "Invalid model name in the action definition."
+msgstr "Nome do modelo inválido na definição da ação."
 
 #. module: account_fiscal_position_rule
-#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule_template
-msgid "account.fiscal.position.rule.template"
-msgstr ""
+#: field:account.fiscal.position.rule,use_purchase:0
+#: field:account.fiscal.position.rule.template,use_purchase:0
+msgid "Use in Purchases"
+msgstr "Usar em Compras"
 
 #. module: account_fiscal_position_rule
-#: field:account.fiscal.position.rule.template,from_state:0
-msgid "State From"
-msgstr "Do Estado"
-
-#. module: account_fiscal_position_rule
-#: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr ""
-
-#. module: account_fiscal_position_rule
-#: field:account.fiscal.position.rule,from_state:0
-#: field:account.fiscal.position.rule,to_state:0
-#: field:account.fiscal.position.rule.template,to_state:0
-msgid "State To"
-msgstr "Para o Estado"
+#: view:wizard.account.fiscal.position.rule:0
+msgid "Create"
+msgstr "Criar"
 
 #. module: account_fiscal_position_rule
 #: model:ir.module.module,description:account_fiscal_position_rule.module_meta_information
@@ -66,15 +43,19 @@ msgid "Include a rule to decide the correct fiscal position"
 msgstr "Incluir uma regra para decidir a posição fiscal"
 
 #. module: account_fiscal_position_rule
-#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule
-msgid "account.fiscal.position.rule"
-msgstr ""
+#: view:account.fiscal.position.rule:0
+#: field:account.fiscal.position.rule,use_picking:0
+#: view:account.fiscal.position.rule.template:0
+#: field:account.fiscal.position.rule.template,use_picking:0
+msgid "Use in Picking"
+msgstr "Use na Lista de Separação"
 
 #. module: account_fiscal_position_rule
-#: view:account.fiscal.position.rule:0
-#: view:account.fiscal.position.rule.template:0
-msgid "General"
-msgstr "Geral"
+#: model:ir.actions.act_window,name:account_fiscal_position_rule.action_wizard_account_fiscal_position_rule
+#: model:ir.ui.menu,name:account_fiscal_position_rule.menu_wizard_fiscal_position_rule
+#: view:wizard.account.fiscal.position.rule:0
+msgid "Generate Fiscal Positions Rules from Templates"
+msgstr "Gerar Regras de Posições Fiscais de Modelos"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,use_sale:0
@@ -83,10 +64,52 @@ msgid "Use in sales order"
 msgstr "Usar na Ordem de Venda"
 
 #. module: account_fiscal_position_rule
+#: sql_constraint:ir.module.module:0
+msgid "The name of the module must be unique !"
+msgstr "O nome do módulo deve ser único !"
+
+#. module: account_fiscal_position_rule
+#: constraint:ir.ui.menu:0
+msgid "Error ! You can not create recursive Menu."
+msgstr "Erro ! Você não pode criar Menu recursivo."
+
+#. module: account_fiscal_position_rule
+#: constraint:ir.model:0
+msgid "The Object name must start with x_ and not contain any special character !"
+msgstr "O nome do Objeto deve começar com x_ e não deve conter nenhum caracter especial!"
+
+#. module: account_fiscal_position_rule
+#: sql_constraint:ir.module.module:0
+msgid "The certificate ID of the module must be unique !"
+msgstr "O certificado ID do módulo deve ser único !"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,description:0
+#: field:account.fiscal.position.rule.template,description:0
+msgid "Description"
+msgstr "Descrição"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,company_id:0
+#: field:wizard.account.fiscal.position.rule,company_id:0
+msgid "Company"
+msgstr "Empresa"
+
+#. module: account_fiscal_position_rule
+#: view:wizard.account.fiscal.position.rule:0
+msgid "This will automatically configure all fiscal position rules"
+msgstr "As regras de posições fiscais será configurada automáticamente"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule
+msgid "account.fiscal.position.rule"
+msgstr "account.fiscal.position.rule"
+
+#. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:0
 #: view:account.fiscal.position.rule.template:0
-msgid "To"
-msgstr "Para"
+msgid "Use in Purchase"
+msgstr "Usar em Compras"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,fiscal_position_id:0
@@ -95,21 +118,51 @@ msgid "Fiscal Position"
 msgstr "Posição Fiscal"
 
 #. module: account_fiscal_position_rule
-#: constraint:ir.actions.act_window:0
-msgid "Invalid model name in the action definition."
-msgstr "Nome do modelo inválido na definição da ação."
+#: view:account.fiscal.position.rule:0
+#: view:account.fiscal.position.rule.template:0
+msgid "Configuration"
+msgstr "Configuração"
 
 #. module: account_fiscal_position_rule
-#: field:account.fiscal.position.rule,to_country:0
-#: field:account.fiscal.position.rule.template,to_country:0
-msgid "Country To"
-msgstr "Para o País"
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "XML inválido para Arquitetura da View"
 
 #. module: account_fiscal_position_rule
-#: field:account.fiscal.position.rule,from_country:0
-#: field:account.fiscal.position.rule.template,from_country:0
-msgid "Country Form"
-msgstr "Do País"
+#: field:account.fiscal.position.rule,name:0
+#: field:account.fiscal.position.rule.template,name:0
+msgid "Name"
+msgstr "Nome"
+
+#. module: account_fiscal_position_rule
+#: model:ir.module.module,shortdesc:account_fiscal_position_rule.module_meta_information
+msgid "Account Fiscal Position Rule"
+msgstr "Regra de Posição Fiscal"
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:0
+#: view:account.fiscal.position.rule.template:0
+msgid "Use in Sale"
+msgstr "Usar em Vendas"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,from_state:0
+#: field:account.fiscal.position.rule,to_state:0
+#: field:account.fiscal.position.rule.template,to_state:0
+msgid "State To"
+msgstr "Do Estado"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,use_invoice:0
+#: field:account.fiscal.position.rule.template,use_invoice:0
+msgid "Use in Invoices"
+msgstr "Usar nas Notas Fiscais"
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:0
+#: view:account.fiscal.position.rule.template:0
+msgid "Use in Invoice"
+msgstr "Usar nas Notas Fiscais"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule.template:0
@@ -119,6 +172,55 @@ msgid "Fiscal Position Rule Template"
 msgstr "Modelo de Regra de Posição Fiscal"
 
 #. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule.template,from_state:0
+msgid "State From"
+msgstr "Do Estado"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_wizard_account_fiscal_position_rule
+msgid "wizard.account.fiscal.position.rule"
+msgstr "wizard.account.fiscal.position.rule"
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:0
+#: view:account.fiscal.position.rule.template:0
+msgid "To"
+msgstr "Para"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule_template
+msgid "account.fiscal.position.rule.template"
+msgstr "account.fiscal.position.rule.template"
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:0
+#: view:account.fiscal.position.rule.template:0
+msgid "General"
+msgstr "Geral"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,from_country:0
+#: field:account.fiscal.position.rule.template,from_country:0
+msgid "Country Form"
+msgstr "Do País"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_account_invoice
+msgid "Invoice"
+msgstr "Nota Fiscal"
+
+#. module: account_fiscal_position_rule
+#: view:wizard.account.fiscal.position.rule:0
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,to_country:0
+#: field:account.fiscal.position.rule.template,to_country:0
+msgid "Country To"
+msgstr "Para o País"
+
+#. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:0
 #: model:ir.actions.act_window,name:account_fiscal_position_rule.action_account_fiscal_position_rule_form
 #: model:ir.ui.menu,name:account_fiscal_position_rule.menu_action_account_fiscal_position_rule_form
@@ -126,14 +228,7 @@ msgid "Fiscal Position Rule"
 msgstr "Regra de Posição Fiscal"
 
 #. module: account_fiscal_position_rule
-#: field:account.fiscal.position.rule,use_invoice:0
-#: field:account.fiscal.position.rule.template,use_invoice:0
-msgid "Use in Invoices"
-msgstr "Usar nas Notas Fiscais"
-
-#. module: account_fiscal_position_rule
-#: field:account.fiscal.position.rule,name:0
-#: field:account.fiscal.position.rule.template,name:0
-msgid "Name"
-msgstr "Nome"
+#: sql_constraint:ir.model.fields:0
+msgid "Size of the field can never be less than 1 !"
+msgstr "O Tamanho do campo não pode ser menor que 1 !"
 

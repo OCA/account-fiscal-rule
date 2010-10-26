@@ -25,7 +25,6 @@ from osv import fields, osv
 class account_invoice(osv.osv):
     _inherit = 'account.invoice'
 
-            
     def onchange_partner_id(self, cr, uid, ids, type, partner_id,\
             date_invoice=False, payment_term=False, partner_bank_id=False, company_id=False):
 
