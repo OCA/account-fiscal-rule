@@ -25,7 +25,7 @@ from osv import fields, osv
 class sale_order(osv.osv):
     _inherit = "sale.order"
 
-    def onchange_partner_id(self, cr, uid, ids, part):
+    def onchange_partner_id(self, cr, uid, ids, part, shop_id):
 
         result = super(sale_order, self).onchange_partner_id(cr, uid, ids, part)
 
@@ -35,10 +35,9 @@ class sale_order(osv.osv):
         if result['value']['fiscal_position']:
             return result
         
-        #Use the current user to get the company_id
-        obj_company = self.pool.get('res.users').browse(cr, uid, uid).company_id
-        
-        company_addr = self.pool.get('res.partner').address_get(cr, uid, [obj_company.partner_id.id], ['default'])
+        obj_shop = self.pool.get('sale.shop').browse(cr, uid, shop_id)
+
+        company_addr = self.pool.get('res.partner').address_get(cr, uid, [obj_shop.company_id.partner_id.id], ['default'])
         company_addr_default = self.pool.get('res.partner.address').browse(cr, uid, [company_addr['default']])[0]
 
         from_country = company_addr_default.country_id.id
@@ -52,7 +51,7 @@ class sale_order(osv.osv):
         to_country = partner_addr_default.country_id.id
         to_state = partner_addr_default.state_id.id
 
-        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, [('company_id','=', obj_company.id),('from_country','=',from_country),('from_state','=',from_state),('to_country','=',to_country),('to_state','=',to_state),('use_sale','=',True)])
+        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, [('company_id','=', obj_shop.company_id.id),('from_country','=',from_country),('from_state','=',from_state),('to_country','=',to_country),('to_state','=',to_state),('use_sale','=',True)])
         if fsc_pos_id:
             obj_fpo_rule = self.pool.get('account.fiscal.position.rule').browse(cr, uid, fsc_pos_id)[0]
             result['value']['fiscal_position'] = obj_fpo_rule.fiscal_position_id.id
