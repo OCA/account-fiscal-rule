@@ -65,9 +65,10 @@ class purchase_order(osv.osv):
 
     def onchange_partner_address_id(self, cr, uid, ids, partner_address_id, company_id=False):
 
-        result = {'value': {'partner_address_id': False, 'fiscal_position': False}}
+	result = {'value': {}}
 
         if not partner_address_id or not company_id:
+	    result = {'value': {'fiscal_position': False}}
             return result
 
         obj_company = self.pool.get('res.company').browse(cr, uid, [company_id])[0]
