@@ -65,7 +65,6 @@
                         <filter icon="terp-gtk-jump-to-rtl" string="Use in Purchase" name="use_purchase" domain="[('use_purchase','=',True)]" help="used in purchase"/>
                         <separator orientation="vertical"/>
                         <field name="name"/>
-                        <field name="description"/>
                         <field name="from_country"/>
                         <field name="from_state"/>
                         <field name="to_country"/>
@@ -131,7 +130,7 @@
             </field>
         </record>
         
-		<record id="view_account_fiscal_position_rule_search" model="ir.ui.view">
+	<record id="view_account_fiscal_position_rule_search" model="ir.ui.view">
             <field name="name">account.fiscal.position.rule.search</field>
             <field name="model">account.fiscal.position.rule</field>
             <field name="type">search</field>
@@ -145,7 +144,6 @@
                         <filter icon="terp-gtk-jump-to-rtl" string="Use in Purchase" name="use_purchase" domain="[('use_purchase','=',True)]" help="used in purchase"/>
                         <separator orientation="vertical"/>
                         <field name="name"/>
-                        <field name="description"/>
                         <field name="from_country"/>
                         <field name="from_state"/>
                         <field name="to_country"/>
