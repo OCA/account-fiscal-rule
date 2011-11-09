@@ -19,8 +19,8 @@
 
 from osv import fields, osv
 
-class product_product(osv.osv):
-    _inherit = 'product.product'
+class product_template(osv.osv):
+    _inherit = 'product.template'
     _columns = {
                 'property_fiscal_classification': fields.property(
                     'account.product.fiscal.classification',
@@ -47,4 +47,4 @@ class product_product(osv.osv):
             result['value']['supplier_taxes_id'] = to_keep_purchase_tax_ids + [x.id for x in fiscal_classification.purchase_base_tax_ids]
         return result
 
-product_product()
+product_template()
