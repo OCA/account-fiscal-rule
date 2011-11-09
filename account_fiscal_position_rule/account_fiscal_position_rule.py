@@ -1,24 +1,21 @@
 # -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
-#    $Id$
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+#################################################################################
+#                                                                               #
+# Copyright (C) 2009  Renato Lima - Akretion                                    #
+#                                                                               #
+#This program is free software: you can redistribute it and/or modify           #
+#it under the terms of the GNU Affero General Public License as published by    #
+#the Free Software Foundation, either version 3 of the License, or              #
+#(at your option) any later version.                                            #
+#                                                                               #
+#This program is distributed in the hope that it will be useful,                #
+#but WITHOUT ANY WARRANTY; without even the implied warranty of                 #
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                  #
+#GNU General Public License for more details.                                   #
+#                                                                               #
+#You should have received a copy of the GNU General Public License              #
+#along with this program.  If not, see <http://www.gnu.org/licenses/>.          #
+#################################################################################
 
 from osv import fields, osv
 
@@ -38,6 +35,57 @@ class account_fiscal_position_rule(osv.osv):
         'use_purchase' : fields.boolean('Use in Purchases'),
         'use_picking' : fields.boolean('Use in Picking'),
     }
+    
+    def fiscal_position_map(self, cr, uid, partner_id=False, partner_invoice_id=False, company_id=False, context=None):
+
+        result = {'fiscal_position': False}
+                     
+        if not partner_id or not company_id:
+             return result
+
+        obj_partner = self.pool.get("res.partner").browse(cr, uid, partner_id)
+        obj_company = self.pool.get("res.company").browse(cr, uid, company_id)
+
+        if not obj_partner or not obj_company:
+            return result
+        
+        #Case 1: Parnter Specific Fiscal Posigion
+        if obj_partner.property_account_position:
+            result['fiscal_position'] = obj_partner.property_account_position.id
+            return result
+        
+        #Case 2: Rule based determination
+        company_addr = self.pool.get('res.partner').address_get(cr, uid, [obj_company.partner_id.id], ['invoice'])
+        company_addr_default = self.pool.get('res.partner.address').browse(cr, uid, [company_addr['invoice']])[0]
+        
+        from_country = company_addr_default.country_id.id
+        from_state = company_addr_default.state_id.id
+
+        if not partner_invoice_id:
+            partner_addr = self.pool.get('res.partner').address_get(cr, uid, [obj_partner.id], ['invoice'])
+            partner_addr_default = self.pool.get('res.partner.address').browse(cr, uid, [partner_addr['invoice']])[0]
+        else:
+            partner_addr_default = self.pool.get('res.partner.address').browse(cr, uid, partner_invoice_id)
+
+        to_country = partner_addr_default.country_id.id
+        to_state = partner_addr_default.state_id.id
+        
+        use_domain = context.get('use_domain', ('use_sale', '=', True))
+        
+        domain = ['&',('company_id','=', company_id), use_domain,
+                  '|',('from_country','=',from_country),('from_country','=',False), 
+                  '|',('to_country','=',to_country),('to_country','=',False), 
+                  '|',('from_state','=',from_state),('from_state','=',False), 
+                  '|',('to_state','=',to_state),('to_state','=',False),]  
+        
+        fsc_pos_id = self.search(cr, uid, domain)
+        
+        if fsc_pos_id:
+            obj_fpo_rule = self.pool.get('account.fiscal.position.rule').browse(cr, uid, fsc_pos_id)[0]
+            result['fiscal_position'] = obj_fpo_rule.fiscal_position_id.id
+        
+        return result
+    
 account_fiscal_position_rule()
 
 class account_fiscal_position_rule_template(osv.osv):
@@ -110,6 +158,5 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
                 'type': 'ir.actions.act_window',
                 'target':'new',
         }
-
 
 wizard_account_fiscal_position_rule()
