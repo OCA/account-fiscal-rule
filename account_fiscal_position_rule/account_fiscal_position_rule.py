@@ -46,9 +46,6 @@ class account_fiscal_position_rule(osv.osv):
         obj_partner = self.pool.get("res.partner").browse(cr, uid, partner_id)
         obj_company = self.pool.get("res.company").browse(cr, uid, company_id)
 
-        if not obj_partner or not obj_company:
-            return result
-        
         #Case 1: Parnter Specific Fiscal Posigion
         if obj_partner.property_account_position:
             result['fiscal_position'] = obj_partner.property_account_position.id
