@@ -7,7 +7,7 @@
 			<field name="name">account_fiscal_postion_rule_form_view_order_form1</field>
 	   		<field name="model">sale.order</field>
 	   		<field name="inherit_id" ref="sale.view_order_form"/>
-	   		<field name="priority">32</field>
+	   		<field name="priority">26</field>
 	   		<field name="arch" type="xml">
 	        	<field name="shop_id" position="replace">
 				<field name="shop_id"  on_change="onchange_shop_id(shop_id, partner_id, partner_invoice_id)"  widget="selection" />
@@ -19,7 +19,7 @@
 			<field name="name">account_fiscal_postion_rule_form_view_order_form2</field>
 	   		<field name="model">sale.order</field>
 	   		<field name="inherit_id" ref="sale.view_order_form"/>
-	   		<field name="priority">32</field>
+	   		<field name="priority">26</field>
 	   		<field name="arch" type="xml">
 				<field name="partner_invoice_id" position="replace">
 					<field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" on_change="onchange_partner_invoice_id(partner_invoice_id, partner_id, shop_id)"/>
@@ -31,7 +31,7 @@
 			<field name="name">account_fiscal_postion_rule_form_view_order_form3</field>
 	   		<field name="model">sale.order</field>
 	   		<field name="inherit_id" ref="sale.view_order_form"/>
-	   		<field name="priority">32</field>
+	   		<field name="priority">26</field>
 	   		<field name="arch" type="xml">
 				<field name="partner_id" position="replace">
 	            	<field name="partner_id" on_change="onchange_partner_id(partner_id, shop_id)" required="1"/>
