@@ -24,7 +24,7 @@ msgstr ""
 #: field:account.product.fiscal.classification,sale_base_tax_ids:0
 #: field:account.product.fiscal.classification.template,sale_base_tax_ids:0
 msgid "Base Sale Taxes"
-msgstr "Impostos sobre as Vendas"
+msgstr "Impostos Sobre Vendas"
 
 #. module: account_product_fiscal_classification
 #: view:wizard.account.product.fiscal.classification:0
@@ -34,12 +34,7 @@ msgstr "Criar"
 #. module: account_product_fiscal_classification
 #: view:wizard.account.product.fiscal.classification:0
 msgid "This will automatically configure all product fiscal classification"
-msgstr ""
-
-#. module: account_product_fiscal_classification
-#: constraint:ir.actions.act_window:0
-msgid "Invalid model name in the action definition."
-msgstr "Nome do modelo inválido na definição da ação."
+msgstr "Será configurada automaticamente todas as classificações fiscais dos produtos"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.product_fiscal_classifications_action
@@ -75,12 +70,12 @@ msgstr "Modelo de Classificação Fiscal de Produtos"
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_wizard_account_product_fiscal_classification
 msgid "wizard.account.product.fiscal.classification"
-msgstr ""
+msgstr "wizard.account.product.fiscal.classification"
 
 #. module: account_product_fiscal_classification
 #: model:ir.module.module,shortdesc:account_product_fiscal_classification.module_meta_information
 msgid "Account Product Fiscal Classification"
-msgstr ""
+msgstr "Account Product Fiscal Classification"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,name:0
@@ -102,12 +97,7 @@ msgstr "Impostos sobre Vendas"
 #. module: account_product_fiscal_classification
 #: help:product.product,property_fiscal_classification:0
 msgid "Company wise (eg localizable) Fiscal Classification"
-msgstr ""
-
-#. module: account_product_fiscal_classification
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "Company wise (eg localizable) Fiscal Classification"
 
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:0
@@ -116,10 +106,16 @@ msgid "Purchase Taxes"
 msgstr "Impostos sobre Compras"
 
 #. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_product_product
+msgid "Product"
+msgstr "Produto"
+
+#. module: account_product_fiscal_classification
 #: model:ir.module.module,description:account_product_fiscal_classification.module_meta_information
 msgid "Account Product Fiscal Classification\n"
 "    "
-msgstr ""
+msgstr "Account Product Fiscal Classification\n"
+"    "
 
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:0
@@ -131,17 +127,27 @@ msgstr "Classificação Fiscal"
 #: field:account.product.fiscal.classification,purchase_base_tax_ids:0
 #: field:account.product.fiscal.classification.template,purchase_base_tax_ids:0
 msgid "Base Purchase Taxes"
-msgstr "Impostos Sobre as Compras"
+msgstr "Impostos Sobre Compras"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification_template
 msgid "Product Fiscal Classification Template"
-msgstr ""
+msgstr "Product Fiscal Classification Template"
 
 #. module: account_product_fiscal_classification
 #: view:product.product:0
 msgid "Fiscal Properties"
 msgstr "Propriedades Fiscais"
+
+#. module: account_product_fiscal_classification
+#: constraint:product.product:0
+msgid "Error: Invalid ean code"
+msgstr "Erro: Código EAN inválido"
+
+#. module: account_product_fiscal_classification
+#: view:account.product.fiscal.classification:0
+msgid "Update Products"
+msgstr "Atualizar Todos os Produtos"
 
 #. module: account_product_fiscal_classification
 #: view:wizard.account.product.fiscal.classification:0
