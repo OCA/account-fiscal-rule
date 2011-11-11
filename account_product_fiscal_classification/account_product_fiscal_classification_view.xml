@@ -10,7 +10,8 @@
 				<form string="Fiscal Classification">
 						<field name="name"/>
 						<field name="company_id" />
-						<field colspan="4" name="description"/>
+						<field name="description"/>
+						<button colspan="2"  name="button_update_products" string="Update Products" type="object" icon="gtk-execute"/>
 						<newline/>
 						<separator string="Sale Taxes" colspan="2"/>
 						<separator string="Purchase Taxes" colspan="2"/>
@@ -34,7 +35,7 @@
 		</record>
 
 		<record model="ir.ui.view" id="fiscal_classification_template_normal_form_view_form">
-			<field name="name">fiscal_classification_normal_form_view_form</field>
+			<field name="name">fiscal_classification_template_normal_form_view_form</field>
 			<field name="model">account.product.fiscal.classification.template</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
