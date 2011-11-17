@@ -22,15 +22,16 @@ from osv import fields, osv
 class sale_order(osv.osv):
     _inherit = "sale.order"
     
-    def onchange_partner_id(self, cr, uid, ids, part, shop_id):
-        
+    def onchange_partner_id(self, cr, uid, ids, part, shop_id=False):
+
+        result = super(sale_order, self).onchange_partner_id(cr, uid, ids, part)
+
         if not shop_id:
-            return False
+            return result
         
         obj_shop = self.pool.get('sale.shop').browse(cr, uid, shop_id)
         company_id = obj_shop.company_id.id
 
-        result = super(sale_order, self).onchange_partner_id(cr, uid, ids, part)
         partner_invoice_id = result['value'].get('partner_invoice_id', False)
         obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
         fiscal_result = obj_fiscal_position_rule.fiscal_position_map(cr, uid,  part, partner_invoice_id, company_id, context={'use_domain': ('use_sale','=',True)})
@@ -39,7 +40,7 @@ class sale_order(osv.osv):
 
         return result
 
-    def onchange_partner_invoice_id(self, cr, uid, ids, partner_invoice_id, partner_id, shop_id):
+    def onchange_partner_invoice_id(self, cr, uid, ids, partner_invoice_id, partner_id, shop_id=False):
         
         result = {'value': {}}
         if not shop_id or not partner_invoice_id:
