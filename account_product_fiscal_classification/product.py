@@ -21,6 +21,7 @@ from osv import fields, osv
 
 class product_template(osv.osv):
     _inherit = 'product.template'
+    
     _columns = {
                 'property_fiscal_classification': fields.property(
                     'account.product.fiscal.classification',
@@ -48,3 +49,17 @@ class product_template(osv.osv):
         return result
 
 product_template()
+
+class product_product(osv.osv):
+    _inherit = "product.product"
+
+    def fiscal_classification_id_change(self, cr, uid, ids, fiscal_classification_id=False, sale_tax_ids=[[6, 0, []]], purchase_tax_ids=[[6, 0, []]]):
+        """We eventually keep the sale and purchase taxes because those are not company wise in OpenERP. So if we choose a different fiscal position
+        for a different company, we don't want to override other's companies setting"""
+        
+        result = self.pool.get('product.template').fiscal_classification_id_change(cr, uid, ids, fiscal_classification_id, sale_tax_ids=[[6, 0, []]], purchase_tax_ids=[[6, 0, []]])
+        return result
+    
+product_product()
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
