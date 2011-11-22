@@ -104,7 +104,7 @@ account_fiscal_position_rule_template()
 
 class wizard_account_fiscal_position_rule(osv.osv_memory):
     _name='wizard.account.fiscal.position.rule'
-    
+
     _columns = {
         'company_id':fields.many2one('res.company','Company',required=True),
     }
@@ -114,15 +114,25 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
     }
 
     def action_create(self, cr, uid, ids, context=None):
+        
         obj_wizard = self.browse(cr,uid,ids[0])
+        
         obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
         obj_fiscal_position_rule_template = self.pool.get('account.fiscal.position.rule.template')
+        obj_fiscal_position_template = self.pool.get('account.fiscal.position.template')
+        obj_fiscal_position = self.pool.get('account.fiscal.position')
 
         company_id = obj_wizard.company_id.id
         
         pfr_ids = obj_fiscal_position_rule_template.search(cr, uid, [])
         
         for fpr_template in obj_fiscal_position_rule_template.browse(cr, uid, pfr_ids):
+            
+            fp_id = False
+            
+            if fpr_template.fiscal_position_id:
+                fp_id = obj_fiscal_position.search(cr, uid, [('name','=',fpr_template.fiscal_position_id.name)])[0]
+            
             vals = {
                     'name': fpr_template.name,
                     'description': fpr_template.description,
@@ -131,8 +141,7 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
                     'to_country': fpr_template.to_country.id,
                     'to_state': fpr_template.to_state.id,
                     'company_id': company_id,
-                    'fiscal_position_id': fpr_template.fiscal_position_id.id,
-                    'fiscal_operaton_id': fpr_template.fiscal_operation_id.id,
+                    'fiscal_position_id': fp_id,
                     'use_sale' : fpr_template.use_sale,
                     'use_invoice' : fpr_template.use_invoice,
                     'use_purchase' : fpr_template.use_purchase,
@@ -140,20 +149,6 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
                     }
             obj_fiscal_position_rule.create(cr,uid,vals)
 
-        return {
-                'view_type': 'form',
-                "view_mode": 'form',
-                'res_model': 'ir.actions.configuration.wizard',
-                'type': 'ir.actions.act_window',
-                'target':'new',
-        }
-    def action_cancel(self,cr,uid,ids,conect=None):
-        return {
-                'view_type': 'form',
-                "view_mode": 'form',
-                'res_model': 'ir.actions.configuration.wizard',
-                'type': 'ir.actions.act_window',
-                'target':'new',
-        }
+        return {}
 
 wizard_account_fiscal_position_rule()
