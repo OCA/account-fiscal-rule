@@ -160,20 +160,6 @@ class wizard_account_product_fiscal_classification(osv.osv_memory):
                         }
                 obj_fiscal_classification.create(cr,uid,vals)
             
-        return {
-                'view_type': 'form',
-                "view_mode": 'form',
-                'res_model': 'ir.actions.configuration.wizard',
-                'type': 'ir.actions.act_window',
-                'target':'new',
-        }
-    def action_cancel(self,cr,uid,ids,conect=None):
-        return {
-                'view_type': 'form',
-                "view_mode": 'form',
-                'res_model': 'ir.actions.configuration.wizard',
-                'type': 'ir.actions.act_window',
-                'target':'new',
-        }
-        
+        return {}
+
 wizard_account_product_fiscal_classification()

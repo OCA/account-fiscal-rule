@@ -39,7 +39,7 @@
                     <field name="name"/>
                     <field name="from_country"/>
                     <field name="from_state"/>
-    		    <field name="to_country"/>
+    		    	<field name="to_country"/>
                     <field name="to_state"/>
                 </tree>
             </field>
@@ -168,7 +168,7 @@
                     <separator string="" colspan="4"/>
                     <label string="" colspan="2"/>
                     <group col="2" colspan="2">
-                        <button icon="gtk-cancel" special="cancel" type="object" name="action_cancel" string="Cancel"/>
+                        <button special="cancel" string="Fechar" icon="gtk-cancel"/>
                         <button icon="gtk-ok" name="action_create" string="Create" type="object"/>
                     </group>
                 </form>
