@@ -100,9 +100,11 @@
                     <field name="from_country"/>
                     <field name="from_state"/>
                     <separator string="To" colspan="4"/>
-    		    <field name="to_country"/>
+    		    	<field name="to_country"/>
                     <field name="to_state"/>
                     <separator string="Configuration" colspan="4"/>
+        			<field name="date_start"/>
+        			<field name="date_end"/>
                     <field name="company_id"/>
 		    <field name="fiscal_position_id"/>
 		    <newline/>
