@@ -11,30 +11,36 @@
 #This program is distributed in the hope that it will be useful,                #
 #but WITHOUT ANY WARRANTY; without even the implied warranty of                 #
 #MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                  #
-#GNU General Public License for more details.                                   #
+#GNU Affero General Public License for more details.                            #
 #                                                                               #
-#You should have received a copy of the GNU General Public License              #
+#You should have received a copy of the GNU Affero General Public License       #
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.          #
 #################################################################################
+
+import time
 
 from osv import fields, osv
 
 class account_fiscal_position_rule(osv.osv):
+    
     _name = "account.fiscal.position.rule"
+    
     _columns = {
-    	'name': fields.char('Name', size=64, required=True),
-    	'description': fields.char('Description', size=128),
-    	'from_country': fields.many2one('res.country','Country Form'),
-    	'from_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',from_country)]"),
-    	'to_country': fields.many2one('res.country', 'Country To'),
-    	'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
-        'company_id': fields.many2one('res.company', 'Company', required=True, select=True),
-    	'fiscal_position_id': fields.many2one('account.fiscal.position', 'Fiscal Position', domain="[('company_id','=',company_id)]", required=True, select=True),
-        'use_sale' : fields.boolean('Use in sales order'),
-        'use_invoice' : fields.boolean('Use in Invoices'),
-        'use_purchase' : fields.boolean('Use in Purchases'),
-        'use_picking' : fields.boolean('Use in Picking'),
-    }
+            	'name': fields.char('Name', size=64, required=True),
+            	'description': fields.char('Description', size=128),
+            	'from_country': fields.many2one('res.country','Country From'),
+            	'from_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',from_country)]"),
+            	'to_country': fields.many2one('res.country', 'Country To'),
+            	'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
+                'company_id': fields.many2one('res.company', 'Company', required=True, select=True),
+            	'fiscal_position_id': fields.many2one('account.fiscal.position', 'Fiscal Position', domain="[('company_id','=',company_id)]", required=True, select=True),
+                'use_sale' : fields.boolean('Use in sales order'),
+                'use_invoice' : fields.boolean('Use in Invoices'),
+                'use_purchase' : fields.boolean('Use in Purchases'),
+                'use_picking' : fields.boolean('Use in Picking'),
+                'date_start': fields.date('Start Date', help="Starting date for this rule to be valid."),
+                'date_end': fields.date('End Date', help="Ending date for this rule to be valid."),
+                }
     
     def fiscal_position_map(self, cr, uid, partner_id=False, partner_invoice_id=False, company_id=False, context=None):
 
@@ -67,13 +73,17 @@ class account_fiscal_position_rule(osv.osv):
         to_country = partner_addr_default.country_id.id
         to_state = partner_addr_default.state_id.id
         
+        document_date = context.get('date', time.strftime('%Y-%m-%d'))
+        
         use_domain = context.get('use_domain', ('use_sale', '=', True))
         
         domain = ['&',('company_id','=', company_id), use_domain,
                   '|',('from_country','=',from_country),('from_country','=',False), 
                   '|',('to_country','=',to_country),('to_country','=',False), 
                   '|',('from_state','=',from_state),('from_state','=',False), 
-                  '|',('to_state','=',to_state),('to_state','=',False),]  
+                  '|',('to_state','=',to_state),('to_state','=',False),
+                  '|',('date_start', '=', False),('date_start', '<=', document_date),
+                  '|',('date_end', '=', False),('date_end', '>=', document_date),]  
         
         fsc_pos_id = self.search(cr, uid, domain)
         
@@ -86,32 +96,38 @@ class account_fiscal_position_rule(osv.osv):
 account_fiscal_position_rule()
 
 class account_fiscal_position_rule_template(osv.osv):
+
     _name = "account.fiscal.position.rule.template"
+    
     _columns = {
-        'name': fields.char('Name', size=64, required=True),
-        'description': fields.char('Description', size=128),
-        'from_country': fields.many2one('res.country','Country Form'),
-        'from_state': fields.many2one('res.country.state', 'State From', domain="[('country_id','=',from_country)]"),
-        'to_country': fields.many2one('res.country', 'Country To'),
-        'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
-        'fiscal_position_id': fields.many2one('account.fiscal.position.template', 'Fiscal Position', required=True),
-        'use_sale' : fields.boolean('Use in sales order'),
-        'use_invoice' : fields.boolean('Use in Invoices'),
-        'use_purchase' : fields.boolean('Use in Purchases'),
-        'use_picking' : fields.boolean('Use in Picking'),
-    }
+                'name': fields.char('Name', size=64, required=True),
+                'description': fields.char('Description', size=128),
+                'from_country': fields.many2one('res.country','Country Form'),
+                'from_state': fields.many2one('res.country.state', 'State From', domain="[('country_id','=',from_country)]"),
+                'to_country': fields.many2one('res.country', 'Country To'),
+                'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
+                'fiscal_position_id': fields.many2one('account.fiscal.position.template', 'Fiscal Position', required=True),
+                'use_sale' : fields.boolean('Use in sales order'),
+                'use_invoice' : fields.boolean('Use in Invoices'),
+                'use_purchase' : fields.boolean('Use in Purchases'),
+                'use_picking' : fields.boolean('Use in Picking'),
+                'date_start': fields.date('Start Date', help="Starting date for this rule to be valid."),
+                'date_end': fields.date('End Date', help="Ending date for this rule to be valid."),
+                }
+
 account_fiscal_position_rule_template()
 
 class wizard_account_fiscal_position_rule(osv.osv_memory):
+    
     _name='wizard.account.fiscal.position.rule'
 
     _columns = {
-        'company_id':fields.many2one('res.company','Company',required=True),
-    }
+                'company_id':fields.many2one('res.company','Company',required=True),
+                }
     
     _defaults = {
-        'company_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr,uid,[uid],c)[0].company_id.id,
-    }
+                 'company_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr,uid,[uid],c)[0].company_id.id,
+                }
 
     def action_create(self, cr, uid, ids, context=None):
         
@@ -146,9 +162,14 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
                     'use_invoice' : fpr_template.use_invoice,
                     'use_purchase' : fpr_template.use_purchase,
                     'use_picking' : fpr_template.use_picking,
+                    'date_start': fpr_template.date_start,
+                    'date_end': fpr_template.date_end,
                     }
+
             obj_fiscal_position_rule.create(cr,uid,vals)
 
         return {}
 
 wizard_account_fiscal_position_rule()
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
