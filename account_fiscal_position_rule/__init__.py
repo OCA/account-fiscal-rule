@@ -18,6 +18,6 @@
 #################################################################################
 
 import account_fiscal_position_rule
-import invoice
+import account_invoice
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
