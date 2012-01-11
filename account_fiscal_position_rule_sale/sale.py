@@ -58,17 +58,14 @@ class sale_order(osv.osv):
         
         return result
 
-    def onchange_shop_id(self, cr, uid, ids, shop_id, partner_id, partner_invoice_id=False):
-
-        result = {'value': {}}
-
+    def onchange_shop_id(self, cr, uid, ids, shop_id, partner_id=False, partner_invoice_id=False):
+        result = super(sale_order, self).onchange_shop_id(cr, uid, ids, shop_id)
         if not shop_id or not partner_id:
             return result
 
         obj_shop = self.pool.get('sale.shop').browse(cr, uid, shop_id)
         company_id = obj_shop.company_id.id
 
-        result = super(sale_order, self).onchange_shop_id(cr, uid, ids, shop_id)
         obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
         fiscal_result = obj_fiscal_position_rule.fiscal_position_map(cr, uid,  partner_id, partner_invoice_id, company_id, context={'use_domain': ('use_sale','=',True)})
         

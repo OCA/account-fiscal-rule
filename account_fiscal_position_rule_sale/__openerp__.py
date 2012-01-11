@@ -25,7 +25,8 @@
     'author': 'Akretion',
     'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
-    'depends': ['account_fiscal_position_rule', 'sale'],
+    ## WHEN MERGING PLEASE LEAVE THE DEPENDENCY ON delivery BECAUSE OTHERWISE THE ONCHANGE_PARTNER_ID WILL BE TRIGGERED SOMETIMES IN DELIVERY
+    'depends': ['account_fiscal_position_rule', 'sale', 'delivery'],
     'init_xml': [],
     'update_xml': 
                 [
