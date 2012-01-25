@@ -167,7 +167,6 @@ msgid "used in invoices"
 msgstr "used in invoices"
 
 #. module: account_fiscal_position_rule
-#: field:account.fiscal.position.rule,from_state:0
 #: field:account.fiscal.position.rule,to_state:0
 #: field:account.fiscal.position.rule.template,to_state:0
 msgid "State To"
@@ -198,6 +197,7 @@ msgid "Invoice Number must be unique per Company!"
 msgstr "Invoice Number must be unique per Company!"
 
 #. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,from_state:0
 #: field:account.fiscal.position.rule.template,from_state:0
 msgid "State From"
 msgstr "Do Estado"
