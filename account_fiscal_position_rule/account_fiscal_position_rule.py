@@ -24,7 +24,9 @@ from osv import fields, osv
 class account_fiscal_position_rule(osv.osv):
     
     _name = "account.fiscal.position.rule"
-    
+
+    _order = 'sequence'
+
     _columns = {
             	'name': fields.char('Name', size=64, required=True),
             	'description': fields.char('Description', size=128),
@@ -40,8 +42,15 @@ class account_fiscal_position_rule(osv.osv):
                 'use_picking' : fields.boolean('Use in Picking'),
                 'date_start': fields.date('Start Date', help="Starting date for this rule to be valid."),
                 'date_end': fields.date('End Date', help="Ending date for this rule to be valid."),
+                'sequence': fields.integer(
+                    'Priority', required=True,
+                    help='The lowest number will be applied.'),
                 }
-    
+
+    _defaults = {
+        'sequence': 10,
+    }
+
     def fiscal_position_map(self, cr, uid, partner_id=False, partner_invoice_id=False, company_id=False, context=None):
 
         result = {'fiscal_position': False}
@@ -76,7 +85,7 @@ class account_fiscal_position_rule(osv.osv):
         document_date = context.get('date', time.strftime('%Y-%m-%d'))
         
         use_domain = context.get('use_domain', ('use_sale', '=', True))
-        
+
         domain = ['&',('company_id','=', company_id), use_domain,
                   '|',('from_country','=',from_country),('from_country','=',False), 
                   '|',('to_country','=',to_country),('to_country','=',False), 
@@ -86,7 +95,7 @@ class account_fiscal_position_rule(osv.osv):
                   '|',('date_end', '=', False),('date_end', '>=', document_date),]  
         
         fsc_pos_id = self.search(cr, uid, domain)
-        
+
         if fsc_pos_id:
             obj_fpo_rule = self.pool.get('account.fiscal.position.rule').browse(cr, uid, fsc_pos_id)[0]
             result['fiscal_position'] = obj_fpo_rule.fiscal_position_id.id
@@ -113,7 +122,14 @@ class account_fiscal_position_rule_template(osv.osv):
                 'use_picking' : fields.boolean('Use in Picking'),
                 'date_start': fields.date('Start Date', help="Starting date for this rule to be valid."),
                 'date_end': fields.date('End Date', help="Ending date for this rule to be valid."),
+                'sequence': fields.integer(
+                    'Priority', required=True,
+                    help='The lowest number will be applied.'),
                 }
+
+    _defaults = {
+        'sequence': 10,
+    }
 
 account_fiscal_position_rule_template()
 
@@ -168,6 +184,7 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
                     'use_picking' : fpr_template.use_picking,
                     'date_start': fpr_template.date_start,
                     'date_end': fpr_template.date_end,
+                    'sequence': fpr_template.sequence,
                     }
 
             obj_fiscal_position_rule.create(cr,uid,vals)
