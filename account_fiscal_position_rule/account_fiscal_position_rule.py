@@ -2,6 +2,7 @@
 #################################################################################
 #                                                                               #
 # Copyright (C) 2009  Renato Lima - Akretion                                    #
+# Copyright 2012 Camptocamp SA (Author: Guewen Baconnier)                       #
 #                                                                               #
 #This program is free software: you can redistribute it and/or modify           #
 #it under the terms of the GNU Affero General Public License as published by    #
@@ -152,13 +153,30 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
                  'company_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr,uid,[uid],c)[0].company_id.id,
                 }
 
+    def _template_vals(self, cr, uid, template, company_id,
+                       fiscal_position_ids, context=None):
+        return {'name': template.name,
+                'description': template.description,
+                'from_country': template.from_country.id,
+                'from_state': template.from_state.id,
+                'to_country': template.to_country.id,
+                'to_state': template.to_state.id,
+                'company_id': company_id,
+                'fiscal_position_id': fiscal_position_ids[0],
+                'use_sale' : template.use_sale,
+                'use_invoice' : template.use_invoice,
+                'use_purchase' : template.use_purchase,
+                'use_picking' : template.use_picking,
+                'date_start': template.date_start,
+                'date_end': template.date_end,
+                'sequence': template.sequence, }
+
     def action_create(self, cr, uid, ids, context=None):
         
         obj_wizard = self.browse(cr,uid,ids[0])
         
         obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
         obj_fiscal_position_rule_template = self.pool.get('account.fiscal.position.rule.template')
-        obj_fiscal_position_template = self.pool.get('account.fiscal.position.template')
         obj_fiscal_position = self.pool.get('account.fiscal.position')
 
         company_id = obj_wizard.company_id.id
@@ -166,35 +184,21 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
         pfr_ids = obj_fiscal_position_rule_template.search(cr, uid, [])
         
         for fpr_template in obj_fiscal_position_rule_template.browse(cr, uid, pfr_ids):
-            
-            fp_id = False
-            
+            fp_ids = False
             if fpr_template.fiscal_position_id:
                 
-                fp_id = obj_fiscal_position.search(cr, uid, [('name','=',fpr_template.fiscal_position_id.name)])
+                fp_ids = obj_fiscal_position.search(
+                    cr, uid,
+                    [('name','=',fpr_template.fiscal_position_id.name)],
+                    context=context)
                 
-                if not fp_id:
+                if not fp_ids:
                     continue
-            
-            vals = {
-                    'name': fpr_template.name,
-                    'description': fpr_template.description,
-                    'from_country': fpr_template.from_country.id,
-                    'from_state': fpr_template.from_state.id,
-                    'to_country': fpr_template.to_country.id,
-                    'to_state': fpr_template.to_state.id,
-                    'company_id': company_id,
-                    'fiscal_position_id': fp_id[0],
-                    'use_sale' : fpr_template.use_sale,
-                    'use_invoice' : fpr_template.use_invoice,
-                    'use_purchase' : fpr_template.use_purchase,
-                    'use_picking' : fpr_template.use_picking,
-                    'date_start': fpr_template.date_start,
-                    'date_end': fpr_template.date_end,
-                    'sequence': fpr_template.sequence,
-                    }
 
-            obj_fiscal_position_rule.create(cr,uid,vals)
+            vals = self._template_vals(
+                cr, uid, fpr_template, company_id, fp_ids, context=context)
+            obj_fiscal_position_rule.create(
+                cr, uid, vals)
 
         return {}
 
