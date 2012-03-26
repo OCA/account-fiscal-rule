@@ -56,7 +56,7 @@ class account_fiscal_position_rule(osv.osv):
         company_addr = self.pool.get('res.partner').address_get(
             cr, uid, [company.partner_id.id], ['invoice'])
         company_addr_default = self.pool.get('res.partner.address').browse(
-            cr, uid, [company_addr['invoice']])[0]
+            cr, uid, [company_addr['invoice']], context=context)[0]
 
         from_country = company_addr_default.country_id.id
         from_state = company_addr_default.state_id.id
@@ -84,8 +84,10 @@ class account_fiscal_position_rule(osv.osv):
              return result
 
         rule_pool = self.pool.get('account.fiscal.position.rule')
-        obj_partner = self.pool.get("res.partner").browse(cr, uid, partner_id)
-        obj_company = self.pool.get("res.company").browse(cr, uid, company_id)
+        obj_partner = self.pool.get("res.partner").browse(
+            cr, uid, partner_id, context=context)
+        obj_company = self.pool.get("res.company").browse(
+            cr, uid, company_id, context=context)
 
         #Case 1: Partner Specific Fiscal Position
         if obj_partner.property_account_position:
@@ -93,10 +95,13 @@ class account_fiscal_position_rule(osv.osv):
             return result
 
         if not partner_invoice_id:
-            partner_addr = self.pool.get('res.partner').address_get(cr, uid, [obj_partner.id], ['invoice'])
-            partner_addr_default = self.pool.get('res.partner.address').browse(cr, uid, [partner_addr['invoice']])[0]
+            partner_addr = self.pool.get('res.partner').address_get(
+                cr, uid, [obj_partner.id], ['invoice'], context=context)
+            partner_addr_default = self.pool.get('res.partner.address').browse(
+                cr, uid, [partner_addr['invoice']], context=context)[0]
         else:
-            partner_addr_default = self.pool.get('res.partner.address').browse(cr, uid, partner_invoice_id)
+            partner_addr_default = self.pool.get('res.partner.address').browse(
+                cr, uid, partner_invoice_id, context=context)
 
         #Case 2: Rule based determination
         domain = self._map_domain(
@@ -173,7 +178,7 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
 
     def action_create(self, cr, uid, ids, context=None):
         
-        obj_wizard = self.browse(cr,uid,ids[0])
+        obj_wizard = self.browse(cr,uid,ids[0], context=context)
         
         obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
         obj_fiscal_position_rule_template = self.pool.get('account.fiscal.position.rule.template')
@@ -181,9 +186,10 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
 
         company_id = obj_wizard.company_id.id
         
-        pfr_ids = obj_fiscal_position_rule_template.search(cr, uid, [])
+        pfr_ids = obj_fiscal_position_rule_template.search(
+            cr, uid, [], context=context)
         
-        for fpr_template in obj_fiscal_position_rule_template.browse(cr, uid, pfr_ids):
+        for fpr_template in obj_fiscal_position_rule_template.browse(cr, uid, pfr_ids, context=context):
             fp_ids = False
             if fpr_template.fiscal_position_id:
                 
@@ -198,7 +204,7 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
             vals = self._template_vals(
                 cr, uid, fpr_template, company_id, fp_ids, context=context)
             obj_fiscal_position_rule.create(
-                cr, uid, vals)
+                cr, uid, vals, context=context)
 
         return {}
 
