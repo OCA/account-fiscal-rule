@@ -54,6 +54,8 @@ class account_fiscal_position_rule(osv.osv):
     }
 
     def _map_domain(self, cr, uid, partner, partner_address, company, context=None):
+        if context is None:
+            context = {}
         company_addr = self.pool.get('res.partner').address_get(
             cr, uid, [company.partner_id.id], ['invoice'])
         company_addr_default = self.pool.get('res.partner.address').browse(
@@ -62,8 +64,13 @@ class account_fiscal_position_rule(osv.osv):
         from_country = company_addr_default.country_id.id
         from_state = company_addr_default.state_id.id
 
-        to_country = partner_address.country_id.id
-        to_state = partner_address.state_id.id
+        to_country = False
+        to_state = False
+        if partner_address:
+            to_country = partner_address.country_id and \
+                         partner_address.country_id.id or False
+            to_state = partner_address.state_id and \
+                       partner_address.state_id.id or False
 
         document_date = context.get('date', time.strftime('%Y-%m-%d'))
 
@@ -95,14 +102,14 @@ class account_fiscal_position_rule(osv.osv):
             result['fiscal_position'] = obj_partner.property_account_position.id
             return result
 
-        if not partner_invoice_id:
-            partner_addr = self.pool.get('res.partner').address_get(
-                cr, uid, [obj_partner.id], ['invoice'], context=context)
-            partner_addr_default = self.pool.get('res.partner.address').browse(
-                cr, uid, [partner_addr['invoice']], context=context)[0]
-        else:
+        if partner_invoice_id:
             partner_addr_default = self.pool.get('res.partner.address').browse(
                 cr, uid, partner_invoice_id, context=context)
+        else:
+            partner_addr = self.pool.get('res.partner').address_get(cr, uid, [obj_partner.id], ['invoice'])
+            addr_id = partner_addr['invoice'] and partner_addr['invoice'] or None
+            partner_addr_default = self.pool.get('res.partner.address').browse(
+                cr, uid, addr_id, context=context)
 
         #Case 2: Rule based determination
         domain = self._map_domain(
