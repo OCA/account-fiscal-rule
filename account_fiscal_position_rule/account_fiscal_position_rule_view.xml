@@ -21,7 +21,7 @@
                     <field name="to_state"/>
                     <separator string="Configuration" colspan="4"/>
 		    		<field name="fiscal_position_id"/>
-		    		<newline/>
+                    <field name="sequence"/>
                     <field name="use_sale"/>
                     <field name="use_invoice"/>
                     <field name="use_purchase"/>
@@ -41,6 +41,7 @@
                     <field name="from_state"/>
     		    	<field name="to_country"/>
                     <field name="to_state"/>
+                    <field name="sequence"/>
                 </tree>
             </field>
         </record>
@@ -106,8 +107,8 @@
         			<field name="date_start"/>
         			<field name="date_end"/>
                     <field name="company_id"/>
-		    <field name="fiscal_position_id"/>
-		    <newline/>
+                    <field name="fiscal_position_id"/>
+                    <field name="sequence"/>
                     <field name="use_sale"/>
                     <field name="use_invoice"/>
                     <field name="use_purchase"/>
@@ -126,8 +127,9 @@
                     <field name="name"/>
                     <field name="from_country"/>
                     <field name="from_state"/>
-		    <field name="to_country"/>
+                    <field name="to_country"/>
                     <field name="to_state"/>
+                    <field name="sequence"/>
                 </tree>
             </field>
         </record>
