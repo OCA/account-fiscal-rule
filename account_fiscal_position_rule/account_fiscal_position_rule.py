@@ -22,25 +22,26 @@ import time
 
 from osv import fields, osv
 
+
 class account_fiscal_position_rule(osv.osv):
-    
+
     _name = "account.fiscal.position.rule"
 
     _order = 'sequence'
 
     _columns = {
-            	'name': fields.char('Name', size=64, required=True),
-            	'description': fields.char('Description', size=128),
-            	'from_country': fields.many2one('res.country','Country From'),
-            	'from_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',from_country)]"),
-            	'to_country': fields.many2one('res.country', 'Country To'),
-            	'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
+                'name': fields.char('Name', size=64, required=True),
+                'description': fields.char('Description', size=128),
+                'from_country': fields.many2one('res.country', 'Country From'),
+                'from_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',from_country)]"),
+                'to_country': fields.many2one('res.country', 'Country To'),
+                'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
                 'company_id': fields.many2one('res.company', 'Company', required=True, select=True),
-            	'fiscal_position_id': fields.many2one('account.fiscal.position', 'Fiscal Position', domain="[('company_id','=',company_id)]", required=True, select=True),
-                'use_sale' : fields.boolean('Use in sales order'),
-                'use_invoice' : fields.boolean('Use in Invoices'),
-                'use_purchase' : fields.boolean('Use in Purchases'),
-                'use_picking' : fields.boolean('Use in Picking'),
+                'fiscal_position_id': fields.many2one('account.fiscal.position', 'Fiscal Position', domain="[('company_id','=',company_id)]", required=True, select=True),
+                'use_sale': fields.boolean('Use in sales order'),
+                'use_invoice': fields.boolean('Use in Invoices'),
+                'use_purchase': fields.boolean('Use in Purchases'),
+                'use_picking': fields.boolean('Use in Picking'),
                 'date_start': fields.date('Start Date', help="Starting date for this rule to be valid."),
                 'date_end': fields.date('End Date', help="Ending date for this rule to be valid."),
                 'sequence': fields.integer(
@@ -68,20 +69,20 @@ class account_fiscal_position_rule(osv.osv):
 
         use_domain = context.get('use_domain', ('use_sale', '=', True))
 
-        return ['&',('company_id','=', company.id), use_domain,
-                '|',('from_country','=',from_country), ('from_country','=',False),
-                '|',('to_country','=',to_country), ('to_country','=',False),
-                '|',('from_state','=',from_state), ('from_state','=',False),
-                '|',('to_state','=',to_state), ('to_state','=',False),
-                '|',('date_start', '=', False), ('date_start', '<=', document_date),
-                '|',('date_end', '=', False), ('date_end', '>=', document_date), ]
+        return ['&', ('company_id', '=', company.id), use_domain,
+                '|', ('from_country', '=', from_country), ('from_country', '=', False),
+                '|', ('to_country', '=', to_country), ('to_country', '=', False),
+                '|', ('from_state', '=', from_state), ('from_state', '=', False),
+                '|', ('to_state', '=', to_state), ('to_state', '=', False),
+                '|', ('date_start',  '=', False), ('date_start', '<=', document_date),
+                '|', ('date_end', '=', False), ('date_end', '>=', document_date), ]
 
     def fiscal_position_map(self, cr, uid, partner_id=False, partner_invoice_id=False, company_id=False, context=None):
 
         result = {'fiscal_position': False}
 
         if not partner_id or not company_id:
-             return result
+            return result
 
         rule_pool = self.pool.get('account.fiscal.position.rule')
         obj_partner = self.pool.get("res.partner").browse(
@@ -106,33 +107,34 @@ class account_fiscal_position_rule(osv.osv):
         #Case 2: Rule based determination
         domain = self._map_domain(
             cr, uid, obj_partner, partner_addr_default, obj_company, context=context)
-        
+
         fsc_pos_id = self.search(cr, uid, domain,  context=context)
 
         if fsc_pos_id:
             obj_fpo_rule = rule_pool.browse(cr, uid, fsc_pos_id, context=context)[0]
             result['fiscal_position'] = obj_fpo_rule.fiscal_position_id.id
-        
+
         return result
-    
+
 account_fiscal_position_rule()
+
 
 class account_fiscal_position_rule_template(osv.osv):
 
     _name = "account.fiscal.position.rule.template"
-    
+
     _columns = {
                 'name': fields.char('Name', size=64, required=True),
                 'description': fields.char('Description', size=128),
-                'from_country': fields.many2one('res.country','Country Form'),
+                'from_country': fields.many2one('res.country', 'Country Form'),
                 'from_state': fields.many2one('res.country.state', 'State From', domain="[('country_id','=',from_country)]"),
                 'to_country': fields.many2one('res.country', 'Country To'),
                 'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
                 'fiscal_position_id': fields.many2one('account.fiscal.position.template', 'Fiscal Position', required=True),
-                'use_sale' : fields.boolean('Use in sales order'),
-                'use_invoice' : fields.boolean('Use in Invoices'),
-                'use_purchase' : fields.boolean('Use in Purchases'),
-                'use_picking' : fields.boolean('Use in Picking'),
+                'use_sale': fields.boolean('Use in sales order'),
+                'use_invoice': fields.boolean('Use in Invoices'),
+                'use_purchase': fields.boolean('Use in Purchases'),
+                'use_picking': fields.boolean('Use in Picking'),
                 'date_start': fields.date('Start Date', help="Starting date for this rule to be valid."),
                 'date_end': fields.date('End Date', help="Ending date for this rule to be valid."),
                 'sequence': fields.integer(
@@ -146,16 +148,17 @@ class account_fiscal_position_rule_template(osv.osv):
 
 account_fiscal_position_rule_template()
 
+
 class wizard_account_fiscal_position_rule(osv.osv_memory):
-    
-    _name='wizard.account.fiscal.position.rule'
+
+    _name = 'wizard.account.fiscal.position.rule'
 
     _columns = {
-                'company_id':fields.many2one('res.company','Company',required=True),
+                'company_id': fields.many2one('res.company', 'Company', required=True),
                 }
-    
+
     _defaults = {
-                 'company_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr,uid,[uid],c)[0].company_id.id,
+                 'company_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr, uid, [uid], c)[0].company_id.id,
                 }
 
     def _template_vals(self, cr, uid, template, company_id,
@@ -168,36 +171,36 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
                 'to_state': template.to_state.id,
                 'company_id': company_id,
                 'fiscal_position_id': fiscal_position_ids[0],
-                'use_sale' : template.use_sale,
-                'use_invoice' : template.use_invoice,
-                'use_purchase' : template.use_purchase,
-                'use_picking' : template.use_picking,
+                'use_sale': template.use_sale,
+                'use_invoice': template.use_invoice,
+                'use_purchase': template.use_purchase,
+                'use_picking': template.use_picking,
                 'date_start': template.date_start,
                 'date_end': template.date_end,
                 'sequence': template.sequence, }
 
     def action_create(self, cr, uid, ids, context=None):
-        
-        obj_wizard = self.browse(cr,uid,ids[0], context=context)
-        
+
+        obj_wizard = self.browse(cr, uid, ids[0], context=context)
+
         obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
         obj_fiscal_position_rule_template = self.pool.get('account.fiscal.position.rule.template')
         obj_fiscal_position = self.pool.get('account.fiscal.position')
 
         company_id = obj_wizard.company_id.id
-        
+
         pfr_ids = obj_fiscal_position_rule_template.search(
             cr, uid, [], context=context)
-        
+
         for fpr_template in obj_fiscal_position_rule_template.browse(cr, uid, pfr_ids, context=context):
             fp_ids = False
             if fpr_template.fiscal_position_id:
-                
+
                 fp_ids = obj_fiscal_position.search(
                     cr, uid,
-                    [('name','=',fpr_template.fiscal_position_id.name)],
+                    [('name', '=', fpr_template.fiscal_position_id.name)],
                     context=context)
-                
+
                 if not fp_ids:
                     continue
 
