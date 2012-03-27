@@ -32,10 +32,26 @@ class account_fiscal_position_rule(osv.osv):
     _columns = {
                 'name': fields.char('Name', size=64, required=True),
                 'description': fields.char('Description', size=128),
-                'from_country': fields.many2one('res.country', 'Country From'),
-                'from_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',from_country)]"),
-                'to_country': fields.many2one('res.country', 'Country To'),
-                'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
+                'from_country_ids': fields.many2many(
+                    'res.country',
+                    rel='account_fiscal_rule_res_country_from_rel',
+                    id1='rule_id', id2='country_id',
+                    string='Origin Countries'),
+                'from_state_ids' : fields.many2many(
+                            'res.country.state',
+                            rel='account_fiscal_rule_state_from_rel',
+                            id1='rule_id', id2='state_id',
+                            string='Origin States'),
+                'to_country_ids': fields.many2many(
+                    'res.country',
+                    rel='account_fiscal_rule_res_country_to_rel',
+                    id1='rule_id', id2='country_id',
+                    string='Destination Countries'),
+                'to_state_ids' : fields.many2many(
+                            'res.country.state',
+                            rel='account_fiscal_rule_state_to_rel',
+                            id1='rule_id', id2='state_id',
+                            string='Destination States'),
                 'company_id': fields.many2one('res.company', 'Company', required=True, select=True),
                 'fiscal_position_id': fields.many2one('account.fiscal.position', 'Fiscal Position', domain="[('company_id','=',company_id)]", required=True, select=True),
                 'use_sale': fields.boolean('Use in sales order'),
@@ -52,6 +68,34 @@ class account_fiscal_position_rule(osv.osv):
     _defaults = {
         'sequence': 10,
     }
+
+    def init(self, cr):
+        migrations = [
+        {'rel_table': 'account_fiscal_rule_res_country_to_rel',
+         'from_field': 'to_country',
+         'rel_field': 'country_id'},
+        {'rel_table': 'account_fiscal_rule_state_to_rel',
+         'from_field': 'to_state',
+         'rel_field': 'state_id'},
+        {'rel_table': 'account_fiscal_rule_res_country_from_rel',
+         'from_field': 'from_country',
+         'rel_field': 'country_id'},
+        {'rel_table': 'account_fiscal_rule_state_from_rel',
+         'from_field': 'from_state',
+         'rel_field': 'state_id'}]
+        for migration in migrations:
+            cr.execute("INSERT INTO %(rel_table)s "
+                       "(rule_id, %(rel_field)s) "
+                       "(SELECT id, %(from_field)s FROM "
+                       " account_fiscal_position_rule "
+                       "WHERE %(from_field)s IS NOT NULL "
+                       " AND (id, %(from_field)s) NOT IN "
+                       " (SELECT rule_id, %(rel_field)s "
+                       "  FROM %(rel_table)s))" % migration)
+
+            cr.execute("UPDATE account_fiscal_position_rule "
+                       "SET %(from_field)s = NULL" % migration)
+
 
     def _map_domain(self, cr, uid, partner, partner_address, company, context=None):
         if context is None:
@@ -77,10 +121,10 @@ class account_fiscal_position_rule(osv.osv):
         use_domain = context.get('use_domain', ('use_sale', '=', True))
 
         return ['&', ('company_id', '=', company.id), use_domain,
-                '|', ('from_country', '=', from_country), ('from_country', '=', False),
-                '|', ('to_country', '=', to_country), ('to_country', '=', False),
-                '|', ('from_state', '=', from_state), ('from_state', '=', False),
-                '|', ('to_state', '=', to_state), ('to_state', '=', False),
+                '|', ('from_country_ids', '=', from_country), ('from_country_ids', '=', False),
+                '|', ('to_country_ids', '=', to_country), ('to_country_ids', '=', False),
+                '|', ('from_state_ids', '=', from_state), ('from_state_ids', '=', False),
+                '|', ('to_state_ids', '=', to_state), ('to_state_ids', '=', False),
                 '|', ('date_start',  '=', False), ('date_start', '<=', document_date),
                 '|', ('date_end', '=', False), ('date_end', '>=', document_date), ]
 
@@ -133,10 +177,26 @@ class account_fiscal_position_rule_template(osv.osv):
     _columns = {
                 'name': fields.char('Name', size=64, required=True),
                 'description': fields.char('Description', size=128),
-                'from_country': fields.many2one('res.country', 'Country Form'),
-                'from_state': fields.many2one('res.country.state', 'State From', domain="[('country_id','=',from_country)]"),
-                'to_country': fields.many2one('res.country', 'Country To'),
-                'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
+                'from_country_ids': fields.many2many(
+                    'res.country',
+                    rel='account_fiscal_rule_tmpl_res_country_from_rel',
+                    id1='rule_id', id2='country_id',
+                    string='Origin Countries'),
+                'from_state_ids' : fields.many2many(
+                            'res.country.state',
+                            rel='account_fiscal_rule_tmpl_state_from_rel',
+                            id1='rule_id', id2='state_id',
+                            string='Origin States'),
+                'to_country_ids': fields.many2many(
+                    'res.country',
+                    rel='account_fiscal_rule_tmpl_res_country_to_rel',
+                    id1='rule_id', id2='country_id',
+                    string='Destination Countries'),
+                'to_state_ids' : fields.many2many(
+                            'res.country.state',
+                            rel='account_fiscal_rule_tmpl_state_to_rel',
+                            id1='rule_id', id2='state_id',
+                            string='Destination States'),
                 'fiscal_position_id': fields.many2one('account.fiscal.position.template', 'Fiscal Position', required=True),
                 'use_sale': fields.boolean('Use in sales order'),
                 'use_invoice': fields.boolean('Use in Invoices'),
@@ -152,6 +212,33 @@ class account_fiscal_position_rule_template(osv.osv):
     _defaults = {
         'sequence': 10,
     }
+
+    def init(self, cr):
+        migrations = [
+        {'rel_table': 'account_fiscal_rule_tmpl_res_country_to_rel',
+         'from_field': 'to_country',
+         'rel_field': 'country_id'},
+        {'rel_table': 'account_fiscal_rule_tmpl_state_to_rel',
+         'from_field': 'to_state',
+         'rel_field': 'state_id'},
+        {'rel_table': 'account_fiscal_rule_tmpl_res_country_from_rel',
+         'from_field': 'from_country',
+         'rel_field': 'country_id'},
+        {'rel_table': 'account_fiscal_rule_tmpl_state_from_rel',
+         'from_field': 'from_state',
+         'rel_field': 'state_id'}]
+        for migration in migrations:
+            cr.execute("INSERT INTO %(rel_table)s "
+                       "(rule_id, %(rel_field)s) "
+                       "(SELECT id, %(from_field)s FROM "
+                       " account_fiscal_position_rule_template "
+                       "WHERE %(from_field)s IS NOT NULL "
+                       " AND (id, %(from_field)s) NOT IN "
+                       " (SELECT rule_id, %(rel_field)s "
+                       "  FROM %(rel_table)s))" % migration)
+
+            cr.execute("UPDATE account_fiscal_position_rule_template "
+                       "SET %(from_field)s = NULL" % migration)
 
 account_fiscal_position_rule_template()
 
@@ -170,12 +257,9 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
 
     def _template_vals(self, cr, uid, template, company_id,
                        fiscal_position_ids, context=None):
-        return {'name': template.name,
+
+        vals = {'name': template.name,
                 'description': template.description,
-                'from_country': template.from_country.id,
-                'from_state': template.from_state.id,
-                'to_country': template.to_country.id,
-                'to_state': template.to_state.id,
                 'company_id': company_id,
                 'fiscal_position_id': fiscal_position_ids[0],
                 'use_sale': template.use_sale,
@@ -185,6 +269,16 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
                 'date_start': template.date_start,
                 'date_end': template.date_end,
                 'sequence': template.sequence, }
+
+        # copy many2many fields from the template
+        m2m_fields = ['to_country_ids', 'from_country_ids',
+                      'to_state_ids', 'from_state_ids']
+        for field in m2m_fields:
+            field_ids = [item.id for item in getattr(template, field)]
+            if field_ids:
+                vals[field] = [(6, 0, field_ids)]
+
+        return vals
 
     def action_create(self, cr, uid, ids, context=None):
 
