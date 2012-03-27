@@ -22,6 +22,7 @@
                     <separator string="Configuration" colspan="4"/>
 		    		<field name="fiscal_position_id"/>
                     <field name="sequence"/>
+                    <newline/>
                     <field name="use_sale"/>
                     <field name="use_invoice"/>
                     <field name="use_purchase"/>
@@ -109,6 +110,7 @@
                     <field name="company_id"/>
                     <field name="fiscal_position_id"/>
                     <field name="sequence"/>
+                    <newline/>
                     <field name="use_sale"/>
                     <field name="use_invoice"/>
                     <field name="use_purchase"/>
