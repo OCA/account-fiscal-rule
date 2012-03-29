@@ -70,31 +70,38 @@ class account_fiscal_position_rule(osv.osv):
     }
 
     def init(self, cr):
-        migrations = [
-        {'rel_table': 'account_fiscal_rule_res_country_to_rel',
-         'from_field': 'to_country',
-         'rel_field': 'country_id'},
-        {'rel_table': 'account_fiscal_rule_state_to_rel',
-         'from_field': 'to_state',
-         'rel_field': 'state_id'},
-        {'rel_table': 'account_fiscal_rule_res_country_from_rel',
-         'from_field': 'from_country',
-         'rel_field': 'country_id'},
-        {'rel_table': 'account_fiscal_rule_state_from_rel',
-         'from_field': 'from_state',
-         'rel_field': 'state_id'}]
-        for migration in migrations:
-            cr.execute("INSERT INTO %(rel_table)s "
-                       "(rule_id, %(rel_field)s) "
-                       "(SELECT id, %(from_field)s FROM "
-                       " account_fiscal_position_rule "
-                       "WHERE %(from_field)s IS NOT NULL "
-                       " AND (id, %(from_field)s) NOT IN "
-                       " (SELECT rule_id, %(rel_field)s "
-                       "  FROM %(rel_table)s))" % migration)
+        # migration from previous version
+        # to_country as a m2o becomes to_country_ids as a m2m
+        # and so on for from_country, from_state, to_state
+        cr.execute("SELECT column_name FROM information_schema.columns "
+                   "WHERE table_name = 'account_fiscal_position_rule' "
+                   "AND column_name = 'to_country'")
+        if cr.fetchone():
+            migrations = [
+            {'rel_table': 'account_fiscal_rule_res_country_to_rel',
+             'from_field': 'to_country',
+             'rel_field': 'country_id'},
+            {'rel_table': 'account_fiscal_rule_state_to_rel',
+             'from_field': 'to_state',
+             'rel_field': 'state_id'},
+            {'rel_table': 'account_fiscal_rule_res_country_from_rel',
+             'from_field': 'from_country',
+             'rel_field': 'country_id'},
+            {'rel_table': 'account_fiscal_rule_state_from_rel',
+             'from_field': 'from_state',
+             'rel_field': 'state_id'}]
+            for migration in migrations:
+                cr.execute("INSERT INTO %(rel_table)s "
+                           "(rule_id, %(rel_field)s) "
+                           "(SELECT id, %(from_field)s FROM "
+                           " account_fiscal_position_rule "
+                           "WHERE %(from_field)s IS NOT NULL "
+                           " AND (id, %(from_field)s) NOT IN "
+                           " (SELECT rule_id, %(rel_field)s "
+                           "  FROM %(rel_table)s))" % migration)
 
-            cr.execute("UPDATE account_fiscal_position_rule "
-                       "SET %(from_field)s = NULL" % migration)
+                cr.execute("UPDATE account_fiscal_position_rule "
+                           "SET %(from_field)s = NULL" % migration)
 
 
     def _map_domain(self, cr, uid, partner, partner_address, company, context=None):
@@ -214,31 +221,38 @@ class account_fiscal_position_rule_template(osv.osv):
     }
 
     def init(self, cr):
-        migrations = [
-        {'rel_table': 'account_fiscal_rule_tmpl_res_country_to_rel',
-         'from_field': 'to_country',
-         'rel_field': 'country_id'},
-        {'rel_table': 'account_fiscal_rule_tmpl_state_to_rel',
-         'from_field': 'to_state',
-         'rel_field': 'state_id'},
-        {'rel_table': 'account_fiscal_rule_tmpl_res_country_from_rel',
-         'from_field': 'from_country',
-         'rel_field': 'country_id'},
-        {'rel_table': 'account_fiscal_rule_tmpl_state_from_rel',
-         'from_field': 'from_state',
-         'rel_field': 'state_id'}]
-        for migration in migrations:
-            cr.execute("INSERT INTO %(rel_table)s "
-                       "(rule_id, %(rel_field)s) "
-                       "(SELECT id, %(from_field)s FROM "
-                       " account_fiscal_position_rule_template "
-                       "WHERE %(from_field)s IS NOT NULL "
-                       " AND (id, %(from_field)s) NOT IN "
-                       " (SELECT rule_id, %(rel_field)s "
-                       "  FROM %(rel_table)s))" % migration)
+        # migration from previous version
+        # to_country as a m2o becomes to_country_ids as a m2m
+        # and so on for from_country, from_state, to_state
+        cr.execute("SELECT column_name FROM information_schema.columns "
+                   "WHERE table_name = 'account_fiscal_position_rule_template' "
+                   "AND column_name = 'to_country'")
+        if cr.fetchone():
+            migrations = [
+            {'rel_table': 'account_fiscal_rule_tmpl_res_country_to_rel',
+             'from_field': 'to_country',
+             'rel_field': 'country_id'},
+            {'rel_table': 'account_fiscal_rule_tmpl_state_to_rel',
+             'from_field': 'to_state',
+             'rel_field': 'state_id'},
+            {'rel_table': 'account_fiscal_rule_tmpl_res_country_from_rel',
+             'from_field': 'from_country',
+             'rel_field': 'country_id'},
+            {'rel_table': 'account_fiscal_rule_tmpl_state_from_rel',
+             'from_field': 'from_state',
+             'rel_field': 'state_id'}]
+            for migration in migrations:
+                cr.execute("INSERT INTO %(rel_table)s "
+                           "(rule_id, %(rel_field)s) "
+                           "(SELECT id, %(from_field)s FROM "
+                           " account_fiscal_position_rule_template "
+                           "WHERE %(from_field)s IS NOT NULL "
+                           " AND (id, %(from_field)s) NOT IN "
+                           " (SELECT rule_id, %(rel_field)s "
+                           "  FROM %(rel_table)s))" % migration)
 
-            cr.execute("UPDATE account_fiscal_position_rule_template "
-                       "SET %(from_field)s = NULL" % migration)
+                cr.execute("UPDATE account_fiscal_position_rule_template "
+                           "SET %(from_field)s = NULL" % migration)
 
 account_fiscal_position_rule_template()
 
