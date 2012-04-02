@@ -13,21 +13,15 @@
                     <field name="name" select="1"/>
                     <newline/>
                     <field name="description" colspan="4"/>
-                    <separator string="Conditions" colspan="4"/>
-                    <notebook>
-                        <page string="Countries">
-                            <field name="from_country_ids"/>
-                            <field name="to_country_ids" />
-                        </page>
-                        <page string="States">
-                            <field name="from_state_ids"/>
-                            <field name="to_state_ids"/>
-                        </page>
-                    </notebook>
+                    <separator string="From" colspan="4"/>
+                    <field name="from_country"/>
+                    <field name="from_state"/>
+                    <separator string="To" colspan="4"/>
+		    		<field name="to_country"/>
+                    <field name="to_state"/>
                     <separator string="Configuration" colspan="4"/>
 		    		<field name="fiscal_position_id"/>
-                    <field name="sequence"/>
-                    <newline/>
+		    		<newline/>
                     <field name="use_sale"/>
                     <field name="use_invoice"/>
                     <field name="use_purchase"/>
@@ -43,11 +37,10 @@
             <field name="arch" type="xml">
                 <tree string="Fiscal Position Rule Template">
                     <field name="name"/>
-                    <field name="from_country_ids"/>
-                    <field name="from_state_ids"/>
-    		    	<field name="to_country_ids"/>
-                    <field name="to_state_ids"/>
-                    <field name="sequence"/>
+                    <field name="from_country"/>
+                    <field name="from_state"/>
+    		    	<field name="to_country"/>
+                    <field name="to_state"/>
                 </tree>
             </field>
         </record>
@@ -72,10 +65,10 @@
                         <filter icon="terp-gtk-jump-to-rtl" string="Use in Purchase" name="use_purchase" domain="[('use_purchase','=',True)]" help="used in purchase"/>
                         <separator orientation="vertical"/>
                         <field name="name"/>
-                        <field name="from_country_ids"/>
-                        <field name="from_state_ids"/>
-                        <field name="to_country_ids"/>
-                        <field name="to_state_ids"/>
+                        <field name="from_country"/>
+                        <field name="from_state"/>
+                        <field name="to_country"/>
+                        <field name="to_state"/>
                     </group>
                     <newline/>
                 </search>
@@ -103,24 +96,18 @@
                     <field name="name" select="1"/>
                     <newline/>
                     <field name="description" colspan="4"/>
-                    <separator string="Conditions" colspan="4"/>
-                    <notebook >
-                        <page string="Countries">
-                            <field name="from_country_ids"/>
-                            <field name="to_country_ids" />
-                        </page>
-                        <page string="States">
-                            <field name="from_state_ids"/>
-                            <field name="to_state_ids"/>
-                        </page>
-                    </notebook>
+                    <separator string="From" colspan="4"/>
+                    <field name="from_country"/>
+                    <field name="from_state"/>
+                    <separator string="To" colspan="4"/>
+    		    	<field name="to_country"/>
+                    <field name="to_state"/>
                     <separator string="Configuration" colspan="4"/>
         			<field name="date_start"/>
         			<field name="date_end"/>
                     <field name="company_id"/>
-                    <field name="fiscal_position_id"/>
-                    <field name="sequence"/>
-                    <newline/>
+		    <field name="fiscal_position_id"/>
+		    <newline/>
                     <field name="use_sale"/>
                     <field name="use_invoice"/>
                     <field name="use_purchase"/>
@@ -137,11 +124,10 @@
                 <tree string="Fiscal Position Rule">
                     <field name="company_id"/>
                     <field name="name"/>
-                    <field name="from_country_ids"/>
-                    <field name="from_state_ids"/>
-                    <field name="to_country_ids"/>
-                    <field name="to_state_ids"/>
-                    <field name="sequence"/>
+                    <field name="from_country"/>
+                    <field name="from_state"/>
+		    <field name="to_country"/>
+                    <field name="to_state"/>
                 </tree>
             </field>
         </record>
@@ -160,10 +146,10 @@
                         <filter icon="terp-gtk-jump-to-rtl" string="Use in Purchase" name="use_purchase" domain="[('use_purchase','=',True)]" help="used in purchase"/>
                         <separator orientation="vertical"/>
                         <field name="name"/>
-                        <field name="from_country_ids"/>
-                        <field name="from_state_ids"/>
-                        <field name="to_country_ids"/>
-                        <field name="to_state_ids"/>
+                        <field name="from_country"/>
+                        <field name="from_state"/>
+                        <field name="to_country"/>
+                        <field name="to_state"/>
                     </group>
                     <newline/>
                 </search>
