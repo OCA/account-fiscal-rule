@@ -2,7 +2,6 @@
 #################################################################################
 #                                                                               #
 # Copyright (C) 2009  Renato Lima - Akretion                                    #
-# Copyright 2012 Camptocamp SA (Author: Guewen Baconnier)                       #
 #                                                                               #
 #This program is free software: you can redistribute it and/or modify           #
 #it under the terms of the GNU Affero General Public License as published by    #
@@ -22,403 +21,159 @@ import time
 
 from osv import fields, osv
 
-
 class account_fiscal_position_rule(osv.osv):
-
+    
     _name = "account.fiscal.position.rule"
-
-    _order = 'sequence'
-
+    
     _columns = {
-                'name': fields.char('Name', size=64, required=True),
-                'description': fields.char('Description', size=128),
-                'from_country_ids': fields.many2many(
-                    'res.country',
-                    rel='account_fiscal_rule_res_country_from_rel',
-                    id1='rule_id', id2='country_id',
-                    string='Origin Countries'),
-                'from_state_ids' : fields.many2many(
-                            'res.country.state',
-                            rel='account_fiscal_rule_state_from_rel',
-                            id1='rule_id', id2='state_id',
-                            string='Origin States'),
-                'to_country_ids': fields.many2many(
-                    'res.country',
-                    rel='account_fiscal_rule_res_country_to_rel',
-                    id1='rule_id', id2='country_id',
-                    string='Destination Countries'),
-                'to_state_ids' : fields.many2many(
-                            'res.country.state',
-                            rel='account_fiscal_rule_state_to_rel',
-                            id1='rule_id', id2='state_id',
-                            string='Destination States'),
+            	'name': fields.char('Name', size=64, required=True),
+            	'description': fields.char('Description', size=128),
+            	'from_country': fields.many2one('res.country','Country From'),
+            	'from_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',from_country)]"),
+            	'to_country': fields.many2one('res.country', 'Country To'),
+            	'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
                 'company_id': fields.many2one('res.company', 'Company', required=True, select=True),
-                'fiscal_position_id': fields.many2one('account.fiscal.position', 'Fiscal Position', domain="[('company_id','=',company_id)]", required=True, select=True),
-                'use_sale': fields.boolean('Use in sales order'),
-                'use_invoice': fields.boolean('Use in Invoices'),
-                'use_purchase': fields.boolean('Use in Purchases'),
-                'use_picking': fields.boolean('Use in Picking'),
+            	'fiscal_position_id': fields.many2one('account.fiscal.position', 'Fiscal Position', domain="[('company_id','=',company_id)]", required=True, select=True),
+                'use_sale' : fields.boolean('Use in sales order'),
+                'use_invoice' : fields.boolean('Use in Invoices'),
+                'use_purchase' : fields.boolean('Use in Purchases'),
+                'use_picking' : fields.boolean('Use in Picking'),
                 'date_start': fields.date('Start Date', help="Starting date for this rule to be valid."),
                 'date_end': fields.date('End Date', help="Ending date for this rule to be valid."),
-                'sequence': fields.integer(
-                    'Priority', required=True,
-                    help='The lowest number will be applied.'),
                 }
-
-    _defaults = {
-        'sequence': 10,
-    }
-
-    def init(self, cr):
-        # migration from previous version
-        # to_country as a m2o becomes to_country_ids as a m2m
-        # and so on for from_country, from_state, to_state
-        cr.execute("SELECT column_name FROM information_schema.columns "
-                   "WHERE table_name = 'account_fiscal_position_rule' "
-                   "AND column_name = 'to_country'")
-        if cr.fetchone():
-            migrations = [
-            {'rel_table': 'account_fiscal_rule_res_country_to_rel',
-             'from_field': 'to_country',
-             'rel_field': 'country_id'},
-            {'rel_table': 'account_fiscal_rule_state_to_rel',
-             'from_field': 'to_state',
-             'rel_field': 'state_id'},
-            {'rel_table': 'account_fiscal_rule_res_country_from_rel',
-             'from_field': 'from_country',
-             'rel_field': 'country_id'},
-            {'rel_table': 'account_fiscal_rule_state_from_rel',
-             'from_field': 'from_state',
-             'rel_field': 'state_id'}]
-            for migration in migrations:
-                cr.execute("INSERT INTO %(rel_table)s "
-                           "(rule_id, %(rel_field)s) "
-                           "(SELECT id, %(from_field)s FROM "
-                           " account_fiscal_position_rule "
-                           "WHERE %(from_field)s IS NOT NULL "
-                           " AND (id, %(from_field)s) NOT IN "
-                           " (SELECT rule_id, %(rel_field)s "
-                           "  FROM %(rel_table)s))" % migration)
-
-                cr.execute("UPDATE account_fiscal_position_rule "
-                           "SET %(from_field)s = NULL" % migration)
-
-
-    def _map_domain(self, cr, uid, partner, partner_address, company, context=None):
-        if context is None:
-            context = {}
-        company_addr = self.pool.get('res.partner').address_get(
-            cr, uid, [company.partner_id.id], ['invoice'])
-        company_addr_default = self.pool.get('res.partner.address').browse(
-            cr, uid, [company_addr['invoice']], context=context)[0]
-
-        from_country = company_addr_default.country_id.id
-        from_state = company_addr_default.state_id.id
-
-        to_country = False
-        to_state = False
-        if partner_address:
-            to_country = partner_address.country_id and \
-                         partner_address.country_id.id or False
-            to_state = partner_address.state_id and \
-                       partner_address.state_id.id or False
-
-        document_date = context.get('date', time.strftime('%Y-%m-%d'))
-
-        use_domain = context.get('use_domain', ('use_sale', '=', True))
-
-        return ['&', ('company_id', '=', company.id), use_domain,
-                '|', ('from_country_ids', '=', from_country), ('from_country_ids', '=', False),
-                '|', ('to_country_ids', '=', to_country), ('to_country_ids', '=', False),
-                '|', ('from_state_ids', '=', from_state), ('from_state_ids', '=', False),
-                '|', ('to_state_ids', '=', to_state), ('to_state_ids', '=', False),
-                '|', ('date_start',  '=', False), ('date_start', '<=', document_date),
-                '|', ('date_end', '=', False), ('date_end', '>=', document_date), ]
-
+    
     def fiscal_position_map(self, cr, uid, partner_id=False, partner_invoice_id=False, company_id=False, context=None):
 
         result = {'fiscal_position': False}
-
+                     
         if not partner_id or not company_id:
-            return result
+             return result
 
-        rule_pool = self.pool.get('account.fiscal.position.rule')
-        obj_partner = self.pool.get("res.partner").browse(
-            cr, uid, partner_id, context=context)
-        obj_company = self.pool.get("res.company").browse(
-            cr, uid, company_id, context=context)
+        obj_partner = self.pool.get("res.partner").browse(cr, uid, partner_id)
+        obj_company = self.pool.get("res.company").browse(cr, uid, company_id)
 
-        #Case 1: Partner Specific Fiscal Position
+        #Case 1: Parnter Specific Fiscal Posigion
         if obj_partner.property_account_position:
             result['fiscal_position'] = obj_partner.property_account_position.id
             return result
-
-        if partner_invoice_id:
-            partner_addr_default = self.pool.get('res.partner.address').browse(
-                cr, uid, partner_invoice_id, context=context)
-        else:
-            partner_addr = self.pool.get('res.partner').address_get(cr, uid, [obj_partner.id], ['invoice'])
-            addr_id = partner_addr['invoice'] and partner_addr['invoice'] or None
-            partner_addr_default = self.pool.get('res.partner.address').browse(
-                cr, uid, addr_id, context=context)
-
+        
         #Case 2: Rule based determination
-        domain = self._map_domain(
-            cr, uid, obj_partner, partner_addr_default, obj_company, context=context)
+        company_addr = self.pool.get('res.partner').address_get(cr, uid, [obj_company.partner_id.id], ['invoice'])
+        company_addr_default = self.pool.get('res.partner.address').browse(cr, uid, [company_addr['invoice']])[0]
+        
+        from_country = company_addr_default.country_id.id
+        from_state = company_addr_default.state_id.id
 
-        fsc_pos_id = self.search(cr, uid, domain,  context=context)
+        if not partner_invoice_id:
+            partner_addr = self.pool.get('res.partner').address_get(cr, uid, [obj_partner.id], ['invoice'])
+            partner_addr_default = self.pool.get('res.partner.address').browse(cr, uid, [partner_addr['invoice']])[0]
+        else:
+            partner_addr_default = self.pool.get('res.partner.address').browse(cr, uid, partner_invoice_id)
 
+        to_country = partner_addr_default.country_id.id
+        to_state = partner_addr_default.state_id.id
+        
+        document_date = context.get('date', time.strftime('%Y-%m-%d'))
+        
+        use_domain = context.get('use_domain', ('use_sale', '=', True))
+        
+        domain = ['&',('company_id','=', company_id), use_domain,
+                  '|',('from_country','=',from_country),('from_country','=',False), 
+                  '|',('to_country','=',to_country),('to_country','=',False), 
+                  '|',('from_state','=',from_state),('from_state','=',False), 
+                  '|',('to_state','=',to_state),('to_state','=',False),
+                  '|',('date_start', '=', False),('date_start', '<=', document_date),
+                  '|',('date_end', '=', False),('date_end', '>=', document_date),]  
+        
+        fsc_pos_id = self.search(cr, uid, domain)
+        
         if fsc_pos_id:
-            obj_fpo_rule = rule_pool.browse(cr, uid, fsc_pos_id, context=context)[0]
+            obj_fpo_rule = self.pool.get('account.fiscal.position.rule').browse(cr, uid, fsc_pos_id)[0]
             result['fiscal_position'] = obj_fpo_rule.fiscal_position_id.id
-
+        
         return result
-
+    
 account_fiscal_position_rule()
-
 
 class account_fiscal_position_rule_template(osv.osv):
 
     _name = "account.fiscal.position.rule.template"
-
+    
     _columns = {
                 'name': fields.char('Name', size=64, required=True),
                 'description': fields.char('Description', size=128),
-                'from_country_ids': fields.many2many(
-                    'res.country',
-                    rel='account_fiscal_rule_tmpl_res_country_from_rel',
-                    id1='rule_id', id2='country_id',
-                    string='Origin Countries'),
-                'from_state_ids' : fields.many2many(
-                            'res.country.state',
-                            rel='account_fiscal_rule_tmpl_state_from_rel',
-                            id1='rule_id', id2='state_id',
-                            string='Origin States'),
-                'to_country_ids': fields.many2many(
-                    'res.country',
-                    rel='account_fiscal_rule_tmpl_res_country_to_rel',
-                    id1='rule_id', id2='country_id',
-                    string='Destination Countries'),
-                'to_state_ids' : fields.many2many(
-                            'res.country.state',
-                            rel='account_fiscal_rule_tmpl_state_to_rel',
-                            id1='rule_id', id2='state_id',
-                            string='Destination States'),
+                'from_country': fields.many2one('res.country','Country Form'),
+                'from_state': fields.many2one('res.country.state', 'State From', domain="[('country_id','=',from_country)]"),
+                'to_country': fields.many2one('res.country', 'Country To'),
+                'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
                 'fiscal_position_id': fields.many2one('account.fiscal.position.template', 'Fiscal Position', required=True),
-                'use_sale': fields.boolean('Use in sales order'),
-                'use_invoice': fields.boolean('Use in Invoices'),
-                'use_purchase': fields.boolean('Use in Purchases'),
-                'use_picking': fields.boolean('Use in Picking'),
+                'use_sale' : fields.boolean('Use in sales order'),
+                'use_invoice' : fields.boolean('Use in Invoices'),
+                'use_purchase' : fields.boolean('Use in Purchases'),
+                'use_picking' : fields.boolean('Use in Picking'),
                 'date_start': fields.date('Start Date', help="Starting date for this rule to be valid."),
                 'date_end': fields.date('End Date', help="Ending date for this rule to be valid."),
-                'sequence': fields.integer(
-                    'Priority', required=True,
-                    help='The lowest number will be applied.'),
                 }
-
-    _defaults = {
-        'sequence': 10,
-    }
-
-    def init(self, cr):
-        # migration from previous version
-        # to_country as a m2o becomes to_country_ids as a m2m
-        # and so on for from_country, from_state, to_state
-        cr.execute("SELECT column_name FROM information_schema.columns "
-                   "WHERE table_name = 'account_fiscal_position_rule_template' "
-                   "AND column_name = 'to_country'")
-        if cr.fetchone():
-            migrations = [
-            {'rel_table': 'account_fiscal_rule_tmpl_res_country_to_rel',
-             'from_field': 'to_country',
-             'rel_field': 'country_id'},
-            {'rel_table': 'account_fiscal_rule_tmpl_state_to_rel',
-             'from_field': 'to_state',
-             'rel_field': 'state_id'},
-            {'rel_table': 'account_fiscal_rule_tmpl_res_country_from_rel',
-             'from_field': 'from_country',
-             'rel_field': 'country_id'},
-            {'rel_table': 'account_fiscal_rule_tmpl_state_from_rel',
-             'from_field': 'from_state',
-             'rel_field': 'state_id'}]
-            for migration in migrations:
-                cr.execute("INSERT INTO %(rel_table)s "
-                           "(rule_id, %(rel_field)s) "
-                           "(SELECT id, %(from_field)s FROM "
-                           " account_fiscal_position_rule_template "
-                           "WHERE %(from_field)s IS NOT NULL "
-                           " AND (id, %(from_field)s) NOT IN "
-                           " (SELECT rule_id, %(rel_field)s "
-                           "  FROM %(rel_table)s))" % migration)
-
-                cr.execute("UPDATE account_fiscal_position_rule_template "
-                           "SET %(from_field)s = NULL" % migration)
 
 account_fiscal_position_rule_template()
 
-
 class wizard_account_fiscal_position_rule(osv.osv_memory):
-
-    _name = 'wizard.account.fiscal.position.rule'
+    
+    _name='wizard.account.fiscal.position.rule'
 
     _columns = {
-                'company_id': fields.many2one('res.company', 'Company', required=True),
+                'company_id':fields.many2one('res.company','Company',required=True),
                 }
-
+    
     _defaults = {
-                 'company_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr, uid, [uid], c)[0].company_id.id,
+                 'company_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr,uid,[uid],c)[0].company_id.id,
                 }
-
-    def _template_vals(self, cr, uid, template, company_id,
-                       fiscal_position_ids, context=None):
-
-        vals = {'name': template.name,
-                'description': template.description,
-                'company_id': company_id,
-                'fiscal_position_id': fiscal_position_ids[0],
-                'use_sale': template.use_sale,
-                'use_invoice': template.use_invoice,
-                'use_purchase': template.use_purchase,
-                'use_picking': template.use_picking,
-                'date_start': template.date_start,
-                'date_end': template.date_end,
-                'sequence': template.sequence, }
-
-        # copy many2many fields from the template
-        m2m_fields = ['to_country_ids', 'from_country_ids',
-                      'to_state_ids', 'from_state_ids']
-        for field in m2m_fields:
-            field_ids = [item.id for item in getattr(template, field)]
-            if field_ids:
-                vals[field] = [(6, 0, field_ids)]
-
-        return vals
 
     def action_create(self, cr, uid, ids, context=None):
-
-        obj_wizard = self.browse(cr, uid, ids[0], context=context)
-
+        
+        obj_wizard = self.browse(cr,uid,ids[0])
+        
         obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
         obj_fiscal_position_rule_template = self.pool.get('account.fiscal.position.rule.template')
+        obj_fiscal_position_template = self.pool.get('account.fiscal.position.template')
         obj_fiscal_position = self.pool.get('account.fiscal.position')
 
         company_id = obj_wizard.company_id.id
-
-        pfr_ids = obj_fiscal_position_rule_template.search(
-            cr, uid, [], context=context)
-
-        for fpr_template in obj_fiscal_position_rule_template.browse(cr, uid, pfr_ids, context=context):
-            fp_ids = False
+        
+        pfr_ids = obj_fiscal_position_rule_template.search(cr, uid, [])
+        
+        for fpr_template in obj_fiscal_position_rule_template.browse(cr, uid, pfr_ids):
+            
+            fp_id = False
+            
             if fpr_template.fiscal_position_id:
-
-                fp_ids = obj_fiscal_position.search(
-                    cr, uid,
-                    [('name', '=', fpr_template.fiscal_position_id.name)],
-                    context=context)
-
-                if not fp_ids:
+                
+                fp_id = obj_fiscal_position.search(cr, uid, [('name','=',fpr_template.fiscal_position_id.name)])
+                
+                if not fp_id:
                     continue
+            
+            vals = {
+                    'name': fpr_template.name,
+                    'description': fpr_template.description,
+                    'from_country': fpr_template.from_country.id,
+                    'from_state': fpr_template.from_state.id,
+                    'to_country': fpr_template.to_country.id,
+                    'to_state': fpr_template.to_state.id,
+                    'company_id': company_id,
+                    'fiscal_position_id': fp_id[0],
+                    'use_sale' : fpr_template.use_sale,
+                    'use_invoice' : fpr_template.use_invoice,
+                    'use_purchase' : fpr_template.use_purchase,
+                    'use_picking' : fpr_template.use_picking,
+                    'date_start': fpr_template.date_start,
+                    'date_end': fpr_template.date_end,
+                    }
 
-            vals = self._template_vals(
-                cr, uid, fpr_template, company_id, fp_ids, context=context)
-            obj_fiscal_position_rule.create(
-                cr, uid, vals, context=context)
+            obj_fiscal_position_rule.create(cr,uid,vals)
 
         return {}
 
 wizard_account_fiscal_position_rule()
-
-class account_fiscal_position_rule_backward_compatibility(osv.osv):
-    """
-    Backward compatibility layer :
-    Previously, from_country_ids, to_country_ids, from_state_ids, to_state_ids
-    where man2one fields. Now they are many2many fields.
-    To ensure a compability for other modules using this one (l10n_br as
-    instance), the following fields are still accessible :
-      - from_country
-      - to_country
-      - from_state
-      - to_state
-      But they are fields.function which take/write the first record of the
-      many2many. They are not meant to be used, but only to ensure
-      a compatibility with existing modules before their migration to
-      the m2m fields.
-
-      This is really meant to be a short term support of the m2o fields
-      to let the wizards and code execute. But as soon users will start to
-      use the m2m fields, they have to be not used.
-    """
-
-    _inherit = "account.fiscal.position.rule"
-
-    @staticmethod
-    def _old_field_name(name):
-        return "%s_ids" % name
-
-    def _get_old_field(self, cr, uid, ids, field_names, arg, context):
-        values = {}
-        for rule in self.browse(cr, uid, ids, context):
-            values[rule.id] = {}
-            for field in field_names:
-                rule_field_vals = getattr(rule, self._old_field_name(field))
-                if rule_field_vals:
-                    values[rule.id][field] = rule_field_vals[0].id
-        return values
-
-    def _write_old_field(self, cr, uid, rule_id, name, value, arg, context=None):
-        self.write(
-            cr, uid, rule_id,
-            {self._old_field_name(name): [(6, 0, [value])]},
-            context=context)
-        return True
-
-    def _search_old_field(self, cr, uid, obj, name, args, context):
-        old_fields = ('from_country', 'to_country',
-                      'from_state', 'to_state')
-        new_args = []
-        for arg in args:
-            if arg[0] in old_fields:
-                new_args.append((self._old_field_name(arg[0]), arg[1], arg[2]))
-            else:
-                new_args.append(arg)
-
-        return new_args
-
-    _columns = {
-        'from_country': fields.function(
-            _get_old_field,
-            fnct_inv=_write_old_field,
-            fnct_search=_search_old_field,
-            type='many2one',
-            obj='res.country',
-            multi='old_m2o_fields',
-            string='From Country (deprecated)',),
-        'to_country': fields.function(
-            _get_old_field,
-            fnct_inv=_write_old_field,
-            fnct_search=_search_old_field,
-            type='many2one',
-            obj='res.country',
-            multi='old_m2o_fields',
-            string='To Country (deprecated)',),
-        'from_state': fields.function(
-            _get_old_field,
-            fnct_inv=_write_old_field,
-            fnct_search=_search_old_field,
-            type='many2one',
-            obj='res.country.state',
-            multi='old_m2o_fields',
-            string='From State (deprecated)',),
-        'to_state': fields.function(
-            _get_old_field,
-            fnct_inv=_write_old_field,
-            fnct_search=_search_old_field,
-            type='many2one',
-            obj='res.country',
-            multi='old_m2o_fields',
-            string='To State (deprecated)',),
-    }
-
-account_fiscal_position_rule_backward_compatibility()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
