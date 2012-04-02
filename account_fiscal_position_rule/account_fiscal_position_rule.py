@@ -328,4 +328,97 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
 
 wizard_account_fiscal_position_rule()
 
+class account_fiscal_position_rule_backward_compatibility(osv.osv):
+    """
+    Backward compatibility layer :
+    Previously, from_country_ids, to_country_ids, from_state_ids, to_state_ids
+    where man2one fields. Now they are many2many fields.
+    To ensure a compability for other modules using this one (l10n_br as
+    instance), the following fields are still accessible :
+      - from_country
+      - to_country
+      - from_state
+      - to_state
+      But they are fields.function which take/write the first record of the
+      many2many. They are not meant to be used, but only to ensure
+      a compatibility with existing modules before their migration to
+      the m2m fields.
+
+      This is really meant to be a short term support of the m2o fields
+      to let the wizards and code execute. But as soon users will start to
+      use the m2m fields, they have to be not used.
+    """
+
+    _inherit = "account.fiscal.position.rule"
+
+    @staticmethod
+    def _old_field_name(name):
+        return "%s_ids" % name
+
+    def _get_old_field(self, cr, uid, ids, field_names, arg, context):
+        values = {}
+        for rule in self.browse(cr, uid, ids, context):
+            values[rule.id] = {}
+            for field in field_names:
+                rule_field_vals = getattr(rule, self._old_field_name(field))
+                if rule_field_vals:
+                    values[rule.id][field] = rule_field_vals[0].id
+        return values
+
+    def _write_old_field(self, cr, uid, rule_id, name, value, arg, context=None):
+        self.write(
+            cr, uid, rule_id,
+            {self._old_field_name(name): [(6, 0, [value])]},
+            context=context)
+        return True
+
+    def _search_old_field(self, cr, uid, obj, name, args, context):
+        old_fields = ('from_country', 'to_country',
+                      'from_state', 'to_state')
+        new_args = []
+        for arg in args:
+            if arg[0] in old_fields:
+                new_args.append((self._old_field_name(arg[0]), arg[1], arg[2]))
+            else:
+                new_args.append(arg)
+
+        return new_args
+
+    _columns = {
+        'from_country': fields.function(
+            _get_old_field,
+            fnct_inv=_write_old_field,
+            fnct_search=_search_old_field,
+            type='many2one',
+            obj='res.country',
+            multi='old_m2o_fields',
+            string='From Country (deprecated)',),
+        'to_country': fields.function(
+            _get_old_field,
+            fnct_inv=_write_old_field,
+            fnct_search=_search_old_field,
+            type='many2one',
+            obj='res.country',
+            multi='old_m2o_fields',
+            string='To Country (deprecated)',),
+        'from_state': fields.function(
+            _get_old_field,
+            fnct_inv=_write_old_field,
+            fnct_search=_search_old_field,
+            type='many2one',
+            obj='res.country.state',
+            multi='old_m2o_fields',
+            string='From State (deprecated)',),
+        'to_state': fields.function(
+            _get_old_field,
+            fnct_inv=_write_old_field,
+            fnct_search=_search_old_field,
+            type='many2one',
+            obj='res.country',
+            multi='old_m2o_fields',
+            string='To State (deprecated)',),
+    }
+
+account_fiscal_position_rule_backward_compatibility()
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
