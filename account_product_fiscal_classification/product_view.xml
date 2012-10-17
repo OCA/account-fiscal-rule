@@ -7,9 +7,9 @@
 			<field name="model">product.product</field>
 			<field name="inherit_id" ref="account.product_normal_form_view"/>
 			<field name="arch" type="xml">
-				<xpath expr="/form/notebook/page/field[@name='property_account_expense']" position="after">
-					<separator string="Fiscal Properties" colspan="4"/>
+				<xpath expr="notebook/page/group/field[@name='property_account_expense']" position="after">
 						<field name="property_fiscal_classification" colspan="4" required="1" select="2" on_change="fiscal_classification_id_change(property_fiscal_classification, taxes_id, supplier_taxes_id)"/>
+						<separator string="Fiscal Properties" colspan="4"/>
 				</xpath>
 			</field>
 		</record>
