@@ -33,7 +33,7 @@
 			</field>
 		</record>
 
-		<record model="ir.ui.view" id="fiscal_classification__template_normal_form_view_form">
+		<record model="ir.ui.view" id="fiscal_classification_template_normal_form_view_form">
 			<field name="name">fiscal_classification_normal_form_view_form</field>
 			<field name="model">account.product.fiscal.classification.template</field>
 			<field name="type">form</field>
@@ -50,7 +50,7 @@
 			</field>
 		</record>
 
-		<record model="ir.ui.view" id="fiscal_classification__template_normal_form_view_tree">
+		<record model="ir.ui.view" id="fiscal_classification_template_normal_form_view_tree">
 			<field name="name">fiscal_classification_normal_form_view_tree</field>
 			<field name="model">account.product.fiscal.classification.template</field>
 			<field name="type">tree</field>
