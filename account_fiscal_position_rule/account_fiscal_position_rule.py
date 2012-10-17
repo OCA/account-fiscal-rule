@@ -147,7 +147,11 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
             fp_id = False
             
             if fpr_template.fiscal_position_id:
-                fp_id = obj_fiscal_position.search(cr, uid, [('name','=',fpr_template.fiscal_position_id.name)])[0]
+                
+                fp_id = obj_fiscal_position.search(cr, uid, [('name','=',fpr_template.fiscal_position_id.name)])
+                
+                if not fp_id:
+                    continue
             
             vals = {
                     'name': fpr_template.name,
@@ -157,7 +161,7 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
                     'to_country': fpr_template.to_country.id,
                     'to_state': fpr_template.to_state.id,
                     'company_id': company_id,
-                    'fiscal_position_id': fp_id,
+                    'fiscal_position_id': fp_id[0],
                     'use_sale' : fpr_template.use_sale,
                     'use_invoice' : fpr_template.use_invoice,
                     'use_purchase' : fpr_template.use_purchase,
