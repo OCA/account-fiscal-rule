@@ -90,35 +90,34 @@ class account_fiscal_position_rule(osv.osv):
         if not partner_id or not company_id:
             return result
 
-        rule_pool = self.pool.get('account.fiscal.position.rule')
-        obj_partner = self.pool.get("res.partner").browse(
-            cr, uid, partner_id, context=context)
-        obj_company = self.pool.get("res.company").browse(
-            cr, uid, company_id, context=context)
+        obj_fsc_rule = self.pool.get('account.fiscal.position.rule')
+        obj_partner = self.pool.get("res.partner")
+        obj_address = self.pool.get("res.partner.address")
+        obj_company = self.pool.get("res.company")
+        partner = obj_partner.browse(cr, uid, partner_id, context=context)
+        company = obj_company.browse(cr, uid, company_id, context=context)
 
         #Case 1: Partner Specific Fiscal Position
-        if obj_partner.property_account_position:
-            result['fiscal_position'] = obj_partner.property_account_position.id
+        if partner.property_account_position:
+            result['fiscal_position'] = partner.property_account_position.id
             return result
 
         if partner_invoice_id:
-            partner_addr_default = self.pool.get('res.partner.address').browse(
-                cr, uid, partner_invoice_id, context=context)
+            partner_addr_default = obj_address.browse(cr, uid, partner_invoice_id, context=context)
         else:
-            partner_addr = self.pool.get('res.partner').address_get(cr, uid, [obj_partner.id], ['invoice'])
+            partner_addr = partner.address_get(['invoice'])
             addr_id = partner_addr['invoice'] and partner_addr['invoice'] or None
-            partner_addr_default = self.pool.get('res.partner.address').browse(
-                cr, uid, addr_id, context=context)
+            partner_addr_default = obj_address.browse(cr, uid, addr_id, context=context)
 
         #Case 2: Rule based determination
         domain = self._map_domain(
-            cr, uid, obj_partner, partner_addr_default, obj_company, context=context)
+            cr, uid, partner, partner_addr_default, company, context=context)
 
         fsc_pos_id = self.search(cr, uid, domain,  context=context)
 
         if fsc_pos_id:
-            obj_fpo_rule = rule_pool.browse(cr, uid, fsc_pos_id, context=context)[0]
-            result['fiscal_position'] = obj_fpo_rule.fiscal_position_id.id
+            fsc_rule = obj_rule.browse(cr, uid, fsc_pos_id, context=context)[0]
+            result['fiscal_position'] = fsc_rule.fiscal_position_id.id
 
         return result
 
