@@ -27,13 +27,13 @@
     'website': 'http://www.akretion.com',
     'depends': ['account'],
     'init_xml': [],
-    'update_xml': 
+    'update_xml':
                 [
                 'account_invoice_view.xml',
                 'account_fiscal_position_rule_view.xml',
                 'security/account_fiscal_position_rule_security.xml',
                 'security/ir.model.access.csv',
-                
+
                 ],
     'demo_xml': [],
     'installable': True,
