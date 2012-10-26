@@ -30,12 +30,12 @@
                 'purchase'
                 ],
     'init_xml': [],
-    'update_xml': 
+    'update_xml':
                 [
                 'purchase_view.xml',
                 'security/account_fiscal_position_rule_purchase_security.xml',
                 'security/ir.model.access.csv',
-                
+
                 ],
     'demo_xml': [],
     'installable': True,
