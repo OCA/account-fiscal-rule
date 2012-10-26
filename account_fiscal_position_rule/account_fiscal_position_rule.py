@@ -37,7 +37,7 @@ class account_fiscal_position_rule(osv.osv):
                 'to_country': fields.many2one('res.country', 'Country To'),
                 'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
                 'company_id': fields.many2one('res.company', 'Company', required=True, select=True),
-                'fiscal_position_id': fields.many2one('account.fiscal.position', 'Fiscal Position', domain="[('company_id','=',company_id)]", required=True, select=True),
+                'fiscal_position_id': fields.many2one('account.fiscal.position', 'Fiscal Position', domain="[('company_id','=',company_id)]", select=True),
                 'use_sale': fields.boolean('Use in sales order'),
                 'use_invoice': fields.boolean('Use in Invoices'),
                 'use_purchase': fields.boolean('Use in Purchases'),
@@ -87,7 +87,6 @@ class account_fiscal_position_rule(osv.osv):
     def fiscal_position_map(self, cr, uid, partner_id=False, partner_invoice_id=False, company_id=False, context=None):
 
         result = {'fiscal_position': False}
-
         if not partner_id or not company_id:
             return result
 
@@ -137,7 +136,7 @@ class account_fiscal_position_rule_template(osv.osv):
                 'from_state': fields.many2one('res.country.state', 'State From', domain="[('country_id','=',from_country)]"),
                 'to_country': fields.many2one('res.country', 'Country To'),
                 'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
-                'fiscal_position_id': fields.many2one('account.fiscal.position.template', 'Fiscal Position', required=True),
+                'fiscal_position_id': fields.many2one('account.fiscal.position.template', 'Fiscal Position'),
                 'use_sale': fields.boolean('Use in sales order'),
                 'use_invoice': fields.boolean('Use in Invoices'),
                 'use_purchase': fields.boolean('Use in Purchases'),
@@ -177,7 +176,7 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
                 'to_country': template.to_country.id,
                 'to_state': template.to_state.id,
                 'company_id': company_id,
-                'fiscal_position_id': fiscal_position_ids[0],
+                'fiscal_position_id': fiscal_position_ids and fiscal_position_ids[0],
                 'use_sale': template.use_sale,
                 'use_invoice': template.use_invoice,
                 'use_purchase': template.use_purchase,
@@ -199,6 +198,8 @@ class wizard_account_fiscal_position_rule(osv.osv_memory):
         pfr_ids = obj_fiscal_position_rule_template.search(
             cr, uid, [], context=context)
 
+        #TODO fix me doesn't work multi template that have empty fiscal position
+        #maybe we should link the rule with the account template
         for fpr_template in obj_fiscal_position_rule_template.browse(cr, uid, pfr_ids, context=context):
             fp_ids = False
             if fpr_template.fiscal_position_id:
