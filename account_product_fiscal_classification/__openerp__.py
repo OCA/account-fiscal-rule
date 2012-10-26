@@ -27,14 +27,14 @@
     'website': 'http://www.akretion.com',
     'depends': ["account", "product"],
     'init_xml': [],
-    'update_xml': 
-		[
-		'product_view.xml', 
-		'account_product_fiscal_classification_data.xml', 
-		'account_product_fiscal_classification_view.xml', 
-		'security/account_product_fiscal_classification_security.xml',
-		'security/ir.model.access.csv',
-		],
+    'update_xml':
+        [
+        'product_view.xml',
+        'account_product_fiscal_classification_data.xml',
+        'account_product_fiscal_classification_view.xml',
+        'security/account_product_fiscal_classification_security.xml',
+        'security/ir.model.access.csv',
+        ],
     'demo_xml': [],
     'installable': True,
     'active': False,
