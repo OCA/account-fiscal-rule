@@ -27,7 +27,7 @@
     'website': 'http://www.akretion.com',
     'depends': ['account_fiscal_position_rule', 'sale','purchase'],
     'init_xml': [],
-    'update_xml': 
+    'update_xml':
                 [
                 'stock_view.xml',
                 'security/account_fiscal_position_rule_security.xml',
