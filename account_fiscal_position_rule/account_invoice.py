@@ -48,13 +48,13 @@ class account_invoice(osv.osv):
             return result
 
         obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
-        fiscal_result = obj_fiscal_position_rule.fiscal_position_map(cr, uid,  part_id, ptn_invoice_id, company_id, context={'use_domain': ('use_invoice', '=', True)})
+        fiscal_result = obj_fiscal_position_rule.fiscal_position_map(cr, uid, part_id, ptn_invoice_id, company_id, context={'use_domain': ('use_invoice', '=', True)})
 
         result['value'].update(fiscal_result)
 
         return result
 
-    def onchange_address_invoice_id(self, cr, uid, ids, cpy_id, ptn_id, ptn_invoice_id):
+    def onchange_address_id(self, cr, uid, ids, cpy_id, ptn_id, ptn_invoice_id=None, ptn_shipping_id=None):
 
         result = {'value': {'fiscal_position': False}}
 
@@ -62,7 +62,7 @@ class account_invoice(osv.osv):
             return result
 
         obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
-        fiscal_result = obj_fiscal_position_rule.fiscal_position_map(cr, uid,  ptn_id, ptn_invoice_id, cpy_id, context={'use_domain': ('use_invoice', '=', True)})
+        fiscal_result = obj_fiscal_position_rule.fiscal_position_map(cr, uid, ptn_id, ptn_invoice_id, ptn_shipping_id, cpy_id, context={'use_domain': ('use_invoice', '=', True)})
 
         result['value'].update(fiscal_result)
 
