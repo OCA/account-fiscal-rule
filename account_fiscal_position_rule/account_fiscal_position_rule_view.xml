@@ -16,9 +16,12 @@
                     <separator string="From" colspan="4"/>
                     <field name="from_country"/>
                     <field name="from_state"/>
-                    <separator string="To" colspan="4"/>
-                    <field name="to_country"/>
-                    <field name="to_state"/>
+                    <separator string="Invoicing" colspan="4"/>
+                    <field name="to_invoice_country"/>
+                    <field name="to_invoice_state"/>
+                    <separator string="Shipping" colspan="4"/>
+                    <field name="to_shipping_country"/>
+                    <field name="to_shipping_state"/>
                     <separator string="Configuration" colspan="4"/>
                     <field name="fiscal_position_id"/>
                     <field name="sequence"/>
@@ -27,6 +30,7 @@
                     <field name="use_invoice"/>
                     <field name="use_purchase"/>
                     <field name="use_picking"/>
+                    <field name="vat_rule"/>
                 </form>
             </field>
         </record>
@@ -40,9 +44,12 @@
                     <field name="name"/>
                     <field name="from_country"/>
                     <field name="from_state"/>
-                    <field name="to_country"/>
-                    <field name="to_state"/>
+                    <field name="to_invoice_country"/>
+                    <field name="to_invoice_state"/>
+                    <field name="to_shipping_country"/>
+                    <field name="to_shipping_state"/>
                     <field name="sequence"/>
+                    <field name="vat_rule"/>
                 </tree>
             </field>
         </record>
@@ -69,8 +76,8 @@
                         <field name="name"/>
                         <field name="from_country"/>
                         <field name="from_state"/>
-                        <field name="to_country"/>
-                        <field name="to_state"/>
+                        <field name="to_invoice_country"/>
+                        <field name="to_invoice_state"/>
                     </group>
                     <newline/>
                 </search>
@@ -101,9 +108,12 @@
                     <separator string="From" colspan="4"/>
                     <field name="from_country"/>
                     <field name="from_state"/>
-                    <separator string="To" colspan="4"/>
-                    <field name="to_country"/>
-                    <field name="to_state"/>
+                    <separator string="Invoicing" colspan="4"/>
+                    <field name="to_invoice_country"/>
+                    <field name="to_invoice_state"/>
+                    <separator string="Shipping" colspan="4"/>
+                    <field name="to_shipping_country"/>
+                    <field name="to_shipping_state"/>
                     <separator string="Configuration" colspan="4"/>
                     <field name="date_start"/>
                     <field name="date_end"/>
@@ -115,6 +125,7 @@
                     <field name="use_invoice"/>
                     <field name="use_purchase"/>
                     <field name="use_picking"/>
+                    <field name="vat_rule"/>
                 </form>
             </field>
         </record>
@@ -129,9 +140,12 @@
                     <field name="name"/>
                     <field name="from_country"/>
                     <field name="from_state"/>
-                    <field name="to_country"/>
-                    <field name="to_state"/>
+                    <field name="to_invoice_country"/>
+                    <field name="to_invoice_state"/>
+                    <field name="to_shipping_country"/>
+                    <field name="to_shipping_state"/>
                     <field name="sequence"/>
+                    <field name="vat_rule"/>
                 </tree>
             </field>
         </record>
@@ -152,8 +166,8 @@
                         <field name="name"/>
                         <field name="from_country"/>
                         <field name="from_state"/>
-                        <field name="to_country"/>
-                        <field name="to_state"/>
+                        <field name="to_invoice_country"/>
+                        <field name="to_invoice_state"/>
                     </group>
                     <newline/>
                 </search>
