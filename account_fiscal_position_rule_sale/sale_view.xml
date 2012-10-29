@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-
     <data>
 
         <record id="view_order_form1" model="ir.ui.view">
@@ -9,36 +8,28 @@
                <field name="inherit_id" ref="sale.view_order_form"/>
                <field name="priority">26</field>
                <field name="arch" type="xml">
-                <field name="shop_id" position="replace">
-                <field name="shop_id"  on_change="onchange_shop_id(shop_id, partner_id, partner_invoice_id)"  widget="selection" />
+                <field name="shop_id" position="attributes">
+                    <attribute name="on_change">
+                        onchange_shop_id(shop_id, partner_id, partner_invoice_id)
+                    </attribute>
                 </field>
-            </field>
-        </record>
-
-        <record id="view_order_form2" model="ir.ui.view">
-            <field name="name">account_fiscal_postion_rule_form_view_order_form2</field>
-               <field name="model">sale.order</field>
-               <field name="inherit_id" ref="sale.view_order_form"/>
-               <field name="priority">26</field>
-               <field name="arch" type="xml">
-                <field name="partner_invoice_id" position="replace">
-                    <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" on_change="onchange_partner_invoice_id(partner_invoice_id, partner_id, shop_id)"/>
+                <field name="partner_invoice_id" position="attributes">
+                    <attribute name="on_change">
+                        onchange_address_id(partner_invoice_id, partner_shipping_id, partner_id, shop_id)
+                    </attribute>
                 </field>
+                <field name="partner_shipping_id" position="attributes">
+                    <attribute name="on_change">
+                        onchange_address_id(partner_invoice_id, partner_shipping_id, partner_id, shop_id)
+                    </attribute>
                 </field>
-        </record>
-
-        <record id="view_order_form3" model="ir.ui.view">
-            <field name="name">account_fiscal_postion_rule_form_view_order_form3</field>
-               <field name="model">sale.order</field>
-               <field name="inherit_id" ref="sale.view_order_form"/>
-               <field name="priority">26</field>
-               <field name="arch" type="xml">
-                <field name="partner_id" position="replace">
-                    <field name="partner_id" on_change="onchange_partner_id(partner_id, shop_id)" required="1"/>
+                <field name="partner_id" position="attributes">
+                    <attribute name="on_change">
+                        onchange_partner_id(partner_id, shop_id)
+                    </attribute>
                 </field>
             </field>
         </record>
 
     </data>
-
 </openerp>
