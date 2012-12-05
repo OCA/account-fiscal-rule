@@ -37,7 +37,7 @@ class account_fiscal_position_rule(osv.osv):
                 'name': fields.char('Name', size=64, required=True),
                 'description': fields.char('Description', size=128),
                 'from_country': fields.many2one('res.country', 'Country From'),
-                'from_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',from_country)]"),
+                'from_state': fields.many2one('res.country.state', 'State From', domain="[('country_id','=',from_country)]"),
                 'to_invoice_country': fields.many2one('res.country', 'Invoice Country'),
                 'to_invoice_state': fields.many2one('res.country.state', 'Invoice State', domain="[('country_id','=',to_invoice_country)]"),
                 'to_shipping_country': fields.many2one('res.country', 'Destination Country'),
