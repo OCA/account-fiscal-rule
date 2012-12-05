@@ -43,8 +43,7 @@ class account_invoice(osv.osv):
 
         return result
 
-    def onchange_company_id(self, cr, uid, ids, company_id, part_id, type, invoice_line, currency_id, ptn_invoice_id):
-
+    def onchange_company_id(self, cr, uid, ids, company_id, part_id, type, invoice_line, currency_id):
         result = super(account_invoice, self).onchange_company_id(cr, uid, ids, company_id, part_id, type, invoice_line, currency_id)
 
         if not part_id or not company_id or not ptn_invoice_id:
