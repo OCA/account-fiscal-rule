@@ -10,12 +10,7 @@
                 <field name="company_id" position="attributes">
                     <attribute name="on_change">
                         onchange_company_id(company_id, partner_id, type, 
-                            invoice_line, currency_id, address_invoice_id)
-                    </attribute>
-                </field>
-                <field name="address_invoice_id" position="attributes">
-                    <attribute name="on_change">
-                        onchange_address_id(company_id, partner_id,address_invoice_id)
+                            invoice_line, currency_id, partner_id)
                     </attribute>
                 </field>
             </field>
@@ -29,12 +24,7 @@
                 <field name="company_id" position="attributes">
                     <attribute name="on_change">
                         onchange_company_id(company_id, partner_id, type,
-                            invoice_line, currency_id, address_invoice_id)
-                    </attribute>
-                </field>
-                <field name="address_invoice_id" position="attributes">
-                    <attribute name="on_change">
-                        onchange_address_id(company_id, partner_id, address_invoice_id)
+                            invoice_line, currency_id, partner_id)
                     </attribute>
                 </field>
             </field>
