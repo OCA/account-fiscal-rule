@@ -32,7 +32,6 @@ class sale_order(osv.Model):
     def onchange_partner_id(self, cr, uid, ids, partner_id,
                             context=None, shop_id=False, **kwargs):
 
-        print "FP onchange_partner_id", shop_id, kwargs
         result = super(sale_order, self).onchange_partner_id(cr, uid, ids,
                                                              partner_id,
                                                              context)
