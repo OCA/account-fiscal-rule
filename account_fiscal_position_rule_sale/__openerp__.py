@@ -30,7 +30,7 @@
     'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
     ## WHEN MERGING PLEASE LEAVE THE DEPENDENCY ON delivery BECAUSE OTHERWISE THE ONCHANGE_PARTNER_ID WILL BE TRIGGERED SOMETIMES IN DELIVERY
-    'depends': ['account_fiscal_position_rule', 'sale', 'delivery'],
+    'depends': ['account_fiscal_position_rule', 'sale'],
     'init_xml': [],
     'update_xml':
                 [
