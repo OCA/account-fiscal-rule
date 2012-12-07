@@ -102,9 +102,12 @@ class account_fiscal_position_rule(osv.osv):
 
         return domain
 
+    def apply_fiscal_mapping(self, cr, uid, result, kwargs):
+         result['value'].update(self.fiscal_position_map(cr, uid, **kwargs))
+         return result
 
     def fiscal_position_map(self, cr, uid, partner_id=None, partner_invoice_id=None,
-        partner_shipping_id=None, company_id=None, context=None):
+        partner_shipping_id=None, company_id=None, context=None, **kwargs):
 
         result = {'fiscal_position': False}
         if not partner_id or not company_id:
