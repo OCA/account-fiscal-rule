@@ -5,7 +5,6 @@
         <record model="ir.ui.view" id="fiscal_classification_normal_form_view_form">
             <field name="name">fiscal_classification_normal_form_view_form</field>
             <field name="model">account.product.fiscal.classification</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Fiscal Classification">
                         <field name="name"/>
@@ -24,12 +23,11 @@
         <record model="ir.ui.view" id="fiscal_classification_normal_form_view_tree">
             <field name="name">fiscal_classification_normal_form_view_tree</field>
             <field name="model">account.product.fiscal.classification</field>
-            <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Fiscal Classification">
-                    <field select="1" name="name"/>
+                    <field name="name"/>
                     <field name="description"/>
-                    <field select="1" name="company_id"/>
+                    <field name="company_id"/>
                 </tree>
             </field>
         </record>
@@ -37,7 +35,6 @@
         <record model="ir.ui.view" id="fiscal_classification_template_normal_form_view_form">
             <field name="name">fiscal_classification_template_normal_form_view_form</field>
             <field name="model">account.product.fiscal.classification.template</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Fiscal Classification Template">
                         <field name="name"/>
@@ -54,10 +51,9 @@
         <record model="ir.ui.view" id="fiscal_classification_template_normal_form_view_tree">
             <field name="name">fiscal_classification_normal_form_view_tree</field>
             <field name="model">account.product.fiscal.classification.template</field>
-            <field name="type">tree</field>
             <field name="arch" type="xml">
-                <tree string="Fiscal Classification Templates">
-                    <field select="1" name="name"/>
+                <tree string="Fiscal Classification Template">
+                    <field name="name"/>
                     <field name="description"/>
                 </tree>
             </field>
@@ -68,7 +64,6 @@
         <record id="view_wizard_account_product_fiscal_classification" model="ir.ui.view">
             <field name="name">Generate Product Fiscal Classification from Templates</field>
             <field name="model">wizard.account.product.fiscal.classification</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Generate Product Fiscal Classification from Templates">
                     <separator col="4" colspan="4" string="Generate Product Fiscal Classification from Templates"/>
