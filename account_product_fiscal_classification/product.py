@@ -22,9 +22,8 @@
 
 from osv import fields, osv
 
-class product_template(osv.osv):
+class product_template(osv.Model):
     _inherit = 'product.template'
-
     _columns = {
                 'property_fiscal_classification': fields.property(
                     'account.product.fiscal.classification',
@@ -34,7 +33,7 @@ class product_template(osv.osv):
                     method=True,
                     view_load=True,
                     help="Company wise (eg localizable) Fiscal Classification"),
-                }
+    }
 
     def fiscal_classification_id_change(self, cr, uid, ids, fiscal_classification_id=False, sale_tax_ids=[[6, 0, []]], purchase_tax_ids=[[6, 0, []]]):
         """We eventually keep the sale and purchase taxes because those are not company wise in OpenERP. So if we choose a different fiscal position
@@ -47,13 +46,14 @@ class product_template(osv.osv):
             to_keep_sale_tax_ids = self.pool.get('account.tax').search(cr, uid, [('id', 'in', sale_tax_ids[0][2]), ('company_id', '!=', current_company_id)])
             to_keep_purchase_tax_ids = self.pool.get('account.tax').search(cr, uid, [('id', 'in', purchase_tax_ids[0][2]), ('company_id', '!=', current_company_id)])
 
-            result['value']['taxes_id'] = to_keep_sale_tax_ids + [x.id for x in fiscal_classification.sale_base_tax_ids]
-            result['value']['supplier_taxes_id'] = to_keep_purchase_tax_ids + [x.id for x in fiscal_classification.purchase_base_tax_ids]
+            result['value']['taxes_id'] = list(set(to_keep_sale_tax_ids + [x.id for x in fiscal_classification.sale_base_tax_ids]))
+            result['value']['supplier_taxes_id'] = list(set(to_keep_purchase_tax_ids + [x.id for x in fiscal_classification.purchase_base_tax_ids]))
         return result
 
 product_template()
 
-class product_product(osv.osv):
+
+class product_product(osv.Model):
     _inherit = "product.product"
 
     def fiscal_classification_id_change(self, cr, uid, ids, fiscal_classification_id=False, sale_tax_ids=[[6, 0, []]], purchase_tax_ids=[[6, 0, []]]):
@@ -64,5 +64,3 @@ class product_product(osv.osv):
         return result
 
 product_product()
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
