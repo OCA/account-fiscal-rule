@@ -19,56 +19,73 @@
 #
 ###############################################################################
 
-from osv import fields, osv
+from osv import osv
 
-class purchase_order(osv.osv):
 
+class purchase_order(osv.Model):
     _inherit = 'purchase.order'
 
-    def onchange_partner_id(self, cr, uid, ids, part, company_id=False):
+    def _fiscal_position_map(self, cr, uid, result, **kwargs):
+        kwargs['context'].update({'use_domain': ('use_purchase', '=', True)})
+        fp_rule_obj = self.pool.get('account.fiscal.position.rule')
+        return fp_rule_obj.apply_fiscal_mapping(cr, uid, result, kwargs)
 
-        result = super(purchase_order, self ).onchange_partner_id(cr, uid, ids, part)
+    def onchange_partner_id(self, cr, uid, ids, partner_id, company_id=None,
+                            context=None, **kwargs):
+        if not context:
+            context = {}
 
-        if not part or not company_id or not result['value']['partner_address_id']:
+        result = super(purchase_order, self).onchange_partner_id(
+            cr, uid, ids, partner_id)
+
+        if not partner_id or not company_id:
             return result
 
-        partner_address_id = result['value'].get('partner_address_id', False)
-        obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
-        fiscal_result = obj_fiscal_position_rule.fiscal_position_map(cr, uid,  part, partner_address_id, company_id, context={'use_domain': ('use_purchase','=',True)})
+        kwargs.update({
+            'company_id': company_id,
+            'partner_id': partner_id,
+            'partner_invoice_id': partner_id,
+            'partner_shipping_id': partner_id,
+            'context': context
+        })
+        return self._fiscal_position_map(cr, uid, result, **kwargs)
 
-        result['value'].update(fiscal_result)
-
-        return result
-
-    def onchange_partner_address_id(self, cr, uid, ids, partner_address_id, company_id=False):
+    def onchange_dest_address_id(self, cr, uid, ids, partner_id,
+                                dest_address_id, company_id=None,
+                                context=None, **kwargs):
+        if not context:
+            context = {}
 
         result = {'value': {'fiscal_position': False}}
 
-        if not partner_address_id or not company_id:
+        if not partner_id or not company_id:
             return result
 
-        partner_addr = self.pool.get('res.partner.address').browse(cr, uid, partner_address_id)
-        obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
-        fiscal_result = obj_fiscal_position_rule.fiscal_position_map(cr, uid,  partner_addr.partner_id.id, partner_address_id, company_id, context={'use_domain': ('use_purchase','=',True)})
+        kwargs.update({
+            'company_id': company_id,
+            'partner_id': partner_id,
+            'partner_invoice_id': partner_id,
+            'partner_shipping_id': dest_address_id,
+            'context': context
+        })
+        return self._fiscal_position_map(cr, uid, result, **kwargs)
 
-        result['value'].update(fiscal_result)
-
-        return result
-
-    def onchange_company_id(self, cr, uid, ids, partner_id, partner_address_id=False, company_id=False):
+    def onchange_company_id(self, cr, uid, ids, partner_id,
+                            dest_address_id=False, company_id=False,
+                            context=None, **kwargs):
+        if not context:
+            context = {}
 
         result = {'value': {'fiscal_position': False}}
 
-        if not partner_id or not partner_address_id or not company_id:
+        if not partner_id or not company_id:
             return result
 
-        obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
-        fiscal_result = obj_fiscal_position_rule.fiscal_position_map(cr, uid,  partner_id, partner_address_id, company_id, context={'use_domain': ('use_purchase','=',True)})
-
-        result['value'].update(fiscal_result)
-
-        return result
-
-purchase_order()
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        kwargs.update({
+            'company_id': company_id,
+            'partner_id': partner_id,
+            'partner_invoice_id': partner_id,
+            'partner_shipping_id': dest_address_id,
+            'context': context
+        })
+        return self._fiscal_position_map(cr, uid, result, **kwargs)
