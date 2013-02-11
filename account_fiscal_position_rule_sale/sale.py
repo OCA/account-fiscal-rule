@@ -31,6 +31,9 @@ class sale_order(osv.Model):
 
     def _fiscal_position_map(self, cr, uid, result, **kwargs):
 
+        if not kwargs.get('context', False):
+            kwargs['context'] = {}
+
         kwargs['context'].update({'use_domain': ('use_sale', '=', True)})
         obj_shop = self.pool.get('sale.shop').browse(
             cr, uid, kwargs.get('shop_id'))
