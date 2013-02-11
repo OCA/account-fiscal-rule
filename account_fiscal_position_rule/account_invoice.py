@@ -20,56 +20,40 @@
 #
 ###############################################################################
 
-from osv import fields, osv
+from osv import osv
 
 
-class account_invoice(osv.osv):
-
+class account_invoice(osv.Model):
     _inherit = 'account.invoice'
 
-    def onchange_partner_id(self, cr, uid, ids, type, partner_id,\
-            date_invoice=False, payment_term=False, partner_bank_id=False, company_id=False):
+    def _fiscal_position_map(self, cr, uid, result, context=None, **kwargs):
+        fp_rule_obj = self.pool.get('account.fiscal.position.rule')
+        return fp_rule_obj.apply_fiscal_mapping(cr, uid, result, **kwargs)
 
-        result = super(account_invoice, self).onchange_partner_id(cr, uid, ids, type, partner_id, date_invoice, payment_term, partner_bank_id, company_id)
+    def onchange_partner_id(self, cr, uid, ids, type, partner_id,
+                            date_invoice=False, payment_term=False,
+                            partner_bank_id=False, company_id=False):
 
-        if not partner_id or not company_id or not result['value']['address_invoice_id']:
+        result = super(account_invoice, self).onchange_partner_id(
+            cr, uid, ids, type, partner_id, date_invoice, payment_term,
+            partner_bank_id, company_id)
+
+        if not partner_id or not company_id:
             return result
 
-        partner_invoice_id = result['value'].get('partner_invoice_id', False)
-        obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
-        fiscal_result = obj_fiscal_position_rule.fiscal_position_map(cr, uid,  partner_id, partner_invoice_id, company_id, context={'use_domain': ('use_invoice', '=', True)})
+        return self._fiscal_position_map(
+            cr, uid, result, partner_id=partner_id,
+            partner_invoice_id=partner_id, company_id=company_id)
 
-        result['value'].update(fiscal_result)
+    def onchange_company_id(self, cr, uid, ids, company_id, partner_id, type,
+                            invoice_line, currency_id):
+        result = super(account_invoice, self).onchange_company_id(
+            cr, uid, ids, company_id, partner_id, type, invoice_line,
+            currency_id)
 
-        return result
-
-    def onchange_company_id(self, cr, uid, ids, company_id, part_id, type, invoice_line, currency_id):
-        result = super(account_invoice, self).onchange_company_id(cr, uid, ids, company_id, part_id, type, invoice_line, currency_id)
-
-        if not part_id or not company_id or not ptn_invoice_id:
+        if not partner_id or not company_id:
             return result
 
-        obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
-        fiscal_result = obj_fiscal_position_rule.fiscal_position_map(cr, uid, part_id, ptn_invoice_id, company_id, context={'use_domain': ('use_invoice', '=', True)})
-
-        result['value'].update(fiscal_result)
-
-        return result
-
-    def onchange_address_id(self, cr, uid, ids, cpy_id, ptn_id, ptn_invoice_id=None, ptn_shipping_id=None):
-
-        result = {'value': {'fiscal_position': False}}
-
-        if not ptn_id or not cpy_id or not ptn_invoice_id:
-            return result
-
-        obj_fiscal_position_rule = self.pool.get('account.fiscal.position.rule')
-        fiscal_result = obj_fiscal_position_rule.fiscal_position_map(cr, uid, ptn_id, ptn_invoice_id, ptn_shipping_id, cpy_id, context={'use_domain': ('use_invoice', '=', True)})
-
-        result['value'].update(fiscal_result)
-
-        return result
-
-account_invoice()
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        return self._fiscal_position_map(
+            cr, uid, result, partner_id=partner_id,
+            partner_invoice_id=partner_id, company_id=company_id)
