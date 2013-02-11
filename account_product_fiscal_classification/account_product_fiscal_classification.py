@@ -56,7 +56,7 @@ class account_product_fiscal_classification(osv.Model):
                 cr, uid,
                 [('name', '=', 'property_fiscal_classification'),
                 ('res_id', 'ilike', 'product.template,'),
-                ('value_reference', '=', 'account.product.fiscal.classification,%s' % (fiscal_classification.id,))])
+                ('value_reference', '=', 'account.product.fiscal.classification,%s' % fiscal_classification.id)])
 
             reads = self.pool.get('ir.property').read(
                 cr, uid, property_ids, ['res_id'])
@@ -166,7 +166,9 @@ class wizard_account_product_fiscal_classification(osv.TransientModel):
         'company_id': fields.many2one('res.company', 'Company', required=True),
     }
     _defaults = {
-        'company_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr,uid,[uid],c)[0].company_id.id,
+        'company_id': lambda self, cr, uid, c:
+            self.pool.get('res.users').browse(
+                cr, uid, [uid], c)[0].company_id.id,
     }
 
     def action_create(self, cr, uid, ids, context=None):
@@ -180,22 +182,25 @@ class wizard_account_product_fiscal_classification(osv.TransientModel):
         company_id = obj_wizard.company_id.id
         tax_template_ref = {}
 
-        tax_ids = obj_tax.search(cr, uid, [('company_id', '=', company_id)])
+        tax_ids = obj_tax.search(
+            cr, uid, [('company_id', '=', company_id)], context=context)
 
-        for tax in obj_tax.browse(cr, uid, tax_ids):
+        for tax in obj_tax.browse(cr, uid, tax_ids, context=context):
             tax_template = obj_tax_template.search(
-                cr, uid, [('name', '=', tax.name)])[0]
+                cr, uid, [('name', '=', tax.name)], context=context)[0]
 
             if tax_template:
                 tax_template_ref[tax_template] = tax.id
 
-        fclass_ids_template = obj_fc_template.search(cr, uid, [])
+        fclass_ids_template = obj_fc_template.search(
+            cr, uid, [], context=context)
 
         for fclass_template in obj_fc_template.browse(
-            cr, uid, fclass_ids_template):
+            cr, uid, fclass_ids_template, context=context):
 
             fclass_id = obj_fc.search(
-                cr, uid, [('name', '=', fclass_template.name)])
+                cr, uid, [('name', '=', fclass_template.name)],
+                context=context)
 
             if not fclass_id:
                 sale_tax_ids = []
@@ -213,6 +218,6 @@ class wizard_account_product_fiscal_classification(osv.TransientModel):
                     'sale_base_tax_ids': [(6, 0, sale_tax_ids)],
                     'purchase_base_tax_ids': [(6, 0, purchase_tax_ids)]
                 }
-                obj_fc.create(cr, uid, vals)
+                obj_fc.create(cr, uid, vals, context)
 
         return {}
