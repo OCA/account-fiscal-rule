@@ -22,45 +22,62 @@
 
 from osv import fields, osv
 
+
 class product_template(osv.Model):
     _inherit = 'product.template'
     _columns = {
-                'property_fiscal_classification': fields.property(
-                    'account.product.fiscal.classification',
-                    type='many2one',
-                    relation='account.product.fiscal.classification',
-                    string="Fiscal Classification",
-                    method=True,
-                    view_load=True,
-                    help="Company wise (eg localizable) Fiscal Classification"),
+        'property_fiscal_classification': fields.property(
+            'account.product.fiscal.classification',
+            type='many2one',
+            relation='account.product.fiscal.classification',
+            string="Fiscal Classification",
+            method=True,
+            view_load=True,
+            help="Company wise (eg localizable) Fiscal Classification"),
     }
 
-    def fiscal_classification_id_change(self, cr, uid, ids, fiscal_classification_id=False, sale_tax_ids=[[6, 0, []]], purchase_tax_ids=[[6, 0, []]]):
-        """We eventually keep the sale and purchase taxes because those are not company wise in OpenERP. So if we choose a different fiscal position
-        for a different company, we don't want to override other's companies setting"""
-        result = {'value':{}}
+    def fiscal_classification_id_change(self, cr, uid, ids,
+                                        fiscal_classification_id=False,
+                                        sale_tax_ids=[[6, 0, []]],
+                                        purchase_tax_ids=[[6, 0, []]]):
+        """We eventually keep the sale and purchase taxes because those
+        are not company wise in OpenERP. So if we choose a different
+        fiscal position for a different company, we don't want to override
+        other's companies setting"""
+        result = {'value': {}}
         if fiscal_classification_id:
-            fiscal_classification = self.pool.get('account.product.fiscal.classification').browse(cr, uid, fiscal_classification_id)
+            fclass = self.pool.get('account.product.fiscal.classification')
+            fiscal_classification = fclass.browse(
+                cr, uid, fiscal_classification_id)
 
-            current_company_id = self.pool.get('res.users').browse(cr, uid, uid).company_id.id
-            to_keep_sale_tax_ids = self.pool.get('account.tax').search(cr, uid, [('id', 'in', sale_tax_ids[0][2]), ('company_id', '!=', current_company_id)])
-            to_keep_purchase_tax_ids = self.pool.get('account.tax').search(cr, uid, [('id', 'in', purchase_tax_ids[0][2]), ('company_id', '!=', current_company_id)])
+            current_company_id = self.pool.get('res.users').browse(
+                cr, uid, uid).company_id.id
+            to_keep_sale_tax_ids = self.pool.get('account.tax').search(
+                cr, uid, [('id', 'in', sale_tax_ids[0][2]),
+                    ('company_id', '!=', current_company_id)])
+            to_keep_purchase_tax_ids = self.pool.get('account.tax').search(
+                cr, uid, [('id', 'in', purchase_tax_ids[0][2]),
+                    ('company_id', '!=', current_company_id)])
 
             result['value']['taxes_id'] = list(set(to_keep_sale_tax_ids + [x.id for x in fiscal_classification.sale_base_tax_ids]))
             result['value']['supplier_taxes_id'] = list(set(to_keep_purchase_tax_ids + [x.id for x in fiscal_classification.purchase_base_tax_ids]))
         return result
 
-product_template()
-
 
 class product_product(osv.Model):
     _inherit = "product.product"
 
-    def fiscal_classification_id_change(self, cr, uid, ids, fiscal_classification_id=False, sale_tax_ids=[[6, 0, []]], purchase_tax_ids=[[6, 0, []]]):
-        """We eventually keep the sale and purchase taxes because those are not company wise in OpenERP. So if we choose a different fiscal position
-        for a different company, we don't want to override other's companies setting"""
+    def fiscal_classification_id_change(self, cr, uid, ids,
+                                        fiscal_classification_id=False,
+                                        sale_tax_ids=[[6, 0, []]],
+                                        purchase_tax_ids=[[6, 0, []]]):
+        """We eventually keep the sale and purchase taxes because those
+        are not company wise in OpenERP. So if we choose a different
+        fiscal position for a different company, we don't want to override
+        other's companies setting"""
 
-        result = self.pool.get('product.template').fiscal_classification_id_change(cr, uid, ids, fiscal_classification_id, sale_tax_ids=[[6, 0, []]], purchase_tax_ids=[[6, 0, []]])
+        product_template = self.pool.get('product.template')
+        result = product_template.fiscal_classification_id_change(
+            cr, uid, ids, fiscal_classification_id, sale_tax_ids=[[6, 0, []]],
+            purchase_tax_ids=[[6, 0, []]])
         return result
-
-product_product()
