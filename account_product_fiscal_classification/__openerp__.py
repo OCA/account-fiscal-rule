@@ -31,15 +31,14 @@
         'account',
         'product',
     ],
-    'init_xml': [],
-    'update_xml': [
+    'data': [
         'product_view.xml',
         'account_product_fiscal_classification_data.xml',
         'account_product_fiscal_classification_view.xml',
         'security/account_product_fiscal_classification_security.xml',
         'security/ir.model.access.csv',
     ],
-    'demo_xml': [],
+    'demo': [],
     'installable': True,
     'active': False,
 }
