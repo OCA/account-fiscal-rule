@@ -30,15 +30,13 @@
     'website': 'http://www.akretion.com',
     'depends': [
         'account_fiscal_position_rule',
-        'sale',
-        'purchase',
+        'stock',
     ],
-    'init_xml': [],
-    'update_xml': [
+    'data': [
         'stock_view.xml',
         'security/account_fiscal_position_rule_security.xml',
         'security/ir.model.access.csv',
     ],
-    'demo_xml': [],
+    'demo': [],
     'installable': True,
 }
