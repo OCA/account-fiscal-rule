@@ -25,22 +25,20 @@
     'name': 'Account Fiscal Position Rule Sale',
     'version': '1.1',
     'category': 'Generic Modules/Accounting',
-    'description': """Include a rule to decide the correct fiscal position for Sale""",
+    'description': """Include a rule to decide the
+    correct fiscal position for Sale""",
     'author': 'Akretion',
     'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
-    ## WHEN MERGING PLEASE LEAVE THE DEPENDENCY ON delivery BECAUSE OTHERWISE THE ONCHANGE_PARTNER_ID WILL BE TRIGGERED SOMETIMES IN DELIVERY
-    'depends': ['account_fiscal_position_rule', 'sale'],
-    'init_xml': [],
-    'update_xml':
-                [
-                'sale_view.xml',
-                'security/account_fiscal_position_rule_sale_security.xml',
-                'security/ir.model.access.csv',
-
-                ],
-    'demo_xml': [],
+    'depends': [
+        'account_fiscal_position_rule',
+        'sale',
+    ],
+    'data': [
+        'sale_view.xml',
+        'security/account_fiscal_position_rule_sale_security.xml',
+        'security/ir.model.access.csv',
+    ],
+    'demo': [],
     'installable': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
