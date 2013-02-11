@@ -26,6 +26,10 @@ class purchase_order(osv.Model):
     _inherit = 'purchase.order'
 
     def _fiscal_position_map(self, cr, uid, result, **kwargs):
+
+        if not kwargs.get('context', False):
+            kwargs['context'] = {}
+
         kwargs['context'].update({'use_domain': ('use_purchase', '=', True)})
         fp_rule_obj = self.pool.get('account.fiscal.position.rule')
         return fp_rule_obj.apply_fiscal_mapping(cr, uid, result, kwargs)
