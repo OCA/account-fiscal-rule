@@ -35,12 +35,11 @@
         'account_fiscal_position_rule',
         'purchase',
     ],
-    'init_xml': [],
-    'update_xml': [
+    'data': [
         'purchase_view.xml',
         'security/account_fiscal_position_rule_purchase_security.xml',
         'security/ir.model.access.csv',
     ],
-    'demo_xml': [],
+    'demo': [],
     'installable': True,
 }
