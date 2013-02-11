@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <field name="property_account_expense" position="after">
                 	<separator string="Fiscal Properties" colspan="4"/>
-                    <field name="property_fiscal_classification" colspan="4" attrs="{'required': [('type', '!=', 'service')]}" select="2" on_change="fiscal_classification_id_change(property_fiscal_classification, taxes_id, supplier_taxes_id)"/>
+                    <field name="property_fiscal_classification" colspan="4" attrs="{'required': [('type', '!=', 'service')]}" select="2" on_change="fiscal_classification_id_change(property_fiscal_classification, taxes_id, supplier_taxes_id, context)"/>
                 </field>
             </field>
         </record>
