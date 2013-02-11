@@ -21,23 +21,24 @@
 ###############################################################################
 
 {
-    "name" : "Account Product Fiscal Classification",
-    "version" : "0.1",
+    'name': 'Account Product Fiscal Classification',
+    'version': '0.1',
     'license': 'AGPL-3',
-    "author" : "Akretion",
-    "description": """Account Product Fiscal Classification
-    """,
+    'author': 'Akretion',
+    'description': """Account Product Fiscal Classification""",
     'website': 'http://www.akretion.com',
-    'depends': ["account", "product"],
+    'depends': [
+        'account',
+        'product',
+    ],
     'init_xml': [],
-    'update_xml':
-        [
+    'update_xml': [
         'product_view.xml',
         'account_product_fiscal_classification_data.xml',
         'account_product_fiscal_classification_view.xml',
         'security/account_product_fiscal_classification_security.xml',
         'security/ir.model.access.csv',
-        ],
+    ],
     'demo_xml': [],
     'installable': True,
     'active': False,
