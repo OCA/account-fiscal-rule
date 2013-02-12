@@ -21,6 +21,7 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+
 {
     'name': 'Account Fiscal Position Rule',
     'version': '1.1',
@@ -29,18 +30,15 @@
     'author': 'Akretion',
     'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
-    'depends': ['account'],
-    'init_xml': [],
-    'update_xml':
-                [
-                'account_invoice_view.xml',
-                'account_fiscal_position_rule_view.xml',
-                'security/account_fiscal_position_rule_security.xml',
-                'security/ir.model.access.csv',
-
-                ],
-    'demo_xml': [],
+    'depends': [
+        'account',
+    ],
+    'data': [
+        'account_invoice_view.xml',
+        'account_fiscal_position_rule_view.xml',
+        'security/account_fiscal_position_rule_security.xml',
+        'security/ir.model.access.csv',
+    ],
+    'demo': [],
     'installable': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
