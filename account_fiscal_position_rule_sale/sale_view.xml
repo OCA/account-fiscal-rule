@@ -25,7 +25,10 @@
                 </field>
                 <field name="partner_id" position="attributes">
                     <attribute name="on_change">
-                        onchange_partner_id(partner_id, context, shop_id)
+                        onchange_partner_id(partner_id, context)
+                    </attribute>
+                    <attribute name="context">
+                        {'shop_id': shop_id}
                     </attribute>
                 </field>
             </field>
