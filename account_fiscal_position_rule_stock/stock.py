@@ -27,7 +27,7 @@ class stock_picking(osv.Model):
     _description = "Picking List"
     _columns = {
         'fiscal_position': fields.many2one(
-            'account.fiscal.position', 'Posição Fiscal',
+            'account.fiscal.position', 'Fiscal Position',
             domain="[('fiscal_operation_id','=',fiscal_operation_id)]"),
     }
 
