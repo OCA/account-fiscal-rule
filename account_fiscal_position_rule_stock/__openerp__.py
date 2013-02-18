@@ -23,20 +23,20 @@
     'name': 'Account Fiscal Position Rule Stock',
     'version': '1.1',
     'category': 'Generic Modules/Accounting',
-    'description': """Include a rule to decide the correct fiscal position for Stock""",
+    'description': """Include a rule to decide the correct
+    fiscal position for Stock""",
     'author': 'Akretion',
     'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
-    'depends': ['account_fiscal_position_rule', 'sale','purchase'],
-    'init_xml': [],
-    'update_xml':
-                [
-                'stock_view.xml',
-                'security/account_fiscal_position_rule_security.xml',
-                'security/ir.model.access.csv',
-                ],
-    'demo_xml': [],
+    'depends': [
+        'account_fiscal_position_rule',
+        'stock',
+    ],
+    'data': [
+        'stock_view.xml',
+        'security/account_fiscal_position_rule_security.xml',
+        'security/ir.model.access.csv',
+    ],
+    'demo': [],
     'installable': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
