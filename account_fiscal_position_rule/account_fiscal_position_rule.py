@@ -112,7 +112,7 @@ class account_fiscal_position_rule(osv.Model):
 
         return domain
 
-    def apply_fiscal_mapping(self, cr, uid, result, kwargs):
+    def apply_fiscal_mapping(self, cr, uid, result, **kwargs):
         result['value'].update(self.fiscal_position_map(cr, uid, **kwargs))
         return result
 
