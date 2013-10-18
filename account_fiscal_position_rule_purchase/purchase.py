@@ -32,7 +32,7 @@ class purchase_order(osv.Model):
 
         kwargs['context'].update({'use_domain': ('use_purchase', '=', True)})
         fp_rule_obj = self.pool.get('account.fiscal.position.rule')
-        return fp_rule_obj.apply_fiscal_mapping(cr, uid, result, kwargs)
+        return fp_rule_obj.apply_fiscal_mapping(cr, uid, result, **kwargs)
 
     def onchange_partner_id(self, cr, uid, ids, partner_id, company_id=None,
                             context=None, **kwargs):
