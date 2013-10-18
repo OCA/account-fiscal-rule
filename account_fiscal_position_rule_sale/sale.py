@@ -40,7 +40,7 @@ class sale_order(osv.Model):
         company_id = obj_shop.company_id.id
         kwargs.update({'company_id': company_id})
         fp_rule_obj = self.pool.get('account.fiscal.position.rule')
-        return fp_rule_obj.apply_fiscal_mapping(cr, uid, result, kwargs)
+        return fp_rule_obj.apply_fiscal_mapping(cr, uid, result, **kwargs)
 
     def onchange_partner_id(self, cr, uid, ids, partner_id, context=None):
 
