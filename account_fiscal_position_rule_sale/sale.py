@@ -53,13 +53,14 @@ class sale_order(osv.Model):
             return result
 
         values = result['value']
-        kwargs = {
+        kwargs = context.copy()
+        kwargs.update({
             'shop_id': context['shop_id'],
             'partner_id': partner_id,
             'partner_invoice_id': values.get('partner_invoice_id', False),
             'partner_shipping_id': values.get('partner_shipping_id', False),
             'context': context
-        }
+        })
         return self._fiscal_position_map(cr, uid, result, **kwargs)
 
     def onchange_address_id(self, cr, uid, ids, partner_invoice_id,
