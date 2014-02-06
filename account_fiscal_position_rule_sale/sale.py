@@ -89,7 +89,8 @@ class sale_order(osv.Model):
         if not context:
             context = {}
 
-        result = {'value': {}}
+        result = super(sale_order, self).onchange_shop_id(
+            cr, uid, ids, shop_id, context=context)
         if not shop_id or not partner_id:
             return result
 
