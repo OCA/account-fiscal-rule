@@ -24,7 +24,7 @@
 
 {
     'name': 'Account Fiscal Position Rule',
-    'version': '1.1',
+    'version': '1.2',
     'category': 'Generic Modules/Accounting',
     'description': """Include a rule to decide the correct fiscal position""",
     'author': 'Akretion',
