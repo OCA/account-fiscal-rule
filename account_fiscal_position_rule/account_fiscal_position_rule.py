@@ -130,7 +130,7 @@ class account_fiscal_position_rule(osv.osv):
         # In picking case the invoice_id can be empty but we need a value
         # I only see this case, maybe we can move this code in fiscal_stock_rule
         else:
-            partner_addr = self.pool.get('res.partner').address_get(cr,uid,[partner_id],['invoice'])
+            partner_addr = self.pool.get('res.partner').address_get(cr, uid, [partner_id], ['invoice'])
             addr_id = partner_addr['invoice'] and partner_addr['invoice'] or None
             if addr_id:
                 addrs['invoice'] = obj_address.browse(cr, uid, addr_id, context=context)
