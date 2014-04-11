@@ -24,7 +24,7 @@ msgstr "Cancelar"
 #: help:account.fiscal.position.rule,vat_rule:0
 #: help:account.fiscal.position.rule.template,vat_rule:0
 msgid "Choose if the customer need to have the field VAT fill for using this fiscal position"
-msgstr "Selecciona si es necesario que el cliente tenga el NIF/CIF rellenado para utilizar esta posición fiscal"
+msgstr "Selecciona si es necesario que el cliente tenga el NIF rellenado para utilizar esta posición fiscal"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,company_id:0
