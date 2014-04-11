@@ -258,53 +258,25 @@ msgstr "Usados en Pedidos ventas"
 #: field:account.fiscal.position.rule,vat_rule:0
 #: field:account.fiscal.position.rule.template,vat_rule:0
 msgid "VAT Rule"
-msgstr "Regla NIF/CIF"
+msgstr "Regla NIF"
 
 #. module: account_fiscal_position_rule
 #: selection:account.fiscal.position.rule,vat_rule:0
 #: selection:account.fiscal.position.rule.template,vat_rule:0
 msgid "With VAT number"
-msgstr "Con número NIF/CIF"
+msgstr "Con número NIF"
 
 #. module: account_fiscal_position_rule
 #: selection:account.fiscal.position.rule,vat_rule:0
 #: selection:account.fiscal.position.rule.template,vat_rule:0
 msgid "With or Without VAT number"
-msgstr "Cono sin NIF/CIF"
+msgstr "Cono sin NIF"
 
 #. module: account_fiscal_position_rule
 #: selection:account.fiscal.position.rule,vat_rule:0
 #: selection:account.fiscal.position.rule.template,vat_rule:0
 msgid "Without VAT number"
-msgstr "Sin número NIF/CIF"
-
-#. module: account_fiscal_position_rule
-#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule
-msgid "account.fiscal.position.rule"
-msgstr "account.fiscal.position.rule"
-
-#. module: account_fiscal_position_rule
-#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule_template
-msgid "account.fiscal.position.rule.template"
-msgstr "account.fiscal.position.rule.template"
-
-#. module: account_fiscal_position_rule
-#: view:account.invoice:0
-msgid ""
-"onchange_company_id(company_id, partner_id, type,\n"
-"                            invoice_line, currency_id, partner_id)"
-msgstr ""
-"onchange_company_id(company_id, partner_id, type,\n"
-"                            invoice_line, currency_id, partner_id)"
-
-#. module: account_fiscal_position_rule
-#: view:account.invoice:0
-msgid ""
-"onchange_company_id(company_id, partner_id, type, \n"
-"                            invoice_line, currency_id, partner_id)"
-msgstr ""
-"onchange_company_id(company_id, partner_id, type, \n"
-"                            invoice_line, currency_id, partner_id)"
+msgstr "Sin número NIF"
 
 #. module: account_fiscal_position_rule
 #: view:wizard.account.fiscal.position.rule:0
@@ -333,8 +305,5 @@ msgstr "usado en facturas"
 msgid "used in purchase"
 msgstr "usado en compra"
 
-#. module: account_fiscal_position_rule
-#: model:ir.model,name:account_fiscal_position_rule.model_wizard_account_fiscal_position_rule
-msgid "wizard.account.fiscal.position.rule"
-msgstr "wizard.account.fiscal.position.rule"
+
 
