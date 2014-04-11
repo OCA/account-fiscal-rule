@@ -279,28 +279,6 @@ msgid "Without VAT number"
 msgstr ""
 
 #. module: account_fiscal_position_rule
-#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule
-msgid "account.fiscal.position.rule"
-msgstr ""
-
-#. module: account_fiscal_position_rule
-#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule_template
-msgid "account.fiscal.position.rule.template"
-msgstr ""
-
-#. module: account_fiscal_position_rule
-#: view:account.invoice:0
-msgid "onchange_company_id(company_id, partner_id, type,\n"
-"                            invoice_line, currency_id, partner_id)"
-msgstr ""
-
-#. module: account_fiscal_position_rule
-#: view:account.invoice:0
-msgid "onchange_company_id(company_id, partner_id, type, \n"
-"                            invoice_line, currency_id, partner_id)"
-msgstr ""
-
-#. module: account_fiscal_position_rule
 #: view:wizard.account.fiscal.position.rule:0
 msgid "ou"
 msgstr ""
@@ -327,8 +305,5 @@ msgstr ""
 msgid "used in purchase"
 msgstr ""
 
-#. module: account_fiscal_position_rule
-#: model:ir.model,name:account_fiscal_position_rule.model_wizard_account_fiscal_position_rule
-msgid "wizard.account.fiscal.position.rule"
-msgstr ""
+
 
