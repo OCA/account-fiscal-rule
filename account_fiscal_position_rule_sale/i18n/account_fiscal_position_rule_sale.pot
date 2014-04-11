@@ -20,23 +20,5 @@ msgstr ""
 msgid "Sales Order"
 msgstr ""
 
-#. module: account_fiscal_position_rule_sale
-#: view:sale.order:0
-msgid "onchange_address_id(partner_invoice_id, partner_shipping_id, partner_id, shop_id, context)"
-msgstr ""
 
-#. module: account_fiscal_position_rule_sale
-#: view:sale.order:0
-msgid "onchange_partner_id(partner_id, context)"
-msgstr ""
-
-#. module: account_fiscal_position_rule_sale
-#: view:sale.order:0
-msgid "onchange_shop_id(shop_id, context, partner_id, partner_invoice_id, partner_shipping_id)"
-msgstr ""
-
-#. module: account_fiscal_position_rule_sale
-#: view:sale.order:0
-msgid "{'shop_id': shop_id}"
-msgstr ""
 
