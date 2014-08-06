@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/OCA/account-fiscal-rule.svg?branch=7.0)](https://travis-ci.org/OCA/account-fiscal-rule)
-[![Coverage Status](https://coveralls.io/repos/OCA/account-fiscal-rule/badge.png?branch=7.0)](https://coveralls.io/r/OCA/account-fiscal-rule?branch=7.0)
+[![Build Status](https://travis-ci.org/OCA/account-fiscal-rule.svg?branch=master)](https://travis-ci.org/OCA/account-fiscal-rule)
+[![Coverage Status](https://coveralls.io/repos/OCA/account-fiscal-rule/badge.png?branch=master)](https://coveralls.io/r/OCA/account-fiscal-rule?branch=master)
 
 Fiscal Rules (multi-criteria decision tables)
 =============================================
