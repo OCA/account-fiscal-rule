@@ -19,77 +19,63 @@
 #
 ###############################################################################
 
-from osv import osv
+from openerp import models, api
 
 
-class purchase_order(osv.Model):
+class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
-    def _fiscal_position_map(self, cr, uid, result, **kwargs):
+    def _fiscal_position_map(self, result, **kwargs):
+        ctx = dict(self._context)
+        ctx.update({'use_domain': ('use_purchase', '=', True)})
+        return self.env['account.fiscal.position.rule'].with_context(
+            ctx).apply_fiscal_mapping(result, **kwargs)
 
-        if not kwargs.get('context', False):
-            kwargs['context'] = {}
+    @api.multi
+    def onchange_partner_id(self, partner_id):
+        ctx = dict(self._context)
+        result = super(PurchaseOrder, self).onchange_partner_id(partner_id)
 
-        kwargs['context'].update({'use_domain': ('use_purchase', '=', True)})
-        fp_rule_obj = self.pool.get('account.fiscal.position.rule')
-        return fp_rule_obj.apply_fiscal_mapping(cr, uid, result, **kwargs)
+        print "onchange_partner_id"
 
-    def onchange_partner_id(self, cr, uid, ids, partner_id, company_id=None,
-                            context=None, **kwargs):
-        if not context:
-            context = {}
-
-        result = super(purchase_order, self).onchange_partner_id(
-            cr, uid, ids, partner_id)
-
-        if not partner_id or not company_id:
+        if not partner_id or not ctx.get('company_id'):
             return result
 
-        kwargs.update({
-            'company_id': company_id,
+        kwargs = {
+            'company_id': ctx.get('company_id'),
             'partner_id': partner_id,
             'partner_invoice_id': partner_id,
             'partner_shipping_id': partner_id,
-            'context': context
-        })
-        return self._fiscal_position_map(cr, uid, result, **kwargs)
+        }
 
-    def onchange_dest_address_id(self, cr, uid, ids, partner_id,
-                                 dest_address_id, company_id=None,
-                                 context=None, **kwargs):
-        if not context:
-            context = {}
+    @api.multi
+    def onchange_dest_address_id(self, dest_address_id):
+        ctx = dict(self._context)
+        result = {'value': {'fiscal_position': False}}
+
+        if not ctx.get('partner_id') and not ctx.get('company_id'):
+            return result
+
+        kwargs = {
+            'company_id': ctx.get('company_id'),
+            'partner_id': ctx.get('partner_id'),
+            'partner_invoice_id': ctx.get('partner_id'),
+            'partner_shipping_id': dest_address_id,
+        }
+        return self._fiscal_position_map(result, **kwargs)
+
+    @api.multi
+    def onchange_company_id(self, partner_id, dest_address_id, company_id):
 
         result = {'value': {'fiscal_position': False}}
 
         if not partner_id or not company_id:
             return result
 
-        kwargs.update({
+        kwargs = {
             'company_id': company_id,
             'partner_id': partner_id,
             'partner_invoice_id': partner_id,
             'partner_shipping_id': dest_address_id,
-            'context': context
-        })
-        return self._fiscal_position_map(cr, uid, result, **kwargs)
-
-    def onchange_company_id(self, cr, uid, ids, partner_id,
-                            dest_address_id=False, company_id=False,
-                            context=None, **kwargs):
-        if not context:
-            context = {}
-
-        result = {'value': {'fiscal_position': False}}
-
-        if not partner_id or not company_id:
-            return result
-
-        kwargs.update({
-            'company_id': company_id,
-            'partner_id': partner_id,
-            'partner_invoice_id': partner_id,
-            'partner_shipping_id': dest_address_id,
-            'context': context
-        })
-        return self._fiscal_position_map(cr, uid, result, **kwargs)
+        }
+        return self._fiscal_position_map(result, **kwargs)
