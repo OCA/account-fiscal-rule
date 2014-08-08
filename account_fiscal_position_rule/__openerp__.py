@@ -32,6 +32,7 @@
     'website': 'http://www.akretion.com',
     'depends': [
         'account',
+        'web_context_tunnel',
     ],
     'data': [
         'account_fiscal_position_rule_data.xml',
