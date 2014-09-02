@@ -1,12 +1,9 @@
 # -*- encoding: utf-8 -*-
 ###############################################################################
 #
-#   account_fiscal_position_rule for OpenERP
+#   account_fiscal_position_rule_stock for OpenERP
 #   Copyright (C) 2009-TODAY Akretion <http://www.akretion.com>
-#     @author Sébastien BEAU <sebastien.beau@akretion.com>
 #     @author Renato Lima <renato.lima@akretion.com>
-#   Copyright 2012 Camptocamp SA
-#     @author: Guewen Baconnier
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU Affero General Public License as
 #   published by the Free Software Foundation, either version 3 of the
@@ -23,22 +20,23 @@
 ###############################################################################
 
 {
-    'name': 'Account Fiscal Position Rule',
-    'version': '1.2',
+    'name': 'Account Fiscal Position Rule Stock',
+    'version': '1.1',
     'category': 'Generic Modules/Accounting',
-    'description': """Include a rule to decide the correct fiscal position""",
+    'description': """Include a rule to decide the correct
+    fiscal position for Stock""",
     'author': 'Akretion',
     'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
     'depends': [
-        'account',
+        'account_fiscal_position_rule',
+        'stock',
     ],
     'data': [
-        'account_invoice_view.xml',
-        'account_fiscal_position_rule_view.xml',
+        'stock_view.xml',
         'security/account_fiscal_position_rule_security.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [],
-    'installable': True,
+    'installable': False,
 }

@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 ###############################################################################
 #
-#   account_fiscal_position_rule_sale for OpenERP
+#   account_fiscal_position_rule for OpenERP
 #   Copyright (C) 2009-TODAY Akretion <http://www.akretion.com>
+#     @author Sébastien BEAU <sebastien.beau@akretion.com>
 #     @author Renato Lima <renato.lima@akretion.com>
 #   Copyright 2012 Camptocamp SA
 #     @author: Guewen Baconnier
@@ -22,23 +23,22 @@
 ###############################################################################
 
 {
-    'name': 'Account Fiscal Position Rule Sale',
-    'version': '1.1.1',
+    'name': 'Account Fiscal Position Rule',
+    'version': '1.2',
     'category': 'Generic Modules/Accounting',
-    'description': """Include a rule to decide the
-    correct fiscal position for Sale""",
+    'description': """Include a rule to decide the correct fiscal position""",
     'author': 'Akretion',
     'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
     'depends': [
-        'account_fiscal_position_rule',
-        'sale',
+        'account',
     ],
     'data': [
-        'sale_view.xml',
-        'security/account_fiscal_position_rule_sale_security.xml',
+        'account_invoice_view.xml',
+        'account_fiscal_position_rule_view.xml',
+        'security/account_fiscal_position_rule_security.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [],
-    'installable': True,
+    'installable': False,
 }
