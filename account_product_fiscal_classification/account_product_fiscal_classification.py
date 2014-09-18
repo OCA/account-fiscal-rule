@@ -26,25 +26,28 @@ from osv import fields, osv
 class account_product_fiscal_classification(osv.Model):
     _name = 'account.product.fiscal.classification'
     _description = 'Product Fiscal Classification'
+
     _columns = {
-                'name': fields.char('Main code', size=32, required=True),
-                'description': fields.char('Description', size=64),
-                'company_id': fields.many2one('res.company', 'Company'),
-                 # TODO restrict to company_id if company_id set when
-                 # framework will allow it:
-                'sale_base_tax_ids': fields.many2many(
-                    'account.tax', 'fiscal_classification_sale_tax_rel',
-                    'fiscal_classification_id', 'tax_id', 'Base Sale Taxes',
-                    domain=[('type_tax_use', '!=', 'purchase')]),
-                'purchase_base_tax_ids': fields.many2many(
-                    'account.tax', 'fiscal_classification_purchase_tax_rel',
-                    'fiscal_classification_id', 'tax_id',
-                    'Base Purchase Taxes',
-                    domain=[('type_tax_use', '!=', 'sale')])
+        'name': fields.char('Main code', size=32, required=True),
+        'description': fields.char('Description', size=64),
+        'company_id': fields.many2one('res.company', 'Company'),
+        # TODO restrict to company_id if company_id set when
+        # framework will allow it:
+        'sale_base_tax_ids':
+        fields.many2many('account.tax',
+                         'fiscal_classification_sale_tax_rel',
+                         'fiscal_classification_id',
+                         'tax_id', 'Base Sale Taxes',
+                         domain=[('type_tax_use', '!=', 'purchase')]),
+        'purchase_base_tax_ids':
+        fields.many2many('account.tax',
+                         'fiscal_classification_purchase_tax_rel',
+                         'fiscal_classification_id', 'tax_id',
+                         'Base Purchase Taxes',
+                         domain=[('type_tax_use', '!=', 'sale')])
     }
 
     def button_update_products(self, cr, uid, ids, context=None):
-
         result = True
         if not context:
             context = {}
@@ -52,11 +55,13 @@ class account_product_fiscal_classification(osv.Model):
         obj_product = self.pool.get('product.template')
 
         for fiscal_classification in self.browse(cr, uid, ids):
+            prop_name = 'account.product.fiscal.classification,%s' \
+                        % fiscal_classification.id
             property_ids = self.pool.get('ir.property').search(
                 cr, uid,
                 [('name', '=', 'property_fiscal_classification'),
-                ('res_id', 'ilike', 'product.template,'),
-                ('value_reference', '=', 'account.product.fiscal.classification,%s' % fiscal_classification.id)])
+                 ('res_id', 'ilike', 'product.template,'),
+                 ('value_reference', '=', prop_name)])
 
             reads = self.pool.get('ir.property').read(
                 cr, uid, property_ids, ['res_id'])
@@ -70,12 +75,23 @@ class account_product_fiscal_classification(osv.Model):
                               ('company_id', '!=', current_company_id)])
 
                 to_keep_purchase_tax_ids = self.pool.get('account.tax').search(
-                    cr, uid, [('id', 'in', [x.id for x in product.supplier_taxes_id]),
-                    ('company_id', '!=', current_company_id)])
+                    cr, uid, [('id', 'in',
+                               [x.id for x in product.supplier_taxes_id]),
+                              ('company_id', '!=', current_company_id)])
 
                 vals = {
-                        'taxes_id': [(6, 0, list(set(to_keep_sale_tax_ids + [x.id for x in fiscal_classification.sale_base_tax_ids])))],
-                        'supplier_taxes_id': [(6, 0, list(set(to_keep_purchase_tax_ids + [x.id for x in fiscal_classification.purchase_base_tax_ids])))],
+                    'taxes_id':
+                    [(6,
+                      0,
+                      list(set(to_keep_sale_tax_ids +
+                           [x.id for x in
+                            fiscal_classification.sale_base_tax_ids])))],
+                    'supplier_taxes_id':
+                    [(6,
+                      0,
+                      list(set(to_keep_purchase_tax_ids +
+                           [x.id for x in
+                            fiscal_classification.purchase_base_tax_ids])))],
                 }
 
                 obj_product.write(cr, uid, product.id, vals, context)
@@ -84,13 +100,10 @@ class account_product_fiscal_classification(osv.Model):
 
     def name_search(self, cr, user, name='', args=None, operator='ilike',
                     context=None, limit=80):
-
         if not args:
             args = []
-
         if not context:
             context = {}
-
         if name:
             ids = self.search(cr, user, [('name', '=', name)] + args,
                               limit=limit, context=context)
@@ -113,31 +126,30 @@ class account_product_fiscal_classification(osv.Model):
 class account_product_fiscal_classification_template(osv.Model):
     _name = 'account.product.fiscal.classification.template'
     _description = 'Product Fiscal Classification Template'
+
     _columns = {
-                'name': fields.char('Main code', size=32, required=True),
-                'description': fields.char('Description', size=64),
-                # TODO restrict to company_id if company_id set when
-                # framework will allow it:
-                'sale_base_tax_ids': fields.many2many(
-                    'account.tax.template',
-                    'fiscal_classification_template_sale_tax_rel',
-                    'fiscal_classification_id', 'tax_id',
-                    'Base Sale Taxes',
-                    domain=[('type_tax_use', '!=', 'purchase')]),
-                'purchase_base_tax_ids': fields.many2many(
-                    'account.tax.template',
-                    'fiscal_classification_template_purchase_tax_rel',
-                    'fiscal_classification_id',
-                    'tax_id', 'Base Purchase Taxes',
-                    domain=[('type_tax_use', '!=', 'sale')]),
+        'name': fields.char('Main code', size=32, required=True),
+        'description': fields.char('Description', size=64),
+        # TODO restrict to company_id if company_id set when
+        # framework will allow it:
+        'sale_base_tax_ids': fields.many2many(
+            'account.tax.template',
+            'fiscal_classification_template_sale_tax_rel',
+            'fiscal_classification_id', 'tax_id',
+            'Base Sale Taxes',
+            domain=[('type_tax_use', '!=', 'purchase')]),
+        'purchase_base_tax_ids': fields.many2many(
+            'account.tax.template',
+            'fiscal_classification_template_purchase_tax_rel',
+            'fiscal_classification_id',
+            'tax_id', 'Base Purchase Taxes',
+            domain=[('type_tax_use', '!=', 'sale')]),
     }
 
     def name_search(self, cr, user, name='', args=None, operator='ilike',
                     context=None, limit=80):
-
         if not args:
             args = []
-
         if not context:
             context = {}
 
@@ -162,13 +174,15 @@ class account_product_fiscal_classification_template(osv.Model):
 
 class wizard_account_product_fiscal_classification(osv.TransientModel):
     _name = 'wizard.account.product.fiscal.classification'
+
     _columns = {
         'company_id': fields.many2one('res.company', 'Company', required=True),
     }
+
     _defaults = {
-        'company_id': lambda self, cr, uid, c:
-            self.pool.get('res.users').browse(
-                cr, uid, [uid], c)[0].company_id.id,
+        'company_id':
+        lambda self, cr, uid, c:
+        self.pool.get('res.users').browse(cr, uid, [uid], c)[0].company_id.id,
     }
 
     def action_create(self, cr, uid, ids, context=None):
@@ -195,9 +209,9 @@ class wizard_account_product_fiscal_classification(osv.TransientModel):
         fclass_ids_template = obj_fc_template.search(
             cr, uid, [], context=context)
 
-        for fclass_template in obj_fc_template.browse(
-            cr, uid, fclass_ids_template, context=context):
-
+        for fclass_template in obj_fc_template.browse(cr, uid,
+                                                      fclass_ids_template,
+                                                      context=context):
             fclass_id = obj_fc.search(
                 cr, uid, [('name', '=', fclass_template.name)],
                 context=context)
