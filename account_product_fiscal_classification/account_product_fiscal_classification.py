@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-###############################################################################
+# ##############################################################################
 #
 #   account_product_fiscal_classification for OpenERP
 #   Copyright (C) 2010-TODAY Akretion <http://www.akretion.com>
@@ -30,8 +30,8 @@ class AccountProductFiscalClassification(models.Model):
     name = fields.Char('Main code', size=32, required=True)
     description = fields.Char('Description', size=64)
     company_id = fields.Many2one('res.company', 'Company')
-     # TODO restrict to company_id if company_id set when
-     # framework will allow it:
+    # TODO restrict to company_id if company_id set when
+    # framework will allow it:
     sale_base_tax_ids = fields.Many2many(
         'account.tax', 'fiscal_classification_sale_tax_rel',
         'fiscal_classification_id', 'tax_id', 'Base Sale Taxes',
@@ -46,29 +46,34 @@ class AccountProductFiscalClassification(models.Model):
 
         result = True
 
-        obj_product = self.env['product.template']
-
-        for fiscal_classification in self:
-            property_search = self.env['ir.property'].search(
-                [('name', '=', 'property_fiscal_classification'),
+        for fiscal_class in self:
+            property_search = self.env['ir.property'].search([
+                ('name', '=', 'property_fiscal_classification'),
                 ('res_id', 'ilike', 'product.template,'),
-                ('value_reference', '=', 'account.product.fiscal.classification,%s' % fiscal_classification.id)])
+                ('value_reference', '=',
+                 'account.product.fiscal.classification,%s' %
+                 fiscal_class.id)])
 
-            product_ids = [int(l.res_id.split(',')[1]) for l in property_search]
+            product_ids = [
+                int(l.res_id.split(',')[1]) for l in property_search]
             current_company_id = self.env.user.company_id.id
 
             for product in self.env['product.template'].browse(product_ids):
-                to_keep_sale_tax = self.env['account.tax'].search(
+                keep_sale_tax = self.env['account.tax'].search(
                     [('id', 'in', [x.id for x in product.taxes_id]),
-                        ('company_id', '!=', current_company_id)])
+                     ('company_id', '!=', current_company_id)])
 
-                to_keep_purchase_tax = self.env['account.tax'].search(
+                keep_purchase_tax = self.env['account.tax'].search(
                     [('id', 'in', [x.id for x in product.supplier_taxes_id]),
-                        ('company_id', '!=', current_company_id)])
+                     ('company_id', '!=', current_company_id)])
 
                 vals = {
-                    'taxes_id': [(6, 0, list(set(to_keep_sale_tax.ids + [x.id for x in fiscal_classification.sale_base_tax_ids])))],
-                    'supplier_taxes_id': [(6, 0, list(set(to_keep_purchase_tax.ids + [x.id for x in fiscal_classification.purchase_base_tax_ids])))],
+                    'taxes_id': [(6, 0, list(set(keep_sale_tax.ids + [
+                        x.id for x in fiscal_class.sale_base_tax_ids])))],
+                    'supplier_taxes_id': [(6, 0, list(set(
+                        keep_purchase_tax.ids + [
+                            x.id for x in
+                            fiscal_class.purchase_base_tax_ids])))],
                 }
 
                 product.write(vals)
@@ -83,14 +88,15 @@ class AccountProductFiscalClassification(models.Model):
             recs = self.search([('name', '=', name)] + args, limit=limit)
             if not recs:
                 recs = self.search([('description', '=', name)] + args,
-                    limit=limit)
+                                   limit=limit)
             if not recs:
                 recs = self.search([('name', operator, name)] + args,
-                    limit=limit)
+                                   limit=limit)
                 recs += self.search([('description', operator, name)] + args,
-                    limit=limit)
+                                    limit=limit)
         if not recs:
-            recs = self.search([('name', operator, name)] + args, limit=limit)
+            recs = self.search([('name', operator, name)] + args,
+                               limit=limit)
         return recs.name_get()
 
 
@@ -121,21 +127,23 @@ class AccountProductFiscalClassificationTemplate(models.Model):
             recs = self.search([('name', '=', name)] + args, limit=limit)
             if not recs:
                 recs = self.search([('description', '=', name)] + args,
-                    limit=limit)
+                                   limit=limit)
             if not recs:
                 recs = self.search([('name', operator, name)] + args,
-                    limit=limit)
+                                   limit=limit)
                 recs += self.search([('description', operator, name)] + args,
-                    limit=limit)
+                                    limit=limit)
         if not recs:
-            recs = self.search([('name', operator, name)] + args, limit=limit)
+            recs = self.search([('name', operator, name)] + args,
+                               limit=limit)
         return recs.name_get()
 
 
 class WizardAccountProductFiscalClassification(models.TransientModel):
     _name = 'wizard.account.product.fiscal.classification'
 
-    company_id = fields.Many2one('res.company', 'Company', required=True,
+    company_id = fields.Many2one(
+        'res.company', 'Company', required=True,
         default=lambda self: self.env['res.company']._company_default_get(
             'account.invoice'))
 
