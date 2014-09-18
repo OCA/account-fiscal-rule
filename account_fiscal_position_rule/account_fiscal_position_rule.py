@@ -130,12 +130,12 @@ class account_fiscal_position_rule(osv.Model):
         partner = obj_partner.browse(cr, uid, partner_id, context=context)
         company = obj_company.browse(cr, uid, company_id, context=context)
 
-        #Case 1: Partner Specific Fiscal Position
+        # Case 1: Partner Specific Fiscal Position
         if partner.property_account_position:
             result['fiscal_position'] = partner.property_account_position.id
             return result
 
-        #Case 2: Rule based determination
+        # Case 2: Rule based determination
         addrs = {}
         if partner_invoice_id:
             addrs['invoice'] = obj_partner.browse(
@@ -155,7 +155,7 @@ class account_fiscal_position_rule(osv.Model):
             addrs['shipping'] = obj_partner.browse(
                 cr, uid, partner_shipping_id, context=context)
 
-        #Case 2: Rule based determination
+        # Case 2: Rule based determination
         domain = self._map_domain(
             cr, uid, partner, addrs, company, context, **kwargs)
 
