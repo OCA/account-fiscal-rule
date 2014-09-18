@@ -64,10 +64,10 @@ class account_fiscal_position_rule(osv.Model):
             help='The lowest number will be applied.'),
         'vat_rule': fields.selection(
             [('with', 'With VAT number'),
-            ('both', 'With or Without VAT number'),
-            ('without', 'Without VAT number')], "VAT Rule",
+             ('both', 'With or Without VAT number'),
+             ('without', 'Without VAT number')], "VAT Rule",
             help=("Choose if the customer need to have the"
-            " field VAT fill for using this fiscal position")),
+                  " field VAT fill for using this fiscal position")),
     }
     _defaults = {
         'sequence': 10,
@@ -85,30 +85,30 @@ class account_fiscal_position_rule(osv.Model):
         use_domain = context.get('use_domain', ('use_sale', '=', True))
 
         domain = ['&', ('company_id', '=', company.id), use_domain,
-                '|', ('from_country', '=', from_country),
-                ('from_country', '=', False),
-                '|', ('from_state', '=', from_state),
-                ('from_state', '=', False),
-                '|', ('date_start', '=', False),
-                ('date_start', '<=', document_date),
-                '|', ('date_end', '=', False),
-                ('date_end', '>=', document_date),
-                ]
+                  '|', ('from_country', '=', from_country),
+                  ('from_country', '=', False),
+                  '|', ('from_state', '=', from_state),
+                  ('from_state', '=', False),
+                  '|', ('date_start', '=', False),
+                  ('date_start', '<=', document_date),
+                  '|', ('date_end', '=', False),
+                  ('date_end', '>=', document_date),
+                  ]
         if partner.vat:
             domain += [('vat_rule', 'in', ['with', 'both'])]
         else:
             domain += ['|', ('vat_rule', 'in', ['both', 'without']),
-                ('vat_rule', '=', False)]
+                       ('vat_rule', '=', False)]
 
         for address_type, address in addrs.items():
             key_country = 'to_%s_country' % address_type
             key_state = 'to_%s_state' % address_type
             to_country = address.country_id.id or False
             domain += ['|', (key_country, '=', to_country),
-                (key_country, '=', False)]
+                       (key_country, '=', False)]
             to_state = address.state_id.id or False
             domain += ['|', (key_state, '=', to_state),
-                (key_state, '=', False)]
+                       (key_state, '=', False)]
 
         return domain
 
@@ -146,7 +146,8 @@ class account_fiscal_position_rule(osv.Model):
         # fiscal_stock_rule
         else:
             partner_addr = partner.address_get(['invoice'])
-            addr_id = partner_addr['invoice'] and partner_addr['invoice'] or None
+            addr_id = partner_addr['invoice'] and partner_addr['invoice'] \
+                or None
             if addr_id:
                 addrs['invoice'] = obj_partner.browse(
                     cr, uid, addr_id, context=context)
@@ -203,10 +204,10 @@ class account_fiscal_position_rule_template(osv.osv):
             help='The lowest number will be applied.'),
         'vat_rule': fields.selection(
             [('with', 'With VAT number'),
-            ('both', 'With or Without VAT number'),
-            ('without', 'Without VAT number')], "VAT Rule",
-        help=("Choose if the customer need to have the"
-        " field VAT fill for using this fiscal position")),
+             ('both', 'With or Without VAT number'),
+             ('without', 'Without VAT number')], "VAT Rule",
+            help=("Choose if the customer need to have the"
+                  " field VAT fill for using this fiscal position")),
     }
     _defaults = {
         'sequence': 10,
@@ -221,8 +222,7 @@ class wizard_account_fiscal_position_rule(osv.TransientModel):
     }
     defaults = {
         'company_id': lambda self, cr, uid, c:
-            self.pool.get('res.users').browse(
-                cr, uid, [uid], c)[0].company_id.id,
+        self.pool.get('res.users').browse(cr, uid, [uid], c)[0].company_id.id,
     }
 
     def _template_vals(self, cr, uid, template, company_id,
@@ -236,7 +236,8 @@ class wizard_account_fiscal_position_rule(osv.TransientModel):
                 'to_shipping_country': template.to_shipping_country.id,
                 'to_shipping_state': template.to_shipping_state.id,
                 'company_id': company_id,
-                'fiscal_position_id': fiscal_position_ids and fiscal_position_ids[0],
+                'fiscal_position_id': fiscal_position_ids
+                and fiscal_position_ids[0],
                 'use_sale': template.use_sale,
                 'use_invoice': template.use_invoice,
                 'use_purchase': template.use_purchase,
@@ -261,8 +262,8 @@ class wizard_account_fiscal_position_rule(osv.TransientModel):
 
         # TODO fix me doesn't work multi template that have empty fiscal
         # position maybe we should link the rule with the account template
-        for fpr_template in obj_fpr_temp.browse(
-            cr, uid, pfr_ids, context=context):
+        for fpr_template in obj_fpr_temp.browse(cr, uid, pfr_ids,
+                                                context=context):
             fp_ids = False
             if fpr_template.fiscal_position_id:
 
