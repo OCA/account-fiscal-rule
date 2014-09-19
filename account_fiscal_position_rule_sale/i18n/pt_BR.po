@@ -1,0 +1,139 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#    * account_fiscal_position_rule
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.7\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2010-01-22 23:14:05+0000\n"
+"PO-Revision-Date: 2010-01-22 23:14:05+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_fiscal_position_rule
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:0
+#: view:account.fiscal.position.rule.template:0
+msgid "Configuration"
+msgstr "Configuração"
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:0
+#: view:account.fiscal.position.rule.template:0
+msgid "From"
+msgstr "De"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,description:0
+#: field:account.fiscal.position.rule.template,description:0
+msgid "Description"
+msgstr "Descrição"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule_template
+msgid "account.fiscal.position.rule.template"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule.template,from_state:0
+msgid "State From"
+msgstr "Do Estado"
+
+#. module: account_fiscal_position_rule
+#: constraint:ir.model:0
+msgid "The Object name must start with x_ and not contain any special character !"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,from_state:0
+#: field:account.fiscal.position.rule,to_state:0
+#: field:account.fiscal.position.rule.template,to_state:0
+msgid "State To"
+msgstr "Para o Estado"
+
+#. module: account_fiscal_position_rule
+#: model:ir.module.module,description:account_fiscal_position_rule.module_meta_information
+msgid "Include a rule to decide the correct fiscal position"
+msgstr "Incluir uma regra para decidir a posição fiscal"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule
+msgid "account.fiscal.position.rule"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:0
+#: view:account.fiscal.position.rule.template:0
+msgid "General"
+msgstr "Geral"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,use_sale:0
+#: field:account.fiscal.position.rule.template,use_sale:0
+msgid "Use in sales order"
+msgstr "Usar na Ordem de Venda"
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:0
+#: view:account.fiscal.position.rule.template:0
+msgid "To"
+msgstr "Para"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,fiscal_position_id:0
+#: field:account.fiscal.position.rule.template,fiscal_position_id:0
+msgid "Fiscal Position"
+msgstr "Posição Fiscal"
+
+#. module: account_fiscal_position_rule
+#: constraint:ir.actions.act_window:0
+msgid "Invalid model name in the action definition."
+msgstr "Nome do modelo inválido na definição da ação."
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,to_country:0
+#: field:account.fiscal.position.rule.template,to_country:0
+msgid "Country To"
+msgstr "Para o País"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,from_country:0
+#: field:account.fiscal.position.rule.template,from_country:0
+msgid "Country Form"
+msgstr "Do País"
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule.template:0
+#: model:ir.actions.act_window,name:account_fiscal_position_rule.action_account_fiscal_position_rule_template_form
+#: model:ir.ui.menu,name:account_fiscal_position_rule.menu_action_account_fiscal_position_rule_template_form
+msgid "Fiscal Position Rule Template"
+msgstr "Modelo de Regra de Posição Fiscal"
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:0
+#: model:ir.actions.act_window,name:account_fiscal_position_rule.action_account_fiscal_position_rule_form
+#: model:ir.ui.menu,name:account_fiscal_position_rule.menu_action_account_fiscal_position_rule_form
+msgid "Fiscal Position Rule"
+msgstr "Regra de Posição Fiscal"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,use_invoice:0
+#: field:account.fiscal.position.rule.template,use_invoice:0
+msgid "Use in Invoices"
+msgstr "Usar nas Notas Fiscais"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,name:0
+#: field:account.fiscal.position.rule.template,name:0
+msgid "Name"
+msgstr "Nome"
+
