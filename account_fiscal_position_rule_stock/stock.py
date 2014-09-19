@@ -42,24 +42,24 @@ class StockPicking(models.Model):
         if not partner_id or not company_id:
             return result
 
-        #TODO waiting migration super method to new api
+        # TODO waiting migration super method to new api
         partner_invoice_id = self.pool.get('res.partner').address_get(
             cr, uid, [partner_id], ['invoice'])['invoice']
         partner_shipping_id = self.pool.get('res.partner').address_get(
             cr, uid, [partner_id], ['delivery'])['delivery']
 
         kwargs = {
-           'partner_id': partner_id,
-           'partner_invoice_id': partner_invoice_id,
-           'partner_shipping_id': partner_shipping_id,
-           'company_id': company_id,
+            'partner_id': partner_id,
+            'partner_invoice_id': partner_invoice_id,
+            'partner_shipping_id': partner_shipping_id,
+            'company_id': company_id,
         }
         return self._fiscal_position_map(result, **kwargs)
 
     def _prepare_invoice(self, cr, uid, picking, partner, inv_type,
                          journal_id, context=None):
-        result = super(StockPicking, self)._prepare_invoice(cr, uid, picking,
-            partner, inv_type, journal_id, context)
+        result = super(StockPicking, self)._prepare_invoice(
+            cr, uid, picking, partner, inv_type, journal_id, context)
         result['fiscal_position'] = picking.fiscal_position and \
-        picking.fiscal_position.id
+            picking.fiscal_position.id
         return result
