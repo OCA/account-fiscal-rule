@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# ##############################################################################
+###############################################################################
 #
 #   account_product_fiscal_classification for OpenERP
 #   Copyright (C) 2010-TODAY Akretion <http://www.akretion.com>
