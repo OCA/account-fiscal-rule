@@ -35,17 +35,19 @@ class AccountFiscalPositionRule(models.Model):
     name = fields.Char('Name', size=64, required=True)
     description = fields.Char('Description', size=128)
     from_country = fields.Many2one('res.country', 'Country From')
-    from_state = fields.Many2one('res.country.state', 'State From',
+    from_state = fields.Many2one(
+        'res.country.state', 'State From',
         domain="[('country_id','=',from_country)]")
     to_invoice_country = fields.Many2one('res.country', 'Invoice Country')
-    to_invoice_state = fields.Many2one('res.country.state', 'Invoice State',
+    to_invoice_state = fields.Many2one(
+        'res.country.state', 'Invoice State',
         domain="[('country_id','=',to_invoice_country)]")
     to_shipping_country = fields.Many2one('res.country', 'Destination Country')
     to_shipping_state = fields.Many2one(
         'res.country.state', 'Destination State',
         domain="[('country_id','=',to_shipping_country)]")
-    company_id = fields.Many2one('res.company', 'Company',
-        required=True, select=True)
+    company_id = fields.Many2one(
+        'res.company', 'Company', required=True, select=True)
     fiscal_position_id = fields.Many2one(
         'account.fiscal.position', 'Fiscal Position',
         domain="[('company_id','=',company_id)]", select=True)
@@ -53,52 +55,58 @@ class AccountFiscalPositionRule(models.Model):
     use_invoice = fields.Boolean('Use in Invoices')
     use_purchase = fields.Boolean('Use in Purchases')
     use_picking = fields.Boolean('Use in Picking')
-    date_start = fields.Date('Start Date',
-        help="Starting date for this rule to be valid.")
-    date_end = fields.Date('End Date',
-        help="Ending date for this rule to be valid.")
+    date_start = fields.Date(
+        'Start Date', help="Starting date for this rule to be valid.")
+    date_end = fields.Date(
+        'End Date', help="Ending date for this rule to be valid.")
     sequence = fields.Integer(
-            'Priority', required=True, default=10,
-            help='The lowest number will be applied.')
-    vat_rule = fields.Selection(
-        [('with', 'With VAT number'),
+        'Priority', required=True, default=10,
+        help='The lowest number will be applied.')
+    vat_rule = fields.Selection([
+        ('with', 'With VAT number'),
         ('both', 'With or Without VAT number'),
         ('without', 'Without VAT number')], "VAT Rule",
-        help=("Choose if the customer need to have the"
-        " field VAT fill for using this fiscal position"))
+        help=('Choose if the customer need to have the'
+              ' field VAT fill for using this fiscal position'))
 
     def _map_domain(self, partner, addrs, company):
 
         from_country = company.partner_id.country_id.id
         from_state = company.partner_id.state_id.id
 
-        document_date = self.env.context.get('date', time.strftime('%Y-%m-%d'))
-        use_domain = self.env.context.get('use_domain', ('use_sale', '=', True))
+        document_date = self.env.context.get(
+            'date', time.strftime('%Y-%m-%d'))
+        use_domain = self.env.context.get(
+            'use_domain', ('use_sale', '=', True))
 
-        domain = ['&', ('company_id', '=', company.id), use_domain,
-                '|', ('from_country', '=', from_country),
-                ('from_country', '=', False),
-                '|', ('from_state', '=', from_state),
-                ('from_state', '=', False),
-                '|', ('date_start', '=', False),
-                ('date_start', '<=', document_date),
-                '|', ('date_end', '=', False),
-                ('date_end', '>=', document_date),
-                ]
+        domain = [
+            '&', ('company_id', '=', company.id), use_domain,
+            '|', ('from_country', '=', from_country),
+            ('from_country', '=', False),
+            '|', ('from_state', '=', from_state),
+            ('from_state', '=', False),
+            '|', ('date_start', '=', False),
+            ('date_start', '<=', document_date),
+            '|', ('date_end', '=', False),
+            ('date_end', '>=', document_date),
+        ]
         if partner.vat:
             domain += [('vat_rule', 'in', ['with', 'both'])]
         else:
-            domain += ['|', ('vat_rule', 'in', ['both', 'without']),
+            domain += [
+                '|', ('vat_rule', 'in', ['both', 'without']),
                 ('vat_rule', '=', False)]
 
         for address_type, address in addrs.items():
             key_country = 'to_%s_country' % address_type
             key_state = 'to_%s_state' % address_type
             to_country = address.country_id.id or False
-            domain += ['|', (key_country, '=', to_country),
+            domain += [
+                '|', (key_country, '=', to_country),
                 (key_country, '=', False)]
             to_state = address.state_id.id or False
-            domain += ['|', (key_state, '=', to_state),
+            domain += [
+                '|', (key_state, '=', to_state),
                 (key_state, '=', False)]
 
         return domain
@@ -117,12 +125,12 @@ class AccountFiscalPositionRule(models.Model):
         partner = self.env['res.partner'].browse(partner_id)
         company = self.env['res.company'].browse(company_id)
 
-        #Case 1: Partner Specific Fiscal Position
+        # Case 1: Partner Specific Fiscal Position
         if partner.property_account_position:
             result['fiscal_position'] = partner.property_account_position.id
             return result
 
-        #Case 2: Rule based determination
+        # Case 2: Rule based determination
         addrs = {}
         if partner_invoice_id:
             addrs['invoice'] = self.env['res.partner'].browse(
@@ -133,14 +141,15 @@ class AccountFiscalPositionRule(models.Model):
         # fiscal_stock_rule
         else:
             partner_addr = partner.address_get(['invoice'])
-            addr_id = partner_addr['invoice'] and partner_addr['invoice'] or None
+            addr_id = partner_addr['invoice'] and \
+                partner_addr['invoice'] or None
             if addr_id:
                 addrs['invoice'] = self.env['res.partner'].browse(addr_id)
         if partner_shipping_id:
             addrs['shipping'] = self.env['res.partner'].browse(
                 partner_shipping_id)
 
-        #Case 2: Rule based determination
+        # Case 3: Rule based determination
         domain = self._map_domain(partner, addrs, company)
         fsc_pos = self.search(domain)
         if fsc_pos:
@@ -165,7 +174,8 @@ class AccountFiscalPositionRuleTemplate(models.Model):
         'res.country.state', 'State From',
         domain="[('country_id','=',from_country)]")
     to_invoice_country = fields.Many2one('res.country', 'Country To')
-    to_invoice_state = fields.Many2one('res.country.state', 'State To',
+    to_invoice_state = fields.Many2one(
+        'res.country.state', 'State To',
         domain="[('country_id','=',to_invoice_country)]")
     to_shipping_country = fields.Many2one(
         'res.country', 'Destination Country')
@@ -178,26 +188,27 @@ class AccountFiscalPositionRuleTemplate(models.Model):
     use_invoice = fields.Boolean('Use in Invoices')
     use_purchase = fields.Boolean('Use in Purchases')
     use_picking = fields.Boolean('Use in Picking')
-    date_start = fields.Date('Start Date',
-        help="Starting date for this rule to be valid.")
-    date_end = fields.Date('End Date',
-        help="Ending date for this rule to be valid.")
+    date_start = fields.Date(
+        'Start Date', help="Starting date for this rule to be valid.")
+    date_end = fields.Date(
+        'End Date', help="Ending date for this rule to be valid.")
     sequence = fields.Integer(
         'Priority', required=True, default=10,
         help='The lowest number will be applied.')
-    vat_rule = fields.Selection(
-        [('with', 'With VAT number'),
+    vat_rule = fields.Selection([
+        ('with', 'With VAT number'),
         ('both', 'With or Without VAT number'),
         ('without', 'Without VAT number')], "VAT Rule", default='both',
-        help=("Choose if the customer need to have the"
-        " field VAT fill for using this fiscal position"))
+        help=('Choose if the customer need to have the'
+              ' field VAT fill for using this fiscal position'))
 
 
 class WizardAccountFiscalPositionRule(models.TransientModel):
     _name = 'wizard.account.fiscal.position.rule'
     _description = 'Account Fiscal Position Rule Wizard'
 
-    company_id = fields.Many2one('res.company', 'Company', required=True,
+    company_id = fields.Many2one(
+        'res.company', 'Company', required=True,
         default=lambda self: self.env['res.company']._company_default_get(
             'wizard.account.fiscal.position.rule'))
 
@@ -242,8 +253,8 @@ class WizardAccountFiscalPositionRule(models.TransientModel):
                 if not fp_ids:
                     continue
 
-            values = self._template_vals(fpr_template, company_id, fp_ids[0].id)
-            print "vals", values
+            values = self._template_vals(
+                fpr_template, company_id, fp_ids[0].id)
             self.env['account.fiscal.position.rule'].create(values)
 
         return True

@@ -44,8 +44,9 @@ class AccountInvoice(models.Model):
         if not partner_id or not company_id:
             return result
 
-        return self._fiscal_position_map(result, partner_id=partner_id,
-            partner_invoice_id=partner_id, company_id=company_id)
+        return self._fiscal_position_map(
+            result, partner_id=partner_id, partner_invoice_id=partner_id,
+            company_id=company_id)
 
     @api.multi
     def onchange_company_id(self, company_id, part_id, type,
@@ -57,5 +58,6 @@ class AccountInvoice(models.Model):
         if not part_id or not company_id:
             return result
 
-        return self._fiscal_position_map(result, partner_id=part_id,
-            partner_invoice_id=part_id, company_id=company_id)
+        return self._fiscal_position_map(
+            result, partner_id=part_id, partner_invoice_id=part_id,
+            company_id=company_id)
