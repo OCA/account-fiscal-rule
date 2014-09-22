@@ -150,7 +150,7 @@ class AccountFiscalPositionRule(models.Model):
                 partner_shipping_id)
 
         # Case 3: Rule based determination
-        domain = self._map_domain(partner, addrs, company)
+        domain = self._map_domain(partner, addrs, company, **kwargs)
         fsc_pos = self.search(domain)
         if fsc_pos:
             result['fiscal_position'] = fsc_pos[0].fiscal_position_id.id
