@@ -143,7 +143,7 @@ class WizardAccountProductFiscalClassification(models.TransientModel):
     _name = 'wizard.account.product.fiscal.classification'
 
     company_id = fields.Many2one(
-        'res.company', 'Company', required=True,
+        'res.company', 'Company',
         default=lambda self: self.env['res.company']._company_default_get(
             'account.invoice'))
 
