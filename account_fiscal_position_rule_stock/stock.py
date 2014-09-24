@@ -58,18 +58,20 @@ class stock_picking(osv.Model):
             cr, uid, [partner_id], ['delivery'])['delivery']
 
         kwargs.update({
-           'partner_id': partner_id,
-           'partner_invoice_id': partner_invoice_id,
-           'partner_shipping_id': partner_shipping_id,
-           'company_id': company_id,
-           'context': context,
+            'partner_id': partner_id,
+            'partner_invoice_id': partner_invoice_id,
+            'partner_shipping_id': partner_shipping_id,
+            'company_id': company_id,
+            'context': context,
         })
         return self._fiscal_position_map(cr, uid, result, **kwargs)
 
     def _prepare_invoice(self, cr, uid, picking, partner, inv_type,
                          journal_id, context=None):
         result = super(stock_picking, self)._prepare_invoice(cr, uid, picking,
-            partner, inv_type, journal_id, context)
+                                                             partner, inv_type,
+                                                             journal_id,
+                                                             context)
         result['fiscal_position'] = picking.fiscal_position and \
-        picking.fiscal_position.id
+            picking.fiscal_position.id
         return result

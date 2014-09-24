@@ -63,15 +63,21 @@ class product_template(osv.Model):
                 cr, uid, uid).company_id.id
             to_keep_sale_tax_ids = self.pool.get('account.tax').search(
                 cr, uid, [('id', 'in', sale_tax_ids[0][2]),
-                    ('company_id', '!=', current_company_id)],
-                        context=context)
+                          ('company_id', '!=', current_company_id)],
+                context=context)
             to_keep_purchase_tax_ids = self.pool.get('account.tax').search(
                 cr, uid, [('id', 'in', purchase_tax_ids[0][2]),
-                    ('company_id', '!=', current_company_id)],
-                        context=context)
+                          ('company_id', '!=', current_company_id)],
+                context=context)
 
-            result['value']['taxes_id'] = list(set(to_keep_sale_tax_ids + [x.id for x in fiscal_classification.sale_base_tax_ids]))
-            result['value']['supplier_taxes_id'] = list(set(to_keep_purchase_tax_ids + [x.id for x in fiscal_classification.purchase_base_tax_ids]))
+            result['value']['taxes_id'] = \
+                list(set(to_keep_sale_tax_ids +
+                     [x.id for x in
+                      fiscal_classification.sale_base_tax_ids]))
+            result['value']['supplier_taxes_id'] = \
+                list(set(to_keep_purchase_tax_ids +
+                     [x.id for x in
+                      fiscal_classification.purchase_base_tax_ids]))
         return result
 
 
