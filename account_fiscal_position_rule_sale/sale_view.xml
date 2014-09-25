@@ -10,13 +10,13 @@
 			<field name="priority">26</field>
 			<field name="arch" type="xml">
 				<field name="company_id" position="attributes">
-					<attribute name="on_change">onchange_company_id(company_id, partner_id, partner_invoice_id, partner_shipping_id)</attribute>
+					<attribute name="on_change">onchange_company_id(company_id, partner_id, partner_invoice_id, partner_shipping_id, context)</attribute>
 				</field>
 				<field name="partner_invoice_id" position="attributes">
-					<attribute name="on_change">onchange_address_id(partner_invoice_id, partner_shipping_id, partner_id, company_id)</attribute>
+					<attribute name="on_change">onchange_address_id(partner_invoice_id, partner_shipping_id, partner_id, company_id, context)</attribute>
 				</field>
 				<field name="partner_shipping_id" position="attributes">
-					<attribute name="on_change">onchange_address_id(partner_invoice_id, partner_shipping_id, partner_id, company_id)</attribute>
+					<attribute name="on_change">onchange_address_id(partner_invoice_id, partner_shipping_id, partner_id, company_id, context)</attribute>
 				</field>
 				<field name="partner_id" position="attributes">
 					<attribute name="context">{'company_id': company_id}</attribute>
