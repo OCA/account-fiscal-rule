@@ -1,0 +1,90 @@
+-
+  I set the country of demo company
+-
+  !record {model: res.partner, id: base.main_partner}:
+    country_id: base.us
+-
+  I create some fiscal positions matching the demo templates because there is none...
+-
+  !record {model: account.fiscal.position, id: p1}:
+    name: Tax Exempt
+-
+  !record {model: account.fiscal.position, id: p2}:
+    name: Normal Taxes
+-
+  I assign a fiscal position to some partner
+-
+  !record {model: res.partner, id: base.res_partner_13}:
+    property_account_position: p1
+-
+  I create some rule templates
+-
+  !record {model: account.fiscal.position.rule.template, id: rule1}:
+    name: rule1
+    use_sale: True
+    from_country: base.us
+    to_invoice_country: base.es
+    fiscal_position_id: account.fiscal_position_tax_exempt_template2
+-
+  !record {model: account.fiscal.position.rule.template, id: rule2}:
+    name: rule2
+    use_sale: True
+    from_country: base.us
+    to_shipping_country: base.fr
+    fiscal_position_id: account.fiscal_position_normal_taxes_template1
+-
+  I generate rules based on templates
+-
+  !record {model: wizard.account.fiscal.position.rule, id: wizard_1}:
+    company_id: base.main_company
+-
+  !python {model: wizard.account.fiscal.position.rule}: |
+    self.action_create(cr, uid, ref('wizard_1'))
+-
+  I check rules are properly generated
+-
+  !python {model: account.fiscal.position.rule}: |
+    ids = self.search(cr, uid, [('name', '=', 'rule1'), ('from_country', '=', ref('base.us'))])
+    assert len(ids) == 1
+    assert self.browse(cr, uid, ids[0]).fiscal_position_id.id == ref('p1')
+    ids = self.search(cr, uid, [('name', '=', 'rule2'), ('from_country', '=', ref('base.us'))])
+    assert len(ids) == 1
+    assert self.browse(cr, uid, ids[0]).fiscal_position_id.id == ref('p2')
+-
+  I create some fake rule to be able to use the new API, stay calm...
+-
+  !record {model: account.fiscal.position.rule, id: fake_rule}:
+    name: rule_fake
+    company_id: base.main_company
+-
+  I check that the mapping works for invoice address
+-
+  !python {model: account.fiscal.position.rule, id: fake_rule}: |
+    kw = {
+      'company_id': ref('base.main_company'),
+      'partner_id': ref('base.res_partner_11'),
+      'partner_invoice_id': ref('base.res_partner_11')
+    }
+    res = self.fiscal_position_map(**kw)
+    assert res['fiscal_position'] == ref('p1')
+-
+  I check that the mapping works for shipping address
+-
+  !python {model: account.fiscal.position.rule, id: fake_rule}: |
+    kw = {
+      'company_id': ref('base.main_company'),
+      'partner_id': ref('base.res_partner_14'),
+      'partner_shipping_id': ref('base.res_partner_12')
+    }
+    res = self.fiscal_position_map(**kw)
+    assert res['fiscal_position'] == ref('p2')
+-
+  I check that the mapping works for partner specific fiscal position
+-
+  !python {model: account.fiscal.position.rule, id: fake_rule}: |
+    kw = {
+      'company_id': ref('base.main_company'),
+      'partner_id': ref('base.res_partner_13'),
+    }
+    res = self.fiscal_position_map(**kw)
+    assert res['fiscal_position'] == ref('p1')
