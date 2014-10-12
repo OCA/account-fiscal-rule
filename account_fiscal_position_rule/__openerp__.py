@@ -41,5 +41,6 @@
         'security/ir.model.access.csv',
     ],
     'demo': [],
+    'test': ['test/test_rules.yml'],
     'installable': True,
 }
