@@ -32,8 +32,8 @@ class AccountFiscalPositionRule(models.Model):
     _description = 'Account Fiscal Position Rule Template'
     _order = 'sequence'
 
-    name = fields.Char('Name', size=64, required=True)
-    description = fields.Char('Description', size=128)
+    name = fields.Char('Name', required=True)
+    description = fields.Char('Description')
     from_country = fields.Many2one('res.country', 'Country From')
     from_state = fields.Many2one(
         'res.country.state', 'State From',
@@ -70,7 +70,6 @@ class AccountFiscalPositionRule(models.Model):
               ' field VAT fill for using this fiscal position'))
 
     def _map_domain(self, partner, addrs, company, **kwargs):
-
         from_country = company.partner_id.country_id.id
         from_state = company.partner_id.state_id.id
 
@@ -141,9 +140,8 @@ class AccountFiscalPositionRule(models.Model):
         # fiscal_stock_rule
         else:
             partner_addr = partner.address_get(['invoice'])
-            addr_id = partner_addr['invoice'] and \
-                partner_addr['invoice'] or None
-            if addr_id:
+            if partner_addr['invoice']:
+                addr_id = partner_addr['invoice']
                 addrs['invoice'] = self.env['res.partner'].browse(addr_id)
         if partner_shipping_id:
             addrs['shipping'] = self.env['res.partner'].browse(
@@ -167,8 +165,8 @@ class AccountFiscalPositionRuleTemplate(models.Model):
     _description = 'Account Fiscal Position Rule Template'
     _order = 'sequence'
 
-    name = fields.Char('Name', size=64, required=True)
-    description = fields.Char('Description', size=128)
+    name = fields.Char('Name', required=True)
+    description = fields.Char('Description')
     from_country = fields.Many2one('res.country', 'Country Form')
     from_state = fields.Many2one(
         'res.country.state', 'State From',
@@ -236,7 +234,6 @@ class WizardAccountFiscalPositionRule(models.TransientModel):
 
     @api.multi
     def action_create(self):
-
         obj_fpr_temp = self.env['account.fiscal.position.rule.template']
         company_id = self.company_id.id
 
@@ -246,15 +243,11 @@ class WizardAccountFiscalPositionRule(models.TransientModel):
         for fpr_template in fsc_rule_template:
             fp_ids = False
             if fpr_template.fiscal_position_id:
-
                 fp_ids = self.env['account.fiscal.position'].search(
                     [('name', '=', fpr_template.fiscal_position_id.name)])
-
                 if not fp_ids:
                     continue
-
             values = self._template_vals(
                 fpr_template, company_id, fp_ids[0].id)
             self.env['account.fiscal.position.rule'].create(values)
-
         return True
