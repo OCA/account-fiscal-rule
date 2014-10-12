@@ -32,7 +32,6 @@
     'website': 'http://www.akretion.com',
     'depends': [
         'account',
-        'web_context_tunnel',
     ],
     'data': [
         'account_invoice_view.xml',
