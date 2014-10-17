@@ -31,7 +31,7 @@ class StockPicking(models.Model):
 
     def _fiscal_position_map(self, result, **kwargs):
         ctx = dict(self._context)
-        ctx.update({'use_domain': ('use_stock', '=', True)})
+        ctx.update({'use_domain': ('use_picking', '=', True)})
         return self.env['account.fiscal.position.rule'].with_context(
             ctx).apply_fiscal_mapping(result, **kwargs)
 
