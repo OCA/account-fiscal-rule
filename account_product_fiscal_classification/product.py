@@ -72,12 +72,12 @@ class product_template(osv.Model):
 
             result['value']['taxes_id'] = \
                 list(set(to_keep_sale_tax_ids +
-                     [x.id for x in
-                      fiscal_classification.sale_base_tax_ids]))
+                         [x.id for x in
+                          fiscal_classification.sale_base_tax_ids]))
             result['value']['supplier_taxes_id'] = \
                 list(set(to_keep_purchase_tax_ids +
-                     [x.id for x in
-                      fiscal_classification.purchase_base_tax_ids]))
+                         [x.id for x in
+                          fiscal_classification.purchase_base_tax_ids]))
         return result
 
 

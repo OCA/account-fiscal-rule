@@ -84,14 +84,14 @@ class account_product_fiscal_classification(osv.Model):
                     [(6,
                       0,
                       list(set(to_keep_sale_tax_ids +
-                           [x.id for x in
-                            fiscal_classification.sale_base_tax_ids])))],
+                               [x.id for x in
+                                fiscal_classification.sale_base_tax_ids])))],
                     'supplier_taxes_id':
                     [(6,
                       0,
                       list(set(to_keep_purchase_tax_ids +
-                           [x.id for x in
-                            fiscal_classification.purchase_base_tax_ids])))],
+                               [x.id for x in
+                                fiscal_classification.purchase_base_tax_ids])))],
                 }
 
                 obj_product.write(cr, uid, product.id, vals, context)

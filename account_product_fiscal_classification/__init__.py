@@ -21,5 +21,5 @@
 ###############################################################################
 
 
-import account_product_fiscal_classification
-import product
+from . import account_product_fiscal_classification
+from . import product

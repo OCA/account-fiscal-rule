@@ -19,5 +19,5 @@
 #
 ###############################################################################
 
-import account_fiscal_position_rule
-import account_invoice
+from . import account_fiscal_position_rule
+from . import account_invoice
