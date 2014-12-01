@@ -34,11 +34,11 @@
         'account',
     ],
     'data': [
-        'account_invoice_view.xml',
         'account_fiscal_position_rule_view.xml',
         'security/account_fiscal_position_rule_security.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [],
-    'installable': False,
+    'test': ['test/test_rules.yml'],
+    'installable': True,
 }

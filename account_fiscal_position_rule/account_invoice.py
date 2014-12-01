@@ -20,45 +20,44 @@
 #
 ###############################################################################
 
-from osv import osv
+from openerp import models, api
 
 
-class account_invoice(osv.Model):
+class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    def _fiscal_position_map(self, cr, uid, result, context=None, **kwargs):
+    def _fiscal_position_map(self, result, **kwargs):
+        ctx = dict(self._context)
+        ctx.update({'use_domain': ('use_invoice', '=', True)})
+        return self.env['account.fiscal.position.rule'].with_context(
+            ctx).apply_fiscal_mapping(result, **kwargs)
 
-        if not kwargs.get('context', False):
-            kwargs['context'] = {}
+    @api.multi
+    def onchange_partner_id(self, type, partner_id, date_invoice=False,
+                            payment_term=False, partner_bank_id=False,
+                            company_id=False):
 
-        kwargs['context'].update({'use_domain': ('use_invoice', '=', True)})
-        fp_rule_obj = self.pool.get('account.fiscal.position.rule')
-        return fp_rule_obj.apply_fiscal_mapping(cr, uid, result, **kwargs)
-
-    def onchange_partner_id(self, cr, uid, ids, type, partner_id,
-                            date_invoice=False, payment_term=False,
-                            partner_bank_id=False, company_id=False):
-
-        result = super(account_invoice, self).onchange_partner_id(
-            cr, uid, ids, type, partner_id, date_invoice, payment_term,
+        result = super(AccountInvoice, self).onchange_partner_id(
+            type, partner_id, date_invoice, payment_term,
             partner_bank_id, company_id)
 
         if not partner_id or not company_id:
             return result
 
         return self._fiscal_position_map(
-            cr, uid, result, partner_id=partner_id,
-            partner_invoice_id=partner_id, company_id=company_id)
+            result, partner_id=partner_id, partner_invoice_id=partner_id,
+            company_id=company_id)
 
-    def onchange_company_id(self, cr, uid, ids, company_id, partner_id, type,
+    @api.multi
+    def onchange_company_id(self, company_id, part_id, type,
                             invoice_line, currency_id):
-        result = super(account_invoice, self).onchange_company_id(
-            cr, uid, ids, company_id, partner_id, type, invoice_line,
+        result = super(AccountInvoice, self).onchange_company_id(
+            company_id, part_id, type, invoice_line,
             currency_id)
 
-        if not partner_id or not company_id:
+        if not part_id or not company_id:
             return result
 
         return self._fiscal_position_map(
-            cr, uid, result, partner_id=partner_id,
-            partner_invoice_id=partner_id, company_id=company_id)
+            result, partner_id=part_id, partner_invoice_id=part_id,
+            company_id=company_id)
