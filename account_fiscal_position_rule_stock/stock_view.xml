@@ -22,7 +22,7 @@
 			<field name="priority">24</field>
 			<field name="arch" type="xml">
 				<field name="partner_id" position="attributes">
-					<attribute name="on_change">onchange_partner_id(partner_id, company_id)</attribute>
+					<attribute name="on_change">onchange_partner_id(partner_id, company_id, context)</attribute>
 				</field>
 			</field>
 		</record>
