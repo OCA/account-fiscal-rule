@@ -62,40 +62,32 @@ class account_product_fiscal_classification(osv.Model):
                 [('name', '=', 'property_fiscal_classification'),
                  ('res_id', 'ilike', 'product.template,'),
                  ('value_reference', '=', prop_name)])
-
             reads = self.pool.get('ir.property').read(
                 cr, uid, property_ids, ['res_id'])
             product_ids = [int(l['res_id'].split(',')[1]) for l in reads]
             current_company_id = self.pool.get('res.users').browse(
                 cr, uid, uid).company_id.id
-
             for product in obj_product.browse(cr, uid, product_ids, context):
                 to_keep_sale_tax_ids = self.pool.get('account.tax').search(
                     cr, uid, [('id', 'in', [x.id for x in product.taxes_id]),
                               ('company_id', '!=', current_company_id)])
-
                 to_keep_purchase_tax_ids = self.pool.get('account.tax').search(
                     cr, uid, [('id', 'in',
                                [x.id for x in product.supplier_taxes_id]),
                               ('company_id', '!=', current_company_id)])
-
                 vals = {
                     'taxes_id':
-                    [(6,
-                      0,
-                      list(set(to_keep_sale_tax_ids +
-                               [x.id for x in
-                                fiscal_classification.sale_base_tax_ids])))],
+                    [(6, 0, list(
+                        set(to_keep_sale_tax_ids + [
+                            x.id for x in
+                            fiscal_classification.sale_base_tax_ids])))],
                     'supplier_taxes_id':
-                    [(6,
-                      0,
-                      list(set(to_keep_purchase_tax_ids +
-                               [x.id for x in
-                                fiscal_classification.purchase_base_tax_ids])))],
+                    [(6, 0, list(
+                        set(to_keep_purchase_tax_ids + [
+                            x.id for x in
+                            fiscal_classification.purchase_base_tax_ids])))],
                 }
-
                 obj_product.write(cr, uid, product.id, vals, context)
-
         return result
 
     def name_search(self, cr, user, name='', args=None, operator='ilike',
