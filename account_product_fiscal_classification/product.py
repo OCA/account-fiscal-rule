@@ -23,7 +23,7 @@
 from osv import fields, osv
 
 
-class product_template(osv.Model):
+class ProductTemplate(osv.Model):
     _inherit = 'product.template'
     _columns = {
         'property_fiscal_classification': fields.property(
@@ -72,28 +72,26 @@ class product_template(osv.Model):
 
             result['value']['taxes_id'] = \
                 list(set(to_keep_sale_tax_ids +
-                     [x.id for x in
-                      fiscal_classification.sale_base_tax_ids]))
+                         [x.id for x in
+                          fiscal_classification.sale_base_tax_ids]))
             result['value']['supplier_taxes_id'] = \
                 list(set(to_keep_purchase_tax_ids +
-                     [x.id for x in
-                      fiscal_classification.purchase_base_tax_ids]))
+                         [x.id for x in
+                          fiscal_classification.purchase_base_tax_ids]))
         return result
 
 
-class product_product(osv.Model):
+class ProductProduct(osv.Model):
     _inherit = "product.product"
 
-    def fiscal_classification_id_change(self, cr, uid, ids,
-                                        fiscal_classification_id=False,
-                                        sale_tax_ids=None,
-                                        purchase_tax_ids=None, context=None):
+    def fiscal_classification_id_change(
+            self, cr, uid, ids, fiscal_classification_id=False,
+            sale_tax_ids=None, purchase_tax_ids=None, context=None):
         """We eventually keep the sale and purchase taxes because those
         are not company wise in OpenERP. So if we choose a different
         fiscal position for a different company, we don't want to override
         other's companies setting"""
-
-        product_template = self.pool.get('product.template')
-        return product_template.fiscal_classification_id_change(
+        product_tmpl_model = self.pool['product.template']
+        return product_tmpl_model.fiscal_classification_id_change(
             cr, uid, ids, fiscal_classification_id, sale_tax_ids,
             purchase_tax_ids)
