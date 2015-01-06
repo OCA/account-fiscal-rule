@@ -17,7 +17,7 @@
 							<field name="company_id"/>
 							<field name="description"/>
 						</group>
-						<group colspan="4">
+						<group name="taxes" colspan="4">
 							<group string="Sale Taxes">
 								<field nolabel="1" name="sale_base_tax_ids"/>
 							</group>
@@ -52,7 +52,7 @@
 							<field name="name"/>
 							<field name="description"/>
 						</group>
-						<group colspan="4">
+						<group name="taxes" colspan="4">
 							<group string="Sale Taxes">
 								<field nolabel="1" name="sale_base_tax_ids"/>
 							</group>
