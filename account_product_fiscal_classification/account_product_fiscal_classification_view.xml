@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
+
 	<data>
 
 		<record model="ir.ui.view" id="fiscal_classification_normal_form_view_form">
@@ -7,16 +8,24 @@
 			<field name="model">account.product.fiscal.classification</field>
 			<field name="arch" type="xml">
 				<form string="Fiscal Classification">
-					<field name="name" />
-					<field name="company_id" />
-					<field name="description" />
-					<button colspan="2" name="button_update_products" string="Update Products"
-						type="object" icon="gtk-execute" />
-					<newline />
-					<separator string="Sale Taxes" colspan="2" />
-					<separator string="Purchase Taxes" colspan="2" />
-					<field colspan="2" nolabel="1" name="sale_base_tax_ids" />
-					<field colspan="2" nolabel="1" name="purchase_base_tax_ids" />
+				<header>
+					<button name="button_update_products" string="Update Products" type="object"/>
+				</header>
+					<group>
+						<group colspan="4">
+							<field name="name"/>
+							<field name="company_id"/>
+							<field name="description"/>
+						</group>
+						<group colspan="4">
+							<group string="Sale Taxes">
+								<field nolabel="1" name="sale_base_tax_ids"/>
+							</group>
+							<group string="Purchase Taxes">
+								<field nolabel="1" name="purchase_base_tax_ids"/>
+							</group>
+						</group>
+					</group>
 				</form>
 			</field>
 		</record>
@@ -26,9 +35,9 @@
 			<field name="model">account.product.fiscal.classification</field>
 			<field name="arch" type="xml">
 				<tree string="Fiscal Classification">
-					<field name="name" />
-					<field name="description" />
-					<field name="company_id" />
+					<field name="name"/>
+					<field name="description"/>
+					<field name="company_id"/>
 				</tree>
 			</field>
 		</record>
@@ -38,13 +47,20 @@
 			<field name="model">account.product.fiscal.classification.template</field>
 			<field name="arch" type="xml">
 				<form string="Fiscal Classification Template">
-					<field name="name" />
-					<field colspan="4" name="description" />
-					<newline />
-					<separator string="Sale Taxes" colspan="2" />
-					<separator string="Purchase Taxes" colspan="2" />
-					<field colspan="2" nolabel="1" name="sale_base_tax_ids" />
-					<field colspan="2" nolabel="1" name="purchase_base_tax_ids" />
+					<group>
+						<group colspan="4">
+							<field name="name"/>
+							<field name="description"/>
+						</group>
+						<group colspan="4">
+							<group string="Sale Taxes">
+								<field nolabel="1" name="sale_base_tax_ids"/>
+							</group>
+							<group string="Purchase Taxes">
+								<field nolabel="1" name="purchase_base_tax_ids"/>
+							</group>
+						</group>
+					</group>
 				</form>
 			</field>
 		</record>
@@ -103,8 +119,10 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 
-		<menuitem id="menu_product_fiscal_classifications" action="product_fiscal_classifications_action" name="Product Fiscal Classifications" parent="account.menu_finance_accounting" />
+		<menuitem id="menu_product_fiscal_classifications" action="product_fiscal_classifications_action" name="Product Fiscal Classifications" parent="account.next_id_27" />
 
-		<menuitem action="product_fiscal_classifications_template_action" id="menu_product_fiscal_classifications_template" parent="account.account_template_folder" sequence="22" />
+		<menuitem id="menu_product_fiscal_classifications_template" action="product_fiscal_classifications_template_action" parent="account.account_template_folder" sequence="22" />
+
 	</data>
+
 </openerp>
