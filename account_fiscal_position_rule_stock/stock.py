@@ -19,57 +19,47 @@
 #
 ###############################################################################
 
-from osv import osv, fields
+from openerp import models, fields, api
 
 
-class stock_picking(osv.Model):
-    _inherit = "stock.picking"
-    _description = "Picking List"
-    _columns = {
-        'fiscal_position': fields.many2one(
-            'account.fiscal.position', 'Fiscal Position',
-            domain="[('fiscal_operation_id','=',fiscal_operation_id)]"),
-    }
+class StockPicking(models.Model):
+    _inherit = 'stock.picking'
 
-    def _fiscal_position_map(self, cr, uid, result, **kwargs):
+    fiscal_position = fields.Many2one(
+        'account.fiscal.position', 'Fiscal Position',
+        domain="[('fiscal_operation_id','=',fiscal_operation_id)]")
 
-        if not kwargs.get('context', False):
-            kwargs['context'] = {}
+    def _fiscal_position_map(self, result, **kwargs):
+        ctx = dict(self._context)
+        ctx.update({'use_domain': ('use_picking', '=', True)})
+        return self.env['account.fiscal.position.rule'].with_context(
+            ctx).apply_fiscal_mapping(result, **kwargs)
 
-        kwargs['context'].update({'use_domain': ('use_picking', '=', True)})
-        fp_rule_obj = self.pool.get('account.fiscal.position.rule')
-        return fp_rule_obj.apply_fiscal_mapping(cr, uid, result, **kwargs)
-
-    def onchange_partner_in(self, cr, uid, ids, partner_id=None,
-                            company_id=None, context=None, **kwargs):
-
-        result = super(stock_picking, self).onchange_partner_in(
-            cr, uid, partner_id, context)
-
-        if not result:
-            result = {'value': {'fiscal_position': False}}
+    @api.multi
+    def onchange_partner_id(self, cr, uid, ids, partner_id, company_id):
+        result = {'value': {'fiscal_position': False}}
 
         if not partner_id or not company_id:
             return result
 
+        # TODO waiting migration super method to new api
         partner_invoice_id = self.pool.get('res.partner').address_get(
             cr, uid, [partner_id], ['invoice'])['invoice']
         partner_shipping_id = self.pool.get('res.partner').address_get(
             cr, uid, [partner_id], ['delivery'])['delivery']
 
-        kwargs.update({
-           'partner_id': partner_id,
-           'partner_invoice_id': partner_invoice_id,
-           'partner_shipping_id': partner_shipping_id,
-           'company_id': company_id,
-           'context': context,
-        })
-        return self._fiscal_position_map(cr, uid, result, **kwargs)
+        kwargs = {
+            'partner_id': partner_id,
+            'partner_invoice_id': partner_invoice_id,
+            'partner_shipping_id': partner_shipping_id,
+            'company_id': company_id,
+        }
+        return self._fiscal_position_map(result, **kwargs)
 
     def _prepare_invoice(self, cr, uid, picking, partner, inv_type,
                          journal_id, context=None):
-        result = super(stock_picking, self)._prepare_invoice(cr, uid, picking,
-            partner, inv_type, journal_id, context)
+        result = super(StockPicking, self)._prepare_invoice(
+            cr, uid, picking, partner, inv_type, journal_id, context)
         result['fiscal_position'] = picking.fiscal_position and \
-        picking.fiscal_position.id
+            picking.fiscal_position.id
         return result
