@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+
+	<data>
+
+		<record id="account_fiscal_position_rule_purchase_order_form" model="ir.ui.view">
+			<field name="name">account.fiscal.position.rule.purchase.order.form</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form"/>
+			<field name="arch" type="xml">
+				<field name="partner_id" position="attributes" >
+					<attribute name="context_fiscalrules">{'company_id': company_id}</attribute>
+				</field>
+				<field name="dest_address_id" position="attributes" >
+					<attribute name="context_fiscalrules">{'company_id': company_id, 'partner_id': partner_id}</attribute>
+				</field>
+			</field>
+		</record>
+
+	</data>
+
+</openerp>
