@@ -36,17 +36,19 @@ class StockPicking(models.Model):
             ctx).apply_fiscal_mapping(result, **kwargs)
 
     @api.multi
-    def onchange_partner_id(self, cr, uid, ids, partner_id, company_id):
+    def onchange_partner_id(self, partner_id, company_id):
         result = {'value': {'fiscal_position': False}}
 
         if not partner_id or not company_id:
             return result
 
-        # TODO waiting migration super method to new api
-        partner_invoice_id = self.pool.get('res.partner').address_get(
-            cr, uid, [partner_id], ['invoice'])['invoice']
-        partner_shipping_id = self.pool.get('res.partner').address_get(
-            cr, uid, [partner_id], ['delivery'])['delivery']
+        partner = self.env['res.partner'].browse(partner_id)
+
+        partner_address = partner.address_get(['invoice', 'delivery'])
+        if partner_address['invoice']:
+            partner_invoice_id = partner_address['invoice']
+        if partner_address['delivery']:
+            partner_shipping_id = partner_address['delivery']
 
         kwargs = {
             'partner_id': partner_id,
