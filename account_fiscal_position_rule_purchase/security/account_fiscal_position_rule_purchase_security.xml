@@ -3,13 +3,6 @@
 
 	<data noupdate="1">
 
-		<record id="account_move_comp_rule" model="ir.rule">
-			<field name="name">Account Product Fiscal Classification</field>
-			<field name="model_id" ref="model_account_product_fiscal_classification"/>
-			<field name="global" eval="True"/>
-			<field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
-		</record>
-
 	</data>
 
 </openerp>
