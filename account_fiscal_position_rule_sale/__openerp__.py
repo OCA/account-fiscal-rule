@@ -26,7 +26,7 @@
     'version': '1.1',
     'category': 'Generic Modules/Accounting',
     'description': """Include a rule to decide the correct fiscal position for Sale""",
-    'author': 'Akretion',
+    'author': "Akretion,Odoo Community Association (OCA)",
     'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
     ## WHEN MERGING PLEASE LEAVE THE DEPENDENCY ON delivery BECAUSE OTHERWISE THE ONCHANGE_PARTNER_ID WILL BE TRIGGERED SOMETIMES IN DELIVERY
