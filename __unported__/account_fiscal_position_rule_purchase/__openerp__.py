@@ -28,7 +28,7 @@
     'category': 'Generic Modules/Accounting',
     'description': """Include a rule to decide the
     correct fiscal position for Purchase""",
-    'author': 'Akretion',
+    'author': "Akretion,Odoo Community Association (OCA)",
     'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
     'depends': [

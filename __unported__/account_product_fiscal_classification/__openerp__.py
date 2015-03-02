@@ -24,7 +24,7 @@
     'name': 'Account Product Fiscal Classification',
     'version': '0.1',
     'license': 'AGPL-3',
-    'author': 'Akretion',
+    'author': "Akretion,Odoo Community Association (OCA)",
     'description': """Account Product Fiscal Classification""",
     'website': 'http://www.akretion.com',
     'depends': [
