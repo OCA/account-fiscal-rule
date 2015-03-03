@@ -221,7 +221,8 @@ class WizardAccountFiscalPositionRule(models.TransientModel):
                 'to_shipping_country': template.to_shipping_country.id,
                 'to_shipping_state': template.to_shipping_state.id,
                 'company_id': company_id,
-                'fiscal_position_id': fiscal_position_id,
+                'fiscal_position_id': fiscal_position_ids and
+                fiscal_position_ids[0],
                 'use_sale': template.use_sale,
                 'use_invoice': template.use_invoice,
                 'use_purchase': template.use_purchase,
