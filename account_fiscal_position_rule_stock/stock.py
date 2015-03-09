@@ -36,7 +36,7 @@ class StockPicking(models.Model):
             ctx).apply_fiscal_mapping(result, **kwargs)
 
     @api.onchange('partner_id')
-    def onchange_partner_id(self):
+    def onchange_partner_id(self, **kwargs):
         result = {'value': {'fiscal_position': False}}
 
         if not self.partner_id or not self.company_id:
@@ -45,12 +45,12 @@ class StockPicking(models.Model):
         partner_address = self.partner_id.address_get(
             ['invoice', 'delivery'])
 
-        kwargs = {
+        kwargs.update({
             'partner_id': self.partner_id.id,
             'partner_invoice_id': partner_address['invoice'],
             'partner_shipping_id': partner_address['delivery'],
             'company_id': self.company_id.id,
-        }
+        })
         result = self.update(
             self._fiscal_position_map(result, **kwargs)['value'])
 
