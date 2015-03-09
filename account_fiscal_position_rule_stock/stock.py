@@ -35,26 +35,24 @@ class StockPicking(models.Model):
         return self.env['account.fiscal.position.rule'].with_context(
             ctx).apply_fiscal_mapping(result, **kwargs)
 
-    @api.multi
-    def onchange_partner_id(self, cr, uid, ids, partner_id, company_id):
+    @api.onchange('partner_id')
+    def onchange_partner_id(self):
         result = {'value': {'fiscal_position': False}}
 
-        if not partner_id or not company_id:
+        if not self.partner_id or not self.company_id:
             return result
 
-        # TODO waiting migration super method to new api
-        partner_invoice_id = self.pool.get('res.partner').address_get(
-            cr, uid, [partner_id], ['invoice'])['invoice']
-        partner_shipping_id = self.pool.get('res.partner').address_get(
-            cr, uid, [partner_id], ['delivery'])['delivery']
+        partner_address = self.partner_id.address_get(
+            ['invoice', 'delivery'])
 
         kwargs = {
-            'partner_id': partner_id,
-            'partner_invoice_id': partner_invoice_id,
-            'partner_shipping_id': partner_shipping_id,
-            'company_id': company_id,
+            'partner_id': self.partner_id.id,
+            'partner_invoice_id': partner_address['invoice'],
+            'partner_shipping_id': partner_address['delivery'],
+            'company_id': self.company_id.id,
         }
-        return self._fiscal_position_map(result, **kwargs)
+        result = self.update(
+            self._fiscal_position_map(result, **kwargs)['value'])
 
     def _prepare_invoice(self, cr, uid, picking, partner, inv_type,
                          journal_id, context=None):
