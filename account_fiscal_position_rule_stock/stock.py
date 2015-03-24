@@ -54,10 +54,12 @@ class StockPicking(models.Model):
         result = self.update(
             self._fiscal_position_map(result, **kwargs)['value'])
 
-    def _prepare_invoice(self, cr, uid, picking, partner, inv_type,
-                         journal_id, context=None):
-        result = super(StockPicking, self)._prepare_invoice(
-            cr, uid, picking, partner, inv_type, journal_id, context)
-        result['fiscal_position'] = picking.fiscal_position and \
-            picking.fiscal_position.id
-        return result
+    def _get_invoice_vals(self, cr, uid, key, inv_type, journal_id, move,
+                          context=None):
+        inv_vals = super(StockPicking, self)._get_invoice_vals(
+            cr, uid, key, inv_type, journal_id, move, context=context)
+        inv_vals.update({
+            'fiscal_position': (move.picking_id.fiscal_position and
+                                move.picking_id.fiscal_position.id),
+            })
+        return inv_vals
