@@ -39,6 +39,5 @@
         'security/ir.model.access.csv',
     ],
     'demo': [],
-    'installable': False,
-    'active': False,
+    'installable': True,
 }
