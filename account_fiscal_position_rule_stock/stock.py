@@ -27,8 +27,7 @@ class stock_picking(osv.Model):
     _description = "Picking List"
     _columns = {
         'fiscal_position': fields.many2one(
-            'account.fiscal.position', 'Fiscal Position',
-            domain="[('fiscal_operation_id','=',fiscal_operation_id)]"),
+            'account.fiscal.position', 'Fiscal Position'),
     }
 
     def _fiscal_position_map(self, cr, uid, result, **kwargs):
@@ -81,8 +80,7 @@ class stock_picking_out(osv.Model):
     _inherit = "stock.picking.out"
     _columns = {
         'fiscal_position': fields.many2one(
-            'account.fiscal.position', 'Fiscal Position',
-            domain="[('fiscal_operation_id','=',fiscal_operation_id)]"),
+            'account.fiscal.position', 'Fiscal Position'),
     }
 
     def _fiscal_position_map(self, cr, uid, result, **kwargs):
@@ -134,8 +132,7 @@ class stock_picking_in(osv.Model):
     _inherit = "stock.picking.in"
     _columns = {
         'fiscal_position': fields.many2one(
-            'account.fiscal.position', 'Fiscal Position',
-            domain="[('fiscal_operation_id','=',fiscal_operation_id)]"),
+            'account.fiscal.position', 'Fiscal Position'),
     }
 
     def _fiscal_position_map(self, cr, uid, result, **kwargs):
