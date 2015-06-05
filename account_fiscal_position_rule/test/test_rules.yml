@@ -66,6 +66,7 @@
       'partner_invoice_id': ref('base.res_partner_11')
     }
     res = self.fiscal_position_map(**kw)
+    print "RRRRRRRRRRRRRRR11111", res, ref('p1') 
     assert res['fiscal_position'] == ref('p1')
 -
   I check that the mapping works for shipping address
@@ -77,6 +78,7 @@
       'partner_shipping_id': ref('base.res_partner_12')
     }
     res = self.fiscal_position_map(**kw)
+    print "RRRRRRRRRRRRRR222222", res, ref('p2')
     assert res['fiscal_position'] == ref('p2')
 -
   I check that the mapping works for partner specific fiscal position
