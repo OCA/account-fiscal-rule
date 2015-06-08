@@ -66,7 +66,7 @@
       'partner_invoice_id': ref('base.res_partner_11')
     }
     res = self.fiscal_position_map(**kw)
-    print "RRRRRRRRRRRRRRR11111", res, ref('p1'), ref('fake_rule'), self.search(cr, uid, [])
+    print "RRRRRRRRRRRRRRR11111", res, ref('p1')
     assert res['fiscal_position'] == ref('p1')
 -
   I check that the mapping works for shipping address
