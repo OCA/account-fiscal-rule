@@ -36,20 +36,14 @@ class PurchaseOrder(models.Model):
         ctx = dict(self._context)
         result = super(PurchaseOrder, self).onchange_partner_id(partner_id)
 
-        print "onchange_partner_id"
-
         if not partner_id or not ctx.get('company_id'):
             return result
-
         kwargs = {
             'company_id': ctx.get('company_id'),
             'partner_id': partner_id,
             'partner_invoice_id': partner_id,
             'partner_shipping_id': partner_id,
         }
-
-        result = self._fiscal_position_map(result, **kwargs)
-        print "result", result
         return self._fiscal_position_map(result, **kwargs)
 
     @api.multi
