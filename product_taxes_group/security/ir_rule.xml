@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- *********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- *********************************************************************** -->
+<openerp>
+    <data noupdate="0">
+
+        <record id="ir_rule_tax_group" model="ir.rule">
+            <field name="name">Tax Group</field>
+            <field name="model_id" ref="model_tax_group" />
+            <field name="global" eval="True" />
+            <field name="domain_force">[('company_id', '=', user.company_id.id)]</field>
+        </record>
+
+    </data>
+</openerp>
