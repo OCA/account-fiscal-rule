@@ -63,7 +63,6 @@ Copyright, Authors and Licence:
     'license': 'AGPL-3',
     'depends': [
         'account',
-        'stock',
     ],
     'data': [
         'security/ir_rule.xml',
@@ -76,5 +75,6 @@ Copyright, Authors and Licence:
         'demo/account_tax.yml',
         'demo/tax_group.yml',
         'demo/product_product.yml',
+        'demo/res_groups.yml',
     ],
 }
