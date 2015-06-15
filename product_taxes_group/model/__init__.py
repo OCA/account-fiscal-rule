@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Product - Taxes Group module for Odoo
-#    Copyright (C) 2014 -Today GRAP (http://www.grap.coop)
+#    Copyright (C) 2014-Today GRAP (http://www.grap.coop)
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,6 @@
 #
 ##############################################################################
 
-from . import product_product
 from . import product_template
 from . import tax_group
 from . import wizard_change_tax_group
