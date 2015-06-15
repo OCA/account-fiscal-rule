@@ -5,6 +5,8 @@ Functionality:
 --------------
 * Add a new light concept 'tax_group' to associate possible supplier and sale taxes;
 
+.. image:: /product_taxes_group/static/img/tax_group_form.png
+
 * Make more usable taxes selection in product view. The user has now the possibility
   to select a tax group, instead of select manually all the taxes;
 
