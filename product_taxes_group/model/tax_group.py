@@ -22,23 +22,96 @@
 
 import logging
 
-from openerp.osv import fields, osv
-from openerp.osv.orm import Model
-from openerp import SUPERUSER_ID
-from openerp.tools.translate import _
+from openerp import SUPERUSER_ID, models, fields, api, _
+from openerp.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
 
-class tax_group(Model):
+class TaxGroup(models.Model):
     """Group of customer and supplier taxes.
     This group is linked to a product to select a group of taxes in one
     time."""
-    _name = "tax.group"
-    _description = "Tax Group"
+    _name = 'tax.group'
+    _description = 'Tax Group'
     _MAX_LENGTH_NAME = 256
 
-    def get_or_create(self, cr, uid, values, context=None):
+    # Getter / Setter Section
+    def _default_company_id(self):
+        return self.env['res.users']._get_company()
+
+    def _get_product_tmpl_qty(self):
+        for rec in self:
+            rec.product_tmpl_qty = self.env['product.template'].search_count([
+                ('tax_group_id', '=', rec.id), '|', ('active', '=', False),
+                ('active', '=', True)])
+
+    def _get_product_tmpl_ids(self):
+        for rec in self:
+            rec.product_tmpl_ids = self.env['product.template'].search([
+                ('tax_group_id', '=', rec.id), '|', ('active', '=', False),
+                ('active', '=', True)])
+
+    # Field Section
+    name = fields.Char(
+        size=_MAX_LENGTH_NAME, required=True, select=True)
+
+    company_id = fields.Many2one(
+        comodel_name='res.company', default=_default_company_id,
+        help="Specify a company"
+        " if you want to define this Tax Group only for specific company."
+        " Otherwise, this tax group will be available for all companies.")
+
+    active = fields.Boolean(
+        default=True,
+        help="If unchecked, it will allow you to hide the tax"
+        " group without removing it.")
+
+    product_tmpl_ids = fields.One2many(
+        comodel_name='product.template', string='Products',
+        compute=_get_product_tmpl_ids)
+
+    product_tmpl_qty = fields.Integer(
+        string='Products Quantity', compute=_get_product_tmpl_qty)
+
+    supplier_tax_ids = fields.Many2many(
+        'account.tax', 'product_supplier_tax_rel',
+        'group_id', 'tax_id', string='Supplier Taxes', domain="""[
+            ('company_id', '=', company_id),
+            ('parent_id', '=', False),
+            ('type_tax_use', 'in', ['purchase', 'all'])]""")
+
+    customer_tax_ids = fields.Many2many(
+        'account.tax', 'product_customer_tax_rel',
+        'group_id', 'tax_id', string='Customer Taxes', domain="""[
+            ('company_id', '=', company_id),
+            ('parent_id', '=', False),
+            ('type_tax_use', 'in', ['sale', 'all'])]""")
+
+    # Overload Section
+    @api.multi
+    def write(self, vals):
+        res = super(TaxGroup, self).write(vals)
+        pt_obj = self.env['product.template']
+        if 'supplier_tax_ids' in vals or 'customer_tax_ids' in vals:
+            for tg in self:
+                pt_lst = pt_obj.browse([x.id for x in tg.product_tmpl_ids])
+                pt_lst.write({'tax_group_id': tg.id})
+        return res
+
+    @api.multi
+    def unlink(self):
+        for tg in self:
+            if tg.product_tmpl_qty != 0:
+                raise ValidationError(
+                    _("""You cannot delete The tax Group '%s' because"""
+                        """ it contents %s products. Please move products"""
+                        """ to another Tax Group.""") % (
+                        tg.name, tg.product_tmpl_qty))
+        return super(TaxGroup, self).unlink()
+
+    # Custom Sections
+    def find_or_create(self, cr, uid, values, context=None):
         at_obj = self.pool['account.tax']
         # Search for existing Tax Group
         tg_ids = self.search(
@@ -55,36 +128,35 @@ class tax_group(Model):
             name = _('No taxes')
         elif len(values[2]) == 0:
             name = _('No Purchase Taxes - Customer Taxes: ')
-            for tax in at_obj.browse(cr, uid, values[1], context=context):
+            for tax in at_obj.browse(cr, uid, values[1]):
                 name += tax.description and tax.description or tax.name
                 name += ' + '
             name = name[:-3]
         elif len(values[1]) == 0:
             name = _('Purchase Taxes: ')
-            for tax in at_obj.browse(cr, uid, values[2], context=context):
+            for tax in at_obj.browse(cr, uid, values[2], context=None):
                 name += tax.description and tax.description or tax.name
                 name += ' + '
             name = name[:-3]
             name += _('- No Customer Taxes')
         else:
             name = _('Purchase Taxes: ')
-            for tax in at_obj.browse(cr, uid, values[2], context=context):
+            for tax in at_obj.browse(cr, uid, values[2], context=None):
                 name += tax.description and tax.description or tax.name
                 name += ' + '
             name = name[:-3]
             name += _(' - Customer Taxes: ')
-            for tax in at_obj.browse(cr, uid, values[1], context=context):
+            for tax in at_obj.browse(cr, uid, values[1], context=None):
                 name += tax.description and tax.description or tax.name
                 name += ' + '
             name = name[:-3]
         name = name[:self._MAX_LENGTH_NAME] \
             if len(name) > self._MAX_LENGTH_NAME else name
-        return self.create(
-            cr, uid, {
-                'name': name,
-                'company_id': values[0],
-                'customer_tax_ids': [(6, 0, values[1])],
-                'supplier_tax_ids': [(6, 0, values[2])]}, context=context)
+        return self.create(cr, uid, {
+            'name': name,
+            'company_id': values[0],
+            'customer_tax_ids': [(6, 0, values[1])],
+            'supplier_tax_ids': [(6, 0, values[2])]}, context=context)
 
     def init(self, cr):
         """Generate Tax Groups for each combinations of Tax Group set
@@ -121,7 +193,7 @@ class tax_group(Model):
                 _logger.info(
                     """create new Tax Group. Product templates"""
                     """ managed %s/%s""" % (counter, total))
-                tg_id = self.get_or_create(cr, uid, res, context=None)
+                tg_id = self.find_or_create(cr, uid, res)
                 list_res[tg_id] = res
                 # associate product template to the new Tax Group
                 pt_obj.write(cr, uid, [pt.id], {'tax_group_id': tg_id})
@@ -130,84 +202,3 @@ class tax_group(Model):
                 pt_obj.write(cr, uid, [pt.id], {
                     'tax_group_id': list_res.keys()[
                         list_res.values().index(res)]})
-
-    def _get_product_qty(self, cr, uid, ids, name, args, context=None):
-        res = dict([(x, 0) for x in ids])
-        pp_obj = self.pool['product.product']
-        result = pp_obj.read_group(
-            cr, uid, [
-                ('tax_group_id', 'in', ids), '|', ('active', '=', False),
-                ('active', '=', True)],
-            ['tax_group_id'], ['tax_group_id'])
-        for x in result:
-            res[x['tax_group_id'][0]] = x['tax_group_id_count']
-        return res
-
-    def _get_product_ids(self, cr, uid, ids, name, args, context=None):
-        res = dict([(x, []) for x in ids])
-        pp_obj = self.pool['product.product']
-        for tg_id in ids:
-            pp_ids = pp_obj.search(
-                cr, uid, [
-                    ('tax_group_id', '=', tg_id), '|', ('active', '=', False),
-                    ('active', '=', True)], context=context)
-            res[tg_id] = pp_ids
-        return res
-
-    _columns = {
-        'name': fields.char(
-            'Name', size=_MAX_LENGTH_NAME, required=True, select=True),
-        'company_id': fields.many2one(
-            'res.company', 'Company', help="Specify a company if you want to"
-            "define this Tax Group only for specific company. Otherwise, "
-            "this tax group will be available for all companies."),
-        'active': fields.boolean(
-            'Active', help="If unchecked, it will allow you to hide the tax"
-            " group without removing it."),
-        'product_ids': fields.function(
-            _get_product_ids, type='one2many', relation='product.product',
-            string='Products'),
-        'product_qty': fields.function(
-            _get_product_qty, type='integer',
-            string='Products Quantity'),
-        'supplier_tax_ids': fields.many2many(
-            'account.tax', 'product_supplier_tax_rel',
-            'prod_id', 'tax_id', 'Supplier Taxes', domain="""[
-                ('company_id', '=', company_id),
-                ('parent_id', '=', False),
-                ('type_tax_use', 'in', ['purchase', 'all'])]"""),
-        'customer_tax_ids': fields.many2many(
-            'account.tax', 'product_customer_tax_rel',
-            'prod_id', 'tax_id', 'Customer Taxes', domain="""[
-                ('company_id', '=', company_id),
-                ('parent_id', '=', False),
-                ('type_tax_use', 'in', ['sale', 'all'])]"""),
-    }
-
-    _defaults = {
-        'active': True,
-        'company_id': lambda s, cr, uid, c: (
-            s.pool.get('res.users')._get_company(cr, uid, context=c)),
-    }
-
-    def write(self, cr, uid, ids, vals, context=None):
-        pt_obj = self.pool['product.template']
-        res = super(tax_group, self).write(
-            cr, uid, ids, vals, context=context)
-        if 'supplier_tax_ids' in vals or 'customer_tax_ids' in vals:
-            for tg in self.browse(cr, uid, ids, context=context):
-                pt_obj.write(
-                    cr, uid, [x.product_tmpl_id.id for x in tg.product_ids],
-                    {'tax_group_id': tg.id}, context=context)
-        return res
-
-    def unlink(self, cr, uid, ids, context=None):
-        for tg in self.browse(cr, uid, ids, context=context):
-            if tg.product_qty != 0:
-                raise osv.except_osv(
-                    _('Non Empty Tax Group!'),
-                    _("""You cannot delete The tax Group '%s' because"""
-                        """ it contents %s products. Please move products"""
-                        """ to another Tax Group.""") % (
-                        tg.name, tg.product_qty))
-        return super(tax_group, self).unlink(cr, uid, ids, context=context)

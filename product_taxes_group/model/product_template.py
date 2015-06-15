@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Product - Taxes Group module for Odoo
-#    Copyright (C) 2014 -Today GRAP (http://www.grap.coop)
+#    Copyright (C) 2014-Today GRAP (http://www.grap.coop)
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -20,30 +20,66 @@
 #
 ##############################################################################
 
+from lxml import etree
 
-from openerp.osv import fields, osv
-from openerp.osv.orm import Model
-from openerp.tools.translate import _
+from openerp import models, fields, api, _
+from openerp.exceptions import ValidationError
+from openerp.osv.orm import setup_modifiers
 
 
-class product_template(Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    _columns = {
-        'tax_group_id': fields.many2one(
-            'tax.group', 'Tax Group',
-            domain="[('company_id', '=', company_id)]",
-            help="Specify the combination of taxes for this product."
-            " This field is required. If you dont find the correct Tax"
-            " Group, Please create a new one or ask to your account"
-            " manager if you don't have the access right."),
-    }
+    # Field Section
+    tax_group_id = fields.Many2one(
+        'tax.group', string='Tax Group',
+        domain="[('company_id', '=', company_id)]",
+        help="Specify the combination of taxes for this product."
+        " This field is required. If you dont find the correct Tax"
+        " Group, Please create a new one or ask to your account"
+        " manager if you don't have the access right.")
 
-    def check_coherent_vals(self, cr, uid, ids, vals, context=None):
-        tg_obj = self.pool['tax.group']
+    # Overload Section
+    @api.model
+    def create(self, vals):
+        self.check_coherent_vals(False, vals)
+        return super(ProductTemplate, self).create(vals)
+
+    @api.multi
+    def write(self, vals):
+        self.check_coherent_vals([x.id for x in self], vals)
+        return super(ProductTemplate, self).write(vals)
+
+    # View Section
+    def fields_view_get(
+            self, cr, uid, view_id=None, view_type='form', context=None,
+            toolbar=False, submenu=False):
+        """
+        Set 'tax_group_id' as required, by UI, to avoid incompatibility
+        with other modules that could have demo data without tax_group_id.
+        """
+        res = super(ProductTemplate, self).fields_view_get(
+            cr, uid, view_id=view_id, view_type=view_type, context=context,
+            toolbar=toolbar, submenu=submenu)
+        if view_type == 'form':
+            doc = etree.XML(res['arch'])
+            nodes = doc.xpath("//field[@name='tax_group_id']")
+            if nodes:
+                nodes[0].set('required', '1')
+                setup_modifiers(nodes[0], res['fields']['tax_group_id'])
+                res['arch'] = etree.tostring(doc)
+        return res
+
+    # Custom Section
+    def check_coherent_vals(self, ids, vals):
+        """If tax group is defined, set the according taxes to the product(s);
+        Otherwise, find the correct tax group, depending of the taxes, or
+        create a new one, if no one are found.
+        """
+        tg_obj = self.env['tax.group']
         if vals.get('tax_group_id', False):
             # update or replace 'taxes_id' and 'supplier_taxes_id'
-            tg = tg_obj.browse(cr, uid, vals['tax_group_id'], context=context)
+            tg = tg_obj.browse(vals['tax_group_id'])
             vals['supplier_taxes_id'] = [[6, 0, [
                 x.id for x in tg.supplier_tax_ids]]]
             vals['taxes_id'] = [[6, 0, [
@@ -63,11 +99,9 @@ class product_template(Model):
             else:
                 # product template Single update mode
                 if len(ids) != 1:
-                    raise osv.except_osv(
-                        _('Unauthorized Update!'),
-                        _("You cannot change taxes"
-                            " for many product templates"))
-                pt = self.browse(cr, uid, ids, context=context)[0]
+                    raise ValidationError(
+                        _("You cannot change Taxes for many Products."))
+                pt = self.browse(ids)[0]
                 company_id = vals.get('company_id', False) or \
                     pt.company_id.id
                 if (vals.get('supplier_taxes_id', False) and
@@ -80,18 +114,6 @@ class product_template(Model):
                     customer_tax_ids = vals.get('taxes_id')[0][2]
                 else:
                     customer_tax_ids = [x.id for x in pt.taxes_id]
-            tg_id = tg_obj.get_or_create(
-                cr, uid, [company_id, customer_tax_ids, supplier_tax_ids])
+            tg_id = tg_obj.find_or_create(
+                [company_id, customer_tax_ids, supplier_tax_ids])
             vals['tax_group_id'] = tg_id
-
-    def create(self, cr, uid, vals, context=None):
-        self.check_coherent_vals(cr, uid, False, vals, context=context)
-        return super(product_template, self).create(
-            cr, uid, vals, context=context)
-
-    def write(self, cr, uid, ids, vals, context=None):
-        if not isinstance(ids, (tuple, list)):
-            ids = [ids]
-        self.check_coherent_vals(cr, uid, ids, vals, context=context)
-        return super(product_template, self).write(
-            cr, uid, ids, vals, context=context)

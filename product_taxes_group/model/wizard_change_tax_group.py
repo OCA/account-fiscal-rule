@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Product - Taxes Group module for Odoo
-#    Copyright (C) 2014 -Today GRAP (http://www.grap.coop)
+#    Copyright (C) 2014-Today GRAP (http://www.grap.coop)
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -20,33 +20,31 @@
 #
 ##############################################################################
 
-from openerp.osv import fields
-from openerp.osv.orm import TransientModel
+from openerp import models, fields, api
 
 
-class wizard_change_tax_group(TransientModel):
+class WizardChangeTaxGroup(models.TransientModel):
     """Wizard to allow to change the Tax Group of products."""
-    _name = "wizard.change.tax.group"
+    _name = 'wizard.change.tax.group'
 
-    def change_tax_group(self, cr, uid, ids, context=None):
-        pt_obj = self.pool['product.template']
-        for wctg in self.browse(cr, uid, ids, context=context):
-            pt_ids = [
-                x.product_tmpl_id.id
-                for x in wctg.old_tax_group_id.product_ids]
-            pt_obj.write(cr, uid, pt_ids, {
-                'tax_group_id': wctg.new_tax_group_id.id}, context=context)
-        return {}
+    # Getter / Setter Section
+    def _default_old_tax_group_id(self):
+        return self.env.context.get('active_id', False)
 
-    _columns = {
-        'old_tax_group_id': fields.many2one(
-            'tax.group', 'Old Tax Group', required=True, readonly=True),
-        'new_tax_group_id': fields.many2one(
-            'tax.group', 'New Tax Group', required=True,
-            domain="""[('id', '!=', old_tax_group_id)]"""),
-    }
+    # Field Section
+    old_tax_group_id = fields.Many2one(
+        comodel_name='tax.group', string='Old Tax Group',
+        default=_default_old_tax_group_id, required=True, readonly=True)
 
-    _defaults = {
-        'old_tax_group_id': lambda self, cr, uid, ctx: ctx and ctx.get(
-            'active_id', False) or False
-    }
+    new_tax_group_id = fields.Many2one(
+        comodel_name='tax.group', string='New Tax Group', required=True,
+        domain="""[('id', '!=', old_tax_group_id)]""")
+
+    # View Section
+    @api.multi
+    def button_change_tax_group(self):
+        pt_obj = self.env['product.template']
+        for wizard in self:
+            pt_ids = [x.id for x in wizard.old_tax_group_id.product_tmpl_ids]
+            pt_lst = pt_obj.browse(pt_ids)
+            pt_lst.write({'tax_group_id': wizard.new_tax_group_id.id})

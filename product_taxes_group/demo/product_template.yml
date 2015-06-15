@@ -20,28 +20,13 @@
 #
 ##############################################################################
 
-from lxml import etree
-
-from openerp.osv.orm import setup_modifiers
-from openerp.osv.orm import Model
-
-
-class product_product(Model):
-    _inherit = 'product.product'
-
-    def fields_view_get(
-            self, cr, uid, view_id=None, view_type='form', context=None,
-            toolbar=False, submenu=False):
-        if context is None:
-            context = {}
-        res = super(product_product, self).fields_view_get(
-            cr, uid, view_id=view_id, view_type=view_type, context=context,
-            toolbar=toolbar, submenu=False)
-        if view_type == 'form':
-            doc = etree.XML(res['arch'])
-            nodes = doc.xpath("//field[@name='tax_group_id']")
-            if nodes:
-                nodes[0].set('required', '1')
-                setup_modifiers(nodes[0], res['fields']['tax_group_id'])
-                res['arch'] = etree.tostring(doc)
-        return res
+- !record {model: product.template, id: product_template_1}:
+    name: Demo Service Product With Tax Group
+    company_id: base.main_company
+    categ_id: product.product_category_all
+    type: service
+    standard_price: 20.0
+    list_price: 30.0
+    tax_group_id: product_taxes_group.tax_group_1
+    uom_id: product.product_uom_unit
+    uom_po_id: product.product_uom_unit
