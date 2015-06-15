@@ -29,7 +29,7 @@
         </record>
 
         <record id="action_change_tax_group" model="ir.actions.act_window">
-            <field name="name">Change the Tax Group</field>
+            <field name="name">Move Products into another Taxes Group</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">wizard.change.tax.group</field>
             <field name="view_type">form</field>

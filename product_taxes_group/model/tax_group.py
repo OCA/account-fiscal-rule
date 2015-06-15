@@ -33,7 +33,7 @@ class TaxGroup(models.Model):
     This group is linked to a product to select a group of taxes in one
     time."""
     _name = 'tax.group'
-    _description = 'Tax Group'
+    _description = 'Taxes Group'
     _MAX_LENGTH_NAME = 256
 
     # Getter / Setter Section
@@ -58,14 +58,14 @@ class TaxGroup(models.Model):
 
     company_id = fields.Many2one(
         comodel_name='res.company', default=_default_company_id,
-        help="Specify a company"
-        " if you want to define this Tax Group only for specific company."
-        " Otherwise, this tax group will be available for all companies.")
+        string='Company', help="Specify a company"
+        " if you want to define this Taxes Group only for specific company."
+        " Otherwise, this Taxes Group will be available for all companies.")
 
     active = fields.Boolean(
         default=True,
-        help="If unchecked, it will allow you to hide the tax"
-        " group without removing it.")
+        help="If unchecked, it will allow you to hide the Taxes"
+        " Group without removing it.")
 
     product_tmpl_ids = fields.One2many(
         comodel_name='product.template', string='Products',
@@ -104,16 +104,16 @@ class TaxGroup(models.Model):
         for tg in self:
             if tg.product_tmpl_qty != 0:
                 raise ValidationError(
-                    _("""You cannot delete The tax Group '%s' because"""
+                    _("""You cannot delete The taxes Group '%s' because"""
                         """ it contents %s products. Please move products"""
-                        """ to another Tax Group.""") % (
+                        """ to another Taxes Group.""") % (
                         tg.name, tg.product_tmpl_qty))
         return super(TaxGroup, self).unlink()
 
     # Custom Sections
     def find_or_create(self, cr, uid, values, context=None):
         at_obj = self.pool['account.tax']
-        # Search for existing Tax Group
+        # Search for existing Taxes Group
         tg_ids = self.search(
             cr, uid, ['|', ('active', '=', False), ('active', '=', True)],
             context=context)
@@ -123,7 +123,7 @@ class TaxGroup(models.Model):
                     sorted([x.id for x in tg.supplier_tax_ids]) == values[2]):
                 return tg.id
 
-        # create new Tax Group if not found
+        # create new Taxes Group if not found
         if len(values[1]) == 0 and len(values[2]) == 0:
             name = _('No taxes')
         elif len(values[2]) == 0:
@@ -159,13 +159,13 @@ class TaxGroup(models.Model):
             'supplier_tax_ids': [(6, 0, values[2])]}, context=context)
 
     def init(self, cr):
-        """Generate Tax Groups for each combinations of Tax Group set
+        """Generate Taxes Groups for each combinations of Taxes Group set
         in product"""
         uid = SUPERUSER_ID
         pt_obj = self.pool['product.template']
         tg_obj = self.pool['tax.group']
 
-        # Get all Tax Group (if update process)
+        # Get all Taxes Group (if update process)
         list_res = {}
         tg_ids = tg_obj.search(
             cr, uid, ['|', ('active', '=', False), ('active', '=', True)])
@@ -176,13 +176,13 @@ class TaxGroup(models.Model):
                 sorted([x.id for x in tg.customer_tax_ids]),
                 sorted([x.id for x in tg.supplier_tax_ids])]
 
-        # Get all product template without tax group defined
+        # Get all product template without taxes group defined
         pt_ids = pt_obj.search(cr, uid, [('tax_group_id', '=', False)])
 
         pt_list = pt_obj.browse(cr, uid, pt_ids)
         counter = 0
         total = len(pt_list)
-        # Associate product template to existing or new tax group
+        # Associate product template to existing or new taxes group
         for pt in pt_list:
             counter += 1
             res = [
@@ -191,14 +191,14 @@ class TaxGroup(models.Model):
                 sorted([x.id for x in pt.supplier_taxes_id])]
             if res not in list_res.values():
                 _logger.info(
-                    """create new Tax Group. Product templates"""
+                    """create new Taxes Group. Product templates"""
                     """ managed %s/%s""" % (counter, total))
                 tg_id = self.find_or_create(cr, uid, res)
                 list_res[tg_id] = res
-                # associate product template to the new Tax Group
+                # associate product template to the new Taxes Group
                 pt_obj.write(cr, uid, [pt.id], {'tax_group_id': tg_id})
             else:
-                # associate product template to existing Tax Group
+                # associate product template to existing Taxes Group
                 pt_obj.write(cr, uid, [pt.id], {
                     'tax_group_id': list_res.keys()[
                         list_res.values().index(res)]})

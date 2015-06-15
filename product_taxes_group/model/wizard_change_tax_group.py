@@ -24,7 +24,7 @@ from openerp import models, fields, api
 
 
 class WizardChangeTaxGroup(models.TransientModel):
-    """Wizard to allow to change the Tax Group of products."""
+    """Wizard to allow to change the Taxes Group of products."""
     _name = 'wizard.change.tax.group'
 
     # Getter / Setter Section
@@ -33,11 +33,11 @@ class WizardChangeTaxGroup(models.TransientModel):
 
     # Field Section
     old_tax_group_id = fields.Many2one(
-        comodel_name='tax.group', string='Old Tax Group',
+        comodel_name='tax.group', string='Old Taxes Group',
         default=_default_old_tax_group_id, required=True, readonly=True)
 
     new_tax_group_id = fields.Many2one(
-        comodel_name='tax.group', string='New Tax Group', required=True,
+        comodel_name='tax.group', string='New Taxes Group', required=True,
         domain="""[('id', '!=', old_tax_group_id)]""")
 
     # View Section

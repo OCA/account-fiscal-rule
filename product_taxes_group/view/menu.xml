@@ -21,7 +21,7 @@
     <data>
 
         <menuitem id="menu_account_tax_group"
-            name="Taxes Group"
+            name="Taxes Groups"
             parent="account.next_id_27"
             action="action_account_tax_group"
             sequence="15"/>

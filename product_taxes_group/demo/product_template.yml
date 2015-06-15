@@ -21,7 +21,7 @@
 ##############################################################################
 
 - !record {model: product.template, id: product_template_1}:
-    name: Demo Service Product With Tax Group
+    name: Demo Product With Taxes Group
     company_id: base.main_company
     categ_id: product.product_category_all
     type: service

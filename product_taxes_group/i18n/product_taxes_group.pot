@@ -1,13 +1,13 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
 #	* product_taxes_group
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 7.0\n"
+"Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-02 21:23+0000\n"
-"PO-Revision-Date: 2014-09-02 21:23+0000\n"
+"POT-Creation-Date: 2015-06-15 14:26+0000\n"
+"PO-Revision-Date: 2015-06-15 14:26+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,13 +16,13 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_taxes_group
-#: code:addons/product_taxes_group/model/tax_group.py:75
+#: code:addons/product_taxes_group/model/tax_group.py:148
 #, python-format
 msgid " - Customer Taxes: "
 msgstr ""
 
 #. module: product_taxes_group
-#: code:addons/product_taxes_group/model/tax_group.py:68
+#: code:addons/product_taxes_group/model/tax_group.py:141
 #, python-format
 msgid "- No Customer Taxes"
 msgstr ""
@@ -33,18 +33,13 @@ msgid "Active"
 msgstr ""
 
 #. module: product_taxes_group
-#: view:wizard.change.tax.group:0
+#: view:wizard.change.tax.group:product_taxes_group.view_change_tax_group
+msgid "Apply"
+msgstr ""
+
+#. module: product_taxes_group
+#: view:wizard.change.tax.group:product_taxes_group.view_change_tax_group
 msgid "Cancel"
-msgstr ""
-
-#. module: product_taxes_group
-#: view:wizard.change.tax.group:0
-msgid "Change Tax Group"
-msgstr ""
-
-#. module: product_taxes_group
-#: model:ir.actions.act_window,name:product_taxes_group.action_change_tax_group
-msgid "Change the Tax Group"
 msgstr ""
 
 #. module: product_taxes_group
@@ -53,8 +48,25 @@ msgid "Company"
 msgstr ""
 
 #. module: product_taxes_group
+#: field:tax.group,create_uid:0
+#: field:wizard.change.tax.group,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: product_taxes_group
+#: field:tax.group,create_date:0
+#: field:wizard.change.tax.group,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: product_taxes_group
 #: field:tax.group,customer_tax_ids:0
 msgid "Customer Taxes"
+msgstr ""
+
+#. module: product_taxes_group
+#: model:product.template,name:product_taxes_group.product_template_1
+msgid "Demo Product With Taxes Group"
 msgstr ""
 
 #. module: product_taxes_group
@@ -73,81 +85,85 @@ msgid "Demo Sale Tax 3%"
 msgstr ""
 
 #. module: product_taxes_group
-#: model:product.template,name:product_taxes_group.product_product_1_product_template
-msgid "Demo Service Product With Tax Group"
+#: field:tax.group,id:0
+#: field:wizard.change.tax.group,id:0
+msgid "ID"
 msgstr ""
 
 #. module: product_taxes_group
 #: help:tax.group,active:0
-msgid "If unchecked, it will allow you to hide the tax group without removing it."
+msgid "If unchecked, it will allow you to hide the Taxes Group without removing it."
 msgstr ""
 
 #. module: product_taxes_group
-#: view:tax.group:0
-msgid "Move to other Tax Group"
+#: field:tax.group,write_uid:0
+#: field:wizard.change.tax.group,write_uid:0
+msgid "Last Updated by"
 msgstr ""
 
 #. module: product_taxes_group
+#: field:tax.group,write_date:0
+#: field:wizard.change.tax.group,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: product_taxes_group
+#: model:ir.actions.act_window,name:product_taxes_group.action_change_tax_group
+#: view:tax.group:product_taxes_group.view_tax_group_form
+#: view:wizard.change.tax.group:product_taxes_group.view_change_tax_group
+msgid "Move Products into another Taxes Group"
+msgstr ""
+
+#. module: product_taxes_group
+#: view:tax.group:product_taxes_group.view_tax_group_form
 #: field:tax.group,name:0
 msgid "Name"
 msgstr ""
 
 #. module: product_taxes_group
 #: field:wizard.change.tax.group,new_tax_group_id:0
-msgid "New Tax Group"
+msgid "New Taxes Group"
 msgstr ""
 
 #. module: product_taxes_group
-#: code:addons/product_taxes_group/model/tax_group.py:57
+#: code:addons/product_taxes_group/model/tax_group.py:130
 #, python-format
 msgid "No Purchase Taxes - Customer Taxes: "
 msgstr ""
 
 #. module: product_taxes_group
-#: code:addons/product_taxes_group/model/tax_group.py:55
+#: code:addons/product_taxes_group/model/tax_group.py:128
 #, python-format
 msgid "No taxes"
 msgstr ""
 
 #. module: product_taxes_group
-#: code:addons/product_taxes_group/model/tax_group.py:208
-#, python-format
-msgid "Non Empty Tax Group!"
-msgstr ""
-
-#. module: product_taxes_group
 #: field:wizard.change.tax.group,old_tax_group_id:0
-msgid "Old Tax Group"
+msgid "Old Taxes Group"
 msgstr ""
 
 #. module: product_taxes_group
-#: code:_description:0
 #: model:ir.model,name:product_taxes_group.model_product_template
-#, python-format
 msgid "Product Template"
 msgstr ""
 
 #. module: product_taxes_group
-#: view:tax.group:0
-#: field:tax.group,product_ids:0
+#: model:ir.actions.act_window,name:product_taxes_group.action_product_template_tax_group
+#: view:product.template:product_taxes_group.view_product_template_tree
+#: view:tax.group:product_taxes_group.view_tax_group_form
 msgid "Products"
 msgstr ""
 
 #. module: product_taxes_group
-#: field:tax.group,product_qty:0
-msgid "Products Quantity"
-msgstr ""
-
-#. module: product_taxes_group
-#: code:addons/product_taxes_group/model/tax_group.py:63
-#: code:addons/product_taxes_group/model/tax_group.py:70
+#: code:addons/product_taxes_group/model/tax_group.py:136
+#: code:addons/product_taxes_group/model/tax_group.py:143
 #, python-format
 msgid "Purchase Taxes: "
 msgstr ""
 
 #. module: product_taxes_group
 #: help:tax.group,company_id:0
-msgid "Specify a company if you want todefine this Tax Group only for specific company. Otherwise, this tax group will be available for all companies."
+msgid "Specify a company if you want to define this Taxes Group only for specific company. Otherwise, this Taxes Group will be available for all companies."
 msgstr ""
 
 #. module: product_taxes_group
@@ -161,62 +177,43 @@ msgid "Supplier Taxes"
 msgstr ""
 
 #. module: product_taxes_group
-#: code:_description:0
-#: model:ir.model,name:product_taxes_group.model_tax_group
-#: field:product.template,tax_group_id:0
-#, python-format
-msgid "Tax Group"
-msgstr ""
-
-#. module: product_taxes_group
-#: view:tax.group:0
+#: view:tax.group:product_taxes_group.view_tax_group_form
 msgid "Taxes"
 msgstr ""
 
 #. module: product_taxes_group
 #: model:ir.actions.act_window,name:product_taxes_group.action_account_tax_group
-#: model:ir.ui.menu,name:product_taxes_group.menu_account_tax_group
-#: view:tax.group:0
+#: model:ir.model,name:product_taxes_group.model_tax_group
+#: field:product.template,tax_group_id:0
+#: view:tax.group:product_taxes_group.view_tax_group_form
+#: view:tax.group:product_taxes_group.view_tax_group_tree
 msgid "Taxes Group"
 msgstr ""
 
 #. module: product_taxes_group
-#: view:product.product:0
+#: model:ir.ui.menu,name:product_taxes_group.menu_account_tax_group
+msgid "Taxes Groups"
+msgstr ""
+
+#. module: product_taxes_group
+#: view:product.template:product_taxes_group.view_product_template_form
 msgid "True"
 msgstr ""
 
 #. module: product_taxes_group
-#: code:addons/product_taxes_group/model/product_template.py:60
+#: code:addons/product_taxes_group/model/product_template.py:103
 #, python-format
-msgid "Unauthorized Update!"
+msgid "You cannot change Taxes for many Products."
 msgstr ""
 
 #. module: product_taxes_group
-#: code:addons/product_taxes_group/model/product_template.py:61
+#: code:addons/product_taxes_group/model/tax_group.py:107
 #, python-format
-msgid "You cannot change taxes for many product templates"
+msgid "You cannot delete The taxes Group '%s' because it contents %s products. Please move products to another Taxes Group."
 msgstr ""
 
 #. module: product_taxes_group
-#: code:addons/product_taxes_group/model/tax_group.py:209
-#, python-format
-msgid "You cannot delete The tax Group '%s' because it contents %s products. Please move products to another Tax Group."
-msgstr ""
-
-#. module: product_taxes_group
-#: view:wizard.change.tax.group:0
-msgid "_Apply"
-msgstr ""
-
-#. module: product_taxes_group
-#: view:wizard.change.tax.group:0
+#: view:wizard.change.tax.group:product_taxes_group.view_change_tax_group
 msgid "or"
-msgstr ""
-
-#. module: product_taxes_group
-#: code:_description:0
-#: model:ir.model,name:product_taxes_group.model_wizard_change_tax_group
-#, python-format
-msgid "wizard.change.tax.group"
 msgstr ""
 
