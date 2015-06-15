@@ -13,8 +13,10 @@ Functionality:
 
 * Prevent users to select incompatible purchase and supplier taxes.
   French Exemple: A product can not be configured with:
-   * Supplier Taxes: 5.5 %;
-   * Sale Taxes: 20%;
+
+  * Supplier Taxes: 5.5 %;
+  * Sale Taxes: 20%;
+
 * Provides the possibility to the account manager to change incorrect parameters
   massively;
 
