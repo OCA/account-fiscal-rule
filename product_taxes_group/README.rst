@@ -3,31 +3,30 @@ Simplify taxes management for products
 
 Functionality:
 --------------
-    * Add a new light concept 'tax_group' to associate possible supplier
-     and sale taxes;
-    * Make more usable taxes selection in product view. The user has now the
-      possibility to select a tax group, instead of select manually all
-      the taxes;
+* Add a new light concept 'tax_group' to associate possible supplier and sale taxes;
 
-.. image:: /product_taxes_group/static/img/product_template_accounting_setting.png
+* Make more usable taxes selection in product view. The user has now the possibility
+  to select a tax group, instead of select manually all the taxes;
+
+.. image:: /product_taxes_group/static/src/img/product_template_accounting_setting.png
 
 
-    * Prevent users to select incompatible purchase and supplier taxes.
-      French Exemple: A product can not be configured with:
-        * Supplier Taxes: 5.5 %;
-        * Sale Taxes: 20%;
-    * Provides the possibility to the account manager to change incorrect
-      parameters massively;
+* Prevent users to select incompatible purchase and supplier taxes.
+  French Exemple: A product can not be configured with:
+   * Supplier Taxes: 5.5 %;
+   * Sale Taxes: 20%;
+* Provides the possibility to the account manager to change incorrect parameters
+  massively;
 
 Technical Information:
 ----------------------
-    * Install this module will create 'tax_group' for each existing
-      combination. Make sure that the user who install the module is
-      SUPERUSER_ID or is member of account.group_account_manager;
-    * In the same way, import products will create tax_group if combination
-      doesn't exist and will fail if right access is not sufficient.
-      A solution is to provide tax_group_id during the import, instead of
-      Providing taxes_id and purchase_taxes_id fields;
+* Install this module will create 'tax_group' for each existing
+  combination. Make sure that the user who install the module is
+  SUPERUSER_ID or is member of account.group_account_manager;
+* In the same way, import products will create tax_group if combination
+  doesn't exist and will fail if right access is not sufficient.
+  A solution is to provide tax_group_id during the import, instead of
+  Providing taxes_id and purchase_taxes_id fields;
 
 Bug Tracker
 ===========
