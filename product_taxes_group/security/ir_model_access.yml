@@ -20,22 +20,16 @@
 #
 ##############################################################################
 
-- 
-  Creating a ir.model.access record
-- 
-  !record {model: ir.model.access, id: ir_model_access_tax_group_reader}:
+-  !record {model: ir.model.access, id: ir_model_access_tax_group_reader}:
     group_id: account.group_account_invoice
     model_id: model_tax_group
-    name: Tax Group Reader
+    name: Taxes Group Reader
     perm_read: true
 
-- 
-  Creating a ir.model.access record
-- 
-  !record {model: ir.model.access, id: ir_model_access_tax_group_manager}:
+- !record {model: ir.model.access, id: ir_model_access_tax_group_manager}:
     group_id: account.group_account_manager
     model_id: model_tax_group
-    name: Tax Group Manager
+    name: Taxes Group Manager
     perm_create: true
     perm_write: true
     perm_read: true

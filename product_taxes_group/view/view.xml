@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ********************************************************************** -->
 <!--    Product - Taxes Group module for Odoo                               -->
-<!--    Copyright (C) 2014 -Today GRAP (http://www.grap.coop)               -->
+<!--    Copyright (C) 2014-Today GRAP (http://www.grap.coop)                -->
 <!--    @author Sylvain LE GAL (https://twitter.com/legalsylvain)           -->
 
 <!--This program is free software: you can redistribute it and/or modify    -->
@@ -52,40 +52,6 @@
             </field>
         </record>
 
-        <record id="view_product_template_search" model="ir.ui.view">
-            <field name="model">product.template</field>
-            <field name="inherit_id" ref="product.product_template_search_view"/>
-            <field name="arch" type="xml">
-                <field name="categ_id" position="after">
-                    <field name="tax_group_id"/>
-                </field>
-            </field>
-        </record>
-
-        <record id="view_product_template_tree" model="ir.ui.view">
-            <field name="model">product.template</field>
-            <field name="priority" eval="100"/>
-            <field name="arch" type="xml">
-                <tree string="Products" colors="gray:active == False;">
-                    <field name="name"/>
-                    <field name="list_price"/>
-                    <field name="active" invisible="1"/>
-                    <field name="company_id" groups="base.group_multi_company"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="action_product_template_tax_group" model="ir.actions.act_window">
-            <field name="name">Products</field>
-            <field name="res_model">product.template</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form,graph</field>
-            <field name="view_id" ref="view_product_template_tree" />
-            <field name="search_view_id" ref="view_product_template_search" />
-            <field name="domain">['|', ('active', '=', False), ('active', '=', True)]</field>
-            <field name="context">{'search_default_tax_group_id': active_id}</field>
-        </record>
-
         <record id="view_tax_group_form" model="ir.ui.view">
             <field name="model">tax.group</field>
             <field name="arch" type="xml">
@@ -116,7 +82,7 @@
                         </group>
                         <group col="2">
                             <button name="%(action_change_tax_group)d"
-                                string="Move Products into another Tax Group"
+                                string="Move Products into another Taxes Group"
                                 type="action" class="oe_link"
                                 groups="account.group_account_manager"
                                 attrs="{'invisible':[('product_tmpl_qty','=',0)]}"/>
@@ -135,7 +101,7 @@
         <record id="view_change_tax_group" model="ir.ui.view">
             <field name="model">wizard.change.tax.group</field>
             <field name="arch" type="xml">
-                <form string="Move Products into another Tax Group">
+                <form string="Move Products into another Taxes Group">
                     <group>
                         <field name="old_tax_group_id"/>
                         <field name="new_tax_group_id"/>

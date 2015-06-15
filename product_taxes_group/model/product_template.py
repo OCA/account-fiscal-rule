@@ -32,7 +32,7 @@ class ProductTemplate(models.Model):
 
     # Field Section
     tax_group_id = fields.Many2one(
-        'tax.group', string='Tax Group',
+        'tax.group', string='Taxes Group',
         domain="[('company_id', '=', company_id)]",
         help="Specify the combination of taxes for this product."
         " This field is required. If you dont find the correct Tax"

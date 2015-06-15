@@ -43,14 +43,14 @@ class TestProductTaxesGroup(TransactionCase):
 
     # Test Section
     def test_01_change_group(self):
-        """Test the behaviour when we change tax group for products."""
+        """Test the behaviour when we change Taxes Group for products."""
         wizard = self.wizard_obj.create({
             'old_tax_group_id': self.tg1_id, 'new_tax_group_id': self.tg2_id})
         wizard.button_change_tax_group()
         pt = self.pt_obj.browse(self.pt1_id)
         self.assertEqual(
             pt.tax_group_id.id, self.tg2_id,
-            "Tax Group change has failed for products via Wizard.")
+            "Taxes Group change has failed for products via Wizard.")
 
     def test_02_check_coherent_vals_tax_group_exist(self):
         """Test the behaviour of the function product.template
@@ -65,7 +65,7 @@ class TestProductTaxesGroup(TransactionCase):
         pt = self.pt_obj.create(vals)
         self.assertEqual(
             pt.tax_group_id.id, self.tg1_id,
-            "Recovery of Correct Tax Group failed during creation.")
+            "Recovery of Correct Taxes Group failed during creation.")
         # Set tax_group_2 configuration to the product
         vals = {
             'supplier_taxes_id': [[6, 0, []]],
@@ -74,7 +74,7 @@ class TestProductTaxesGroup(TransactionCase):
         pt.write(vals)
         self.assertEqual(
             pt.tax_group_id.id, self.tg2_id,
-            "Recovery of Correct Tax Group failed during update.")
+            "Recovery of Correct Taxes Group failed during update.")
 
     def test_03_check_coherent_vals_tax_group_doesnt_exist_single(self):
         """Test the behaviour of the function product.template
@@ -91,7 +91,7 @@ class TestProductTaxesGroup(TransactionCase):
         count_after = self.tg_obj.search_count([])
         self.assertEqual(
             count_before + 1, count_after,
-            "New combination must create new Tax Group.")
+            "New combination must create new Taxes Group.")
 
     def test_04_check_coherent_vals_tax_group_doesnt_exist_multi(self):
         """Test the behaviour of the function product.template
@@ -108,10 +108,10 @@ class TestProductTaxesGroup(TransactionCase):
         count_after = self.tg_obj.search_count([])
         self.assertEqual(
             count_before + 1, count_after,
-            "New combination must create new Tax Group.")
+            "New combination must create new Taxes Group.")
 
     def test_05_update_tax_group(self):
-        """Test if changing a Tax Group Configuration change the product."""
+        """Test if changing a Taxes Group Configuration change the product."""
         tg = self.tg_obj.browse([self.tg1_id])
         tg.write({'customer_tax_ids': [[6, 0, [self.at_sale_1_id]]]})
         pt = self.pt_obj.browse([self.pt1_id])[0]
@@ -120,10 +120,10 @@ class TestProductTaxesGroup(TransactionCase):
                 [x.id for x in pt.taxes_id],
                 [x.id for x in pt.supplier_taxes_id]],
             [[self.at_sale_1_id], [self.at_purchase_1_id]],
-            "Update taxes in Tax Group must update associated Products.")
+            "Update taxes in Taxes Group must update associated Products.")
 
     def test_06_unlink_tax_group(self):
-        """Test if unlinking a Tax Group with products fails."""
+        """Test if unlinking a Taxes Group with products fails."""
         tg = self.tg_obj.browse([self.tg1_id])
         with self.assertRaises(ValidationError):
             tg.unlink()
