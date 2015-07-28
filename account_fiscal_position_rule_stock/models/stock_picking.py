@@ -65,8 +65,8 @@ class StockPicking(models.Model):
         return self._fiscal_position_map(
             cr, uid, result,
             partner_id=partner_id,
-            partner_invoice_id=address_data['invoice'],
             partner_shipping_id=address_data['delivery'],
+            partner_invoice_id=address_data['invoice'],
             company_id=company_id,
             context=context,
         )
