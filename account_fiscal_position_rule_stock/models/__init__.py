@@ -19,22 +19,4 @@
 #
 ###############################################################################
 
-{
-    'name': 'Account Fiscal Position Rule Stock',
-    'version': '1.1',
-    'category': 'Generic Modules/Accounting',
-    'author': "Akretion,Odoo Community Association (OCA)",
-    'license': 'AGPL-3',
-    'website': 'http://www.akretion.com',
-    'depends': [
-        'account_fiscal_position_rule',
-        'stock',
-    ],
-    'data': [
-        'views/stock_picking.xml',
-        'security/account_fiscal_position_rule_security.xml',
-        'security/ir.model.access.csv',
-    ],
-    'demo': [],
-    'installable': True,
-}
+from . import stock_picking
