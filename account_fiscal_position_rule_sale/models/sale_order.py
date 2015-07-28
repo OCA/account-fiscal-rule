@@ -31,29 +31,24 @@ class SaleOrder(models.Model):
 
     @api.model
     def _fiscal_position_map(
-        self, result, shop_id=None, partner_id=None, partner_invoice_id=None,
+        self, result, partner_id=None, partner_invoice_id=None,
         partner_shipping_id=None, company_id=None
     ):
-        company_id = self.env['sale.shop'].browse(shop_id).company_id.id
         fp_rule = self.env['account.fiscal.position.rule'].with_context(
             use_domain=('use_sale', '=', True)
         )
         return fp_rule.apply_fiscal_mapping(
-            result, shop_id=shop_id, company_id=company_id,
+            result, company_id=company_id,
         )
 
     def onchange_partner_id(self, cr, uid, ids, partner_id, context=None):
         result = super(SaleOrder, self).onchange_partner_id(
             cr, uid, ids, partner_id, context=context)
 
-        if not context.get('shop_id'):
-            return result
-
         values = result['value']
         return self._fiscal_position_map(
             cr, uid,
             result,
-            context['shop_id'],
             partner_id,
             values.get('partner_invoice_id', False),
             values.get('partner_shipping_id', False),
@@ -62,32 +57,13 @@ class SaleOrder(models.Model):
 
     def onchange_address_id(self, cr, uid, ids, partner_invoice_id,
                             partner_shipping_id, partner_id,
-                            shop_id=False, context=None):
+                            context=None):
         result = {'value': {}}
-        if not shop_id or not partner_invoice_id:
+        if not partner_invoice_id:
             return result
 
         return self._fiscal_position_map(
             cr, uid, result,
-            shop_id=shop_id,
-            partner_id=partner_id,
-            partner_invoice_id=partner_invoice_id,
-            partner_shipping_id=partner_shipping_id,
-            context=context
-        )
-
-    def onchange_shop_id(self, cr, uid, ids, shop_id, context=None,
-                         partner_id=None, partner_invoice_id=None,
-                         partner_shipping_id=None):
-        result = super(SaleOrder, self).onchange_shop_id(
-            cr, uid, ids, shop_id, context=context
-        )
-        if not shop_id or not partner_id:
-            return result
-
-        return self._fiscal_position_map(
-            cr, uid, result,
-            shop_id,
             partner_id,
             partner_invoice_id,
             partner_shipping_id,
