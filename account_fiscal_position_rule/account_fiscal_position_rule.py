@@ -111,6 +111,7 @@ class AccountFiscalPositionRule(models.Model):
         return domain
 
     def fiscal_position_map(self, **kwargs):
+        print "def fiscal_position_map", kwargs
         result = {'fiscal_position': False}
 
         partner_id = kwargs.get('partner_id')
@@ -119,6 +120,7 @@ class AccountFiscalPositionRule(models.Model):
         partner_shipping_id = kwargs.get('partner_shipping_id')
 
         if not partner_id or not company_id:
+            print "1"
             return result
 
         partner = self.env['res.partner'].browse(partner_id)
@@ -127,6 +129,7 @@ class AccountFiscalPositionRule(models.Model):
         # Case 1: Partner Specific Fiscal Position
         if partner.property_account_position:
             result['fiscal_position'] = partner.property_account_position.id
+            print "2"
             return result
 
         # Case 2: Rule based determination
@@ -135,24 +138,31 @@ class AccountFiscalPositionRule(models.Model):
             addrs['invoice'] = self.env['res.partner'].browse(
                 partner_invoice_id)
 
+            print "partner_invoice_id", partner_invoice_id, addrs
         # In picking case the invoice_id can be empty but we need a
         # value I only see this case, maybe we can move this code in
         # fiscal_stock_rule
         else:
             partner_addr = partner.address_get(['invoice'])
+            print "no partner_invoice_id", partner_addr
             if partner_addr['invoice']:
+                print "if partner_addr['invoice']:"
                 addr_id = partner_addr['invoice']
                 addrs['invoice'] = self.env['res.partner'].browse(addr_id)
         if partner_shipping_id:
+            print "if partner_shipping_id:"
             addrs['shipping'] = self.env['res.partner'].browse(
                 partner_shipping_id)
 
         # Case 3: Rule based determination
         domain = self._map_domain(partner, addrs, company, **kwargs)
+        print "domain", domain
         fsc_pos = self.search(domain)
+        print "fsc_pos"
         if fsc_pos:
             result['fiscal_position'] = fsc_pos[0].fiscal_position_id.id
 
+        print "result", result
         return result
 
     def apply_fiscal_mapping(self, result, **kwargs):
