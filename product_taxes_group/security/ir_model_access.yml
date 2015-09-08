@@ -21,7 +21,7 @@
 ##############################################################################
 
 -  !record {model: ir.model.access, id: ir_model_access_tax_group_reader}:
-    group_id: account.group_account_invoice
+    group_id: base.group_user
     model_id: model_tax_group
     name: Taxes Group Reader
     perm_read: true

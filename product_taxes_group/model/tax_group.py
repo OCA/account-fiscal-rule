@@ -77,14 +77,12 @@ class TaxGroup(models.Model):
     supplier_tax_ids = fields.Many2many(
         'account.tax', 'product_supplier_tax_rel',
         'group_id', 'tax_id', string='Supplier Taxes', domain="""[
-            ('company_id', '=', company_id),
             ('parent_id', '=', False),
             ('type_tax_use', 'in', ['purchase', 'all'])]""")
 
     customer_tax_ids = fields.Many2many(
         'account.tax', 'product_customer_tax_rel',
         'group_id', 'tax_id', string='Customer Taxes', domain="""[
-            ('company_id', '=', company_id),
             ('parent_id', '=', False),
             ('type_tax_use', 'in', ['sale', 'all'])]""")
 
@@ -111,52 +109,60 @@ class TaxGroup(models.Model):
         return super(TaxGroup, self).unlink()
 
     # Custom Sections
-    def find_or_create(self, cr, uid, values, context=None):
-        at_obj = self.pool['account.tax']
+    @api.model
+    def find_or_create(self, company_id, customer_tax_ids, supplier_tax_ids):
+        at_obj = self.env['account.tax']
         # Search for existing Taxes Group
-        tg_ids = self.search(
-            cr, uid, ['|', ('active', '=', False), ('active', '=', True)],
-            context=context)
-        for tg in self.browse(cr, uid, tg_ids, context=context):
-            if (tg.company_id.id == values[0] and
-                sorted([x.id for x in tg.customer_tax_ids]) == values[1] and
-                    sorted([x.id for x in tg.supplier_tax_ids]) == values[2]):
+
+        tgs = self.search([
+            '|',
+            ('active', '=', False),
+            ('active', '=', True)
+            ])
+        for tg in tgs:
+            if (
+                    tg.company_id.id == company_id
+                    and sorted(tg.customer_tax_ids.ids) ==
+                    sorted(customer_tax_ids)
+                    and sorted(tg.supplier_tax_ids.ids) ==
+                    sorted(supplier_tax_ids)
+                    ):
                 return tg.id
 
         # create new Taxes Group if not found
-        if len(values[1]) == 0 and len(values[2]) == 0:
+        if len(customer_tax_ids) == 0 and len(supplier_tax_ids) == 0:
             name = _('No taxes')
-        elif len(values[2]) == 0:
+        elif len(supplier_tax_ids) == 0:
             name = _('No Purchase Taxes - Customer Taxes: ')
-            for tax in at_obj.browse(cr, uid, values[1]):
+            for tax in at_obj.browse(customer_tax_ids):
                 name += tax.description and tax.description or tax.name
                 name += ' + '
             name = name[:-3]
-        elif len(values[1]) == 0:
+        elif len(customer_tax_ids) == 0:
             name = _('Purchase Taxes: ')
-            for tax in at_obj.browse(cr, uid, values[2], context=None):
+            for tax in at_obj.browse(supplier_tax_ids):
                 name += tax.description and tax.description or tax.name
                 name += ' + '
             name = name[:-3]
             name += _('- No Customer Taxes')
         else:
             name = _('Purchase Taxes: ')
-            for tax in at_obj.browse(cr, uid, values[2], context=None):
+            for tax in at_obj.browse(supplier_tax_ids):
                 name += tax.description and tax.description or tax.name
                 name += ' + '
             name = name[:-3]
             name += _(' - Customer Taxes: ')
-            for tax in at_obj.browse(cr, uid, values[1], context=None):
+            for tax in at_obj.browse(customer_tax_ids):
                 name += tax.description and tax.description or tax.name
                 name += ' + '
             name = name[:-3]
         name = name[:self._MAX_LENGTH_NAME] \
             if len(name) > self._MAX_LENGTH_NAME else name
-        return self.create(cr, uid, {
+        return self.create({
             'name': name,
-            'company_id': values[0],
-            'customer_tax_ids': [(6, 0, values[1])],
-            'supplier_tax_ids': [(6, 0, values[2])]}, context=context)
+            'company_id': company_id,
+            'customer_tax_ids': [(6, 0, customer_tax_ids)],
+            'supplier_tax_ids': [(6, 0, supplier_tax_ids)]}).id
 
     def init(self, cr):
         """Generate Taxes Groups for each combinations of Taxes Group set
@@ -185,20 +191,20 @@ class TaxGroup(models.Model):
         # Associate product template to existing or new taxes group
         for pt in pt_list:
             counter += 1
-            res = [
+            args = [
                 pt.company_id and pt.company_id.id or False,
                 sorted([x.id for x in pt.taxes_id]),
                 sorted([x.id for x in pt.supplier_taxes_id])]
-            if res not in list_res.values():
+            if args not in list_res.values():
                 _logger.info(
                     """create new Taxes Group. Product templates"""
                     """ managed %s/%s""" % (counter, total))
-                tg_id = self.find_or_create(cr, uid, res)
-                list_res[tg_id] = res
+                tg_id = self.find_or_create(cr, uid, *args)
+                list_res[tg_id] = args
                 # associate product template to the new Taxes Group
                 pt_obj.write(cr, uid, [pt.id], {'tax_group_id': tg_id})
             else:
                 # associate product template to existing Taxes Group
                 pt_obj.write(cr, uid, [pt.id], {
                     'tax_group_id': list_res.keys()[
-                        list_res.values().index(res)]})
+                        list_res.values().index(args)]})

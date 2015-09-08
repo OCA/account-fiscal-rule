@@ -33,7 +33,6 @@ class ProductTemplate(models.Model):
     # Field Section
     tax_group_id = fields.Many2one(
         'tax.group', string='Taxes Group',
-        domain="[('company_id', '=', company_id)]",
         help="Specify the combination of taxes for this product."
         " This field is required. If you dont find the correct Tax"
         " Group, Please create a new one or ask to your account"
@@ -42,13 +41,15 @@ class ProductTemplate(models.Model):
     # Overload Section
     @api.model
     def create(self, vals):
-        self.check_coherent_vals(False, vals)
-        return super(ProductTemplate, self).create(vals)
+        res = super(ProductTemplate, self).create(vals)
+        res.check_coherent_vals(vals)
+        return res
 
     @api.multi
     def write(self, vals):
-        self.check_coherent_vals([x.id for x in self], vals)
-        return super(ProductTemplate, self).write(vals)
+        super(ProductTemplate, self).write(vals)
+        self.check_coherent_vals(vals)
+        return True
 
     # View Section
     def fields_view_get(
@@ -71,49 +72,28 @@ class ProductTemplate(models.Model):
         return res
 
     # Custom Section
-    def check_coherent_vals(self, ids, vals):
+    def check_coherent_vals(self, vals):
         """If tax group is defined, set the according taxes to the product(s);
         Otherwise, find the correct tax group, depending of the taxes, or
         create a new one, if no one are found.
         """
-        tg_obj = self.env['tax.group']
         if vals.get('tax_group_id', False):
             # update or replace 'taxes_id' and 'supplier_taxes_id'
-            tg = tg_obj.browse(vals['tax_group_id'])
-            vals['supplier_taxes_id'] = [[6, 0, [
-                x.id for x in tg.supplier_tax_ids]]]
-            vals['taxes_id'] = [[6, 0, [
-                x.id for x in tg.customer_tax_ids]]]
+            tax_vals = {
+                'supplier_taxes_id': [[6, 0, [
+                    x.id for x in self.tax_group_id.supplier_tax_ids]]],
+                'taxes_id': [[6, 0, [
+                    x.id for x in self.tax_group_id.customer_tax_ids]]],
+                }
+            super(ProductTemplate, self.sudo()).write(tax_vals)
         elif 'supplier_taxes_id' in vals.keys() or 'taxes_id' in vals.keys():
-            if not ids:
-                # product template creation mode
-                company_id = vals.get('company_id', False)
-                if 'supplier_taxes_id' in vals.keys():
-                    supplier_tax_ids = vals['supplier_taxes_id'][0][2]
-                else:
-                    supplier_tax_ids = []
-                if 'taxes_id' in vals.keys():
-                    customer_tax_ids = vals['taxes_id'][0][2]
-                else:
-                    customer_tax_ids = []
-            else:
-                # product template Single update mode
-                if len(ids) != 1:
-                    raise ValidationError(
-                        _("You cannot change Taxes for many Products."))
-                pt = self.browse(ids)[0]
-                company_id = vals.get('company_id', False) or \
-                    pt.company_id.id
-                if (vals.get('supplier_taxes_id', False) and
-                        isinstance(vals.get('supplier_taxes_id')[0], list)):
-                    supplier_tax_ids = vals.get('supplier_taxes_id')[0][2]
-                else:
-                    supplier_tax_ids = [x.id for x in pt.supplier_taxes_id]
-                if (vals.get('taxes_id', False) and
-                        isinstance(vals.get('taxes_id')[0], list)):
-                    customer_tax_ids = vals.get('taxes_id')[0][2]
-                else:
-                    customer_tax_ids = [x.id for x in pt.taxes_id]
+            # product template Single update mode
+            tg_obj = self.env['tax.group']
+            if len(self) != 1:
+                raise ValidationError(
+                    _("You cannot change Taxes for many Products."))
+            supplier_tax_ids = [x.id for x in self.sudo().supplier_taxes_id]
+            customer_tax_ids = [x.id for x in self.sudo().taxes_id]
             tg_id = tg_obj.find_or_create(
-                [company_id, customer_tax_ids, supplier_tax_ids])
-            vals['tax_group_id'] = tg_id
+                self.company_id.id, customer_tax_ids, supplier_tax_ids)
+            super(ProductTemplate, self.sudo()).write({'tax_group_id': tg_id})
