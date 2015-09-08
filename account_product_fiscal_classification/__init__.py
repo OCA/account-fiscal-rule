@@ -6,6 +6,7 @@ from openerp import api, SUPERUSER_ID
 
 _logger = logging.getLogger(__name__)
 
+
 def create_fiscal_classification_from_product_template(cr, registry):
     """Generate Fiscal Classification for each combinations of Taxes set
     in product"""
@@ -40,4 +41,4 @@ def create_fiscal_classification_from_product_template(cr, registry):
         else:
             # associate product template to existing Fiscal Classification
             template.fiscal_classification_id = classifications_keys.keys()[
-                    classifications_keys.values().index(args)]
+                classifications_keys.values().index(args)]
