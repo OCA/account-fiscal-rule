@@ -36,21 +36,9 @@ class AccountProductFiscalClassification(models.Model):
     _description = 'Product Fiscal Classification'
     _MAX_LENGTH_NAME = 256
 
-    # Getter / Setter Section
+    # Default Section
     def _default_company_id(self):
         return self.env['res.users']._get_company()
-
-    def _get_product_tmpl_qty(self):
-        for rec in self:
-            rec.product_tmpl_qty = self.env['product.template'].search_count([
-                ('fiscal_classification_id', '=', rec.id), '|',
-                ('active', '=', False), ('active', '=', True)])
-
-    def _get_product_tmpl_ids(self):
-        for rec in self:
-            rec.product_tmpl_ids = self.env['product.template'].search([
-                ('fiscal_classification_id', '=', rec.id), '|',
-                ('active', '=', False), ('active', '=', True)])
 
     # Field Section
     name = fields.Char(
@@ -70,10 +58,10 @@ class AccountProductFiscalClassification(models.Model):
 
     product_tmpl_ids = fields.One2many(
         comodel_name='product.template', string='Products',
-        compute=_get_product_tmpl_ids)
+        compute='_compute_product_tmpl_info')
 
     product_tmpl_qty = fields.Integer(
-        string='Products Quantity', compute=_get_product_tmpl_qty)
+        string='Products Quantity', compute='_compute_product_tmpl_info')
 
     purchase_tax_ids = fields.Many2many(
         comodel_name='account.tax',
@@ -90,6 +78,15 @@ class AccountProductFiscalClassification(models.Model):
         string='Sale Taxes', oldname="sale_base_tax_ids", domain="""[
             ('parent_id', '=', False),
             ('type_tax_use', 'in', ['sale', 'all'])]""")
+
+    # Compute Section
+    @api.one
+    def _compute_product_tmpl_info(self):
+        res = self.env['product.template'].search([
+            ('fiscal_classification_id', '=', self.id), '|',
+            ('active', '=', False), ('active', '=', True)])
+        self.product_tmpl_ids = res
+        self.product_tmpl_qty = len(res)
 
     # Overload Section
     @api.multi
