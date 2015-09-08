@@ -48,5 +48,5 @@
         'demo/res_users.yml',
     ],
     'post_init_hook':
-        'create_fiscal_classification_from_product_template', 
+        'create_fiscal_classification_from_product_template',
 }
