@@ -56,9 +56,13 @@ class ProductTemplate(models.Model):
     def fields_view_get(
             self, cr, uid, view_id=None, view_type='form', context=None,
             toolbar=False, submenu=False):
-        """Set 'fiscal_classification_id' as required, by UI, to avoid
+        """Set 'fiscal_classification_id' as required by fields_view_get:
+        We don't set it by fields declaration in python file, to avoid
         incompatibility with other modules that could have demo data
-        without fiscal_classification_id."""
+        without fiscal_classification_id (the bugs will occur depending
+        of the order in which the modules are loaded);
+        We don't set it by view inheritance in xml file to impact all views
+        (form / tree) that could define the model 'product.template';"""
         res = super(ProductTemplate, self).fields_view_get(
             cr, uid, view_id=view_id, view_type=view_type, context=context,
             toolbar=toolbar, submenu=submenu)
