@@ -20,23 +20,23 @@
 #
 ##############################################################################
 
-- !record {model: tax.group, id: tax_group_1}:
-    name: Demo Taxes Group 1
+- !record {model: account.product.fiscal.classification, id: fiscal_classification_1}:
+    name: Demo Fiscal Classification 1
     company_id: base.main_company
-    supplier_tax_ids:
-        - product_taxes_group.account_tax_purchase_1
-    customer_tax_ids:
-        - product_taxes_group.account_tax_sale_1
-        - product_taxes_group.account_tax_sale_2
+    purchase_tax_ids:
+        - account_tax_purchase_1
+    sale_tax_ids:
+        - account_tax_sale_1
+        - account_tax_sale_2
 
-- !record {model: tax.group, id: tax_group_2}:
-    name: Demo Taxes Group 2
+- !record {model: account.product.fiscal.classification, id: fiscal_classification_2}:
+    name: Demo Fiscal Classification 2
     company_id: base.main_company
-    customer_tax_ids:
-        - product_taxes_group.account_tax_sale_2
+    sale_tax_ids:
+        - account_tax_sale_2
 
-- !record {model: tax.group, id: tax_group_3}:
-    name: Demo Taxes Group 3
+- !record {model: account.product.fiscal.classification, id: fiscal_classification_3}:
+    name: Demo Fiscal Classification 3
     company_id: base.main_company
-    supplier_tax_ids:
-        - product_taxes_group.account_tax_purchase_1
+    purchase_tax_ids:
+        - account_tax_purchase_1

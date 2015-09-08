@@ -21,12 +21,12 @@
 ##############################################################################
 
 - !record {model: product.template, id: product_template_1}:
-    name: Demo Product With Taxes Group
+    name: Demo Product With Fiscal Classification
     company_id: base.main_company
     categ_id: product.product_category_all
     type: service
     standard_price: 20.0
     list_price: 30.0
-    tax_group_id: product_taxes_group.tax_group_1
+    fiscal_classification_id: fiscal_classification_1
     uom_id: product.product_uom_unit
     uom_po_id: product.product_uom_unit
