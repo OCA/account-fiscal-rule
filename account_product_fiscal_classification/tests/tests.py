@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    Product - Taxes Group module for Odoo
+#    Account Product - Fiscal Classification module for Odoo
 #    Copyright (C) 2014-Today GRAP (http://www.grap.coop)
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
@@ -24,11 +24,11 @@ from openerp.exceptions import ValidationError
 from openerp.tests.common import TransactionCase
 
 
-class TestProductTaxesGroup(TransactionCase):
-    """Tests for 'Product - Taxes Group' Module"""
+class Tests(TransactionCase):
+    """Tests for 'Account Product - Fiscal Classification' Module"""
 
     def setUp(self):
-        super(TestProductTaxesGroup, self).setUp()
+        super(Tests, self).setUp()
         self.pt_obj = self.env['product.template']
         self.tg_obj = self.env['tax.group']
         self.wizard_obj = self.env['wizard.change.tax.group']

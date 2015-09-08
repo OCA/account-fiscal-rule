@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    Product - Taxes Group module for Odoo
+#    Account Product - Fiscal Classification module for Odoo
 #    Copyright (C) 2014-Today GRAP (http://www.grap.coop)
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
@@ -21,4 +21,4 @@
 ##############################################################################
 
 
-from . import test_product_taxes_group
+from . import tests
