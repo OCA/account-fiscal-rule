@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ********************************************************************** -->
-<!--    Product - Taxes Group module for Odoo                               -->
+<!--    Account Product - Fiscal Classification module for Odoo             -->
 <!--    Copyright (C) 2014 -Today GRAP (http://www.grap.coop)               -->
 <!--    @author Sylvain LE GAL (https://twitter.com/legalsylvain)           -->
 
@@ -21,9 +21,9 @@
     <data>
 
         <menuitem id="menu_account_tax_group"
-            name="Taxes Groups"
+            name="Fiscal Classifications"
             parent="account.next_id_27"
-            action="action_account_tax_group"
+            action="action_account_product_fiscal_classification"
             sequence="15"/>
 
     </data>
