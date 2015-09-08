@@ -29,69 +29,77 @@ class Tests(TransactionCase):
 
     def setUp(self):
         super(Tests, self).setUp()
-        self.pt_obj = self.env['product.template']
-        self.tg_obj = self.env['tax.group']
-        self.wizard_obj = self.env['wizard.change.tax.group']
+        self.template_obj = self.env['product.template']
+        self.classification_obj =\
+            self.env['account.product.fiscal.classification']
+        self.wizard_obj = self.env['wizard.change.fiscal.classification']
         self.main_company_id = self.ref('base.main_company')
-        self.tg1_id = self.ref('product_taxes_group.tax_group_1')
-        self.tg2_id = self.ref('product_taxes_group.tax_group_2')
-        self.pt1_id = self.ref('product_taxes_group.product_template_1')
-        self.at_purchase_1_id = self.ref(
-            'product_taxes_group.account_tax_purchase_1')
-        self.at_sale_1_id = self.ref('product_taxes_group.account_tax_sale_1')
-        self.at_sale_2_id = self.ref('product_taxes_group.account_tax_sale_2')
+        self.classification_1_id = self.ref(
+            'account_product_fiscal_classification.classification_1')
+        self.classification_2_id = self.ref(
+            'account_product_fiscal_classification.classification_2')
+        self.template_id = self.ref(
+            'account_product_fiscal_classification.product_template_1')
+        self.purchase_tax_id = self.ref(
+            'account_product_fiscal_classification.account_tax_purchase_1')
+        self.sale_tax_1_id = self.ref(
+            'account_product_fiscal_classification.account_tax_sale_1')
+        self.sale_tax_2_id = self.ref(
+            'account_product_fiscal_classification.account_tax_sale_2')
 
     # Test Section
-    def test_01_change_group(self):
-        """Test the behaviour when we change Taxes Group for products."""
+    def test_01_change_classification(self):
+        """Test the behaviour when we change Fiscal Classification for
+        products."""
         wizard = self.wizard_obj.create({
-            'old_tax_group_id': self.tg1_id, 'new_tax_group_id': self.tg2_id})
+            'old_fiscal_classification_id': self.classification_1_id,
+            'new_fiscal_classification_id': self.classification_2_id})
         wizard.button_change_tax_group()
-        pt = self.pt_obj.browse(self.pt1_id)
+        template = self.template_obj.browse(self.template_id)
         self.assertEqual(
-            pt.tax_group_id.id, self.tg2_id,
-            "Taxes Group change has failed for products via Wizard.")
+            template.fiscal_classification_id.id, self.classification_2_id,
+            "Fiscal Classification change has failed for products via Wizard.")
 
-    def test_02_check_coherent_vals_tax_group_exist(self):
+    def test_02_check_coherent_vals_classification_exist(self):
         """Test the behaviour of the function product.template
-        check_coherent_vals() when the combination exist."""
+        check_coherent_vals() when the combination of taxes exist."""
         # Set tax_group_1 configuration to the product
         vals = {
             'name': 'Product Product Name',
             'company_id': self.main_company_id,
-            'supplier_taxes_id': [[6, 0, [self.at_purchase_1_id]]],
-            'taxes_id': [[6, 0, [self.at_sale_1_id, self.at_sale_2_id]]],
+            'supplier_taxes_id': [[6, 0, [self.purchase_tax_id]]],
+            'taxes_id': [[6, 0, [self.sale_tax_1_id, self.sale_tax_2_id]]],
         }
-        pt = self.pt_obj.create(vals)
+        template = self.template_obj.create(vals)
         self.assertEqual(
-            pt.tax_group_id.id, self.tg1_id,
+            template.fiscal_classification_id.id, self.classification_1_id,
             "Recovery of Correct Taxes Group failed during creation.")
-        # Set tax_group_2 configuration to the product
+        # Set classification_2 configuration to the product
         vals = {
             'supplier_taxes_id': [[6, 0, []]],
-            'taxes_id': [[6, 0, [self.at_sale_2_id]]],
+            'taxes_id': [[6, 0, [self.sale_tax_2_id]]],
         }
-        pt.write(vals)
+        template.write(vals)
         self.assertEqual(
-            pt.tax_group_id.id, self.tg2_id,
+            template.fiscal_classification_id.id, self.classification_2_id,
             "Recovery of Correct Taxes Group failed during update.")
 
-    def test_03_check_coherent_vals_tax_group_doesnt_exist_single(self):
+    def test_03_check_coherent_vals_classification_doesnt_exist_single(self):
         """Test the behaviour of the function product.template
         check_coherent_vals() when the combination doesn't exist.
         (Single Tax)"""
         vals = {
             'name': 'Product Product Name',
             'company_id': self.main_company_id,
-            'supplier_taxes_id': [[6, 0, [self.at_purchase_1_id]]],
-            'taxes_id': [[6, 0, [self.at_sale_1_id]]],
+            'supplier_taxes_id': [[6, 0, [self.purchase_tax_id]]],
+            'taxes_id': [[6, 0, [self.sale_tax_1_id]]],
         }
-        count_before = self.tg_obj.search_count([])
-        self.pt_obj.create(vals)
-        count_after = self.tg_obj.search_count([])
+        count_before = self.classification_obj.search_count([])
+        self.template_obj.create(vals)
+        count_after = self.classification_obj.search_count([])
         self.assertEqual(
             count_before + 1, count_after,
-            "New combination must create new Taxes Group.")
+            "New combination must create new Fiscal Classification.")
 
     def test_04_check_coherent_vals_tax_group_doesnt_exist_multi(self):
         """Test the behaviour of the function product.template
@@ -101,29 +109,32 @@ class Tests(TransactionCase):
             'name': 'Product Product Name',
             'company_id': self.main_company_id,
             'supplier_taxes_id': [[6, False, []]],
-            'taxes_id': [[6, False, [self.at_sale_1_id, self.at_sale_2_id]]],
+            'taxes_id': [[6, False, [self.sale_tax_1_id, self.sale_tax_2_id]]],
         }
-        count_before = self.tg_obj.search_count([])
-        self.pt_obj.create(vals)
-        count_after = self.tg_obj.search_count([])
+        count_before = self.classification_obj.search_count([])
+        self.template_obj.create(vals)
+        count_after = self.classification_obj.search_count([])
         self.assertEqual(
             count_before + 1, count_after,
-            "New combination must create new Taxes Group.")
+            "New combination must create new Fiscal Classification.")
 
-    def test_05_update_tax_group(self):
-        """Test if changing a Taxes Group Configuration change the product."""
-        tg = self.tg_obj.browse([self.tg1_id])
-        tg.write({'customer_tax_ids': [[6, 0, [self.at_sale_1_id]]]})
-        pt = self.pt_obj.browse([self.pt1_id])[0]
+    def test_05_update_fiscal_classification(self):
+        """Test if changing a Configuration of a Fiscal Classificationchange
+            the product."""
+        tg = self.classification_obj.browse([self.classification_1_id])
+        tg.write({'customer_tax_ids': [[6, 0, [self.sale_tax_1_id]]]})
+        template = self.template_obj.browse([self.template_id])[0]
         self.assertEqual(
             [
-                [x.id for x in pt.taxes_id],
-                [x.id for x in pt.supplier_taxes_id]],
-            [[self.at_sale_1_id], [self.at_purchase_1_id]],
-            "Update taxes in Taxes Group must update associated Products.")
+                [x.id for x in template.taxes_id],
+                [x.id for x in template.supplier_taxes_id]],
+            [[self.sale_tax_1_id], [self.purchase_tax_id]],
+            "Update taxes in Fiscal Classification must update associated"
+            " Products.")
 
-    def test_06_unlink_tax_group(self):
-        """Test if unlinking a Taxes Group with products fails."""
-        tg = self.tg_obj.browse([self.tg1_id])
+    def test_06_unlink_fiscal_classification(self):
+        """Test if unlinking a Fiscal Classification with products fails."""
+        classification = self.classification_obj.browse(
+            [self.classification_1_id])
         with self.assertRaises(ValidationError):
-            tg.unlink()
+            classification.unlink()

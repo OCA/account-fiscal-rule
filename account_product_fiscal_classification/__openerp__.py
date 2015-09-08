@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    Product - Taxes Group module for Odoo
+#    Account Product - Fiscal Classification module for Odoo
 #    Copyright (C) 2014-Today GRAP (http://www.grap.coop)
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
@@ -21,12 +21,12 @@
 ##############################################################################
 
 {
-    'name': 'Product - Taxes Group',
-    'summary': 'Simplify taxes management for products with Taxes Group',
-    'version': '1.0',
-    'category': 'product',
+    'name': 'Account Product - Fiscal Classification',
+    'summary': 'Simplify taxes management for products',
+    'version': '8.0.2.0.0',
+    'category': 'Accounting',
     'author': 'GRAP,Odoo Community Association (OCA)',
-    'website': 'http://www.grap.coop',
+    'website': 'https://odoo-community.org/',
     'license': 'AGPL-3',
     'depends': [
         'account',
@@ -41,7 +41,7 @@
     ],
     'demo': [
         'demo/account_tax.yml',
-        'demo/tax_group.yml',
+        'demo/account_product_fiscal_classification.yml',
         'demo/product_template.yml',
         'demo/res_groups.yml',
     ],
