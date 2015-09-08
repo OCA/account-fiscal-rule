@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ********************************************************************** -->
-<!--    Product - Taxes Group module for Odoo                               -->
+<!--    Account Product - Fiscal Classification module for Odoo             -->
 <!--    Copyright (C) 2014 -Today GRAP (http://www.grap.coop)               -->
 <!--    @author Sylvain LE GAL (https://twitter.com/legalsylvain)           -->
 
@@ -20,24 +20,24 @@
 <openerp>
     <data>
 
-        <record id="action_account_tax_group" model="ir.actions.act_window">
-            <field name="name">Taxes Group</field>
+        <record id="action_account_product_fiscal_classification" model="ir.actions.act_window">
+            <field name="name">Fiscal Classification</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">tax.group</field>
+            <field name="res_model">account.product.fiscal.classification</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <record id="action_change_tax_group" model="ir.actions.act_window">
-            <field name="name">Move Products into another Taxes Group</field>
+        <record id="action_wizard_change_fiscal_classification" model="ir.actions.act_window">
+            <field name="name">Move Products into another Fiscal Classification</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">wizard.change.tax.group</field>
+            <field name="res_model">wizard.change.fiscal.classification</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
 
-        <record id="action_product_template_tax_group" model="ir.actions.act_window">
+        <record id="action_template_list_by_fiscal_classification" model="ir.actions.act_window">
             <field name="name">Products</field>
             <field name="res_model">product.template</field>
             <field name="view_type">form</field>
@@ -45,7 +45,7 @@
             <field name="view_id" ref="view_product_template_tree" />
             <field name="search_view_id" ref="view_product_template_search" />
             <field name="domain">['|', ('active', '=', False), ('active', '=', True)]</field>
-            <field name="context">{'search_default_tax_group_id': active_id}</field>
+            <field name="context">{'search_default_fiscal_classification_id': active_id}</field>
         </record>
 
     </data>

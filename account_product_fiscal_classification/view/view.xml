@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ********************************************************************** -->
-<!--    Product - Taxes Group module for Odoo                               -->
+<!--    Account Product - Fiscal Classification module for Odoo             -->
 <!--    Copyright (C) 2014-Today GRAP (http://www.grap.coop)                -->
 <!--    @author Sylvain LE GAL (https://twitter.com/legalsylvain)           -->
 
@@ -26,7 +26,7 @@
             <field name="inherit_id" ref="account.product_template_form_view"/>
             <field name="arch" type="xml">
                 <field name="taxes_id" position="before">
-                    <field name="tax_group_id" colspan="2" quick_create="false"/>
+                    <field name="fiscal_classification_id" colspan="2" quick_create="false"/>
                 </field>
                 <field name="taxes_id" position="attributes">
                     <attribute name="readonly">True</attribute>
@@ -37,14 +37,14 @@
             </field>
         </record>
 
-<!-- Define: tax.group -->
-        <record id="view_tax_group_tree" model="ir.ui.view">
-            <field name="model">tax.group</field>
+<!-- Define: account.product.fiscal.classification -->
+        <record id="view_account_product_fiscal_classification_tree" model="ir.ui.view">
+            <field name="model">account.product.fiscal.classification</field>
             <field name="arch" type="xml">
-                <tree string="Taxes Group" colors="gray:active == False;">
+                <tree colors="gray:active == False;">
                     <field name="name"/>
-                    <field name="supplier_tax_ids"/>
-                    <field name="customer_tax_ids"/>
+                    <field name="purchase_tax_ids"/>
+                    <field name="sale_tax_ids"/>
                     <field name="product_tmpl_qty"/>
                     <field name="company_id" groups="base.group_multi_company"/>
                     <field name="active" invisible="1"/>
@@ -52,10 +52,10 @@
             </field>
         </record>
 
-        <record id="view_tax_group_form" model="ir.ui.view">
-            <field name="model">tax.group</field>
+        <record id="view_account_product_fiscal_classification_form" model="ir.ui.view">
+            <field name="model">account.product.fiscal.classification</field>
             <field name="arch" type="xml">
-                <form string="Taxes Group">
+                <form>
                     <sheet>
                         <div class="oe_title oe_left">
                             <div class="oe_edit_only">
@@ -70,8 +70,8 @@
                                 class="oe_stat_button"
                                 id="invoice_button"
                                 icon="fa-bars"
-                                name="%(action_product_template_tax_group)d"
-                                context="{'search_default_tax_group_id': active_id}"
+                                name="%(action_template_list_by_fiscal_classification)d"
+                                context="{'search_default_fiscal_classification_id': active_id}"
                                 attrs="{'invisible': [('product_tmpl_qty', '=', 0)]}">
                                 <div><strong><field name="product_tmpl_qty"/></strong><br/>Products</div>
                             </button>
@@ -81,33 +81,33 @@
                             <field name="active"/>
                         </group>
                         <group col="2">
-                            <button name="%(action_change_tax_group)d"
-                                string="Move Products into another Taxes Group"
+                            <button name="%(action_wizard_change_fiscal_classification)d"
+                                string="Move Products into another Fiscal Classification"
                                 type="action" class="oe_link"
                                 groups="account.group_account_manager"
                                 attrs="{'invisible':[('product_tmpl_qty','=',0)]}"/>
                         </group>
                         <separator string="Taxes"/>
                         <group col="4">
-                            <field name="supplier_tax_ids" quick_create="false" widget="many2many_tags"/>
-                            <field name="customer_tax_ids" quick_create="false" widget="many2many_tags"/>
+                            <field name="purchase_tax_ids" quick_create="false" widget="many2many_tags"/>
+                            <field name="sale_tax_ids" quick_create="false" widget="many2many_tags"/>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
 
-<!-- Define: wizard.tax.group -->
-        <record id="view_change_tax_group" model="ir.ui.view">
-            <field name="model">wizard.change.tax.group</field>
+<!-- Define: wizard.change.fiscal.classification -->
+        <record id="view_wizard_change_fiscal_classification" model="ir.ui.view">
+            <field name="model">wizard.change.fiscal.classification</field>
             <field name="arch" type="xml">
-                <form string="Move Products into another Taxes Group">
+                <form>
                     <group>
-                        <field name="old_tax_group_id"/>
-                        <field name="new_tax_group_id"/>
+                        <field name="old_fiscal_classification_id"/>
+                        <field name="new_fiscal_classification_id"/>
                     </group>
                     <footer>
-                        <button string="Apply" name="button_change_tax_group" type="object" class="oe_highlight"/>
+                        <button string="Apply" name="button_change_fiscal_classification" type="object" class="oe_highlight"/>
                         <label string="or"/>
                         <button string="Cancel" class="oe_link" special="cancel" />
                     </footer>
