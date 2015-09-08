@@ -40,3 +40,7 @@
     company_id: base.main_company
     purchase_tax_ids:
         - account_tax_purchase_1
+
+- !record {model: account.product.fiscal.classification, id: global_fiscal_classification_1}:
+    company_id: false
+    name: Demo Global Fiscal Classification 1
