@@ -23,28 +23,32 @@
 from openerp import models, fields, api
 
 
-class WizardChangeTaxGroup(models.TransientModel):
-    """Wizard to allow to change the Taxes Group of products."""
-    _name = 'wizard.change.tax.group'
+class WizardChangeFiscalClassification(models.TransientModel):
+    """Wizard to allow to change the Fiscal Classification of products."""
+    _name = 'wizard.change.fiscal.classification'
 
     # Getter / Setter Section
-    def _default_old_tax_group_id(self):
+    def _default_old_fiscal_classification_id(self):
         return self.env.context.get('active_id', False)
 
     # Field Section
-    old_tax_group_id = fields.Many2one(
-        comodel_name='tax.group', string='Old Taxes Group',
-        default=_default_old_tax_group_id, required=True, readonly=True)
+    old_fiscal_classification_id = fields.Many2one(
+        comodel_name='account.product.fiscal.classification',
+        string='Old Fiscal Classification',
+        default=_default_old_fiscal_classification_id,
+        required=True, readonly=True)
 
-    new_tax_group_id = fields.Many2one(
-        comodel_name='tax.group', string='New Taxes Group', required=True,
-        domain="""[('id', '!=', old_tax_group_id)]""")
+    new_fiscal_classification_id = fields.Many2one(
+        comodel_name='account.product.fiscal.classification',
+        string='New Fiscal Classification',
+        required=True, domain="[('id', '!=', old_fiscal_classification_id)]")
 
     # View Section
-    @api.multi
-    def button_change_tax_group(self):
-        pt_obj = self.env['product.template']
-        for wizard in self:
-            pt_ids = [x.id for x in wizard.old_tax_group_id.product_tmpl_ids]
-            pt_lst = pt_obj.browse(pt_ids)
-            pt_lst.write({'tax_group_id': wizard.new_tax_group_id.id})
+    @api.one
+    def button_change_fiscal_classification(self):
+        template_obj = self.env['product.template']
+        template_ids = [
+            x.id for x in self.old_fiscal_classification_id.product_tmpl_ids]
+        templates = template_obj.browse(template_ids)
+        templates.write({
+            'fiscal_classification_id': self.new_fiscal_classification_id.id})
