@@ -43,14 +43,14 @@ class ProductTemplate(models.Model):
     @api.model
     def create(self, vals):
         res = super(ProductTemplate, self).create(vals)
-        res.check_coherent_vals(vals)
+        res.write_taxes_setting(vals)
         return res
 
     @api.multi
     def write(self, vals):
-        super(ProductTemplate, self).write(vals)
-        self.check_coherent_vals(vals)
-        return True
+        res = super(ProductTemplate, self).write(vals)
+        self.write_taxes_setting(vals)
+        return res
 
     # View Section
     def fields_view_get(
@@ -73,7 +73,7 @@ class ProductTemplate(models.Model):
         return res
 
     # Custom Section
-    def check_coherent_vals(self, vals):
+    def write_taxes_setting(self, vals):
         """If Fiscal Classification is defined, set the according taxes
         to the product(s); Otherwise, find the correct Fiscal classification,
         depending of the taxes, or create a new one, if no one are found."""

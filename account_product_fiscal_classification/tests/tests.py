@@ -54,16 +54,16 @@ class Tests(TransactionCase):
         wizard = self.wizard_obj.create({
             'old_fiscal_classification_id': self.classification_1_id,
             'new_fiscal_classification_id': self.classification_2_id})
-        wizard.button_change_tax_group()
+        wizard.button_change_fiscal_classification()
         template = self.template_obj.browse(self.template_id)
         self.assertEqual(
             template.fiscal_classification_id.id, self.classification_2_id,
             "Fiscal Classification change has failed for products via Wizard.")
 
-    def test_02_check_coherent_vals_classification_exist(self):
+    def test_02_write_taxes_setting_classification_exist(self):
         """Test the behaviour of the function product.template
-        check_coherent_vals() when the combination of taxes exist."""
-        # Set tax_group_1 configuration to the product
+        write_taxes_setting() when the combination of taxes exist."""
+        # Set classification_1 configuration to the product
         vals = {
             'name': 'Product Product Name',
             'company_id': self.main_company_id,
@@ -84,9 +84,9 @@ class Tests(TransactionCase):
             template.fiscal_classification_id.id, self.classification_2_id,
             "Recovery of Correct Taxes Group failed during update.")
 
-    def test_03_check_coherent_vals_classification_doesnt_exist_single(self):
+    def test_03_write_taxes_setting_classification_doesnt_exist_single(self):
         """Test the behaviour of the function product.template
-        check_coherent_vals() when the combination doesn't exist.
+        write_taxes_setting() when the combination doesn't exist.
         (Single Tax)"""
         vals = {
             'name': 'Product Product Name',
@@ -101,9 +101,9 @@ class Tests(TransactionCase):
             count_before + 1, count_after,
             "New combination must create new Fiscal Classification.")
 
-    def test_04_check_coherent_vals_tax_group_doesnt_exist_multi(self):
+    def test_04_write_taxes_setting_classification_doesnt_exist_multi(self):
         """Test the behaviour of the function product.template
-        check_coherent_vals() when the combination doesn't exist.
+        write_taxes_setting() when the combination doesn't exist.
         (Multiple Taxes)"""
         vals = {
             'name': 'Product Product Name',
