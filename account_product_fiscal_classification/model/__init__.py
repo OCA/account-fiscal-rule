@@ -1,4 +1,4 @@
 # -*- encoding: utf-8 -*-
 from . import product_template
-from . import tax_group
-from . import wizard_change_tax_group
+from . import account_product_fiscal_classification
+from . import wizard_change_fiscal_classification

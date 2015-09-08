@@ -20,16 +20,16 @@
 #
 ##############################################################################
 
--  !record {model: ir.model.access, id: ir_model_access_tax_group_reader}:
+-  !record {model: ir.model.access, id: ir_model_access_account_product_fiscal_classification_reader}:
     group_id: base.group_user
-    model_id: model_tax_group
-    name: Taxes Group Reader
+    model_id: model_account_product_fiscal_classification
+    name: Fiscal Classification Reader
     perm_read: true
 
-- !record {model: ir.model.access, id: ir_model_access_tax_group_manager}:
+- !record {model: ir.model.access, id: ir_model_access_account_product_fiscal_classification_manager}:
     group_id: account.group_account_manager
-    model_id: model_tax_group
-    name: Taxes Group Manager
+    model_id: model_account_product_fiscal_classification
+    name: Fiscal Classification Manager
     perm_create: true
     perm_write: true
     perm_read: true

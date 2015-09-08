@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ********************************************************************** -->
-<!--    Product - Taxes Group module for Odoo                               -->
+<!--    Account Product - Fiscal Classification module for Odoo             -->
 <!--    Copyright (C) 2014 -Today GRAP (http://www.grap.coop)               -->
 <!--    @author Sylvain LE GAL (https://twitter.com/legalsylvain)           -->
 
@@ -26,7 +26,7 @@
             <field name="inherit_id" ref="product.product_template_search_view"/>
             <field name="arch" type="xml">
                 <field name="categ_id" position="after">
-                    <field name="tax_group_id"/>
+                    <field name="fiscal_classification_id"/>
                 </field>
             </field>
         </record>
