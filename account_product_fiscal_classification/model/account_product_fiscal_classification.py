@@ -20,12 +20,9 @@
 #
 ##############################################################################
 
-import logging
 
-from openerp import SUPERUSER_ID, models, fields, api, _
+from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
-
-_logger = logging.getLogger(__name__)
 
 
 class AccountProductFiscalClassification(models.Model):
@@ -163,5 +160,3 @@ class AccountProductFiscalClassification(models.Model):
             'company_id': company_id,
             'sale_tax_ids': [(6, 0, sale_tax_ids)],
             'purchase_tax_ids': [(6, 0, purchase_tax_ids)]}).id
-
-
