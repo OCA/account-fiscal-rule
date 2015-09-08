@@ -20,7 +20,7 @@
 <openerp>
     <data>
 
-        <menuitem id="menu_account_tax_group"
+        <menuitem id="menu_account_product_fiscal_classification"
             name="Fiscal Classifications"
             parent="account.next_id_27"
             action="action_account_product_fiscal_classification"
