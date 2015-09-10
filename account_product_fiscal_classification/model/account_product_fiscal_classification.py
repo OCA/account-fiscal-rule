@@ -30,7 +30,6 @@ class AccountProductFiscalClassification(models.Model):
     This classification is linked to a product to select a bundle of taxes
      in one time."""
     _name = 'account.product.fiscal.classification'
-    _description = 'Product Fiscal Classification'
     _MAX_LENGTH_NAME = 256
 
     # Default Section
@@ -39,7 +38,7 @@ class AccountProductFiscalClassification(models.Model):
 
     # Field Section
     name = fields.Char(
-        size=_MAX_LENGTH_NAME, required=True, select=True)
+        size=_MAX_LENGTH_NAME, required=True, select=True, translate=True)
 
     company_id = fields.Many2one(
         comodel_name='res.company', default=_default_company_id,
