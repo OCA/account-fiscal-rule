@@ -1,9 +1,4 @@
 -
-  I set the country of demo company
--
-  !record {model: res.partner, id: base.main_partner}:
-    country_id: base.us
--
   I create some fiscal positions matching the demo templates because there is none...
 -
   !record {model: account.fiscal.position, id: p1}:
@@ -11,11 +6,6 @@
 -
   !record {model: account.fiscal.position, id: p2}:
     name: Normal Taxes
--
-  I assign a fiscal position to some partner
--
-  !record {model: res.partner, id: base.res_partner_13}:
-    property_account_position: p1
 -
   I create some rule templates
 -
@@ -65,6 +55,7 @@
       'partner_id': ref('base.res_partner_11'),
       'partner_invoice_id': ref('base.res_partner_11')
     }
+    self.env['res.partner'].browse(ref('base.main_company')).write({'country_id': ref('base.us')})
     res = self.fiscal_position_map(**kw)
     assert res['fiscal_position'] == ref('p1')
 -
@@ -86,5 +77,6 @@
       'company_id': ref('base.main_company'),
       'partner_id': ref('base.res_partner_13'),
     }
+    self.env['res.partner'].browse(ref('base.res_partner_13')).write({'property_account_position': ref('p1')})
     res = self.fiscal_position_map(**kw)
     assert res['fiscal_position'] == ref('p1')
