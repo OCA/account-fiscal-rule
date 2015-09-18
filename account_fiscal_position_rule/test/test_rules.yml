@@ -55,7 +55,7 @@
       'partner_id': ref('base.res_partner_11'),
       'partner_invoice_id': ref('base.res_partner_11')
     }
-    self.env['res.partner'].browse(ref('base.main_company')).write({'country_id': ref('base.us')})
+    self.env['res.partner'].browse(ref('base.main_partner')).write({'country_id': ref('base.us')})
     res = self.fiscal_position_map(**kw)
     assert res['fiscal_position'] == ref('p1')
 -
