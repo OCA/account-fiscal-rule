@@ -37,8 +37,12 @@ class AccountProductFiscalClassification(models.Model):
         return self.env['res.users']._get_company()
 
     # Field Section
+    code = fields.Char()
+
     name = fields.Char(
         size=_MAX_LENGTH_NAME, required=True, select=True, translate=True)
+
+    description = fields.Text()
 
     company_id = fields.Many2one(
         comodel_name='res.company', default=_default_company_id,
