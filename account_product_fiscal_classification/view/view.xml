@@ -42,6 +42,7 @@
             <field name="model">account.product.fiscal.classification</field>
             <field name="arch" type="xml">
                 <tree colors="gray:active == False;">
+                    <field name="code"/>
                     <field name="name"/>
                     <field name="purchase_tax_ids"/>
                     <field name="sale_tax_ids"/>
@@ -79,6 +80,9 @@
                         <group col="4">
                             <field name="company_id" groups="base.group_multi_company"/>
                             <field name="active"/>
+                            <field name="code"/>
+                            <newline/>
+                            <field name="description" colspan="4"/>
                         </group>
                         <group col="2">
                             <button name="%(action_wizard_change_fiscal_classification)d"
