@@ -45,8 +45,6 @@ class PurchaseOrder(models.Model):
             'partner_invoice_id': partner_id,
             'partner_shipping_id': partner_id,
         }
-
-        result = self._fiscal_position_map(result, **kwargs)
         return self._fiscal_position_map(result, **kwargs)
 
     @api.multi
