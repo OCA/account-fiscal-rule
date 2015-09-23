@@ -17,6 +17,24 @@ apply according to an extensible flat decision table.
 Additionally, account_product_fiscal_classification enable to select
 default product sale and purchase taxes based on a tax class.
 
+[//]: # (addons)
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[account_fiscal_position_rule](account_fiscal_position_rule/) | 1.2 | Account Fiscal Position Rule
+[account_product_fiscal_classification](account_product_fiscal_classification/) | 8.0.2.0.0 | Simplify taxes management for products
+
+Unported addons
+---------------
+addon | version | summary
+--- | --- | ---
+[account_fiscal_position_rule_purchase](__unported__/account_fiscal_position_rule_purchase/) | 1.1 (unported) | Account Fiscal Position Rule Purchase
+[account_fiscal_position_rule_sale](__unported__/account_fiscal_position_rule_sale/) | 1.1.1 (unported) | Account Fiscal Position Rule Sale
+[account_fiscal_position_rule_stock](__unported__/account_fiscal_position_rule_stock/) | 1.1 (unported) | Account Fiscal Position Rule Stock
+
+[//]: # (end addons)
+
 Translation Status
 ------------------
 [![Transifex Status](https://www.transifex.com/projects/p/OCA-account-fiscal-rule-8-0/chart/image_png)](https://www.transifex.com/projects/p/OCA-account-fiscal-rule-8-0)
