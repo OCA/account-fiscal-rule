@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# coding: utf-8
 ###############################################################################
 #
 #   account_fiscal_position_rule_stock for OpenERP
@@ -32,10 +32,11 @@
         'warning'
     ],
     'data': [
-        'views/stock_picking.xml',        
+        'views/stock_picking.xml',
         'security/ir.model.access.csv',
     ],
     'test': [
+        'tests/account_fiscal_position_rule_stock_test.yml',
         'tests/sale_order_test.yml'
     ],
     'installable': True,
