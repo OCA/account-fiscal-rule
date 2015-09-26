@@ -36,7 +36,6 @@
     ],
     'data': [
         'sale_view.xml',
-        'security/account_fiscal_position_rule_sale_security.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [],
