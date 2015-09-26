@@ -27,6 +27,7 @@ Contributors
 * Lorenzo Battistini <lorenzo.battistini@agilebg.com>
 * Renato Lima <renatonlima@gmail.com>
 * Sebastien Beau <sebastien.beau@akretion.com.br>
+* Danimar Ribeiro <danimaribeiro@gmail.com>
 
 Maintainer
 ----------

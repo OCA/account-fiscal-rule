@@ -1,0 +1,35 @@
+-
+  I create a fiscal position
+-
+  !record {model: account.fiscal.position, id: fiscal_position_test}:
+    name: Internal sale    
+-
+  I create a partner to sale
+-
+  !record {model: res.partner, id: res_partner_test}:
+    name: Danimar
+-
+  I create another sale order
+-
+  !record {model: sale.order, id: sale_order_test}:
+    partner_id: account_fiscal_position_rule_stock.res_partner_test
+    order_policy: picking
+    fiscal_position: account_fiscal_position_rule_stock.fiscal_position_test
+    order_line:
+      - product_id: product.product_product_8
+        product_uom: product.product_uom_unit
+        product_uom_qty: 16
+-
+  !workflow {model: sale.order, action: order_confirm, ref: sale_order_test}
+-
+   I check if the correct fiscal position is set on delivery
+-
+  !python {model: sale.order}: |
+    sale_order = self.browse(cr, uid, ref('sale_order_test'))
+    assert sale_order.picking_ids, 'Delivery order is not created.'
+    for picking in sale_order.picking_ids:        
+        assert picking.state == 'confirmed', 'Delivery order should be in Waitting Availability state.'
+        assert picking.picking_type_id.code == 'outgoing', 'Shipment should be Outgoing.'
+        assert picking.fiscal_position.id == ref('account_fiscal_position_rule_stock.fiscal_position_test'), 'Fiscal position not set correctly'
+        
+        

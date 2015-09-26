@@ -29,12 +29,14 @@
     'depends': [
         'account_fiscal_position_rule',
         'stock',
+        'warning'
     ],
     'data': [
-        'views/stock_picking.xml',
-        'security/account_fiscal_position_rule_security.xml',
+        'views/stock_picking.xml',        
         'security/ir.model.access.csv',
     ],
-    'demo': [],
+    'test': [
+        'tests/sale_order_test.yml'
+    ],
     'installable': True,
 }

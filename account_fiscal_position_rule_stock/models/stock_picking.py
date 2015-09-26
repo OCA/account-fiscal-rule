@@ -22,36 +22,35 @@
 from openerp import models, fields, api
 
 
+class StockMove(models.Model):
+    _inherit = 'stock.move'
+
+    def _prepare_picking_assign(self, cr, uid, move, context=None):
+        result = super(StockMove, self)._prepare_picking_assign(cr, uid,
+                                                                move, context)
+
+        result['fiscal_position'] = \
+            move.procurement_id.sale_line_id.order_id.fiscal_position and \
+            move.procurement_id.sale_line_id.order_id.fiscal_position.id
+        return result
+
+
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     fiscal_position = fields.Many2one(
-        'account.fiscal.position',
-        string='Fiscal Position',
-        domain="[('fiscal_operation_id','=',fiscal_operation_id)]",
+        'account.fiscal.position', string='Fiscal Position'
     )
 
-    @api.model
-    def _fiscal_position_map(
-            self, result, partner_id=None, partner_invoice_id=None,
-            partner_shipping_id=None, company_id=None
-    ):
-        fp_rule_obj = self.env['account.fiscal.position.rule'].with_context(
-            use_domain=('use_picking', '=', True)
-        )
-        return fp_rule_obj.apply_fiscal_mapping(
-            result,
-            partner_id=partner_id,
-            partner_invoice_id=partner_invoice_id,
-            partner_shipping_id=partner_shipping_id,
-            company_id=company_id,
-        )
+    def _fiscal_position_map(self, result, **kwargs):
+        ctx = dict(self._context)
+        ctx.update({'use_domain': ('use_picking', '=', True)})
+        return self.env['account.fiscal.position.rule'].with_context(
+            ctx).apply_fiscal_mapping(result, **kwargs)
 
-    def onchange_partner_in(self, cr, uid, ids, partner_id=None,
-                            company_id=None, context=None):
-        result = super(StockPicking, self).onchange_partner_in(
-            cr, uid, partner_id, context
-        )
+    @api.multi
+    def onchange_partner_in(self, partner_id=None, company_id=None):
+        result = super(StockPicking, self).onchange_partner_in(partner_id)
 
         if not result:
             result = {'value': {'fiscal_position': False}}
@@ -59,23 +58,22 @@ class StockPicking(models.Model):
         if not partner_id or not company_id:
             return result
 
-        address_data = self.pool["res.partner"].address_get(
-            cr, uid, [partner_id], ['delivery', 'invoice']
-        )
-        return self._fiscal_position_map(
-            cr, uid, result,
-            partner_id=partner_id,
-            partner_shipping_id=address_data['delivery'],
-            partner_invoice_id=address_data['invoice'],
-            company_id=company_id,
-            context=context,
-        )
+        partner = self.env['res.partner'].browse(partner_id)
+        partner_address = partner.address_get(['invoice', 'delivery'])
+
+        kwargs = {
+            'company_id': company_id,
+            'partner_id': partner_id,
+            'partner_shipping_id': partner_address['delivery'],
+            'partner_invoice_id': partner_address['invoice'],
+        }
+        return self._fiscal_position_map(result, **kwargs)
 
     @api.model
     def _prepare_invoice(self, picking, partner, inv_type, journal_id):
         result = super(StockPicking, self)._prepare_invoice(
             picking, partner, inv_type, journal_id
         )
-        if picking.fiscal_position:
-                result['fiscal_position'] = picking.fiscal_position.id
+        result['fiscal_position'] = picking.fiscal_position and\
+            picking.fiscal_position.id
         return result
