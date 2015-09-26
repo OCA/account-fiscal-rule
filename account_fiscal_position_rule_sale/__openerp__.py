@@ -35,8 +35,7 @@
         'sale',
     ],
     'data': [
-        'sale_view.xml',
-        'security/account_fiscal_position_rule_sale_security.xml',
+        'view/sale_view.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [],
