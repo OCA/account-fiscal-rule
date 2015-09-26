@@ -3,68 +3,69 @@
 # * account_product_fiscal_classification
 # 
 # Translators:
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-23 15:24+0000\n"
-"PO-Revision-Date: 2015-09-22 17:16+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: French (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/fr/)\n"
+"POT-Creation-Date: 2015-10-09 08:36+0000\n"
+"PO-Revision-Date: 2015-10-10 06:07+0000\n"
+"Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
+"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:154
 #, python-format
 msgid " - Sale Taxes: "
-msgstr " - Taxes à la Vente: "
+msgstr " - Prodajni davki: "
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:147
 #, python-format
 msgid "- No Sale Taxes"
-msgstr "- Pas de Taxes à la Vente"
+msgstr "- Brez prodajnih davkov"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,active:0
 msgid "Active"
-msgstr "Active"
+msgstr "Aktivno"
 
 #. module: account_product_fiscal_classification
 #: view:wizard.change.fiscal.classification:account_product_fiscal_classification.view_wizard_change_fiscal_classification
 msgid "Apply"
-msgstr "Appliquer"
+msgstr "Uveljavi"
 
 #. module: account_product_fiscal_classification
 #: view:wizard.change.fiscal.classification:account_product_fiscal_classification.view_wizard_change_fiscal_classification
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Preklic"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,code:0
 msgid "Code"
-msgstr ""
+msgstr "Koda"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,company_id:0
 msgid "Company"
-msgstr "Société"
+msgstr "Družba"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,create_uid:0
 #: field:wizard.change.fiscal.classification,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Ustvaril"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,create_date:0
 #: field:wizard.change.fiscal.classification,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Ustvarjeno"
 
 #. module: account_product_fiscal_classification
 #: model:res.company,overdue_msg:account_product_fiscal_classification.company_without_specific_classification
@@ -77,151 +78,151 @@ msgid ""
 "\n"
 "Thank you in advance for your cooperation.\n"
 "Best Regards,"
-msgstr ""
+msgstr "Spoštovani.\n\nPo naši evidenci nekatera zapadla plačila na vašem računu še niso poravnana. Več podrobnosti je spodaj.\nČe je znesek medtem bil že poravnan, lahko smatrate ta opomin kot ničen. V nasprotnem primeru, vas prosimo, da spodaj navedeni znesek poravnate.\nZa kakršnihkoli pojasnila smo vam na voljo.\n\nZa vaše sodelovanje se vam v naprej zahvaljujemo.\nLep pozdrav."
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_1
 msgid "Demo Fiscal Classification 1"
-msgstr "Catégorie fiscale 1 (donnée de démonstration)"
+msgstr "Demonstracijska fiskalna klasifikacija 1"
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_2
 msgid "Demo Fiscal Classification 2"
-msgstr "Catégorie fiscale 2 (donnée de démonstration)"
+msgstr "Demonstracijska fiskalna klasifikacija 2"
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_3
 msgid "Demo Fiscal Classification 3"
-msgstr "Catégorie fiscale 3 (donnée de démonstration)"
+msgstr "Demonstracijska fiskalna klasifikacija 3"
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_1
 msgid "Demo Global Fiscal Classification 1"
-msgstr "Catégorie fiscale Globale 1 (donnée de démonstration)"
+msgstr "Demonstracijska globalna fiskalna klasifikacija 1"
 
 #. module: account_product_fiscal_classification
 #: model:product.template,name:account_product_fiscal_classification.product_template_1
 msgid "Demo Product With Fiscal Classification"
-msgstr "Article de démonstration sans catégorie fiscale"
+msgstr "Demonstracijski proizvod s fiskalno klasifikacijo"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_purchase_1
 msgid "Demo Purchase Tax 10%"
-msgstr "Taxe à l'achat 10% (donnée de démonstration)"
+msgstr "Demonstracijski nabavni davek 10%"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_sale_1
 msgid "Demo Sale Tax 10%"
-msgstr "Taxe à la vente 10% (donnée de démonstration)"
+msgstr "Demonstracijski prodajni davek 10%"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_sale_2
 msgid "Demo Sale Tax 3%"
-msgstr "Taxe à la vente 3% (donnée de démonstration)"
+msgstr "Demonstracijski prodajni davek 3%"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,description:0
 msgid "Description"
-msgstr ""
+msgstr "Opis"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
 #: field:product.template,fiscal_classification_id:0
 msgid "Fiscal Classification"
-msgstr "Catégorie fiscale"
+msgstr "Fiskalna klasifikacija"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_classification
 msgid "Fiscal Classifications"
-msgstr "Catégories fiscales"
+msgstr "Fiskalne klasifikacije"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,id:0
 #: field:wizard.change.fiscal.classification,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_product_fiscal_classification
 #: help:account.product.fiscal.classification,active:0
 msgid ""
 "If unchecked, it will allow you to hide the Fiscal Classification without "
 "removing it."
-msgstr "Décochez cette case vous permettra de cacher cette catégorie fiscale sans la supprimer."
+msgstr "Če ni označeno, se fiskalne klasifikacije lahko skrije, ne da bi jih odstranili."
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,write_uid:0
 #: field:wizard.change.fiscal.classification,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Zadnjič posodobil"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,write_date:0
 #: field:wizard.change.fiscal.classification,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Zadnjič posodobljeno"
 
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_wizard_change_fiscal_classification
 msgid "Move Products into another Fiscal Classification"
-msgstr "Déplacer les produits dans une autre catégorie fiscale"
+msgstr "Premik proizvodov v drugo fiskalno klasifikacijo"
 
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 #: field:account.product.fiscal.classification,name:0
 msgid "Name"
-msgstr "Nom"
+msgstr "Naziv"
 
 #. module: account_product_fiscal_classification
 #: field:wizard.change.fiscal.classification,new_fiscal_classification_id:0
 msgid "New Fiscal Classification"
-msgstr "Nouvelle catégorie fiscale"
+msgstr "Nova fiskalna klasifikacija"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:136
 #, python-format
 msgid "No Purchase Taxes - Sale Taxes: "
-msgstr "Pas de taxes à l'achat - Taxes à la vente : "
+msgstr "Brez nabavnih davkov - prodajnih davkov:"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:134
 #, python-format
 msgid "No taxes"
-msgstr "Pas de Taxes"
+msgstr "Brez davkov"
 
 #. module: account_product_fiscal_classification
 #: field:wizard.change.fiscal.classification,old_fiscal_classification_id:0
 msgid "Old Fiscal Classification"
-msgstr "Ancienne catégorie fiscale"
+msgstr "Stara fiskalna klasifikacija"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_product_template
 msgid "Product Template"
-msgstr "Modèle d'article"
+msgstr "Predloga proizvoda"
 
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_template_list_by_fiscal_classification
 #: view:product.template:account_product_fiscal_classification.view_product_template_tree
 msgid "Products"
-msgstr "Articles"
+msgstr "Proizvodi"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,purchase_tax_ids:0
 msgid "Purchase Taxes"
-msgstr "Taxes à l'achat"
+msgstr "Nabavni davki"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:142
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:149
 #, python-format
 msgid "Purchase Taxes: "
-msgstr "Taxes à l'achat : "
+msgstr "Nabavni davki:"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,sale_tax_ids:0
 msgid "Sale Taxes"
-msgstr "Taxes à la vente"
+msgstr "Prodajni davki"
 
 #. module: account_product_fiscal_classification
 #: help:account.product.fiscal.classification,company_id:0
@@ -229,7 +230,7 @@ msgid ""
 "Specify a company if you want to define this Fiscal Classification only for "
 "specific company. Otherwise, this Fiscal Classification will be available "
 "for all companies."
-msgstr "Indiquer une société si vous souhaitez définir cette catégorie fiscale seulement pour une société. Sinon, cette catégorie fiscale sera disponible pour toutes les sociétés."
+msgstr "Določite družbo, če želite določiti to fiskalno klasifikacijo le za določeno družbo. V nasprotnem primeru bo za fiskalna klasifikacija veljala za vse družbe."
 
 #. module: account_product_fiscal_classification
 #: help:product.template,fiscal_classification_id:0
@@ -237,23 +238,23 @@ msgid ""
 "Specify the combination of taxes for this product. This field is required. "
 "If you dont find the correct Fiscal Classification, Please create a new one "
 "or ask to your account manager if you don't have the access right."
-msgstr "Indique la combinaison de taxes pour cet article. Ce champ est requis. Si vous ne trouvez pas la catégorie fiscale correcte, veuillez en créer une, ou demander à votre responsable comptable si vous n'avez pas les droits d'accès."
+msgstr "Določite kombinacijo davkov za ta proizvod. To polje je zahtevano. Če ne najdete pravilne fiskalne klasifikacije, ustvarite novo oziroma se obrnite na upravitelja kontov, v kolikor nimate pravic dostopa."
 
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 msgid "Taxes"
-msgstr "Taxes"
+msgstr "Davki"
 
 #. module: account_product_fiscal_classification
 #: view:product.template:account_product_fiscal_classification.view_product_template_form
 msgid "True"
-msgstr ""
+msgstr "Pravilno"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/model/product_template.py:99
 #, python-format
 msgid "You cannot change Taxes for many Products."
-msgstr "Vous ne pouvez pas changer les taxes pour plusieurs articles en même temps."
+msgstr "Ne morete spreminjati davkov za več proizvodov."
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:106
@@ -261,9 +262,9 @@ msgstr "Vous ne pouvez pas changer les taxes pour plusieurs articles en même te
 msgid ""
 "You cannot delete The Fiscal Classification '%s' because it contents %s "
 "products. Please move products to another Fiscal Classification first."
-msgstr "Vous ne pouvez pas supprimer cette catégorie fiscale '%s' car elle contient %s articles. Merci de déplacer les articles dans une autre catégorie fiscale."
+msgstr "Ne morete brisati fiskalne klasifikacije '%s', ker vsebuje %s proizvodov. Najprej premaknite proizvode v drugo fiskalno klasifikacijo."
 
 #. module: account_product_fiscal_classification
 #: view:wizard.change.fiscal.classification:account_product_fiscal_classification.view_wizard_change_fiscal_classification
 msgid "or"
-msgstr "ou"
+msgstr "ali"
