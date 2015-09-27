@@ -73,7 +73,7 @@
   I create a picking with the second partner and the fiscal rule should not set the fiscal position
   because the position fiscal on partner should have higher priority
 -
-  !record {model: stock.picking, id: stock_picking_test2}:
+  !record {model: stock.picking, id: stock_picking_test3}:
     partner_id: account_fiscal_position_rule_stock.res_partner_test2
     invoice_state: 2binvoiced
     picking_type_id: stock.picking_type_in
@@ -85,7 +85,7 @@
 -
   I verify that the onchange was correctly triggered
 -
-  !assert {model: stock.picking, id: account_fiscal_position_rule_stock.stock_picking_test2, string: Fiscal position from partner is being ignored}:
+  !assert {model: stock.picking, id: account_fiscal_position_rule_stock.stock_picking_test3, string: Fiscal position from partner is being ignored}:
     - fiscal_position.id == ref('account_fiscal_position_rule_stock.fiscal_position_test2')
     - move_lines[0].product_id.id == ref('product.product_product_8')    
     - move_lines[0].product_uom_qty == 16
