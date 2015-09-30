@@ -14,9 +14,6 @@
                 <field name="dest_address_id" position="attributes" >
                            <attribute name="on_change">onchange_dest_address_id(partner_id, dest_address_id, company_id, context)</attribute>
                 </field>
-                <field name="company_id" position="attributes" >
-                           <attribute name="on_change">onchange_company_id(partner_id, dest_address_id, company_id, context)</attribute>
-                </field>
             </field>
         </record>
 
