@@ -2,7 +2,7 @@
 ###############################################################################
 #
 #   account_fiscal_position_rule_stock for OpenERP
-#   Copyright (C) 2009-TODAY Akretion <http://www.akretion.com>
+#   Copyright (C) 2009 Akretion <http://www.akretion.com>
 #     @author Renato Lima <renato.lima@akretion.com>
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU Affero General Public License as
@@ -19,4 +19,4 @@
 #
 ###############################################################################
 
-from . import stock
+from . import stock_picking
