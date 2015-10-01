@@ -4,8 +4,6 @@
 #   account_fiscal_position_rule_sale for OpenERP
 #   Copyright (C) 2009-TODAY Akretion <http://www.akretion.com>
 #     @author Renato Lima <renato.lima@akretion.com>
-#   Copyright 2012 Camptocamp SA
-#     @author: Guewen Baconnier
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU Affero General Public License as
 #   published by the Free Software Foundation, either version 3 of the
@@ -21,24 +19,4 @@
 #
 ###############################################################################
 
-{
-    'name': 'Account Fiscal Position Rule Sale',
-    'version': '1.1.1',
-    'category': 'Generic Modules/Accounting',
-    'description': """Include a rule to decide the
-    correct fiscal position for Sale""",
-    'author': "Akretion,Odoo Community Association (OCA)",
-    'license': 'AGPL-3',
-    'website': 'http://www.akretion.com',
-    'depends': [
-        'account_fiscal_position_rule',
-        'sale',
-    ],
-    'data': [
-        'sale_view.xml',
-        'security/account_fiscal_position_rule_sale_security.xml',
-        'security/ir.model.access.csv',
-    ],
-    'demo': [],
-    'installable': False,
-}
+from . import model
