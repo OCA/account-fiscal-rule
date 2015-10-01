@@ -34,6 +34,7 @@
     'depends': [
         'account_fiscal_position_rule',
         'purchase',
+        'web_context_tunnel',
     ],
     'data': [
         'view/purchase_view.xml',
