@@ -37,7 +37,8 @@
     ],
     'test': [
         'tests/account_fiscal_position_rule_stock_test.yml',
-        'tests/sale_order_test.yml'
+        'tests/sale_order_test.yml',
+        'tests/invoice_from_picking_test.yml'
     ],
     'installable': True,
 }
