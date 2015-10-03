@@ -23,14 +23,14 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [account_fiscal_position_rule](account_fiscal_position_rule/) | 1.2 | Account Fiscal Position Rule
+[account_fiscal_position_rule_purchase](account_fiscal_position_rule_purchase/) | 1.1 | Account Fiscal Position Rule Purchase
+[account_fiscal_position_rule_sale](account_fiscal_position_rule_sale/) | 1.1.1 | Account Fiscal Position Rule Sale
 [account_product_fiscal_classification](account_product_fiscal_classification/) | 8.0.2.0.0 | Simplify taxes management for products
 
 Unported addons
 ---------------
 addon | version | summary
 --- | --- | ---
-[account_fiscal_position_rule_purchase](__unported__/account_fiscal_position_rule_purchase/) | 1.1 (unported) | Account Fiscal Position Rule Purchase
-[account_fiscal_position_rule_sale](__unported__/account_fiscal_position_rule_sale/) | 1.1.1 (unported) | Account Fiscal Position Rule Sale
 [account_fiscal_position_rule_stock](__unported__/account_fiscal_position_rule_stock/) | 1.1 (unported) | Account Fiscal Position Rule Stock
 
 [//]: # (end addons)
