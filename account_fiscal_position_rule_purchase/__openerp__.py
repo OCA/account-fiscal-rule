@@ -24,7 +24,7 @@
 
 {
     'name': 'Account Fiscal Position Rule Purchase',
-    'version': '1.1',
+    'version': '8.0.1.1.0',
     'category': 'Generic Modules/Accounting',
     'description': """Include a rule to decide the
     correct fiscal position for Purchase""",
