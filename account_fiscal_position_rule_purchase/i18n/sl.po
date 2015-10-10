@@ -3,25 +3,25 @@
 # * account_fiscal_position_rule_purchase
 # 
 # Translators:
-# danimaribeiro <danimaribeiro@gmail.com>, 2015
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-09 08:36+0000\n"
-"PO-Revision-Date: 2015-10-09 00:41+0000\n"
-"Last-Translator: danimaribeiro <danimaribeiro@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/pt_BR/)\n"
+"PO-Revision-Date: 2015-10-07 10:37+0000\n"
+"Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
+"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #. module: account_fiscal_position_rule_purchase
 #: model:ir.model,name:account_fiscal_position_rule_purchase.model_purchase_order
 msgid "Purchase Order"
-msgstr "Pedido de Compra"
+msgstr "Nabavni nalog"
 
 #. module: account_fiscal_position_rule_purchase
 #: view:purchase.order:account_fiscal_position_rule_purchase.account_fiscal_position_rule_purchase_order_form
