@@ -3,36 +3,36 @@
 # * account_fiscal_position_rule
 # 
 # Translators:
-# danimaribeiro <danimaribeiro@gmail.com>, 2015
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-09 08:36+0000\n"
-"PO-Revision-Date: 2015-10-09 08:36+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/pt_BR/)\n"
+"PO-Revision-Date: 2015-10-10 06:05+0000\n"
+"Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
+"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule
 #: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule_template
 msgid "Account Fiscal Position Rule Template"
-msgstr "Modelo de regra de posição fiscal"
+msgstr "Predloga pravila knjigovodskega fiskalnega položaja"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model,name:account_fiscal_position_rule.model_wizard_account_fiscal_position_rule
 msgid "Account Fiscal Position Rule Wizard"
-msgstr "Wizard de regra de posição fiscal"
+msgstr "Čarovnik pravila knjigovodskega fiskalnega položaja"
 
 #. module: account_fiscal_position_rule
 #: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Preklic"
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,vat_rule:0
@@ -40,95 +40,95 @@ msgstr "Cancelar"
 msgid ""
 "Choose if the customer need to have the field VAT fill for using this fiscal"
 " position"
-msgstr "Escolha se o cliente precisa ter que preencher o campo VAT para esta posição fiscal"
+msgstr "Izberite, če mora imeti kupec izpolnjeno polje za DDV številko pri uporabi tega fiskalnega položaja."
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,company_id:0
 #: field:wizard.account.fiscal.position.rule,company_id:0
 msgid "Company"
-msgstr "Empresa"
+msgstr "Družba"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 msgid "Configuration"
-msgstr "Configuração"
+msgstr "Nastavitve"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule.template,from_country:0
 msgid "Country Form"
-msgstr "Do País"
+msgstr "Iz države"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,from_country:0
 msgid "Country From"
-msgstr "Do País"
+msgstr "Iz države"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule.template,to_invoice_country:0
 msgid "Country To"
-msgstr "Para o País"
+msgstr "V državo"
 
 #. module: account_fiscal_position_rule
 #: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
 msgid "Create"
-msgstr "Criar"
+msgstr "Ustvari"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,create_uid:0
 #: field:account.fiscal.position.rule.template,create_uid:0
 #: field:wizard.account.fiscal.position.rule,create_uid:0
 msgid "Created by"
-msgstr "Criado por"
+msgstr "Ustvaril"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,create_date:0
 #: field:account.fiscal.position.rule.template,create_date:0
 #: field:wizard.account.fiscal.position.rule,create_date:0
 msgid "Created on"
-msgstr "Criado em"
+msgstr "Ustvarjeno"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,description:0
 #: field:account.fiscal.position.rule.template,description:0
 msgid "Description"
-msgstr "Descrição"
+msgstr "Opis"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 msgid "Destination"
-msgstr "Destino"
+msgstr "Cilj"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,to_shipping_country:0
 #: field:account.fiscal.position.rule.template,to_shipping_country:0
 msgid "Destination Country"
-msgstr "País de destino"
+msgstr "Ciljna država"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,to_shipping_state:0
 #: field:account.fiscal.position.rule.template,to_shipping_state:0
 msgid "Destination State"
-msgstr "Estado de destino"
+msgstr "Ciljna regija"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,date_end:0
 #: field:account.fiscal.position.rule.template,date_end:0
 msgid "End Date"
-msgstr "Data Final"
+msgstr "Končni datum"
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,date_end:0
 #: help:account.fiscal.position.rule.template,date_end:0
 msgid "Ending date for this rule to be valid."
-msgstr "Ending date for this rule to be valid."
+msgstr "Končni datum veljavnosti tega pravila."
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,fiscal_position_id:0
 #: field:account.fiscal.position.rule.template,fiscal_position_id:0
 msgid "Fiscal Position"
-msgstr "Posição Fiscal"
+msgstr "Fiskalni položaj"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -137,7 +137,7 @@ msgstr "Posição Fiscal"
 #: model:ir.actions.act_window,name:account_fiscal_position_rule.action_account_fiscal_position_rule_form
 #: model:ir.ui.menu,name:account_fiscal_position_rule.menu_action_account_fiscal_position_rule_form
 msgid "Fiscal Position Rule"
-msgstr "Regra de Posição Fiscal"
+msgstr "Pravilo fiskalnega položaja"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
@@ -146,20 +146,20 @@ msgstr "Regra de Posição Fiscal"
 #: model:ir.actions.act_window,name:account_fiscal_position_rule.action_account_fiscal_position_rule_template_form
 #: model:ir.ui.menu,name:account_fiscal_position_rule.menu_action_account_fiscal_position_rule_template_form
 msgid "Fiscal Position Rule Template"
-msgstr "Modelo de Regra de Posição Fiscal"
+msgstr "Predloga pravila fiskalnega položaja"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 msgid "General"
-msgstr "Geral"
+msgstr "Splošno"
 
 #. module: account_fiscal_position_rule
 #: model:ir.actions.act_window,name:account_fiscal_position_rule.action_wizard_account_fiscal_position_rule
 #: model:ir.ui.menu,name:account_fiscal_position_rule.menu_wizard_fiscal_position_rule
 #: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
 msgid "Generate Fiscal Positions Rules from Templates"
-msgstr "Gerar Regras de Posições Fiscais de Modelos"
+msgstr "Ustvari pravila fiskalnih položajev iz predlog"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,id:0
@@ -173,101 +173,101 @@ msgstr "ID"
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 #: model:ir.model,name:account_fiscal_position_rule.model_account_invoice
 msgid "Invoice"
-msgstr "Fatura"
+msgstr "Račun"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,to_invoice_country:0
 msgid "Invoice Country"
-msgstr "País da fatura"
+msgstr "Država računa"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,to_invoice_state:0
 msgid "Invoice State"
-msgstr "Estado da fatura"
+msgstr "Regija računa"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,write_uid:0
 #: field:account.fiscal.position.rule.template,write_uid:0
 #: field:wizard.account.fiscal.position.rule,write_uid:0
 msgid "Last Updated by"
-msgstr "Última atualização por"
+msgstr "Zadnjič posodobil"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,write_date:0
 #: field:account.fiscal.position.rule.template,write_date:0
 #: field:wizard.account.fiscal.position.rule,write_date:0
 msgid "Last Updated on"
-msgstr "Última atualização em"
+msgstr "Zadnjič posodobljeno"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,name:0
 #: field:account.fiscal.position.rule.template,name:0
 msgid "Name"
-msgstr "Nome"
+msgstr "Naziv"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 msgid "Origin"
-msgstr "Origem"
+msgstr "Izvor"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,sequence:0
 #: field:account.fiscal.position.rule.template,sequence:0
 msgid "Priority"
-msgstr "Prioridade"
+msgstr "Prioriteta"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 msgid "Shipping"
-msgstr "Entrega"
+msgstr "Odprema"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,date_start:0
 #: field:account.fiscal.position.rule.template,date_start:0
 msgid "Start Date"
-msgstr "Data Inicial"
+msgstr "Začetni datum"
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,date_start:0
 #: help:account.fiscal.position.rule.template,date_start:0
 msgid "Starting date for this rule to be valid."
-msgstr "Starting date for this rule to be valid."
+msgstr "Začetni datum veljavnosti tega pravila."
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,from_state:0
 #: field:account.fiscal.position.rule.template,from_state:0
 msgid "State From"
-msgstr "Do Estado"
+msgstr "Iz regije"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule.template,to_invoice_state:0
 msgid "State To"
-msgstr "Para o Estado"
+msgstr "V regijo"
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,sequence:0
 #: help:account.fiscal.position.rule.template,sequence:0
 msgid "The lowest number will be applied."
-msgstr "O menor número vai ser aplicado."
+msgstr "Uveljavljena bo najnižja številka."
 
 #. module: account_fiscal_position_rule
 #: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
 msgid "This will automatically configure all fiscal position rules"
-msgstr "As regras de posições fiscais será configurada automáticamente"
+msgstr "Samodejna nastavitev vseh fiskalnih pravil"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 msgid "Use in Invoice"
-msgstr "Usar nas Notas Fiscais"
+msgstr "Uporabi pri računu"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,use_invoice:0
 #: field:account.fiscal.position.rule.template,use_invoice:0
 msgid "Use in Invoices"
-msgstr "Usar nas Notas Fiscais"
+msgstr "Uporabi pri računih"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
@@ -275,89 +275,89 @@ msgstr "Usar nas Notas Fiscais"
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 #: field:account.fiscal.position.rule.template,use_picking:0
 msgid "Use in Picking"
-msgstr "Use na Lista de Separação"
+msgstr "Uporabi pri zbirniku"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 msgid "Use in Purchase"
-msgstr "Usar em Compras"
+msgstr "Uporabi pri nabavi"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,use_purchase:0
 #: field:account.fiscal.position.rule.template,use_purchase:0
 msgid "Use in Purchases"
-msgstr "Usar em Compras"
+msgstr "Uporabi pri nabavah"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 msgid "Use in Sale"
-msgstr "Usar em Vendas"
+msgstr "Uporabi pri prodaji"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,use_sale:0
 #: field:account.fiscal.position.rule.template,use_sale:0
 msgid "Use in sales order"
-msgstr "Usar na Ordem de Venda"
+msgstr "Uporabi pri prodajnem nalogu"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
 msgid "Used in Sales Orders"
-msgstr "Used in Sales Orders"
+msgstr "Uporabi pri prodajnih nalogih"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 msgid "Used in Sales orders"
-msgstr "Used in Sales orders"
+msgstr "Uporabljeno pri prodajnih nalogih"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,vat_rule:0
 #: field:account.fiscal.position.rule.template,vat_rule:0
 msgid "VAT Rule"
-msgstr "Regra VAT"
+msgstr "DDV pravilo"
 
 #. module: account_fiscal_position_rule
 #: selection:account.fiscal.position.rule,vat_rule:0
 #: selection:account.fiscal.position.rule.template,vat_rule:0
 msgid "With VAT number"
-msgstr "Com número VAT"
+msgstr "Z identifikacijsko DDV številko"
 
 #. module: account_fiscal_position_rule
 #: selection:account.fiscal.position.rule,vat_rule:0
 #: selection:account.fiscal.position.rule.template,vat_rule:0
 msgid "With or Without VAT number"
-msgstr "Com ou sem número VAT"
+msgstr "Z ali brez DDV številke"
 
 #. module: account_fiscal_position_rule
 #: selection:account.fiscal.position.rule,vat_rule:0
 #: selection:account.fiscal.position.rule.template,vat_rule:0
 msgid "Without VAT number"
-msgstr "Sem número VAT"
+msgstr "Brez DDV številke"
 
 #. module: account_fiscal_position_rule
 #: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
 msgid "or"
-msgstr "ou"
+msgstr "ali"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
 msgid "used in Picking list"
-msgstr "Use na Lista de Separação"
+msgstr "uporabljeno pri zbirniku"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 msgid "used in Picking lists"
-msgstr "used in Picking lists"
+msgstr "uporabljeno pri zbirnikih"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 msgid "used in invoices"
-msgstr "used in invoices"
+msgstr "uporabljeno pri računih"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 msgid "used in purchase"
-msgstr "used in purchase"
+msgstr "uporabljeno pri nabavah"
