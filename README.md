@@ -31,7 +31,7 @@ Unported addons
 ---------------
 addon | version | summary
 --- | --- | ---
-[account_fiscal_position_rule_stock](__unported__/account_fiscal_position_rule_stock/) | 1.1 (unported) | Account Fiscal Position Rule Stock
+[account_fiscal_position_rule_stock](account_fiscal_position_rule_stock/) | 1.1 (unported) | Account Fiscal Position Rule Stock
 
 [//]: # (end addons)
 
