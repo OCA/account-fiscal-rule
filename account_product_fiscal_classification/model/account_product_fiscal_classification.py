@@ -93,7 +93,7 @@ class AccountProductFiscalClassification(models.Model):
     def write(self, vals):
         res = super(AccountProductFiscalClassification, self).write(vals)
         pt_obj = self.env['product.template']
-        if 'supplier_tax_ids' in vals or 'customer_tax_ids' in vals:
+        if 'purchase_tax_ids' in vals or 'sale_tax_ids' in vals:
             for fc in self:
                 pt_lst = pt_obj.browse([x.id for x in fc.product_tmpl_ids])
                 pt_lst.write({'fiscal_classification_id': fc.id})
