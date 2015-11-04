@@ -153,4 +153,3 @@ class Tests(TransactionCase):
             self.classification_template_1_id)
         self.assertTrue(self.classification_obj.search(
             [('code', '=', template.code)]))
-
