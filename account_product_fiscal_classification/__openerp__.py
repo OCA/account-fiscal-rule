@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Account Product - Fiscal Classification module for Odoo
@@ -41,7 +41,9 @@
     ],
     'demo': [
         'demo/account_tax.yml',
+        'demo/account_tax_template.yml',
         'demo/account_product_fiscal_classification.yml',
+        'demo/account_product_fiscal_classification_template.yml',
         'demo/product_template.yml',
         'demo/res_company.yml',
         'demo/res_groups.yml',
