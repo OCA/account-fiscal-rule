@@ -30,10 +30,16 @@ class Tests(TransactionCase):
     def setUp(self):
         super(Tests, self).setUp()
         self.template_obj = self.env['product.template']
+        self.classification_template_obj =\
+            self.env['account.product.fiscal.classification.template']
         self.classification_obj =\
             self.env['account.product.fiscal.classification']
+        self.wizard_template_obj =\
+            self.env['wizard.account.product.fiscal.classification']
         self.wizard_obj = self.env['wizard.change.fiscal.classification']
         self.main_company_id = self.ref('base.main_company')
+        self.classification_template_1_id = self.ref(
+            'account_product_fiscal_classification.classification_template_1')
         self.classification_1_id = self.ref(
             'account_product_fiscal_classification.classification_1')
         self.classification_2_id = self.ref(
@@ -138,3 +144,13 @@ class Tests(TransactionCase):
             [self.classification_1_id])
         with self.assertRaises(ValidationError):
             classification.unlink()
+
+    def test_07_classification_generate_from_template(self):
+        """Test wizard generate fiscal classification from template."""
+        wizard_template_obj = self.wizard_template_obj.create({})
+        wizard.action_create()
+        template = self.classification_template_obj.browse(
+            self.classification_template_1_id)
+        self.assertTrue(self.classification_obj.search(
+            [('code','=',template.code)]))
+
