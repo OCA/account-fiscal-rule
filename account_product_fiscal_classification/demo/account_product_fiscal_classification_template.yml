@@ -1,0 +1,30 @@
+# -*- encoding: utf-8 -*-
+##############################################################################
+#
+#    Account Product - Fiscal Classification module for Odoo
+#    Copyright (C) 2015 -Today Akretion (http://www.akretion.com)
+#    @author Renato Lima (https://twitter.com/renatonlima)
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+- !record {model: account.product.fiscal.classification.template, id: fiscal_classification_template_1}:
+    code: 1000.00.00
+    name: Demo Fiscal Classification Template 1
+    purchase_tax_ids:
+        - account_tax_template_purchase_1
+    sale_tax_ids:
+        - account_tax_template_sale_1
+        - account_tax_template_sale_2
