@@ -161,6 +161,23 @@
                 </form>
             </field>
         </record>
-    </data>
 
+<!-- Define: wizard.account.product.fiscal.classification -->
+		<record id="view_wizard_account_product_fiscal_classification" model="ir.ui.view">
+			<field name="name">Generate Product Fiscal Classification from Templates</field>
+			<field name="model">wizard.account.product.fiscal.classification</field>
+			<field name="arch" type="xml">
+				<form string="Generate Product Fiscal Classification from Templates" version="7.0">
+					<group string="This will automatically configure all product fiscal classification">
+						<field name="company_id" />
+					</group>
+					<footer>
+						<button name="action_create" string="Create" type="object" class="oe_highlight" /> ou
+						<button special="cancel" string="Cancel" type="object" class="oe_link" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+    </data>
 </openerp>
