@@ -32,5 +32,9 @@
             action="action_account_product_fiscal_classification"
             sequence="15"/>
 
+		<menuitem parent="account.account_template_taxes"
+			action="action_wizard_account_product_fiscal_classification"
+			id="menu_wizard_account_product_fiscal_classification" />
+
     </data>
 </openerp>
