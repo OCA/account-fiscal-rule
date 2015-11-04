@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Account Product - Fiscal Classification module for Odoo
@@ -147,10 +147,9 @@ class Tests(TransactionCase):
 
     def test_07_classification_generate_from_template(self):
         """Test wizard generate fiscal classification from template."""
-        wizard_template_obj = self.wizard_template_obj.create({})
-        wizard.action_create()
+        wizard_template = self.wizard_template_obj.create({})
+        wizard_template.action_create()
         template = self.classification_template_obj.browse(
             self.classification_template_1_id)
         self.assertTrue(self.classification_obj.search(
-            [('code','=',template.code)]))
-
+            [('code', '=', template.code)]))
