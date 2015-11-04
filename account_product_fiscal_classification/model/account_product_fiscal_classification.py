@@ -4,6 +4,7 @@
 #    Account Product - Fiscal Classification module for Odoo
 #    Copyright (C) 2014 -Today GRAP (http://www.grap.coop)
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
+#    @author Renato Lima (https://twitter.com/renatonlima)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -25,16 +26,12 @@ from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
 
 
-class AccountProductFiscalClassification(models.Model):
-    """Fiscal Classification of customer and supplier taxes.
-    This classification is linked to a product to select a bundle of taxes
-     in one time."""
-    _name = 'account.product.fiscal.classification'
+class AccountProductFiscalClassificationModel(models.AbstractModel):
+    """Fiscal Classification model of customer and supplier taxes.
+    This classification is used to create Fiscal Classification
+    and Fiscal Classification template."""
+    _name = 'account.product.fiscal.classification.model'
     _MAX_LENGTH_NAME = 256
-
-    # Default Section
-    def _default_company_id(self):
-        return self.env['res.users']._get_company()
 
     # Field Section
     code = fields.Char()
@@ -44,17 +41,53 @@ class AccountProductFiscalClassification(models.Model):
 
     description = fields.Text()
 
+    active = fields.Boolean(
+        default=True,
+        help="If unchecked, it will allow you to hide the Fiscal"
+        " Classification without removing it.")
+
+
+class AccountProductFiscalClassificationTemplate(models.Model):
+    """Fiscal Classification model of customer and supplier taxes.
+    This classification is used to create Fiscal Classification
+    and Fiscal Classification template."""
+    _name = 'account.product.fiscal.classification.template'
+    _inherit = 'account.product.fiscal.classification.model'
+
+    purchase_tax_ids = fields.Many2many(
+        comodel_name='account.tax.template',
+        relation='fiscal_classification_template_purchase_tax_rel',
+        column1='fiscal_classification_id', column2='tax_id',
+        string='Purchase Taxes', oldname="purchase_base_tax_ids", domain="""[
+            ('parent_id', '=', False),
+            ('type_tax_use', 'in', ['purchase', 'all'])]""")
+
+    sale_tax_ids = fields.Many2many(
+        comodel_name='account.tax.template',
+        relation='fiscal_classification_template_sale_tax_rel',
+        column1='fiscal_classification_id', column2='tax_id',
+        string='Sale Taxes', oldname="sale_base_tax_ids", domain="""[
+            ('parent_id', '=', False),
+            ('type_tax_use', 'in', ['sale', 'all'])]""")
+
+
+class AccountProductFiscalClassification(models.Model):
+    """Fiscal Classification of customer and supplier taxes.
+    This classification is linked to a product to select a bundle of taxes
+     in one time."""
+    _name = 'account.product.fiscal.classification'
+    _inherit = 'account.product.fiscal.classification.model'
+
+    # Default Section
+    def _default_company_id(self):
+        return self.env['res.users']._get_company()
+
     company_id = fields.Many2one(
         comodel_name='res.company', default=_default_company_id,
         string='Company', help="Specify a company"
         " if you want to define this Fiscal Classification only for specific"
         " company. Otherwise, this Fiscal Classification will be available"
         " for all companies.")
-
-    active = fields.Boolean(
-        default=True,
-        help="If unchecked, it will allow you to hide the Fiscal"
-        " Classification without removing it.")
 
     product_tmpl_ids = fields.One2many(
         comodel_name='product.template', string='Products',
