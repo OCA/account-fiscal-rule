@@ -20,6 +20,12 @@
 <openerp>
     <data>
 
+		<menuitem id="menu_account_product_fiscal_classification_template"
+            name="Fiscal Classifications Template"
+            parent="account.account_template_taxes"
+            action="action_account_product_fiscal_classification_template"
+            sequence="15"/>
+
         <menuitem id="menu_account_product_fiscal_classification"
             name="Fiscal Classifications"
             parent="account.next_id_27"

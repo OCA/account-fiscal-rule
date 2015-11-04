@@ -37,6 +37,49 @@
             </field>
         </record>
 
+<!-- Define: account.product.fiscal.classification.template -->
+        <record id="view_account_product_fiscal_classification_template_tree" model="ir.ui.view">
+            <field name="model">account.product.fiscal.classification.template</field>
+            <field name="arch" type="xml">
+                <tree colors="gray:active == False;">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="purchase_tax_ids"/>
+                    <field name="sale_tax_ids"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_account_product_fiscal_classification_template_form" model="ir.ui.view">
+            <field name="model">account.product.fiscal.classification.template</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <div class="oe_edit_only">
+                                <label for="name"/>
+                            </div>
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <field name="code"/>
+                            <field name="active"/>
+                            <newline/>
+                            <field name="description" colspan="4"/>
+                        </group>
+                        <separator string="Taxes"/>
+                        <group col="4">
+                            <field name="purchase_tax_ids" quick_create="false" widget="many2many_tags"/>
+                            <field name="sale_tax_ids" quick_create="false" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
 <!-- Define: account.product.fiscal.classification -->
         <record id="view_account_product_fiscal_classification_tree" model="ir.ui.view">
             <field name="model">account.product.fiscal.classification</field>
