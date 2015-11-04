@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Account Product - Fiscal Classification module for Odoo
@@ -75,7 +75,7 @@ class WizardAccountProductFiscalClassification(models.TransientModel):
             if not fclass_id:
                 sale_tax_ids = map_taxes(fclass_template.sale_tax_ids)
                 purchase_tax_ids = map_taxes(fclass_template.purchase_tax_ids)
-                
+
                 vals = {
                     'active': fclass_template.active,
                     'code': fclass_template.code,
@@ -88,4 +88,3 @@ class WizardAccountProductFiscalClassification(models.TransientModel):
                 obj_fc.sudo().create(vals)
 
         return True
-
