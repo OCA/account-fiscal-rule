@@ -20,6 +20,14 @@
 <openerp>
     <data>
 
+        <record id="action_account_product_fiscal_classification_template" model="ir.actions.act_window">
+            <field name="name">Fiscal Classification Template</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.product.fiscal.classification.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
         <record id="action_account_product_fiscal_classification" model="ir.actions.act_window">
             <field name="name">Fiscal Classification</field>
             <field name="type">ir.actions.act_window</field>
