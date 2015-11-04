@@ -45,6 +45,15 @@
             <field name="target">new</field>
         </record>
 
+	<record id="action_wizard_account_product_fiscal_classification" model="ir.actions.act_window">
+		<field name="name">Generate Product Fiscal Classification from Templates</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">wizard.account.product.fiscal.classification</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+
         <record id="action_template_list_by_fiscal_classification" model="ir.actions.act_window">
             <field name="name">Products</field>
             <field name="res_model">product.template</field>
