@@ -34,10 +34,10 @@
     'data': [
         'security/ir_rule.xml',
         'security/ir_model_access.yml',
-        'view/view_related.xml',
-        'view/action.xml',
-        'view/view.xml',
-        'view/menu.xml',
+        'views/view_related.xml',
+        'views/action.xml',
+        'views/view.xml',
+        'views/menu.xml',
     ],
     'demo': [
         'demo/account_tax.yml',
