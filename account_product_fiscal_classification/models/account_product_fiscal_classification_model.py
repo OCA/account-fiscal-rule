@@ -21,8 +21,7 @@
 ##############################################################################
 
 
-from openerp import models, fields, api, _
-from openerp.exceptions import ValidationError
+from openerp import models, fields
 
 
 class AccountProductFiscalClassificationModel(models.AbstractModel):
