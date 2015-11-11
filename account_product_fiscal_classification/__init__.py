@@ -1,5 +1,5 @@
-# -*- encoding: utf-8 -*-
-from . import model
+# -*- coding: utf-8 -*-
+from . import models
 
 import logging
 from openerp import api, SUPERUSER_ID

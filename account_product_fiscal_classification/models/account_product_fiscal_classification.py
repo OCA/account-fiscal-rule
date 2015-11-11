@@ -1,9 +1,10 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Account Product - Fiscal Classification module for Odoo
 #    Copyright (C) 2014 -Today GRAP (http://www.grap.coop)
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
+#    @author Renato Lima (https://twitter.com/renatonlima)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -30,19 +31,11 @@ class AccountProductFiscalClassification(models.Model):
     This classification is linked to a product to select a bundle of taxes
      in one time."""
     _name = 'account.product.fiscal.classification'
-    _MAX_LENGTH_NAME = 256
+    _inherit = 'account.product.fiscal.classification.model'
 
     # Default Section
     def _default_company_id(self):
         return self.env['res.users']._get_company()
-
-    # Field Section
-    code = fields.Char()
-
-    name = fields.Char(
-        size=_MAX_LENGTH_NAME, required=True, select=True, translate=True)
-
-    description = fields.Text()
 
     company_id = fields.Many2one(
         comodel_name='res.company', default=_default_company_id,
@@ -50,11 +43,6 @@ class AccountProductFiscalClassification(models.Model):
         " if you want to define this Fiscal Classification only for specific"
         " company. Otherwise, this Fiscal Classification will be available"
         " for all companies.")
-
-    active = fields.Boolean(
-        default=True,
-        help="If unchecked, it will allow you to hide the Fiscal"
-        " Classification without removing it.")
 
     product_tmpl_ids = fields.One2many(
         comodel_name='product.template', string='Products',
