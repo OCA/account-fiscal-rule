@@ -21,11 +21,14 @@
 ##############################################################################
 
 from openerp.exceptions import ValidationError
-from openerp.tests.common import TransactionCase
+from openerp.tests.common import TransactionCase, at_install, post_install
 
 
+@at_install(False)
+@post_install(True)
 class Tests(TransactionCase):
-    """Tests for 'Account Product - Fiscal Classification' Module"""
+
+    """Testp for 'Account Product - Fiscal Classification' Module"""
 
     def setUp(self):
         super(Tests, self).setUp()
