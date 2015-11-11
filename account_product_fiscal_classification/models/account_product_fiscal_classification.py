@@ -95,7 +95,7 @@ class AccountProductFiscalClassification(models.Model):
                     "You cannot delete The Fiscal Classification '%s' because"
                     " it contents %s products. Please move products"
                     " to another Fiscal Classification first.") % (
-                        fc.name, fc.product_tmpl_qty))
+                    fc.name, fc.product_tmpl_qty))
         return super(AccountProductFiscalClassification, self).unlink()
 
     # Custom Sections
