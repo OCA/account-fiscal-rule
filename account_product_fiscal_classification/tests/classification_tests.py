@@ -31,7 +31,7 @@ class TestClassification(TransactionCase):
     """Testp for 'Account Product - Fiscal Classification' Module"""
 
     def setUp(self):
-        super(Tests, self).setUp()
+        super(TestClassification, self).setUp()
         self.template_obj = self.env['product.template']
         self.classification_template_obj =\
             self.env['account.product.fiscal.classification.template']
