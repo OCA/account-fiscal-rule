@@ -26,7 +26,7 @@ from openerp.tests.common import TransactionCase, at_install, post_install
 
 @at_install(False)
 @post_install(True)
-class Tests(TransactionCase):
+class TestClassification(TransactionCase):
 
     """Testp for 'Account Product - Fiscal Classification' Module"""
 
