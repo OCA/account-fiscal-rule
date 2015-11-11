@@ -39,7 +39,7 @@ class Tests(TransactionCase):
         self.wizard_obj = self.env['wizard.change.fiscal.classification']
         self.main_company_id = self.ref('base.main_company')
         self.classification_template_1_id = self.ref(
-            'account_product_fiscal_classification.classification_template_1')
+            'account_product_fiscal_classification.fiscal_classification_template_1')
         self.classification_1_id = self.ref(
             'account_product_fiscal_classification.fiscal_classification_1')
         self.classification_2_id = self.ref(
@@ -128,15 +128,18 @@ class Tests(TransactionCase):
         """Test if changing a Configuration of a Fiscal Classificationchange
             the product."""
         tg = self.classification_obj.browse([self.classification_1_id])
-        tg.write({'customer_tax_ids': [[6, 0, [self.sale_tax_1_id]]]})
+        tg.write({'sale_tax_ids': [[6, 0, [self.sale_tax_1_id]]]})
         template = self.template_obj.browse([self.template_id])[0]
         self.assertEqual(
             [
                 [x.id for x in template.taxes_id],
-                [x.id for x in template.supplier_taxes_id]],
-            [[self.sale_tax_1_id], [self.purchase_tax_id]],
-            "Update taxes in Fiscal Classification must update associated"
-            " Products.")
+                [x.id for x in template.supplier_taxes_id]
+            ],
+            [
+                [self.sale_tax_1_id], [self.purchase_tax_id]
+            ],
+            ("Update taxes in Fiscal Classification must update associated "
+             "Products."))
 
     def test_06_unlink_fiscal_classification(self):
         """Test if unlinking a Fiscal Classification with products fails."""
