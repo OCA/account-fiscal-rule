@@ -39,7 +39,8 @@ class Tests(TransactionCase):
         self.wizard_obj = self.env['wizard.change.fiscal.classification']
         self.main_company_id = self.ref('base.main_company')
         self.classification_template_1_id = self.ref(
-            'account_product_fiscal_classification.fiscal_classification_template_1')
+            'account_product_fiscal_classification.fiscal_classification'
+            '_template_1')
         self.classification_1_id = self.ref(
             'account_product_fiscal_classification.fiscal_classification_1')
         self.classification_2_id = self.ref(
