@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Account Product - Fiscal Classification module for Odoo
@@ -30,14 +30,21 @@ class Tests(TransactionCase):
     def setUp(self):
         super(Tests, self).setUp()
         self.template_obj = self.env['product.template']
+        self.classification_template_obj =\
+            self.env['account.product.fiscal.classification.template']
         self.classification_obj =\
             self.env['account.product.fiscal.classification']
+        self.wizard_template_obj =\
+            self.env['wizard.account.product.fiscal.classification']
         self.wizard_obj = self.env['wizard.change.fiscal.classification']
         self.main_company_id = self.ref('base.main_company')
+        self.classification_template_1_id = self.ref(
+            'account_product_fiscal_classification.fiscal_classification'
+            '_template_1')
         self.classification_1_id = self.ref(
-            'account_product_fiscal_classification.classification_1')
+            'account_product_fiscal_classification.fiscal_classification_1')
         self.classification_2_id = self.ref(
-            'account_product_fiscal_classification.classification_2')
+            'account_product_fiscal_classification.fiscal_classification_2')
         self.template_id = self.ref(
             'account_product_fiscal_classification.product_template_1')
         self.purchase_tax_id = self.ref(
@@ -122,15 +129,18 @@ class Tests(TransactionCase):
         """Test if changing a Configuration of a Fiscal Classificationchange
             the product."""
         tg = self.classification_obj.browse([self.classification_1_id])
-        tg.write({'customer_tax_ids': [[6, 0, [self.sale_tax_1_id]]]})
+        tg.write({'sale_tax_ids': [[6, 0, [self.sale_tax_1_id]]]})
         template = self.template_obj.browse([self.template_id])[0]
         self.assertEqual(
             [
                 [x.id for x in template.taxes_id],
-                [x.id for x in template.supplier_taxes_id]],
-            [[self.sale_tax_1_id], [self.purchase_tax_id]],
-            "Update taxes in Fiscal Classification must update associated"
-            " Products.")
+                [x.id for x in template.supplier_taxes_id]
+            ],
+            [
+                [self.sale_tax_1_id], [self.purchase_tax_id]
+            ],
+            ("Update taxes in Fiscal Classification must update associated "
+             "Products."))
 
     def test_06_unlink_fiscal_classification(self):
         """Test if unlinking a Fiscal Classification with products fails."""
@@ -138,3 +148,12 @@ class Tests(TransactionCase):
             [self.classification_1_id])
         with self.assertRaises(ValidationError):
             classification.unlink()
+
+    def test_07_classification_generate_from_template(self):
+        """Test wizard generate fiscal classification from template."""
+        wizard_template = self.wizard_template_obj.create({})
+        wizard_template.action_create()
+        template = self.classification_template_obj.browse(
+            self.classification_template_1_id)
+        self.assertTrue(self.classification_obj.search(
+            [('code', '=', template.code)]))
