@@ -21,4 +21,4 @@
 ##############################################################################
 
 
-from . import tests
+from . import test_classification
