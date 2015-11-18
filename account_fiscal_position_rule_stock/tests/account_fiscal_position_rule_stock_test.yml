@@ -1,0 +1,91 @@
+-
+  I create a fiscal position
+-
+  !record {model: account.fiscal.position, id: fiscal_position_test}:
+    name: Internal sale
+    company_id: base.main_company
+-
+  I create a fiscal position to set on partner
+-
+  !record {model: account.fiscal.position, id: fiscal_position_test2}:
+    name: External sale 
+    company_id: base.main_company   
+-
+  I create a partner to sale
+-
+  !record {model: res.partner, id: res_partner_test}:
+    name: Danimar
+    company_id: base.main_company
+-
+  I create another partner partner
+-
+  !record {model: res.partner, id: res_partner_test2}:
+    name: Ribeiro
+    company_id: base.main_company
+    property_account_position: fiscal_position_test2    
+-
+  I create a picking with the first partner
+-
+  !record {model: stock.picking, id: stock_picking_test}:
+    partner_id: account_fiscal_position_rule_stock.res_partner_test
+    invoice_state: 2binvoiced
+    picking_type_id: stock.picking_type_in
+    move_lines:
+      - product_id: product.product_product_8        
+        product_uom_qty: 16
+        location_id: stock.stock_location_suppliers
+        location_dest_id: stock.stock_location_stock
+-
+  I verify that the onchange was correctly triggered
+-
+  !assert {model: stock.picking, id: account_fiscal_position_rule_stock.stock_picking_test, string: The onchange function of partner was not correctly triggered}:
+    - fiscal_position.id == False
+    - move_lines[0].product_id.id == ref('product.product_product_8')    
+    - move_lines[0].product_uom_qty == 16
+-
+  Now I create a account fiscal rule to set the correct fiscal position
+-
+  !record {model: account.fiscal.position.rule, id: account_fiscal_position_rule_test}:
+    name: General Rule
+    fiscal_position_id: account_fiscal_position_rule_stock.fiscal_position_test
+    company_id: base.main_company   
+    use_picking: True 
+-
+  I create a picking with the first partner and the fiscal rule should set the fiscal position
+-
+  !record {model: stock.picking, id: stock_picking_test2}:
+    partner_id: account_fiscal_position_rule_stock.res_partner_test
+    invoice_state: 2binvoiced
+    picking_type_id: stock.picking_type_in
+    move_lines:
+      - product_id: product.product_product_8        
+        product_uom_qty: 16
+        location_id: stock.stock_location_suppliers
+        location_dest_id: stock.stock_location_stock
+-
+  I verify that the onchange was correctly triggered
+-
+  !assert {model: stock.picking, id: account_fiscal_position_rule_stock.stock_picking_test2, string: Fiscal Rule is being ignored - wrong fiscal position}:
+    - fiscal_position.id == ref('account_fiscal_position_rule_stock.fiscal_position_test')
+    - move_lines[0].product_id.id == ref('product.product_product_8')    
+    - move_lines[0].product_uom_qty == 16
+-
+  I create a picking with the second partner and the fiscal rule should not set the fiscal position
+  because the position fiscal on partner should have higher priority
+-
+  !record {model: stock.picking, id: stock_picking_test3}:
+    partner_id: account_fiscal_position_rule_stock.res_partner_test2
+    invoice_state: 2binvoiced
+    picking_type_id: stock.picking_type_in
+    move_lines:
+      - product_id: product.product_product_8        
+        product_uom_qty: 16
+        location_id: stock.stock_location_suppliers
+        location_dest_id: stock.stock_location_stock
+-
+  I verify that the onchange was correctly triggered
+-
+  !assert {model: stock.picking, id: account_fiscal_position_rule_stock.stock_picking_test3, string: Fiscal position from partner is being ignored}:
+    - fiscal_position.id == ref('account_fiscal_position_rule_stock.fiscal_position_test2')
+    - move_lines[0].product_id.id == ref('product.product_product_8')    
+    - move_lines[0].product_uom_qty == 16
