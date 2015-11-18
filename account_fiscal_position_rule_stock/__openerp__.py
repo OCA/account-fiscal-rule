@@ -21,7 +21,7 @@
 
 {
     'name': 'Account Fiscal Position Rule Stock',
-    'version': '1.1',
+    'version': '8.0.1.0.0',
     'category': 'Generic Modules/Accounting',
     'author': "Akretion,Odoo Community Association (OCA)",
     'license': 'AGPL-3',
