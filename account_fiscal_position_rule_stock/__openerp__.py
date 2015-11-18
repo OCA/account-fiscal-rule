@@ -28,7 +28,7 @@
     'website': 'http://www.akretion.com',
     'depends': [
         'account_fiscal_position_rule',
-        'stock',
+        'stock_account',
     ],
     'data': [
         'views/stock_picking.xml',
