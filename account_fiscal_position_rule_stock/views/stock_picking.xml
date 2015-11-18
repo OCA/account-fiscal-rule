@@ -13,7 +13,7 @@
                     <field name="fiscal_position" attrs="{'readonly':[('invoice_state','!=','2binvoiced')]}" />
                 </field>
                 <field name="partner_id" position="attributes">
-                    <attribute name="on_change">onchange_partner_in(partner_id, company_id, context)</attribute>
+                    <attribute name="on_change">onchange_partner_id(partner_id, company_id, context)</attribute>
                 </field>
             </field>
         </record>

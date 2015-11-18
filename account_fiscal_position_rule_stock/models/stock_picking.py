@@ -49,11 +49,8 @@ class StockPicking(models.Model):
             ctx).apply_fiscal_mapping(result, **kwargs)
 
     @api.multi
-    def onchange_partner_in(self, partner_id=None, company_id=None):
-        result = super(StockPicking, self).onchange_partner_in(partner_id)
-
-        if not result:
-            result = {'value': {'fiscal_position': False}}
+    def onchange_partner_id(self, partner_id=None, company_id=None):
+        result = {'value': {'fiscal_position': False}}
 
         if not partner_id or not company_id:
             return result

@@ -29,7 +29,6 @@
     'depends': [
         'account_fiscal_position_rule',
         'stock',
-        'warning'
     ],
     'data': [
         'views/stock_picking.xml',
