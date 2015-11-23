@@ -69,6 +69,11 @@ class AccountFiscalPositionRule(models.Model):
         help=('Choose if the customer need to have the'
               ' field VAT fill for using this fiscal position'))
 
+    @api.onchange('company_id')
+    def onchange_company(self):
+        self.from_country = self.company_id.country_id
+        self.from_state = self.company_id.state_id
+
     def _map_domain(self, partner, addrs, company, **kwargs):
         from_country = company.partner_id.country_id.id
         from_state = company.partner_id.state_id.id
