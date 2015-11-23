@@ -29,7 +29,7 @@ from openerp import models, fields, api
 
 class AccountFiscalPositionRule(models.Model):
     _name = 'account.fiscal.position.rule'
-    _description = 'Account Fiscal Position Rule Template'
+    _description = 'Account Fiscal Position Rule'
     _order = 'sequence'
 
     name = fields.Char('Name', required=True)
