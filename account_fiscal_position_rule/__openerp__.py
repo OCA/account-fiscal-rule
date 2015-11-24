@@ -34,7 +34,7 @@
         'account',
     ],
     'data': [
-        'account_fiscal_position_rule_view.xml',
+        'views/account_fiscal_position_rule_view.xml',
         'security/account_fiscal_position_rule_security.xml',
         'security/ir.model.access.csv',
     ],

@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ###############################################################################
 #
-#   account_fiscal_position_rule_purchase for OpenERP
+#   account_fiscal_position_rule for OpenERP
 #   Copyright (C) 2009-TODAY Akretion <http://www.akretion.com>
 #     @author Renato Lima <renato.lima@akretion.com>
 #   This program is free software: you can redistribute it and/or modify
@@ -19,4 +19,5 @@
 #
 ###############################################################################
 
-from . import models
+from . import account_fiscal_position_rule
+from . import account_invoice
