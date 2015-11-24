@@ -37,7 +37,7 @@
         'web_context_tunnel',
     ],
     'data': [
-        'view/purchase_view.xml',
+        'views/purchase_view.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [],
