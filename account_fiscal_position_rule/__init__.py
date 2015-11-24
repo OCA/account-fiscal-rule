@@ -18,5 +18,5 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from . import account_fiscal_position_rule
-from . import account_invoice
+
+from . import models
