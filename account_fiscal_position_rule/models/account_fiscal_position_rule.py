@@ -29,7 +29,7 @@ from openerp import models, fields, api
 
 class AccountFiscalPositionRule(models.Model):
     _name = 'account.fiscal.position.rule'
-    _description = 'Account Fiscal Position Rule Template'
+    _description = 'Account Fiscal Position Rule'
     _order = 'sequence'
 
     name = fields.Char('Name', required=True)
@@ -68,6 +68,11 @@ class AccountFiscalPositionRule(models.Model):
         ('without', 'Without VAT number')], "VAT Rule",
         help=('Choose if the customer need to have the'
               ' field VAT fill for using this fiscal position'))
+
+    @api.onchange('company_id')
+    def onchange_company(self):
+        self.from_country = self.company_id.country_id
+        self.from_state = self.company_id.state_id
 
     def _map_domain(self, partner, addrs, company, **kwargs):
         from_country = company.partner_id.country_id.id
