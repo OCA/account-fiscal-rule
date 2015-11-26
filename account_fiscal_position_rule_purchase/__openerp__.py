@@ -36,7 +36,6 @@
         'purchase',
     ],
     'data': [
-        'views/purchase_view.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [],
