@@ -39,6 +39,8 @@
         'security/ir.model.access.csv',
     ],
     'demo': [],
-    'test': ['test/test_rules.yml'],
+    'test': [
+        'test/account_fiscal_position_rule_data.xml',
+        'test/test_rules.yml'],
     'installable': True,
 }
