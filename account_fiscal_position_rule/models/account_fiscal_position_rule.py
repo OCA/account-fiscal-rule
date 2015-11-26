@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ###############################################################################
 #
 #   account_fiscal_position_rule for OpenERP
@@ -29,7 +29,7 @@ from openerp import models, fields, api
 
 class AccountFiscalPositionRule(models.Model):
     _name = 'account.fiscal.position.rule'
-    _description = 'Account Fiscal Position Rule'
+    _description = 'Account Fiscal Position Rule Template'
     _order = 'sequence'
 
     name = fields.Char('Name', required=True)
@@ -116,52 +116,47 @@ class AccountFiscalPositionRule(models.Model):
         return domain
 
     def fiscal_position_map(self, **kwargs):
-        result = {'fiscal_position': False}
+        result = {'fiscal_position_id': False}
 
-        partner_id = kwargs.get('partner_id')
-        company_id = kwargs.get('company_id')
-        partner_invoice_id = kwargs.get('partner_invoice_id')
-        partner_shipping_id = kwargs.get('partner_shipping_id')
+        obj_partner_id = kwargs.get('partner_id')
+        obj_company_id = kwargs.get('company_id')
+        obj_partner_invoice_id = kwargs.get('partner_invoice_id')
+        obj_partner_shipping_id = kwargs.get('partner_shipping_id')
 
-        if not partner_id or not company_id:
-            return result
+        if obj_partner_id and obj_company_id:
 
-        partner = self.env['res.partner'].browse(partner_id)
-        company = self.env['res.company'].browse(company_id)
+            # Case 1: Partner Specific Fiscal Position
+            if obj_partner_id.property_account_position_id:
+                result = obj_partner_id.property_account_position_id
+                return result
 
-        # Case 1: Partner Specific Fiscal Position
-        if partner.property_account_position:
-            result['fiscal_position'] = partner.property_account_position.id
-            return result
+            # Case 2: Rule based determination
+            addrs = {}
+            if obj_partner_invoice_id:
+                addrs['invoice'] = obj_partner_invoice_id
 
-        # Case 2: Rule based determination
-        addrs = {}
-        if partner_invoice_id:
-            addrs['invoice'] = self.env['res.partner'].browse(
-                partner_invoice_id)
+            # In picking case the invoice_id can be empty but we need a
+            # value I only see this case, maybe we can move this code in
+            # fiscal_stock_rule
+            else:
+                partner_addr = obj_partner_id.address_get(['invoice'])
+                if partner_addr['invoice']:
+                    addr_id = partner_addr['invoice']
+                    addrs['invoice'] = self.env['res.partner'].browse(addr_id)
+            if obj_partner_shipping_id:
+                addrs['shipping'] = obj_partner_shipping_id
 
-        # In picking case the invoice_id can be empty but we need a
-        # value I only see this case, maybe we can move this code in
-        # fiscal_stock_rule
-        else:
-            partner_addr = partner.address_get(['invoice'])
-            if partner_addr['invoice']:
-                addr_id = partner_addr['invoice']
-                addrs['invoice'] = self.env['res.partner'].browse(addr_id)
-        if partner_shipping_id:
-            addrs['shipping'] = self.env['res.partner'].browse(
-                partner_shipping_id)
-
-        # Case 3: Rule based determination
-        domain = self._map_domain(partner, addrs, company, **kwargs)
-        fsc_pos = self.search(domain)
-        if fsc_pos:
-            result['fiscal_position'] = fsc_pos[0].fiscal_position_id.id
+            # Case 3: Rule based determination
+            domain = self._map_domain(
+                obj_partner_id, addrs, obj_company_id, **kwargs)
+            fsc_pos = self.search(domain, limit=1)
+            if fsc_pos:
+                result = fsc_pos[0].fiscal_position_id
 
         return result
 
-    def apply_fiscal_mapping(self, result, **kwargs):
-        result['value'].update(self.fiscal_position_map(**kwargs))
+    def apply_fiscal_mapping(self, **kwargs):
+        result = self.fiscal_position_map(**kwargs)
         return result
 
 
@@ -204,7 +199,6 @@ class AccountFiscalPositionRuleTemplate(models.Model):
         ('without', 'Without VAT number')], "VAT Rule", default='both',
         help=('Choose if the customer need to have the'
               ' field VAT fill for using this fiscal position'))
-
 
 class WizardAccountFiscalPositionRule(models.TransientModel):
     _name = 'wizard.account.fiscal.position.rule'
