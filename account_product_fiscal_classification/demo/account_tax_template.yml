@@ -23,17 +23,17 @@
 - !record {model: account.tax.template, id: account_tax_template_purchase_1}:
     name: Demo Purchase Tax 10%
     type_tax_use: purchase
-    chart_template_id: account.configurable_chart_template
+    chart_template_id: l10n_generic_coa.configurable_chart_template
     amount: 0.1
 
 - !record {model: account.tax.template, id: account_tax_template_sale_1}:
     name: Demo Sale Tax 10%
     type_tax_use: sale
-    chart_template_id: account.configurable_chart_template
+    chart_template_id: l10n_generic_coa.configurable_chart_template
     amount: 0.1
 
 - !record {model: account.tax.template, id: account_tax_template_sale_2}:
     name: Demo Sale Tax 3%
     type_tax_use: sale
-    chart_template_id: account.configurable_chart_template
+    chart_template_id: l10n_generic_coa.configurable_chart_template
     amount: 0.03
