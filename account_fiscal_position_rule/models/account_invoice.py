@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ###############################################################################
 #
 #   account_fiscal_position_rule for OpenERP
@@ -26,38 +26,25 @@ from openerp import models, api
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    def _fiscal_position_map(self, result, **kwargs):
+    def _fiscal_position_map(self, **kwargs):
         ctx = dict(self._context)
         ctx.update({'use_domain': ('use_invoice', '=', True)})
+        # print 'FISCAL POSITION MAP', kwargs
         return self.env['account.fiscal.position.rule'].with_context(
-            ctx).apply_fiscal_mapping(result, **kwargs)
+            ctx).apply_fiscal_mapping(**kwargs)
 
-    @api.multi
-    def onchange_partner_id(self, type, partner_id, date_invoice=False,
-                            payment_term=False, partner_bank_id=False,
-                            company_id=False):
+    @api.onchange('partner_id', 'company_id')
+    def _onchange_partner_id(self):
 
-        result = super(AccountInvoice, self).onchange_partner_id(
-            type, partner_id, date_invoice, payment_term,
-            partner_bank_id, company_id)
+        super(AccountInvoice, self)._onchange_partner_id()
 
-        if not partner_id or not company_id:
-            return result
-
-        return self._fiscal_position_map(
-            result, partner_id=partner_id, partner_invoice_id=partner_id,
-            company_id=company_id)
-
-    @api.multi
-    def onchange_company_id(self, company_id, part_id, type,
-                            invoice_line, currency_id):
-        result = super(AccountInvoice, self).onchange_company_id(
-            company_id, part_id, type, invoice_line,
-            currency_id)
-
-        if not part_id or not company_id:
-            return result
-
-        return self._fiscal_position_map(
-            result, partner_id=part_id, partner_invoice_id=part_id,
-            company_id=company_id)
+        if self.partner_id and self.company_id:
+            kwargs = {
+                'company_id': self.company_id,
+                'partner_id': self.partner_id,
+                'partner_invoice_id': self.partner_id,
+                'partner_shipping_id': self.partner_id,
+            }
+            obj_fiscal_position = self._fiscal_position_map(**kwargs)
+            if obj_fiscal_position is not False:
+                self.fiscal_position_id = obj_fiscal_position.id

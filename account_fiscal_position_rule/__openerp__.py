@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ###############################################################################
 #
 #   account_fiscal_position_rule for OpenERP
@@ -24,14 +24,14 @@
 
 {
     'name': 'Account Fiscal Position Rule',
-    'version': '8.0.1.2.0',
+    'version': '9.0.1.0.0',
     'category': 'Generic Modules/Accounting',
-    'description': """Include a rule to decide the correct fiscal position""",
     'author': "Akretion,Odoo Community Association (OCA)",
     'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
     'depends': [
         'account',
+        'l10n_generic_coa',
     ],
     'data': [
         'views/account_fiscal_position_rule_view.xml',
@@ -40,5 +40,5 @@
     ],
     'demo': [],
     'test': ['test/test_rules.yml'],
-    'installable': False,
+    'installable': True,
 }
