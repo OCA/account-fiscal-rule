@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ###############################################################################
 #
 #   account_fiscal_position_rule_purchase for OpenERP
@@ -24,7 +24,7 @@
 
 {
     'name': 'Account Fiscal Position Rule Purchase',
-    'version': '8.0.1.1.0',
+    'version': '9.0.1.0.0',
     'category': 'Generic Modules/Accounting',
     'description': """Include a rule to decide the
     correct fiscal position for Purchase""",
@@ -34,12 +34,11 @@
     'depends': [
         'account_fiscal_position_rule',
         'purchase',
-        'web_context_tunnel',
     ],
     'data': [
         'views/purchase_view.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [],
-    'installable': False,
+    'installable': True,
 }
