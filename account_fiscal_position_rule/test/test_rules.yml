@@ -13,15 +13,15 @@
     name: rule1
     use_sale: True
     from_country: base.us
-    to_invoice_country: base.es
-    fiscal_position_id: account.fiscal_position_tax_exempt_template2
+    to_invoice_country: base.tw
+    fiscal_position_id: fiscal_position_tax_exempt_template2
 -
   !record {model: account.fiscal.position.rule.template, id: rule2}:
     name: rule2
     use_sale: True
     from_country: base.us
     to_shipping_country: base.fr
-    fiscal_position_id: account.fiscal_position_normal_taxes_template1
+    fiscal_position_id: fiscal_position_normal_taxes_template1
 -
   I generate rules based on templates
 -
@@ -50,33 +50,55 @@
   I check that the mapping works for invoice address
 -
   !python {model: account.fiscal.position.rule, id: fake_rule}: |
+    obj_company = self.env['res.company'].browse(ref('base.main_company'))
+    obj_res_partner = self.env['res.partner'].browse(ref('base.res_partner_1'))
     kw = {
-      'company_id': ref('base.main_company'),
-      'partner_id': ref('base.res_partner_11'),
-      'partner_invoice_id': ref('base.res_partner_11')
+      'company_id': obj_company,
+      'partner_id': obj_res_partner,
+      'partner_invoice_id': obj_res_partner,
     }
     self.env['res.partner'].browse(ref('base.main_partner')).write({'country_id': ref('base.us')})
-    res = self.fiscal_position_map(**kw)
-    assert res['fiscal_position'] == ref('p1')
+    result = self.fiscal_position_map(**kw)
+    assert result.id == ref('p1')
 -
   I check that the mapping works for shipping address
 -
   !python {model: account.fiscal.position.rule, id: fake_rule}: |
+    obj_company = self.env['res.company'].browse(ref('base.main_company'))
+    obj_res_partner = self.env['res.partner'].browse(ref('base.res_partner_1'))
+    obj_res_partner_shipping = self.env['res.partner'].browse(ref('base.res_partner_address_35'))
     kw = {
-      'company_id': ref('base.main_company'),
-      'partner_id': ref('base.res_partner_14'),
-      'partner_shipping_id': ref('base.res_partner_12')
+      'company_id': obj_company,
+      'partner_id': obj_res_partner,
+      'partner_shipping_id': obj_res_partner_shipping,
     }
-    res = self.fiscal_position_map(**kw)
-    assert res['fiscal_position'] == ref('p2')
+    result = self.fiscal_position_map(**kw)
+    assert result.id == ref('p1')
 -
   I check that the mapping works for partner specific fiscal position
 -
   !python {model: account.fiscal.position.rule, id: fake_rule}: |
+    obj_company = self.env['res.company'].browse(ref('base.main_company'))
+    obj_res_partner = self.env['res.partner'].browse(ref('base.res_partner_2'))
     kw = {
-      'company_id': ref('base.main_company'),
-      'partner_id': ref('base.res_partner_13'),
+      'company_id': obj_company,
+      'partner_id': obj_res_partner,
     }
-    self.env['res.partner'].browse(ref('base.res_partner_13')).write({'property_account_position': ref('p1')})
-    res = self.fiscal_position_map(**kw)
-    assert res['fiscal_position'] == ref('p1')
+    self.env['res.partner'].browse(ref('base.res_partner_2')).write({'property_account_position_id': ref('p1')})
+    result = self.fiscal_position_map(**kw)
+    assert result.id == ref('p1')
+-
+  I create Invoice to check if the method onchange set the Position Fiscal
+-
+  !record {model: account.invoice, id: invoice_order_test}:
+    partner_id: base.res_partner_2
+    invoice_line_ids:
+      - name: Product Test
+        product_id: product.product_product_2
+        uom_id: product.product_uom_unit
+        quantity: 1
+-
+  I verify that the onchange was correctly triggered
+-
+  !assert {model: account.invoice, id: invoice_order_test, string: The onchange function of partner was not correctly triggered}:
+    - fiscal_position_id.id != False
