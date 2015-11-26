@@ -39,5 +39,5 @@
         'tests/sale_order_test.yml',
         'tests/invoice_from_picking_test.yml'
     ],
-    'installable': True,
+    'installable': False,
 }

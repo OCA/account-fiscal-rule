@@ -40,5 +40,5 @@
     ],
     'demo': [],
     'test': ['test/test_rules.yml'],
-    'installable': True,
+    'installable': False,
 }
