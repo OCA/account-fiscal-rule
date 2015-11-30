@@ -49,6 +49,10 @@
         'demo/res_groups.yml',
         'demo/res_users.yml',
     ],
+    'images': [
+        'static/description/img/fiscal_classification_form.jpg',
+        'static/description/img/product_template_accounting_setting.jpg'
+    ],
     'post_init_hook':
         'create_fiscal_classification_from_product_template',
 }
