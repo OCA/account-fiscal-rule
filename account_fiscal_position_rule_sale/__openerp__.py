@@ -23,7 +23,7 @@
 
 {
     'name': 'Account Fiscal Position Rule Sale',
-    'version': '8.0.1.1.1',
+    'version': '9.0.1.0.0',
     'category': 'Generic Modules/Accounting',
     'description': """Include a rule to decide the
     correct fiscal position for Sale""",
