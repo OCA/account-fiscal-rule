@@ -35,7 +35,6 @@
         'sale',
     ],
     'data': [
-        'views/sale_view.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [],
