@@ -199,6 +199,7 @@ class AccountFiscalPositionRuleTemplate(models.Model):
         help=('Choose if the customer need to have the'
               ' field VAT fill for using this fiscal position'))
 
+
 class WizardAccountFiscalPositionRule(models.TransientModel):
     _name = 'wizard.account.fiscal.position.rule'
     _description = 'Account Fiscal Position Rule Wizard'
