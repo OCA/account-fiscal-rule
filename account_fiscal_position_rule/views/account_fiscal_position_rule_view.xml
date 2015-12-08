@@ -13,25 +13,25 @@
 			<field name="arch" type="xml">
 				<form string="Fiscal Position Rule Template">
 					<group>
-						<group string="General" colspan="4">
+						<group string="General" name="general" colspan="4">
 							<field name="name"/>
 							<field name="description"/>
 						</group>
-						<group string="Origin" colspan="4">
+						<group string="Origin" name="origin" colspan="4">
 							<field name="from_country"/>
 							<field name="from_state"/>
 						</group>
-						<group string="Destination">
+						<group string="Destination" name="destination">
 							<group string="Invoice">
 								<field name="to_invoice_country"/>
 								<field name="to_invoice_state"/>
 							</group>
-							<group string="Shipping">
+							<group string="Shipping" name="shipping">
 								<field name="to_shipping_country"/>
 								<field name="to_shipping_state"/>
 							</group>
 						</group>
-						<group string="Configuration" colspan="4">
+						<group string="Configuration" name="configuration" colspan="4">
 							<field name="date_start"/>
 							<field name="date_end"/>
 							<field name="fiscal_position_id"/>
@@ -74,10 +74,14 @@
 			<field name="arch" type="xml">
 				<search string="Fiscal Position Rule Template">
 					<group col="14" colspan="4">
-						<filter icon="terp-gtk-jump-to-ltr" string="Use in Sale" name="use_sale" domain="[('use_sale','=',True)]" help="Used in Sales orders"/>
-						<filter icon="terp-gtk-jump-to-ltr" string="Use in Invoice" name="use_invoice" domain="[('use_invoice','=',True)]" help="used in invoices"/>
-						<filter icon="terp-gtk-jump-to-ltr" string="Use in Picking" name="use_picking" domain="[('use_picking','=',True)]" help="used in Picking lists"/>
-						<filter icon="terp-gtk-jump-to-rtl" string="Use in Purchase" name="use_purchase" domain="[('use_purchase','=',True)]" help="used in purchase"/>
+						<filter icon="terp-gtk-jump-to-ltr" string="Use in Sale" name="use_sale"
+								domain="[('use_sale','=',True)]" help="Used in Sales orders"/>
+						<filter icon="terp-gtk-jump-to-ltr" string="Use in Invoice" name="use_invoice"
+								domain="[('use_invoice','=',True)]" help="used in invoices"/>
+						<filter icon="terp-gtk-jump-to-ltr" string="Use in Picking" name="use_picking"
+								domain="[('use_picking','=',True)]" help="used in Picking lists"/>
+						<filter icon="terp-gtk-jump-to-rtl" string="Use in Purchase" name="use_purchase"
+								domain="[('use_purchase','=',True)]" help="used in purchase"/>
 						<separator orientation="vertical"/>
 						<field name="name"/>
 						<field name="from_country"/>
@@ -109,26 +113,26 @@
 			<field name="arch" type="xml">
 				<form string="Fiscal Position Rule">
 					<group>
-						<group string="General" colspan="4">
+						<group string="General" name="general" colspan="4">
 							<field name="name"/>
 							<field name="description"/>
 						</group>
-						<group string="Origin" colspan="4">
+						<group string="Origin" name="origin" colspan="4">
 							<field name="company_id"/>
 							<field name="from_country"/>
 							<field name="from_state"/>
 						</group>
-						<group string="Destination">
-							<group string="Invoice">
+						<group string="Destination" name="destination">
+							<group string="Invoice" name="invoice">
 								<field name="to_invoice_country"/>
 								<field name="to_invoice_state"/>
 							</group>
-							<group string="Shipping">
+							<group string="Shipping" name="shipping">
 								<field name="to_shipping_country"/>
 								<field name="to_shipping_state"/>
 							</group>
 						</group>
-						<group string="Configuration" colspan="4">
+						<group string="Configuration" name="configuration" colspan="4">
 							<field name="date_start"/>
 							<field name="date_end"/>
 							<field name="fiscal_position_id"/>
@@ -171,10 +175,14 @@
 			<field name="arch" type="xml">
 				<search string="Fiscal Position Rule">
 					<group col="14" colspan="4">
-						<filter icon="terp-gtk-jump-to-ltr" string="Use in Sale" name="use_sale" domain="[('use_sale','=',True)]" help="Used in Sales Orders"/>
-						<filter icon="terp-gtk-jump-to-ltr" string="Use in Invoice" name="use_invoice" domain="[('use_invoice','=',True)]" help="used in invoices"/>
-						<filter icon="terp-gtk-jump-to-ltr" string="Use in Picking" name="use_picking" domain="[('use_picking','=',True)]" help="used in Picking list"/>
-						<filter icon="terp-gtk-jump-to-rtl" string="Use in Purchase" name="use_purchase" domain="[('use_purchase','=',True)]" help="used in purchase"/>
+						<filter icon="terp-gtk-jump-to-ltr" string="Use in Sale" name="use_sale"
+								domain="[('use_sale','=',True)]" help="Used in Sales Orders"/>
+						<filter icon="terp-gtk-jump-to-ltr" string="Use in Invoice" name="use_invoice"
+								domain="[('use_invoice','=',True)]" help="used in invoices"/>
+						<filter icon="terp-gtk-jump-to-ltr" string="Use in Picking" name="use_picking"
+								domain="[('use_picking','=',True)]" help="used in Picking list"/>
+						<filter icon="terp-gtk-jump-to-rtl" string="Use in Purchase" name="use_purchase"
+								domain="[('use_purchase','=',True)]" help="used in purchase"/>
 						<separator orientation="vertical"/>
 						<field name="name"/>
 						<field name="from_country"/>
@@ -225,7 +233,8 @@
 		</record>
 
 		<menuitem id="menu_action_account_fiscal_position_rule_form"
-				  action="action_account_fiscal_position_rule_form" parent="account.account_account_menu" sequence="21"/>
+				  action="action_account_fiscal_position_rule_form" parent="account.account_account_menu"
+				  sequence="21"/>
 
-  </data>
+	</data>
 </openerp>
