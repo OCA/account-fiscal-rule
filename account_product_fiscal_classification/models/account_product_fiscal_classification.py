@@ -84,7 +84,8 @@ class AccountProductFiscalClassification(models.Model):
         if 'purchase_tax_ids' in vals or 'sale_tax_ids' in vals:
             for fc in self:
                 pt_lst = pt_obj.browse([x.id for x in fc.product_tmpl_ids])
-                pt_lst.write({'fiscal_classification_id': fc.id})
+                if pt_lst:
+                    pt_lst.write({'fiscal_classification_id': fc.id})
         return res
 
     @api.multi
