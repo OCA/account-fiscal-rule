@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Antonio Trueba, 2016
+# Antonio Trueba, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-04 16:27+0000\n"
-"PO-Revision-Date: 2016-02-16 15:33+0000\n"
+"PO-Revision-Date: 2016-02-23 12:47+0000\n"
 "Last-Translator: Antonio Trueba\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -190,14 +191,14 @@ msgstr "Factura Provincía"
 #: field:account.fiscal.position.rule.template,write_uid:0
 #: field:wizard.account.fiscal.position.rule,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Actualizado por última vez por"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,write_date:0
 #: field:account.fiscal.position.rule.template,write_date:0
 #: field:wizard.account.fiscal.position.rule,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Actualizado por última vez el"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,name:0

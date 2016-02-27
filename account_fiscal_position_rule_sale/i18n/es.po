@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Antonio Trueba, 2016
+# Antonio Trueba, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-04 16:27+0000\n"
-"PO-Revision-Date: 2016-02-16 15:34+0000\n"
+"PO-Revision-Date: 2016-02-23 12:45+0000\n"
 "Last-Translator: Antonio Trueba\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +29,7 @@ msgstr "Pedidos de venta"
 msgid ""
 "onchange_address_id(partner_invoice_id, partner_shipping_id, partner_id, "
 "company_id, context)"
-msgstr ""
+msgstr "onchange_address_id(partner_invoice_id, partner_shipping_id, partner_id, company_id, context)"
 
 #. module: account_fiscal_position_rule_sale
 #: view:sale.order:account_fiscal_position_rule_sale.view_order_form1

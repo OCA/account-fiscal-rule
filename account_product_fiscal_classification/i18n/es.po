@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Antonio Trueba, 2016
+# Antonio Trueba, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-04 16:27+0000\n"
-"PO-Revision-Date: 2016-02-16 15:33+0000\n"
+"PO-Revision-Date: 2016-02-23 12:51+0000\n"
 "Last-Translator: Antonio Trueba\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -22,13 +23,13 @@ msgstr ""
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:154
 #, python-format
 msgid " - Sale Taxes: "
-msgstr ""
+msgstr "- Impuestos de venta:"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:147
 #, python-format
 msgid "- No Sale Taxes"
-msgstr ""
+msgstr "- Sin impuestos de venta"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,active:0
@@ -129,12 +130,12 @@ msgstr "Descripción"
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
 #: field:product.template,fiscal_classification_id:0
 msgid "Fiscal Classification"
-msgstr ""
+msgstr "Clasificación fiscal"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_classification
 msgid "Fiscal Classifications"
-msgstr ""
+msgstr "Clasificaciones fiscales"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,id:0
@@ -153,19 +154,19 @@ msgstr ""
 #: field:account.product.fiscal.classification,write_uid:0
 #: field:wizard.change.fiscal.classification,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Actualizado por última vez por"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,write_date:0
 #: field:wizard.change.fiscal.classification,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Actualizado por última vez el"
 
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_wizard_change_fiscal_classification
 msgid "Move Products into another Fiscal Classification"
-msgstr ""
+msgstr "Mover productos a otra clasificación fiscal"
 
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
@@ -176,7 +177,7 @@ msgstr "Nombre"
 #. module: account_product_fiscal_classification
 #: field:wizard.change.fiscal.classification,new_fiscal_classification_id:0
 msgid "New Fiscal Classification"
-msgstr ""
+msgstr "Nueva clasificación fiscal"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:136
@@ -188,12 +189,12 @@ msgstr ""
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:134
 #, python-format
 msgid "No taxes"
-msgstr ""
+msgstr "Sin impuestos"
 
 #. module: account_product_fiscal_classification
 #: field:wizard.change.fiscal.classification,old_fiscal_classification_id:0
 msgid "Old Fiscal Classification"
-msgstr ""
+msgstr "Clasificación fiscal anterior"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_product_template
@@ -230,7 +231,7 @@ msgid ""
 "Specify a company if you want to define this Fiscal Classification only for "
 "specific company. Otherwise, this Fiscal Classification will be available "
 "for all companies."
-msgstr ""
+msgstr "Especifique una compañía si desea definir esta clasificación fiscal solo para una compañía dada. En otro caso, la clasificación fiscal estará disponible para todas las compañías."
 
 #. module: account_product_fiscal_classification
 #: help:product.template,fiscal_classification_id:0
@@ -238,7 +239,7 @@ msgid ""
 "Specify the combination of taxes for this product. This field is required. "
 "If you dont find the correct Fiscal Classification, Please create a new one "
 "or ask to your account manager if you don't have the access right."
-msgstr ""
+msgstr "Especifique la combinación de impuestos para este producto (campo requerido). Si no encuentra la clasificación fiscal adecuada créela o, si no tiene permisos para ello, solicítelo a su gestor de cuenta."
 
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
@@ -254,7 +255,7 @@ msgstr "Verdadero"
 #: code:addons/account_product_fiscal_classification/model/product_template.py:99
 #, python-format
 msgid "You cannot change Taxes for many Products."
-msgstr ""
+msgstr "No se permite cambiar impuestos para varios productos."
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:106
@@ -262,7 +263,7 @@ msgstr ""
 msgid ""
 "You cannot delete The Fiscal Classification '%s' because it contents %s "
 "products. Please move products to another Fiscal Classification first."
-msgstr ""
+msgstr "No puede borrar la clasificación fiscal \"%s\", ya que todavía contiene %s productos. Mueva esos productos a otra clasificación fiscal antes."
 
 #. module: account_product_fiscal_classification
 #: view:wizard.change.fiscal.classification:account_product_fiscal_classification.view_wizard_change_fiscal_classification
