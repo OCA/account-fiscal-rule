@@ -50,7 +50,6 @@ class ProductCategory(models.Model):
     def _compute_forbidden_classification(self):
         template_obj = self.env['product.template']
         for categ in self:
-#            import pdb; pdb.set_trace()
             if not categ.fiscal_restriction:
                 template_ids = []
             else:
@@ -58,9 +57,6 @@ class ProductCategory(models.Model):
                     ('categ_id', '=', categ.id),
                     ('fiscal_classification_id', 'not in',
                         categ.fiscal_classification_ids.ids)])
-            print ">>>>>>>>>"
-            print template_ids
-            print ">>>>>>>>>>>"
             categ.forbidden_classification_template_ids = template_ids
             categ.forbidden_classification_template_qty = len(template_ids)
 
