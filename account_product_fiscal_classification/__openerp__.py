@@ -16,9 +16,10 @@
     'data': [
         'security/ir_rule.xml',
         'security/ir_model_access.yml',
-        'views/view_related.xml',
+        'views/view_product_template.xml',
         'views/action.xml',
-        'views/view.xml',
+        'views/view_account_product_fiscal_classification.xml',
+        'views/view_wizard_change_fiscal_classification.xml',
         'views/menu.xml',
     ],
     'demo': [
