@@ -7,11 +7,12 @@
 <openerp>
     <data>
 
-		<menuitem id="menu_account_product_fiscal_classification_template"
-            name="Fiscal Classifications Template"
-            parent="account.account_template_taxes"
-            action="action_account_product_fiscal_classification_template"
-            sequence="15"/>
+    <record id="menu_account_product_fiscal_classification" model="ir.ui.menu">
+        <field name="name">Fiscal Classifications</field>
+        <field name="parent_id" ref="account.next_id_27"/>
+        <field name="action" ref="action_account_product_fiscal_classification"/>
+        <field name="sequence">15</field>
+    </record>
 
         <menuitem id="menu_account_product_fiscal_classification"
             name="Fiscal Classifications"
