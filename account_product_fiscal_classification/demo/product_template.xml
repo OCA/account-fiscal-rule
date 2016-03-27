@@ -10,7 +10,7 @@
     <record model="product.template" id="product_template_1">
         <field name="name">Demo Product With Fiscal Classification</field>
         <field name="company_id" ref="base.main_company"/>
-        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="categ_id" ref="category_with_fiscal_restriction"/>
         <field name="type">service</field>
         <field name="standard_price">20.0</field>
         <field name="list_price">30.0</field>
