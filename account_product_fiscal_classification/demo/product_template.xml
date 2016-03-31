@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2014-Today GRAP (http://www.grap.coop)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<openerp><data>
+
+    <record model="product.template" id="product_template_1">
+        <field name="name">Demo Product With Fiscal Classification</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="categ_id" ref="category_with_fiscal_restriction"/>
+        <field name="type">service</field>
+        <field name="standard_price">20.0</field>
+        <field name="list_price">30.0</field>
+        <field name="fiscal_classification_id" ref="fiscal_classification_1"/>
+        <field name="uom_id" ref="product.product_uom_unit"/>
+        <field name="uom_po_id" ref="product.product_uom_unit"/>
+    </record>
+
+</data></openerp>

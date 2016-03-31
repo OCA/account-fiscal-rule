@@ -1,26 +1,7 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Account Product - Fiscal Classification module for Odoo
-#    Copyright (C) 2014 -Today GRAP (http://www.grap.coop)
-#    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
-#    @author Renato Lima (https://twitter.com/renatonlima)
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
+# Copyright (C) 2014-Today GRAP (http://www.grap.coop)
+# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
@@ -109,12 +90,10 @@ class AccountProductFiscalClassification(models.Model):
 
         for fc in fcs:
             if (
-                    fc.company_id.id == company_id
-                    and sorted(fc.sale_tax_ids.ids) ==
-                    sorted(sale_tax_ids)
-                    and sorted(fc.purchase_tax_ids.ids) ==
-                    sorted(purchase_tax_ids)
-                    ):
+                    fc.company_id.id == company_id and
+                    sorted(fc.sale_tax_ids.ids) == sorted(sale_tax_ids) and
+                    sorted(fc.purchase_tax_ids.ids) ==
+                    sorted(purchase_tax_ids)):
                 return fc.id
 
         # create new Fiscal classification if not found
