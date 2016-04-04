@@ -4,30 +4,46 @@
 Simplify taxes management for products
 ======================================
 
-Functionality:
---------------
+Functionality
+-------------
 * Add a new light concept 'fiscal_classification' to associate possible
   purchase and sale taxes;
 
-.. image:: ./static/description/img/fiscal_classification_form.png
+.. image:: /account_product_fiscal_classification/static/description/img/fiscal_classification_form.png
 
 * Make more usable taxes selection in product view. The user has now the
   possibility to select a fiscal classification, instead of select manually
   all the taxes;
 
-.. image:: ./static/description/img/product_template_accounting_setting.png
+.. image:: /account_product_fiscal_classification/static/description/img/product_template_accounting_setting.png
 
 * Prevent users to select incompatible purchase and sale taxes.
   French Exemple: A product can not be configured with:
-
-    * Purchase Taxes: 5.5 %;
+    * Purchase Taxes: 5.5%;
     * Sale Taxes: 20%;
 
 * Provides the possibility to the account manager to change incorrect
   parameters massively;
 
-Technical Information:
-----------------------
+Optional Settings
+-----------------
+
+* Add possibility to restrict fiscal settings on product, depending of its
+  category
+
+.. image:: /account_product_fiscal_classification/static/description/img/category_with_fiscal_restriction.png
+
+If you do so, user will not have the possibility to set a fiscal classification
+if product category settings do not allow.
+
+Accounting people can see products that are bad set, in product category form
+view.
+
+.. image:: /account_product_fiscal_classification/static/description/img/product_bad_settings.png
+
+Technical Information
+---------------------
+
 * Install this module will create 'fiscal_classification' for each existing
   combination. Make sure that the user who install the module is
   SUPERUSER_ID or is member of account.group_account_manager;
@@ -58,13 +74,14 @@ Contributors
 Maintainer
 ----------
 
-.. image:: http://odoo-community.org/logo.png
+.. image:: https://odoo-community.org/logo.png
    :alt: Odoo Community Association
-   :target: http://odoo-community.org
+   :target: https://odoo-community.org
 
 This module is maintained by the OCA.
 
-OCA, or the Odoo Community Association, is a nonprofit organization whose mission is to support the collaborative development of Odoo features and promote its widespread use.
+OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.
 
-To contribute to this module, please visit http://odoo-community.org.
-
+To contribute to this module, please visit https://odoo-community.org.

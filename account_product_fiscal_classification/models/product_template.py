@@ -36,7 +36,41 @@ class ProductTemplate(models.Model):
         self.write_taxes_setting(vals)
         return res
 
+    # Constraint Section
+    @api.multi
+    @api.constrains('fiscal_classification_id', 'categ_id')
+    def _check_classification_categ(self):
+        for template in self:
+            if template.categ_id.fiscal_restriction and\
+                    template.fiscal_classification_id not in\
+                    template.categ_id.fiscal_classification_ids:
+                raise ValidationError(_(
+                    "The category '%s' of the product '%s'"
+                    " doesn't not allow to set the classification '%s'.\n"
+                    " Please, change the classification of the product, or"
+                    " remove the constraint on the product category.\n\n"
+                    " Allowed Classifications for '%s': %s") % (
+                    template.categ_id.complete_name, template.name,
+                    template.fiscal_classification_id.name,
+                    template.categ_id.complete_name,
+                    ''.join(
+                        ['\n - ' + x.name for x in
+                            template.categ_id.fiscal_classification_ids])))
+
     # View Section
+    @api.onchange('categ_id', 'fiscal_classification_id')
+    def _onchange_categ_fiscal_classification_id(self):
+        if self.categ_id and self.categ_id.fiscal_restriction:
+            if len(self.categ_id.fiscal_classification_ids) == 1:
+                # Set classification if category allows only one
+                self.fiscal_classification_id =\
+                    self.categ_id.fiscal_classification_ids[0]
+            elif self.fiscal_classification_id not in\
+                    self.categ_id.fiscal_classification_ids:
+                # Remove classification if category and classification are not
+                # compatible
+                self.fiscal_classification_id = None
+
     def fields_view_get(
             self, cr, uid, view_id=None, view_type='form', context=None,
             toolbar=False, submenu=False):
