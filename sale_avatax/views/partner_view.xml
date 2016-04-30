@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+    <!--
+    Partner Tax & Address Validation
+    -->
+
+   <record id="view_partner_details_form_inherit1" model="ir.ui.view">
+            <field name="name">res.partner.details.form.inherit1</field>
+            <field name="model">res.partner</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+        	
+	            <field name="parent_id" position="before">
+	                <label for="customer_code" class="oe_edit_only"/>
+	                <field name="customer_code" placeholder="Customer/Vendor Code" readonly="1" />		
+			<button name="generate_cust_code" string="Generate Customer Code" type="object" attrs="{'invisible': [('customer_code','!=',False)]}"  />			 
+	            </field>
+				
+	            
+	            <xpath expr="//notebook" position="inside">
+	        	    <page string="AvaTax">
+	        	        <group col="4" colspan="2">
+		                    <field name="latitude" readonly="1" invisible="1"/>
+		                    <field name="longitude" readonly="1" invisible="1"/>
+		                    <field name="vat_id"/>
+		                </group>
+		                <newline/>
+                                <group colspan="2" col="6" string="Validation">
+		                   <field name="date_validation"/>
+		                   <field name="validation_method"/>
+		                   <button name="varify_address_validatation" string="_Validate" type="object" icon="terp-camera_test" colspan="2" context="{'from_validate_button': True}"/>
+		                </group>
+		                
+		          	<group col="4" colspan="4" string="TAX Exemption">
+                                    <group col="4" colspan="4">
+                                        <field name="tax_exempt"/>
+	                       <newline/>
+			               <field name="exemption_number" attrs="{'invisible': [('tax_exempt','!=',True)]}"/>
+			               <field name="exemption_code_id" attrs="{'invisible': [('tax_exempt','!=',True)]}"/>
+                                </group>
+	          		</group>
+		                
+	        	    </page>
+	        	</xpath>
+
+
+      </field>
+    </record>
+    
+   <record id="action_call_address_validation_method" model="ir.actions.server">
+            <field name="name">Address Validation</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="state">code</field>
+            <field name="code">action = obj.multi_address_validation()</field>
+            
+            <field name="date_validation"/>
+            <field name="validation_method"/>
+        </record>
+        
+    <record id="action_call_address_validation" model="ir.values">
+            <field name="name">Address Validation Call</field>
+            <field name="key2">client_action_multi</field>
+            <field name="model">res.partner</field>
+            <field name="value" eval="'ir.actions.server,%d'%action_call_address_validation_method" />
+            <field name="object" eval="True" />
+        </record>
+
+    </data>
+</openerp>

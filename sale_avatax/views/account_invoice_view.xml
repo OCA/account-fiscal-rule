@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <!--Invoice Form -->
+        <record id="invoice_form_inherit_1" model="ir.ui.view">
+            <field name="name">account.invoice.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+<!--                <field name='type' position="after">
+                    <div class="oe_right oe_button_box">
+                        <button name="button_dummy" states="draft" string="Compute Tax" type="object" icon="gtk-execute" class="oe_highlight" help="Taxes are computed when the invoice is validated however you may use this to pre-calculate the tax amount."/>
+                    </div>
+                </field>-->
+                <field name="payment_term_id" position="after">
+                    <field name="invoice_doc_no" attrs="{'invisible': [('type','!=','out_refund')]}"/> 
+                </field>
+                <xpath expr="//notebook/page[1]/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="before">
+                    <field name="tax_amt" readonly="1" groups="avatax_connector.group_avatax_view"/>
+                </xpath>
+                
+<!--                <field name="invoice_line" position="after">
+                    <h3>
+                        <label style="color: #7c7bad;" for="shipping_lines"/>
+                    </h3>
+                    <field name="shipping_lines">
+                        <tree string="Shipping Order Lines" editable="bottom">
+                            <field name="ship_method_id" on_change="onchange_select(ship_method_id)"/>
+                            <field name="ship_code_id" domain="[('type', '=', 'freight')]" context="{'search_default_type': 'freight', 'default_type': 'freight'}"/>
+                            <field name="tax_amt" readonly="1" groups="avatax_connector.group_avatax_view"/>
+                            <field name="shipping_cost"/>
+                            <field name="sale_account_id" invisible="1"/>
+                        </tree>
+                    </field>
+                </field>-->
+                 
+<!--                <field name="amount_untaxed" position="replace">
+                    <field name="amount_untaxed" string="Net Total"/>
+                    <field name="shipping_amt"/>
+                </field>-->
+                
+                <xpath expr="/form/sheet/group/group[2]/field[@name='user_id']" position="after">
+                    <field name="exemption_code" readonly="1"/>
+                    <field name="exemption_code_id" readonly="1"/>
+                    <field name="location_code" />  
+                    <field name="warehouse_id" options="{'no_create': True}" groups="stock.group_locations"/>
+                    <field name="is_add_validate" readonly="1" invisible="1"/>
+                </xpath>
+                
+<!--                <field name="amount_total" position="after">
+                    <div class="oe_subtotal_footer_separator oe_inline">
+                                    <label for="amount_total" />
+                    <button name="compute"
+                     states="draft,proforma2" string="Compute Taxes" type="object" class="oe_edit_only oe_link"/>
+                </div>
+                </field>		-->
+<!--                <button name="button_reset_taxes" position="replace">
+                    <button name="button_reset_taxes" states="draft,proforma2"
+                                             string="Compute Taxes" class="oe_link oe_edit_only"
+                                             type="object" help="Recompute taxes and total"/>
+                </button>                                         				 -->
+				 
+                <xpath expr="/form/sheet/group" position="after">
+                    <group colspan="4" col="4" string="Avalara Tax on...">
+                        <group>
+                            <field name="tax_add_default"/>
+                            <field name="tax_add_invoice"/>
+                            <field name="tax_add_shipping"/>
+                        </group>
+                        <group>
+                            <!--<field name="shipping_address" readonly="1"/>-->
+                            <field name="shipping_add_id" context="{'show_address': 1}"
+                            options='{"always_reload": True}' readonly="1"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        
+   		
+        <!-- Inherit supplier invoice view to update -->
+<!--        <record id="invoice_supplier_form_inherit_1" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}" position="replace">
+                    <field name="amount_untaxed" string="Net Total"/>
+                     <field name="shipping_amt"/> 
+                </field>
+                
+                 <field name="invoice_line" position="after">
+                    <h2><label for="shipping_lines"/></h2>
+                    <field name="shipping_lines">
+                        <tree string="Shipping Order Lines" editable="bottom">
+                              <field name="ship_method_id"/>
+                              <field name="ship_code_id"/>
+                              <field name="tax_amt"/>
+                              <field name="shipping_cost"/>
+                        </tree>
+                    </field>
+                </field> 
+
+                <button name="button_reset_taxes" position="replace">
+                    <button name="button_reset_taxes" states="draft,proforma2"
+                                             string="Compute Taxes" class="oe_link oe_edit_only"
+                                             type="object" help="Recompute taxes and total"/>
+                </button>                                         				 
+				     
+            </field>
+        </record>-->
+        
+   		
+        <record id="inherit_view_invoice_line_form" model="ir.ui.view">
+            <field name="name">account.invoice.line.form.inherit</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="price_unit" position="before">
+                    <field name="tax_amt" readonly="1" groups="avatax_connector.group_avatax_view"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="invoice_form_view_editable_field" model="ir.ui.view">
+            <field name="name">invoice.form.view.editable</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="invoice_form_inherit_1"/>
+            <field name="groups_id" eval="[(6, 0, [ref('account.group_account_manager') ])]"/>
+            <field name="arch" type="xml">
+                <field name='exemption_code' position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name='exemption_code_id' position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>                   
+    </data>
+</openerp>

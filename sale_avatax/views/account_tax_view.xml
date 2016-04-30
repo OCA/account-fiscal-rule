@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+        <record id="view_tax_form_avatax" model="ir.ui.view">
+            <field name="name">account.tax.form.avatax</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[2]/field[@name='type_tax_use']" position="after">
+                    <field name="is_avatax"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
+
+ 

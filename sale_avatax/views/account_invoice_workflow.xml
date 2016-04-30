@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <!-- This view is used to override the workflow for validate Invoice -->
+    
+        <record id="account.act_open" model="workflow.activity">
+            <field name="wkf_id" ref="account.wkf"/>
+            <field name="name">open</field>
+            <field name="action">action_date_assign()
+                action_move_create()
+                invoice_validate()
+                action_commit_tax()</field>
+            <field name="kind">function</field>
+        </record>
+        
+    </data>
+</openerp>

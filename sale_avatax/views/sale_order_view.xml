@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        
+        
+        <record id="group_avatax_view" model="res.groups">
+            <field name="name">Avalara Order Line View</field>
+        </record>
+        
+        <record id="sale_order_update_form_view" model="ir.ui.view">
+            <field name="name">sale.order.update.form.view</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <!--                <field name='name' position="after">
+                     <div class="oe_right oe_button_box">
+                        <button name="button_dummy" states="draft" string="Compute" type="object" icon="gtk-execute" class="oe_highlight"/>
+                    </div> 
+                </field>-->
+                <!--                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total" position="replace">
+                         <group class="oe_subtotal_footer oe_right" name="sale_total" colspan="2">
+                         <field name="amount_untaxed" sum="Net Total" string="Net Total"/>
+                                                 <field name="amount_shipping" help="The shipping charge on this order."/>
+                         <field name="amount_tax"/>
+                         <div class="oe_subtotal_footer_separator oe_inline">
+                             <label for="amount_total" />
+                             <button name="button_dummy"
+                                 states="draft,sent" string="Compute" type="object" class="oe_edit_only oe_link"/>
+                         </div>
+                         <field name="amount_total" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}" nolabel="1"/>
+                     </group>
+                </group>-->
+                <xpath expr="/form/sheet/notebook/page[1]/field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                    <field name="tax_amt" readonly="1" groups="avatax_connector.group_avatax_view"/>
+                </xpath>
+                
+                
+                <xpath expr="/form/sheet/notebook/page[1]/field[@name='order_line']/form/group/group/field[@name='price_unit']" position="after">
+                    <field name="tax_amt" readonly="1" groups="avatax_connector.group_avatax_view"/>
+                </xpath>
+                
+                <field name="payment_term_id" position="after">
+                    <field name="exemption_code" readonly="1"/>
+                    <field name="exemption_code_id" readonly="1"/>
+                    <field name="location_code"/>
+                    <field name="is_add_validate" readonly="1" invisible="1"/>
+                </field>
+                
+                <xpath expr="/form/sheet/group" position="after">
+                    <group colspan="4" col="4" string="Avalara Tax on...">
+                        <group colspan="2" col="2">
+                            <field name="tax_add_default"/>
+                            <field name="tax_add_invoice"/>
+                            <field name="tax_add_shipping"/>
+                        </group>
+                        <group colspan="2" col="2">
+                            <field name="tax_add_id" context="{'show_address': 1}"
+                                options='{"always_reload": True}' readonly="1"/>
+                            <!--<field name="tax_address" readonly="1"/>-->
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        
+		
+        <record id="sale_order_form_view_editable_field" model="ir.ui.view">
+            <field name="name">sale.order.form.view.editable</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_order_update_form_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('account.group_account_manager') ])]"/>
+            <field name="arch" type="xml">
+                <field name='exemption_code' position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name='exemption_code_id' position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+                 
+       
+        
+        
+        
+    </data>
+</openerp>

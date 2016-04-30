@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data noupdate="1">
+		<record id="avalara_salestax_0" model="avalara.salestax">
+			<field name="company_code">Company Name</field>
+			<field name="create_date">2015-05-11 13:54:09</field>
+			<field name="write_date">2015-05-21 16:06:42</field>
+			<field eval="[(6,0,[ref('base.ca'),ref('base.us')])]" name="country_ids"/>
+			<field name="write_uid" ref="base.user_root"/>
+			<field name="date_expiration">2015-09-09</field>
+			<field eval="0" name="address_validation"/>
+			<field eval="2000" name="request_timeout"/>
+			<field name="create_uid" ref="base.user_root"/>
+			<field name="display_name">avalara.salestax,3</field>
+			<field name="__last_update">2015-05-21 16:06:42</field>
+			<field name="company_id" ref="base.main_company"/>
+			<field eval="0" name="result_in_uppercase"/>
+			<field eval="0" name="disable_tax_reporting"/>
+			<field name="service_url">https://development.avalara.net</field>
+			<field eval="1" name="upc_enable"/>
+			<field eval="0" name="enable_address_validation"/>
+			<field eval="0" name="on_line"/>
+			<field eval="1" name="active"/>
+			<field name="license_key">xxx</field>
+			<field eval="0" name="validation_on_save"/>
+			<field eval="0" name="logging"/>
+			<field eval="1" name="on_order"/>
+			<field eval="0" name="disable_tax_calculation"/>
+			<field name="account_number">xx</field>
+			<field eval="1" name="auto_generate_customer_code"/>
+		</record>
+	</data>
+</openerp>

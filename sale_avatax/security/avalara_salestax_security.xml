@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="1">
+
+  <!-- Rule for multi-company -->
+
+    <record id="account_salestax_avatax_comp_rule" model="ir.rule">
+        <field name="name" >AvaTax multi-company</field>
+        <field name="model_id" ref="model_avalara_salestax"/>
+        <field name="global" eval="True"/>
+    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+     <record id="account_salestax_avatax_tax_codes_rule" model="ir.rule">
+        <field name="name" >AvaTax Tax Code multi-company</field>
+        <field name="model_id" ref="model_product_tax_code"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+  </data>
+</openerp>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Partner Address Validate -->
+
+        <record id="view_avalara_salestax_address_validate" model="ir.ui.view">
+            <field name="name">Address Validatation</field>
+            <field name="model">avalara.salestax.address.validate</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Address Validation" version="7.0">
+                    <group colspan="4" col="8">
+                        <group colspan="2">
+                            <separator string="Original Address" colspan="4"/>
+                            <field name="original_street" width="220"/>
+                            <field name="original_street2" width="220"/>
+                            <field name="original_city" width="220"/>
+                            <field name="original_state" width="220"/>
+                            <field name="original_zip" width="220"/>
+                            <field name="original_country" width="220"/>
+                        </group>
+                        <separator orientation="vertical" rowspan="10"/>
+                        <group colspan="2">
+                            <separator string="Validated Address" colspan="2"/>
+                            <field name="street" width="220"/>
+                            <field name="street2"/>
+                            <field name="city"/>
+                            <field name="state"/>
+                            <field name="zip" />
+                            <field name="country"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="accept_valid_address" type="object" icon="gtk-ok" string="_Accept" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_avalara_salestax_address_validate" model="ir.actions.act_window">
+            <field name="name">Address Validation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">avalara.salestax.address.validate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_avalara_salestax_address_validate"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

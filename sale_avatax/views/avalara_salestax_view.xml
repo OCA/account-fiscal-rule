@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--
+        AvaTax API Configuration in Odoo
+        -->
+
+        <record id="view_avalara_salestax_form" model="ir.ui.view">
+            <field name="name">avalara.salestax.form</field>
+            <field name="model">avalara.salestax</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="AvaTax API">
+                    <sheet>
+                        <group col="6" colspan="4">
+                            <field name="company_code"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <notebook>
+                            <page string="Configuration">
+                                <group colspan="4" col="4" string="Connection">
+                                    <field name="account_number"/>
+                                    <field name="license_key" password="True"/>
+                                    <field name="service_url"/>
+                                </group>
+                                <group colspan="4" col="4">
+                                    <field name="date_expiration"/>
+                                    <button name="%(avatax_connector.action_avalara_salestax_ping)d" string="Test Connection" type="action" icon="gtk-go-forward"/>
+                                </group>
+                                <group colspan="4" col="4" string="Adaptor">
+                                    <field name="request_timeout"/>
+                                    <field name="logging"/>
+                                </group>
+                                <group colspan="4" col="4">
+                                    <group colspan="2" col="2" expand="1" string="Address Validation">
+                                        <field name="address_validation"/>
+                                        <field name="validation_on_save" /> 
+                                        <field name="force_address_validation" /> 
+                                        <field name="result_in_uppercase" />
+                                        <field name="auto_generate_customer_code" />
+                                    </group>
+                                    <group colspan="2" col="2" expand="1" string="Avalara Submissions / Transactions">
+                                        <field name="on_order" />
+                                        <field name="on_line" />
+                                        <field name="upc_enable" />
+                                    </group>
+                                </group>
+                                <group>
+                                    <separator string="Countries" colspan="4"/>
+                                    <label string="Countries Authorized to Process (ISO code)" colspan="2"/>
+                                    <field name="country_ids" colspan="4" nolabel="1"/>
+                                </group>
+                                <group colspan="4" col="4" string="Disable">
+                                    <field name="disable_tax_calculation"/>
+                                    <field name="disable_tax_reporting"/>		                    	
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_avalara_salestax_tree" model="ir.ui.view">
+            <field name="name">avalara.salestax.tree</field>
+            <field name="model">avalara.salestax</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="AvaTax API">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="company_code"/>
+                    <field name="account_number"/>
+                    <field name="service_url"/>
+                    <field name="date_expiration"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_avalara_salestax" model="ir.actions.act_window">
+            <field name="name">AvaTax API</field>
+            <field name="res_model">avalara.salestax</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Configuration of AvaTax in OpenERP</field>
+        </record>
+
+        <menuitem id="menu_avatax" name="AvaTax" parent="account.menu_finance_configuration" sequence="2"/>
+
+        <menuitem action="action_avalara_salestax" id="menu_avatax_api" name="AvaTax API" parent="menu_avatax" sequence="30"/>
+    
+        <record id="exemption_code_form_view" model="ir.ui.view">
+            <field name="name">exemption.code.form.view</field>
+            <field name="model">exemption.code</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Exemption Code">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+    
+        <record id="action_exemption_code_details" model="ir.actions.act_window">
+            <field name="name">Exemption Code</field>
+            <field name="res_model">exemption.code</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_exemption_code_details" id="menu_action_exemption_code_details" parent="menu_avatax" sequence="25"/>
+    
+	       
+    
+      
+
+    </data>
+</openerp>
