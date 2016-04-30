@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (9.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-02 00:44+0000\n"
-"PO-Revision-Date: 2016-04-01 15:35+0000\n"
+"POT-Creation-Date: 2016-04-23 01:51+0000\n"
+"PO-Revision-Date: 2016-04-23 01:51+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: English (http://www.transifex.com/oca/OCA-account-fiscal-rule-9-0/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,17 @@ msgstr " - Sale Taxes: "
 #, python-format
 msgid "- No Sale Taxes"
 msgstr "- No Sale Taxes"
+
+#. module: account_product_fiscal_classification
+#: model:account.tax,description:account_product_fiscal_classification.account_tax_sale_2
+msgid "0.03%"
+msgstr "0.03%"
+
+#. module: account_product_fiscal_classification
+#: model:account.tax,description:account_product_fiscal_classification.account_tax_purchase_1
+#: model:account.tax,description:account_product_fiscal_classification.account_tax_sale_1
+msgid "0.1%"
+msgstr "0.1%"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
