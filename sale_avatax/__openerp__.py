@@ -3,6 +3,7 @@
 {
     "name" : "Avalara connector for sales tax calculation",
     "version" : "1.0",
+    "author" : "Odoo S.A.",
     'summary': 'Sales tax Calculation',
     "description": """ 
     
