@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (9.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-14 08:59+0000\n"
-"PO-Revision-Date: 2016-04-21 06:56+0000\n"
+"POT-Creation-Date: 2016-04-30 01:51+0000\n"
+"PO-Revision-Date: 2016-05-23 07:27+0000\n"
 "Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
 "Language-Team: German (http://www.transifex.com/oca/OCA-account-fiscal-rule-9-0/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,17 @@ msgstr "- Verkaufssteuern:"
 #, python-format
 msgid "- No Sale Taxes"
 msgstr "- Keine Verkaufssteuern"
+
+#. module: account_product_fiscal_classification
+#: model:account.tax,description:account_product_fiscal_classification.account_tax_sale_2
+msgid "0.03%"
+msgstr "0,03%"
+
+#. module: account_product_fiscal_classification
+#: model:account.tax,description:account_product_fiscal_classification.account_tax_purchase_1
+#: model:account.tax,description:account_product_fiscal_classification.account_tax_sale_1
+msgid "0.1%"
+msgstr "0,1%"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
@@ -349,17 +360,17 @@ msgstr "Sie dürfen die Steuerklassifizierung '%s' nicht löschen, da das Produk
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification
 msgid "account.product.fiscal.classification"
-msgstr ""
+msgstr "account.product.fiscal.classification"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification_model
 msgid "account.product.fiscal.classification.model"
-msgstr ""
+msgstr "account.product.fiscal.classification.model"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification_template
 msgid "account.product.fiscal.classification.template"
-msgstr ""
+msgstr "account.product.fiscal.classification.template"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_change_fiscal_classification
@@ -374,9 +385,9 @@ msgstr "oder"
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_wizard_account_product_fiscal_classification
 msgid "wizard.account.product.fiscal.classification"
-msgstr ""
+msgstr "wizard.account.product.fiscal.classification"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_wizard_change_fiscal_classification
 msgid "wizard.change.fiscal.classification"
-msgstr ""
+msgstr "wizard.change.fiscal.classification"
