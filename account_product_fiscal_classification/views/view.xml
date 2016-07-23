@@ -97,14 +97,14 @@
                     </div>
                     <div class="oe_right oe_button_box" name="buttons">
                         <button type="action"
-                            class="oe_stat_button"
-                            id="invoice_button"
-                            icon="fa-bars"
-                            name="%(action_template_list_by_fiscal_classification)d"
-                            context="{'search_default_fiscal_classification_id': active_id}"
-                            attrs="{'invisible': [('product_tmpl_qty', '=', 0)]}">
-                            <div><strong><field name="product_tmpl_qty"/></strong><br/>Products</div>
-                        </button>
+                                class="oe_stat_button"
+                                id="invoice_button"
+                                icon="fa-bars"
+                                name="%(action_template_list_by_fiscal_classification)d"
+                                context="{'search_default_fiscal_classification_id': active_id}"
+                                attrs="{'invisible': [('product_tmpl_qty', '=', 0)]}">
+                            <field string="Products" widget="statinfo" name="product_tmpl_qty"/>
+                    </button>
                     </div>
                     <group col="4" name="description">
                         <field name="company_id" groups="base.group_multi_company"/>
