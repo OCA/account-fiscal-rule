@@ -19,7 +19,7 @@ class WizardChangeFiscalClassification(models.TransientModel):
         comodel_name='account.product.fiscal.classification',
         string='Old Fiscal Classification',
         default=_default_old_fiscal_classification_id,
-        required=True, readonly=True)
+        readonly=True)
 
     new_fiscal_classification_id = fields.Many2one(
         comodel_name='account.product.fiscal.classification',
