@@ -3,14 +3,14 @@
 # * account_product_fiscal_classification
 # 
 # Translators:
-# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (9.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-02 00:44+0000\n"
-"PO-Revision-Date: 2016-04-01 15:36+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"POT-Creation-Date: 2016-05-28 01:54+0000\n"
+"PO-Revision-Date: 2016-07-29 06:38+0000\n"
+"Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
 "Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-fiscal-rule-9-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,9 +31,20 @@ msgid "- No Sale Taxes"
 msgstr "- Brez prodajnih davkov"
 
 #. module: account_product_fiscal_classification
+#: model:account.tax,description:account_product_fiscal_classification.account_tax_sale_2
+msgid "0.03%"
+msgstr "0.03%"
+
+#. module: account_product_fiscal_classification
+#: model:account.tax,description:account_product_fiscal_classification.account_tax_purchase_1
+#: model:account.tax,description:account_product_fiscal_classification.account_tax_sale_1
+msgid "0.1%"
+msgstr "0.1%"
+
+#. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 msgid "<br/>Products"
-msgstr ""
+msgstr "<br/>Proizvodi"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_active
@@ -69,7 +80,7 @@ msgstr "Družba"
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_account_product_fiscal_classification
 msgid "Create"
-msgstr ""
+msgstr "Ustvari"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_create_uid
@@ -118,7 +129,7 @@ msgstr "Demonstracijska fiskalna klasifikacija 3"
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification.template,name:account_product_fiscal_classification.fiscal_classification_template_1
 msgid "Demo Fiscal Classification Template 1"
-msgstr ""
+msgstr "Osnutek demonstracijske fiskalne klasifikacije 1"
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_1
@@ -159,7 +170,7 @@ msgstr "Opis"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_display_name
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Prikazni naziv"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
@@ -170,7 +181,7 @@ msgstr "Fiskalna klasifikacija"
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification_template
 msgid "Fiscal Classification Template"
-msgstr ""
+msgstr "Osnutek fiskalne klasifikacije"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_classification
@@ -180,14 +191,14 @@ msgstr "Fiskalne klasifikacije"
 #. module: account_product_fiscal_classification
 #: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_classification_template
 msgid "Fiscal Classifications Template"
-msgstr ""
+msgstr "Osnutek fiskalnih klasifikacij"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_wizard_account_product_fiscal_classification
 #: model:ir.ui.menu,name:account_product_fiscal_classification.menu_wizard_account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_account_product_fiscal_classification
 msgid "Generate Product Fiscal Classification from Templates"
-msgstr ""
+msgstr "Ustvari fiskalne klasifikacije proizvoda iz osnutkov"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_id
@@ -214,7 +225,7 @@ msgstr "Če ni označeno, se fiskalne klasifikacije lahko skrije, ne da bi jih o
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification___last_update
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification___last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Zadnjič spremenjeno"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template_write_uid
@@ -284,7 +295,7 @@ msgstr "Proizvodi"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_product_tmpl_qty
 msgid "Products Quantity"
-msgstr ""
+msgstr "Količina proizvodov"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_purchase_tax_ids
@@ -330,7 +341,7 @@ msgstr "Davki"
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_account_product_fiscal_classification
 msgid "This will automatically configure all product fiscal classification"
-msgstr ""
+msgstr "Samodejna nastavitev vseh fiskalnih klasifikacij proizvoda"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/product_template.py:99
@@ -349,17 +360,17 @@ msgstr "Ne morete brisati fiskalne klasifikacije '%s', ker vsebuje %s proizvodov
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification
 msgid "account.product.fiscal.classification"
-msgstr ""
+msgstr "account.product.fiscal.classification"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification_model
 msgid "account.product.fiscal.classification.model"
-msgstr ""
+msgstr "account.product.fiscal.classification.model"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification_template
 msgid "account.product.fiscal.classification.template"
-msgstr ""
+msgstr "account.product.fiscal.classification.template"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_change_fiscal_classification
@@ -369,14 +380,14 @@ msgstr "ali"
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_account_product_fiscal_classification
 msgid "ou"
-msgstr ""
+msgstr "ou"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_wizard_account_product_fiscal_classification
 msgid "wizard.account.product.fiscal.classification"
-msgstr ""
+msgstr "wizard.account.product.fiscal.classification"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_wizard_change_fiscal_classification
 msgid "wizard.change.fiscal.classification"
-msgstr ""
+msgstr "wizard.change.fiscal.classification"
