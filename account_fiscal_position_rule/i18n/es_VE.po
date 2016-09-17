@@ -10,12 +10,12 @@ msgstr ""
 "POT-Creation-Date: 2015-11-04 16:27+0000\n"
 "PO-Revision-Date: 2015-09-22 00:33+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: French (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/fr/)\n"
+"Language-Team: Spanish (Venezuela) (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/es_VE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: es_VE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule
@@ -31,7 +31,7 @@ msgstr ""
 #. module: account_fiscal_position_rule
 #: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Cancelar"
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,vat_rule:0
@@ -45,7 +45,7 @@ msgstr ""
 #: field:account.fiscal.position.rule,company_id:0
 #: field:wizard.account.fiscal.position.rule,company_id:0
 msgid "Company"
-msgstr "Société"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -78,14 +78,14 @@ msgstr ""
 #: field:account.fiscal.position.rule.template,create_uid:0
 #: field:wizard.account.fiscal.position.rule,create_uid:0
 msgid "Created by"
-msgstr "Créé par"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,create_date:0
 #: field:account.fiscal.position.rule.template,create_date:0
 #: field:wizard.account.fiscal.position.rule,create_date:0
 msgid "Created on"
-msgstr "Date"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,description:0
@@ -165,7 +165,7 @@ msgstr ""
 #: field:account.fiscal.position.rule.template,id:0
 #: field:wizard.account.fiscal.position.rule,id:0
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -189,20 +189,20 @@ msgstr ""
 #: field:account.fiscal.position.rule.template,write_uid:0
 #: field:wizard.account.fiscal.position.rule,write_uid:0
 msgid "Last Updated by"
-msgstr "Dernière mise à jour par"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,write_date:0
 #: field:account.fiscal.position.rule.template,write_date:0
 #: field:wizard.account.fiscal.position.rule,write_date:0
 msgid "Last Updated on"
-msgstr "Dernière mise à jour le"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,name:0
 #: field:account.fiscal.position.rule.template,name:0
 msgid "Name"
-msgstr "Nom"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -337,7 +337,7 @@ msgstr ""
 #. module: account_fiscal_position_rule
 #: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
 msgid "or"
-msgstr "ou"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
