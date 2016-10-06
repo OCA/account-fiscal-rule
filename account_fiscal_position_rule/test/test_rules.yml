@@ -46,6 +46,7 @@
   !record {model: account.fiscal.position.rule, id: fake_rule}:
     name: rule_fake
     company_id: base.main_company
+    fiscal_position_id: p1
 -
   I check that the mapping works for invoice address
 -
