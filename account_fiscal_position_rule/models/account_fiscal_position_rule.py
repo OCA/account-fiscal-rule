@@ -1,26 +1,10 @@
-# -*- encoding: utf-8 -*-
-###############################################################################
-#
-#   account_fiscal_position_rule for OpenERP
-#   Copyright (C) 2009-TODAY Akretion <http://www.akretion.com>
-#     @author Sébastien BEAU <sebastien.beau@akretion.com>
-#     @author Renato Lima <renato.lima@akretion.com>
-#   Copyright 2012 Camptocamp SA
-#     @author: Guewen Baconnier
-#   This program is free software: you can redistribute it and/or modify
-#   it under the terms of the GNU Affero General Public License as
-#   published by the Free Software Foundation, either version 3 of the
-#   License, or (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU Affero General Public License for more details.
-#
-#   You should have received a copy of the GNU Affero General Public License
-#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-###############################################################################
+# -*- coding: utf-8 -*-
+# Copyright (C) 2009-TODAY Akretion <http://www.akretion.com>
+#   @author Sébastien BEAU <sebastien.beau@akretion.com>
+#   @author Renato Lima <renato.lima@akretion.com>
+# Copyright 2012-TODAY Camptocamp SA
+#   @author: Guewen Baconnier
+# License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 import time
 
@@ -49,7 +33,7 @@ class AccountFiscalPositionRule(models.Model):
     company_id = fields.Many2one(
         'res.company', 'Company', required=True, select=True)
     fiscal_position_id = fields.Many2one(
-        'account.fiscal.position', 'Fiscal Position',
+        'account.fiscal.position', 'Fiscal Position', required=True,
         domain="[('company_id','=',company_id)]", select=True)
     use_sale = fields.Boolean('Use in sales order')
     use_invoice = fields.Boolean('Use in Invoices')
@@ -186,7 +170,7 @@ class AccountFiscalPositionRuleTemplate(models.Model):
         'res.country.state', 'Destination State',
         domain="[('country_id','=',to_shipping_country)]")
     fiscal_position_id = fields.Many2one(
-        'account.fiscal.position.template', 'Fiscal Position')
+        'account.fiscal.position.template', 'Fiscal Position', required=True)
     use_sale = fields.Boolean('Use in sales order')
     use_invoice = fields.Boolean('Use in Invoices')
     use_purchase = fields.Boolean('Use in Purchases')
