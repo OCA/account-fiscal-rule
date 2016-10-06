@@ -87,9 +87,9 @@ class AccountProductFiscalClassification(models.Model):
             ['|', ('active', '=', False), ('active', '=', True)])
 
         for fc in fcs:
-            if (
-                    fc.company_id.id == company_id and
-                    sorted(fc.sale_tax_ids.ids) == sorted(sale_tax_ids) and
+            if (fc.company_id.id == company_id and
+                    sorted(fc.sale_tax_ids.ids) ==
+                    sorted(sale_tax_ids) and
                     sorted(fc.purchase_tax_ids.ids) ==
                     sorted(purchase_tax_ids)):
                 return fc.id
