@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (9.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-02 00:44+0000\n"
-"PO-Revision-Date: 2016-04-01 15:36+0000\n"
+"POT-Creation-Date: 2016-09-17 01:22+0000\n"
+"PO-Revision-Date: 2016-10-04 09:43+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/oca/OCA-account-fiscal-rule-9-0/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,17 @@ msgstr " - Impostos de venda"
 #, python-format
 msgid "- No Sale Taxes"
 msgstr "- Nenhum imposto de venda"
+
+#. module: account_product_fiscal_classification
+#: model:account.tax,description:account_product_fiscal_classification.account_tax_sale_2
+msgid "0.03%"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:account.tax,description:account_product_fiscal_classification.account_tax_purchase_1
+#: model:account.tax,description:account_product_fiscal_classification.account_tax_sale_1
+msgid "0.1%"
+msgstr ""
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
@@ -159,7 +170,7 @@ msgstr "Descrição"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_display_name
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome para Mostrar"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
@@ -214,7 +225,7 @@ msgstr "Se desmarcado, permite você esconder o grupo de impostos sem remover el
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification___last_update
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification___last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última atualização em"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template_write_uid
