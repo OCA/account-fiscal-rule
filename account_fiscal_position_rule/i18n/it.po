@@ -45,7 +45,7 @@ msgstr ""
 #: field:account.fiscal.position.rule,company_id:0
 #: field:wizard.account.fiscal.position.rule,company_id:0
 msgid "Company"
-msgstr ""
+msgstr "Azienda"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -91,7 +91,7 @@ msgstr "Creato il"
 #: field:account.fiscal.position.rule,description:0
 #: field:account.fiscal.position.rule.template,description:0
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -115,7 +115,7 @@ msgstr ""
 #: field:account.fiscal.position.rule,date_end:0
 #: field:account.fiscal.position.rule.template,date_end:0
 msgid "End Date"
-msgstr ""
+msgstr "Data fine"
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,date_end:0
@@ -172,7 +172,7 @@ msgstr "ID"
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 #: model:ir.model,name:account_fiscal_position_rule.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Fattura"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,to_invoice_country:0
@@ -226,7 +226,7 @@ msgstr ""
 #: field:account.fiscal.position.rule,date_start:0
 #: field:account.fiscal.position.rule.template,date_start:0
 msgid "Start Date"
-msgstr ""
+msgstr "Data inizio"
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,date_start:0

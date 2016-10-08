@@ -10,12 +10,12 @@ msgstr ""
 "POT-Creation-Date: 2015-11-04 16:27+0000\n"
 "PO-Revision-Date: 2015-09-22 17:16+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Turkish (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/tr/)\n"
+"Language-Team: Bulgarian (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: tr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: bg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:154
@@ -32,39 +32,39 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,active:0
 msgid "Active"
-msgstr ""
+msgstr "Активен"
 
 #. module: account_product_fiscal_classification
 #: view:wizard.change.fiscal.classification:account_product_fiscal_classification.view_wizard_change_fiscal_classification
 msgid "Apply"
-msgstr ""
+msgstr "Приложи"
 
 #. module: account_product_fiscal_classification
 #: view:wizard.change.fiscal.classification:account_product_fiscal_classification.view_wizard_change_fiscal_classification
 msgid "Cancel"
-msgstr "Vazgeç"
+msgstr "Откажи"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,code:0
 msgid "Code"
-msgstr ""
+msgstr "Код"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,company_id:0
 msgid "Company"
-msgstr ""
+msgstr "Фирма"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,create_uid:0
 #: field:wizard.change.fiscal.classification,create_uid:0
 msgid "Created by"
-msgstr "Oluşturan"
+msgstr "Създадено от"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,create_date:0
 #: field:wizard.change.fiscal.classification,create_date:0
 msgid "Created on"
-msgstr "Oluşturuldu"
+msgstr "Създадено на"
 
 #. module: account_product_fiscal_classification
 #: model:res.company,overdue_msg:account_product_fiscal_classification.company_without_specific_classification
@@ -122,7 +122,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,description:0
 msgid "Description"
-msgstr "Açıklama"
+msgstr "Описание"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
@@ -152,13 +152,13 @@ msgstr ""
 #: field:account.product.fiscal.classification,write_uid:0
 #: field:wizard.change.fiscal.classification,write_uid:0
 msgid "Last Updated by"
-msgstr "Son güncelleyen"
+msgstr "Последно обновено от"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,write_date:0
 #: field:wizard.change.fiscal.classification,write_date:0
 msgid "Last Updated on"
-msgstr "Son güncelleme"
+msgstr "Последно обновено на"
 
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
@@ -170,7 +170,7 @@ msgstr ""
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 #: field:account.product.fiscal.classification,name:0
 msgid "Name"
-msgstr ""
+msgstr "Име"
 
 #. module: account_product_fiscal_classification
 #: field:wizard.change.fiscal.classification,new_fiscal_classification_id:0
@@ -187,7 +187,7 @@ msgstr ""
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:134
 #, python-format
 msgid "No taxes"
-msgstr ""
+msgstr "Без данъци"
 
 #. module: account_product_fiscal_classification
 #: field:wizard.change.fiscal.classification,old_fiscal_classification_id:0
@@ -204,7 +204,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_template_list_by_fiscal_classification
 #: view:product.template:account_product_fiscal_classification.view_product_template_tree
 msgid "Products"
-msgstr ""
+msgstr "Продукти"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,purchase_tax_ids:0
@@ -253,7 +253,7 @@ msgstr ""
 #: code:addons/account_product_fiscal_classification/model/product_template.py:99
 #, python-format
 msgid "You cannot change Taxes for many Products."
-msgstr ""
+msgstr "Не можете да промените Данъците за много Продукти"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/model/account_product_fiscal_classification.py:106
@@ -266,4 +266,4 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: view:wizard.change.fiscal.classification:account_product_fiscal_classification.view_wizard_change_fiscal_classification
 msgid "or"
-msgstr ""
+msgstr "или"
