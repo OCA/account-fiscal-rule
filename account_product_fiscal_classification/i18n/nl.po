@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (9.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-15 17:27+0000\n"
-"PO-Revision-Date: 2016-09-09 12:26+0000\n"
+"POT-Creation-Date: 2016-09-17 01:22+0000\n"
+"PO-Revision-Date: 2016-09-17 18:43+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/oca/OCA-account-fiscal-rule-9-0/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +50,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_model_active
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template_active
 msgid "Active"
-msgstr ""
+msgstr "Actief"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_change_fiscal_classification
@@ -169,7 +169,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_display_name
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Te tonen naam"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
@@ -224,7 +224,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification___last_update
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification___last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Laatst bijgewerkt op"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template_write_uid
@@ -255,7 +255,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_template_form
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_new_fiscal_classification_id
