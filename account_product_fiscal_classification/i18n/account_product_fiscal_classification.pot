@@ -1,0 +1,166 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#    * account_product_fiscal_classification
+#
+# Rudolf Schnapka <schnapkar@golive-saar.de>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.7\n"
+"Report-Msgid-Bugs-To: contact@akretion.com\n"
+"POT-Creation-Date: 2010-04-02 17:47:20+0000\n"
+"PO-Revision-Date: 2015-01-04 13:33+0100\n"
+"Last-Translator: Rudolf Schnapka <schnapkar@golive-saar.de>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"Language: de\n"
+"X-Generator: Lokalize 1.5\n"
+
+#. module: account_product_fiscal_classification
+#: constraint:ir.model:0
+msgid ""
+"The Object name must start with x_ and not contain any special character !"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: field:account.product.fiscal.classification,sale_base_tax_ids:0
+#: field:account.product.fiscal.classification.template,sale_base_tax_ids:0
+msgid "Base Sale Taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: view:wizard.account.product.fiscal.classification:0
+msgid "Create"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: view:wizard.account.product.fiscal.classification:0
+msgid "This will automatically configure all product fiscal classification"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.actions.act_window,name:account_product_fiscal_classification.product_fiscal_classifications_action
+#: model:ir.ui.menu,name:account_product_fiscal_classification.menu_product_fiscal_classifications
+msgid "Product Fiscal Classifications"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.actions.act_window,name:account_product_fiscal_classification.action_wizard_account_product_fiscal_classification
+#: model:ir.ui.menu,name:account_product_fiscal_classification.menu_wizard_account_product_fiscal_classification
+#: view:wizard.account.product.fiscal.classification:0
+msgid "Generate Product Fiscal Classification from Templates"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: field:account.product.fiscal.classification,description:0
+#: field:account.product.fiscal.classification.template,description:0
+msgid "Description"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: field:account.product.fiscal.classification,company_id:0
+#: field:wizard.account.product.fiscal.classification,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.actions.act_window,name:account_product_fiscal_classification.product_fiscal_classifications_template_action
+#: model:ir.ui.menu,name:account_product_fiscal_classification.menu_product_fiscal_classifications_template
+msgid "Product Fiscal Classifications Template"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_wizard_account_product_fiscal_classification
+msgid "wizard.account.product.fiscal.classification"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.module.module,shortdesc:account_product_fiscal_classification.module_meta_information
+msgid "Account Product Fiscal Classification"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: field:account.product.fiscal.classification,name:0
+#: field:account.product.fiscal.classification.template,name:0
+msgid "Main code"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: view:account.product.fiscal.classification.template:0
+msgid "Fiscal Classification Template"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: view:account.product.fiscal.classification:0
+#: view:account.product.fiscal.classification.template:0
+msgid "Sale Taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: help:product.product,property_fiscal_classification:0
+msgid "Company wise (eg localizable) Fiscal Classification"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: view:account.product.fiscal.classification:0
+#: view:account.product.fiscal.classification.template:0
+msgid "Purchase Taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.module.module,description:account_product_fiscal_classification.module_meta_information
+msgid ""
+"Account Product Fiscal Classification\n"
+"    "
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: view:account.product.fiscal.classification:0
+#: field:product.product,property_fiscal_classification:0
+msgid "Fiscal Classification"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: field:account.product.fiscal.classification,purchase_base_tax_ids:0
+#: field:account.product.fiscal.classification.template,purchase_base_tax_ids:0
+msgid "Base Purchase Taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification_template
+msgid "Product Fiscal Classification Template"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: view:product.product:0
+msgid "Fiscal Properties"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: constraint:product.product:0
+msgid "Error: Invalid ean code"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: view:account.product.fiscal.classification:0
+msgid "Update Products"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: view:wizard.account.product.fiscal.classification:0
+msgid "Cancel"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification
+msgid "Product Fiscal Classification"
+msgstr ""
+
+
