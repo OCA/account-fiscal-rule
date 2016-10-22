@@ -8,7 +8,7 @@
     'summary': 'Simplify taxes management for products',
     'version': '9.0.1.0.0',
     'category': 'Accounting',
-    'author': 'Akretion,GRAP,Odoo Community Association (OCA)',
+    'author': 'Akretion,GRAP,La Louve,Odoo Community Association (OCA)',
     'website': 'https://odoo-community.org/',
     'license': 'AGPL-3',
     'depends': [
