@@ -155,8 +155,7 @@ class AccountFiscalPositionRule(models.Model):
         return result
 
     def apply_fiscal_mapping(self, **kwargs):
-        result = self.fiscal_position_map(**kwargs)
-        return result
+        return self.fiscal_position_map(**kwargs)
 
 
 class AccountFiscalPositionRuleTemplate(models.Model):
