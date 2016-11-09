@@ -13,7 +13,6 @@ class AccountInvoice(models.Model):
     def _fiscal_position_map(self, **kwargs):
         ctx = dict(self._context)
         ctx.update({'use_domain': ('use_invoice', '=', True)})
-        # print 'FISCAL POSITION MAP', kwargs
         return self.env['account.fiscal.position.rule'].with_context(
             ctx).apply_fiscal_mapping(**kwargs)
 
