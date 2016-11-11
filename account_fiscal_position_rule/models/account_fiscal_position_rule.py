@@ -1,26 +1,10 @@
-# -*- encoding: utf-8 -*-
-###############################################################################
-#
-#   account_fiscal_position_rule for OpenERP
-#   Copyright (C) 2009-TODAY Akretion <http://www.akretion.com>
-#     @author Sébastien BEAU <sebastien.beau@akretion.com>
-#     @author Renato Lima <renato.lima@akretion.com>
-#   Copyright 2012 Camptocamp SA
-#     @author: Guewen Baconnier
-#   This program is free software: you can redistribute it and/or modify
-#   it under the terms of the GNU Affero General Public License as
-#   published by the Free Software Foundation, either version 3 of the
-#   License, or (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU Affero General Public License for more details.
-#
-#   You should have received a copy of the GNU Affero General Public License
-#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-###############################################################################
+# -*- coding: utf-8 -*-
+# Copyright (C) 2009-TODAY Akretion <http://www.akretion.com>
+#   @author Sébastien BEAU <sebastien.beau@akretion.com>
+#   @author Renato Lima <renato.lima@akretion.com>
+# Copyright 2012-TODAY Camptocamp SA
+#   @author: Guewen Baconnier
+# License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 import time
 
@@ -29,7 +13,6 @@ from openerp import models, fields, api
 
 class AccountFiscalPositionRule(models.Model):
     _name = 'account.fiscal.position.rule'
-    _description = 'Account Fiscal Position Rule'
     _order = 'sequence'
 
     name = fields.Char('Name', required=True)
@@ -49,7 +32,7 @@ class AccountFiscalPositionRule(models.Model):
     company_id = fields.Many2one(
         'res.company', 'Company', required=True, select=True)
     fiscal_position_id = fields.Many2one(
-        'account.fiscal.position', 'Fiscal Position',
+        'account.fiscal.position', 'Fiscal Position', required=True,
         domain="[('company_id','=',company_id)]", select=True)
     use_sale = fields.Boolean('Use in sales order')
     use_invoice = fields.Boolean('Use in Invoices')
@@ -116,53 +99,47 @@ class AccountFiscalPositionRule(models.Model):
         return domain
 
     def fiscal_position_map(self, **kwargs):
-        result = {'fiscal_position': False}
+        result = {'fiscal_position_id': False}
 
-        partner_id = kwargs.get('partner_id')
-        company_id = kwargs.get('company_id')
-        partner_invoice_id = kwargs.get('partner_invoice_id')
-        partner_shipping_id = kwargs.get('partner_shipping_id')
+        obj_partner_id = kwargs.get('partner_id')
+        obj_company_id = kwargs.get('company_id')
+        obj_partner_invoice_id = kwargs.get('partner_invoice_id')
+        obj_partner_shipping_id = kwargs.get('partner_shipping_id')
 
-        if not partner_id or not company_id:
-            return result
+        if obj_partner_id and obj_company_id:
 
-        partner = self.env['res.partner'].browse(partner_id)
-        company = self.env['res.company'].browse(company_id)
+            # Case 1: Partner Specific Fiscal Position
+            if obj_partner_id.property_account_position_id:
+                result = obj_partner_id.property_account_position_id
+                return result
 
-        # Case 1: Partner Specific Fiscal Position
-        if partner.property_account_position:
-            result['fiscal_position'] = partner.property_account_position.id
-            return result
+            # Case 2: Rule based determination
+            addrs = {}
+            if obj_partner_invoice_id:
+                addrs['invoice'] = obj_partner_invoice_id
 
-        # Case 2: Rule based determination
-        addrs = {}
-        if partner_invoice_id:
-            addrs['invoice'] = self.env['res.partner'].browse(
-                partner_invoice_id)
+            # In picking case the invoice_id can be empty but we need a
+            # value I only see this case, maybe we can move this code in
+            # fiscal_stock_rule
+            else:
+                partner_addr = obj_partner_id.address_get(['invoice'])
+                if partner_addr['invoice']:
+                    addr_id = partner_addr['invoice']
+                    addrs['invoice'] = self.env['res.partner'].browse(addr_id)
+            if obj_partner_shipping_id:
+                addrs['shipping'] = obj_partner_shipping_id
 
-        # In picking case the invoice_id can be empty but we need a
-        # value I only see this case, maybe we can move this code in
-        # fiscal_stock_rule
-        else:
-            partner_addr = partner.address_get(['invoice'])
-            if partner_addr['invoice']:
-                addr_id = partner_addr['invoice']
-                addrs['invoice'] = self.env['res.partner'].browse(addr_id)
-        if partner_shipping_id:
-            addrs['shipping'] = self.env['res.partner'].browse(
-                partner_shipping_id)
-
-        # Case 3: Rule based determination
-        domain = self._map_domain(partner, addrs, company, **kwargs)
-        fsc_pos = self.search(domain)
-        if fsc_pos:
-            result['fiscal_position'] = fsc_pos[0].fiscal_position_id.id
+            # Case 3: Rule based determination
+            domain = self._map_domain(
+                obj_partner_id, addrs, obj_company_id, **kwargs)
+            fsc_pos = self.search(domain, limit=1)
+            if fsc_pos:
+                result = fsc_pos[0].fiscal_position_id
 
         return result
 
-    def apply_fiscal_mapping(self, result, **kwargs):
-        result['value'].update(self.fiscal_position_map(**kwargs))
-        return result
+    def apply_fiscal_mapping(self, **kwargs):
+        return self.fiscal_position_map(**kwargs)
 
 
 class AccountFiscalPositionRuleTemplate(models.Model):
@@ -186,7 +163,7 @@ class AccountFiscalPositionRuleTemplate(models.Model):
         'res.country.state', 'Destination State',
         domain="[('country_id','=',to_shipping_country)]")
     fiscal_position_id = fields.Many2one(
-        'account.fiscal.position.template', 'Fiscal Position')
+        'account.fiscal.position.template', 'Fiscal Position', required=True)
     use_sale = fields.Boolean('Use in sales order')
     use_invoice = fields.Boolean('Use in Invoices')
     use_purchase = fields.Boolean('Use in Purchases')
