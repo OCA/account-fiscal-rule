@@ -1,31 +1,14 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Account Product - Fiscal Classification module for Odoo
-#    Copyright (C) 2014-Today GRAP (http://www.grap.coop)
-#    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
+# Copyright (C) 2014-Today GRAP (http://www.grap.coop)
+# Copyright (C) 2016-Today La Louve (<http://www.lalouve.net/>)
+# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': 'Account Product - Fiscal Classification',
     'summary': 'Simplify taxes management for products',
     'version': '9.0.1.0.0',
     'category': 'Accounting',
-    'author': 'Akretion,GRAP,Odoo Community Association (OCA)',
+    'author': 'Akretion,GRAP,La Louve,Odoo Community Association (OCA)',
     'website': 'https://odoo-community.org/',
     'license': 'AGPL-3',
     'depends': [
@@ -39,12 +22,14 @@
         'views/action.xml',
         'views/view.xml',
         'views/menu.xml',
+        'views/view_product_category.xml',
     ],
     'demo': [
         'demo/account_tax.yml',
         'demo/account_tax_template.yml',
         'demo/account_product_fiscal_classification.yml',
         'demo/account_product_fiscal_classification_template.yml',
+        'demo/product_category.xml',
         'demo/product_template.yml',
         'demo/res_company.yml',
         'demo/res_groups.yml',
