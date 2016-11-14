@@ -15,12 +15,8 @@ class PurchaseOrder(models.Model):
         return self.env['account.fiscal.position.rule'].with_context(
             ctx).apply_fiscal_mapping(**kwargs)
 
-    @api.onchange('partner_id')
-    def _onchange_partner_id(self):
-
-        result = super(PurchaseOrder, self).onchange_partner_id()
-        if not self.company_id:
-            return result
+    @api.onchange('partner_id', 'dest_address_id', 'company_id')
+    def onchange_fiscal_position_map(self):
 
         kwargs = {
             'company_id': self.company_id,
@@ -30,33 +26,5 @@ class PurchaseOrder(models.Model):
         }
 
         obj_fiscal_position = self._fiscal_position_map(**kwargs)
-        if obj_fiscal_position is not False:
+        if obj_fiscal_position:
             self.fiscal_position_id = obj_fiscal_position.id
-
-    @api.onchange('dest_address_id')
-    def _onchange_dest_address_id(self):
-
-        if self.partner_id and self.company_id:
-            kwargs = {
-                'company_id': self.company_id,
-                'partner_id': self.partner_id,
-                'partner_invoice_id': self.partner_id,
-                'partner_shipping_id': self.dest_address_id,
-            }
-            obj_fiscal_position = self._fiscal_position_map(**kwargs)
-            if obj_fiscal_position is not False:
-                self.fiscal_position_id = obj_fiscal_position.id
-
-    @api.onchange('company_id')
-    def _onchange_company_id(self):
-
-        if self.partner_id and self.company_id:
-            kwargs = {
-                'company_id': self.company_id,
-                'partner_id': self.partner_id,
-                'partner_invoice_id': self.partner_id,
-                'partner_shipping_id': self.dest_address_id,
-            }
-            obj_fiscal_position = self._fiscal_position_map(**kwargs)
-            if obj_fiscal_position is not False:
-                self.fiscal_position_id = obj_fiscal_position.id
