@@ -99,7 +99,7 @@ class AccountFiscalPositionRule(models.Model):
         return domain
 
     def fiscal_position_map(self, **kwargs):
-        result = {'fiscal_position_id': False}
+        result = self.env['account.fiscal.position.rule']
 
         obj_partner_id = kwargs.get('partner_id')
         obj_company_id = kwargs.get('company_id')
@@ -192,8 +192,7 @@ class WizardAccountFiscalPositionRule(models.TransientModel):
         default=lambda self: self.env['res.company']._company_default_get(
             'wizard.account.fiscal.position.rule'))
 
-    def _template_vals(self, cr, uid, template, company_id,
-                       fiscal_position_id, context=None):
+    def _template_vals(self, template, company_id, fiscal_position_id):
         return {'name': template.name,
                 'description': template.description,
                 'from_country': template.from_country.id,
