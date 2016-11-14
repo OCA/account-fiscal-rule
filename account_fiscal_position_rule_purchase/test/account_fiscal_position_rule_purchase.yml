@@ -3,6 +3,7 @@
 -
   !record {model: account.fiscal.position, id: fiscal_position_test}:
     name: Internal Purchase
+    auto_apply: True
 -
   I create a partner to purchase and set the Fiscal Position
 -
