@@ -103,3 +103,4 @@
 -
   !assert {model: account.invoice, id: invoice_order_test, string: The onchange function of partner was not correctly triggered}:
     - fiscal_position_id.id != False
+
