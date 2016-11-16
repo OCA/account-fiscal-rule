@@ -57,6 +57,7 @@ class AccountFiscalPositionRule(models.Model):
         self.from_country = self.company_id.country_id
         self.from_state = self.company_id.state_id
 
+    @api.multi
     def _map_domain(self, partner, addrs, company, **kwargs):
         from_country = company.partner_id.country_id.id
         from_state = company.partner_id.state_id.id
@@ -98,8 +99,9 @@ class AccountFiscalPositionRule(models.Model):
 
         return domain
 
+    @api.multi
     def fiscal_position_map(self, **kwargs):
-        result = {'fiscal_position_id': False}
+        result = self.env['account.fiscal.position.rule']
 
         obj_partner_id = kwargs.get('partner_id')
         obj_company_id = kwargs.get('company_id')
@@ -138,6 +140,7 @@ class AccountFiscalPositionRule(models.Model):
 
         return result
 
+    @api.multi
     def apply_fiscal_mapping(self, **kwargs):
         return self.fiscal_position_map(**kwargs)
 
@@ -192,8 +195,8 @@ class WizardAccountFiscalPositionRule(models.TransientModel):
         default=lambda self: self.env['res.company']._company_default_get(
             'wizard.account.fiscal.position.rule'))
 
-    def _template_vals(self, cr, uid, template, company_id,
-                       fiscal_position_id, context=None):
+    @api.multi
+    def _template_vals(self, template, company_id, fiscal_position_id):
         return {'name': template.name,
                 'description': template.description,
                 'from_country': template.from_country.id,

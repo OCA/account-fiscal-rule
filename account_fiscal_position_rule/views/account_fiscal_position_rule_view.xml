@@ -61,7 +61,6 @@
                     <field name="to_invoice_state"/>
                     <field name="to_shipping_country"/>
                     <field name="to_shipping_state"/>
-                    <field name="sequence"/>
                     <field name="vat_rule"/>
                 </tree>
             </field>
