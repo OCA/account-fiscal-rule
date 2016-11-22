@@ -130,8 +130,8 @@ class AccountFiscalPositionRule(models.Model):
         company = self.env['res.company'].browse(company_id)
 
         # Case 1: Partner Specific Fiscal Position
-        if partner.property_account_position:
-            result['fiscal_position'] = partner.property_account_position.id
+        if partner.property_account_position_id:
+            result['fiscal_position'] = partner.property_account_position_id.id
             return result
 
         # Case 2: Rule based determination
