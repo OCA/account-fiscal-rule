@@ -23,7 +23,7 @@
 {
     'name': 'Account Product - Fiscal Classification',
     'summary': 'Simplify taxes management for products',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Accounting',
     'author': 'Akretion,GRAP,Odoo Community Association (OCA)',
     'website': 'https://odoo-community.org/',
@@ -52,5 +52,5 @@
     ],
     'post_init_hook':
         'create_fiscal_classification_from_product_template',
-    'installable': False,
+    'installable': True,
 }

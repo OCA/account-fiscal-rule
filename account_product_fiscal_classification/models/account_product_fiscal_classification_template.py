@@ -21,7 +21,7 @@
 ##############################################################################
 
 
-from openerp import models, fields
+from odoo import models, fields
 
 
 class AccountProductFiscalClassificationTemplate(models.Model):
