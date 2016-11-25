@@ -92,7 +92,7 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem action="action_account_fiscal_position_rule_template_form" id="menu_action_account_fiscal_position_rule_template_form" parent="account.account_template_folder" sequence="21"/>
+    <menuitem action="action_account_fiscal_position_rule_template_form" id="menu_action_account_fiscal_position_rule_template_form" parent="account.account_account_menu" sequence="21"/>
     <!-- Fiscal Position Rule -->
 
     <record id="view_account_fiscal_position_rule_form" model="ir.ui.view">
@@ -205,7 +205,7 @@
       <field name="target">new</field>
     </record>
 
-    <menuitem parent="account.account_template_folder" action="action_wizard_account_fiscal_position_rule" id="menu_wizard_fiscal_position_rule"/>
+    <menuitem parent="account.account_account_menu" action="action_wizard_account_fiscal_position_rule" id="menu_wizard_fiscal_position_rule"/>
 
     <record id="action_account_fiscal_position_rule_form" model="ir.actions.act_window">
       <field name="name">Fiscal Position Rule</field>
@@ -214,7 +214,7 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_action_account_fiscal_position_rule_form" action="action_account_fiscal_position_rule_form" parent="account.next_id_27" sequence="21"/>
+    <menuitem id="menu_action_account_fiscal_position_rule_form" action="action_account_fiscal_position_rule_form" parent="account.account_account_menu" sequence="21"/>
 
   </data>
 </openerp>

@@ -77,6 +77,6 @@
       'company_id': ref('base.main_company'),
       'partner_id': ref('base.res_partner_13'),
     }
-    self.env['res.partner'].browse(ref('base.res_partner_13')).write({'property_account_position': ref('p1')})
+    self.env['res.partner'].browse(ref('base.res_partner_13')).write({'property_account_position_id': ref('p1')})
     res = self.fiscal_position_map(**kw)
     assert res['fiscal_position'] == ref('p1')
