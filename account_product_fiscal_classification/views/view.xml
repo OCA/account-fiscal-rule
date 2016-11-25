@@ -70,7 +70,7 @@
 							<newline/>
 							<field name="description" colspan="4"/>
 						</group>
-						<separator string="Taxes"/>
+						<separator string="Taxes" name="taxes"/>
 						<group name="tax_ids" col="4">
 							<field name="purchase_tax_ids" quick_create="false" widget="many2many_tags"/>
 							<field name="sale_tax_ids" quick_create="false" widget="many2many_tags"/>
@@ -134,7 +134,7 @@
 								groups="account.group_account_manager"
 								attrs="{'invisible':[('product_tmpl_qty','=',0)]}"/>
 						</group>
-						<separator string="Taxes"/>
+						<separator string="Taxes" name="taxes"/>
 						<group col="4" name="tax_ids">
 							<field name="purchase_tax_ids" quick_create="false" widget="many2many_tags"/>
 							<field name="sale_tax_ids" quick_create="false" widget="many2many_tags"/>

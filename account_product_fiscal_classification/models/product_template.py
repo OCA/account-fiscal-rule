@@ -22,9 +22,9 @@
 
 from lxml import etree
 
-from openerp import models, fields, api, _
-from openerp.exceptions import ValidationError
-from openerp.osv.orm import setup_modifiers
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
+from odoo.osv.orm import setup_modifiers
 
 
 class ProductTemplate(models.Model):
@@ -35,9 +35,9 @@ class ProductTemplate(models.Model):
         comodel_name='account.product.fiscal.classification',
         string='Fiscal Classification',
         help="Specify the combination of taxes for this product."
-        " This field is required. If you dont find the correct Fiscal"
-        " Classification, Please create a new one or ask to your account"
-        " manager if you don't have the access right.")
+             " This field is required. If you dont find the correct Fiscal"
+             " Classification, Please create a new one or ask to your account"
+             " manager if you don't have the access right.")
 
     # Overload Section
     @api.model
@@ -52,10 +52,8 @@ class ProductTemplate(models.Model):
         self.write_taxes_setting(vals)
         return res
 
-    # View Section
-    def fields_view_get(
-            self, cr, uid, view_id=None, view_type='form', context=None,
-            toolbar=False, submenu=False):
+    @api.model
+    def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
         """Set 'fiscal_classification_id' as required by fields_view_get:
         We don't set it by fields declaration in python file, to avoid
         incompatibility with other modules that could have demo data
@@ -63,9 +61,8 @@ class ProductTemplate(models.Model):
         of the order in which the modules are loaded);
         We don't set it by view inheritance in xml file to impact all views
         (form / tree) that could define the model 'product.template';"""
-        res = super(ProductTemplate, self).fields_view_get(
-            cr, uid, view_id=view_id, view_type=view_type, context=context,
-            toolbar=toolbar, submenu=submenu)
+        res = super(ProductTemplate, self).fields_view_get(view_id=view_id, view_type=view_type,
+                                                           toolbar=toolbar, submenu=submenu)
         if view_type == 'form':
             doc = etree.XML(res['arch'])
             nodes = doc.xpath("//field[@name='fiscal_classification_id']")
@@ -89,7 +86,7 @@ class ProductTemplate(models.Model):
                     x.id for x in classification.purchase_tax_ids]]],
                 'taxes_id': [[6, 0, [
                     x.id for x in classification.sale_tax_ids]]],
-                }
+            }
             super(ProductTemplate, self.sudo()).write(tax_vals)
         elif 'supplier_taxes_id' in vals.keys() or 'taxes_id' in vals.keys():
             # product template Single update mode

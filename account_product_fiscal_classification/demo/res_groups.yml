@@ -23,15 +23,19 @@
 - !record {model: res.groups, id: base.group_no_one}:
     users:
         - base.user_root
+    name: "Technical Features"
 
 - !record {model: res.groups, id: base.group_sale_manager}:
     users:
         - base.user_root
+    name: "Manager"
 
 - !record {model: res.groups, id: account.group_account_manager}:
     users:
         - base.user_root
+    name: "Adviser"
 
 - !record {model: res.groups, id: base.group_multi_company}:
     users:
         - base.user_root
+    name: "Multi Companies"
