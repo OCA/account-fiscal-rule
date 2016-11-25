@@ -47,10 +47,10 @@ class AccountFiscalPositionRule(models.Model):
         'res.country.state', 'Destination State',
         domain="[('country_id','=',to_shipping_country)]")
     company_id = fields.Many2one(
-        'res.company', 'Company', required=True, select=True)
+        'res.company', 'Company', required=True, index=True)
     fiscal_position_id = fields.Many2one(
         'account.fiscal.position', 'Fiscal Position',
-        domain="[('company_id','=',company_id)]", select=True)
+        domain="[('company_id','=',company_id)]", index=True)
     use_sale = fields.Boolean('Use in sales order')
     use_invoice = fields.Boolean('Use in Invoices')
     use_purchase = fields.Boolean('Use in Purchases')
@@ -215,8 +215,8 @@ class WizardAccountFiscalPositionRule(models.TransientModel):
         default=lambda self: self.env['res.company']._company_default_get(
             'wizard.account.fiscal.position.rule'))
 
-    def _template_vals(self, cr, uid, template, company_id,
-                       fiscal_position_id, context=None):
+    def _template_vals(self, template, company_id,
+                       fiscal_position_id):
         return {'name': template.name,
                 'description': template.description,
                 'from_country': template.from_country.id,
@@ -252,7 +252,6 @@ class WizardAccountFiscalPositionRule(models.TransientModel):
                     [('name', '=', fpr_template.fiscal_position_id.name)])
                 if not fp_ids:
                     continue
-            values = self._template_vals(
-                fpr_template, company_id, fp_ids[0].id)
+            values = self._template_vals(fpr_template, company_id, fp_ids[0].id)
             self.env['account.fiscal.position.rule'].create(values)
         return True
