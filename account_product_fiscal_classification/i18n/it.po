@@ -32,7 +32,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,active:0
 msgid "Active"
-msgstr ""
+msgstr "Attivo"
 
 #. module: account_product_fiscal_classification
 #: view:wizard.change.fiscal.classification:account_product_fiscal_classification.view_wizard_change_fiscal_classification
@@ -170,7 +170,7 @@ msgstr ""
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 #: field:account.product.fiscal.classification,name:0
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: account_product_fiscal_classification
 #: field:wizard.change.fiscal.classification,new_fiscal_classification_id:0
@@ -197,14 +197,14 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_product_template
 msgid "Product Template"
-msgstr ""
+msgstr "Template Prodotto"
 
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_template_list_by_fiscal_classification
 #: view:product.template:account_product_fiscal_classification.view_product_template_tree
 msgid "Products"
-msgstr ""
+msgstr "Prodotti"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,purchase_tax_ids:0
@@ -266,4 +266,4 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: view:wizard.change.fiscal.classification:account_product_fiscal_classification.view_wizard_change_fiscal_classification
 msgid "or"
-msgstr ""
+msgstr "o"

@@ -1,0 +1,362 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_fiscal_position_rule
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: account-fiscal-rule (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-04 16:27+0000\n"
+"PO-Revision-Date: 2015-09-22 00:33+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Spanish (Dominican Republic) (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/es_DO/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es_DO\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule_template
+msgid "Account Fiscal Position Rule Template"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_wizard_account_fiscal_position_rule
+msgid "Account Fiscal Position Rule Wizard"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
+msgid "Cancel"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: help:account.fiscal.position.rule,vat_rule:0
+#: help:account.fiscal.position.rule.template,vat_rule:0
+msgid ""
+"Choose if the customer need to have the field VAT fill for using this fiscal"
+" position"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,company_id:0
+#: field:wizard.account.fiscal.position.rule,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
+msgid "Configuration"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule.template,from_country:0
+msgid "Country Form"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,from_country:0
+msgid "Country From"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule.template,to_invoice_country:0
+msgid "Country To"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
+msgid "Create"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,create_uid:0
+#: field:account.fiscal.position.rule.template,create_uid:0
+#: field:wizard.account.fiscal.position.rule,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,create_date:0
+#: field:account.fiscal.position.rule.template,create_date:0
+#: field:wizard.account.fiscal.position.rule,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,description:0
+#: field:account.fiscal.position.rule.template,description:0
+msgid "Description"
+msgstr "Descripción"
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
+msgid "Destination"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,to_shipping_country:0
+#: field:account.fiscal.position.rule.template,to_shipping_country:0
+msgid "Destination Country"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,to_shipping_state:0
+#: field:account.fiscal.position.rule.template,to_shipping_state:0
+msgid "Destination State"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,date_end:0
+#: field:account.fiscal.position.rule.template,date_end:0
+msgid "End Date"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: help:account.fiscal.position.rule,date_end:0
+#: help:account.fiscal.position.rule.template,date_end:0
+msgid "Ending date for this rule to be valid."
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,fiscal_position_id:0
+#: field:account.fiscal.position.rule.template,fiscal_position_id:0
+msgid "Fiscal Position"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_tree
+#: model:ir.actions.act_window,name:account_fiscal_position_rule.action_account_fiscal_position_rule_form
+#: model:ir.ui.menu,name:account_fiscal_position_rule.menu_action_account_fiscal_position_rule_form
+msgid "Fiscal Position Rule"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_tree
+#: model:ir.actions.act_window,name:account_fiscal_position_rule.action_account_fiscal_position_rule_template_form
+#: model:ir.ui.menu,name:account_fiscal_position_rule.menu_action_account_fiscal_position_rule_template_form
+msgid "Fiscal Position Rule Template"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
+msgid "General"
+msgstr "General"
+
+#. module: account_fiscal_position_rule
+#: model:ir.actions.act_window,name:account_fiscal_position_rule.action_wizard_account_fiscal_position_rule
+#: model:ir.ui.menu,name:account_fiscal_position_rule.menu_wizard_fiscal_position_rule
+#: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
+msgid "Generate Fiscal Positions Rules from Templates"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,id:0
+#: field:account.fiscal.position.rule.template,id:0
+#: field:wizard.account.fiscal.position.rule,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
+#: model:ir.model,name:account_fiscal_position_rule.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,to_invoice_country:0
+msgid "Invoice Country"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,to_invoice_state:0
+msgid "Invoice State"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,write_uid:0
+#: field:account.fiscal.position.rule.template,write_uid:0
+#: field:wizard.account.fiscal.position.rule,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,write_date:0
+#: field:account.fiscal.position.rule.template,write_date:0
+#: field:wizard.account.fiscal.position.rule,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,name:0
+#: field:account.fiscal.position.rule.template,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
+msgid "Origin"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,sequence:0
+#: field:account.fiscal.position.rule.template,sequence:0
+msgid "Priority"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
+msgid "Shipping"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,date_start:0
+#: field:account.fiscal.position.rule.template,date_start:0
+msgid "Start Date"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: help:account.fiscal.position.rule,date_start:0
+#: help:account.fiscal.position.rule.template,date_start:0
+msgid "Starting date for this rule to be valid."
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,from_state:0
+#: field:account.fiscal.position.rule.template,from_state:0
+msgid "State From"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule.template,to_invoice_state:0
+msgid "State To"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: help:account.fiscal.position.rule,sequence:0
+#: help:account.fiscal.position.rule.template,sequence:0
+msgid "The lowest number will be applied."
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
+msgid "This will automatically configure all fiscal position rules"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "Use in Invoice"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,use_invoice:0
+#: field:account.fiscal.position.rule.template,use_invoice:0
+msgid "Use in Invoices"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+#: field:account.fiscal.position.rule,use_picking:0
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+#: field:account.fiscal.position.rule.template,use_picking:0
+msgid "Use in Picking"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "Use in Purchase"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,use_purchase:0
+#: field:account.fiscal.position.rule.template,use_purchase:0
+msgid "Use in Purchases"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "Use in Sale"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,use_sale:0
+#: field:account.fiscal.position.rule.template,use_sale:0
+msgid "Use in sales order"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+msgid "Used in Sales Orders"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "Used in Sales orders"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: field:account.fiscal.position.rule,vat_rule:0
+#: field:account.fiscal.position.rule.template,vat_rule:0
+msgid "VAT Rule"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: selection:account.fiscal.position.rule,vat_rule:0
+#: selection:account.fiscal.position.rule.template,vat_rule:0
+msgid "With VAT number"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: selection:account.fiscal.position.rule,vat_rule:0
+#: selection:account.fiscal.position.rule.template,vat_rule:0
+msgid "With or Without VAT number"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: selection:account.fiscal.position.rule,vat_rule:0
+#: selection:account.fiscal.position.rule.template,vat_rule:0
+msgid "Without VAT number"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
+msgid "or"
+msgstr "o"
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+msgid "used in Picking list"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "used in Picking lists"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "used in invoices"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+#: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "used in purchase"
+msgstr ""
