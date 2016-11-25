@@ -24,7 +24,7 @@
 
 {
     'name': 'Account Fiscal Position Rule',
-    'version': '8.0.1.2.0',
+    'version': '10.0.1.2.0',
     'category': 'Generic Modules/Accounting',
     'description': """Include a rule to decide the correct fiscal position""",
     'author': "Akretion,Odoo Community Association (OCA)",
@@ -40,5 +40,5 @@
     ],
     'demo': [],
     'test': ['test/test_rules.yml'],
-    'installable': False,
+    'installable': True,
 }
