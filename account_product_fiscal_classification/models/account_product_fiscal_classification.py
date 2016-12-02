@@ -68,6 +68,7 @@ class AccountProductFiscalClassification(models.Model):
             ('type_tax_use', 'in', ['sale', 'all'])]""")
 
     # Compute Section
+    @api.one
     def _compute_product_tmpl_info(self):
         res = self.env['product.template'].search([
             ('fiscal_classification_id', '=', self.id), '|',
