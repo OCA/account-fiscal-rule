@@ -20,7 +20,7 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api
+from odoo import models, fields, api
 
 
 class WizardChangeFiscalClassification(models.TransientModel):
@@ -44,7 +44,6 @@ class WizardChangeFiscalClassification(models.TransientModel):
         required=True, domain="[('id', '!=', old_fiscal_classification_id)]")
 
     # View Section
-    @api.one
     def button_change_fiscal_classification(self):
         template_obj = self.env['product.template']
         template_ids = [

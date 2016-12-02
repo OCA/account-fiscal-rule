@@ -22,8 +22,8 @@
 ##############################################################################
 
 
-from openerp import models, fields, api, _
-from openerp.exceptions import ValidationError
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 class AccountProductFiscalClassification(models.Model):
@@ -40,9 +40,9 @@ class AccountProductFiscalClassification(models.Model):
     company_id = fields.Many2one(
         comodel_name='res.company', default=_default_company_id,
         string='Company', help="Specify a company"
-        " if you want to define this Fiscal Classification only for specific"
-        " company. Otherwise, this Fiscal Classification will be available"
-        " for all companies.")
+                               " if you want to define this Fiscal Classification only for specific"
+                               " company. Otherwise, this Fiscal Classification will be available"
+                               " for all companies.")
 
     product_tmpl_ids = fields.One2many(
         comodel_name='product.template', string='Products',
@@ -95,7 +95,7 @@ class AccountProductFiscalClassification(models.Model):
                     "You cannot delete The Fiscal Classification '%s' because"
                     " it contents %s products. Please move products"
                     " to another Fiscal Classification first.") % (
-                    fc.name, fc.product_tmpl_qty))
+                                          fc.name, fc.product_tmpl_qty))
         return super(AccountProductFiscalClassification, self).unlink()
 
     # Custom Sections
@@ -109,12 +109,12 @@ class AccountProductFiscalClassification(models.Model):
 
         for fc in fcs:
             if (
-                    fc.company_id.id == company_id
-                    and sorted(fc.sale_tax_ids.ids) ==
-                    sorted(sale_tax_ids)
+                                fc.company_id.id == company_id
+                        and sorted(fc.sale_tax_ids.ids) ==
+                            sorted(sale_tax_ids)
                     and sorted(fc.purchase_tax_ids.ids) ==
-                    sorted(purchase_tax_ids)
-                    ):
+                        sorted(purchase_tax_ids)
+            ):
                 return fc.id
 
         # create new Fiscal classification if not found

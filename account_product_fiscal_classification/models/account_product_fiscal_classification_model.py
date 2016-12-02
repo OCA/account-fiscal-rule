@@ -42,4 +42,4 @@ class AccountProductFiscalClassificationModel(models.AbstractModel):
     active = fields.Boolean(
         default=True,
         help="If unchecked, it will allow you to hide the Fiscal"
-        " Classification without removing it.")
+             " Classification without removing it.")
