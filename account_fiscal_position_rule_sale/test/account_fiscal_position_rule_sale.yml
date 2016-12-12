@@ -1,0 +1,52 @@
+-
+  I create a fiscal position
+-
+  !record {model: account.fiscal.position, id: fiscal_position_test}:
+    name: Internal sale
+    auto_apply: True
+-
+  I create a partner to sale and set the Fiscal Position
+-
+  !record {model: res.partner, id: res_partner_test}:
+    name: TEST
+    company_id: base.main_company
+    property_account_position_id: fiscal_position_test
+-
+  I create sale order
+-
+  !record {model: sale.order, id: sale_order_test}:
+    partner_id: res_partner_test
+    pricelist_id: 1
+    order_line:
+      - product_id: product.product_product_2
+        product_uom: product.product_uom_unit
+        product_uom_qty: 1
+-
+  I verify that the onchange was correctly triggered
+-
+  !assert {model: sale.order, id: sale_order_test, string: The onchange function of partner was not correctly triggered}:
+    - fiscal_position_id.id != False
+-
+  I create a account fiscal rule to set automatically Fiscal Position
+-
+  !record {model: account.fiscal.position.rule, id: account_fiscal_position_rule_test}:
+    name: General Rule
+    fiscal_position_id: fiscal_position_test
+    company_id: base.main_company
+    use_sale: True
+-
+  I create another sale order to another partner
+-
+  !record {model: sale.order, id: sale_order_test_1}:
+    partner_id: base.res_partner_12
+    pricelist_id: 1
+    order_line:
+      - product_id: product.product_product_2
+        product_uom: product.product_uom_unit
+        product_uom_qty: 1
+-
+  I verify that the onchange was correctly triggered
+-
+  !assert {model: sale.order, id: sale_order_test_1, string: The onchange function of partner was not correctly triggered}:
+    - fiscal_position_id.id != False
+
