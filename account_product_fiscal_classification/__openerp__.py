@@ -37,5 +37,5 @@
     ],
     'post_init_hook':
         'create_fiscal_classification_from_product_template',
-    'installable': True,
+    'installable': False,
 }
