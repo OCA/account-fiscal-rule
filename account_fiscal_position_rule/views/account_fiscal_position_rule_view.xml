@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
 
         <!-- Create Menu for Configuration and Generation Templates -->
@@ -236,4 +236,4 @@
                   sequence="21"/>
 
     </data>
-</openerp>
+</odoo>
