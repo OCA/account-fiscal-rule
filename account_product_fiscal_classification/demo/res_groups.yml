@@ -24,10 +24,6 @@
     users:
         - base.user_root
 
-- !record {model: res.groups, id: base.group_sale_manager}:
-    users:
-        - base.user_root
-
 - !record {model: res.groups, id: account.group_account_manager}:
     users:
         - base.user_root
