@@ -29,17 +29,18 @@
     company_id: base.main_company
 -
   !python {model: wizard.account.fiscal.position.rule}: |
-    self.action_create(ref('wizard_1'))
+    self.browse(ref('wizard_1')).action_create()
 -
   I check rules are properly generated
 -
   !python {model: account.fiscal.position.rule}: |
-    fiscal_position = self.search([('name', '=', 'rule1'), ('from_country', '=', ref('base.us'))])
-    assert len(fiscal_position) == 1
-    assert fiscal_position.id == ref('p1')
-    fiscal_position = self.search([('name', '=', 'rule2'), ('from_country', '=', ref('base.us'))])
-    assert len(fiscal_position) == 1
-    assert fiscal_position.id == ref('p2')
+
+    rule = self.search([('name', '=', 'rule1'), ('from_country', '=', ref('base.us'))])
+    assert len(rule) == 1
+    assert rule.fiscal_position_id.id == ref('p1')
+    rule = self.search([('name', '=', 'rule2'), ('from_country', '=', ref('base.us'))])
+    assert len(rule) == 1
+    assert rule.fiscal_position_id.id == ref('p2')
 -
   I create some fake rule to be able to use the new API, stay calm...
 -
