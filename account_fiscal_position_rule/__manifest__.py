@@ -8,9 +8,9 @@
 
 {
     'name': 'Account Fiscal Position Rule',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Generic Modules/Accounting',
-    'author': "Akretion,Odoo Community Association (OCA)",
+    'author': "AkretionOdoo Community Association (OCA)",
     'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
     'depends': [
@@ -26,5 +26,5 @@
     'test': [
         'test/account_fiscal_position_rule_data.xml',
         'test/test_rules.yml'],
-    'installable': False,
+    'installable': True,
 }
