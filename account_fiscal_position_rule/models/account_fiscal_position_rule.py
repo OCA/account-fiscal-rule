@@ -30,10 +30,10 @@ class AccountFiscalPositionRule(models.Model):
         'res.country.state', 'Destination State',
         domain="[('country_id','=',to_shipping_country)]")
     company_id = fields.Many2one(
-        'res.company', 'Company', required=True, select=True)
+        'res.company', 'Company', required=True, index=True)
     fiscal_position_id = fields.Many2one(
         'account.fiscal.position', 'Fiscal Position', required=True,
-        domain="[('company_id','=',company_id)]", select=True)
+        domain="[('company_id','=',company_id)]", index=True)
     use_sale = fields.Boolean('Use in sales order')
     use_invoice = fields.Boolean('Use in Invoices')
     use_purchase = fields.Boolean('Use in Purchases')
