@@ -10,7 +10,7 @@
     'name': 'Account Fiscal Position Rule',
     'version': '10.0.1.0.0',
     'category': 'Generic Modules/Accounting',
-    'author': "AkretionOdoo Community Association (OCA)",
+    'author': "Akretion, Odoo Community Association (OCA)",
     'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
     'depends': [
