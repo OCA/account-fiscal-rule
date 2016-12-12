@@ -24,5 +24,5 @@
     'test': [
         'test/account_fiscal_position_rule_purchase.yml',
     ],
-    'installable': True,
+    'installable': False,
 }
