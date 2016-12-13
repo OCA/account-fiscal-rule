@@ -31,7 +31,10 @@ class WizardChangeFiscalClassification(models.TransientModel):
         template_obj = self.env['product.template']
         for record in self:
             template_ids = [
-                x.id for x in record.old_fiscal_classification_id.product_tmpl_ids]
+                x.id for x in
+                record.old_fiscal_classification_id.product_tmpl_ids]
             templates = template_obj.browse(template_ids)
             templates.write({
-                'fiscal_classification_id': self.new_fiscal_classification_id.id})
+                'fiscal_classification_id':
+                self.new_fiscal_classification_id.id
+            })
