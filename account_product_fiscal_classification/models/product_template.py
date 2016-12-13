@@ -42,20 +42,20 @@ class ProductTemplate(models.Model):
     def _check_classification_categ(self):
         for template in self:
             if template.categ_id.fiscal_restriction and \
-                            template.fiscal_classification_id not in \
-                            template.categ_id.fiscal_classification_ids:
+                    template.fiscal_classification_id not in \
+                    template.categ_id.fiscal_classification_ids:
                 raise ValidationError(_(
                     "The category '%s' of the product '%s'"
                     " doesn't not allow to set the classification '%s'.\n"
                     " Please, change the classification of the product, or"
                     " remove the constraint on the product category.\n\n"
                     " Allowed Classifications for '%s': %s") % (
-                                  template.categ_id.complete_name, template.name,
-                                  template.fiscal_classification_id.name,
-                                  template.categ_id.complete_name,
-                                  ''.join(
-                                      ['\n - ' + x.name for x in
-                                       template.categ_id.fiscal_classification_ids])))
+                    template.categ_id.complete_name, template.name,
+                    template.fiscal_classification_id.name,
+                    template.categ_id.complete_name,
+                    ''.join(
+                        ['\n - ' + x.name for x in
+                         template.categ_id.fiscal_classification_ids])))
 
     # View Section
     @api.onchange('categ_id', 'fiscal_classification_id')
@@ -72,7 +72,12 @@ class ProductTemplate(models.Model):
                 self.fiscal_classification_id = None
 
     @api.model
-    def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+    def fields_view_get(
+            self,
+            view_id=None,
+            view_type='form',
+            toolbar=False,
+            submenu=False):
         """Set 'fiscal_classification_id' as required by fields_view_get:
         We don't set it by fields declaration in python file, to avoid
         incompatibility with other modules that could have demo data
@@ -80,8 +85,13 @@ class ProductTemplate(models.Model):
         of the order in which the modules are loaded);
         We don't set it by view inheritance in xml file to impact all views
         (form / tree) that could define the model 'product.template';"""
-        res = res = super(ProductTemplate, self).fields_view_get(view_id=view_id, view_type=view_type,
-                                                                 toolbar=toolbar, submenu=submenu)
+        res = res = super(
+            ProductTemplate,
+            self).fields_view_get(
+            view_id=view_id,
+            view_type=view_type,
+            toolbar=toolbar,
+            submenu=submenu)
         if view_type == 'form':
             doc = etree.XML(res['arch'])
             nodes = doc.xpath("//field[@name='fiscal_classification_id']")
@@ -110,7 +120,7 @@ class ProductTemplate(models.Model):
                 }
                 super(ProductTemplate, template.sudo()).write(tax_vals)
             elif ('supplier_taxes_id' in vals.keys() or
-                          'taxes_id' in vals.keys()):
+                  'taxes_id' in vals.keys()):
                 # product template Single update mode
                 fc_obj = self.env['account.product.fiscal.classification']
                 if len(self) != 1:
