@@ -47,13 +47,13 @@ class AccountProductFiscalClassification(models.Model):
             ('type_tax_use', 'in', ['sale', 'all'])]""")
 
     # Compute Section
-    @api.one
     def _compute_product_tmpl_info(self):
-        res = self.env['product.template'].search([
-            ('fiscal_classification_id', '=', self.id), '|',
-            ('active', '=', False), ('active', '=', True)])
-        self.product_tmpl_ids = res
-        self.product_tmpl_qty = len(res)
+        for record in self:
+            res = self.env['product.template'].search([
+                ('fiscal_classification_id', '=', self.id), '|',
+                ('active', '=', False), ('active', '=', True)])
+            record.product_tmpl_ids = res
+            record.product_tmpl_qty = len(res)
 
     # Overload Section
     @api.multi

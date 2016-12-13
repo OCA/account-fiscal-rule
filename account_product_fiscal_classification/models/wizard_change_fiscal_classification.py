@@ -27,11 +27,11 @@ class WizardChangeFiscalClassification(models.TransientModel):
         required=True, domain="[('id', '!=', old_fiscal_classification_id)]")
 
     # View Section
-    @api.one
     def button_change_fiscal_classification(self):
         template_obj = self.env['product.template']
-        template_ids = [
-            x.id for x in self.old_fiscal_classification_id.product_tmpl_ids]
-        templates = template_obj.browse(template_ids)
-        templates.write({
-            'fiscal_classification_id': self.new_fiscal_classification_id.id})
+        for record in self:
+            template_ids = [
+                x.id for x in record.old_fiscal_classification_id.product_tmpl_ids]
+            templates = template_obj.browse(template_ids)
+            templates.write({
+                'fiscal_classification_id': self.new_fiscal_classification_id.id})
