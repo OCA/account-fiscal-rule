@@ -50,7 +50,7 @@ class AccountProductFiscalClassification(models.Model):
     def _compute_product_tmpl_info(self):
         for record in self:
             res = self.env['product.template'].search([
-                ('fiscal_classification_id', '=', self.id), '|',
+                ('fiscal_classification_id', '=', record.id), '|',
                 ('active', '=', False), ('active', '=', True)])
             record.product_tmpl_ids = res
             record.product_tmpl_qty = len(res)

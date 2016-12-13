@@ -36,5 +36,5 @@ class WizardChangeFiscalClassification(models.TransientModel):
             templates = template_obj.browse(template_ids)
             templates.write({
                 'fiscal_classification_id':
-                self.new_fiscal_classification_id.id
+                record.new_fiscal_classification_id.id
             })
