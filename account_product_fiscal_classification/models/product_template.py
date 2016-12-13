@@ -50,12 +50,12 @@ class ProductTemplate(models.Model):
                     " Please, change the classification of the product, or"
                     " remove the constraint on the product category.\n\n"
                     " Allowed Classifications for '%s': %s") % (
-                                          template.categ_id.complete_name, template.name,
-                                          template.fiscal_classification_id.name,
-                                          template.categ_id.complete_name,
-                                          ''.join(
-                                              ['\n - ' + x.name for x in
-                                               template.categ_id.fiscal_classification_ids])))
+                                  template.categ_id.complete_name, template.name,
+                                  template.fiscal_classification_id.name,
+                                  template.categ_id.complete_name,
+                                  ''.join(
+                                      ['\n - ' + x.name for x in
+                                       template.categ_id.fiscal_classification_ids])))
 
     # View Section
     @api.onchange('categ_id', 'fiscal_classification_id')
