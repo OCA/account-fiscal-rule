@@ -45,7 +45,7 @@ msgstr ""
 #: field:account.fiscal.position.rule,company_id:0
 #: field:wizard.account.fiscal.position.rule,company_id:0
 msgid "Company"
-msgstr ""
+msgstr "Empresa"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -91,7 +91,7 @@ msgstr "Criado em"
 #: field:account.fiscal.position.rule,description:0
 #: field:account.fiscal.position.rule.template,description:0
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -172,7 +172,7 @@ msgstr "ID"
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 #: model:ir.model,name:account_fiscal_position_rule.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Fatura"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,to_invoice_country:0
