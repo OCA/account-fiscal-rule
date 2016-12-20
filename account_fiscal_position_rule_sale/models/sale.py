@@ -35,7 +35,7 @@ class SaleOrder(models.Model):
         if obj_fiscal_position and \
                 obj_fiscal_position != self.fiscal_position_id:
             self.fiscal_position_id = obj_fiscal_position.id
-    
+
     @api.multi
     @api.onchange('partner_shipping_id', 'partner_id')
     def onchange_partner_shipping_id(self):
