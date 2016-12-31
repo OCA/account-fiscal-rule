@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (9.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-16 16:33+0000\n"
-"PO-Revision-Date: 2016-11-25 14:56+0000\n"
+"POT-Creation-Date: 2016-12-23 23:32+0000\n"
+"PO-Revision-Date: 2016-12-27 08:23+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Spanish (Costa Rica) (http://www.transifex.com/oca/OCA-account-fiscal-rule-9-0/language/es_CR/)\n"
 "MIME-Version: 1.0\n"
@@ -103,7 +103,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_create_uid
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creado por"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_create_date
@@ -253,7 +253,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_write_uid
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultima actualización por"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template_write_date
@@ -261,7 +261,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_write_date
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultima actualización en"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_wizard_change_fiscal_classification

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (9.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-16 16:33+0000\n"
-"PO-Revision-Date: 2016-11-25 14:55+0000\n"
+"POT-Creation-Date: 2016-12-23 23:32+0000\n"
+"PO-Revision-Date: 2016-12-27 08:24+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Romanian (http://www.transifex.com/oca/OCA-account-fiscal-rule-9-0/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -103,7 +103,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_create_uid
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creat de"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_create_date
@@ -111,7 +111,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_create_date
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creat la"
 
 #. module: account_product_fiscal_classification
 #: model:res.company,overdue_msg:account_product_fiscal_classification.company_without_specific_classification
@@ -185,7 +185,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_display_name
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nume Afişat"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
@@ -227,7 +227,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_active
@@ -245,7 +245,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification___last_update
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification___last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima actualizare în"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template_write_uid
@@ -253,7 +253,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_write_uid
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultima actualizare făcută de"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template_write_date
@@ -261,7 +261,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_write_date
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultima actualizare la"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_wizard_change_fiscal_classification
