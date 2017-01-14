@@ -47,7 +47,7 @@ msgstr "Cancelar"
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,code:0
 msgid "Code"
-msgstr ""
+msgstr "Código"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,company_id:0
@@ -122,7 +122,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,description:0
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
@@ -204,7 +204,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_template_list_by_fiscal_classification
 #: view:product.template:account_product_fiscal_classification.view_product_template_tree
 msgid "Products"
-msgstr ""
+msgstr "Produtos"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,purchase_tax_ids:0

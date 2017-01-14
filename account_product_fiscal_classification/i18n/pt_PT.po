@@ -47,7 +47,7 @@ msgstr "Cancelar"
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,code:0
 msgid "Code"
-msgstr ""
+msgstr "Código"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,company_id:0
