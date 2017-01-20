@@ -214,7 +214,7 @@ msgstr ""
 #: field:account.fiscal.position.rule,sequence:0
 #: field:account.fiscal.position.rule.template,sequence:0
 msgid "Priority"
-msgstr ""
+msgstr "Priorité"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
