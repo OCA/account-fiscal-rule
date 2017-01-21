@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (9.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-31 00:14+0000\n"
-"PO-Revision-Date: 2017-01-13 09:22+0000\n"
+"POT-Creation-Date: 2017-01-14 00:06+0000\n"
+"PO-Revision-Date: 2017-01-17 19:17+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/oca/OCA-account-fiscal-rule-9-0/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_model_active
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template_active
 msgid "Active"
-msgstr ""
+msgstr "Actiu"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category_fiscal_classification_ids
@@ -90,7 +90,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_company_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_company_id
 msgid "Company"
-msgstr ""
+msgstr "Empresa"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_account_product_fiscal_classification
@@ -276,7 +276,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_template_form
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_new_fiscal_classification_id
@@ -308,7 +308,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_product_template
 msgid "Product Template"
-msgstr ""
+msgstr "Plantilla del producte"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_template_list_by_fiscal_classification
