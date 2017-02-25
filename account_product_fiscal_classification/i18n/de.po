@@ -3,14 +3,14 @@
 # * account_product_fiscal_classification
 # 
 # Translators:
-# Rudolf Schnapka <rs@techno-flex.de>, 2016
+# Rudolf Schnapka <rs@techno-flex.de>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: account-fiscal-rule (9.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-16 16:33+0000\n"
-"PO-Revision-Date: 2016-11-25 14:55+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"POT-Creation-Date: 2017-01-21 00:07+0000\n"
+"PO-Revision-Date: 2017-02-24 23:21+0000\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
 "Language-Team: German (http://www.transifex.com/oca/OCA-account-fiscal-rule-9-0/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,7 +51,7 @@ msgstr "Aktiv"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category_fiscal_classification_ids
 msgid "Allowed Fiscal Classifications"
-msgstr ""
+msgstr "Lasse Bewertungsklassen zu"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_change_fiscal_classification
@@ -61,7 +61,7 @@ msgstr "Anwenden"
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_form
 msgid "Apply to Child Categories"
-msgstr ""
+msgstr "Auf Unterklassen anwenden"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_account_product_fiscal_classification
@@ -72,13 +72,13 @@ msgstr "Abbrechen"
 #. module: account_product_fiscal_classification
 #: model:product.category,name:account_product_fiscal_classification.category_with_fiscal_restriction
 msgid "Category with Fiscal Restriction"
-msgstr ""
+msgstr "Klasse mit Bewertungsbeschränkung"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_category_fiscal_restriction
 msgid ""
 "Check this box if you want to enable Restriction on Fiscal Classifications."
-msgstr ""
+msgstr "Aktivieren Sie diese Box, wenn Sie Beschränkungen auf Bewertungsklassen wünschen."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_code
@@ -212,7 +212,7 @@ msgstr "Steuer-Klassifizierungsvorlage"
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_form
 msgid "Fiscal Settings"
-msgstr ""
+msgstr "Bewertungs-Einstellungen"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_wizard_account_product_fiscal_classification
@@ -328,7 +328,7 @@ msgstr "Produktmenge"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category_forbidden_classification_template_ids
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_form
 msgid "Products with Forbidden Classification"
-msgstr ""
+msgstr "Produkte mit unzulässiger Klassifizierung"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_purchase_tax_ids
@@ -346,12 +346,12 @@ msgstr "Erwerbssteuern:"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category_forbidden_classification_template_qty
 msgid "Quantity of Products with Forbidden Classification"
-msgstr ""
+msgstr "Menge an Produkten mit unzulässiger Klassifizierung"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category_fiscal_restriction
 msgid "Restriction on Fiscal Classifications"
-msgstr ""
+msgstr "Beschränkung von Bewertungsklassen"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_sale_tax_ids
@@ -364,7 +364,7 @@ msgstr "Verkaufssteuern"
 msgid ""
 "Specify Fiscal Classifications that will be allowed for products that belong"
 " to this Product Category."
-msgstr ""
+msgstr "Geben Sie Bewertungsklassen an, die für Produkte dieser Produktgruppe zulässig sein sollen."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_company_id
@@ -396,7 +396,7 @@ msgid ""
 " Please, change the classification of the product, or remove the constraint on the product category.\n"
 "\n"
 " Allowed Classifications for '%s': %s"
-msgstr ""
+msgstr "Die Kategorie '%s' des Produkts '%s' erlaubt die Klasse '%s' nicht.\nÄndern Sie bitte die Klassifizierung des Produkts oder heben Sie die Beschränkung zur Produktgruppe auf.\nZulässige Bewertungsklassen für '%s':  %s"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_account_product_fiscal_classification
@@ -409,7 +409,7 @@ msgstr "Dies wird alle Produkt-Steuerklassifizierungen automatisch einstellen"
 msgid ""
 "You can not set fiscal classifications on %s if Restriction on Fiscal "
 "Classifications is not enabled for the category."
-msgstr ""
+msgstr "Sie dürfen Bewertungsklassen bei %s nicht setzen, wenn Beschränkung der Bewertungsklassen für diese Produktgruppe nicht aktiviert ist."
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/product_template.py:120
