@@ -19,6 +19,11 @@ class SaleOrder(models.Model):
         return self.env['account.fiscal.position.rule'].with_context(
             ctx).apply_fiscal_mapping(**kwargs)
 
+    # We already handle the odoo default behaviour, cancel it to prevent conflicts
+    @api.onchange('partner_shipping_id', 'partner_id')
+    def onchange_partner_shipping_id(self):
+        return {}
+
     @api.onchange('partner_id', 'partner_invoice_id',
                   'partner_shipping_id', 'company_id')
     def onchange_fiscal_position_map(self):
