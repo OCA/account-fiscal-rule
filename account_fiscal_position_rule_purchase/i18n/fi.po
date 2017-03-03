@@ -1,0 +1,33 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_fiscal_position_rule_purchase
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: account-fiscal-rule (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-04 16:27+0000\n"
+"PO-Revision-Date: 2015-10-01 06:09+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Finnish (http://www.transifex.com/oca/OCA-account-fiscal-rule-8-0/language/fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: account_fiscal_position_rule_purchase
+#: model:ir.model,name:account_fiscal_position_rule_purchase.model_purchase_order
+msgid "Purchase Order"
+msgstr "Ostotilaus"
+
+#. module: account_fiscal_position_rule_purchase
+#: view:purchase.order:account_fiscal_position_rule_purchase.account_fiscal_position_rule_purchase_order_form
+msgid "{'company_id': company_id, 'partner_id': partner_id}"
+msgstr ""
+
+#. module: account_fiscal_position_rule_purchase
+#: view:purchase.order:account_fiscal_position_rule_purchase.account_fiscal_position_rule_purchase_order_form
+msgid "{'company_id': company_id}"
+msgstr ""
