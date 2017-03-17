@@ -91,7 +91,7 @@ msgstr "Creat el"
 #: field:account.fiscal.position.rule,description:0
 #: field:account.fiscal.position.rule.template,description:0
 msgid "Description"
-msgstr ""
+msgstr "Descripció"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
