@@ -28,6 +28,7 @@ addon | version | summary
 [account_fiscal_position_rule_sale](account_fiscal_position_rule_sale/) | 9.0.1.0.0 | Account Fiscal Position Rule Sale
 [account_product_fiscal_classification](account_product_fiscal_classification/) | 9.0.1.0.0 | Simplify taxes management for products
 
+
 Unported addons
 ---------------
 addon | version | summary
