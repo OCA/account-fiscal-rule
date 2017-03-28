@@ -25,6 +25,7 @@ addon | version | summary
 --- | --- | ---
 [account_fiscal_position_rule](account_fiscal_position_rule/) | 10.0.1.0.0 | Account Fiscal Position Rule
 
+
 Unported addons
 ---------------
 addon | version | summary
