@@ -52,7 +52,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,company_id:0
 msgid "Company"
-msgstr ""
+msgstr "الشركة"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,create_uid:0

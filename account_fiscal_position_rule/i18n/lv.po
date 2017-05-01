@@ -45,7 +45,7 @@ msgstr ""
 #: field:account.fiscal.position.rule,company_id:0
 #: field:wizard.account.fiscal.position.rule,company_id:0
 msgid "Company"
-msgstr ""
+msgstr "Uzņēmums"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form

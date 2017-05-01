@@ -52,7 +52,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,company_id:0
 msgid "Company"
-msgstr ""
+msgstr "Bedrijf"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,create_uid:0
@@ -247,7 +247,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: view:product.template:account_product_fiscal_classification.view_product_template_form
 msgid "True"
-msgstr ""
+msgstr "Waar"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/model/product_template.py:99
