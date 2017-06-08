@@ -83,7 +83,9 @@ class ProductTemplate(models.Model):
         depending of the taxes, or create a new one, if no one are found."""
         if vals.get('fiscal_classification_id', False):
             # update or replace 'taxes_id' and 'supplier_taxes_id'
-            classification = self.fiscal_classification_id
+            classification = self.env[
+                'account.product.fiscal.classification'].browse(
+                vals['fiscal_classification_id'])
             tax_vals = {
                 'supplier_taxes_id': [[6, 0, [
                     x.id for x in classification.purchase_tax_ids]]],
