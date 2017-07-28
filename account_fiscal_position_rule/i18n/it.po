@@ -127,7 +127,7 @@ msgstr ""
 #: field:account.fiscal.position.rule,fiscal_position_id:0
 #: field:account.fiscal.position.rule.template,fiscal_position_id:0
 msgid "Fiscal Position"
-msgstr ""
+msgstr "Posizione fiscale"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
