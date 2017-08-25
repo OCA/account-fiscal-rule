@@ -32,7 +32,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,active:0
 msgid "Active"
-msgstr ""
+msgstr "เปิดใช้งาน"
 
 #. module: account_product_fiscal_classification
 #: view:wizard.change.fiscal.classification:account_product_fiscal_classification.view_wizard_change_fiscal_classification

@@ -32,7 +32,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,active:0
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #. module: account_product_fiscal_classification
 #: view:wizard.change.fiscal.classification:account_product_fiscal_classification.view_wizard_change_fiscal_classification
@@ -242,7 +242,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 msgid "Taxes"
-msgstr ""
+msgstr "Impuestos"
 
 #. module: account_product_fiscal_classification
 #: view:product.template:account_product_fiscal_classification.view_product_template_form

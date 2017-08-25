@@ -242,7 +242,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 msgid "Taxes"
-msgstr ""
+msgstr "Impostos"
 
 #. module: account_product_fiscal_classification
 #: view:product.template:account_product_fiscal_classification.view_product_template_form
