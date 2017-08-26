@@ -6,9 +6,9 @@
 
 from lxml import etree
 
-from openerp import models, fields, api, _
-from openerp.exceptions import ValidationError
-from openerp.osv.orm import setup_modifiers
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
+from odoo.osv.orm import setup_modifiers
 
 
 class ProductTemplate(models.Model):
@@ -19,9 +19,9 @@ class ProductTemplate(models.Model):
         comodel_name='account.product.fiscal.classification',
         string='Fiscal Classification',
         help="Specify the combination of taxes for this product."
-        " This field is required. If you dont find the correct Fiscal"
-        " Classification, Please create a new one or ask to your account"
-        " manager if you don't have the access right.")
+             " This field is required. If you dont find the correct Fiscal"
+             " Classification, Please create a new one or ask to your account"
+             " manager if you don't have the access right.")
 
     # Overload Section
     @api.model
@@ -41,8 +41,8 @@ class ProductTemplate(models.Model):
     @api.constrains('fiscal_classification_id', 'categ_id')
     def _check_classification_categ(self):
         for template in self:
-            if template.categ_id.fiscal_restriction and\
-                    template.fiscal_classification_id not in\
+            if template.categ_id.fiscal_restriction and \
+                    template.fiscal_classification_id not in \
                     template.categ_id.fiscal_classification_ids:
                 raise ValidationError(_(
                     "The category '%s' of the product '%s'"
@@ -55,7 +55,7 @@ class ProductTemplate(models.Model):
                     template.categ_id.complete_name,
                     ''.join(
                         ['\n - ' + x.name for x in
-                            template.categ_id.fiscal_classification_ids])))
+                         template.categ_id.fiscal_classification_ids])))
 
     # View Section
     @api.onchange('categ_id', 'fiscal_classification_id')
@@ -63,17 +63,21 @@ class ProductTemplate(models.Model):
         if self.categ_id and self.categ_id.fiscal_restriction:
             if len(self.categ_id.fiscal_classification_ids) == 1:
                 # Set classification if category allows only one
-                self.fiscal_classification_id =\
+                self.fiscal_classification_id = \
                     self.categ_id.fiscal_classification_ids[0]
-            elif self.fiscal_classification_id not in\
+            elif self.fiscal_classification_id not in \
                     self.categ_id.fiscal_classification_ids:
                 # Remove classification if category and classification are not
                 # compatible
                 self.fiscal_classification_id = None
 
+    @api.model
     def fields_view_get(
-            self, cr, uid, view_id=None, view_type='form', context=None,
-            toolbar=False, submenu=False):
+            self,
+            view_id=None,
+            view_type='form',
+            toolbar=False,
+            submenu=False):
         """Set 'fiscal_classification_id' as required by fields_view_get:
         We don't set it by fields declaration in python file, to avoid
         incompatibility with other modules that could have demo data
@@ -81,9 +85,13 @@ class ProductTemplate(models.Model):
         of the order in which the modules are loaded);
         We don't set it by view inheritance in xml file to impact all views
         (form / tree) that could define the model 'product.template';"""
-        res = super(ProductTemplate, self).fields_view_get(
-            cr, uid, view_id=view_id, view_type=view_type, context=context,
-            toolbar=toolbar, submenu=submenu)
+        res = res = super(
+            ProductTemplate,
+            self).fields_view_get(
+            view_id=view_id,
+            view_type=view_type,
+            toolbar=toolbar,
+            submenu=submenu)
         if view_type == 'form':
             doc = etree.XML(res['arch'])
             nodes = doc.xpath("//field[@name='fiscal_classification_id']")
@@ -109,10 +117,10 @@ class ProductTemplate(models.Model):
                         x.id for x in classification.purchase_tax_ids]]],
                     'taxes_id': [[6, 0, [
                         x.id for x in classification.sale_tax_ids]]],
-                    }
+                }
                 super(ProductTemplate, template.sudo()).write(tax_vals)
             elif ('supplier_taxes_id' in vals.keys() or
-                    'taxes_id' in vals.keys()):
+                  'taxes_id' in vals.keys()):
                 # product template Single update mode
                 fc_obj = self.env['account.product.fiscal.classification']
                 if len(self) != 1:

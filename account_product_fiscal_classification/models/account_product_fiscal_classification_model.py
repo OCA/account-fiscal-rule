@@ -21,7 +21,7 @@
 ##############################################################################
 
 
-from openerp import models, fields
+from odoo import models, fields
 
 
 class AccountProductFiscalClassificationModel(models.AbstractModel):
@@ -35,7 +35,7 @@ class AccountProductFiscalClassificationModel(models.AbstractModel):
     code = fields.Char()
 
     name = fields.Char(
-        size=_MAX_LENGTH_NAME, required=True, select=True, translate=True)
+        size=_MAX_LENGTH_NAME, required=True, index=True, translate=True)
 
     description = fields.Text()
 

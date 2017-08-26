@@ -3,7 +3,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api
+from odoo import models, fields
 
 
 class WizardChangeFiscalClassification(models.TransientModel):
@@ -27,11 +27,14 @@ class WizardChangeFiscalClassification(models.TransientModel):
         required=True, domain="[('id', '!=', old_fiscal_classification_id)]")
 
     # View Section
-    @api.one
     def button_change_fiscal_classification(self):
         template_obj = self.env['product.template']
-        template_ids = [
-            x.id for x in self.old_fiscal_classification_id.product_tmpl_ids]
-        templates = template_obj.browse(template_ids)
-        templates.write({
-            'fiscal_classification_id': self.new_fiscal_classification_id.id})
+        for record in self:
+            template_ids = [
+                x.id for x in
+                record.old_fiscal_classification_id.product_tmpl_ids]
+            templates = template_obj.browse(template_ids)
+            templates.write({
+                'fiscal_classification_id':
+                record.new_fiscal_classification_id.id
+            })

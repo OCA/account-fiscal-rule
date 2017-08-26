@@ -5,7 +5,7 @@
 from . import models
 
 import logging
-from openerp import api, SUPERUSER_ID
+from odoo import api, SUPERUSER_ID
 
 _logger = logging.getLogger(__name__)
 

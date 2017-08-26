@@ -38,7 +38,7 @@
         <field name="model">product.category</field>
         <field name="inherit_id" ref="product.product_category_list_view"/>
         <field name="arch" type="xml">
-            <field name="complete_name" position="after">
+            <field name="display_name" position="after">
                 <field name="fiscal_classification_ids" widget="many2many_tags"/>
             </field>
         </field>
