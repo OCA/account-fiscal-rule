@@ -42,7 +42,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: view:wizard.change.fiscal.classification:account_product_fiscal_classification.view_wizard_change_fiscal_classification
 msgid "Cancel"
-msgstr ""
+msgstr "Verwijderen"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,code:0
@@ -58,13 +58,13 @@ msgstr ""
 #: field:account.product.fiscal.classification,create_uid:0
 #: field:wizard.change.fiscal.classification,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Aangemaakt door"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,create_date:0
 #: field:wizard.change.fiscal.classification,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Aangemaakt op"
 
 #. module: account_product_fiscal_classification
 #: model:res.company,overdue_msg:account_product_fiscal_classification.company_without_specific_classification
@@ -122,7 +122,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,description:0
 msgid "Description"
-msgstr ""
+msgstr "Omschrijving"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
@@ -152,13 +152,13 @@ msgstr ""
 #: field:account.product.fiscal.classification,write_uid:0
 #: field:wizard.change.fiscal.classification,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Laatst bijgewerkt door"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,write_date:0
 #: field:wizard.change.fiscal.classification,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Laatst bijgewerkt op"
 
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form

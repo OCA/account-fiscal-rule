@@ -31,7 +31,7 @@ msgstr ""
 #. module: account_fiscal_position_rule
 #: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
 msgid "Cancel"
-msgstr ""
+msgstr "Verwijderen"
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,vat_rule:0
@@ -78,20 +78,20 @@ msgstr ""
 #: field:account.fiscal.position.rule.template,create_uid:0
 #: field:wizard.account.fiscal.position.rule,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Aangemaakt door"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,create_date:0
 #: field:account.fiscal.position.rule.template,create_date:0
 #: field:wizard.account.fiscal.position.rule,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Aangemaakt op"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,description:0
 #: field:account.fiscal.position.rule.template,description:0
 msgid "Description"
-msgstr ""
+msgstr "Omschrijving"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -172,7 +172,7 @@ msgstr "ID"
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 #: model:ir.model,name:account_fiscal_position_rule.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Factuur"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,to_invoice_country:0
@@ -189,14 +189,14 @@ msgstr ""
 #: field:account.fiscal.position.rule.template,write_uid:0
 #: field:wizard.account.fiscal.position.rule,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Laatst bijgewerkt door"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,write_date:0
 #: field:account.fiscal.position.rule.template,write_date:0
 #: field:wizard.account.fiscal.position.rule,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Laatst bijgewerkt op"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,name:0
