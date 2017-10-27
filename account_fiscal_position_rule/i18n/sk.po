@@ -71,7 +71,7 @@ msgstr ""
 #. module: account_fiscal_position_rule
 #: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
 msgid "Create"
-msgstr ""
+msgstr "Vytvoriť"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,create_uid:0
@@ -115,7 +115,7 @@ msgstr ""
 #: field:account.fiscal.position.rule,date_end:0
 #: field:account.fiscal.position.rule.template,date_end:0
 msgid "End Date"
-msgstr ""
+msgstr "Dátum ukončenia"
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,date_end:0
@@ -226,7 +226,7 @@ msgstr ""
 #: field:account.fiscal.position.rule,date_start:0
 #: field:account.fiscal.position.rule.template,date_start:0
 msgid "Start Date"
-msgstr ""
+msgstr "Počiatočný dátum"
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,date_start:0
