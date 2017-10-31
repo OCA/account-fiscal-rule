@@ -27,7 +27,7 @@ class SaleOrder(models.Model):
         # If the fiscal position of the customer is set, we respect the
         # setting.
         super(SaleOrder, self).onchange_partner_shipping_id()
-        if not self.partner_id.fiscal_position_id:
+        if self.partner_id and self.partner_id.fiscal_position_id:
             kwargs = {
                 'company_id': self.company_id,
                 'partner_id': self.partner_id,
