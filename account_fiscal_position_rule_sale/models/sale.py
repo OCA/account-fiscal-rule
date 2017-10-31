@@ -5,9 +5,10 @@
 #     @author Raphaël Valyi <raphael.valyi@akretion.com>
 #   Copyright 2012 Camptocamp SA
 #     @author: Guewen Baconnier
+# Copyright 2017 Quartile Limited
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
-from openerp import models, api
+from odoo import models, api
 
 
 class SaleOrder(models.Model):
@@ -21,15 +22,19 @@ class SaleOrder(models.Model):
 
     @api.onchange('partner_id', 'partner_invoice_id',
                   'partner_shipping_id', 'company_id')
-    def onchange_fiscal_position_map(self):
+    def onchange_partner_shipping_id(self):
 
-        kwargs = {
-            'company_id': self.company_id,
-            'partner_id': self.partner_id,
-            'partner_invoice_id': self.partner_invoice_id,
-            'partner_shipping_id': self.partner_shipping_id,
-        }
+        # If the fiscal position of the customer is set, we respect the
+        # setting.
+        super(SaleOrder, self).onchange_partner_shipping_id()
+        if not self.partner_id.fiscal_position_id:
+            kwargs = {
+                'company_id': self.company_id,
+                'partner_id': self.partner_id,
+                'partner_invoice_id': self.partner_invoice_id,
+                'partner_shipping_id': self.partner_shipping_id,
+            }
 
-        obj_fiscal_position = self._fiscal_position_map(**kwargs)
-        if obj_fiscal_position:
-            self.fiscal_position_id = obj_fiscal_position.id
+            obj_fiscal_position = self._fiscal_position_map(**kwargs)
+            if obj_fiscal_position:
+                self.fiscal_position_id = obj_fiscal_position.id
