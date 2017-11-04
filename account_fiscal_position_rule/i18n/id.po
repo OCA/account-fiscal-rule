@@ -51,7 +51,7 @@ msgstr "Perusahaan"
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 msgid "Configuration"
-msgstr ""
+msgstr "Pengaturan"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule.template,from_country:0
