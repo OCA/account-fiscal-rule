@@ -337,7 +337,7 @@ msgstr ""
 #. module: account_fiscal_position_rule
 #: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
 msgid "or"
-msgstr ""
+msgstr "hoặc"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_search
