@@ -16,7 +16,7 @@
   !record {model: account.fiscal.position.rule, id: account_fiscal_position_rule_test_invoice}:
     name: General Rule
     fiscal_position_id: account_fiscal_position_rule_stock.fiscal_position_test_invoice
-    company_id: base.main_company   
+    company_id: base.main_company
     use_picking: True 
     sequence: 5
 -
@@ -24,10 +24,9 @@
 -
   !record {model: stock.picking, id: stock_picking_test_invoice}:
     partner_id: account_fiscal_position_rule_stock.res_partner_test
-    invoice_state: 2binvoiced
     picking_type_id: stock.picking_type_in
     move_lines:
-      - product_id: product.product_product_8        
+      - product_id: product.product_product_8
         product_uom_qty: 16
         location_id: stock.stock_location_suppliers
         location_dest_id: stock.stock_location_stock
@@ -41,11 +40,14 @@
     picking.action_confirm()
     picking.do_transfer()
     assert picking.state == 'done', "Picking state should be done"
-    invoice_ids = picking.action_invoice_create(
-          journal_id = journal_obj.search(cr, uid, [('type', '=', 'purchase')])[0],
-          group = False,
-          type = 'in_invoice')
-    for invoice in invoice_obj.browse(cr, uid, invoice_ids, context=context):        
-        assert invoice.fiscal_position.id == ref('account_fiscal_position_rule_stock.fiscal_position_test_invoice'), 'Fiscal position in invoice not set correctly'
+    # The posibility to generate a invoice from picking were removed in version 9.0
+    # but it's important feature in some cases and for brazilian localization,
+    # by this reason i think will need to make a solution for this problem
+    #invoice_ids = picking.action_invoice_create(
+    #      journal_id = journal_obj.search(cr, uid, [('type', '=', 'purchase')])[0],
+    #      group = False,
+    #      type = 'in_invoice')
+    #for invoice in invoice_obj.browse(cr, uid, invoice_ids, context=context):
+    #    assert invoice.fiscal_position.id == ref('account_fiscal_position_rule_stock.fiscal_position_test_invoice'), 'Fiscal position in invoice not set correctly'
         
 
