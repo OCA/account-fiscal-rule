@@ -19,6 +19,9 @@ Known Issues / Road Map
 * In order for rates to work, the reference record must actually be saved.
   This is because the reference fields require explicit ``(model_name,id)``
   formatting, but with an unsaved record the ID is ``NewId``.
+* Transaction refund method is on ``account.tax.transaction``, but it should
+  possibly be on ``account.tax.transaction.line`` instead. This was done to
+  simplify the addition of new adapters, but may over-complicate things.
 
 Bug Tracker
 ===========

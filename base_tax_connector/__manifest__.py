@@ -2,6 +2,7 @@
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
+# pylint: disable=C8101
 {
     "name": "Tax Connector Base",
     "summary": "Provides centralized logic for connection with external tax"
@@ -9,7 +10,7 @@
     "version": "10.0.1.0.0",
     "category": "Connector",
     "website": "https://laslabs.com",
-    "author": "LasLabs, Odoo Community Association (OCA)",
+    "author": "LasLabs",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
