@@ -2,9 +2,12 @@
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
-from collections import defaultdict
+import logging
 
 from odoo import api, models, fields
+
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountTaxRateLine(models.TransientModel):
@@ -107,6 +110,8 @@ class AccountTaxRateLine(models.TransientModel):
             if attribute.endswith('_id'):
                 value = value.id
             if value != compare_data.get(attribute):
+                _logger.info('Line is dirty. "%s" != "%s" on column %s',
+                             value, compare_data.get(attribute), attribute)
                 return True
 
     @api.model

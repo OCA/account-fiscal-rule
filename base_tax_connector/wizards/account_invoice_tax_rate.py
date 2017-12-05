@@ -29,13 +29,13 @@ class AccountInvoiceTaxRate(models.AbstractModel):
             'company_id': company.id,
             'partner_id': partner.id,
             'product_id': invoice_line.product_id.id,
-            'reference': '%s,%d' % (invoice_line._name, invoice_line.id),
             'price_unit': invoice_line.price_unit,
             'discount': invoice_line.discount,
             'quantity': invoice_line.quantity,
             'is_shipping_charge': is_shipping_charge,
             'price_tax': 0.0, # @TODO: invoice_line.price_tax,
             'tax_ids': invoice_line.invoice_line_tax_ids.ids,
+            'reference': invoice_line,
         }
 
     @api.model_cr_context

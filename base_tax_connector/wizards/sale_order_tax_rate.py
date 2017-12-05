@@ -30,13 +30,13 @@ class SaleOrderTaxRate(models.AbstractModel):
             'company_id': company.id,
             'partner_id': partner.id,
             'product_id': sale_line.product_id.id,
-            'reference': '%s,%d' % (sale_line._name, sale_line.id),
             'price_unit': sale_line.price_unit,
             'discount': sale_line.discount,
             'quantity': sale_line.product_uom_qty,
             'is_shipping_charge': is_shipping_charge,
             'price_tax': sale_line.price_tax,
             'tax_ids': sale_line.tax_id.ids,
+            'reference': sale_line,
         }
 
     @api.model_cr_context

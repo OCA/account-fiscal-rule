@@ -2,7 +2,12 @@
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
+import logging
+
 from odoo import api, models, fields
+
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountTax(models.Model):
@@ -33,6 +38,7 @@ class AccountTax(models.Model):
             cached = self.env['account.tax.rate.line'].get(
                 self, base_amount, price_unit, quantity, product, partner,
             )
+            _logger.info('Got cached rate %s' % cached.price_tax)
             return cached and cached.price_tax or 0.0
         return super(AccountTax, self)._compute_amount(
             base_amount, price_unit, quantity, product, partner,

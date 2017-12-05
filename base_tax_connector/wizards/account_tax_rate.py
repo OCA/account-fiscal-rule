@@ -2,9 +2,14 @@
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
+import logging
+
 from collections import OrderedDict
 
 from odoo import api, models, fields
+
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountTaxRate(models.TransientModel):
@@ -146,8 +151,9 @@ class AccountTaxRate(models.TransientModel):
             return True
 
         interface = self.env[self.interface_name]
+        reference = self.env.context.get('reference', self.reference)
         rate_lines = self._split_taxes_in_lines(
-            interface.get_rate_lines(self.reference),
+            interface.get_rate_lines(reference),
         )
 
         for idx, rate_line in enumerate(self.line_ids):
@@ -194,15 +200,17 @@ class AccountTaxRate(models.TransientModel):
             'partner_id': partner.id,
             'company_id': company.id,
             'price_total': interface.get_untaxed_amount(reference),
-            'reference': '%s,%d' % (reference._name, reference.id),
             'line_ids': rate_lines,
             'rate_date': fields.Date.today(),
             'interface_name': interface_name,
+            'reference': reference,
         }
 
     @api.model
-    def get(self, interface_name, reference):
+    def get(self, interface_name, reference, origin=None):
         """Get or create a new rate record, and update it if needed.
+
+        @TODO: This method needs to be refactored into logical chunks.
 
         Args:
             interface_name (str): Name of the tax rate interface model
@@ -217,23 +225,38 @@ class AccountTaxRate(models.TransientModel):
         """
 
         interface = self.env[interface_name]
+        rate_values = self.get_rate_values(reference, interface_name)
+        base_domain = [('interface_name', '=', interface_name)]
 
         try:
-            rate = self.search([
+            domain_reference = [
                 ('reference', '=', '%s,%d' % (reference._name, reference.id)),
-                ('interface_name', '=', interface_name),
-            ],
-                limit=1,
-            )
+            ]
+            rate = self.search(base_domain + domain_reference, limit=1)
         except TypeError:
-            # ``reference.id`` is a ``NewId``.
-            # I have no idea how to support these, so return an empty rate.
-            return self.browse()
+            _logger.info('A NewId was encountered in rate cache lookup. '
+                         'These are not yet supported. ')
+            if not origin:
+                return self.browse()
+            else:
+                domain_reference = [
+                    ('reference', '=', '%s,%d' % (reference._name, origin.id)),
+                ]
+            rate = self.search(base_domain + domain_reference, limit=1)
 
-        if rate and not rate.is_dirty():
+        # If there was no rate found, try a less precise search.
+        # This covers onchange scenarios, in which all ``id``s are ``NewId``.
+        if not rate:
+            domain_sloppy = [
+                ('partner_id', '=', rate_values['partner_id']),
+                ('company_id', '=', rate_values['company_id']),
+            ]
+            rate = self.search(base_domain + domain_sloppy, limit=1)
+
+        if rate and not rate.with_context(reference=reference).is_dirty():
+            _logger.info('Rate is not dirty. Return it without mods')
             return rate
 
-        rate_values = self.get_rate_values(reference, interface_name)
         untaxed_amount = interface.get_untaxed_amount(reference)
 
         # Create one rate line item per tax.
@@ -241,20 +264,54 @@ class AccountTaxRate(models.TransientModel):
 
         # Get updated values from tax connectors
         orm_line_values = []
-        grouped_values =  self._group_rate_line_values(line_values)
+        grouped_values = self._group_rate_line_values(line_values)
         for tax_group, grouped_value in grouped_values.items():
-            orm_line_values += [
-                (0, 0, r) for r in tax_group.compute_cache_rate(
-                    untaxed_amount,
-                    grouped_value,
-                )
-            ]
+            cache_rates = tax_group.compute_cache_rate(
+                untaxed_amount, grouped_value,
+            )
+            for cache_rate in cache_rates:
+                # Convert references, handling ``NewId`` properly
+                try:
+                    cache_rate['reference'] = '%s,%d' % (
+                        cache_rate['reference']._name,
+                        cache_rate['reference'].id,
+                    )
+                except TypeError:
+                    # Just delete instead of setting False
+                    # This ensures that any existing ids are preserved
+                    del cache_rate['reference']
+                orm_line_values.append((0, 0, cache_rate))
 
         # Clear the other rates and create the new ones.
         rate_values['line_ids'] = [(5, 0, 0)] + orm_line_values
 
+        # Convert reference, handling ``NewId`` properly
+        try:
+            rate_values['reference'] = '%s,%d' % (
+                rate_values['reference']._name,
+                rate_values['reference'].id,
+            )
+        except TypeError:
+            # Just delete instead of setting False
+            # This ensures that any existing ids are preserved
+            if origin:
+                rate_values['reference'] = '%s,%d' % (
+                    origin._name,
+                    origin.id,
+                )
+            else:
+                del rate_values['reference']
+
+        _logger.info('Rate cache is %s', rate._cache.items())
+
         if rate:
-            rate.write(rate_values)
+            if self.env.in_onchange:
+                # Ghetto as f
+                for key, value in rate_values.items():
+                    setattr(rate, key, value)
+                rate = self.create(rate_values)
+            else:
+                rate.write(rate_values)
         else:
             rate = self.create(rate_values)
 
