@@ -151,9 +151,8 @@ class AccountTaxRate(models.TransientModel):
             return True
 
         interface = self.env[self.interface_name]
-        reference = self.env.context.get('reference', self.reference)
         rate_lines = self._split_taxes_in_lines(
-            interface.get_rate_lines(reference),
+            interface.get_rate_lines(self.reference),
         )
 
         for idx, rate_line in enumerate(self.line_ids):
@@ -225,7 +224,6 @@ class AccountTaxRate(models.TransientModel):
         """
 
         interface = self.env[interface_name]
-        rate_values = self.get_rate_values(reference, interface_name)
         base_domain = [('interface_name', '=', interface_name)]
 
         try:
@@ -234,15 +232,17 @@ class AccountTaxRate(models.TransientModel):
             ]
             rate = self.search(base_domain + domain_reference, limit=1)
         except TypeError:
-            _logger.info('A NewId was encountered in rate cache lookup. '
-                         'These are not yet supported. ')
             if not origin:
+                _logger.info('A NewId was encountered in rate cache lookup. '
+                             'These are not supported without an origin. ')
                 return self.browse()
             else:
                 domain_reference = [
                     ('reference', '=', '%s,%d' % (reference._name, origin.id)),
                 ]
             rate = self.search(base_domain + domain_reference, limit=1)
+
+        rate_values = self.get_rate_values(reference, interface_name)
 
         # If there was no rate found, try a less precise search.
         # This covers onchange scenarios, in which all ``id``s are ``NewId``.
@@ -253,7 +253,7 @@ class AccountTaxRate(models.TransientModel):
             ]
             rate = self.search(base_domain + domain_sloppy, limit=1)
 
-        if rate and not rate.with_context(reference=reference).is_dirty():
+        if rate and not origin and not rate.is_dirty():
             _logger.info('Rate is not dirty. Return it without mods')
             return rate
 
@@ -292,27 +292,16 @@ class AccountTaxRate(models.TransientModel):
                 rate_values['reference'].id,
             )
         except TypeError:
-            # Just delete instead of setting False
-            # This ensures that any existing ids are preserved
-            if origin:
-                rate_values['reference'] = '%s,%d' % (
-                    origin._name,
-                    origin.id,
-                )
-            else:
-                del rate_values['reference']
+            # Set reference to the origin instead.
+            rate_values['reference'] = '%s,%d' % (
+                origin._name,
+                origin.id,
+            )
 
-        _logger.info('Rate cache is %s', rate._cache.items())
-
-        if rate:
-            if self.env.in_onchange:
-                # Ghetto as f
-                for key, value in rate_values.items():
-                    setattr(rate, key, value)
-                rate = self.create(rate_values)
-            else:
-                rate.write(rate_values)
+        if not self.env.in_onchange and rate:
+            rate.write(rate_values)
         else:
+            # If in an onchange, for some reason ``create`` works.
             rate = self.create(rate_values)
 
         return rate

@@ -33,7 +33,7 @@ class AccountInvoiceTaxRate(models.AbstractModel):
             'discount': invoice_line.discount,
             'quantity': invoice_line.quantity,
             'is_shipping_charge': is_shipping_charge,
-            'price_tax': 0.0, # @TODO: invoice_line.price_tax,
+            'price_tax': 0.0,  # @TODO: invoice_line.price_tax,
             'tax_ids': invoice_line.invoice_line_tax_ids.ids,
             'reference': invoice_line,
         }

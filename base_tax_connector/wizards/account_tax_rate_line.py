@@ -117,11 +117,14 @@ class AccountTaxRateLine(models.TransientModel):
     @api.model
     def get(self, tax, base_amount, price_unit, quantity, product, partner):
         domain = [
-            ('rate_id.price_base', '=', base_amount),
             ('price_unit', '=', price_unit),
             ('quantity', '=', quantity),
             ('product_id', '=', product.id),
             ('partner_id', '=', partner.id),
             ('tax_id', '=', tax.id),
         ]
+        # Sometime the base amount hasn't been calculated yet.
+        # It should not apply if zero.
+        if base_amount != 0.0:
+            domain.append(('rate_id.price_base', '=', base_amount))
         return self.search(domain, limit=1)
