@@ -24,19 +24,71 @@ class AccountTaxTransaction(models.Model):
         compute='_compute_invoice_line_ids',
         store=True,
     )
+    partner_id = fields.Many2one(
+        string='Partner',
+        compute='_compute_partner_id',
+        store=True,
+    )
+    company_id = fields.Many2one(
+        string='Partner',
+        compute='_compute_company_id',
+        store=True,
+    )
 
     @api.multi
     @api.depends('line_ids.amount')
     def _compute_amount(self):
         for record in self:
-            record.amount = sum(record.line_ids.mapped('amount'))
+            record.amount = sum([l.amount for l in record.line_ids])
 
     @api.multi
     @api.depends('line_ids.invoice_line_ids')
     def _compute_invoice_line_ids(self):
         for record in self:
-            lines = self.line_ids.mapped('invoice_line_ids')
-            record.invoice_line_ids = [(6, 0, set(lines.ids))]
+            lines = self.mapped('line_ids.invoice_line_ids')
+            record.invoice_line_ids = [(6, 0, lines.ids)]
+
+    @api.multi
+    @api.depends('line_ids.partner_id')
+    def _compute_partner_id(self):
+        for record in self:
+            record.partner_id = self.line_ids[:1].partner_id.id
+
+    @api.multi
+    @api.depends('line_ids.company_id')
+    def _compute_company_id(self):
+        for record in self:
+            record.company_id = self.line_ids[:1].company_id.id
+
+    @api.multi
+    @api.constrains('line_ids.type_transaction')
+    def _check_line_ids_type_transaction(self):
+        for record in self:
+            if len(set(record.mapped('type_transaction'))) > 1:
+                raise ValidationError(_(
+                    'You cannot mix refund and purchase transaction lines '
+                    'in the same transaction.',
+                ))
+
+    @api.multi
+    @api.constrains('line_ids.partner_id')
+    def _check_line_ids_partner_id(self):
+        for record in self:
+            if len(set(record.mapped('partner_id'))) > 1:
+                raise ValidationError(_(
+                    'You cannot create a tax transaction including multiple '
+                    'partners.',
+                ))
+
+    @api.multi
+    @api.constrains('line_ids.company_id')
+    def _check_line_ids_company_id(self):
+        for record in self:
+            if len(set(record.mapped('company_id'))) > 1:
+                raise ValidationError(_(
+                    'You cannot create a tax transaction including multiple '
+                    'companies.',
+                ))
 
     @api.multi
     def write(self, vals):

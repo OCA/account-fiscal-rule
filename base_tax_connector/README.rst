@@ -22,6 +22,8 @@ Known Issues / Road Map
 * Transaction refund method is on ``account.tax.transaction``, but it should
   possibly be on ``account.tax.transaction.line`` instead. This was done to
   simplify the addition of new adapters, but may over-complicate things.
+* Add a registration system for connectors, with a more centralized method for
+  determining if the connector should be used.
 
 Bug Tracker
 ===========
