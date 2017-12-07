@@ -4,6 +4,8 @@
 
 import logging
 
+from collections import defaultdict
+
 from odoo import api, models, fields
 
 
@@ -43,3 +45,11 @@ class AccountTax(models.Model):
         return super(AccountTax, self)._compute_amount(
             base_amount, price_unit, quantity, product, partner,
         )
+
+    @api.multi
+    def _get_by_group(self):
+        """Return the taxes in a dictionary keyed by tax group."""
+        grouped = defaultdict(self.env['account.tax'].browse)
+        for tax in self:
+            grouped[tax.tax_group_id] += tax
+        return grouped

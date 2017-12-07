@@ -42,3 +42,47 @@ class AccountTaxGroup(models.Model):
         _logger.debug('Computing rate for %s with base amount %s. Lines:\n%s',
                       self, base_amount, rate_line_values)
         return rate_line_values
+
+    @api.multi
+    def do_tax_purchase(self, account_invoice_tax):
+        """Purchase a set of taxes.
+
+        This method should be inherited by connectors in order to purchase
+        taxes from an external source. A singleton is guaranteed.
+
+        Connector methods should call super and perform any actual
+        transactions. They can edit the transaction record that is returned
+        if necessary, but that probably won't be the case.
+        """
+        self.ensure_one()
+        _logger.debug('Purchasing tax for %s', account_invoice_tax)
+        return self.env['account.tax.transaction'].buy(account_invoice_tax)
+
+    @api.multi
+    def do_tax_refund(self, account_invoice_tax):
+        """Purchase a set of taxes.
+
+        This method should be inherited by connectors in order to refund
+        taxes from an external source. A singleton is guaranteed.
+
+        Connector methods should call super and perform any actual
+        transactions. They can edit the transaction record that is returned
+        if necessary, but that probably won't be the case.
+        """
+        self.ensure_one()
+        _logger.debug('Refunding tax for %s', account_invoice_tax)
+        return self.env['account.tax.transaction'].refund(account_invoice_tax)
+
+    @api.model
+    def invoice_tax_purchase(self, invoice):
+        """Perform a tax purchase for an invoice."""
+        grouped_taxes = invoice.tax_ids._get_by_group()
+        for group, taxes in grouped_taxes.items():
+            group.do_tax_purchase(taxes)
+
+    @api.model
+    def invoice_tax_refund(self, invoice):
+        """Perform a tax refund for an invoice."""
+        grouped_taxes = invoice.tax_ids._get_by_group()
+        for group, taxes in grouped_taxes.items():
+            group.do_tax_refund(taxes)

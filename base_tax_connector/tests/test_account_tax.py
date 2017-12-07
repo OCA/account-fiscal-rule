@@ -2,74 +2,12 @@
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
-from mock import MagicMock
-
 from odoo import fields
-from odoo.tests.common import TransactionCase
+
+from .common import TestCommon
 
 
-class StopTestException(Exception):
-    """Exception used for tests."""
-    pass
-
-
-class TestAccountTax(TransactionCase):
-
-    def _create_partner(self):
-        partner = self.env['res.partner'].create({
-            'name': 'City of Henderson',
-            'street': '240 S Water St.',
-            'zip': '89015',
-            'state_id': self.env.ref('base.state_us_23').id,
-        })
-        return partner
-
-    def _create_tax(self, scope='none'):
-        return self.env['account.tax'].create({
-            'name': 'Test Tax',
-            'type_tax_use': scope,
-            'amount_type': 'cache',
-            'amount': 0,
-        })
-
-    def _create_sale(self, taxable=False):
-        self.partner = self._create_partner()
-        self.tax = self._create_tax('sale')
-        self.product = self.env['product.product'].create({
-            'name': 'Test Product',
-            'taxes_id': [(6, 0, self.tax.ids)],
-        })
-        self.sale = self.env['sale.order'].create({
-            'partner_id': self.partner.id,
-            'order_line': [(0, 0, {
-                'product_id': self.product.id,
-                'product_uom_qty': 1,
-                'price_unit': 79.00,
-                'name': self.product.display_name,
-                'customer_lead': 0.00,
-            })]
-        })
-        if taxable:
-            self.env['account.fiscal.position'].create({
-                'name': 'Test',
-                'country_id': self.partner.state_id.country_id.id,
-                'state_ids': [(6, 0, self.partner.state_id.ids)],
-            })
-        return self.sale
-
-    def _get_rate(self, sale=None):
-        if sale is None:
-            sale = self._create_sale(True)
-        return self.env['account.tax.rate'].search([
-            ('reference', '=', '%s,%d' % (sale._name, sale.id)),
-        ],
-            limit=1,
-        )
-
-    def _stop_test_mock(self):
-        mk = MagicMock()
-        mk.side_effect = StopTestException
-        return mk
+class TestAccountTax(TestCommon):
 
     def test_compute_rate_date(self):
         """It should add the rate date."""
