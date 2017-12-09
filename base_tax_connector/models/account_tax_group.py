@@ -76,13 +76,21 @@ class AccountTaxGroup(models.Model):
     @api.model
     def invoice_tax_purchase(self, invoice):
         """Perform a tax purchase for an invoice."""
-        grouped_taxes = invoice.tax_ids._get_by_group()
+        taxes = invoice.mapped('invoice_line_ids.invoice_line_tax_ids')
+        grouped_taxes = taxes._get_by_group()
         for group, taxes in grouped_taxes.items():
-            group.do_tax_purchase(taxes)
+            invoice_taxes = invoice.tax_line_ids.filtered(
+                lambda r: r.tax_id in taxes
+            )
+            group.do_tax_purchase(invoice_taxes)
 
     @api.model
     def invoice_tax_refund(self, invoice):
         """Perform a tax refund for an invoice."""
-        grouped_taxes = invoice.tax_ids._get_by_group()
+        taxes = invoice.mapped('invoice_line_ids.invoice_line_tax_ids')
+        grouped_taxes = taxes._get_by_group()
         for group, taxes in grouped_taxes.items():
-            group.do_tax_refund(taxes)
+            invoice_taxes = invoice.tax_line_ids.filtered(
+                lambda r: r.tax_id in taxes
+            )
+            group.do_tax_refund(invoice_taxes)

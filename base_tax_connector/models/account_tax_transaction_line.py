@@ -60,12 +60,6 @@ class AccountTaxTransactionLine(models.Model):
             )
             record.invoice_line_ids = [(6, 0, lines.ids)]
 
-    @api.multi
-    def write(self, vals):
-        raise ValidationError(_(
-            'You cannot edit a tax transaction line.',
-        ))
-
     @api.model
     def get_values_buy(self, account_invoice_tax):
         """Return the values for the permanent storage of a rate purchase.

@@ -136,12 +136,6 @@ class AccountTaxTransaction(models.Model):
                     'dates.',
                 ))
 
-    @api.multi
-    def write(self, vals):
-        raise ValidationError(_(
-            'You cannot edit a tax transaction.',
-        ))
-
     @api.model
     def buy(self, account_invoice_tax):
         """Perform a rate purchase.

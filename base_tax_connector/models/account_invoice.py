@@ -2,7 +2,7 @@
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
-from odoo import api, fields, models
+from odoo import api, models
 
 
 class AccountInvoice(models.Model):
@@ -15,8 +15,8 @@ class AccountInvoice(models.Model):
         res = super(AccountInvoice, self).invoice_validate()
         for invoice in self:
             if 'refund' in invoice.type:
-                method = self.env['account.tax.transaction'].refund
+                method = self.env['account.tax.group'].invoice_tax_refund
             else:
-                method = self.env['account.tax.transaction'].buy
-            method(invoice.tax_line_ids)
+                method = self.env['account.tax.group'].invoice_tax_purchase
+            method(invoice)
         return res
