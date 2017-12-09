@@ -4,6 +4,7 @@
 from . import account_tax
 from . import account_tax_group
 from . import account_tax_transaction
+from . import account_tax_transaction_line
 
 # Line computation injections
 from . import account_invoice

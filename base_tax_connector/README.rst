@@ -24,6 +24,10 @@ Known Issues / Road Map
   simplify the addition of new adapters, but may over-complicate things.
 * Add a registration system for connectors, with a more centralized method for
   determining if the connector should be used.
+* Add a hook for the update of a tax transaction. TBD what would actually trigger
+  an update, because invoices can't be edited.
+* Need a way to handle tax differentiation at the invoice line item level, so
+  connectors can send individual lines instead of just whole orders.
 
 Bug Tracker
 ===========

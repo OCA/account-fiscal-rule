@@ -15,31 +15,60 @@ class AccountTaxTransaction(models.Model):
         comodel_name='account.tax.transaction.line',
         inverse_name='transaction_id',
     )
-    amount = fields.Float(
-        compute='_compute_amount',
+    amount_tax = fields.Float(
+        compute='_compute_amount_tax',
+        store=True,
+    )
+    amount_subtotal = fields.Float(
+        compute='_compute_amount_subtotal',
+        store=True,
+    )
+    amount_total = fields.Float(
+        compute='_compute_amount_total',
         store=True,
     )
     invoice_line_ids = fields.Many2many(
         string='Invoice Lines',
+        comodel_name='account.invoice.line',
         compute='_compute_invoice_line_ids',
         store=True,
     )
     partner_id = fields.Many2one(
         string='Partner',
+        comodel_name='res.partner',
         compute='_compute_partner_id',
         store=True,
     )
     company_id = fields.Many2one(
-        string='Partner',
+        string='Company',
+        comodel_name='res.company',
         compute='_compute_company_id',
+        store=True,
+    )
+    date = fields.Datetime(
+        compute='_compute_date',
         store=True,
     )
 
     @api.multi
     @api.depends('line_ids.amount')
-    def _compute_amount(self):
+    def _compute_amount_tax(self):
         for record in self:
-            record.amount = sum([l.amount for l in record.line_ids])
+            record.amount_tax = sum([l.amount for l in record.line_ids])
+
+    @api.multi
+    @api.depends('invoice_line_ids.price_subtotal')
+    def _compute_amount_subtotal(self):
+        for record in self:
+            record.amount_subtotal = sum([
+                l.price_subtotal for l in record.invoice_line_ids
+            ])
+
+    @api.multi
+    @api.depends('amount_subtotal', 'amount_tax')
+    def _compute_amount_subtotal(self):
+        for record in self:
+            record.amount_total = record.amount_subtotal + record.amount_tax
 
     @api.multi
     @api.depends('line_ids.invoice_line_ids')
@@ -49,16 +78,22 @@ class AccountTaxTransaction(models.Model):
             record.invoice_line_ids = [(6, 0, lines.ids)]
 
     @api.multi
-    @api.depends('line_ids.partner_id')
+    @api.depends('invoice_line_ids.partner_id')
     def _compute_partner_id(self):
         for record in self:
-            record.partner_id = self.line_ids[:1].partner_id.id
+            record.partner_id = self.invoice_line_ids[:1].partner_id.id
 
     @api.multi
-    @api.depends('line_ids.company_id')
+    @api.depends('invoice_line_ids.company_id')
     def _compute_company_id(self):
         for record in self:
-            record.company_id = self.line_ids[:1].company_id.id
+            record.company_id = self.invoice_line_ids[:1].company_id.id
+
+    @api.multi
+    @api.depends('invoice_line_ids.invoice_id.date')
+    def _compute_date(self):
+        for record in self:
+            record.date = record.invoice_line_ids[:1].invoice_id.date
 
     @api.multi
     @api.constrains('line_ids.type_transaction')
@@ -88,6 +123,17 @@ class AccountTaxTransaction(models.Model):
                 raise ValidationError(_(
                     'You cannot create a tax transaction including multiple '
                     'companies.',
+                ))
+
+    @api.multi
+    @api.constrains('invoice_line_ids.invoice_id.date')
+    def _check_invoice_line_ids(self):
+        for record in self:
+            dates = record.mapped('invoice_line_ids.invoice_id.date')
+            if len(set(dates)) > 1:
+                raise ValidationError(_(
+                    'You cannot create a tax transaction with multiple '
+                    'dates.',
                 ))
 
     @api.multi
