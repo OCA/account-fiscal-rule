@@ -2,8 +2,7 @@
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
-from odoo import api, models, fields, _
-from odoo.exceptions import ValidationError
+from odoo import api, models, fields
 
 
 class AccountTaxTransaction(models.Model):
@@ -11,7 +10,7 @@ class AccountTaxTransaction(models.Model):
     _name = 'account.tax.transaction'
 
     line_ids = fields.One2many(
-        string='Lines',
+        string='Transaction Lines',
         comodel_name='account.tax.transaction.line',
         inverse_name='transaction_id',
     )
@@ -45,7 +44,7 @@ class AccountTaxTransaction(models.Model):
         compute='_compute_company_id',
         store=True,
     )
-    date = fields.Datetime(
+    date = fields.Date(
         compute='_compute_date',
         store=True,
     )
@@ -81,13 +80,13 @@ class AccountTaxTransaction(models.Model):
     @api.depends('invoice_line_ids.partner_id')
     def _compute_partner_id(self):
         for record in self:
-            record.partner_id = self.invoice_line_ids[:1].partner_id.id
+            record.partner_id = self.invoice_line_ids[:1].invoice_id.partner_id.id
 
     @api.multi
-    @api.depends('invoice_line_ids.company_id')
+    @api.depends('invoice_line_ids.invoice_id.company_id')
     def _compute_company_id(self):
         for record in self:
-            record.company_id = self.invoice_line_ids[:1].company_id.id
+            record.company_id = self.invoice_line_ids[:1].invoice_id.company_id.id
 
     @api.multi
     @api.depends('invoice_line_ids.invoice_id.date')

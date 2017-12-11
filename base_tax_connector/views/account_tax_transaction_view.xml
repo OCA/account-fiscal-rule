@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 LasLabs Inc.
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record id="account_tax_transaction_view_form" model="ir.ui.view">
+        <field name="name">account.tax.transaction.view.form</field>
+        <field name="model">account.tax.transaction</field>
+        <field name="arch" type="xml">
+            <form string="Tax Transaction">
+
+                <sheet>
+
+                    <group name="group_meta">
+                        <group>
+                            <field name="date" />
+                            <field name="partner_id" />
+                            <field name="company_id" />
+                        </group>
+                        <group>
+                            <field name="amount_subtotal" />
+                            <field name="amount_tax" />
+                            <field name="amount_total" />
+                        </group>
+                    </group>
+                    <group name="group_details">
+                        <field name="line_ids" />
+                        <field name="invoice_line_ids" />
+                    </group>
+
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="account_tax_transaction_view_tree" model="ir.ui.view">
+        <field name="name">account.tax.transaction.view.tree</field>
+        <field name="model">account.tax.transaction</field>
+        <field name="arch" type="xml">
+            <tree string="Tax Transactions">
+                <field name="date" />
+                <field name="company_id" />
+                <field name="partner_id" />
+                <field name="amount_subtotal" />
+                <field name="amount_tax" />
+                <field name="amount_total" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_tax_transaction_action" model="ir.actions.act_window">
+        <field name="name">Tax Transactions</field>
+        <field name="res_model">account.tax.transaction</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="account_tax_transaction_menu"
+              parent="account.account_account_menu"
+              name="Tax Transactions"
+              sequence="50"
+              action="account_tax_transaction_action" />
+
+</odoo>

@@ -16,6 +16,7 @@
     "installable": True,
     "data": [
         'security/ir.model.access.csv',
+        'views/account_tax_transaction_view.xml',
     ],
     "depends": [
         "account",

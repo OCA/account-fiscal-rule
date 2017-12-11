@@ -83,13 +83,13 @@ class AccountTaxTransactionLine(models.Model):
 
         for record in self:
 
-            if record._check_values_equal('partner_id'):
+            if record._check_invoice_values_aligned('partner_id'):
                 raise ValidationError(base_error % 'partners')
 
-            if record._check_values_equal('company_id'):
+            if record._check_invoice_values_aligned('company_id'):
                 raise ValidationError(base_error % 'companies')
 
-            if record._check_values_equal('date'):
+            if record._check_invoice_values_aligned('date'):
                 raise ValidationError(base_error % 'dates')
 
     @api.model
@@ -129,7 +129,7 @@ class AccountTaxTransactionLine(models.Model):
             ))
 
         purchase = self.search([
-            ('invoice_id', '=', original_invoice.id),
+            ('invoice_line_ids', 'in', original_invoice.invoice_line_ids.ids),
             ('tax_id', '=', account_invoice_tax.tax_id.id),
             ('account_analytic_id', '=',
              account_invoice_tax.account_analytic_id.id),
@@ -159,10 +159,10 @@ class AccountTaxTransactionLine(models.Model):
     @api.multi
     def _check_invoice_values_aligned(self, attribute_name):
         self.ensure_one()
-        invoices_all = self.transaction_id.mapped(
-            'line_ids.invoice_line_ids.invoice_id',
+        invoices_all = self.transaction_id.line_ids.mapped(
+            'invoice_line_ids.invoice_id',
         )
-        check_value = getattr(self, attribute_name)
+        check_value = getattr(self.transaction_id, attribute_name)
         invoices_non_equal = invoices_all.filtered(
             lambda r: getattr(r, attribute_name) != check_value
         )

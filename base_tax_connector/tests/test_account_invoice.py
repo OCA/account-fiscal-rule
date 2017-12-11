@@ -7,21 +7,24 @@ from .common import TestCommon
 
 class TestAccountInvoice(TestCommon):
 
-    def test_invoice_validate_purchase(self):
+    def test_action_invoice_open_purchase(self):
         """Invoice validation should trigger a tax purchase."""
         invoice = self._create_invoice()
         self.assertFalse(self._get_transaction_for_invoice(invoice))
-        invoice.invoice_validate()
+        invoice.action_invoice_open()
         transaction = self._get_transaction_for_invoice(invoice)
         self.assertTrue(transaction)
-        self.assertFalse(transaction.parent_id)
+        self.assertFalse(transaction.mapped('line_ids.parent_id'))
+        return invoice
 
-    def test_invoice_validate_refund(self):
+    def test_action_invoice_open_refund(self):
         """Refund invoice validation should trigger a tax refund."""
-        purchase = self._create_invoice()
+        purchase = self.test_action_invoice_open_purchase()
         refund = purchase.refund()
         self.assertFalse(self._get_transaction_for_invoice(refund))
-        refund.invoice_validate()
+        refund.action_invoice_open()
         transaction = self._get_transaction_for_invoice(refund)
         self.assertTrue(transaction)
-        self.assertEqual(transaction.parent_id, purchase)
+        self.assertEqual(transaction.mapped('line_ids.parent_id'),
+                         self._get_transaction_for_invoice(purchase).line_ids,
+                         )
