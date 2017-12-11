@@ -4,3 +4,5 @@
 
 from . import test_account_invoice
 from . import test_account_tax
+from . import test_account_tax_rate
+from . import test_account_tax_transaction_line

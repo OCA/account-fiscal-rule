@@ -113,7 +113,7 @@ class TestCommon(TransactionCase):
             sale.action_confirm()
         return sale
 
-    def _create_invoice(self, tax=None):
+    def _create_invoice(self, tax=None, confirm=False):
         if tax is None:
             tax = self._create_tax()
         partner = self._create_partner()
@@ -137,11 +137,20 @@ class TestCommon(TransactionCase):
                 'invoice_line_tax_ids': [(6, 0, tax.ids)],
             })]
         })
+        if confirm:
+            invoice.action_invoice_open()
         return invoice
+
+    def _create_refund(self, tax=None):
+        if tax is None:
+            tax = self._create_tax()
+        purchase = self._create_invoice(tax)
+        purchase.action_invoice_open()
+        return purchase, purchase.refund()
 
     def _get_rate(self, reference=None):
         if reference is None:
-            reference = self._create_sale(True)
+            reference = self._create_sale()
         return self.env['account.tax.rate'].search([
             ('reference', '=', '%s,%d' % (reference._name, reference.id)),
         ],

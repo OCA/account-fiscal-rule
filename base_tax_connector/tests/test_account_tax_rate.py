@@ -45,7 +45,7 @@ class TestAccountTaxRate(TestCommon):
 
     def test_get_rate_values(self):
         """It should return a dictionary."""
-        sale = self._create_sale(True)
+        sale = self._create_sale()
         self.assertIsInstance(
             self.env['account.tax.rate'].get_rate_values(sale),
             dict,
@@ -54,7 +54,6 @@ class TestAccountTaxRate(TestCommon):
     def test_get_creates(self):
         """It should return a new rate if non-existent."""
         sale = self.env['sale.order'].search([], limit=1)
-        self.assertFalse(self.env['account.tax.rate'].search([]))
         self.assertTrue(
             self.env['account.tax.rate'].get('sale.order.tax.rate', sale),
         )

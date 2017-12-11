@@ -60,15 +60,14 @@ class AccountTaxTransactionLine(models.Model):
             )
             record.invoice_line_ids = [(6, 0, lines.ids)]
 
-
     @api.multi
     @api.constrains('type_transaction')
-    def _check_line_ids_type_transaction(self):
+    def _check_type_transaction(self):
         for record in self:
             tx_types = record.transaction_id.mapped(
                 'line_ids.type_transaction',
             )
-            if len(tx_types) > 1:
+            if len(set(tx_types)) > 1:
                 raise ValidationError(_(
                     'You cannot mix refund and purchase transaction lines '
                     'in the same transaction.',
@@ -77,20 +76,16 @@ class AccountTaxTransactionLine(models.Model):
     @api.multi
     @api.constrains('invoice_line_ids')
     def _check_line_line_ids(self):
-
-        base_error = _('You cannot create a tax transaction with invoices '
-                       'that contain different %s.')
-
         for record in self:
-
-            if record._check_invoice_values_aligned('partner_id'):
-                raise ValidationError(base_error % 'partners')
-
-            if record._check_invoice_values_aligned('company_id'):
-                raise ValidationError(base_error % 'companies')
-
-            if record._check_invoice_values_aligned('date'):
-                raise ValidationError(base_error % 'dates')
+            invoices = record.mapped(
+                'transaction_id.invoice_line_ids.invoice_id',
+            )
+            if len(invoices) > 1:
+                raise ValidationError(_(
+                    'A tax transaction cannot represent multiple invoices at '
+                    'one time. Each invoice should receive its own '
+                    'transactions.'
+                ))
 
     @api.model
     def get_values_buy(self, account_invoice_tax):
@@ -155,15 +150,3 @@ class AccountTaxTransactionLine(models.Model):
         return invoice.invoice_line_ids.filtered(
             lambda r: tax in r.invoice_line_tax_ids,
         )
-
-    @api.multi
-    def _check_invoice_values_aligned(self, attribute_name):
-        self.ensure_one()
-        invoices_all = self.transaction_id.line_ids.mapped(
-            'invoice_line_ids.invoice_id',
-        )
-        check_value = getattr(self.transaction_id, attribute_name)
-        invoices_non_equal = invoices_all.filtered(
-            lambda r: getattr(r, attribute_name) != check_value
-        )
-        return bool(invoices_non_equal)
