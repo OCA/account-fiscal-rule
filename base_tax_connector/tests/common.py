@@ -30,12 +30,20 @@ class TestCommon(TransactionCase):
             })
         return partner
 
-    def _create_tax(self, scope='none'):
+    def _create_tax(self, scope='none', tax_group=None):
+        if not tax_group:
+            tax_group = self._create_tax_group()
         return self.env['account.tax'].create({
             'name': 'Test Tax',
             'type_tax_use': scope,
             'amount_type': 'cache',
             'amount': 0,
+            'tax_group_id': tax_group.id,
+        })
+
+    def _create_tax_group(self, name='Test Group'):
+        return self.env['account.tax.group'].create({
+            'name': name,
         })
 
     def _create_product(self, tax=None):

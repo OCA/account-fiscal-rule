@@ -66,7 +66,7 @@ class AccountTaxTransaction(models.Model):
 
     @api.multi
     @api.depends('amount_subtotal', 'amount_tax')
-    def _compute_amount_subtotal(self):
+    def _compute_amount_total(self):
         for record in self:
             record.amount_total = record.amount_subtotal + record.amount_tax
 
@@ -94,47 +94,6 @@ class AccountTaxTransaction(models.Model):
     def _compute_date(self):
         for record in self:
             record.date = record.invoice_line_ids[:1].invoice_id.date
-
-    @api.multi
-    @api.constrains('line_ids.type_transaction')
-    def _check_line_ids_type_transaction(self):
-        for record in self:
-            if len(set(record.mapped('type_transaction'))) > 1:
-                raise ValidationError(_(
-                    'You cannot mix refund and purchase transaction lines '
-                    'in the same transaction.',
-                ))
-
-    @api.multi
-    @api.constrains('line_ids.partner_id')
-    def _check_line_ids_partner_id(self):
-        for record in self:
-            if len(set(record.mapped('partner_id'))) > 1:
-                raise ValidationError(_(
-                    'You cannot create a tax transaction including multiple '
-                    'partners.',
-                ))
-
-    @api.multi
-    @api.constrains('line_ids.company_id')
-    def _check_line_ids_company_id(self):
-        for record in self:
-            if len(set(record.mapped('company_id'))) > 1:
-                raise ValidationError(_(
-                    'You cannot create a tax transaction including multiple '
-                    'companies.',
-                ))
-
-    @api.multi
-    @api.constrains('invoice_line_ids.invoice_id.date')
-    def _check_invoice_line_ids(self):
-        for record in self:
-            dates = record.mapped('invoice_line_ids.invoice_id.date')
-            if len(set(dates)) > 1:
-                raise ValidationError(_(
-                    'You cannot create a tax transaction with multiple '
-                    'dates.',
-                ))
 
     @api.model
     def buy(self, account_invoice_tax):

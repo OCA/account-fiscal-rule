@@ -1,4 +1,4 @@
-|License AGPL-3| | |Build Status| | |Test Coverage|
+|License LGPL-3| | |Build Status| | |Test Coverage|
 
 ==================
 Tax Connector Base
@@ -61,6 +61,6 @@ This module is maintained by LasLabs Inc.
    :target: https://travis-ci.org/LasLabs/odoo-connector-taxjar
 .. |Test Coverage| image:: https://img.shields.io/codecov/c/github/LasLabs/odoo-connector-taxjar/master.svg
    :target: https://codecov.io/gh/LasLabs/odoo-connector-taxjar
-.. |License AGPL-3| image:: https://img.shields.io/badge/license-AGPL--3-blue.svg
-   :target: https://www.gnu.org/licenses/agpl
-   :alt: License: AGPL-3
+.. |License LGPL-3| image:: https://img.shields.io/badge/license-LGPL--3-blue.svg
+   :target: https://www.gnu.org/licenses/lgpl
+   :alt: License: LGPL-3

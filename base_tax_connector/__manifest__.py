@@ -11,9 +11,12 @@
     "category": "Connector",
     "website": "https://laslabs.com",
     "author": "LasLabs",
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "application": False,
     "installable": True,
+    "data": [
+        'security/ir.model.access.csv',
+    ],
     "depends": [
         "account",
         # @TODO: Figure out how to install below in a hook when testing.

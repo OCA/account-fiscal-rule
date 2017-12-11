@@ -4,7 +4,7 @@
 
 from odoo import fields
 
-from .common import TestCommon
+from .common import StopTestException, TestCommon
 
 
 class TestAccountTax(TestCommon):
@@ -98,3 +98,15 @@ class TestAccountTax(TestCommon):
         finally:
             rate._revert_method('write')
         self.assertTrue(passed)
+
+    def test_get_by_group(self):
+        """It should return the taxes by group."""
+        group_1 = self._create_tax_group('Group1')
+        group_1_taxes = sum((self._create_tax(tax_group=group_1),
+                             self._create_tax(tax_group=group_1),
+                             ))
+        group_2 = self._create_tax_group('Group2')
+        group_2_taxes = sum((self._create_tax(tax_group=group_2),
+                             self._create_tax(tax_group=group_2),
+                             ))
+

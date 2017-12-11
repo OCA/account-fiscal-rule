@@ -1,0 +1,9 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+access_account_tax_transaction_invoice,account.invoice,model_account_tax_transaction,account.group_account_invoice,1,1,1,1
+access_account_tax_transaction_group_invoice,account.invoice group invoice,model_account_tax_transaction,account.group_account_invoice,1,1,1,1
+access_account_tax_transaction_user,account.invoice user,model_account_tax_transaction,base.group_user,1,0,0,0
+access_account_tax_transaction_accountant,account.invoice accountant,model_account_tax_transaction,account.group_account_user,1,0,0,0
+access_account_tax_transaction_line_invoice,account.invoice,model_account_tax_transaction_line,account.group_account_invoice,1,1,1,1
+access_account_tax_transaction_line_group_invoice,account.invoice group invoice,model_account_tax_transaction_line,account.group_account_invoice,1,1,1,1
+access_account_tax_transaction_line_user,account.invoice user,model_account_tax_transaction_line,base.group_user,1,0,0,0
+access_account_tax_transaction_line_accountant,account.invoice accountant,model_account_tax_transaction_line,account.group_account_user,1,0,0,0
