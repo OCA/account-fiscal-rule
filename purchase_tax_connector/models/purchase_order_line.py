@@ -5,15 +5,14 @@
 from odoo import api, models
 
 
-class SaleOrderLine(models.Model):
+class PurchaseOrderLine(models.Model):
 
-    _inherit = 'sale.order.line'
+    _inherit = 'purchase.order.line'
 
     @api.multi
-    @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
     def _compute_amount(self):
         for order in self.mapped('order_id'):
             self.env['account.tax.rate'].get(
-                'sale.order.tax.rate', order,
+                'purchase.order.tax.rate', order,
             )
-        return super(SaleOrderLine, self)._compute_amount()
+        return super(PurchaseOrderLine, self)._compute_amount()

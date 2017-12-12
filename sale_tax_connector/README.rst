@@ -1,33 +1,13 @@
 |License LGPL-3| | |Build Status| | |Test Coverage|
 
 ==================
-Tax Connector Base
+Sale Tax Connector
 ==================
 
+This module provides an adapter allowing for tax connectors for ``sale.order``.
 
-Installation
-============
-
-
-Configuration
-=============
-
-
-Known Issues / Road Map
-=======================
-
-* In order for rates to work, the reference record must actually be saved.
-  This is because the reference fields require explicit ``(model_name,id)``
-  formatting, but with an unsaved record the ID is ``NewId``.
-* Transaction refund method is on ``account.tax.transaction``, but it should
-  possibly be on ``account.tax.transaction.line`` instead. This was done to
-  simplify the addition of new adapters, but may over-complicate things.
-* Add a registration system for connectors, with a more centralized method for
-  determining if the connector should be used.
-* Add a hook for the update of a tax transaction. TBD what would actually trigger
-  an update, because invoices can't be edited.
-* Need a way to handle tax differentiation at the invoice line item level, so
-  connectors can send individual lines instead of just whole orders.
+This is a technical module, and provides no function on its on. See a description
+of usage in ``base_tax_connector``.
 
 Bug Tracker
 ===========
