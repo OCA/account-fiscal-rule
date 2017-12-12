@@ -67,6 +67,5 @@ class TestAccountTaxTransactionLine(TestCommon):
         transaction.unlink()
         with self.assertRaises(ValidationError):
             self.env['account.tax.transaction.line'].get_values_refund(
-                refund.tax_line_ids,
+                invoice.tax_line_ids,
             )
-

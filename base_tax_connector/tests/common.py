@@ -149,7 +149,7 @@ class TestCommon(TransactionCase):
 
     def _get_rate(self, reference=None):
         if reference is None:
-            reference = self._create_sale()
+            reference = self._create_invoice()
         return self.env['account.tax.rate'].search([
             ('reference', '=', '%s,%d' % (reference._name, reference.id)),
         ],
