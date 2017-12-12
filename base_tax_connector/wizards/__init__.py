@@ -6,4 +6,3 @@ from . import account_tax_rate_line
 
 # Adapters
 from . import account_invoice_tax_rate
-from . import sale_order_tax_rate

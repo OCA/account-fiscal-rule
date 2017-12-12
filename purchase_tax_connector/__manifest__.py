@@ -4,9 +4,8 @@
 
 # pylint: disable=C8101
 {
-    "name": "Tax Connector Base",
-    "summary": "Provides centralized logic for connection with external tax"
-               "connectors and subsequent caching of results.",
+    "name": "Purchase Tax Connector",
+    "summary": "Tax connector adapter for purchasing.",
     "version": "10.0.1.0.0",
     "category": "Connector",
     "website": "https://laslabs.com",
@@ -14,11 +13,9 @@
     "license": "LGPL-3",
     "application": False,
     "installable": True,
-    "data": [
-        'security/ir.model.access.csv',
-        'views/account_tax_transaction_view.xml',
-    ],
+    "auto_install": True,
     "depends": [
-        "account",
+        "base_tax_connector",
+        "purchase",
     ],
 }

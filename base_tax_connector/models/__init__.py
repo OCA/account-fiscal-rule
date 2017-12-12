@@ -9,4 +9,3 @@ from . import account_tax_transaction_line
 # Line computation injections
 from . import account_invoice
 from . import account_invoice_line
-from . import sale_order_line

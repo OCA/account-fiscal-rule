@@ -49,3 +49,24 @@ class TestAccountTaxTransactionLine(TestCommon):
     def test_compute_invoice_line_ids(self):
         self.assertEqual(self.transaction.invoice_line_ids,
                          self.invoice.invoice_line_ids)
+
+    def test_get_values_refund_on_purchase(self):
+        """It should not allow a refund for a purchase transaction."""
+        invoice = self._create_invoice(confirm=True)
+        with self.assertRaises(ValidationError):
+            self.env['account.tax.transaction.line'].get_values_refund(
+                invoice.tax_line_ids,
+            )
+
+    def test_get_values_refund_no_purchase(self):
+        """It should not allow a refund with no associated purchase."""
+        invoice = self._create_invoice(confirm=True)
+        refund = invoice.refund()
+        refund.action_invoice_open()
+        transaction = self._get_transaction_for_invoice(invoice)
+        transaction.unlink()
+        with self.assertRaises(ValidationError):
+            self.env['account.tax.transaction.line'].get_values_refund(
+                refund.tax_line_ids,
+            )
+

@@ -14,11 +14,9 @@
     "license": "LGPL-3",
     "application": False,
     "installable": True,
-    "data": [
-        'security/ir.model.access.csv',
-        'views/account_tax_transaction_view.xml',
-    ],
+    "auto_install": True,
     "depends": [
-        "account",
+        "base_tax_connector",
+        "sale",
     ],
 }
