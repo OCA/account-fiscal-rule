@@ -163,18 +163,19 @@ class AccountTaxRate(models.TransientModel):
     def get_rate_values(self, reference, interface_name=None):
         """Inherit this method to modify rates before they are written.
 
-        I'm not actually sure why you would do this, but hey, you can.
+        I'm not actually sure why you would do this, but you can.
 
-        Connectors should be implemented in ``account.tax.compute_cache_rate``
-        instead.
+        Connectors should be implemented in
+        ``account.tax.group.compute_cache_rate`` instead.
 
         Args:
             reference (BaseModel): A record singleton representing the record
                 that this tax represents.
-            interface_name (str, optional): Name of the tax rate interface model
-                to use. For example, if processing a Sale Order, this would be
-                ``sale.order.tax.rate``. If omitted, ``.tax.rate`` will be
-                appended to the ``_name`` attribute of the ``reference`` & used.
+            interface_name (str, optional): Name of the tax rate interface
+                model to use. For example, if processing a Sale Order, this
+                would be ``sale.order.tax.rate``. If omitted, ``.tax.rate``
+                will be appended to the ``_name`` attribute of the
+                ``reference`` & used.
 
         Returns:
             dict(dict): A dictionary of values to be passed into the write

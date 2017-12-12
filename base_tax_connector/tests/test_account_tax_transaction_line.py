@@ -9,6 +9,11 @@ from .common import TestCommon
 
 class TestAccountTaxTransactionLine(TestCommon):
 
+    def setUp(self):
+        super(TestAccountTaxTransactionLine, self).setUp()
+        self.invoice = self._create_invoice(confirm=True)
+        self.transaction = self._get_transaction_for_invoice(self.invoice)
+
     def _add_transaction_line(self, transaction, invoice_tax, line_vals=None):
         vals = invoice_tax.copy_data()[0]
         if line_vals is not None:
@@ -17,18 +22,30 @@ class TestAccountTaxTransactionLine(TestCommon):
 
     def test_check_invoice_line_ids(self):
         """It should not allow mixing of invoices."""
-        invoice = self._create_invoice(confirm=True)
         another_invoice = self._create_invoice()
-        transaction = self._get_transaction_for_invoice(invoice)
         with self.assertRaises(ValidationError):
             self._add_transaction_line(
-                transaction, another_invoice.tax_line_ids,
+                self.transaction, another_invoice.tax_line_ids,
             )
 
     def test_check_type_transaction(self):
         """It should not allow mixing of refunds and purchases."""
-        invoice = self._create_invoice(confirm=True)
-        transaction = self._get_transaction_for_invoice(invoice)
-        self._add_transaction_line(transaction, invoice.tax_line_ids)
+        self._add_transaction_line(self.transaction, self.invoice.tax_line_ids)
         with self.assertRaises(ValidationError):
-            transaction.line_ids[1].parent_id = transaction.line_ids[0].id
+            tx_lines = self.transaction.line_ids
+            tx_lines[1].parent_id = tx_lines[0].id
+
+    def test_compute_amount_tax(self):
+        self.assertEqual(self.transaction.amount_tax,
+                         self.invoice.tax_line_ids.amount)
+
+    def test_compute_amount_subtotal(self):
+        self.assertEqual(self.transaction.amount_subtotal,
+                         self.invoice.invoice_line_ids.price_subtotal)
+
+    def test_compute_invoice_id(self):
+        self.assertEqual(self.transaction.invoice_id, self.invoice)
+
+    def test_compute_invoice_line_ids(self):
+        self.assertEqual(self.transaction.invoice_line_ids,
+                         self.invoice.invoice_line_ids)

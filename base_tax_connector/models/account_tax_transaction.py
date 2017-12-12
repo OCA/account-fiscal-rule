@@ -26,6 +26,12 @@ class AccountTaxTransaction(models.Model):
         compute='_compute_amount_total',
         store=True,
     )
+    invoice_id = fields.Many2one(
+        string='Invoice',
+        comodel_name='account.invoice',
+        compute='_compute_invoice_id',
+        store=True,
+    )
     invoice_line_ids = fields.Many2many(
         string='Invoice Lines',
         comodel_name='account.invoice.line',
@@ -35,18 +41,15 @@ class AccountTaxTransaction(models.Model):
     partner_id = fields.Many2one(
         string='Partner',
         comodel_name='res.partner',
-        compute='_compute_partner_id',
-        store=True,
+        related='invoice_id.partner_id',
     )
     company_id = fields.Many2one(
         string='Company',
         comodel_name='res.company',
-        compute='_compute_company_id',
-        store=True,
+        related='invoice_id.company_id',
     )
     date = fields.Date(
-        compute='_compute_date',
-        store=True,
+        related='invoice_id.date',
     )
 
     @api.multi
@@ -70,29 +73,17 @@ class AccountTaxTransaction(models.Model):
             record.amount_total = record.amount_subtotal + record.amount_tax
 
     @api.multi
+    @api.depends('invoice_line_ids')
+    def _compute_invoice_id(self):
+        for record in self:
+            record.invoice_id = record.invoice_line_ids[0:].invoice_id.id
+
+    @api.multi
     @api.depends('line_ids.invoice_line_ids')
     def _compute_invoice_line_ids(self):
         for record in self:
             lines = self.mapped('line_ids.invoice_line_ids')
             record.invoice_line_ids = [(6, 0, lines.ids)]
-
-    @api.multi
-    @api.depends('invoice_line_ids.partner_id')
-    def _compute_partner_id(self):
-        for record in self:
-            record.partner_id = self.invoice_line_ids[:1].invoice_id.partner_id.id
-
-    @api.multi
-    @api.depends('invoice_line_ids.invoice_id.company_id')
-    def _compute_company_id(self):
-        for record in self:
-            record.company_id = self.invoice_line_ids[:1].invoice_id.company_id.id
-
-    @api.multi
-    @api.depends('invoice_line_ids.invoice_id.date')
-    def _compute_date(self):
-        for record in self:
-            record.date = record.invoice_line_ids[:1].invoice_id.date
 
     @api.model
     def buy(self, account_invoice_tax):

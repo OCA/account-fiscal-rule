@@ -4,7 +4,6 @@
 
 from mock import MagicMock
 
-from odoo import fields
 from odoo.tests.common import TransactionCase
 
 
