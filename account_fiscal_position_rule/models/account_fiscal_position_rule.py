@@ -15,42 +15,87 @@ class AccountFiscalPositionRule(models.Model):
     _name = 'account.fiscal.position.rule'
     _order = 'sequence'
 
-    name = fields.Char('Name', required=True)
-    description = fields.Char('Description')
-    from_country = fields.Many2one('res.country', 'Country From')
+    name = fields.Char(
+        string='Name',
+        required=True
+    )
+    description = fields.Char(
+        string='Description'
+    )
+    from_country = fields.Many2one(
+        comodel_name='res.country',
+        string='Country From'
+    )
     from_state = fields.Many2one(
-        'res.country.state', 'State From',
-        domain="[('country_id','=',from_country)]")
-    to_invoice_country = fields.Many2one('res.country', 'Invoice Country')
+        comodel_name='res.country.state',
+        string='State From',
+        domain="[('country_id','=',from_country)]"
+    )
+    to_invoice_country = fields.Many2one(
+        comodel_name='res.country',
+        string='Invoice Country'
+    )
     to_invoice_state = fields.Many2one(
-        'res.country.state', 'Invoice State',
-        domain="[('country_id','=',to_invoice_country)]")
-    to_shipping_country = fields.Many2one('res.country', 'Destination Country')
+        comodel_name='res.country.state',
+        string='Invoice State',
+        domain="[('country_id','=',to_invoice_country)]"
+    )
+    to_shipping_country = fields.Many2one(
+        comodel_name='res.country',
+        string='Destination Country'
+    )
     to_shipping_state = fields.Many2one(
-        'res.country.state', 'Destination State',
-        domain="[('country_id','=',to_shipping_country)]")
+        comodel_name='res.country.state',
+        string='Destination State',
+        domain="[('country_id','=',to_shipping_country)]"
+    )
     company_id = fields.Many2one(
-        'res.company', 'Company', required=True, index=True)
+        comodel_name='res.company',
+        sting='Company',
+        required=True,
+        index=True
+    )
     fiscal_position_id = fields.Many2one(
-        'account.fiscal.position', 'Fiscal Position', required=True,
-        domain="[('company_id','=',company_id)]", index=True)
-    use_sale = fields.Boolean('Use in sales order')
-    use_invoice = fields.Boolean('Use in Invoices')
-    use_purchase = fields.Boolean('Use in Purchases')
-    use_picking = fields.Boolean('Use in Picking')
+        comodel_name='account.fiscal.position',
+        string='Fiscal Position',
+        required=True,
+        domain="[('company_id','=',company_id)]",
+        index=True
+    )
+    use_sale = fields.Boolean(
+        string='Use in sales order'
+    )
+    use_invoice = fields.Boolean(
+        string='Use in Invoices'
+    )
+    use_purchase = fields.Boolean(
+        string='Use in Purchases'
+    )
+    use_picking = fields.Boolean(
+        string='Use in Picking'
+    )
     date_start = fields.Date(
-        'Start Date', help="Starting date for this rule to be valid.")
+        string='Start Date',
+        help="Starting date for this rule to be valid."
+    )
     date_end = fields.Date(
-        'End Date', help="Ending date for this rule to be valid.")
+        string='End Date',
+        help="Ending date for this rule to be valid."
+    )
     sequence = fields.Integer(
-        'Priority', required=True, default=10,
-        help='The lowest number will be applied.')
-    vat_rule = fields.Selection([
-        ('with', 'With VAT number'),
-        ('both', 'With or Without VAT number'),
-        ('without', 'Without VAT number')], "VAT Rule",
+        string='Priority',
+        required=True,
+        default=10,
+        help='The lowest number will be applied.'
+    )
+    vat_rule = fields.Selection(
+        selection=[('with', 'With VAT number'),
+                   ('both', 'With or Without VAT number'),
+                   ('without', 'Without VAT number')],
+        string="VAT Rule",
         help=('Choose if the customer need to have the'
-              ' field VAT fill for using this fiscal position'))
+              ' field VAT fill for using this fiscal position')
+    )
 
     @api.onchange('company_id')
     def onchange_company(self):
