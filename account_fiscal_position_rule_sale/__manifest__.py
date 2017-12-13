@@ -7,7 +7,7 @@
 
 {
     'name': 'Account Fiscal Position Rule Sale',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Generic Modules/Accounting',
     'author': "Akretion,Odoo Community Association (OCA)",
     'license': 'AGPL-3',
@@ -23,5 +23,5 @@
     'test': [
         'test/account_fiscal_position_rule_sale.yml',
     ],
-    'installable': False,
+    'installable': True,
 }
