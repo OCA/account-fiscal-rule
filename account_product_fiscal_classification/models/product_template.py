@@ -71,9 +71,9 @@ class ProductTemplate(models.Model):
                 # compatible
                 self.fiscal_classification_id = None
 
-    def fields_view_get(
-            self, cr, uid, view_id=None, view_type='form', context=None,
-            toolbar=False, submenu=False):
+    @api.model
+    def fields_view_get(self, view_id=None, view_type='form',
+                        toolbar=False, submenu=False):
         """Set 'fiscal_classification_id' as required by fields_view_get:
         We don't set it by fields declaration in python file, to avoid
         incompatibility with other modules that could have demo data
@@ -81,18 +81,17 @@ class ProductTemplate(models.Model):
         of the order in which the modules are loaded);
         We don't set it by view inheritance in xml file to impact all views
         (form / tree) that could define the model 'product.template';"""
-        res = super(ProductTemplate, self).fields_view_get(
-            cr, uid, view_id=view_id, view_type=view_type, context=context,
-            toolbar=toolbar, submenu=submenu)
+        result = super(ProductTemplate, self).fields_view_get(
+            view_id, view_type, toolbar, submenu)
         if view_type == 'form':
-            doc = etree.XML(res['arch'])
+            doc = etree.XML(result['arch'])
             nodes = doc.xpath("//field[@name='fiscal_classification_id']")
             if nodes:
                 nodes[0].set('required', '1')
                 setup_modifiers(
-                    nodes[0], res['fields']['fiscal_classification_id'])
-                res['arch'] = etree.tostring(doc)
-        return res
+                    nodes[0], result['fields']['fiscal_classification_id'])
+                result['arch'] = etree.tostring(doc)
+        return result
 
     # Custom Section
     @api.multi
