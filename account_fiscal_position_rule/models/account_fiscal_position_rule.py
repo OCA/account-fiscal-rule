@@ -195,40 +195,80 @@ class AccountFiscalPositionRuleTemplate(models.Model):
     _description = 'Account Fiscal Position Rule Template'
     _order = 'sequence'
 
-    name = fields.Char('Name', required=True)
-    description = fields.Char('Description')
-    from_country = fields.Many2one('res.country', 'Country Form')
+    name = fields.Char(
+        string='Name',
+        required=True
+    )
+    description = fields.Char(
+        string='Description'
+    )
+    from_country = fields.Many2one(
+        comodel_name='res.country',
+        string='Country Form'
+    )
     from_state = fields.Many2one(
-        'res.country.state', 'State From',
-        domain="[('country_id','=',from_country)]")
-    to_invoice_country = fields.Many2one('res.country', 'Country To')
+        comodel_name='res.country.state',
+        string='State From',
+        domain="[('country_id','=',from_country)]"
+    )
+    to_invoice_country = fields.Many2one(
+        comodel_name='res.country',
+        string='Country To'
+    )
     to_invoice_state = fields.Many2one(
-        'res.country.state', 'State To',
-        domain="[('country_id','=',to_invoice_country)]")
+        comodel_name='res.country.state',
+        string='State To',
+        domain="[('country_id','=',to_invoice_country)]"
+    )
     to_shipping_country = fields.Many2one(
-        'res.country', 'Destination Country')
+        comodel_name='res.country',
+        string='Destination Country'
+    )
     to_shipping_state = fields.Many2one(
-        'res.country.state', 'Destination State',
-        domain="[('country_id','=',to_shipping_country)]")
+        comodel_name='res.country.state',
+        string='Destination State',
+        domain="[('country_id','=',to_shipping_country)]"
+    )
     fiscal_position_id = fields.Many2one(
-        'account.fiscal.position.template', 'Fiscal Position', required=True)
-    use_sale = fields.Boolean('Use in sales order')
-    use_invoice = fields.Boolean('Use in Invoices')
-    use_purchase = fields.Boolean('Use in Purchases')
-    use_picking = fields.Boolean('Use in Picking')
+        comodel_name='account.fiscal.position.template',
+        string='Fiscal Position',
+        required=True
+    )
+    use_sale = fields.Boolean(
+        string='Use in sales order'
+    )
+    use_invoice = fields.Boolean(
+        string='Use in Invoices'
+    )
+    use_purchase = fields.Boolean(
+        string='Use in Purchases'
+    )
+    use_picking = fields.Boolean(
+        string='Use in Picking'
+    )
     date_start = fields.Date(
-        'Start Date', help="Starting date for this rule to be valid.")
+        string='Start Date',
+        help="Starting date for this rule to be valid."
+    )
     date_end = fields.Date(
-        'End Date', help="Ending date for this rule to be valid.")
+        string='End Date',
+        help="Ending date for this rule to be valid."
+    )
     sequence = fields.Integer(
-        'Priority', required=True, default=10,
-        help='The lowest number will be applied.')
-    vat_rule = fields.Selection([
-        ('with', 'With VAT number'),
-        ('both', 'With or Without VAT number'),
-        ('without', 'Without VAT number')], "VAT Rule", default='both',
+        string='Priority',
+        required=True,
+        default=10,
+        help='The lowest number will be applied.'
+    )
+    vat_rule = fields.Selection(
+        selection=[('with', 'With VAT number'),
+                   ('both', 'With or Without VAT number'),
+                   ('without', 'Without VAT number')],
+        string="VAT Rule",
+        default='both',
         help=('Choose if the customer need to have the'
-              ' field VAT fill for using this fiscal position'))
+              ' field VAT fill for using this fiscal position')
+    )
 
 
 class WizardAccountFiscalPositionRule(models.TransientModel):
