@@ -30,5 +30,4 @@
         - company_without_specific_classification
     groups_id:
         - base.group_user
-        - base.group_sale_manager
         - account.group_account_invoice
