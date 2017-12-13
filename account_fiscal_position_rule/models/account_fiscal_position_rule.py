@@ -276,31 +276,34 @@ class WizardAccountFiscalPositionRule(models.TransientModel):
     _description = 'Account Fiscal Position Rule Wizard'
 
     company_id = fields.Many2one(
-        'res.company', 'Company', required=True,
+        comodel_name='res.company',
+        string='Company',
+        required=True,
         default=lambda self: self.env['res.company']._company_default_get(
             'wizard.account.fiscal.position.rule'))
 
     @api.multi
     def _template_vals(self, template, company_id, fiscal_position_id):
-        return {'name': template.name,
-                'description': template.description,
-                'from_country': template.from_country.id,
-                'from_state': template.from_state.id,
-                'to_invoice_country': template.to_invoice_country.id,
-                'to_invoice_state': template.to_invoice_state.id,
-                'to_shipping_country': template.to_shipping_country.id,
-                'to_shipping_state': template.to_shipping_state.id,
-                'company_id': company_id,
-                'fiscal_position_id': fiscal_position_id,
-                'use_sale': template.use_sale,
-                'use_invoice': template.use_invoice,
-                'use_purchase': template.use_purchase,
-                'use_picking': template.use_picking,
-                'date_start': template.date_start,
-                'date_end': template.date_end,
-                'sequence': template.sequence,
-                'vat_rule': template.vat_rule,
-                }
+        return {
+            'name': template.name,
+            'description': template.description,
+            'from_country': template.from_country.id,
+            'from_state': template.from_state.id,
+            'to_invoice_country': template.to_invoice_country.id,
+            'to_invoice_state': template.to_invoice_state.id,
+            'to_shipping_country': template.to_shipping_country.id,
+            'to_shipping_state': template.to_shipping_state.id,
+            'company_id': company_id,
+            'fiscal_position_id': fiscal_position_id,
+            'use_sale': template.use_sale,
+            'use_invoice': template.use_invoice,
+            'use_purchase': template.use_purchase,
+            'use_picking': template.use_picking,
+            'date_start': template.date_start,
+            'date_end': template.date_end,
+            'sequence': template.sequence,
+            'vat_rule': template.vat_rule,
+        }
 
     @api.multi
     def action_create(self):
