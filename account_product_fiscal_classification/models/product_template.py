@@ -6,9 +6,9 @@
 
 from lxml import etree
 
-from openerp import models, fields, api, _
-from openerp.exceptions import ValidationError
-from openerp.osv.orm import setup_modifiers
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
+from odoo.osv.orm import setup_modifiers
 
 
 class ProductTemplate(models.Model):
