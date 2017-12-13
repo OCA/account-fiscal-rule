@@ -3,10 +3,11 @@
 # Copyright (C) 2016-Today La Louve (<http://www.lalouve.net/>)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
 {
     'name': 'Account Product - Fiscal Classification',
     'summary': 'Simplify taxes management for products',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Accounting',
     'author': 'Akretion,GRAP,La Louve,Odoo Community Association (OCA)',
     'website': 'https://odoo-community.org/',
@@ -37,5 +38,5 @@
     ],
     'post_init_hook':
         'create_fiscal_classification_from_product_template',
-    'installable': False,
+    'installable': True,
 }
