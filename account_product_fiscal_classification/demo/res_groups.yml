@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Account Product - Fiscal Classification module for Odoo
@@ -21,10 +21,6 @@
 ##############################################################################
 
 - !record {model: res.groups, id: base.group_no_one}:
-    users:
-        - base.user_root
-
-- !record {model: res.groups, id: base.group_sale_manager}:
     users:
         - base.user_root
 
