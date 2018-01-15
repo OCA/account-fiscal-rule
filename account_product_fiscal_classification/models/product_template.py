@@ -81,14 +81,16 @@ class ProductTemplate(models.Model):
         """If Fiscal Classification is defined, set the according taxes
         to the product(s); Otherwise, find the correct Fiscal classification,
         depending of the taxes, or create a new one, if no one are found."""
-        if vals.get('fiscal_classification_id', False):
+        fc_id = vals.get('fiscal_classification_id', False)
+        if fc_id:
             # update or replace 'taxes_id' and 'supplier_taxes_id'
-            classification = self.fiscal_classification_id
+            fc_obj = self.env['account.product.fiscal.classification']
+            fc = fc_obj.browse(classification_id)
             tax_vals = {
                 'supplier_taxes_id': [[6, 0, [
-                    x.id for x in classification.purchase_tax_ids]]],
+                    x.id for x in fc.purchase_tax_ids]]],
                 'taxes_id': [[6, 0, [
-                    x.id for x in classification.sale_tax_ids]]],
+                    x.id for x in fc.sale_tax_ids]]],
                 }
             super(ProductTemplate, self.sudo()).write(tax_vals)
         elif 'supplier_taxes_id' in vals.keys() or 'taxes_id' in vals.keys():
