@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
 
         <!-- Ping AvaTax Tax Service -->
@@ -9,13 +9,12 @@
             <field name="model">avalara.salestax.ping</field>
             <field name="arch" type="xml">
                 <form string="Test Connection">
-                    <group height="70" width="130">
+                    <group>
                         <field name="name" invisible="1"/>
-                        <label align="0.5" string="Test Connection Successful" colspan="4"/>
-                        <newline/>
+                        <label colspan="2" string="Connection test successful"/>
                     </group>
                     <footer>
-                        <button  icon="gtk-ok" special="cancel" string="_OK"/>
+                        <button special="cancel" class="btn-default" string="OK"/>
                     </footer>
                 </form>
             </field>
@@ -33,4 +32,4 @@
         </record>
 
     </data>
-</openerp>
+</odoo>

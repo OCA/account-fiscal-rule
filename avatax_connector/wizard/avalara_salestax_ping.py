@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from openerp import api, fields, models, _
-from openerp.addons.avatax_connector.models.avalara_api import AvaTaxService
+from odoo import api, fields, models
+from odoo.addons.avatax_connector.models.avalara_api import AvaTaxService
 #from avalara_salestax.avalara_api import AvaTaxService
 #from ../avalara_api import AvaTaxService
 '''
@@ -10,14 +10,14 @@ def load_src(name, fpath):
     return imp.load_source(name, os.path.join(os.path.dirname(__file__), fpath))
 
 aapi = load_src("aapi", "../avalara_api.py")
-from aapi import AvaTaxService 
+from aapi import AvaTaxService
     '''
 
 
 class AvalaraSalestaxPing(models.TransientModel):
     _name = 'avalara.salestax.ping'
     _description = 'Ping Service'
-    
+
     @api.model
     def default_get(self, fields):
         res = super(AvalaraSalestaxPing, self).default_get(fields)
@@ -42,5 +42,5 @@ class AvalaraSalestaxPing(models.TransientModel):
             result = avapoint.is_authorized()
             avatax_config.write({'date_expiration': result.Expires})
         return True
-    
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

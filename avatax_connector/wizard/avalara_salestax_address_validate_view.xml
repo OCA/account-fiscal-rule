@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
 
         <!-- Partner Address Validate -->
@@ -9,21 +9,18 @@
             <field name="model">avalara.salestax.address.validate</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Address Validation" version="7.0">
-                    <group colspan="4" col="8">
-                        <group colspan="2">
-                            <separator string="Original Address" colspan="4"/>
-                            <field name="original_street" width="220"/>
-                            <field name="original_street2" width="220"/>
-                            <field name="original_city" width="220"/>
-                            <field name="original_state" width="220"/>
-                            <field name="original_zip" width="220"/>
-                            <field name="original_country" width="220"/>
+                <form string="Address Validation">
+                    <group>
+                        <group string="Original Address">
+                            <field name="original_street"/>
+                            <field name="original_street2"/>
+                            <field name="original_city"/>
+                            <field name="original_state"/>
+                            <field name="original_zip"/>
+                            <field name="original_country"/>
                         </group>
-                        <separator orientation="vertical" rowspan="10"/>
-                        <group colspan="2">
-                            <separator string="Validated Address" colspan="2"/>
-                            <field name="street" width="220"/>
+                        <group string="Validated Address">
+                            <field name="street"/>
                             <field name="street2"/>
                             <field name="city"/>
                             <field name="state"/>
@@ -32,7 +29,7 @@
                         </group>
                     </group>
                     <footer>
-                        <button name="accept_valid_address" type="object" icon="gtk-ok" string="_Accept" class="oe_highlight"/>
+                        <button name="accept_valid_address" type="object" string="Accept" class="oe_highlight"/>
                         or
                         <button string="Cancel" class="oe_link" special="cancel"/>
                     </footer>
@@ -51,4 +48,4 @@
         </record>
 
     </data>
-</openerp>
+</odoo>

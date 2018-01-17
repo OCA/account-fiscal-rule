@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
 
     <!--
@@ -31,7 +31,7 @@
                                 <group colspan="2" col="6" string="Validation">
 		                   <field name="date_validation"/>
 		                   <field name="validation_method"/>
-		                   <button name="varify_address_validatation" string="_Validate" type="object" icon="terp-camera_test" colspan="2" context="{'from_validate_button': True}"/>
+		                   <button name="verify_address_validatation" string="Validate" type="object" icon="fa-cogs" colspan="2" context="{'from_validate_button': True}"/>
 		                </group>
 		                
 		          	<group col="4" colspan="4" string="TAX Exemption">
@@ -50,23 +50,23 @@
       </field>
     </record>
     
-   <record id="action_call_address_validation_method" model="ir.actions.server">
-            <field name="name">Address Validation</field>
-            <field name="model_id" ref="model_res_partner"/>
-            <field name="state">code</field>
-            <field name="code">action = obj.multi_address_validation()</field>
-            
-            <field name="date_validation"/>
-            <field name="validation_method"/>
-        </record>
+    <record id="action_call_address_validation_method" model="ir.actions.server">
+        <field name="name">Address Validation</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">action = obj.multi_address_validation()</field>
+        <!-- 
+        <field name="date_validation"/>
+        <field name="validation_method"/> -->
+    </record>
         
     <record id="action_call_address_validation" model="ir.values">
             <field name="name">Address Validation Call</field>
             <field name="key2">client_action_multi</field>
             <field name="model">res.partner</field>
             <field name="value" eval="'ir.actions.server,%d'%action_call_address_validation_method" />
-            <field name="object" eval="True" />
+            <!-- <field name="object" eval="True" /> -->
         </record>
 
     </data>
-</openerp>
+</odoo>

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data noupdate="1">
 		<record id="avalara_salestax_0" model="avalara.salestax">
 			<field name="company_code">Company Name</field>
@@ -30,4 +30,4 @@
 			<field eval="1" name="auto_generate_customer_code"/>
 		</record>
 	</data>
-</openerp>
+</odoo>

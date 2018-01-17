@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
 import time
-from openerp import api, fields, models, _
-from openerp.exceptions import UserError
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
 class AvalaraSalestaxAddressValidate(models.TransientModel):
     """Address Validation using Avalara API"""
     _name = 'avalara.salestax.address.validate'
     _description = 'Address Validation using AvaTax'
-    
+
     original_street = fields.Char('Street', readonly=True)
     original_street2 = fields.Char('Street2', readonly=True)
     original_city = fields.Char('City', readonly=True)
@@ -30,8 +30,8 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
     def view_init(self, fields):
         """ Checks for precondition before wizard executes. """
         address_obj = self.env['res.partner']
-        avatax_config_obj= self.env['avalara.salestax']
-        
+        avatax_config_obj = self.env['avalara.salestax']
+
         context = dict(self._context or {})
         active_id = context.get('active_id')
         active_model = context.get('active_model')
@@ -53,10 +53,10 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
     def default_get(self, fields):
         """  Returns the default values for the fields. """
         res = super(AvalaraSalestaxAddressValidate, self).default_get(fields)
-        
+
         context = dict(self._context or {})
         active_id = context.get('active_id')
-        
+
         if active_id:
             address_obj = self.env['res.partner']
             address_brw = address_obj.browse(active_id)
@@ -67,7 +67,7 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
                                 'validation_method': '',
                             })
 #            cr.commit()     #Need to forcefully commit data when address not validate after changes in validate address
-            
+
             address = address_brw.read(['street', 'street2', 'city', 'state_id', 'zip', 'country_id'])[0]
             address['state_id'] = address.get('state_id') and address['state_id'][0]
             address['country_id'] = address.get('country_id') and address['country_id'][0]
@@ -127,7 +127,5 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
             }
             address_brw.write(address_result)
         return {'type': 'ir.actions.act_window_close'}
-
-
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

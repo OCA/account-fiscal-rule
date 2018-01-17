@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<openerp>
+<odoo>
     <data>
 
         <!--Invoice Form -->
@@ -21,7 +21,7 @@
                 <xpath expr="//notebook/page[1]/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="before">
                     <field name="tax_amt" readonly="1" groups="avatax_connector.group_avatax_view"/>
                 </xpath>
-                
+
 <!--                <field name="invoice_line" position="after">
                     <h3>
                         <label style="color: #7c7bad;" for="shipping_lines"/>
@@ -41,7 +41,7 @@
                     <field name="amount_untaxed" string="Net Total"/>
                     <field name="shipping_amt"/>
                 </field>-->
-                
+
                 <xpath expr="/form/sheet/group/group[2]/field[@name='user_id']" position="after">
                     <field name="exemption_code" readonly="1"/>
                     <field name="exemption_code_id" readonly="1"/>
@@ -49,7 +49,7 @@
                     <field name="warehouse_id" options="{'no_create': True}" groups="stock.group_locations"/>
                     <field name="is_add_validate" readonly="1" invisible="1"/>
                 </xpath>
-                
+
 <!--                <field name="amount_total" position="after">
                     <div class="oe_subtotal_footer_separator oe_inline">
                                     <label for="amount_total" />
@@ -62,9 +62,9 @@
                                              string="Compute Taxes" class="oe_link oe_edit_only"
                                              type="object" help="Recompute taxes and total"/>
                 </button>                                         				 -->
-				 
+
                 <xpath expr="/form/sheet/group" position="after">
-                    <group colspan="4" col="4" string="Avalara Tax on...">
+                    <group string="Avalara Tax on...">
                         <group>
                             <field name="tax_add_default"/>
                             <field name="tax_add_invoice"/>
@@ -79,8 +79,7 @@
                 </xpath>
             </field>
         </record>
-        
-   		
+
         <!-- Inherit supplier invoice view to update -->
 <!--        <record id="invoice_supplier_form_inherit_1" model="ir.ui.view">
             <field name="name">account.invoice.supplier.form.inherit</field>
@@ -113,8 +112,7 @@
 				     
             </field>
         </record>-->
-        
-   		
+
         <record id="inherit_view_invoice_line_form" model="ir.ui.view">
             <field name="name">account.invoice.line.form.inherit</field>
             <field name="model">account.invoice.line</field>
@@ -140,6 +138,6 @@
                     <attribute name="readonly">0</attribute>
                 </field>
             </field>
-        </record>                   
+        </record>
     </data>
-</openerp>
+</odoo>

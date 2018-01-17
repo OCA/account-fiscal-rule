@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
 
         <!--
@@ -59,8 +59,7 @@
                 <xpath expr="//notebook" position="inside">
                     <page name="avatax" string="AvaTax">
                         <group name="avatax" string="AvaTax Properties">
-                            <field name="tax_apply"/>
-                            <field name="tax_code_id" attrs="{'invisible': [('tax_apply','=',False)],'required': [('tax_apply','=',True)]}" /> 
+                            <field name="tax_code_id"/>
                         </group>
                     </page>
                 </xpath>
@@ -88,7 +87,7 @@
             <field name="type">form</field>
             <field name="inherit_id" ref="product.product_category_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="/form/group[@name='first']" position="after">
+                <xpath expr="/form//group[@name='first']" position="after">
                     <group col="2" string="AvaTax Properties">
                         <field name="tax_code_id"/>
                     </group>
@@ -98,4 +97,4 @@
         </record>
 
     </data>
-</openerp>
+</odoo>
