@@ -78,20 +78,20 @@ msgstr ""
 #: field:account.fiscal.position.rule.template,create_uid:0
 #: field:wizard.account.fiscal.position.rule,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Creat per"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,create_date:0
 #: field:account.fiscal.position.rule.template,create_date:0
 #: field:wizard.account.fiscal.position.rule,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Creat a"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,description:0
 #: field:account.fiscal.position.rule.template,description:0
 msgid "Description"
-msgstr ""
+msgstr "Descripció"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -115,7 +115,7 @@ msgstr ""
 #: field:account.fiscal.position.rule,date_end:0
 #: field:account.fiscal.position.rule.template,date_end:0
 msgid "End Date"
-msgstr ""
+msgstr "Data final"
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,date_end:0
@@ -189,20 +189,20 @@ msgstr ""
 #: field:account.fiscal.position.rule.template,write_uid:0
 #: field:wizard.account.fiscal.position.rule,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Darrera actualització per"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,write_date:0
 #: field:account.fiscal.position.rule.template,write_date:0
 #: field:wizard.account.fiscal.position.rule,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Darrera actualització el"
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,name:0
 #: field:account.fiscal.position.rule.template,name:0
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -226,7 +226,7 @@ msgstr ""
 #: field:account.fiscal.position.rule,date_start:0
 #: field:account.fiscal.position.rule.template,date_start:0
 msgid "Start Date"
-msgstr ""
+msgstr "Data d'inici"
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,date_start:0

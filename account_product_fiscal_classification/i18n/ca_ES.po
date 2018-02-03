@@ -47,7 +47,7 @@ msgstr "Cancel·la"
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,code:0
 msgid "Code"
-msgstr ""
+msgstr "Codi"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,company_id:0
@@ -58,13 +58,13 @@ msgstr "Companyia"
 #: field:account.product.fiscal.classification,create_uid:0
 #: field:wizard.change.fiscal.classification,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Creat per"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,create_date:0
 #: field:wizard.change.fiscal.classification,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Creat a"
 
 #. module: account_product_fiscal_classification
 #: model:res.company,overdue_msg:account_product_fiscal_classification.company_without_specific_classification
@@ -122,7 +122,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,description:0
 msgid "Description"
-msgstr ""
+msgstr "Descripció"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
@@ -152,13 +152,13 @@ msgstr ""
 #: field:account.product.fiscal.classification,write_uid:0
 #: field:wizard.change.fiscal.classification,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Darrera actualització per"
 
 #. module: account_product_fiscal_classification
 #: field:account.product.fiscal.classification,write_date:0
 #: field:wizard.change.fiscal.classification,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Darrera actualització el"
 
 #. module: account_product_fiscal_classification
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
@@ -170,7 +170,7 @@ msgstr ""
 #: view:account.product.fiscal.classification:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 #: field:account.product.fiscal.classification,name:0
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: account_product_fiscal_classification
 #: field:wizard.change.fiscal.classification,new_fiscal_classification_id:0
