@@ -28,6 +28,7 @@ Contributors
 * Guewen Baconnier
 * Raphaël Valyi <rahael.valyi@akretion.com>
 * Magno Costa <magno.costa@akretion.com>
+* Hugo Santos <hugo.santos@factorlibre.com>
 
 Maintainer
 ----------
