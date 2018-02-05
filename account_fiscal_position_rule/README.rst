@@ -26,6 +26,7 @@ Contributors
 * Sébastien BEAU <sebastien.beau@akretion.com>
 * Renato Lima <renato.lima@akretion.com>
 * Guewen Baconnier
+* Hugo Santos <hugo.santos@factorlibre.com>
 
 Maintainer
 ----------
