@@ -13,11 +13,14 @@
     <field name="arch" type="xml">
       <xpath expr="//group[@name='account_property']" position="after">
         <group name="fiscal_property" string="Fiscal Settings" colspan="4" col="4">
-          <field name="fiscal_restriction"/>
-          <button name="apply_classification_to_childs" type="object"
-            string="Apply to Child Categories" icon="gtk-dnd-multiple" colspan="2"/>
-          <field name="fiscal_classification_ids" widget="many2many_tags" colspan="4"
-            attrs="{'invisible': [('fiscal_restriction', '=', False)]}"/>
+          <group name="classification" colspan="4">
+            <field name="fiscal_restriction"/>
+          <!-- <newline/> -->
+            <field name="fiscal_classification_ids" widget="many2many_tags"
+                   attrs="{'invisible': [('fiscal_restriction', '=', False)]}"/>
+            <button name="apply_classification_to_childs" type="object"
+            string="Apply to Child Categories" icon="fa-sitemap"/>
+          </group>
           <group name="forbidden" string="Products with Forbidden Classification" colspan="4" col="4"
             attrs="{'invisible': [('forbidden_classification_template_qty','=', 0)]}">
             <field name="forbidden_classification_template_qty" colspan="2"/>
@@ -39,7 +42,8 @@
     <field name="inherit_id" ref="product.product_category_list_view"/>
     <field name="arch" type="xml">
       <field name="display_name" position="after">
-        <field name="fiscal_classification_ids" widget="many2many_tags"/>
+        <field name="fiscal_classification_ids" widget="many2many_tags" 
+               string="Fiscal Classification" groups="account.group_account_invoice"/>
       </field>
     </field>
   </record>
