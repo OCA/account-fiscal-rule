@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-16 16:33+0000\n"
-"PO-Revision-Date: 2016-11-16 16:33+0000\n"
+"POT-Creation-Date: 2018-02-03 00:42+0000\n"
+"PO-Revision-Date: 2018-02-03 00:42+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
 "Language-Team: Spanish (Peru) (https://www.transifex.com/oca/teams/23907/es_PE/)\n"
 "MIME-Version: 1.0\n"
@@ -180,7 +180,7 @@ msgstr "ID"
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_form
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 msgid "Invoice"
-msgstr ""
+msgstr "Factura"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_to_invoice_country
