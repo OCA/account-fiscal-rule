@@ -6,11 +6,11 @@
 -->
 <odoo>
 
-  <record id="ir_rule_tax_group" model="ir.rule">
-    <field name="name">Fiscal Classification</field>
-    <field name="model_id" ref="model_account_product_fiscal_classification"/>
-    <field name="global" eval="True" />
-    <field name="domain_force">['|', ('company_id', '=', user.company_id.id), ('company_id', '=', False)]</field>
-  </record>
+    <record id="ir_rule_tax_group" model="ir.rule">
+        <field name="name">Fiscal Classification</field>
+        <field name="model_id" ref="model_account_product_fiscal_classification"/>
+        <field name="global" eval="True" />
+        <field name="domain_force">['|', ('company_id', '=', user.company_id.id), ('company_id', '=', False)]</field>
+    </record>
 
 </odoo>
