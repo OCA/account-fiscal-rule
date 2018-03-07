@@ -12,29 +12,26 @@ class ProductCategory(models.Model):
 
     # Field Section
     fiscal_restriction = fields.Boolean(
-        string="Restriction on Fiscal Classifications",
-        default=False,
+        string="Restriction on Fiscal Classifications", default=False,
         help="Check this box if you want to enable Restriction on Fiscal"
-        " Classifications."
-    )
+        " Classifications.")
+
     fiscal_classification_ids = fields.Many2many(
         comodel_name='account.product.fiscal.classification',
         relation='product_category_fiscal_classification_rel',
-        column1='product_category_id',
-        column2='fiscal_classification_id',
+        column1='product_category_id', column2='fiscal_classification_id',
         string='Allowed Fiscal Classifications',
         help="Specify Fiscal Classifications that will be allowed for products"
-        " that belong to this Product Category."
-    )
+        " that belong to this Product Category.")
+
     forbidden_classification_template_qty = fields.Integer(
         string='Quantity of Products with Forbidden Classification',
-        compute='_compute_forbidden_classification'
-    )
+        compute='_compute_forbidden_classification')
+
     forbidden_classification_template_ids = fields.Many2many(
         comodel_name='product.template',
         string='Products with Forbidden Classification',
-        compute='_compute_forbidden_classification'
-    )
+        compute='_compute_forbidden_classification')
 
     # Constraint Section
     @api.multi

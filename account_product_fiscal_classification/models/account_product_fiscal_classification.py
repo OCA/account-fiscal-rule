@@ -19,8 +19,7 @@ class AccountProductFiscalClassification(models.Model):
         return self.env['res.users']._get_company()
 
     company_id = fields.Many2one(
-        comodel_name='res.company',
-        default=_default_company_id,
+        comodel_name='res.company', default=_default_company_id,
         string='Company', help="Specify a company"
         " if you want to define this Fiscal Classification only for specific"
         " company. Otherwise, this Fiscal Classification will be available"

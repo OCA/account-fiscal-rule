@@ -15,15 +15,13 @@ class AccountProductFiscalClassificationModel(models.AbstractModel):
 
     # Field Section
     code = fields.Char()
+
     name = fields.Char(
-        size=_MAX_LENGTH_NAME,
-        required=True,
-        index=True,
-        translate=True
-    )
+        size=_MAX_LENGTH_NAME, required=True, index=True, translate=True)
+
     description = fields.Text()
+
     active = fields.Boolean(
         default=True,
         help="If unchecked, it will allow you to hide the Fiscal"
-        " Classification without removing it."
-    )
+        " Classification without removing it.")
