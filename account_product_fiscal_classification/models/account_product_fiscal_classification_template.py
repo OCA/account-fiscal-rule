@@ -16,18 +16,13 @@ class AccountProductFiscalClassificationTemplate(models.Model):
     purchase_tax_ids = fields.Many2many(
         comodel_name='account.tax.template',
         relation='fiscal_classification_template_purchase_tax_rel',
-        column1='fiscal_classification_id',
-        column2='tax_id',
-        string='Purchase Taxes',
-        oldname="purchase_base_tax_ids",
-        domain="[('type_tax_use', 'in', ['purchase', 'all'])]"
-    )
+        column1='fiscal_classification_id', column2='tax_id',
+        string='Purchase Taxes', oldname="purchase_base_tax_ids",
+        domain="[('type_tax_use', 'in', ['purchase', 'all'])]")
+
     sale_tax_ids = fields.Many2many(
         comodel_name='account.tax.template',
         relation='fiscal_classification_template_sale_tax_rel',
-        column1='fiscal_classification_id',
-        column2='tax_id',
-        string='Sale Taxes',
-        oldname="sale_base_tax_ids",
-        domain="[('type_tax_use', 'in', ['sale', 'all'])]"
-    )
+        column1='fiscal_classification_id', column2='tax_id',
+        string='Sale Taxes', oldname="sale_base_tax_ids",
+        domain="[('type_tax_use', 'in', ['sale', 'all'])]")
