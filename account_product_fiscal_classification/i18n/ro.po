@@ -3,14 +3,15 @@
 # * account_product_fiscal_classification
 # 
 # Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: account-fiscal-rule (9.0)\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-16 16:33+0000\n"
-"PO-Revision-Date: 2016-11-25 14:55+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Romanian (http://www.transifex.com/oca/OCA-account-fiscal-rule-9-0/language/ro/)\n"
+"POT-Creation-Date: 2018-03-09 01:39+0000\n"
+"PO-Revision-Date: 2018-03-09 01:39+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
+"Language-Team: Romanian (https://www.transifex.com/oca/teams/23907/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -90,7 +91,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_company_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_company_id
 msgid "Company"
-msgstr ""
+msgstr "Companie"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_account_product_fiscal_classification
@@ -103,7 +104,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_create_uid
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creat de"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_create_date
@@ -111,7 +112,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_create_date
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creat la"
 
 #. module: account_product_fiscal_classification
 #: model:res.company,overdue_msg:account_product_fiscal_classification.company_without_specific_classification
@@ -185,11 +186,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_display_name
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nume Afişat"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product_fiscal_classification_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template_fiscal_classification_id
+#: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_tree
 msgid "Fiscal Classification"
 msgstr ""
 
@@ -227,7 +230,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_active
@@ -245,7 +248,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification___last_update
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification___last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima actualizare în"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template_write_uid
@@ -253,7 +256,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_write_uid
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultima actualizare făcută de"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template_write_date
@@ -261,7 +264,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_account_product_fiscal_classification_write_date
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultima actualizare la"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_wizard_change_fiscal_classification
@@ -276,7 +279,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_template_form
 msgid "Name"
-msgstr ""
+msgstr "Nume"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification_new_fiscal_classification_id
@@ -374,6 +377,7 @@ msgid ""
 msgstr ""
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product_fiscal_classification_id
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_template_fiscal_classification_id
 msgid ""
 "Specify the combination of taxes for this product. This field is required. "
@@ -411,7 +415,7 @@ msgid ""
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:120
+#: code:addons/account_product_fiscal_classification/models/product_template.py:119
 #, python-format
 msgid "You cannot change Taxes for many Products."
 msgstr ""
