@@ -3,15 +3,15 @@
 # * account_fiscal_position_rule
 # 
 # Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2016
-# Antonio Trueba <atgayol@gmail.com>, 2016
+# enjolras <yo@miguelrevilla.com>, 2018
+# OCA Transbot <transbot@odoo-community.org>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-16 16:33+0000\n"
-"PO-Revision-Date: 2016-11-16 16:33+0000\n"
-"Last-Translator: Antonio Trueba <atgayol@gmail.com>, 2016\n"
+"POT-Creation-Date: 2018-03-09 01:39+0000\n"
+"PO-Revision-Date: 2018-03-09 01:39+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -106,13 +106,13 @@ msgstr "Destino"
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template_to_shipping_country
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_to_shipping_country
 msgid "Destination Country"
-msgstr "País Destino"
+msgstr "País de destino"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template_to_shipping_state
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_to_shipping_state
 msgid "Destination State"
-msgstr "Provincia Destino"
+msgstr "Provincia de destino"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_display_name
@@ -137,7 +137,7 @@ msgstr "Fecha final esta regla será válida"
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_fiscal_position_id
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template_fiscal_position_id
 msgid "Fiscal Position"
-msgstr "Posición Fiscal"
+msgstr "Posición fiscal"
 
 #. module: account_fiscal_position_rule
 #: model:ir.actions.act_window,name:account_fiscal_position_rule.action_account_fiscal_position_rule_form
@@ -147,7 +147,7 @@ msgstr "Posición Fiscal"
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_tree
 msgid "Fiscal Position Rule"
-msgstr "Regla Posición Fiscal"
+msgstr "Regla de posición fiscal"
 
 #. module: account_fiscal_position_rule
 #: model:ir.actions.act_window,name:account_fiscal_position_rule.action_account_fiscal_position_rule_template_form
@@ -188,12 +188,12 @@ msgstr "Factura"
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_to_invoice_country
 msgid "Invoice Country"
-msgstr "Factura País"
+msgstr "País de factura"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_to_invoice_state
 msgid "Invoice State"
-msgstr "Factura Provincía"
+msgstr "Provincia de factura"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule___last_update
@@ -207,14 +207,14 @@ msgstr "Última modificación el"
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_write_uid
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_wizard_account_fiscal_position_rule_write_uid
 msgid "Last Updated by"
-msgstr "Última Actualización por"
+msgstr "Última actualización por"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template_write_date
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_write_date
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_wizard_account_fiscal_position_rule_write_date
 msgid "Last Updated on"
-msgstr "Última Actualización el"
+msgstr "Última actualización el"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_name
@@ -238,7 +238,7 @@ msgstr "Prioridad"
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_form
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 msgid "Shipping"
-msgstr "Enviando"
+msgstr "Envío"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_date_start
@@ -278,13 +278,13 @@ msgstr "Esto configurara automáticamente todas las reglas de posición fiscal"
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 msgid "Use in Invoice"
-msgstr "Usar en Factura"
+msgstr "Usar en factura"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template_use_invoice
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_use_invoice
 msgid "Use in Invoices"
-msgstr "Usar en Facturas"
+msgstr "Usar en facturas"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template_use_picking
@@ -292,25 +292,25 @@ msgstr "Usar en Facturas"
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 msgid "Use in Picking"
-msgstr "Usar en Albarán"
+msgstr "Usar en albarán"
 
 #. module: account_fiscal_position_rule
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 msgid "Use in Purchase"
-msgstr "Usar en Compra"
+msgstr "Usar en compra"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template_use_purchase
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_use_purchase
 msgid "Use in Purchases"
-msgstr "Usar en Compras"
+msgstr "Usar en compras"
 
 #. module: account_fiscal_position_rule
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 msgid "Use in Sale"
-msgstr "Usar en Venta"
+msgstr "Usar en venta"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template_use_sale
@@ -321,41 +321,41 @@ msgstr "Usar en pedido venta"
 #. module: account_fiscal_position_rule
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
 msgid "Used in Sales Orders"
-msgstr "Usado en Pedidos Ventas"
+msgstr "Usado en pedidos de venta"
 
 #. module: account_fiscal_position_rule
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 msgid "Used in Sales orders"
-msgstr "Usados en Pedidos ventas"
+msgstr "Usado en pedidos de venta"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template_vat_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_vat_rule
 msgid "VAT Rule"
-msgstr "Regla NIF"
+msgstr "Regla de IVA"
 
 #. module: account_fiscal_position_rule
 #: selection:account.fiscal.position.rule,vat_rule:0
 #: selection:account.fiscal.position.rule.template,vat_rule:0
 msgid "With VAT number"
-msgstr "Con número NIF"
+msgstr "Con NIF"
 
 #. module: account_fiscal_position_rule
 #: selection:account.fiscal.position.rule,vat_rule:0
 #: selection:account.fiscal.position.rule.template,vat_rule:0
 msgid "With or Without VAT number"
-msgstr "Cono sin NIF"
+msgstr "Con o sin NIF"
 
 #. module: account_fiscal_position_rule
 #: selection:account.fiscal.position.rule,vat_rule:0
 #: selection:account.fiscal.position.rule.template,vat_rule:0
 msgid "Without VAT number"
-msgstr "Sin número NIF"
+msgstr "Sin NIF"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule
 msgid "account.fiscal.position.rule"
-msgstr ""
+msgstr "account.fiscal.position.rule"
 
 #. module: account_fiscal_position_rule
 #: model:ir.ui.view,arch_db:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
