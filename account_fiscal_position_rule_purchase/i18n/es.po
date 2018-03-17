@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * account_fiscal_position_rule_sale
+# * account_fiscal_position_rule_purchase
 # 
 # Translators:
 # enjolras <yo@miguelrevilla.com>, 2018
@@ -18,7 +18,7 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. module: account_fiscal_position_rule_sale
-#: model:ir.model,name:account_fiscal_position_rule_sale.model_sale_order
-msgid "Sales Order"
-msgstr "Pedido de venta"
+#. module: account_fiscal_position_rule_purchase
+#: model:ir.model,name:account_fiscal_position_rule_purchase.model_purchase_order
+msgid "Purchase Order"
+msgstr "Pedido de compra"
