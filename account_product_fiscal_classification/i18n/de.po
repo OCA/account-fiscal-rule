@@ -3,15 +3,15 @@
 # * account_product_fiscal_classification
 # 
 # Translators:
-# Rudolf Schnapka <rs@techno-flex.de>, 2016
+# OCA Transbot <transbot@odoo-community.org>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: account-fiscal-rule (9.0)\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-16 16:33+0000\n"
-"PO-Revision-Date: 2016-11-25 14:55+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: German (http://www.transifex.com/oca/OCA-account-fiscal-rule-9-0/language/de/)\n"
+"POT-Creation-Date: 2018-03-09 01:39+0000\n"
+"PO-Revision-Date: 2018-03-09 01:39+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
+"Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -125,7 +125,15 @@ msgid ""
 "\n"
 "Thank you in advance for your cooperation.\n"
 "Best Regards,"
-msgstr "Sehr geehrte Damen und Herren,\n\nUnsere Buchhaltung weist überfällige offene Rechnungen von Ihnen aus. Details dazu ersehen Sie unten.\nSollte der Betrag zwischenzeitlich angewiesen worden sein, betrachten Sie dieses Schreiben bitte als gegenstandslos. Anderenfalls weisen Sie bitte die unten aufgeführte Gesamtsumme an.\nSollten Sie Fragen zu Ihrem Konto bei uns haben, sprechen Sie uns bitte an.\n\nVielen Dank im Voraus für Ihre Zusammenarbeit.\nMit freundlichem Gruß,"
+msgstr ""
+"Sehr geehrte Damen und Herren,\n"
+"\n"
+"Unsere Buchhaltung weist überfällige offene Rechnungen von Ihnen aus. Details dazu ersehen Sie unten.\n"
+"Sollte der Betrag zwischenzeitlich angewiesen worden sein, betrachten Sie dieses Schreiben bitte als gegenstandslos. Anderenfalls weisen Sie bitte die unten aufgeführte Gesamtsumme an.\n"
+"Sollten Sie Fragen zu Ihrem Konto bei uns haben, sprechen Sie uns bitte an.\n"
+"\n"
+"Vielen Dank im Voraus für Ihre Zusammenarbeit.\n"
+"Mit freundlichem Gruß,"
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_1
@@ -190,7 +198,9 @@ msgstr "Anzeigebezeichnung"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product_fiscal_classification_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template_fiscal_classification_id
+#: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_tree
 msgid "Fiscal Classification"
 msgstr "Steuer-Klassifizierung"
 
@@ -237,7 +247,9 @@ msgstr "ID"
 msgid ""
 "If unchecked, it will allow you to hide the Fiscal Classification without "
 "removing it."
-msgstr "Wenn nicht gewählt, wird die Steuerklassifizierung ausgeblendet ohne diese zu löschen."
+msgstr ""
+"Wenn nicht gewählt, wird die Steuerklassifizierung ausgeblendet ohne diese "
+"zu löschen."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification___last_update
@@ -372,15 +384,23 @@ msgid ""
 "Specify a company if you want to define this Fiscal Classification only for "
 "specific company. Otherwise, this Fiscal Classification will be available "
 "for all companies."
-msgstr "Geben Sie ein Unternehmen an, sofern Sie diese Steuerklassifizierung Unternehmensspezifisch festlegen möchten. Anderenfalls wird diese Steuerklassifizierung für alle Unternehmen verfügbar sein."
+msgstr ""
+"Geben Sie ein Unternehmen an, sofern Sie diese Steuerklassifizierung "
+"Unternehmensspezifisch festlegen möchten. Anderenfalls wird diese "
+"Steuerklassifizierung für alle Unternehmen verfügbar sein."
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product_fiscal_classification_id
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_template_fiscal_classification_id
 msgid ""
 "Specify the combination of taxes for this product. This field is required. "
 "If you dont find the correct Fiscal Classification, Please create a new one "
 "or ask to your account manager if you don't have the access right."
-msgstr "Geben Sie die Zusammensetzung an Steuern für dieses Produkt an. Dieses ist ein Pflicht-Feld. Wenn Sie die passende Steuerklassifizierung nicht finden, legen Sie bitte eine entsprechende an oder fragen Ihren Finanzmanager, ob Sie die nötigen Rechte besitzen."
+msgstr ""
+"Geben Sie die Zusammensetzung an Steuern für dieses Produkt an. Dieses ist "
+"ein Pflicht-Feld. Wenn Sie die passende Steuerklassifizierung nicht finden, "
+"legen Sie bitte eine entsprechende an oder fragen Ihren Finanzmanager, ob "
+"Sie die nötigen Rechte besitzen."
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
@@ -412,7 +432,7 @@ msgid ""
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:120
+#: code:addons/account_product_fiscal_classification/models/product_template.py:119
 #, python-format
 msgid "You cannot change Taxes for many Products."
 msgstr "Sie dürfen die Steuern von vielen Produkten nicht ändern."
@@ -423,7 +443,10 @@ msgstr "Sie dürfen die Steuern von vielen Produkten nicht ändern."
 msgid ""
 "You cannot delete The Fiscal Classification '%s' because it contents %s "
 "products. Please move products to another Fiscal Classification first."
-msgstr "Sie dürfen die Steuerklassifizierung '%s' nicht löschen, da das Produkt %s dieser noch zugehörig ist. Bitte das Produkt zuerst in andere Steuerklassifizierung verschieben."
+msgstr ""
+"Sie dürfen die Steuerklassifizierung '%s' nicht löschen, da das Produkt %s "
+"dieser noch zugehörig ist. Bitte das Produkt zuerst in andere "
+"Steuerklassifizierung verschieben."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification
