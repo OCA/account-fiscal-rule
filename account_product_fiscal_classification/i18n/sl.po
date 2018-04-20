@@ -4,13 +4,14 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2018
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-09 01:39+0000\n"
-"PO-Revision-Date: 2018-03-09 01:39+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
+"POT-Creation-Date: 2018-03-17 00:24+0000\n"
+"PO-Revision-Date: 2018-03-17 00:24+0000\n"
+"Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>, 2018\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,7 +52,7 @@ msgstr "Aktivno"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category_fiscal_classification_ids
 msgid "Allowed Fiscal Classifications"
-msgstr ""
+msgstr "Dovoljene fiskalne klasifikacije"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_change_fiscal_classification
@@ -61,7 +62,7 @@ msgstr "Uveljavi"
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_form
 msgid "Apply to Child Categories"
-msgstr ""
+msgstr "Uveljavi za podrejene kategorije"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_account_product_fiscal_classification
@@ -72,13 +73,13 @@ msgstr "Preklic"
 #. module: account_product_fiscal_classification
 #: model:product.category,name:account_product_fiscal_classification.category_with_fiscal_restriction
 msgid "Category with Fiscal Restriction"
-msgstr ""
+msgstr "Kategorija s fiskalno restrikcijo"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_category_fiscal_restriction
 msgid ""
 "Check this box if you want to enable Restriction on Fiscal Classifications."
-msgstr ""
+msgstr "Označite, če želite omogočiti restrikcije na fiskalnih klasifikacijah"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_code
@@ -222,7 +223,7 @@ msgstr "Osnutek fiskalnih klasifikacij"
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_form
 msgid "Fiscal Settings"
-msgstr ""
+msgstr "Fiskalne nastavitve"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_wizard_account_product_fiscal_classification
@@ -340,7 +341,7 @@ msgstr "Količina proizvodov"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category_forbidden_classification_template_ids
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_form
 msgid "Products with Forbidden Classification"
-msgstr ""
+msgstr "Proizvodi s prepovedano klasifikacijo"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_purchase_tax_ids
@@ -358,12 +359,12 @@ msgstr "Nabavni davki:"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category_forbidden_classification_template_qty
 msgid "Quantity of Products with Forbidden Classification"
-msgstr ""
+msgstr "Količina proizvodov s prepovedano klasifikacijo"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category_fiscal_restriction
 msgid "Restriction on Fiscal Classifications"
-msgstr ""
+msgstr "Restrikcija na fiskalnih klasifikacijah"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_sale_tax_ids
@@ -377,6 +378,8 @@ msgid ""
 "Specify Fiscal Classifications that will be allowed for products that belong"
 " to this Product Category."
 msgstr ""
+"Določite fiskalne klasifikacije, ki bodo dovoljene za proizvode v tej "
+"kategoriji."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_company_id
@@ -416,6 +419,10 @@ msgid ""
 "\n"
 " Allowed Classifications for '%s': %s"
 msgstr ""
+"Kategorija '%s' za proizvod '%s' ne dovoljuje nastavitve klasifikacije '%s'.\n"
+" Prosimo, da spremenite klasifikacijo proizvoda ali odstranite omejitev na kategoriji proizvoda.\n"
+"\n"
+" Dovoljene klasifikacije za '%s': %s"
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_account_product_fiscal_classification
@@ -429,6 +436,8 @@ msgid ""
 "You can not set fiscal classifications on %s if Restriction on Fiscal "
 "Classifications is not enabled for the category."
 msgstr ""
+"Ne morete nastaviti fiskalnih klasifikacij na %s, če ni omogočena "
+"restrikcija na fiskalnih klasifikacijah za to kategorijo."
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/product_template.py:119
