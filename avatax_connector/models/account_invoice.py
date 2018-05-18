@@ -34,9 +34,6 @@ class AccountInvoice(models.Model):
         res = super(AccountInvoice, self)._onchange_partner_id()
         self.exemption_code = self.partner_id.exemption_number or ''
         self.exemption_code_id = self.partner_id.exemption_code_id.id or None
-        # res['value']['tax_add_shipping'] = True
-        # self.shipping_address = str((self.partner_id.name  or '')+ '\n'+(self.partner_id.street or '')+ '\n'+(self.partner_id.city and self.partner_id.city+', ' or ' ')+(self.partner_id.state_id and self.partner_id.state_id.name or '')+ ' '+(self.partner_id.zip or '')+'\n'+(self.partner_id.country_id and self.partner_id.country_id.name or ''))        
-        # self.
         if self.partner_id.validation_method:
             self.is_add_validate = True
         else:
@@ -51,125 +48,35 @@ class AccountInvoice(models.Model):
             if self.warehouse.code:
                 self.location_code = self.warehouse.code
 
-#    @api.model
-#    def create(self, vals):
-#        if vals.get('partner_id', False):
-#            sale_obj = self.env['sale.order']   
-#            pick_obj = self.env['stock.picking']
-#            sale_ids = sale_obj.search([('name','=',vals.get('origin',''))])
-#            pick_ids = pick_obj.search([('name','=',vals.get('origin',''))])
-#            if sale_ids:
-#                sale_order = sale_ids[0]
-#                if 'warehouse_id' in sale_order:
-#                    vals['warehouse_id'] = sale_order.warehouse_id and sale_order.warehouse_id.id or False
-#                    vals['location_code'] = sale_order.warehouse_id and sale_order.warehouse_id.code or False
-#                
-#                if pick_ids:
-#                    pick_type = pick_ids[0].picking_type_id
-#                    vals['warehouse_id'] = pick_type and pick_type.warehouse_id and pick_type.warehouse_id.id or False
-#                    vals['location_code'] = pick_type and pick_type.warehouse_id and pick_type.warehouse_id.code or False
-#            if self.partner_id.validation_method: vals['is_add_validate'] = True
-#        return super(AccountInvoice, self).create(vals)
+    @api.model
+    def create(self, vals):
+        res = super(AccountInvoice, self).create(vals)
+        res.with_context(contact_avatax=True)._onchange_invoice_line_ids()
+        return res
 
     @api.multi
     def write(self, vals):
-        for self_obj in self:
-            ship_add_id = self_obj.shipping_add_id
-            if 'tax_add_invoice' in vals and vals['tax_add_invoice']:
-                ship_add_id = self_obj.partner_id
-            elif 'tax_add_default' in vals and vals['tax_add_default']:
-                if self_obj.origin:
-                    if len(self_obj.origin.split(':')) > 1:
-                        so_origin = self_obj.origin.split(':')[1]
-                    else:
-                        so_origin = self_obj.origin.split(':')[0]
-
-                    sale_ids = self.env['sale.order'].search([('name', '=', so_origin)])
-                    if sale_ids:
-                        ship_add_id = sale_ids[0].partner_id
-
-            elif 'tax_add_shipping' in vals and vals['tax_add_shipping']:
-                if self_obj.origin:
-                    if len(self_obj.origin.split(':')) > 1:
-                        so_origin = self_obj.origin.split(':')[1]
-                    else:
-                        so_origin = self_obj.origin.split(':')[0]
-
-                    sale_ids = self.env['sale.order'].search([('name', '=', so_origin)])
-                    if sale_ids:
-                        ship_add_id = sale_ids[0].partner_shipping_id
-            if ship_add_id:
-#                vals['shipping_address'] = str(ship_add_id.name+ '\n'+(ship_add_id.street or '')+ '\n'+(ship_add_id.city and ship_add_id.city+', ' or ' ')+(ship_add_id.state_id and ship_add_id.state_id.name or '')+ ' '+(ship_add_id.zip or '')+'\n'+(ship_add_id.country_id and ship_add_id.country_id.name or ''))   
-                vals['shipping_add_id'] = ship_add_id.id
-            else:
-                vals['shipping_add_id'] = self_obj.partner_id.id
-
-        return super(AccountInvoice, self).write(vals)
+        res = super(AccountInvoice, self).write(vals)
+        if not self._context.get('contact_avatax') and self:
+            self.with_context(contact_avatax=True)._onchange_invoice_line_ids()
+        return res
 
     invoice_doc_no = fields.Char('Source/Ref Invoice No', readonly=True, states={'draft': [('readonly', False)]}, help="Reference of the invoice")
     invoice_date = fields.Date('Invoice Date', readonly=True)
     is_add_validate = fields.Boolean('Address validated')
     exemption_code = fields.Char('Exemption Number', help="It show the customer exemption number")
     exemption_code_id = fields.Many2one('exemption.code', 'Exemption Code', help="It show the customer exemption code")
-    tax_add_default = fields.Boolean('Default Address', readonly=True, states={'draft': [('readonly', False)]})
-    tax_add_invoice = fields.Boolean('Invoice Address', default=True, readonly=True, states={'draft': [('readonly', False)]})
-    tax_add_shipping = fields.Boolean('Delivery Address', readonly=True, states={'draft': [('readonly', False)]})
-    shipping_add_id = fields.Many2one('res.partner', 'Tax Address', change_default=True, track_visibility='always')
+    tax_on_shipping_address = fields.Boolean('Tax based on shipping address', default=False, required=True)
+    shipping_add_id = fields.Many2one('res.partner', 'Tax Address', compute='_compute_shipping_add_id')
     shipping_address = fields.Text('Tax Address')
     location_code = fields.Char('Location code', readonly=True, states={'draft': [('readonly', False)]})
     warehouse_id = fields.Many2one('stock.warehouse', 'Warehouse')
 
-    @api.onchange('tax_add_default', 'origin', 'partner_id')
-    def default_tax_address(self):
-        if self.tax_add_default:
-            # tax_address = str(self.partner_id.name+ '\n'+(self.partner_id.street or '')+ '\n'+(self.partner_id.city and self.partner_id.city+', ' or ' ')+(self.partner_id.state_id and self.partner_id.state_id.name or '')+ ' '+(self.partner_id.zip or '')+'\n'+(self.partner_id.country_id and self.partner_id.country_id.name or ''))
-            shipping_add_id = self.partner_id.id
-            if self.origin:
-                if len(self.origin.split(':')) > 1:
-                    so_origin = self.origin.split(':')[1]
-                else:
-                    so_origin = self.origin.split(':')[0]
-
-                sale_ids = self.env['sale.order'].search([('name', '=', so_origin)])
-                if sale_ids:
-                    # tax_address = str(sale_ids[0].partner_id.name+ '\n'+(sale_ids[0].partner_id.street or '')+ '\n'+(sale_ids[0].partner_id.city and sale_ids[0].partner_id.city+', ' or ' ')+(sale_ids[0].partner_id.state_id and sale_ids[0].partner_id.state_id.name or '')+ ' '+(sale_ids[0].partner_id.zip or '')+'\n'+(sale_ids[0].partner_id.country_id and sale_ids[0].partner_id.country_id.name or ''))
-                    shipping_add_id = sale_ids[0].partner_shipping_id.id
-            self.tax_add_default = True
-            self.tax_add_invoice = False
-            self.tax_add_shipping = False
-#            self.shipping_address = tax_address
-            self.shipping_add_id = shipping_add_id
-
-    @api.onchange('tax_add_invoice', 'partner_id')
-    def invoice_tax_address(self):
-        if self.tax_add_invoice and self.partner_id:
-            # tax_address = str(self.partner_id.name+ '\n'+(self.partner_id.street or '')+ '\n'+(self.partner_id.city and self.partner_id.city+', ' or ' ')+(self.partner_id.state_id and self.partner_id.state_id.name or '')+ ' '+(self.partner_id.zip or '')+'\n'+(self.partner_id.country_id and self.partner_id.country_id.name or ''))
-            self.tax_add_default = False
-            self.tax_add_invoice = True
-            self.tax_add_shipping = False
-#            self.shipping_address = tax_address
-            self.shipping_add_id = self.partner_id.id
-
-    @api.onchange('tax_add_shipping', 'origin', 'partner_id')
-    def delivery_tax_address(self):
-        if self.tax_add_shipping:
-            # tax_address = str(self.partner_id.name+ '\n'+(self.partner_id.street or '')+ '\n'+(self.partner_id.city and self.partner_id.city+', ' or ' ')+(self.partner_id.state_id and self.partner_id.state_id.name or '')+ ' '+(self.partner_id.zip or '')+'\n'+(self.partner_id.country_id and self.partner_id.country_id.name or ''))
-            shipping_add_id = self.partner_id.id
-            if self.origin:
-                if len(self.origin.split(':')) > 1:
-                    so_origin = self.origin.split(':')[1]
-                else:
-                    so_origin = self.origin.split(':')[0]
-
-                sale_ids = self.env['sale.order'].search([('name', '=', so_origin)])
-                if sale_ids:
-                    # tax_address = str(sale_ids[0].partner_shipping_id.name+ '\n'+(sale_ids[0].partner_shipping_id.street or '')+ '\n'+(sale_ids[0].partner_shipping_id.city and sale_ids[0].partner_shipping_id.city+', ' or ' ')+(sale_ids[0].partner_shipping_id.state_id and sale_ids[0].partner_shipping_id.state_id.name or '')+ ' '+(sale_ids[0].partner_shipping_id.zip or '')+'\n'+(sale_ids[0].partner_shipping_id.country_id and sale_ids[0].partner_shipping_id.country_id.name or ''))
-                    shipping_add_id = sale_ids[0].partner_shipping_id.id
-            self.tax_add_default = False
-            self.tax_add_invoice = False
-            self.tax_add_shipping = True
-#            self.shipping_address = tax_address
-            self.shipping_add_id = shipping_add_id
+    @api.multi
+    @api.depends('tax_on_shipping_address', 'partner_id', 'partner_shipping_id')
+    def _compute_shipping_add_id(self):
+        for invoice in self:
+            invoice.shipping_add_id = invoice.partner_shipping_id if invoice.tax_on_shipping_address else invoice.partner_id
 
     @api.multi
     def compute(self):
@@ -222,10 +129,11 @@ class AccountInvoice(models.Model):
     @api.multi
     def invoice_validate(self):
         self.compute_taxes()
-        return super(AccountInvoice, self).invoice_validate()
+        return super(AccountInvoice, self.with_context(contact_avatax=True)).invoice_validate()
 
     @api.multi
     def action_invoice_open(self):
+        self = self.with_context(contact_avatax=True)
         avatax_config_obj = self.env['avalara.salestax']
         account_tax_obj = self.env['account.tax']
         avatax_config = avatax_config_obj._get_avatax_config_company()
@@ -325,6 +233,9 @@ class AccountInvoice(models.Model):
         account_tax_obj = self.env['account.tax']
         tax_grouped = {}
         if avatax_config and not avatax_config.disable_tax_calculation and self.type in ['out_invoice', 'out_refund']:
+            # avatax charges customers per API call, so don't hit their API in every onchange, only when saving
+            if not self._context.get('contact_avatax'):
+                return {}
             if self.invoice_line_ids:
                 lines = self.create_lines(self.invoice_line_ids)
                 if lines:
@@ -441,9 +352,7 @@ class AccountInvoice(models.Model):
         values.update({
             'invoice_doc_no': invoice.number,
             'invoice_date': invoice.date_invoice,
-            'tax_add_default': invoice.tax_add_default,
-            'tax_add_invoice': invoice.tax_add_invoice,
-            'tax_add_shipping': invoice.tax_add_shipping,
+            'tax_on_shipping_address': invoice.tax_on_shipping_address,
             'warehouse_id': invoice.warehouse_id.id,
             'location_code': invoice.location_code,
             'exemption_code': invoice.exemption_code or '',

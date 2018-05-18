@@ -4,7 +4,7 @@ from odoo import api, fields, models, _
 # from datetime import datetime
 # from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
 from odoo.exceptions import UserError
-from avalara_api import AvaTaxService, BaseAddress  # Line
+from .avalara_api import AvaTaxService, BaseAddress  # Line
 
 
 class AccountTax(models.Model):
@@ -27,7 +27,7 @@ class AccountTax(models.Model):
             else:
                 partner.generate_cust_code()
         if not shipping_address:
-            raise UserError(_('There is no shipping address defined for the partner.'))
+            raise UserError(_('There is no source shipping address defined for partner %s.') % partner.name)
         #it's show destination address
 #        shipping_address = address_obj.browse(cr, uid, shipping_address_id, context=context)
 #        if not lines:

@@ -66,9 +66,7 @@
                 <xpath expr="/form/sheet/group" position="after">
                     <group string="Avalara Tax on...">
                         <group>
-                            <field name="tax_add_default"/>
-                            <field name="tax_add_invoice"/>
-                            <field name="tax_add_shipping"/>
+                            <field name="tax_on_shipping_address"/>
                         </group>
                         <group>
                             <!--<field name="shipping_address" readonly="1"/>-->

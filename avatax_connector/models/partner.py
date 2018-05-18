@@ -2,10 +2,14 @@
 
 from odoo import api, fields, models, _
 import time
+import logging
 from random import random
-from avalara_api import AvaTaxService, BaseAddress
+from .avalara_api import AvaTaxService, BaseAddress
 from odoo.exceptions import UserError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
+from odoo.addons.base.res.res_partner import ADDRESS_FIELDS
+
+_logger = logging.getLogger(__name__)
 
 
 class res_partner(models.Model):
@@ -81,12 +85,8 @@ class res_partner(models.Model):
 
     @api.multi
     def multi_address_validation(self):
-        context = dict(self._context or {})
-        add_val_ids = context.get('active_ids')
-        partner_obj = self.env['res.partner']
-        for val_id in add_val_ids:
-            partner_brw = partner_obj.browse(val_id)
-            vals = partner_brw.read(['street', 'street2', 'city', 'state_id', 'zip', 'country_id'])[0]
+        for partner in self:
+            vals = partner.read(['street', 'street2', 'city', 'state_id', 'zip', 'country_id'])[0]
             vals['state_id'] = vals.get('state_id') and vals['state_id'][0]
             vals['country_id'] = vals.get('country_id') and vals['country_id'][0]
 
@@ -95,7 +95,7 @@ class res_partner(models.Model):
 
             if avatax_config:
                 try:
-                    valid_address = self.with_context(context)._validate_address(vals, avatax_config)
+                    valid_address = self._validate_address(vals, avatax_config)
                     vals.update({
                         'street': valid_address.Line1,
                         'street2': valid_address.Line2,
@@ -109,20 +109,11 @@ class res_partner(models.Model):
                         'validation_method': 'avatax',
                         'validated_on_save': True
                     })
-                    partner_brw.write(vals)
-                except:
-                    pass
-#        mod_obj = self.pool.get('ir.model.data')
-#        res = mod_obj.get_object_reference(cr, uid, 'base', 'view_partner_tree')
-#        res_id = res and res[1] or False,
+                    partner.write(vals)
+                except UserError as error:
+                    _logger.warning('couldn\'t validate address for partner %s: %s' % (partner.display_name, error))
 
-        return {
-            'view_type': 'list',
-            'view_mode': 'list,form',
-            'res_model': 'res.partner',
-            'type': 'ir.actions.act_window',
-            'context': {'search_default_customer': 1},
-        }
+        return True
 
     @api.multi
     def verify_address_validatation(self):
@@ -271,7 +262,7 @@ class res_partner(models.Model):
 
     @api.multi
     def write(self, vals):
-        if not vals:
+        if any(address_field in vals for address_field in ADDRESS_FIELDS) and not vals.get('date_validation'):
             vals.update({
                 'latitude': '',
                 'longitude': '',

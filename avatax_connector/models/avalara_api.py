@@ -2,8 +2,6 @@
 
 import suds
 import socket
-import urllib2
-import string
 import os
 import datetime
 import logging
@@ -49,25 +47,21 @@ class AvaTaxService:
         return self
 
     def service(self, name):
-        nameCap = string.capitalize(name)    # So this will be 'Tax' or 'Address'
+        nameCap = name.capitalize()    # So this will be 'Tax' or 'Address'
         # The Python SUDS library can fetch the WSDL down from the server
         # or use a local file URL. We'll use a local file URL.
 #        wsdl_url = 'file:///' + os.getcwd().replace('\\', '/') + '/%ssvc.wsdl.xml' % name
         # If you want to fetch the WSDL from the server, use this instead:
         wsdl_url = 'https://avatax.avalara.net/%s/%ssvc.wsdl' % (nameCap, nameCap)
 
-        try:
-            svc = suds.client.Client(url=wsdl_url)
-        except urllib2.URLError, details:
-            raise UserError(_(details))
-        else:
-            svc.set_options(service='%sSvc' % nameCap)
-            svc.set_options(port='%sSvcSoap' % nameCap)
-            svc.set_options(location='%s/%s/%sSvc.asmx' % (self.url, nameCap, nameCap))
-            svc.set_options(wsse=self.my_security(self.username, self.password))
-            svc.set_options(soapheaders=self.my_profile())
-            svc.set_options(timeout=self.timeout)
-            return svc
+        svc = suds.client.Client(url=wsdl_url)
+        svc.set_options(service='%sSvc' % nameCap)
+        svc.set_options(port='%sSvcSoap' % nameCap)
+        svc.set_options(location='%s/%s/%sSvc.asmx' % (self.url, nameCap, nameCap))
+        svc.set_options(wsse=self.my_security(self.username, self.password))
+        svc.set_options(soapheaders=self.my_profile())
+        svc.set_options(timeout=self.timeout)
+        return svc
 
     def my_security(self, username, password):
         """Using username and password as key to verify user account to access avalara API's"""
@@ -84,7 +78,7 @@ class AvaTaxService:
         ADAPTER = 'Odoo S.A.'
 
         # Profile Client.
-        CLIENT = 'a0o33000004WSkR'
+        CLIENT = 'a0o33000004WSkW'
 
         #Build the Profile element
         profileNameSpace = ('ns1', 'http://avatax.avalara.com/services')
@@ -96,31 +90,22 @@ class AvaTaxService:
         return profile
 
     def get_result(self, svc, operation, request):
-        try:
-            result = operation(request)
-#            print"result",result
-        except suds.WebFault, e:
-            raise UserError(_(e.fault.faultstring))
-        except urllib2.HTTPError, e:
-            raise UserError(_(e.code))
-        except urllib2.URLError, details:
-            # We could also print the SOAP request here:
-            raise UserError(_(details.reason))
+        result = operation(request)
+
+        if (result.ResultCode != 'Success'):
+            #for w_message in result.Messages.Message:
+            # w_message = result.Messages.Message[0]
+            for w_message in result.Messages.Message:
+                # print"w_message",w_message
+                if w_message.Severity == 'Error':
+                    if (w_message._Name == 'TaxAddressError' or w_message._Name == 'AddressRangeError' or w_message._Name == 'AddressUnknownStreetError' or w_message._Name == 'AddressNotGeocodedError' or w_message._Name == 'NonDeliverableAddressError'):
+                        raise UserError(_('AvaTax: Warning AvaTax could not validate the street address. \n You can save the address and AvaTax will make an attempt to compute taxes based on the zip code if "Force Address Validation" is disabled in the Avatax connector configuration.  \n\n Also please ensure that the company address is set and Validated.  You can get there by going to Sales->Customers and removing "Customers" filter from the search at the top.  Then go to your company contact info and validate your address in the Avatax Tab'))
+                    elif (w_message._Name == 'UnsupportedCountryError'):
+                        raise UserError(_("AvaTax: Notice\n\n Address Validation for this country not supported. But, Avalara will still calculate global tax rules."))
+                    else:
+                        raise UserError(_('AvaTax: Error: '+str(w_message._Name)+"\n\n" "Summary: " + w_message.Summary + "\n Details: " + str(w_message.Details or '') + "\n Severity: " + w_message.Severity))
         else:
-            if (result.ResultCode != 'Success'):
-                #for w_message in result.Messages.Message:
-                # w_message = result.Messages.Message[0]
-                for w_message in result.Messages.Message:
-                    # print"w_message",w_message
-                    if w_message.Severity == 'Error':
-                        if (w_message._Name == 'TaxAddressError' or w_message._Name == 'AddressRangeError' or w_message._Name == 'AddressUnknownStreetError' or w_message._Name == 'AddressNotGeocodedError' or w_message._Name == 'NonDeliverableAddressError'):
-                            raise UserError(_('AvaTax: Warning AvaTax could not validate the street address. \n You can save the address and AvaTax will make an attempt to compute taxes based on the zip code if "Force Address Validation" is disabled in the Avatax connector configuration.  \n\n Also please ensure that the company address is set and Validated.  You can get there by going to Sales->Customers and removing "Customers" filter from the search at the top.  Then go to your company contact info and validate your address in the Avatax Tab'))
-                        elif (w_message._Name == 'UnsupportedCountryError'):
-                            raise UserError(_("AvaTax: Notice\n\n Address Validation for this country not supported. But, Avalara will still calculate global tax rules."))
-                        else:
-                            raise UserError(_('AvaTax: Error: '+str(w_message._Name)+"\n\n" "Summary: " + w_message.Summary + "\n Details: " + str(w_message.Details or '') + "\n Severity: " + w_message.Severity))
-            else:
-                return result
+            return result
 
     def ping(self):
         return self.get_result(self.taxSvc, self.taxSvc.service.Ping, '')

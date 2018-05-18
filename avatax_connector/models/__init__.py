@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import avalara_salestax
-import product
-import partner
-import avalara_api
-import sale_order
-import account_invoice
-import account_tax
+from . import avalara_salestax
+from . import product
+from . import partner
+from . import avalara_api
+from . import sale_order
+from . import account_invoice
+from . import account_tax
 #import wizard
 #import warning
 #import sale_stock

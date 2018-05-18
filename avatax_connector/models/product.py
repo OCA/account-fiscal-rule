@@ -52,15 +52,6 @@ class product_template(models.Model):
         return super(product_template, self).write(vals)
 
 
-class product_product(models.Model):
-    _inherit = 'product.product'
-
-    default_code = fields.Char('Product Code', required=True)
-
-    _sql_constraints = [
-        ('name_uniq', 'unique(default_code)', 'Product Reference Code must be unique per Company!')
-    ]
-
 class product_category(models.Model):
     _inherit = "product.category"
 
