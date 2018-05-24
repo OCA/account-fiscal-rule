@@ -38,7 +38,9 @@ class SaleOrder(models.Model):
             ship_add_id = vals['partner_shipping_id']
         if ship_add_id:
             vals['tax_add_id'] = ship_add_id
-        return super(SaleOrder, self).create(vals)
+        res = super(SaleOrder, self).create(vals)
+        res.compute_tax()
+        return res
 
     @api.multi
     def write(self, vals):
@@ -53,7 +55,13 @@ class SaleOrder(models.Model):
             if ship_add_id:
                 vals['tax_add_id'] = ship_add_id.id
 
-        return super(SaleOrder, self).write(vals)
+        res = super(SaleOrder, self).write(vals)
+
+        if not self._context.get('avatax_recalculation'):
+            for order in self:
+                order.with_context(avatax_recalculation=True).compute_tax()
+
+        return res
 
     @api.multi
     def _prepare_invoice(self):
