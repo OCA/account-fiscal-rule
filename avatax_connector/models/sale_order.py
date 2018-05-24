@@ -17,11 +17,9 @@ class SaleOrder(models.Model):
         """
 
         res = super(SaleOrder, self).onchange_partner_id()
-        # addr = self.partner_shipping_id
         self.exemption_code = self.partner_id.exemption_number or ''
         self.exemption_code_id = self.partner_id.exemption_code_id.id or None
         self.tax_add_shipping = True
-        #self.tax_address = str((addr.name  or '')+ '\n'+(addr.street or '')+ '\n'+(addr.city and addr.city+', ' or ' ')+(addr.state_id and addr.state_id.name or '')+ ' '+(addr.zip or '')+'\n'+(addr.country_id and addr.country_id.name or ''))
         self.tax_add_id = self.partner_shipping_id.id
         if self.partner_id.validation_method:
             self.is_add_validate = True
@@ -31,8 +29,6 @@ class SaleOrder(models.Model):
 
     @api.model
     def create(self, vals):
-        # if vals['partner_id']:
-            # vals['tax_add_id'] = vals['partner_id']
         ship_add_id = False
         if 'tax_add_default' in vals and vals['tax_add_default']:
             ship_add_id = vals['partner_id']
@@ -40,11 +36,8 @@ class SaleOrder(models.Model):
             ship_add_id = vals['partner_invoice_id']
         elif 'tax_add_shipping' in vals and vals['tax_add_shipping']:
             ship_add_id = vals['partner_shipping_id']
-            # else:
-            # ship_add_id = vals['partner_id']
         if ship_add_id:
             vals['tax_add_id'] = ship_add_id
-            # vals['tax_address'] = str(ship_add_id.name+ '\n'+(ship_add_id.street or '')+ '\n'+(ship_add_id.city and ship_add_id.city+', ' or ' ')+(ship_add_id.state_id and ship_add_id.state_id.name or '')+ ' '+(ship_add_id.zip or '')+'\n'+(ship_add_id.country_id and ship_add_id.country_id.name or ''))
         return super(SaleOrder, self).create(vals)
 
     @api.multi
@@ -57,11 +50,8 @@ class SaleOrder(models.Model):
                 ship_add_id = self_obj.partner_invoice_id or self_obj.partner_id
             elif 'tax_add_shipping' in vals and vals['tax_add_shipping']:
                 ship_add_id = self_obj.partner_shipping_id or self_obj.partner_id
-#            else:
-#                ship_add_id = self.partner_id
             if ship_add_id:
                 vals['tax_add_id'] = ship_add_id.id
-                # vals['tax_address'] = str(ship_add_id.name+ '\n'+(ship_add_id.street or '')+ '\n'+(ship_add_id.city and ship_add_id.city+', ' or ' ')+(ship_add_id.state_id and ship_add_id.state_id.name or '')+ ' '+(ship_add_id.zip or '')+'\n'+(ship_add_id.country_id and ship_add_id.country_id.name or ''))   
 
         return super(SaleOrder, self).write(vals)
 
@@ -101,7 +91,6 @@ class SaleOrder(models.Model):
     def default_tax_address(self):
         if self.tax_add_default and self.partner_id:
             self.tax_add_id = self.partner_id.id
-#            self.tax_address = str(addr.name+ '\n'+(addr.street or '')+ '\n'+(addr.city and addr.city+', ' or ' ')+(addr.state_id and addr.state_id.name or '')+ ' '+(addr.zip or '')+'\n'+(addr.country_id and addr.country_id.name or ''))
             self.tax_add_default = True
             self.tax_add_invoice = self.tax_add_shipping = False
 
@@ -109,7 +98,6 @@ class SaleOrder(models.Model):
     def invoice_tax_address(self):
         if (self.tax_add_invoice and self.partner_invoice_id) or (self.tax_add_invoice and self.partner_id):
             self.tax_add_id = self.partner_invoice_id.id or self.partner_id.id
-#            self.tax_address = str(addr.name+ '\n'+(addr.street or '')+ '\n'+(addr.city and addr.city+', ' or ' ')+(addr.state_id and addr.state_id.name or '')+ ' '+(addr.zip or '')+'\n'+(addr.country_id and addr.country_id.name or ''))
             self.tax_add_default = self.tax_add_shipping = False
             self.tax_add_invoice = True
 
@@ -117,7 +105,6 @@ class SaleOrder(models.Model):
     def delivery_tax_address(self):
         if (self.tax_add_shipping and self.partner_shipping_id) or (self.tax_add_shipping and self.partner_id):
             self.tax_add_id = self.partner_shipping_id.id or self.partner_id.id
-#            self.tax_address = str(addr.name+ '\n'+(addr.street or '')+ '\n'+(addr.city and addr.city+', ' or ' ')+(addr.state_id and addr.state_id.name or '')+ ' '+(addr.zip or '')+'\n'+(addr.country_id and addr.country_id.name or ''))
             self.tax_add_default = self.tax_add_invoice = False
             self.tax_add_shipping = True
 
@@ -133,7 +120,6 @@ class SaleOrder(models.Model):
     tax_add_shipping = fields.Boolean('Delivery Address', default=True, readonly=True, states={'draft': [('readonly', False)]})
     tax_add_id = fields.Many2one('res.partner', 'Tax Address', readonly=True, states={'draft': [('readonly', False)]})
     tax_address = fields.Text('Tax Address')
-    # location_code = fields.related('shop_id', 'location_code', type="char", string="Location Code", store=True, readonly=True, help="Origin address location code")
     location_code = fields.Char('Location Code', help='Origin address location code')
 
     @api.model
@@ -207,9 +193,6 @@ class SaleOrder(models.Model):
                     tax_amount = o_tax_amt
 
                 elif avatax_config.on_order:
-                    # Order level tax calculation
-                    # lines1.extend(lines2)
-
                     tax_amount = account_tax_obj._get_compute_tax(avatax_config, order_date,
                                                                     self.name, 'SalesOrder', self.partner_id, ship_from_address_id,
                                                                     shipping_add_id, lines, self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
@@ -226,8 +209,6 @@ class SaleOrder(models.Model):
         else:
             for o_line in self.order_line:
                 o_line.write({'tax_amt': 0.0})
-#            for s_line in order.shipping_lines:
-#               ship_order_line.write(cr, uid, [s_line.id], {'tax_amt': 0.0,})
 
         self.write({'tax_amount': tax_amount, 'order_line': []})
         return True
