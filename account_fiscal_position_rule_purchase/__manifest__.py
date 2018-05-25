@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2009-TODAY Akretion <http://www.akretion.com>
 #   @author Sébastien BEAU <sebastien.beau@akretion.com>
 #   @author Renato Lima <renato.lima@akretion.com>
@@ -8,7 +7,7 @@
 
 {
     'name': 'Account Fiscal Position Rule Purchase',
-    'version': '10.0.1.0.0',
+    'version': '11.0.1.0.0',
     'category': 'Generic Modules/Accounting',
     'author': "Akretion,Odoo Community Association (OCA)",
     'license': 'AGPL-3',
