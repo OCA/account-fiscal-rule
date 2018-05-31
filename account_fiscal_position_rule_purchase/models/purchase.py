@@ -28,3 +28,11 @@ class PurchaseOrder(models.Model):
         obj_fiscal_position = self._fiscal_position_map(**kwargs)
         if obj_fiscal_position:
             self.fiscal_position_id = obj_fiscal_position.id
+
+    # re-call onchange_fiscal_position_map on onchange_partner_id cause,
+    # fiscal_position_id is crush by the onchange_partner_id onchange
+    @api.onchange('partner_id', 'company_id')
+    def onchange_partner_id(self):
+        print('onchange_partner_id')
+        super(PurchaseOrder,self).onchange_partner_id()
+        self.onchange_fiscal_position_map()
