@@ -33,6 +33,5 @@ class PurchaseOrder(models.Model):
     # fiscal_position_id is crush by the onchange_partner_id onchange
     @api.onchange('partner_id', 'company_id')
     def onchange_partner_id(self):
-        print('onchange_partner_id')
         super(PurchaseOrder,self).onchange_partner_id()
         self.onchange_fiscal_position_map()
