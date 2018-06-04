@@ -3,39 +3,63 @@
 #   @author: Thomas Nowicki
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from openerp.exceptions import ValidationError
-from openerp.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 
 
-class Tests(TransactionCase):
+class Tests(SavepointCase):
     """Tests for 'Account Fiscal - Position Rule Purchase' Module"""
 
-    def setUp(self):
-        super(Tests, self).setUp()
+    @classmethod
+    def setUpClass(cls):
+        super(Tests, cls).setUpClass()
 
-        self.account_fiscal_position_test_for_rule = self.env['account.fiscal.position'].create({
+        cls.account_fiscal_position_test_for_rule = cls.env[
+            'account.fiscal.position'
+        ].create({
             'name': 'name_account_fiscal_position_for_rule',
             'auto_apply': True,
         })
-        self.fiscal_position_rule = self.env['account.fiscal.position.rule'].create({
+        cls.fiscal_position_rule = cls.env[
+            'account.fiscal.position.rule'
+        ].create({
             'name': 'name_fiscal_position_rule',
-            'company_id': self.env.ref('base.main_company').id,
-            'fiscal_position_id': self.account_fiscal_position_test_for_rule.id,
+            'company_id': cls.env.ref('base.main_company').id,
+            'fiscal_position_id':
+            cls.account_fiscal_position_test_for_rule.id,
             'use_purchase': True,
         })
-        self.account_fiscal_position_test = self.env['account.fiscal.position'].create({
+        cls.account_fiscal_position_test = cls.env[
+            'account.fiscal.position'
+        ].create({
             'name': 'internal_purchase',
             'auto_apply': True,
         })
-        self.partner_without_fiscal_position = self.env['res.partner'].create({
+        cls.partner_without_fiscal_position = cls.env[
+            'res.partner'
+        ].create({
             'name': 'partner_name_without_fiscal_position',
-            'supplier':True,
-        })
-        self.partner_with_fiscal_position = self.env['res.partner'].create({
-            'name': 'partner_name_with_fiscal_position',
-            'property_account_position_id': self.account_fiscal_position_test.id,
             'supplier': True,
         })
+        cls.partner_with_fiscal_position = cls.env[
+            'res.partner'
+        ].create({
+            'name': 'partner_name_with_fiscal_position',
+            'property_account_position_id':
+            cls.account_fiscal_position_test.id,
+            'supplier': True,
+        })
+
+    def create_purchase_order(self, purchase_order, values):
+        specs = purchase_order._onchange_spec()
+        update = purchase_order.onchange(values, ['partner_id'], specs)
+        value = update.get('value', {})
+
+        for name, val in value.items():
+            if isinstance(val, tuple):
+                value[name] = val[0]
+        values.update(value)
+
+        return purchase_order.create(values)
 
     def test_00_fiscal_position(self):
         """Test if the purchase order from partner without fiscal position,
@@ -49,16 +73,8 @@ class Tests(TransactionCase):
             'company_id': self.env.ref('base.main_company').id,
             'fiscal_position_id': False,
         }
-        specs = purchase_order._onchange_spec()
-        update = purchase_order.onchange(values, ['partner_id'], specs)
-        value = update.get('value', {})
 
-        for name, val in value.items():
-            if isinstance(val, tuple):
-                value[name] = val[0]
-        values.update(value)
-
-        po = purchase_order.create(values)
+        po = self.create_purchase_order(purchase_order, values)
 
         self.assertFalse(po.fiscal_position_id)
 
@@ -74,18 +90,12 @@ class Tests(TransactionCase):
             'company_id': self.env.ref('base.main_company').id,
             'fiscal_position_id': False,
         }
-        specs = purchase_order._onchange_spec()
-        update = purchase_order.onchange(values, ['partner_id'], specs)
-        value = update.get('value', {})
 
-        for name, val in value.items():
-            if isinstance(val, tuple):
-                value[name] = val[0]
-        values.update(value)
+        po = self.create_purchase_order(purchase_order, values)
 
-        po = purchase_order.create(values)
-
-        self.assertEqual(po.fiscal_position_id, self.account_fiscal_position_test)
+        self.assertEqual(
+            po.fiscal_position_id, self.account_fiscal_position_test
+        )
 
     def test_02_fiscal_position(self):
         """Test if the purchase order from partner without fiscal position,
@@ -97,18 +107,12 @@ class Tests(TransactionCase):
             'company_id': self.env.ref('base.main_company').id,
             'fiscal_position_id': False,
         }
-        specs = purchase_order._onchange_spec()
-        update = purchase_order.onchange(values, ['partner_id'], specs)
-        value = update.get('value', {})
 
-        for name, val in value.items():
-            if isinstance(val, tuple):
-                value[name] = val[0]
-        values.update(value)
+        po = self.create_purchase_order(purchase_order, values)
 
-        po = purchase_order.create(values)
-
-        self.assertEqual(po.fiscal_position_id, self.account_fiscal_position_test_for_rule)
+        self.assertEqual(
+            po.fiscal_position_id, self.account_fiscal_position_test_for_rule
+        )
 
     def test_03_fiscal_position(self):
         """Test if the purchase order from partner with fiscal position,
@@ -120,15 +124,9 @@ class Tests(TransactionCase):
             'company_id': self.env.ref('base.main_company').id,
             'fiscal_position_id': False,
         }
-        specs = purchase_order._onchange_spec()
-        update = purchase_order.onchange(values, ['partner_id'], specs)
-        value = update.get('value', {})
 
-        for name, val in value.items():
-            if isinstance(val, tuple):
-                value[name] = val[0]
-        values.update(value)
+        po = self.create_purchase_order(purchase_order, values)
 
-        po = purchase_order.create(values)
-
-        self.assertEqual(po.fiscal_position_id, self.account_fiscal_position_test)
+        self.assertEqual(
+            po.fiscal_position_id, self.account_fiscal_position_test
+        )
