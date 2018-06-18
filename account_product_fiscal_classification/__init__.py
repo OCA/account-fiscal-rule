@@ -24,21 +24,21 @@ def create_fiscal_classification_from_product_template(cr, registry):
     counter = 0
     total = len(templates)
     # Associate product template to Fiscal Classifications
-    for template in templates:
-        counter += 1
-        args = [
-            template.company_id and template.company_id.id or False,
-            sorted([x.id for x in template.taxes_id]),
-            sorted([x.id for x in template.supplier_taxes_id])]
-        if args not in classifications_keys.values():
-            _logger.info(
-                """create new Fiscal Classification. Product templates"""
-                """ managed %s/%s""" % (counter, total))
-            classification_id = classification_obj.find_or_create(*args)
-            classifications_keys[classification_id] = args
-            # associate product template to the new Fiscal Classification
-            template.fiscal_classification_id = classification_id
+    res_list = templates.read(['company_id', 'taxes_id', 'supplier_taxes_id'])
+    for res in res_list:
+        key = str([
+            res['company_id'] and res['company_id'][0],
+            res['taxes_id'],
+            res['supplier_taxes_id']])
+        if key in classifications_keys.keys():
+            classifications_keys[key].append(res['id'])
         else:
-            # associate product template to existing Fiscal Classification
-            template.fiscal_classification_id = classifications_keys.keys()[
-                classifications_keys.values().index(args)]
+            classifications_keys[key] = [res['id']]
+    for key, value in classifications_keys.iteritems():
+        counter += len(value)
+        _logger.info(
+            "create new Fiscal Classification for %d Product templates"
+            " %d / %d" % (len(value), counter, total))
+        classification_id = classification_obj.find_or_create(*eval(key))
+        sub_templates = templates.browse(value)
+        sub_templates.write({'fiscal_classification_id': classification_id})
