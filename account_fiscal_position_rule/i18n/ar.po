@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_fiscal_position_rule
-# 
+#
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2016
 # SaFi J. <safi2266@gmail.com>, 2016
@@ -13,11 +13,12 @@ msgstr ""
 "PO-Revision-Date: 2016-11-16 16:33+0000\n"
 "Last-Translator: SaFi J. <safi2266@gmail.com>, 2016\n"
 "Language-Team: Arabic (https://www.transifex.com/oca/teams/23907/ar/)\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule_template
@@ -38,8 +39,8 @@ msgstr "إلغاء"
 #: model:ir.model.fields,help:account_fiscal_position_rule.field_account_fiscal_position_rule_template_vat_rule
 #: model:ir.model.fields,help:account_fiscal_position_rule.field_account_fiscal_position_rule_vat_rule
 msgid ""
-"Choose if the customer need to have the field VAT fill for using this fiscal"
-" position"
+"Choose if the customer need to have the field VAT fill for using this fiscal "
+"position"
 msgstr ""
 
 #. module: account_fiscal_position_rule
