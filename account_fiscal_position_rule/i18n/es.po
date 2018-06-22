@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_fiscal_position_rule
-# 
+#
 # Translators:
 # enjolras <yo@miguelrevilla.com>, 2018
 # OCA Transbot <transbot@odoo-community.org>, 2018
@@ -13,10 +13,10 @@ msgstr ""
 "PO-Revision-Date: 2018-03-09 01:39+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_fiscal_position_rule
@@ -38,8 +38,8 @@ msgstr "Cancelar"
 #: model:ir.model.fields,help:account_fiscal_position_rule.field_account_fiscal_position_rule_template_vat_rule
 #: model:ir.model.fields,help:account_fiscal_position_rule.field_account_fiscal_position_rule_vat_rule
 msgid ""
-"Choose if the customer need to have the field VAT fill for using this fiscal"
-" position"
+"Choose if the customer need to have the field VAT fill for using this fiscal "
+"position"
 msgstr ""
 "Selecciona si es necesario que el cliente tenga el NIF rellenado para "
 "utilizar esta posición fiscal"
