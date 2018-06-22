@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_product_fiscal_classification
-# 
+#
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2018
 # Matjaž Mozetič <m.mozetic@matmoz.si>, 2018
@@ -13,11 +13,12 @@ msgstr ""
 "PO-Revision-Date: 2018-03-17 00:24+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>, 2018\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:119
@@ -120,8 +121,10 @@ msgstr "Ustvarjeno"
 msgid ""
 "Dear Sir/Madam,\n"
 "\n"
-"Our records indicate that some payments on your account are still due. Please find details below.\n"
-"If the amount has already been paid, please disregard this notice. Otherwise, please forward us the total amount stated below.\n"
+"Our records indicate that some payments on your account are still due. "
+"Please find details below.\n"
+"If the amount has already been paid, please disregard this notice. "
+"Otherwise, please forward us the total amount stated below.\n"
 "If you have any queries regarding your account, Please contact us.\n"
 "\n"
 "Thank you in advance for your cooperation.\n"
@@ -129,8 +132,10 @@ msgid ""
 msgstr ""
 "Spoštovani.\n"
 "\n"
-"Po naši evidenci nekatera zapadla plačila na vašem računu še niso poravnana. Več podrobnosti je spodaj.\n"
-"Če je znesek medtem bil že poravnan, lahko smatrate ta opomin kot ničen. V nasprotnem primeru, vas prosimo, da spodaj navedeni znesek poravnate.\n"
+"Po naši evidenci nekatera zapadla plačila na vašem računu še niso poravnana. "
+"Več podrobnosti je spodaj.\n"
+"Če je znesek medtem bil že poravnan, lahko smatrate ta opomin kot ničen. V "
+"nasprotnem primeru, vas prosimo, da spodaj navedeni znesek poravnate.\n"
 "Za kakršnihkoli pojasnila smo vam na voljo.\n"
 "\n"
 "Za vaše sodelovanje se vam v naprej zahvaljujemo.\n"
@@ -375,8 +380,8 @@ msgstr "Prodajni davki"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_category_fiscal_classification_ids
 msgid ""
-"Specify Fiscal Classifications that will be allowed for products that belong"
-" to this Product Category."
+"Specify Fiscal Classifications that will be allowed for products that belong "
+"to this Product Category."
 msgstr ""
 "Določite fiskalne klasifikacije, ki bodo dovoljene za proizvode v tej "
 "kategoriji."
@@ -388,8 +393,8 @@ msgid ""
 "specific company. Otherwise, this Fiscal Classification will be available "
 "for all companies."
 msgstr ""
-"Določite družbo, če želite določiti to fiskalno klasifikacijo le za določeno"
-" družbo. V nasprotnem primeru bo za fiskalna klasifikacija veljala za vse "
+"Določite družbo, če želite določiti to fiskalno klasifikacijo le za določeno "
+"družbo. V nasprotnem primeru bo za fiskalna klasifikacija veljala za vse "
 "družbe."
 
 #. module: account_product_fiscal_classification
@@ -414,13 +419,17 @@ msgstr "Davki"
 #: code:addons/account_product_fiscal_classification/models/product_template.py:47
 #, python-format
 msgid ""
-"The category '%s' of the product '%s' doesn't not allow to set the classification '%s'.\n"
-" Please, change the classification of the product, or remove the constraint on the product category.\n"
+"The category '%s' of the product '%s' doesn't not allow to set the "
+"classification '%s'.\n"
+" Please, change the classification of the product, or remove the constraint "
+"on the product category.\n"
 "\n"
 " Allowed Classifications for '%s': %s"
 msgstr ""
-"Kategorija '%s' za proizvod '%s' ne dovoljuje nastavitve klasifikacije '%s'.\n"
-" Prosimo, da spremenite klasifikacijo proizvoda ali odstranite omejitev na kategoriji proizvoda.\n"
+"Kategorija '%s' za proizvod '%s' ne dovoljuje nastavitve klasifikacije "
+"'%s'.\n"
+" Prosimo, da spremenite klasifikacijo proizvoda ali odstranite omejitev na "
+"kategoriji proizvoda.\n"
 "\n"
 " Dovoljene klasifikacije za '%s': %s"
 

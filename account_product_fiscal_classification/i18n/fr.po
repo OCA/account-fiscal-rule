@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_product_fiscal_classification
-# 
+#
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2018
 msgid ""
@@ -12,10 +12,10 @@ msgstr ""
 "PO-Revision-Date: 2018-03-09 01:39+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
 "Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: account_product_fiscal_classification
@@ -121,8 +121,10 @@ msgstr "Créé le"
 msgid ""
 "Dear Sir/Madam,\n"
 "\n"
-"Our records indicate that some payments on your account are still due. Please find details below.\n"
-"If the amount has already been paid, please disregard this notice. Otherwise, please forward us the total amount stated below.\n"
+"Our records indicate that some payments on your account are still due. "
+"Please find details below.\n"
+"If the amount has already been paid, please disregard this notice. "
+"Otherwise, please forward us the total amount stated below.\n"
 "If you have any queries regarding your account, Please contact us.\n"
 "\n"
 "Thank you in advance for your cooperation.\n"
@@ -130,9 +132,13 @@ msgid ""
 msgstr ""
 "Madame, Monsieur,\n"
 "\n"
-"D'après nos relevés, il semble que nous sommes encore en attente à ce jour de paiements de votre part, dont les détails sont indiqués ci-dessous.\n"
-"Si ces sommes ont déjà été réglées, vous pouvez ignorer ce rappel. Dans le cas contraire, nous vous remercions de bien vouloir nous faire parvenir votre règlement.\n"
-"Si vous avez d'autres questions concernant votre compte, vous pouvez nous contacter directement.\n"
+"D'après nos relevés, il semble que nous sommes encore en attente à ce jour "
+"de paiements de votre part, dont les détails sont indiqués ci-dessous.\n"
+"Si ces sommes ont déjà été réglées, vous pouvez ignorer ce rappel. Dans le "
+"cas contraire, nous vous remercions de bien vouloir nous faire parvenir "
+"votre règlement.\n"
+"Si vous avez d'autres questions concernant votre compte, vous pouvez nous "
+"contacter directement.\n"
 "\n"
 "En vous remerciant par avance.\n"
 "\n"
@@ -251,8 +257,8 @@ msgid ""
 "If unchecked, it will allow you to hide the Fiscal Classification without "
 "removing it."
 msgstr ""
-"Décochez cette case vous permettra de cacher cette catégorie fiscale sans la"
-" supprimer."
+"Décochez cette case vous permettra de cacher cette catégorie fiscale sans la "
+"supprimer."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification___last_update
@@ -377,8 +383,8 @@ msgstr "Taxes à la vente"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_category_fiscal_classification_ids
 msgid ""
-"Specify Fiscal Classifications that will be allowed for products that belong"
-" to this Product Category."
+"Specify Fiscal Classifications that will be allowed for products that belong "
+"to this Product Category."
 msgstr ""
 "Indiquer les classifications fiscales qui seront autorisées pour les "
 "produits qui appartiennent à cette catégorie."
@@ -403,9 +409,8 @@ msgid ""
 "or ask to your account manager if you don't have the access right."
 msgstr ""
 "Indique la combinaison de taxes pour cet article. Ce champ est requis. Si "
-"vous ne trouvez pas la catégorie fiscale correcte, veuillez en créer une, ou"
-" demander à votre responsable comptable si vous n'avez pas les droits "
-"d'accès."
+"vous ne trouvez pas la catégorie fiscale correcte, veuillez en créer une, ou "
+"demander à votre responsable comptable si vous n'avez pas les droits d'accès."
 
 #. module: account_product_fiscal_classification
 #: model:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
@@ -417,13 +422,17 @@ msgstr "Taxes"
 #: code:addons/account_product_fiscal_classification/models/product_template.py:47
 #, python-format
 msgid ""
-"The category '%s' of the product '%s' doesn't not allow to set the classification '%s'.\n"
-" Please, change the classification of the product, or remove the constraint on the product category.\n"
+"The category '%s' of the product '%s' doesn't not allow to set the "
+"classification '%s'.\n"
+" Please, change the classification of the product, or remove the constraint "
+"on the product category.\n"
 "\n"
 " Allowed Classifications for '%s': %s"
 msgstr ""
-"La catégorie '%s' du produit '%s' n'autorise pas de mettre de classification '%s'.\n"
-" Veuillez changer la classification du produit ou retirer la contrainte sur la catégorie du produit.\n"
+"La catégorie '%s' du produit '%s' n'autorise pas de mettre de classification "
+"'%s'.\n"
+" Veuillez changer la classification du produit ou retirer la contrainte sur "
+"la catégorie du produit.\n"
 "\n"
 " Classifications autorisées pour '%s': %s"
 
@@ -457,8 +466,7 @@ msgid ""
 "products. Please move products to another Fiscal Classification first."
 msgstr ""
 "Vous ne pouvez pas supprimer cette catégorie fiscale '%s' car elle contient "
-"%s articles. Merci de déplacer les articles dans une autre catégorie "
-"fiscale."
+"%s articles. Merci de déplacer les articles dans une autre catégorie fiscale."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification
