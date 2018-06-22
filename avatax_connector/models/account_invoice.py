@@ -58,7 +58,8 @@ class AccountInvoice(models.Model):
     def write(self, vals):
         res = super(AccountInvoice, self).write(vals)
         if not self._context.get('contact_avatax') and self:
-            self.with_context(contact_avatax=True)._onchange_invoice_line_ids()
+            for inv in self:
+                inv.with_context(contact_avatax=True)._onchange_invoice_line_ids()
         return res
 
     invoice_doc_no = fields.Char('Source/Ref Invoice No', readonly=True, states={'draft': [('readonly', False)]}, help="Reference of the invoice")
