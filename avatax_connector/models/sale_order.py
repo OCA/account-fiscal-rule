@@ -225,7 +225,7 @@ class SaleOrder(models.Model):
     def button_dummy(self):
         """ It used to called manually calculation method of avalara and get tax amount"""
         self.compute_tax()
-        return super(SaleOrder, self).button_dummy()
+        return True
 
     @api.multi
     def action_confirm(self):
