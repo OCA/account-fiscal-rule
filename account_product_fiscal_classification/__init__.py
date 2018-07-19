@@ -18,8 +18,9 @@ def create_fiscal_classification_from_product_template(cr, registry):
     classifications_keys = {}
 
     # Get all product template
-    templates = template_obj.search([
-        '|', ('active', '=', False), ('active', '=', True)])
+    # Don't manage products that should be populated by SQL request before
+    templates = template_obj.with_context(active_test=False).search([
+        ('fiscal_classification_id', '=', False)])
 
     counter = 0
     total = len(templates)
