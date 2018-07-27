@@ -103,7 +103,7 @@ class ProductTemplate(models.Model):
         if fc_id:
             # update or replace 'taxes_id' and 'supplier_taxes_id'
             fc_obj = self.env['account.product.fiscal.classification']
-            fc = fc_obj.browse(classification_id)
+            fc = fc_obj.browse(fc_id)
             tax_vals = {
                 'supplier_taxes_id': [[6, 0, [
                     x.id for x in fc.purchase_tax_ids]]],
