@@ -13,16 +13,10 @@ from odoo import models, api
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    def _fiscal_position_map(self, **kwargs):
-        ctx = dict(self._context)
-        ctx.update({'use_domain': ('use_sale', '=', True)})
-        return self.env['account.fiscal.position.rule'].with_context(
-            ctx).apply_fiscal_mapping(**kwargs)
-
     @api.onchange('partner_id', 'partner_invoice_id',
                   'partner_shipping_id', 'company_id')
     def onchange_fiscal_position_map(self):
-
+        result = {'value': {}}
         kwargs = {
             'company_id': self.company_id,
             'partner_id': self.partner_id,
@@ -30,6 +24,13 @@ class SaleOrder(models.Model):
             'partner_shipping_id': self.partner_shipping_id,
         }
 
-        obj_fiscal_position = self._fiscal_position_map(**kwargs)
+        obj_fiscal_position = self._fiscal_position_maps(result, **kwargs)
         if obj_fiscal_position:
             self.fiscal_position_id = obj_fiscal_position.id
+
+    @api.model
+    def _fiscal_position_maps(self, **kwargs):
+        ctx = dict(self._context)
+        ctx.update({'use_domain': ('use_sale', '=', True)})
+        return self.env['account.fiscal.position.rule'].with_context(
+            ctx).apply_fiscal_mapping(**kwargs)
