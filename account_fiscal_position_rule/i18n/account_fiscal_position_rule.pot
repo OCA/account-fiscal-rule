@@ -35,9 +35,13 @@ msgid "Choose if the customer need to have the field VAT fill for using this fis
 msgstr ""
 
 #. module: account_fiscal_position_rule
-#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_company_id
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_wizard_account_fiscal_position_rule_company_id
 msgid "Company"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_company_id
+msgid "Company id"
 msgstr ""
 
 #. module: account_fiscal_position_rule
