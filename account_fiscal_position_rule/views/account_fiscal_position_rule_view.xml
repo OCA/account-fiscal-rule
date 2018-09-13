@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
 
         <!-- Create Menu for Configuration and Generation Templates -->
         <menuitem id="menu_account_fiscal_position_rule_template"
@@ -235,5 +234,4 @@
                   action="action_account_fiscal_position_rule_form" parent="account.account_account_menu"
                   sequence="21"/>
 
-    </data>
 </odoo>
