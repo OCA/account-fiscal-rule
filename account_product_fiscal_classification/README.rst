@@ -19,8 +19,9 @@ Functionality
 
 * Prevent users to select incompatible purchase and sale taxes.
   French Exemple: A product can not be configured with:
-    * Purchase Taxes: 5.5%;
-    * Sale Taxes: 20%;
+
+  * Purchase Taxes: 5.5%;
+  * Sale Taxes: 20%;
 
 * Provides the possibility to the account manager to change incorrect
   parameters massively;
