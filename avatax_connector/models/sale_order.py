@@ -94,23 +94,32 @@ class SaleOrder(models.Model):
     @api.onchange('tax_add_default', 'partner_id')
     def default_tax_address(self):
         if self.tax_add_default and self.partner_id:
-            self.tax_add_id = self.partner_id.id
-            self.tax_add_default = True
             self.tax_add_invoice = self.tax_add_shipping = False
+            self.tax_add_default = True
 
     @api.onchange('tax_add_invoice', 'partner_invoice_id', 'partner_id')
     def invoice_tax_address(self):
         if (self.tax_add_invoice and self.partner_invoice_id) or (self.tax_add_invoice and self.partner_id):
-            self.tax_add_id = self.partner_invoice_id.id or self.partner_id.id
             self.tax_add_default = self.tax_add_shipping = False
             self.tax_add_invoice = True
 
     @api.onchange('tax_add_shipping', 'partner_shipping_id', 'partner_id')
     def delivery_tax_address(self):
         if (self.tax_add_shipping and self.partner_shipping_id) or (self.tax_add_shipping and self.partner_id):
-            self.tax_add_id = self.partner_shipping_id.id or self.partner_id.id
             self.tax_add_default = self.tax_add_invoice = False
             self.tax_add_shipping = True
+
+    @api.multi
+    @api.depends('partner_id', 'partner_invoice_id', 'partner_shipping_id',
+                 'tax_add_default', 'tax_add_invoice', 'tax_add_shipping')
+    def _compute_tax_id(self):
+        for order in self:
+            if order.tax_add_shipping:
+                order.tax_add_id = order.partner_shipping_id or order.partner_id
+            elif order.tax_add_invoice:
+                order.tax_add_id = order.partner_invoice_id or order.partner_id
+            else:
+                order.tax_add_id = order.partner_id
 
     exemption_code = fields.Char('Exemption Number', help="It show the customer exemption number")
     is_add_validate = fields.Boolean('Address validated')
@@ -122,7 +131,8 @@ class SaleOrder(models.Model):
     tax_add_default = fields.Boolean('Default Address', readonly=True, states={'draft': [('readonly', False)]})
     tax_add_invoice = fields.Boolean('Invoice Address', readonly=True, states={'draft': [('readonly', False)]})
     tax_add_shipping = fields.Boolean('Delivery Address', default=True, readonly=True, states={'draft': [('readonly', False)]})
-    tax_add_id = fields.Many2one('res.partner', 'Tax Address', readonly=True, states={'draft': [('readonly', False)]})
+    tax_add_id = fields.Many2one('res.partner', 'Tax Address', readonly=True, states={'draft': [('readonly', False)]},
+                                 compute='_compute_tax_id', store=True)
     tax_address = fields.Text('Tax Address')
     location_code = fields.Char('Location Code', help='Origin address location code')
 
