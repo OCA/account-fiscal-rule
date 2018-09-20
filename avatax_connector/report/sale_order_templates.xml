@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <t t-foreach="doc._get_tax_amount_by_group()" t-as="amount_by_group" position="replace">
+            <tr style="border-bottom:1px solid #dddddd;">
+                <td><span>Taxes</span></td>
+                <td class="text-right">
+                    <span t-esc="doc.amount_tax"
+                          t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                </td>
+            </tr>
+        </t>
+    </template>
+</odoo>

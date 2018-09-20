@@ -39,6 +39,7 @@ This module has Following Features:
         "views/account_invoice_view.xml",
         "views/sale_order_view.xml",
         "views/account_tax_view.xml",
+        "report/sale_order_templates.xml",
         #"views/demo.xml",
     ],
     'demo': [
