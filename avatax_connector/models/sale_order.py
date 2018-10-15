@@ -69,12 +69,8 @@ class SaleOrder(models.Model):
         invoice_vals.update({
             'exemption_code': self.exemption_code or '',
             'exemption_code_id': self.exemption_code_id.id or False,
-            'tax_add_default': self.tax_add_default,
-            'tax_add_invoice': self.tax_add_invoice,
-            'tax_add_shipping': self.tax_add_shipping,
-            'shipping_add_id': self.tax_add_id.id,
-            'shipping_address': self.tax_address,
             'location_code': self.location_code or '',
+            'tax_on_shipping_address': self.tax_add_shipping,
         })
         return invoice_vals
 
