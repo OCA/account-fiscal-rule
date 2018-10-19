@@ -58,7 +58,7 @@ class AccountInvoice(models.Model):
     def write(self, vals):
         res = super(AccountInvoice, self).write(vals)
         if not self._context.get('contact_avatax') and self:
-            for inv in self:
+            for inv in self.filtered(lambda inv: inv.state == 'draft'):
                 inv.with_context(contact_avatax=True)._onchange_invoice_line_ids()
         return res
 
