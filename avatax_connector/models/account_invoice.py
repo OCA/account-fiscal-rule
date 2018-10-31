@@ -257,6 +257,7 @@ class AccountInvoice(models.Model):
                                                     self.number, 'SalesOrder', self.partner_id, ship_from_address_id,
                                                     shipping_add_id, lines, self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
                                                     is_override=self.type == 'out_refund', currency_id=self.currency_id).TotalTax
+                    o_tax_amt = float(o_tax_amt)
                     if o_tax_amt:
                         
                         val = {

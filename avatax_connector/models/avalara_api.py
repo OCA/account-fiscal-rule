@@ -156,6 +156,8 @@ class AvaTaxService:
             taxoverride.TaxAmount = 0
             taxoverride.Reason = 'Return Items'
             request.TaxOverride = taxoverride
+        else:
+            del request.TaxOverride
 
         request.CompanyCode = company_code
         request.DocDate = doc_date
@@ -185,6 +187,7 @@ class AvaTaxService:
             line1.Description = tools.ustr(desc)[:255]
             line1.Amount = received_lines[line].get('amount', 0.0)
             line1.TaxCode = received_lines[line].get('tax_code', None)
+            del line1.TaxOverride
             lineslist.append(line1)
         # So now we build request.Lines
         lines = self.taxSvc.factory.create('ArrayOfLine')
