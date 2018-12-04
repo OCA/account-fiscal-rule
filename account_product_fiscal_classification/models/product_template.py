@@ -76,6 +76,12 @@ class ProductTemplate(models.Model):
                 res['arch'] = etree.tostring(doc)
         return res
 
+    @api.onchange('fiscal_classification_id')
+    def onchange_fiscal_classification_id(self):
+        fc = self.fiscal_classification_id
+        self.supplier_taxes_id = [[6, 0, fc.purchase_tax_ids.ids]]
+        self.taxes_id = [[6, 0, fc.sale_tax_ids.ids]]
+
     # Custom Section
     def write_taxes_setting(self, vals):
         """If Fiscal Classification is defined, set the according taxes
@@ -91,7 +97,7 @@ class ProductTemplate(models.Model):
                     x.id for x in fc.purchase_tax_ids]]],
                 'taxes_id': [[6, 0, [
                     x.id for x in fc.sale_tax_ids]]],
-                }
+            }
             super(ProductTemplate, self.sudo()).write(tax_vals)
         elif 'supplier_taxes_id' in vals.keys() or 'taxes_id' in vals.keys():
             # product template Single update mode
