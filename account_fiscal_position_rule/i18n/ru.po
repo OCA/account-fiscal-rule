@@ -44,9 +44,14 @@ msgid ""
 msgstr ""
 
 #. module: account_fiscal_position_rule
-#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_company_id
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_wizard_account_fiscal_position_rule_company_id
 msgid "Company"
+msgstr "Компания"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_company_id
+#, fuzzy
+msgid "Company id"
 msgstr "Компания"
 
 #. module: account_fiscal_position_rule
