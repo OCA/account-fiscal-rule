@@ -4,4 +4,6 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 from . import account_fiscal_position_rule
+from . import account_fiscal_position_rule_template
+from . import account_fiscal_position
 from . import account_invoice
