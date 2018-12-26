@@ -8,9 +8,13 @@
 
 {
     'name': 'Account Fiscal Position Rule',
-    'version': '10.0.1.0.0',
+    'summary': 'Account Fiscal Position Rule',
     'category': 'Generic Modules/Accounting',
-    'author': "Akretion, Odoo Community Association (OCA)",
+    'version': '12.0.1.0.0',
+    'author': (
+        'Akretion',
+        'Odoo Community Association (OCA)',
+    ),
     'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
     'depends': [
@@ -18,11 +22,12 @@
         'l10n_generic_coa',
     ],
     'data': [
-        'views/account_fiscal_position_rule_view.xml',
-        'security/account_fiscal_position_rule_security.xml',
         'security/ir.model.access.csv',
+        'security/account_fiscal_position_rule_security.xml',
+        'views/account_fiscal_position_rule_view.xml',
+        'views/account_fiscal_position_rule_template_view.xml',
+        'wizard/wizard_account_fiscal_position_rule_view.xml',
     ],
-    'demo': [],
     'test': [
         'test/account_fiscal_position_rule_data.xml',
         'test/test_rules.yml'],
