@@ -16,9 +16,7 @@
         'account_fiscal_position_rule',
         'purchase',
     ],
-    'data': [
-        'security/ir.model.access.csv',
-    ],
+    'data': [],
     'demo': [],
     'test': [
         'test/account_fiscal_position_rule_purchase.yml',
