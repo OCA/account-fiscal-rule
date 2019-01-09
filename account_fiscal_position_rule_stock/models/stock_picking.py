@@ -59,9 +59,7 @@ class StockPicking(models.Model):
             key, inv_type, journal_id, move
         )
         inv_vals.update({
-            'fiscal_position_id': (
-                    move.picking_id.fiscal_position_id.id and
-                    move.picking_id.fiscal_position_id.id
-            ),
+            'fiscal_position_id': (move.picking_id.fiscal_position_id.id and
+                                   move.picking_id.fiscal_position_id.id),
         })
         return inv_vals
