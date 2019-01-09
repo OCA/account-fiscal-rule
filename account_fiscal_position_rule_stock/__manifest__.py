@@ -19,11 +19,6 @@
         'views/stock_picking.xml',
         'security/ir.model.access.csv',
     ],
-    'test': [
-        'tests/account_fiscal_position_rule_stock_test.yml',
-        'tests/sale_order_test.yml',
-        'tests/invoice_from_picking_test.yml'
-    ],
     'demo': [
         'demo/account_fiscal_position_rule_stock_demo.xml',
     ],
