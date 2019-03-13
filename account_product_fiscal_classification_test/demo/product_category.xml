@@ -5,12 +5,11 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
-<openerp><data>
-
+<odoo>
     <record model="product.category" id="category_with_fiscal_restriction">
         <field name="name">Category with Fiscal Restriction</field>
         <field name="fiscal_restriction" eval="True" />
         <field name="fiscal_classification_ids" eval="[(4, ref('fiscal_classification_1'))]"/>
     </record>
 
-</data></openerp>
+</odoo>

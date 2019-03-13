@@ -1,14 +1,13 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2014-Today GRAP (http://www.grap.coop)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, fields, api
+from odoo import models, fields
 
 
 class WizardChangeFiscalClassification(models.TransientModel):
-    """Wizard to allow to change the Fiscal Classification of products."""
     _name = 'wizard.change.fiscal.classification'
+    _description = 'Wizard : Change fiscal classification on product'
 
     # Getter / Setter Section
     def _default_old_fiscal_classification_id(self):
@@ -27,8 +26,8 @@ class WizardChangeFiscalClassification(models.TransientModel):
         required=True, domain="[('id', '!=', old_fiscal_classification_id)]")
 
     # View Section
-    @api.one
     def button_change_fiscal_classification(self):
+        self.ensure_one()
         template_obj = self.env['product.template']
         template_ids = [
             x.id for x in self.old_fiscal_classification_id.product_tmpl_ids]

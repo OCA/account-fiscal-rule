@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2014-Today GRAP (http://www.grap.coop)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
@@ -22,20 +21,23 @@ class Tests(TransactionCase):
         self.wizard_obj = self.env['wizard.change.fiscal.classification']
         self.main_company_id = self.ref('base.main_company')
         self.classification_template_1_id = self.ref(
-            'account_product_fiscal_classification.fiscal_classification'
+            'account_product_fiscal_classification_test.fiscal_classification'
             '_template_1')
         self.classification_1_id = self.ref(
-            'account_product_fiscal_classification.fiscal_classification_1')
+            'account_product_fiscal_classification_test.'
+            'fiscal_classification_1')
         self.classification_2_id = self.ref(
-            'account_product_fiscal_classification.fiscal_classification_2')
+            'account_product_fiscal_classification_test.'
+            'fiscal_classification_2')
         self.template_id = self.ref(
-            'account_product_fiscal_classification.product_template_1')
+            'account_product_fiscal_classification_test.product_template_1')
         self.purchase_tax_id = self.ref(
-            'account_product_fiscal_classification.account_tax_purchase_1')
+            'account_product_fiscal_classification_test.'
+            'account_tax_purchase_1')
         self.sale_tax_1_id = self.ref(
-            'account_product_fiscal_classification.account_tax_sale_1')
+            'account_product_fiscal_classification_test.account_tax_sale_1')
         self.sale_tax_2_id = self.ref(
-            'account_product_fiscal_classification.account_tax_sale_2')
+            'account_product_fiscal_classification_test.account_tax_sale_2')
 
     # Test Section
     def test_01_change_classification(self):
@@ -57,8 +59,8 @@ class Tests(TransactionCase):
         vals = {
             'name': 'Product Product Name',
             'company_id': self.main_company_id,
-            'supplier_taxes_id': [[6, 0, [self.purchase_tax_id]]],
-            'taxes_id': [[6, 0, [self.sale_tax_1_id, self.sale_tax_2_id]]],
+            'supplier_taxes_id': [(6, 0, [self.purchase_tax_id])],
+            'taxes_id': [(6, 0, [self.sale_tax_1_id, self.sale_tax_2_id])],
         }
         template = self.template_obj.create(vals)
         self.assertEqual(
@@ -66,8 +68,8 @@ class Tests(TransactionCase):
             "Recovery of Correct Taxes Group failed during creation.")
         # Set classification_2 configuration to the product
         vals = {
-            'supplier_taxes_id': [[6, 0, []]],
-            'taxes_id': [[6, 0, [self.sale_tax_2_id]]],
+            'supplier_taxes_id': [(6, 0, [])],
+            'taxes_id': [(6, 0, [self.sale_tax_2_id])],
         }
         template.write(vals)
         self.assertEqual(
@@ -81,8 +83,8 @@ class Tests(TransactionCase):
         vals = {
             'name': 'Product Product Name',
             'company_id': self.main_company_id,
-            'supplier_taxes_id': [[6, 0, [self.purchase_tax_id]]],
-            'taxes_id': [[6, 0, [self.sale_tax_1_id]]],
+            'supplier_taxes_id': [(6, 0, [self.purchase_tax_id])],
+            'taxes_id': [(6, 0, [self.sale_tax_1_id])],
         }
         count_before = self.classification_obj.search_count([])
         self.template_obj.create(vals)
@@ -98,8 +100,8 @@ class Tests(TransactionCase):
         vals = {
             'name': 'Product Product Name',
             'company_id': self.main_company_id,
-            'supplier_taxes_id': [[6, False, []]],
-            'taxes_id': [[6, False, [self.sale_tax_1_id, self.sale_tax_2_id]]],
+            'supplier_taxes_id': [(6, False, [])],
+            'taxes_id': [(6, False, [self.sale_tax_1_id, self.sale_tax_2_id])],
         }
         count_before = self.classification_obj.search_count([])
         self.template_obj.create(vals)
@@ -109,10 +111,10 @@ class Tests(TransactionCase):
             "New combination must create new Fiscal Classification.")
 
     def test_05_update_fiscal_classification(self):
-        """Test if changing a Configuration of a Fiscal Classificationchange
+        """Test if changing a Configuration of a Fiscal Classification changes
             the product."""
         tg = self.classification_obj.browse([self.classification_1_id])
-        tg.write({'sale_tax_ids': [[6, 0, [self.sale_tax_1_id]]]})
+        tg.write({'sale_tax_ids': [(6, 0, [self.sale_tax_1_id])]})
         template = self.template_obj.browse([self.template_id])[0]
         self.assertEqual(
             [
