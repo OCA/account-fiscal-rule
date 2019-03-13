@@ -132,6 +132,7 @@
 
     <!-- Define: wizard.change.fiscal.classification -->
     <record id="view_wizard_change_fiscal_classification" model="ir.ui.view">
+        <field name="name">Change Fiscal Classification</field>
         <field name="model">wizard.change.fiscal.classification</field>
         <field name="arch" type="xml">
             <form>
@@ -141,7 +142,7 @@
                 </group>
                 <footer>
                     <button string="Apply" name="button_change_fiscal_classification" type="object" class="oe_highlight"/>
-                    <label string="or"/>
+                    <div>or</div>
                     <button string="Cancel" class="oe_link" special="cancel" />
                 </footer>
             </form>
