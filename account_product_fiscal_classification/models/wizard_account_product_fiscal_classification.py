@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2014 -Today Akretion (http://www.akretion.com)
 #   @author Renato Lima (https://twitter.com/renatonlima)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
@@ -7,9 +6,8 @@ from odoo import models, fields, api
 
 
 class WizardAccountProductFiscalClassification(models.TransientModel):
-    """Wizard to create fiscal classification based in fiscal classification
-    template."""
     _name = 'wizard.account.product.fiscal.classification'
+    _description = 'Wizard : Create fiscal classification from template'
 
     company_id = fields.Many2one(
         'res.company', 'Company',
