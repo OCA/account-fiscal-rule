@@ -41,8 +41,8 @@
                                 <group>
                                     <group string="Address Validation">
                                         <field name="address_validation"/>
-                                        <field name="validation_on_save" /> 
-                                        <field name="force_address_validation" /> 
+                                        <field name="validation_on_save" />
+                                        <field name="force_address_validation" />
                                         <field name="result_in_uppercase" />
                                         <field name="auto_generate_customer_code" />
                                     </group>
@@ -53,7 +53,7 @@
                                     </group>
                                 </group>
                                 <group string="Countries">
-                                    <div>Countries Authorized to Process (ISO code)</div>
+                                    <label for="country_ids" string="Countries Authorized to Process (ISO code)"/>
                                     <field name="country_ids" nolabel="1"/>
                                 </group>
                                 <group string="Disable">

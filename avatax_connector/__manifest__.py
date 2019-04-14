@@ -39,15 +39,12 @@ This module has Following Features:
         "views/account_invoice_view.xml",
         "views/sale_order_view.xml",
         "views/account_tax_view.xml",
-        "report/sale_order_templates.xml",
-        #"views/demo.xml",
+        #"report/sale_order_templates.xml",
     ],
-    "test": [],
     'images': [
         'static/description/avatax_icon.png',
     ],
     'installable': True,
-    'auto_install': False,
     'application': True,
 }
 
