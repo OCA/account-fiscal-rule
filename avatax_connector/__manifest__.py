@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Avalara Avatax Connector",
-    "version": "1.0",
-    "author": "Fabrice Henrion",
+    'version': '12.0.1.0.0',
+    "author": "Fabrice Henrion, Sodexis",
     "summary": "Sales tax Calculation",
     "license": "LGPL-3",
     "description": """

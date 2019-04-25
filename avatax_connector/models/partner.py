@@ -7,7 +7,7 @@ from random import random
 from .avalara_api import AvaTaxService, BaseAddress
 from odoo.exceptions import UserError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
-from odoo.addons.base.res.res_partner import ADDRESS_FIELDS
+from odoo.addons.base.models.res_partner import ADDRESS_FIELDS
 
 _logger = logging.getLogger(__name__)
 

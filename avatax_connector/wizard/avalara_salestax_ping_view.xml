@@ -11,7 +11,7 @@
                 <form string="Test Connection">
                     <group>
                         <field name="name" invisible="1"/>
-                        <label colspan="2" string="Connection test successful"/>
+                        <div>Connection test successful</div>
                     </group>
                     <footer>
                         <button special="cancel" class="btn-default" string="OK"/>

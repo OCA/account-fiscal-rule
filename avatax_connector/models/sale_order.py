@@ -71,6 +71,7 @@ class SaleOrder(models.Model):
             'exemption_code_id': self.exemption_code_id.id or False,
             'location_code': self.location_code or '',
             'tax_on_shipping_address': self.tax_add_shipping,
+            'disable_tax_calculation': self.disable_tax_calculation,
         })
         return invoice_vals
 
@@ -134,6 +135,7 @@ class SaleOrder(models.Model):
     tax_add_id = fields.Many2one('res.partner', 'Tax Address', readonly=True, states={'draft': [('readonly', False)]},
                                  compute='_compute_tax_id', store=True)
     tax_address = fields.Text('Tax Address')
+    disable_tax_calculation = fields.Boolean('Disable Avatax Tax calculation')
     location_code = fields.Char('Location Code', help='Origin address location code')
 
     @api.model
@@ -160,6 +162,8 @@ class SaleOrder(models.Model):
         @param order_line: send sub_total of each line and get tax amount
         @param shiiping_line: send shipping amount of each ship line and get ship tax amount
         """
+        if self.disable_tax_calculation:
+            return False
         avatax_config_obj = self.env['avalara.salestax']
         account_tax_obj = self.env['account.tax']
         avatax_config = avatax_config_obj._get_avatax_config_company()
@@ -186,7 +190,7 @@ class SaleOrder(models.Model):
 
             lines = self.create_lines(self.order_line)
 
-            order_date = (self.date_order).split(' ')[0]
+            order_date = str((self.date_order)).split(' ')[0]
             order_date = datetime.strptime(order_date, "%Y-%m-%d").date()
             if lines:
                 if avatax_config.on_line:

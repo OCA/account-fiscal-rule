@@ -72,6 +72,7 @@ class AccountInvoice(models.Model):
     shipping_address = fields.Text('Tax Address')
     location_code = fields.Char('Location code', readonly=True, states={'draft': [('readonly', False)]})
     warehouse_id = fields.Many2one('stock.warehouse', 'Warehouse')
+    disable_tax_calculation = fields.Boolean('Disable Avatax Tax calculation')
 
     @api.multi
     @api.depends('tax_on_shipping_address', 'partner_id', 'partner_shipping_id')
@@ -87,7 +88,7 @@ class AccountInvoice(models.Model):
         avatax_config = avatax_config_obj._get_avatax_config_company()
 
         for invoice in self:
-            if avatax_config and not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund']:
+            if not invoice.disable_tax_calculation and avatax_config and not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund']:
                 shipping_add_id = self.shipping_add_id
                 if self.warehouse_id and self.warehouse_id.partner_id:
                     shipping_add_origin_id = self.warehouse_id.partner_id
@@ -146,7 +147,7 @@ class AccountInvoice(models.Model):
             return res
 
         for invoice in self:
-            if avatax_config and not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund']:
+            if not invoice.disable_tax_calculation and avatax_config and not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund']:
                 shipping_add_id = invoice.shipping_add_id
                 if invoice.warehouse_id and invoice.warehouse_id.partner_id:
                     shipping_add_origin_id = invoice.warehouse_id.partner_id
@@ -180,7 +181,7 @@ class AccountInvoice(models.Model):
             return True
 
         for invoice in self:
-            if avatax_config and not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund']:
+            if not invoice.disable_tax_calculation and avatax_config and not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund']:
                 shipping_add_id = self.shipping_add_id
                 if self.warehouse_id and self.warehouse_id.partner_id:
                     shipping_add_origin_id = self.warehouse_id.partner_id
@@ -233,7 +234,7 @@ class AccountInvoice(models.Model):
         avatax_config = self.env['avalara.salestax']._get_avatax_config_company()
         account_tax_obj = self.env['account.tax']
         tax_grouped = {}
-        if avatax_config and not avatax_config.disable_tax_calculation and self.type in ['out_invoice', 'out_refund']:
+        if not self.disable_tax_calculation and avatax_config and not avatax_config.disable_tax_calculation and self.type in ['out_invoice', 'out_refund']:
             # avatax charges customers per API call, so don't hit their API in every onchange, only when saving
             if not self._context.get('contact_avatax'):
                 return {}
@@ -372,7 +373,7 @@ class AccountInvoice(models.Model):
             cs_code = []    # Countries where Avalara address validation is enabled
             for c_brw in avatax_config.country_ids:
                 cs_code.append(str(c_brw.code))
-            if avatax_config and not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund'] and c_code in cs_code:
+            if not invoice.disable_tax_calculation and avatax_config and not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund'] and c_code in cs_code:
                 doc_type = invoice.type == 'out_invoice' and 'SalesInvoice' or 'ReturnInvoice'
                 account_tax_obj.cancel_tax(avatax_config, invoice.number, doc_type, 'DocVoided')
 #        self.write({'internal_number':''})
@@ -387,7 +388,7 @@ class AccountInvoiceLine(models.Model):
     @api.onchange('product_id')
     def _onchange_product_id(self):
         avatax_config = self.env['avalara.salestax']._get_avatax_config_company()
-        if not avatax_config.disable_tax_calculation:
+        if not self.invoice_id.disable_tax_calculation and not avatax_config.disable_tax_calculation:
             if self.invoice_id.type in ('out_invoice', 'out_refund'):
                 taxes = self.product_id.taxes_id or self.account_id.tax_ids
             else:

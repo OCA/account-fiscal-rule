@@ -69,7 +69,7 @@ class AccountTax(models.Model):
         #using get_tax method to calculate tax based on address
 #        doc_date = datetime.strftime(datetime.strptime(doc_date,DEFAULT_SERVER_DATETIME_FORMAT), DEFAULT_SERVER_DATE_FORMAT)
 #        print"doc_date",type(doc_date)
-        invoice_date = invoice_date.split(' ')[0] if invoice_date else False
+        invoice_date = str(invoice_date).split(' ')[0] if invoice_date else False
         result = avalara_obj.get_tax(avatax_config.company_code, doc_date, doc_type,
                                      partner.customer_code, doc_code, origin, destination,
                                      lines, exemption_number,

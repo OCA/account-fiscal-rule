@@ -19,7 +19,7 @@
                                 <field name="company_id" groups="base.group_multi_company"/>
                             </group>
                             <group>
-                                <a colspan="2" href="https://admin.avalara.com/" target="_blank">Visit the AvaTax Website</a>
+                                <a href="https://admin.avalara.com/" target="_blank">Visit the AvaTax Website</a>
                             </group>
                         </group>
                         <notebook>
@@ -53,7 +53,7 @@
                                     </group>
                                 </group>
                                 <group string="Countries">
-                                    <label string="Countries Authorized to Process (ISO code)"/>
+                                    <div>Countries Authorized to Process (ISO code)</div>
                                     <field name="country_ids" nolabel="1"/>
                                 </group>
                                 <group string="Disable">
