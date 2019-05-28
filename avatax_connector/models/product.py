@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-
 from odoo import api, fields, models
 
 
-class product_tax_code(models.Model):
+class ProductTaxCode(models.Model):
     """ Define type of tax code:
     @param type: product is use as product code,
     @param type: freight is use for shipping code
@@ -14,17 +12,28 @@ class product_tax_code(models.Model):
 
     name = fields.Char('Code', required=True)
     description = fields.Char('Description')
-    type = fields.Selection([('product', 'Product'), ('freight', 'Freight'), ('service', 'Service'),
-                          ('digital', 'Digital'), ('other', 'Other')], 'Type',
-                          required=True, help="Type of tax code as defined in AvaTax")
-    company_id = fields.Many2one('res.company', 'Company', required=True,
-                            default=lambda self: self.env['res.company']._company_default_get('product.tax.code'))
+    type = fields.Selection(
+        [('product', 'Product'),
+         ('freight', 'Freight'),
+         ('service', 'Service'),
+         ('digital', 'Digital'),
+         ('other', 'Other')],
+        'Type',
+        required=True,
+        help="Type of tax code as defined in AvaTax")
+    company_id = fields.Many2one(
+        'res.company', 'Company',
+        required=True,
+        default=lambda self: self.env['res.company']._company_default_get('product.tax.code'))
 
 
-class product_template(models.Model):
+class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    tax_code_id = fields.Many2one('product.tax.code', 'Product Tax Code', help="AvaTax Product Tax Code")
+    tax_code_id = fields.Many2one(
+        'product.tax.code',
+        'Product Tax Code',
+        help="AvaTax Product Tax Code")
 
     @api.onchange('categ_id')
     def onchange_categ(self):
@@ -34,8 +43,8 @@ class product_template(models.Model):
 
     @api.model
     def create(self, vals):
-        p_brw = super(product_template, self).create(vals)
-        if p_brw.categ_id and p_brw.categ_id.tax_code_id:
+        p_brw = super(ProductTemplate, self).create(vals)
+        if _brw.categ_id.tax_code_id:
             p_brw.write({'tax_code_id': p_brw.categ_id.tax_code_id.id})
         else:
             p_brw.write({'tax_code_id': False})
@@ -49,12 +58,13 @@ class product_template(models.Model):
                 vals['tax_code_id'] = p_brw.tax_code_id.id
             else:
                 vals['tax_code_id'] = False
-        return super(product_template, self).write(vals)
+        return super(ProductTemplate, self).write(vals)
 
 
-class product_category(models.Model):
+class ProductCategory(models.Model):
     _inherit = "product.category"
 
-    tax_code_id = fields.Many2one('product.tax.code', 'Tax Code', help="AvaTax Tax Code")
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    tax_code_id = fields.Many2one(
+        'product.tax.code',
+        'Tax Code',
+        help="AvaTax Tax Code")
