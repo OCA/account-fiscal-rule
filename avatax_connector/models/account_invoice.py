@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-from odoo import api, fields, models, _
+from odoo import api, fields, models
 import time
 from odoo.exceptions import UserError
 
@@ -65,9 +63,9 @@ class AccountInvoice(models.Model):
             vals['exemption_code'] = partner.browse(vals['partner_id']).exemption_number
             vals['exemption_code_id'] = partner.browse(vals['partner_id']).exemption_code_id.id
         res = super(AccountInvoice, self).write(vals)
-#         if not self._context.get('contact_avatax') and self:
-#             for inv in self.filtered(lambda inv: inv.state == 'draft'):
-#                 inv.with_context(contact_avatax=True)._onchange_invoice_line_ids()
+        if self and not self._context.get('contact_avatax'):
+            for inv in self.filtered(lambda inv: inv.state == 'draft'):
+                inv.with_context(contact_avatax=True)._onchange_invoice_line_ids()
         return res
 
     invoice_doc_no = fields.Char('Source/Ref Invoice No', readonly=True, states={'draft': [('readonly', False)]}, help="Reference of the invoice")
@@ -119,14 +117,25 @@ class AccountInvoice(models.Model):
                             tax_id = line['tax_id'] and [tax.id for tax in line['tax_id']] or []
                             if ava_tax and ava_tax[0].id not in tax_id:
                                 tax_id.append(ava_tax[0].id)
-                            ol_tax_amt = account_tax_obj._get_compute_tax(avatax_config, invoice.date_invoice,
-                                                                       invoice.number, 'SalesOrder',
-                                                                       invoice.partner_id, shipping_add_origin_id,
-                                                                       shipping_add_id, [line], invoice.user_id, invoice.exemption_code or None, invoice.exemption_code_id.code or None,
-                                                                       is_override=invoice.type == 'out_refund', currency_id=invoice.currency_id).TotalTax
-    #                        o_tax_amt += ol_tax_amt  #tax amount based on total order line total   
-
-                            line['id'].write({'tax_amt': ol_tax_amt, 'invoice_line_tax_ids': [(6, 0, tax_id)]})
+                            ol_tax_amt = account_tax_obj._get_compute_tax(
+                                avatax_config,
+                                invoice.date_invoice,
+                                invoice.number,
+                                'SalesOrder',
+                                invoice.partner_id,
+                                shipping_add_origin_id,
+                                shipping_add_id, [line],
+                                invoice.user_id,
+                                invoice.exemption_code or None,
+                                invoice.exemption_code_id.code or None,
+                                is_override=invoice.type == 'out_refund',
+                                currency_id=invoice.currency_id
+                            ).TotalTax
+                            # o_tax_amt += ol_tax_amt  # tax amount based on total order line total
+                            line['id'].write({
+                                'tax_amt': ol_tax_amt,
+                                'invoice_line_tax_ids': [(6, 0, tax_id)]
+                            })
 
                     elif avatax_config.on_order:
                         for o_line in invoice.invoice_line_ids:
@@ -168,15 +177,16 @@ class AccountInvoice(models.Model):
                 sign = invoice.type == 'out_invoice' and 1 or -1
                 lines = self.create_lines(invoice.invoice_line_ids, sign)
                 if lines:
-                    account_tax_obj._get_compute_tax(avatax_config, invoice.date_invoice,
-                                                     invoice.number, not invoice.invoice_doc_no and 'SalesInvoice' or 'ReturnInvoice',
-                                                     invoice.partner_id, shipping_add_origin_id,
-                                                     shipping_add_id, lines,
-                                                     invoice.user_id, invoice.exemption_code or None, invoice.exemption_code_id.code or None,
-                                                     True,  # commit
-                                                     tax_date,
-                                                     invoice.invoice_doc_no, invoice.location_code or '',
-                                                     is_override=invoice.type == 'out_refund', currency_id=invoice.currency_id)
+                    account_tax_obj._get_compute_tax(
+                        avatax_config, invoice.date_invoice,
+                        invoice.number, not invoice.invoice_doc_no and 'SalesInvoice' or 'ReturnInvoice',
+                        invoice.partner_id, shipping_add_origin_id,
+                        shipping_add_id, lines,
+                        invoice.user_id, invoice.exemption_code or None, invoice.exemption_code_id.code or None,
+                        True,  # commit
+                        tax_date,
+                        invoice.invoice_doc_no, invoice.location_code or '',
+                        is_override=invoice.type == 'out_refund', currency_id=invoice.currency_id)
         return res
 
     @api.multi
@@ -204,13 +214,14 @@ class AccountInvoice(models.Model):
                 if lines:
                     if avatax_config.on_line:
                         for line in lines:
-                            ol_tax_amt = account_tax_obj._get_compute_tax(avatax_config, invoice.date_invoice,
-                                                                       invoice.number, 'SalesOrder',
-                                                                       invoice.partner_id, shipping_add_origin_id,
-                                                                       shipping_add_id, [line], invoice.user_id, invoice.exemption_code or None, invoice.exemption_code_id.code or None,
-                                                                       is_override=invoice.type == 'out_refund', currency_id=invoice.currency_id).TotalTax
-    #                        o_tax_amt += ol_tax_amt  #tax amount based on total order line total   
-
+                            ol_tax_amt = account_tax_obj._get_compute_tax(
+                                avatax_config, invoice.date_invoice,
+                                invoice.number, 'SalesOrder',
+                                invoice.partner_id, shipping_add_origin_id,
+                                shipping_add_id, [line], invoice.user_id, invoice.exemption_code or None, invoice.exemption_code_id.code or None,
+                                is_override=invoice.type == 'out_refund', currency_id=invoice.currency_idi
+                            ).TotalTax
+                            # o_tax_amt += ol_tax_amt  #tax amount based on total order line total
                             line['id'].write({'tax_amt': ol_tax_amt})
 
                     elif avatax_config.on_order:
@@ -223,18 +234,17 @@ class AccountInvoice(models.Model):
                         o_line.write({'tax_amt': 0.0})
                 # extend list lines1 with lines2 to send all invoice lines in avalara
                 if lines:
-                    account_tax_obj._get_compute_tax(avatax_config, invoice.date_invoice,
-                                                   invoice.number, not invoice.invoice_doc_no and 'SalesInvoice' or 'ReturnInvoice',
-                                                   invoice.partner_id, shipping_add_origin_id,
-                                                   shipping_add_id, lines, invoice.user_id, invoice.exemption_code or None, invoice.exemption_code_id.code or None,
-                                                   False, tax_date,
-                                                   invoice.invoice_doc_no, invoice.location_code or '',
-                                                   is_override=invoice.type == 'out_refund', currency_id=invoice.currency_id)
+                    account_tax_obj._get_compute_tax(
+                        avatax_config, invoice.date_invoice,
+                        invoice.number, not invoice.invoice_doc_no and 'SalesInvoice' or 'ReturnInvoice',
+                        invoice.partner_id, shipping_add_origin_id,
+                        shipping_add_id, lines, invoice.user_id, invoice.exemption_code or None, invoice.exemption_code_id.code or None,
+                        False, tax_date,
+                        invoice.invoice_doc_no, invoice.location_code or '',
+                        is_override=invoice.type == 'out_refund', currency_id=invoice.currency_id)
             else:
                 for o_line in invoice.invoice_line_ids:
                     o_line.write({'tax_amt': 0.0})
-#                for s_line in invoice.shipping_lines:
-#                    ship_order_line.write(cr, uid, [s_line.id], {'tax_amt': 0.0,})
         return True
 
     @api.multi
@@ -262,13 +272,14 @@ class AccountInvoice(models.Model):
                     if not tax:
                         raise UserError(_('Please configure tax information in "AVATAX" settings.  The documentation will assist you in proper configuration of all the tax code settings as well as how they relate to the product. \n\n Accounting->Configuration->Taxes->Taxes'))
 
-                    o_tax_amt = account_tax_obj._get_compute_tax(avatax_config, self.date_invoice or time.strftime('%Y-%m-%d'),
-                                                    self.number, 'SalesOrder', self.partner_id, ship_from_address_id,
-                                                    shipping_add_id, lines, self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
-                                                    is_override=self.type == 'out_refund', currency_id=self.currency_id).TotalTax
+                    o_tax_amt = account_tax_obj._get_compute_tax(
+                        avatax_config, self.date_invoice or time.strftime('%Y-%m-%d'),
+                        self.number, 'SalesOrder', self.partner_id, ship_from_address_id,
+                        shipping_add_id, lines, self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
+                        is_override=self.type == 'out_refund', currency_id=self.currency_id
+                    ).TotalTax
                     o_tax_amt = float(o_tax_amt)
                     if o_tax_amt:
-                        
                         val = {
                             'invoice_id': self.id,
                             'name': tax[0].name,
@@ -334,8 +345,8 @@ class AccountInvoice(models.Model):
             # Get Tax Code
             if line.product_id:
                 tax_code = (line.product_id.tax_code_id and line.product_id.tax_code_id.name) or None
-#            else:
-#                tax_code = (line.product_id.categ_id.tax_code_id  and line.product_id.categ_id.tax_code_id.name) or None
+            # else:
+            #    tax_code = (line.product_id.categ_id.tax_code_id  and line.product_id.categ_id.tax_code_id.name) or None
             # Calculate discount amount
                 discount_amount = 0.0
                 is_discounted = False
@@ -384,14 +395,16 @@ class AccountInvoice(models.Model):
             if not invoice.disable_tax_calculation and avatax_config and not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund'] and c_code in cs_code:
                 doc_type = invoice.type == 'out_invoice' and 'SalesInvoice' or 'ReturnInvoice'
                 account_tax_obj.cancel_tax(avatax_config, invoice.number, doc_type, 'DocVoided')
-#        self.write({'internal_number':''})
         return super(AccountInvoice, self).action_cancel()
 
 
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
-    tax_amt = fields.Float('Avalara Tax', help="tax calculate by avalara")
+    tax_amt = fields.Float(
+        'Avalara Tax',
+        help="Tax computed by Avalara",
+    )
 
     @api.onchange('product_id')
     def _onchange_product_id(self):
@@ -409,5 +422,3 @@ class AccountInvoiceLine(models.Model):
                 }
                 return {'warning': warning}
         return super(AccountInvoiceLine, self)._onchange_product_id()
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

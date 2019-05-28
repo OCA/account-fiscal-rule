@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": "Avalara Avatax Connector",
     'version': '12.0.1.0.0',
@@ -35,7 +34,6 @@ This module has Following Features:
         "views/avalara_salestax_data.xml",
         "views/partner_view.xml",
         "views/product_view.xml",
-        "views/account_invoice_workflow.xml",
         "views/account_invoice_view.xml",
         "views/sale_order_view.xml",
         "views/account_tax_view.xml",
@@ -47,5 +45,3 @@ This module has Following Features:
     'installable': True,
     'application': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-
 from odoo import api, fields, models
 # from odoo.exceptions import UserError
 
-class exemption_code(models.Model):
+class ExemptionCode(models.Model):
     _name = 'exemption.code'
     _description = 'Exemption Code'
 
@@ -16,7 +14,7 @@ class exemption_code(models.Model):
         return [(r.id, ('(' + r.code + ')' + ' ' + r.name)) for r in self]
 
 
-class avalara_salestax(models.Model):
+class AvalaraSalestax(models.Model):
     _name = 'avalara.salestax'
     _description = 'AvaTax Configuration'
     _rec_name = 'account_number'
@@ -24,7 +22,6 @@ class avalara_salestax(models.Model):
     @api.model
     def _get_avatax_supported_countries(self):
         """ Returns the countries supported by AvaTax Address Validation Service."""
-
         return self.env['res.country'].search([('code', 'in', ['US', 'CA'])])
 
     @api.onchange('on_order')
@@ -71,9 +68,8 @@ class avalara_salestax(models.Model):
         ('account_number_company_uniq', 'unique (account_number, company_id)', 'The account number must be unique per company!'),
     ]
 
-    @api.model
-    def _get_avatax_config_company(self):
-        """ Returns the AvaTax configuration for the user company """
-        return self.search([('company_id', '=', self.env.user.company_id.id)])
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    # TODO: delete ubused code
+    #@api.model
+    #def _get_avatax_config_company(self):
+    #    """ Returns the AvaTax configuration for the user company """
+    #    return self.search([('company_id', '=', self.env.user.company_id.id)])

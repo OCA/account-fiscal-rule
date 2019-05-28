@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from odoo import api, fields, models, _
 import time
 import logging
@@ -12,13 +10,13 @@ from odoo.addons.base.models.res_partner import ADDRESS_FIELDS
 _logger = logging.getLogger(__name__)
 
 
-class res_partner(models.Model):
+class ResPartner(models.Model):
     """Update partner information by adding new fields according to avalara partner configuration"""
     _inherit = 'res.partner'
 
     exemption_number = fields.Char('Exemption Number', help="Indicates if the customer is exempt or not")
     exemption_code_id = fields.Many2one('exemption.code', 'Exemption Code', help="Indicates the type of exemption the customer may have")
-#    tax_schedule_id = fields.Many2one('tax.schedule', 'Tax Schedule', help="Identifies customers using AVATAX. Only customers with AVATAX designation triggers tax calculation from AvaTax otherwise it will follow the normal tax calculation that odoo provides")
+    # tax_schedule_id = fields.Many2one('tax.schedule', 'Tax Schedule', help="Identifies customers using AVATAX. Only customers with AVATAX designation triggers tax calculation from AvaTax otherwise it will follow the normal tax calculation that odoo provides")
     date_validation = fields.Date('Last Validation Date', readonly=True, help="The date the address was last validated by AvaTax and accepted")
     validation_method = fields.Selection([('avatax', 'AVALARA'), ('usps', 'USPS'), ('other', 'Other')], 'Address Validation Method', readonly=True, help="It gets populated when the address is validated by the method")
     latitude = fields.Char('Latitude')
@@ -34,16 +32,20 @@ class res_partner(models.Model):
 
     @api.multi
     def generate_cust_code(self):
-        #Auto populate customer code
-        customer_code = str(int(time.time()))+'-'+str(int(random()*10))+'-'+'Cust-'+str(self.id)
-        self.write({'customer_code': customer_code})
+        "Auto populate customer code"
+        for partner in self:
+            partner.customer_code = (
+                str(int(time.time())) + '-' +
+                str(int(random()*10)) + '-' +
+                'Cust-'+str(partner.id)
+            )
+        return True
 
     def check_avatax_support(self, avatax_config, country_id):
         """ Checks if address validation pre-condition meets. """
         if avatax_config.address_validation:
             raise UserError(_("The AvaTax Address Validation Service is disabled by the administrator. Please make sure it's enabled for the address validation"))
         if country_id and country_id not in [x.id for x in avatax_config.country_ids] or not country_id:
-            # return False
             raise UserError(_("The AvaTax Address Validation Service does not support this country in the configuration, please continue with your normal process."))
         return True
 
@@ -55,18 +57,17 @@ class res_partner(models.Model):
 
     def get_state_id(self, code, c_code):
         """ Returns the id of the state from the code. """
-        state_obj = self.env['res.country.state']
-        c_id = self.env['res.country'].search([('code', '=', c_code)])[0]
-        s_id = state_obj.search([('code', '=', code), ('country_id', '=', c_id.id)])
+        c_id = self.env['res.country'].search(
+            [('code', '=', c_code)])[0]
+        s_id = self.env['res.country.state'].search(
+            [('code', '=', code), ('country_id', '=', c_id.id)])
         if s_id:
             return s_id[0].id
         return False
 
     def get_country_id(self, code):
         """ Returns the id of the country from the code. """
-
-        country_obj = self.env['res.country']
-        country = country_obj.search([('code', '=', code)])
+        country = self.env['res.country'].search([('code', '=', code)])
         if country:
             return country[0].id
         return False
@@ -139,7 +140,7 @@ class res_partner(models.Model):
             'view_id': view_ref.id,
             'res_model': 'avalara.salestax.address.validate',
             'nodestroy': True,
-            'res_id': False,    # assuming the many2one is (mis)named 'teacher'
+            'res_id': False,
             'target': 'new',
             'context': ctx
         }
@@ -252,7 +253,7 @@ class res_partner(models.Model):
                         })
 
         # execute the create
-        cust_id = super(res_partner, self).create(vals)
+        cust_id = super(ResPartner, self).create(vals)
 
         # Generate a detailed customer code based on timestamp, a random number, and it's  ID
         customer_code = str(int(time.time()))+'-'+str(int(random()*10))+'-'+'Cust-'+str(cust_id.id)
@@ -277,9 +278,6 @@ class res_partner(models.Model):
                 raise UserError(_('Please enter either Exemption Number or Exemption Code for marking customer as Exempt.'))
         # Follow the normal write process if it's a write operation from the wizard
         if self.env.context.get('from_validate_button', False):
-            return super(res_partner, self).write(vals)
+            return super(ResPartner, self).write(vals)
         vals1 = self.update_addresses(vals, True)
-        return super(res_partner, self).write(vals1)
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        return super(ResPartner, self).write(vals1)

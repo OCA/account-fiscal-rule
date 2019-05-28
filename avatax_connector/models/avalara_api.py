@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import suds
 import socket
 import os
@@ -50,7 +48,7 @@ class AvaTaxService:
         nameCap = name.capitalize()    # So this will be 'Tax' or 'Address'
         # The Python SUDS library can fetch the WSDL down from the server
         # or use a local file URL. We'll use a local file URL.
-#        wsdl_url = 'file:///' + os.getcwd().replace('\\', '/') + '/%ssvc.wsdl.xml' % name
+        #    wsdl_url = 'file:///' + os.getcwd().replace('\\', '/') + '/%ssvc.wsdl.xml' % name
         # If you want to fetch the WSDL from the server, use this instead:
         wsdl_url = 'https://avatax.avalara.net/%s/%ssvc.wsdl' % (nameCap, nameCap)
 
@@ -73,13 +71,10 @@ class AvaTaxService:
         return security
 
     def my_profile(self):
-
         # Set elements adapter defaults
         ADAPTER = 'Odoo S.A.'
-
         # Profile Client.
         CLIENT = 'a0o33000004WSkW'
-
         #Build the Profile element
         profileNameSpace = ('ns1', 'http://avatax.avalara.com/services')
         profile = suds.sax.element.Element('Profile', ns=profileNameSpace)
@@ -91,10 +86,7 @@ class AvaTaxService:
 
     def get_result(self, svc, operation, request):
         result = operation(request)
-
         if (result.ResultCode != 'Success'):
-            #for w_message in result.Messages.Message:
-            # w_message = result.Messages.Message[0]
             for w_message in result.Messages.Message:
                 # print"w_message",w_message
                 if w_message.Severity == 'Error':
@@ -140,9 +132,9 @@ class AvaTaxService:
         request = self.taxSvc.factory.create('GetTaxRequest')
         request.Commit = commit
         request.DetailLevel = 'Diagnostic'
-#        request.DetailLevel = 'Document'
+        # request.DetailLevel = 'Document'
         request.Discount = 0.0
-        request.ServiceMode = 'Automatic'    ##service mode = Automatic/Local/Remote
+        request.ServiceMode = 'Automatic'  # service mode = Automatic/Local/Remote
         request.PaymentDate = doc_date
         request.ExchangeRate = 45
         request.ExchangeRateEffDate = fields.Date.today()
@@ -272,5 +264,3 @@ class Line:
         line.Qty = 1
         line.Discounted = False
         return line
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
