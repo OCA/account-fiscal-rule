@@ -40,7 +40,7 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
         # Prevent validating the address if the address validation is disabled by the administrator.
 
         if active_id and active_model == 'res.partner':
-            avatax_config = avatax_config_obj._get_avatax_config_company()
+            avatax_config = avatax_config_obj.get_avatax_config_company()
             if not avatax_config:
                 raise UserError(_("The AvaTax Tax Service is not active."))
             address = address_obj.browse(active_id)

@@ -173,7 +173,7 @@ class SaleOrder(models.Model):
             return False
         avatax_config_obj = self.env['avalara.salestax']
         account_tax_obj = self.env['account.tax']
-        avatax_config = avatax_config_obj._get_avatax_config_company()
+        avatax_config = avatax_config_obj.get_avatax_config_company()
 
         # Make sure Avatax is configured
         if not avatax_config:

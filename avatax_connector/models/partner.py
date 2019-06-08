@@ -92,7 +92,7 @@ class ResPartner(models.Model):
             vals['country_id'] = vals.get('country_id') and vals['country_id'][0]
 
             avatax_config_obj = avatax_config_obj = self.env['avalara.salestax']
-            avatax_config = avatax_config_obj._get_avatax_config_company()
+            avatax_config = avatax_config_obj.get_avatax_config_company()
 
             if avatax_config:
                 try:
@@ -117,7 +117,7 @@ class ResPartner(models.Model):
         return True
 
     @api.multi
-    def verify_address_validatation(self):
+    def button_avatax_validate_address(self):
         """Method is used to verify of state and country """
         view_ref = self.env.ref('avatax_connector.view_avalara_salestax_address_validate', False)
         address = self.read(['street', 'street2', 'city', 'state_id', 'zip', 'country_id'])[0]
@@ -150,7 +150,7 @@ class ResPartner(models.Model):
         avatax_config_obj = self.env['avalara.salestax']
 
         if not avatax_config:
-            avatax_config = avatax_config_obj._get_avatax_config_company()
+            avatax_config = avatax_config_obj.get_avatax_config_company()
 
         if not avatax_config:
             raise UserError(_("This module has not yet been setup.  Please refer to the Avatax module documentation."))
@@ -159,15 +159,20 @@ class ResPartner(models.Model):
         if (not avatax_config.account_number or not avatax_config.license_key or not avatax_config.service_url or not avatax_config.request_timeout):
             raise UserError(_("This module has not yet been setup.  Please refer to the Avatax module documentation."))
 
-        avapoint = AvaTaxService(avatax_config.account_number, avatax_config.license_key,
-                        avatax_config.service_url, avatax_config.request_timeout, avatax_config.logging)
+        avapoint = AvaTaxService(
+            avatax_config.account_number,
+            avatax_config.license_key,
+            avatax_config.service_url,
+            avatax_config.request_timeout,
+            avatax_config.logging)
         addSvc = avapoint.create_address_service().addressSvc
 
         # Obtain the state code & country code and create a BaseAddress Object
         state_code = address.get('state_id') and self.get_state_code(address['state_id'])
         country_code = address.get('country_id') and self.get_country_code(address['country_id'])
-        baseaddress = BaseAddress(addSvc, address.get('street') or None, address.get('street2') or None,
-                         address.get('city'), address.get('zip'), state_code, country_code, 0).data
+        baseaddress = BaseAddress(
+            addSvc, address.get('street') or None, address.get('street2') or None,
+            address.get('city'), address.get('zip'), state_code, country_code, 0).data
         result = avapoint.validate_address(baseaddress, avatax_config.result_in_uppercase and 'Upper' or 'Default')
 
         valid_address = result.ValidAddresses[0][0]
@@ -180,7 +185,7 @@ class ResPartner(models.Model):
             if (vals.get('street') or vals.get('street2') or vals.get('zip') or vals.get('city') or \
                 vals.get('country_id') or vals.get('state_id')):
                 avatax_config_obj = self.env['avalara.salestax']
-                avatax_config = avatax_config_obj._get_avatax_config_company()
+                avatax_config = avatax_config_obj.get_avatax_config_company()
 
                 if avatax_config and avatax_config.validation_on_save:
                     brw_address = self.read(['street', 'street2', 'city', 'state_id', 'zip', 'country_id'])[0]
@@ -220,7 +225,7 @@ class ResPartner(models.Model):
             if (vals.get('street') or vals.get('street2') or vals.get('zip') or vals.get('city') or \
                 vals.get('country_id') or vals.get('state_id')):
                 avatax_config_obj = self.env['avalara.salestax']
-                avatax_config = avatax_config_obj._get_avatax_config_company()
+                avatax_config = avatax_config_obj.get_avatax_config_company()
                 if vals.get('tax_exempt'):
                     if not vals.get('exemption_number') and not vals.get('exemption_code_id'):
                         raise UserError(_("Please enter either Exemption Number or Exemption Code for marking customer as Exempt."))

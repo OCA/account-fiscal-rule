@@ -12,14 +12,14 @@
             <field name="type">form</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
-        	
+
 	            <field name="parent_id" position="before">
 	                <label for="customer_code" class="oe_edit_only"/>
-	                <field name="customer_code" placeholder="Customer/Vendor Code" readonly="1" />		
-			<button name="generate_cust_code" string="Generate Customer Code" type="object" attrs="{'invisible': [('customer_code','!=',False)]}"  />			 
+	                <field name="customer_code" placeholder="Customer/Vendor Code" readonly="1" />
+			<button name="generate_cust_code" string="Generate Customer Code" type="object" attrs="{'invisible': [('customer_code','!=',False)]}"  />
 	            </field>
-				
-	            
+
+
 	            <xpath expr="//notebook" position="inside">
 	        	    <page string="AvaTax">
 	        	        <group col="4" colspan="2">
@@ -31,9 +31,9 @@
                                 <group colspan="2" col="6" string="Validation">
 		                   <field name="date_validation"/>
 		                   <field name="validation_method"/>
-		                   <button name="verify_address_validatation" string="Validate" type="object" icon="fa-cogs" colspan="2" context="{'from_validate_button': True}"/>
+		                   <button name="button_avatax_validate_address" string="Validate" type="object" icon="fa-cogs" colspan="2" context="{'from_validate_button': True}"/>
 		                </group>
-		                
+
 		          	<group col="4" colspan="4" string="TAX Exemption">
                                     <group col="4" colspan="4">
                                         <field name="tax_exempt"/>
@@ -42,7 +42,7 @@
 			               <field name="exemption_code_id" attrs="{'invisible': [('tax_exempt','!=',True)]}"/>
                                 </group>
 	          		</group>
-		                
+
 	        	    </page>
 	        	</xpath>
 

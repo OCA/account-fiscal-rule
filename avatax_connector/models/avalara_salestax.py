@@ -68,8 +68,7 @@ class AvalaraSalestax(models.Model):
         ('account_number_company_uniq', 'unique (account_number, company_id)', 'The account number must be unique per company!'),
     ]
 
-    # TODO: delete ubused code
-    #@api.model
-    #def _get_avatax_config_company(self):
-    #    """ Returns the AvaTax configuration for the user company """
-    #    return self.search([('company_id', '=', self.env.user.company_id.id)])
+    @api.model
+    def get_avatax_config_company(self):
+        """ Returns the AvaTax configuration for the user company """
+        return self.search([('company_id', '=', self.env.user.company_id.id)])

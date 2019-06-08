@@ -2,26 +2,6 @@ from odoo import api, fields, models
 import time
 from odoo.exceptions import UserError
 
-@api.model
-def get_origin_tax_date(self):
-    """ partner address, on which avalara tax will calculate  """
-    for inv_obj in self:
-        if inv_obj.origin:
-            a = inv_obj.origin
-
-            if len(a.split(':')) > 1:
-                inv_origin = a.split(':')[1]
-            else:
-                inv_origin = a.split(':')[0]
-
-            inv_ids = self.search([('number', '=', inv_origin)])
-            for invoice in inv_ids:
-                if invoice.date_invoice:
-                    return invoice.date_invoice
-                else:
-                    return inv_obj.date_invoice
-        else:
-            return False
 
 class AccountInvoice(models.Model):
     """Inherit to implement the tax calculation using avatax API"""
@@ -41,10 +21,10 @@ class AccountInvoice(models.Model):
     @api.onchange('warehouse_id')
     def onchange_warehouse_id(self):
         if self.warehouse_id:
-            if self.warehouse.company_id:
-                self.company_id = self.warehouse.company_id.id
-            if self.warehouse.code:
-                self.location_code = self.warehouse.code
+            if self.warehouse_id.company_id:
+                self.company_id = self.warehousei_id.company_id
+            if self.warehouse_id.code:
+                self.location_code = self.warehouse_id.code
 
     @api.model
     def create(self, vals):
@@ -86,12 +66,32 @@ class AccountInvoice(models.Model):
         for invoice in self:
             invoice.shipping_add_id = invoice.partner_shipping_id if invoice.tax_on_shipping_address else invoice.partner_id
 
+    @api.model
+    def get_origin_tax_date(self):
+        for inv_obj in self:
+            if inv_obj.origin:
+                a = inv_obj.origin
+
+                if len(a.split(':')) > 1:
+                    inv_origin = a.split(':')[1]
+                else:
+                    inv_origin = a.split(':')[0]
+
+                inv_ids = self.search([('number', '=', inv_origin)])
+                for invoice in inv_ids:
+                    if invoice.date_invoice:
+                        return invoice.date_invoice
+                    else:
+                        return inv_obj.date_invoice
+            else:
+                return False
+
     @api.multi
     def compute(self):
-        # self.compute_taxes()
+        self.compute_taxes()
         avatax_config_obj = self.env['avalara.salestax']
         account_tax_obj = self.env['account.tax']
-        avatax_config = avatax_config_obj._get_avatax_config_company()
+        avatax_config = avatax_config_obj.get_avatax_config_company()
 
         for invoice in self:
             if not invoice.disable_tax_calculation and avatax_config and not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund']:
@@ -100,7 +100,7 @@ class AccountInvoice(models.Model):
                     shipping_add_origin_id = self.warehouse_id.partner_id
                 else:
                     shipping_add_origin_id = self.company_id.partner_id
-                tax_date = get_origin_tax_date(self)
+                tax_date = self.get_origin_tax_date()
                 if not tax_date:
                     tax_date = invoice.date_invoice or time.strftime('%Y-%m-%d')
 
@@ -155,7 +155,7 @@ class AccountInvoice(models.Model):
         self = self.with_context(contact_avatax=True)
         avatax_config_obj = self.env['avalara.salestax']
         account_tax_obj = self.env['account.tax']
-        avatax_config = avatax_config_obj._get_avatax_config_company()
+        avatax_config = avatax_config_obj.get_avatax_config_company()
 
         res = super(AccountInvoice, self).action_invoice_open()
 
@@ -170,7 +170,7 @@ class AccountInvoice(models.Model):
                     shipping_add_origin_id = invoice.warehouse_id.partner_id
                 else:
                     shipping_add_origin_id = invoice.company_id.partner_id
-                tax_date = get_origin_tax_date(self)
+                tax_date = self.get_origin_tax_date()
                 if not tax_date:
                     tax_date = invoice.date_invoice
 
@@ -193,7 +193,7 @@ class AccountInvoice(models.Model):
     def action_commit_tax(self):
         avatax_config_obj = self.env['avalara.salestax']
         account_tax_obj = self.env['account.tax']
-        avatax_config = avatax_config_obj._get_avatax_config_company()
+        avatax_config = avatax_config_obj.get_avatax_config_company()
 
         if avatax_config and avatax_config.disable_tax_reporting:
             return True
@@ -205,7 +205,7 @@ class AccountInvoice(models.Model):
                     shipping_add_origin_id = self.warehouse_id.partner_id
                 else:
                     shipping_add_origin_id = self.company_id.partner_id
-                tax_date = get_origin_tax_date(self)
+                tax_date = self.get_origin_tax_date()
                 if not tax_date:
                     tax_date = invoice.date_invoice
 
@@ -249,10 +249,11 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def get_taxes_values(self):
-        avatax_config = self.env['avalara.salestax']._get_avatax_config_company()
+        avatax_config = self.env['avalara.salestax'].get_avatax_config_company()
         account_tax_obj = self.env['account.tax']
         tax_grouped = {}
-        if not self.disable_tax_calculation and avatax_config and not avatax_config.disable_tax_calculation and self.type in ['out_invoice', 'out_refund']:
+        #import pudb; pu.db
+        if avatax_config and not avatax_config.disable_tax_calculation and self.type in ['out_invoice', 'out_refund']:
             # avatax charges customers per API call, so don't hit their API in every onchange, only when saving
 #             if not self._context.get('contact_avatax'):
 #                 return {}
@@ -334,7 +335,7 @@ class AccountInvoice(models.Model):
     @api.model
     def create_lines(self, invoice_lines, sign=1):
         avatax_config_obj = self.env['avalara.salestax']
-        avatax_config = avatax_config_obj._get_avatax_config_company()
+        avatax_config = avatax_config_obj.get_avatax_config_company()
         lines = []
         for line in invoice_lines:
             # Add UPC to product item code
@@ -386,7 +387,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_cancel(self):
         account_tax_obj = self.env['account.tax']
-        avatax_config = self.env['avalara.salestax']._get_avatax_config_company()
+        avatax_config = self.env['avalara.salestax'].get_avatax_config_company()
         for invoice in self:
             c_code = invoice.partner_id.country_id and invoice.partner_id.country_id.code or False
             cs_code = []    # Countries where Avalara address validation is enabled
@@ -408,8 +409,8 @@ class AccountInvoiceLine(models.Model):
 
     @api.onchange('product_id')
     def _onchange_product_id(self):
-        avatax_config = self.env['avalara.salestax']._get_avatax_config_company()
-        if not self.invoice_id.disable_tax_calculation and not avatax_config.disable_tax_calculation:
+        avatax_config = self.env['avalara.salestax'].get_avatax_config_company()
+        if not avatax_config.disable_tax_calculation:
             if self.invoice_id.type in ('out_invoice', 'out_refund'):
                 taxes = self.product_id.taxes_id or self.account_id.tax_ids
             else:

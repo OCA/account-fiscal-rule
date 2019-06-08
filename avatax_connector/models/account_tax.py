@@ -17,7 +17,6 @@ class AccountTax(models.Model):
     def _get_compute_tax(self, avatax_config, doc_date, doc_code, doc_type, partner, ship_from_address, shipping_address,
                          lines, user=None, exemption_number=None, exemption_code_name=None, commit=False, invoice_date=False,
                          reference_code=False, location_code=False, is_override=False, currency_id=False, context=None):
-        import pudb; pu.db
         currency_code = self.env.user.company_id.currency_id.name
         if currency_id:
             currency_code = currency_id.name
@@ -73,9 +72,7 @@ class AccountTax(models.Model):
                                   shipping_address.country_id and shipping_address.country_id.code or None, 1).data
 
         #using get_tax method to calculate tax based on address
-#        doc_date = datetime.strftime(datetime.strptime(doc_date,DEFAULT_SERVER_DATETIME_FORMAT), DEFAULT_SERVER_DATE_FORMAT)
-#        print"doc_date",type(doc_date)
-        invoice_date = str(invoice_date).split(' ')[0] if invoice_date else False
+        #invoice_date = invoice_date.split(' ')[0] if invoice_date else False
         result = avalara_obj.get_tax(avatax_config.company_code, doc_date, doc_type,
                                      partner.customer_code, doc_code, origin, destination,
                                      lines, exemption_number,
