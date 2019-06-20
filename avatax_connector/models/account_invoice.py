@@ -50,16 +50,24 @@ class AccountInvoice(models.Model):
 
     @api.model
     def create(self, vals):
+        partner = self.env['res.partner']
+        if not self.env.user.has_group('account.group_account_manager') and ('exemption_code' not in vals or 'exemption_code_id' not in vals) and 'partner_id' in vals:
+            vals['exemption_code'] = partner.browse(vals['partner_id']).exemption_number
+            vals['exemption_code_id'] = partner.browse(vals['partner_id']).exemption_code_id.id
         res = super(AccountInvoice, self).create(vals)
         res.with_context(contact_avatax=True)._onchange_invoice_line_ids()
         return res
 
     @api.multi
     def write(self, vals):
+        partner = self.env['res.partner']
+        if not self.env.user.has_group('account.group_account_manager') and 'partner_id' in vals:
+            vals['exemption_code'] = partner.browse(vals['partner_id']).exemption_number
+            vals['exemption_code_id'] = partner.browse(vals['partner_id']).exemption_code_id.id
         res = super(AccountInvoice, self).write(vals)
-        if not self._context.get('contact_avatax') and self:
-            for inv in self.filtered(lambda inv: inv.state == 'draft'):
-                inv.with_context(contact_avatax=True)._onchange_invoice_line_ids()
+#         if not self._context.get('contact_avatax') and self:
+#             for inv in self.filtered(lambda inv: inv.state == 'draft'):
+#                 inv.with_context(contact_avatax=True)._onchange_invoice_line_ids()
         return res
 
     invoice_doc_no = fields.Char('Source/Ref Invoice No', readonly=True, states={'draft': [('readonly', False)]}, help="Reference of the invoice")
@@ -236,8 +244,8 @@ class AccountInvoice(models.Model):
         tax_grouped = {}
         if not self.disable_tax_calculation and avatax_config and not avatax_config.disable_tax_calculation and self.type in ['out_invoice', 'out_refund']:
             # avatax charges customers per API call, so don't hit their API in every onchange, only when saving
-            if not self._context.get('contact_avatax'):
-                return {}
+#             if not self._context.get('contact_avatax'):
+#                 return {}
             if self.invoice_line_ids:
                 lines = self.create_lines(self.invoice_line_ids)
                 if lines:

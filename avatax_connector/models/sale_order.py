@@ -29,6 +29,7 @@ class SaleOrder(models.Model):
 
     @api.model
     def create(self, vals):
+        partner = self.env['res.partner']
         ship_add_id = False
         if 'tax_add_default' in vals and vals['tax_add_default']:
             ship_add_id = vals['partner_id']
@@ -38,12 +39,16 @@ class SaleOrder(models.Model):
             ship_add_id = vals['partner_shipping_id']
         if ship_add_id:
             vals['tax_add_id'] = ship_add_id
+        if not self.env.user.has_group('account.group_account_manager') and 'partner_id' in vals:
+            vals['exemption_code'] = partner.browse(vals['partner_id']).exemption_number
+            vals['exemption_code_id'] = partner.browse(vals['partner_id']).exemption_code_id.id
         res = super(SaleOrder, self).create(vals)
-        res.compute_tax()
+#         res.compute_tax()
         return res
 
     @api.multi
     def write(self, vals):
+        partner = self.env['res.partner']
         for self_obj in self:
             ship_add_id = False
             if 'tax_add_default' in vals and vals['tax_add_default']:
@@ -54,12 +59,14 @@ class SaleOrder(models.Model):
                 ship_add_id = self_obj.partner_shipping_id or self_obj.partner_id
             if ship_add_id:
                 vals['tax_add_id'] = ship_add_id.id
-
+            if not self.env.user.has_group('account.group_account_manager') and 'partner_id' in vals:
+                vals['exemption_code'] = partner.browse(vals['partner_id']).exemption_number
+                vals['exemption_code_id'] = partner.browse(vals['partner_id']).exemption_code_id.id
         res = super(SaleOrder, self).write(vals)
 
-        if not self._context.get('avatax_recalculation'):
-            for order in self:
-                order.with_context(avatax_recalculation=True).compute_tax()
+#         if not self._context.get('avatax_recalculation'):
+#             for order in self:
+#                 order.with_context(avatax_recalculation=True).compute_tax()
 
         return res
 

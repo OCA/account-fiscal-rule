@@ -2,7 +2,8 @@
 {
     "name": "Avalara Avatax Connector",
     'version': '12.0.1.0.0',
-    "author": "Fabrice Henrion, Sodexis",
+    "author": "Fabrice Henrion, Sodexis Inc<dev@sodexis.com>",
+    "website": "http://www.sodexis.com",
     "summary": "Sales tax Calculation",
     "license": "LGPL-3",
     "description": """
@@ -24,7 +25,7 @@ This module has Following Features:
 
 """,
     "category": "Generic Modules/Accounting",
-    "depends": ['base', 'account_accountant', 'sale', 'stock'   ],
+    "depends": ['base', 'account_accountant', 'sale', 'stock',],
     "data": [
         "security/avalara_salestax_security.xml",
         "security/ir.model.access.csv",
@@ -41,12 +42,9 @@ This module has Following Features:
         "report/sale_order_templates.xml",
         #"views/demo.xml",
     ],
-    'demo': [
-
-    ],
     "test": [],
     'images': [
-        'static/description/avatax.png',
+        'static/description/avatax_icon.png',
     ],
     'installable': True,
     'auto_install': False,
