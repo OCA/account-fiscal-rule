@@ -24,7 +24,7 @@ This module has Following Features:
 
 """,
     "category": "Generic Modules/Accounting",
-    "depends": ['base', 'account_accountant', 'sale', 'stock',],
+    "depends": ['account', 'account_accountant', 'sale', 'stock'   ],
     "data": [
         "security/avalara_salestax_security.xml",
         "security/ir.model.access.csv",
@@ -34,10 +34,12 @@ This module has Following Features:
         "views/avalara_salestax_data.xml",
         "views/partner_view.xml",
         "views/product_view.xml",
+        "views/account_invoice_action.xml",
         "views/account_invoice_view.xml",
         "views/sale_order_view.xml",
         "views/account_tax_view.xml",
         #"report/sale_order_templates.xml",
+        #"views/res_config_settings_view.xml",
     ],
     'images': [
         'static/description/avatax_icon.png',

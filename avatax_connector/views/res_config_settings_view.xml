@@ -1,0 +1,42 @@
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">Avatax Settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div name="account_taxcloud_right_pane" position="before">
+            <div class="col-12 col-lg-6 o_setting_box" id="taxcloud_settings">
+                <div class="o_setting_left_pane">
+                    <field name="module_avatax_connector" widget="upgrade_boolean"/>
+                </div>
+                <div class="o_setting_right_pane" name="avalara_connector_right_pane">
+                    <label for="module_avatax_connector" string="Avatax"/>
+                    <div class="text-muted">
+                    Compute tax rates using Avatax service
+                    </div>
+                </div>
+                <div class="row mt16">
+                    <label string="Account Number" for="avatax_account_number" class="col-lg-3 o_light_label"/>
+                    <field name="avatax_account_number" class="oe_inline"/>
+                </div>
+                <div class="row">
+                    <label string="License Key" for="avatax_license_key" class="col-lg-3 o_light_label" />
+                    <field name="avatax_license_key" class="oe_inline"/>
+                </div>
+                <div class="row">
+                    <label string="API Environment" for="avatax_api_environment" class="col-lg-3 o_light_label"/>
+                    <field name="avatax_api_environment"/>
+                    <button name="avatax_test" type="object" class="btn-link">
+                        <i title="Test Conenction" role="img" class="fa fa-refresh fa-fw"></i>
+                    </button>
+                </div>
+                <div class="mt16" attrs="{'invisible': [('taxcloud_api_id', '!=', ''), ('taxcloud_api_key', '!=', '')]}">
+                    <a href="https://www.odoo.com/documentation/user/online/fr/accounting/others/taxes/taxcloud.html" target="_new"><i class="fa fa-fw fa-arrow-right"/>How to Get Credentials</a>
+                </div>
+            </div>
+            </div>
+        </field>
+    </record>
+
+</odoo>

@@ -1,8 +1,4 @@
-# -*- coding: utf-8 -*-
-
 from odoo import api, fields, models, _
-# from datetime import datetime
-# from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
 from odoo.exceptions import UserError
 from .avalara_api import AvaTaxService, BaseAddress  # Line
 
@@ -33,16 +29,9 @@ class AccountTax(models.Model):
 
         if not shipping_address:
             raise UserError(_('There is no source shipping address defined for partner %s.') % partner.name)
-        #it's show destination address
-#        shipping_address = address_obj.browse(cr, uid, shipping_address_id, context=context)
-#        if not lines:
-#            raise osv.except_osv(_('AvaTax: Error !'), _('AvaTax needs at least one sale order line defined for tax calculation.'))
 
         if not ship_from_address:
             raise UserError(_('There is no company address defined.'))
-
-        #it's show source address
-#        ship_from_address = address_obj.browse(cr, uid, ship_from_address_id, context=context)
 
         #this condition is required, in case user select force address validation on AvaTax API Configuration
         if not avatax_config.address_validation:
@@ -51,13 +40,14 @@ class AccountTax(models.Model):
                     raise UserError(_('Please validate the shipping address for the partner %s.'
                                 % (partner.name)))
 
-#        if not avatax_config.address_validation:
+        # if not avatax_config.address_validation:
             if not ship_from_address.date_validation:
                 raise UserError(_('Please validate the company address.'))
 
         #For check credential
-        avalara_obj = AvaTaxService(avatax_config.account_number, avatax_config.license_key,
-                                 avatax_config.service_url, avatax_config.request_timeout, avatax_config.logging)
+        avalara_obj = AvaTaxService(
+                avatax_config.account_number, avatax_config.license_key,
+                 avatax_config.service_url, avatax_config.request_timeout, avatax_config.logging)
         avalara_obj.create_tax_service()
         addSvc = avalara_obj.create_address_service().addressSvc
         origin = BaseAddress(addSvc, ship_from_address.street or None,
@@ -71,14 +61,14 @@ class AccountTax(models.Model):
                                   shipping_address.state_id and shipping_address.state_id.code or None,
                                   shipping_address.country_id and shipping_address.country_id.code or None, 1).data
 
-        #using get_tax method to calculate tax based on address
-        #invoice_date = invoice_date.split(' ')[0] if invoice_date else False
+        # using get_tax method to calculate tax based on address
         result = avalara_obj.get_tax(avatax_config.company_code, doc_date, doc_type,
                                      partner.customer_code, doc_code, origin, destination,
                                      lines, exemption_number,
                                      exemption_code_name,
                                      user and user.name or None, commit, invoice_date, reference_code,
                                      location_code, currency_code, partner.vat_id or None, is_override)
+        print('_get_compute_tax', result)
         return result
 
     @api.model
@@ -96,4 +86,9 @@ class AccountTax(models.Model):
         result = avalara_obj.cancel_tax(avatax_config.company_code, doc_code, doc_type, cancel_code)
         return result
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    # TODO: delete me?
+    #@api.multi
+    #def compute_all(self, price_unit, currency=None, quantity=1.0, product=None, partner=None):
+    #    res = super(AccountTax, self).compute_all(price_unit, currency, quantity, product, partner)
+    #    import pudb; pu.db
+    #    return res

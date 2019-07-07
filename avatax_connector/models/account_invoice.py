@@ -22,31 +22,9 @@ class AccountInvoice(models.Model):
     def onchange_warehouse_id(self):
         if self.warehouse_id:
             if self.warehouse_id.company_id:
-                self.company_id = self.warehousei_id.company_id
+                self.company_id = self.warehouse_id.company_id
             if self.warehouse_id.code:
                 self.location_code = self.warehouse_id.code
-
-    @api.model
-    def create(self, vals):
-        partner = self.env['res.partner']
-        if not self.env.user.has_group('account.group_account_manager') and ('exemption_code' not in vals or 'exemption_code_id' not in vals) and 'partner_id' in vals:
-            vals['exemption_code'] = partner.browse(vals['partner_id']).exemption_number
-            vals['exemption_code_id'] = partner.browse(vals['partner_id']).exemption_code_id.id
-        res = super(AccountInvoice, self).create(vals)
-        res.with_context(contact_avatax=True)._onchange_invoice_line_ids()
-        return res
-
-    @api.multi
-    def write(self, vals):
-        partner = self.env['res.partner']
-        if not self.env.user.has_group('account.group_account_manager') and 'partner_id' in vals:
-            vals['exemption_code'] = partner.browse(vals['partner_id']).exemption_number
-            vals['exemption_code_id'] = partner.browse(vals['partner_id']).exemption_code_id.id
-        res = super(AccountInvoice, self).write(vals)
-        if self and not self._context.get('contact_avatax'):
-            for inv in self.filtered(lambda inv: inv.state == 'draft'):
-                inv.with_context(contact_avatax=True)._onchange_invoice_line_ids()
-        return res
 
     invoice_doc_no = fields.Char('Source/Ref Invoice No', readonly=True, states={'draft': [('readonly', False)]}, help="Reference of the invoice")
     invoice_date = fields.Date('Invoice Date', readonly=True)
@@ -86,9 +64,10 @@ class AccountInvoice(models.Model):
             else:
                 return False
 
+    # TODO: not used???
     @api.multi
-    def compute(self):
-        self.compute_taxes()
+    def XXXcompute(self):
+        #self.compute_taxes()
         avatax_config_obj = self.env['avalara.salestax']
         account_tax_obj = self.env['account.tax']
         avatax_config = avatax_config_obj.get_avatax_config_company()
@@ -146,48 +125,21 @@ class AccountInvoice(models.Model):
         return True
 
     @api.multi
-    def invoice_validate(self):
-        self.compute_taxes()
-        return super(AccountInvoice, self.with_context(contact_avatax=True)).invoice_validate()
+    def avatax_compute_taxes(self, commit_taxes=False):
+        """ 
+        Called from Invoice's Action menu.
+        Forces computation of the Invoice taxes
+        """
+        for invoice in self:
+            # The onchange invoice lines call get_taxes_values() 
+            # and applies it to the invoice's tax_line_ids
+            invoice.with_context(contact_avatax=True)._onchange_invoice_line_ids()
 
     @api.multi
     def action_invoice_open(self):
-        self = self.with_context(contact_avatax=True)
-        avatax_config_obj = self.env['avalara.salestax']
-        account_tax_obj = self.env['account.tax']
-        avatax_config = avatax_config_obj.get_avatax_config_company()
-
-        res = super(AccountInvoice, self).action_invoice_open()
-
-        # Bypass reporting
-        if avatax_config and avatax_config.disable_tax_reporting:
-            return res
-
-        for invoice in self:
-            if not invoice.disable_tax_calculation and avatax_config and not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund']:
-                shipping_add_id = invoice.shipping_add_id
-                if invoice.warehouse_id and invoice.warehouse_id.partner_id:
-                    shipping_add_origin_id = invoice.warehouse_id.partner_id
-                else:
-                    shipping_add_origin_id = invoice.company_id.partner_id
-                tax_date = self.get_origin_tax_date()
-                if not tax_date:
-                    tax_date = invoice.date_invoice
-
-                sign = invoice.type == 'out_invoice' and 1 or -1
-                lines = self.create_lines(invoice.invoice_line_ids, sign)
-                if lines:
-                    account_tax_obj._get_compute_tax(
-                        avatax_config, invoice.date_invoice,
-                        invoice.number, not invoice.invoice_doc_no and 'SalesInvoice' or 'ReturnInvoice',
-                        invoice.partner_id, shipping_add_origin_id,
-                        shipping_add_id, lines,
-                        invoice.user_id, invoice.exemption_code or None, invoice.exemption_code_id.code or None,
-                        True,  # commit
-                        tax_date,
-                        invoice.invoice_doc_no, invoice.location_code or '',
-                        is_override=invoice.type == 'out_refund', currency_id=invoice.currency_id)
-        return res
+        super(AccountInvoice, self).action_invoice_open()
+        self.action_commit_tax()
+        return True
 
     @api.multi
     def action_commit_tax(self):
@@ -249,85 +201,103 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def get_taxes_values(self):
+        """
+        Extends the stantard method reposnible for computing taxes.
+        Returns a dict with the taxes values, ready to be use to create tax_line_ids.
+        """
         avatax_config = self.env['avalara.salestax'].get_avatax_config_company()
         account_tax_obj = self.env['account.tax']
         tax_grouped = {}
         #import pudb; pu.db
         if avatax_config and not avatax_config.disable_tax_calculation and self.type in ['out_invoice', 'out_refund']:
             # avatax charges customers per API call, so don't hit their API in every onchange, only when saving
-#             if not self._context.get('contact_avatax'):
-#                 return {}
-            if self.invoice_line_ids:
-                lines = self.create_lines(self.invoice_line_ids)
-                if lines:
-                    if self.warehouse_id and self.warehouse_id.partner_id:
-                        ship_from_address_id = self.warehouse_id.partner_id
+            # TODO
+            # But with this, every edit on the Invoice lines resets the taxes to zero, do we want that?
+            #if not self.env.context.get('contact_avatax'):
+            #    return {}
+            avatax_id = account_tax_obj.search(
+                [('is_avatax', '=', True),
+                 ('type_tax_use', 'in', ['sale', 'all']),
+                 ('company_id', '=', self.company_id.id)])
+            if not avatax_id:
+                raise UserError(_(
+                    'Please configure tax information in "AVATAX" settings.  '
+                    'The documentation will assist you in proper configuration '
+                    'of all the tax code settings as well as '
+                    'how they relate to the product. '
+                    '\n\n Accounting->Configuration->Taxes->Taxes'))
+            lines = self.create_lines(self.invoice_line_ids)
+            if lines:
+                if self.warehouse_id and self.warehouse_id.partner_id:
+                    ship_from_address_id = self.warehouse_id.partner_id
+                else:
+                    ship_from_address_id = self.company_id.partner_id
+                o_tax_amt = 0.0
+                tax = avatax_id
+                o_tax = account_tax_obj._get_compute_tax(
+                    avatax_config, self.date_invoice or time.strftime('%Y-%m-%d'),
+                    self.number, 'SalesOrder', self.partner_id, ship_from_address_id,
+                    self.shipping_add_id, 
+                    lines, self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
+                    is_override=self.type == 'out_refund', currency_id=self.currency_id)
+                if o_tax:
+                    val = {
+                        'invoice_id': self.id,
+                        'name': tax[0].name,
+                        'tax_id': tax[0].id,
+                        'amount': float(o_tax.TotalTax),
+                        'base': 0, #float(o_tax.TotalTaxable),
+                        'manual': False,
+                        'sequence': tax[0].sequence,
+                        'account_analytic_id': tax[0].analytic and lines[0]['account_analytic_id'] or False,
+                        'analytic_tag_ids': lines[0]['analytic_tag_ids'] or False,
+                        'account_id': self.type in ('out_invoice', 'in_invoice') and (tax[0].account_id.id or lines[0]['account_id']) or (tax[0].refund_account_id.id or lines[0]['account_id']),
+                    }
+                    if not val.get('account_analytic_id') and lines[0]['account_analytic_id'] and val['account_id'] == lines[0]['account_id']:
+                        val['account_analytic_id'] = lines[0]['account_analytic_id']
+
+                    #key = tax[0].id
+                    #import pudb; pu.db
+                    key = avatax_id.get_grouping_key(val)
+                    if key not in tax_grouped:
+                        tax_grouped[key] = val
                     else:
-                        ship_from_address_id = self.company_id.partner_id
-                    shipping_add_id = self.shipping_add_id
-                    o_tax_amt = 0.0
-                    tax = account_tax_obj.search(
-                                [('is_avatax', '=', True),
-                                ('type_tax_use', 'in', ['sale', 'all']),
-                                ('company_id', '=', self.company_id.id)])
-                    if not tax:
-                        raise UserError(_('Please configure tax information in "AVATAX" settings.  The documentation will assist you in proper configuration of all the tax code settings as well as how they relate to the product. \n\n Accounting->Configuration->Taxes->Taxes'))
+                        tax_grouped[key]['amount'] += val['amount']
+                        tax_grouped[key]['base'] += val['base']
 
-                    o_tax_amt = account_tax_obj._get_compute_tax(
-                        avatax_config, self.date_invoice or time.strftime('%Y-%m-%d'),
-                        self.number, 'SalesOrder', self.partner_id, ship_from_address_id,
-                        shipping_add_id, lines, self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
-                        is_override=self.type == 'out_refund', currency_id=self.currency_id
-                    ).TotalTax
-                    o_tax_amt = float(o_tax_amt)
-                    if o_tax_amt:
-                        val = {
-                            'invoice_id': self.id,
-                            'name': tax[0].name,
-                            'tax_id': tax[0].id,
-                            'amount': o_tax_amt,
-                            'manual': False,
-                            'sequence': tax[0].sequence,
-                            'account_analytic_id': tax[0].analytic and lines[0]['account_analytic_id'] or False,
-                            'account_id': self.type in ('out_invoice', 'in_invoice') and (tax[0].account_id.id or lines[0]['account_id']) or (tax[0].refund_account_id.id or lines[0]['account_id']),
-                        }
-                        if not val.get('account_analytic_id') and lines[0]['account_analytic_id'] and val['account_id'] == lines[0]['account_id']:
-                            val['account_analytic_id'] = lines[0]['account_analytic_id']
+            for line in self.invoice_line_ids:
+                price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
+                taxes = line.invoice_line_tax_ids.compute_all(price_unit, self.currency_id, line.quantity, line.product_id, self.partner_id)['taxes']
+                for tax in taxes:
+                    val = {
+                        'invoice_id': self.id,
+                        'name': tax['name'],
+                        'tax_id': tax['id'],
+                        'amount': tax['amount'],
+                        'base': tax['base'],
+                        'manual': False,
+                        'sequence': tax['sequence'],
+                        'account_analytic_id': tax['analytic'] and line.account_analytic_id.id or False,
+                        'analytic_tag_ids': line.analytic_tag_ids.ids or False,
+                        'account_id': self.type in ('out_invoice', 'in_invoice') and (tax['account_id'] or line.account_id.id) or (tax['refund_account_id'] or line.account_id.id),
+                    }
 
-                        key = tax[0].id
-                        if key not in tax_grouped:
-                            tax_grouped[key] = val
-                        else:
-                            tax_grouped[key]['amount'] += val['amount']
+                    # If the taxes generate moves on the same financial account as the invoice line,
+                    # propagate the analytic account from the invoice line to the tax line.
+                    # This is necessary in situations were (part of) the taxes cannot be reclaimed,
+                    # to ensure the tax move is allocated to the proper analytic account.
+                    if not val.get('account_analytic_id') and line.account_analytic_id and val['account_id'] == line.account_id.id:
+                        val['account_analytic_id'] = line.account_analytic_id.id
 
-                for line in self.invoice_line_ids:
-                    price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-                    taxes = line.invoice_line_tax_ids.compute_all(price_unit, self.currency_id, line.quantity, line.product_id, self.partner_id)['taxes']
-                    for tax in taxes:
-                        val = {
-                            'invoice_id': self.id,
-                            'name': tax['name'],
-                            'tax_id': tax['id'],
-                            'amount': tax['amount'],
-                            'manual': False,
-                            'sequence': tax['sequence'],
-                            'account_analytic_id': tax['analytic'] and line.account_analytic_id.id or False,
-                            'account_id': self.type in ('out_invoice', 'in_invoice') and (tax['account_id'] or line.account_id.id) or (tax['refund_account_id'] or line.account_id.id),
-                        }
-
-                        # If the taxes generate moves on the same financial account as the invoice line,
-                        # propagate the analytic account from the invoice line to the tax line.
-                        # This is necessary in situations were (part of) the taxes cannot be reclaimed,
-                        # to ensure the tax move is allocated to the proper analytic account.
-                        if not val.get('account_analytic_id') and line.account_analytic_id and val['account_id'] == line.account_id.id:
-                            val['account_analytic_id'] = line.account_analytic_id.id
-
-                        key = tax['id']
-                        if key not in tax_grouped:
-                            tax_grouped[key] = val
-                        else:
-                            tax_grouped[key]['amount'] += val['amount']
-                return tax_grouped
+                    #key = tax['id']
+                    key = avatax_id.get_grouping_key(val)
+                    if key not in tax_grouped:
+                        tax_grouped[key] = val
+                    else:
+                        tax_grouped[key]['amount'] += val['amount']
+                        tax_grouped[key]['base'] += val['base']
+            print('tax_grouped', tax_grouped)
+            return tax_grouped
         else:
             tax_grouped = super(AccountInvoice, self).get_taxes_values()
         return tax_grouped
@@ -344,29 +314,30 @@ class AccountInvoice(models.Model):
             else:
                 item_code = line.product_id.default_code
             # Get Tax Code
-            if line.product_id:
-                tax_code = (line.product_id.tax_code_id and line.product_id.tax_code_id.name) or None
+            #if line.product_id:
+            tax_code = (line.product_id.tax_code_id and line.product_id.tax_code_id.name) or None
             # else:
             #    tax_code = (line.product_id.categ_id.tax_code_id  and line.product_id.categ_id.tax_code_id.name) or None
             # Calculate discount amount
-                discount_amount = 0.0
-                is_discounted = False
-                if line.discount != 0.0 or line.discount != None:
-                    discount_amount = sign * line.price_unit * ((line.discount or 0.0)/100.0) * line.quantity,
-                    is_discounted = True
-                lines.append({
-                    'qty': line.quantity,
-                    'itemcode': line.product_id and item_code or None,
-                    'description': line.name,
-                    'discounted': is_discounted,
-                    'discount': discount_amount[0],
-                    'amount': sign * line.price_unit * (1-(line.discount or 0.0)/100.0) * line.quantity,
-                    'tax_code': tax_code,
-                    'id': line,
-                    'account_analytic_id': line.account_analytic_id.id,
-                    'account_id': line.account_id.id,
-                    'tax_id': line.invoice_line_tax_ids,
-                })
+            discount_amount = 0.0
+            is_discounted = False
+            if line.discount != 0.0 or line.discount != None:
+                discount_amount = sign * line.price_unit * ((line.discount or 0.0)/100.0) * line.quantity,
+                is_discounted = True
+            lines.append({
+                'qty': line.quantity,
+                'itemcode': line.product_id and item_code or None,
+                'description': line.name,
+                'discounted': is_discounted,
+                'discount': discount_amount[0],
+                'amount': sign * line.price_unit * (1-(line.discount or 0.0)/100.0) * line.quantity,
+                'tax_code': tax_code,
+                'id': line,
+                'account_analytic_id': line.account_analytic_id.id,
+                'analytic_tag_ids': line.analytic_tag_ids.ids,
+                'account_id': line.account_id.id,
+                'tax_id': line.invoice_line_tax_ids,
+            })
         return lines
 
     @api.model

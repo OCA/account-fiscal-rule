@@ -88,14 +88,29 @@ class AvaTaxService:
         result = operation(request)
         if (result.ResultCode != 'Success'):
             for w_message in result.Messages.Message:
-                # print"w_message",w_message
                 if w_message.Severity == 'Error':
-                    if (w_message._Name == 'TaxAddressError' or w_message._Name == 'AddressRangeError' or w_message._Name == 'AddressUnknownStreetError' or w_message._Name == 'AddressNotGeocodedError' or w_message._Name == 'NonDeliverableAddressError'):
-                        raise UserError(_('AvaTax: Warning AvaTax could not validate the street address. \n You can save the address and AvaTax will make an attempt to compute taxes based on the zip code if "Force Address Validation" is disabled in the Avatax connector configuration.  \n\n Also please ensure that the company address is set and Validated.  You can get there by going to Sales->Customers and removing "Customers" filter from the search at the top.  Then go to your company contact info and validate your address in the Avatax Tab'))
+                    if (w_message._Name == 'TaxAddressError' or
+                            w_message._Name == 'AddressRangeError' or
+                            w_message._Name == 'AddressUnknownStreetError' or
+                            w_message._Name == 'AddressNotGeocodedError'
+                            or w_message._Name == 'NonDeliverableAddressError'):
+                        raise UserError(_(
+                            'AvaTax: Warning AvaTax could not validate the street address. \n '
+                            'You can save the address and AvaTax will make an attempt to '
+                            'compute taxes based on the zip code if "Force Address Validation" is disabled '
+                            'in the Avatax connector configuration.  \n\n '
+                            'Also please ensure that the company address is set and Validated.  '
+                            'You can get there by going to Sales->Customers '
+                            'and removing "Customers" filter from the search at the top.  '
+                            'Then go to your company contact info and validate your address in the Avatax Tab'))
                     elif (w_message._Name == 'UnsupportedCountryError'):
                         raise UserError(_("AvaTax: Notice\n\n Address Validation for this country not supported. But, Avalara will still calculate global tax rules."))
                     else:
-                        raise UserError(_('AvaTax: Error: '+str(w_message._Name)+"\n\n" "Summary: " + w_message.Summary + "\n Details: " + str(w_message.Details or '') + "\n Severity: " + w_message.Severity))
+                        raise UserError(_(
+                            'AvaTax: Error: ' + str(w_message._Name) +
+                            "\n\n" "Summary: " + w_message.Summary +
+                            "\n Details: " + str(w_message.Details or '') +
+                            "\n Severity: " + w_message.Severity))
         else:
             return result
 
@@ -131,8 +146,8 @@ class AvaTaxService:
         lineslist = []
         request = self.taxSvc.factory.create('GetTaxRequest')
         request.Commit = commit
-        request.DetailLevel = 'Diagnostic'
-        # request.DetailLevel = 'Document'
+        # request.DetailLevel = 'Diagnostic'
+        request.DetailLevel = 'Document'
         request.Discount = 0.0
         request.ServiceMode = 'Automatic'  # service mode = Automatic/Local/Remote
         request.PaymentDate = doc_date
@@ -165,7 +180,13 @@ class AvaTaxService:
         addresses = self.taxSvc.factory.create('ArrayOfBaseAddress')
         addresses.BaseAddress = [origin, destination]
         if origin.Line1 == False:
-            raise UserError(_('Please set the Company Address in the partner information and validate.  We are checking against the first line of the address and it\'s empty.  \n\n Typically located in Sales->Customers, you have to clear "Customers" from search filter and type in your own company name.  Ensure the address is filled out and go to Avatax tab in the partner information and validate the address. Save partner update when done.'))
+            raise UserError(_(
+                'Please set the Company Address in the partner information and validate.  '
+                'We are checking against the first line of the address and it\'s empty.  \n\n '
+                'Typically located in Sales->Customers, you have to clear "Customers" '
+                'from search filter and type in your own company name.  '
+                'Ensure the address is filled out and go to Avatax tab in the partner information '
+                'and validate the address. Save partner update when done.'))
         request.Addresses = addresses
         request.OriginCode = '0'    # Referencing an address above
         request.DestinationCode = '1'    # Referencing an address above
@@ -186,7 +207,10 @@ class AvaTaxService:
         lines.Line = lineslist
         request.Lines = lines
         # And we're ready to make the call
+        print(request)
         result = self.get_result(self.taxSvc, self.taxSvc.service.GetTax, request)
+        print(result)
+        import traceback; traceback.print_stack()  #import pudb; pu.db
         return result
 
     def get_tax_history(self, company_code, doc_code, doc_type):
@@ -195,7 +219,7 @@ class AvaTaxService:
         request.CompanyCode = company_code
         request.DocCode = doc_code
         request.DocType = doc_type
-#        request.CancelCode = cancel_code
+        # request.CancelCode = cancel_code
         result = self.get_result(self.taxSvc, self.taxSvc.service.GetTaxHistory, request)
         return result
 
