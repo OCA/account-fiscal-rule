@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<openerp><data>
+<odoo>
 
     <record id="view_account_fiscal_position_form" model="ir.ui.view">
         <field name="model">account.fiscal.position</field>
         <field name="inherit_id" ref="account.view_account_position_form"/>
         <field name="arch" type="xml">
-            <field name="active" position="before">
+            <field name="name" position="after">
                 <field name="type_position_use"/>
             </field>
         </field>
@@ -22,4 +22,4 @@
         </field>
     </record>
 
-</data></openerp>
+</odoo>
