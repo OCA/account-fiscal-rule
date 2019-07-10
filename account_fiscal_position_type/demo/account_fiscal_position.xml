@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="fiscal_position_purchase" model="account.fiscal.position">
+            <field name="name">Fiscal Position (Purchase Use)</field>
+            <field name="type_position_use">purchase</field>
+        </record>
+
+        <record id="fiscal_position_sale" model="account.fiscal.position">
+            <field name="name">Fiscal Position (Sale Use)</field>
+            <field name="type_position_use">sale</field>
+        </record>
+
+</odoo>
