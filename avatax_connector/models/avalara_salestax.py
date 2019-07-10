@@ -1,5 +1,5 @@
 from odoo import api, fields, models
-# from odoo.exceptions import UserError
+
 
 class ExemptionCode(models.Model):
     _name = 'exemption.code'
@@ -48,16 +48,32 @@ class AvalaraSalestax(models.Model):
     result_in_uppercase = fields.Boolean('Return validation results in upper case', help="Check is address validation results desired to be in upper case")
     validation_on_save = fields.Boolean('Address Validation on save for customer profile', help="Validates the address and automatically saves when Customer profile is saved.")
     force_address_validation = fields.Boolean('Force Address Validation', help="Check if address validation should be done before tax calculation")
-    auto_generate_customer_code = fields.Boolean('Automatically generate customer code', default=True, help="This will generate customer code for customers in the system who do not have codes already created.  Each code is unique per customer.  When this is disabled, you will have to manually go to each customer and manually generate their customer code.  This is required for Avatax and is only generated one time.")
-    disable_tax_calculation = fields.Boolean('Disable Avalara Tax Calculation and reporting', default=False, help="Check to disable avalara tax calculation and reporting")
-    disable_tax_reporting = fields.Boolean('Disable Avalara Tax reporting only', help="Check to disable avalara tax reporting to Avatax Service.  You will not see the transactions on the Avalara transaction web portal.")
-    default_shipping_code_id = fields.Many2one('product.tax.code', 'Default Shipping Code', help="The default shipping code which will be passed to Avalara")
-    country_ids = fields.Many2many('res.country', 'avalara_salestax_country_rel', 'avalara_salestax_id', 'country_id', 'Countries',
-                    default=_get_avatax_supported_countries,
-                    help="Countries where address validation will be used")
+    auto_generate_customer_code = fields.Boolean(
+        'Automatically generate customer code', default=True,
+        help="This will generate customer code for customers in the system who do not have codes already created.  "
+        "Each code is unique per customer.  "
+        "When this is disabled, you will have to manually go to each customer "
+        "and manually generate their customer code.  "
+        "This is required for Avatax and is only generated one time.")
+    disable_tax_calculation = fields.Boolean(
+        'Disable Avalara Tax Calculation and reporting', default=False,
+        help="Check to disable avalara tax calculation and reporting")
+    disable_tax_reporting = fields.Boolean(
+        'Disable Avalara Tax reporting only',
+        help="Check to disable avalara tax reporting to Avatax Service.  "
+        "You will not see the transactions on the Avalara transaction web portal.")
+    default_shipping_code_id = fields.Many2one(
+        'product.tax.code', 'Default Shipping Code',
+        help="The default shipping code which will be passed to Avalara")
+    country_ids = fields.Many2many(
+        'res.country', 'avalara_salestax_country_rel', 'avalara_salestax_id', 'country_id', 'Countries',
+        default=_get_avatax_supported_countries,
+        help="Countries where address validation will be used")
     active = fields.Boolean('Active', default=True, help="Uncheck the active field to hide the record")
-    company_id = fields.Many2one('res.company', 'Company', required=True, default=lambda self: self.env['res.company']._company_default_get('avalara.salestax'),
-                    help="Company which has subscribed to the AvaTax service")
+    company_id = fields.Many2one(
+        'res.company', 'Company', required=True,
+        default=lambda self: self.env['res.company']._company_default_get('avalara.salestax'),
+        help="Company which has subscribed to the AvaTax service")
     on_line = fields.Boolean('Line-level', help="It will calculate tax line by line and also show.")
     on_order = fields.Boolean('Order-level', default=True, help="It will calculate tax for order not line by line.")
     upc_enable = fields.Boolean('Enable UPC Taxability', help="Allows ean13 to be reported in place of Item Reference as upc identifier.")

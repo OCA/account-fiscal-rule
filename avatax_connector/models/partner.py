@@ -1,13 +1,14 @@
-from odoo import api, fields, models, _
-import time
 import logging
 from random import random
-from .avalara_api import AvaTaxService, BaseAddress
+import time
+from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 from odoo.addons.base.models.res_partner import ADDRESS_FIELDS
+from .avalara_api import AvaTaxService, BaseAddress
 
-_logger = logging.getLogger(__name__)
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class ResPartner(models.Model):
@@ -16,15 +17,23 @@ class ResPartner(models.Model):
 
     exemption_number = fields.Char('Exemption Number', help="Indicates if the customer is exempt or not")
     exemption_code_id = fields.Many2one('exemption.code', 'Exemption Code', help="Indicates the type of exemption the customer may have")
-    # tax_schedule_id = fields.Many2one('tax.schedule', 'Tax Schedule', help="Identifies customers using AVATAX. Only customers with AVATAX designation triggers tax calculation from AvaTax otherwise it will follow the normal tax calculation that odoo provides")
     date_validation = fields.Date('Last Validation Date', readonly=True, help="The date the address was last validated by AvaTax and accepted")
-    validation_method = fields.Selection([('avatax', 'AVALARA'), ('usps', 'USPS'), ('other', 'Other')], 'Address Validation Method', readonly=True, help="It gets populated when the address is validated by the method")
+    validation_method = fields.Selection(
+        [('avatax', 'AVALARA'), ('usps', 'USPS'), ('other', 'Other')],
+        'Address Validation Method',
+        readonly=True,
+        help="It gets populated when the address is validated by the method")
     latitude = fields.Char('Latitude')
     longitude = fields.Char('Longitude')
     validated_on_save = fields.Boolean('Validated On Save', help="Indicates if the address is already validated on save before calling the wizard")
     customer_code = fields.Char('Customer Code')
     tax_exempt = fields.Boolean('Is Tax Exempt', help="Indicates the exemption tax calculation is compulsory")
-    vat_id = fields.Char("VAT ID", help="Customers VAT number (Buyer VAT). Identifies the customer as a “Registered Business” and the tax engine will utilize that information in the tax decision process.")
+    vat_id = fields.Char(
+        "VAT ID",
+        help="Customers VAT number (Buyer VAT). "
+        "Identifies the customer as a “Registered Business” "
+        "and the tax engine will utilize that information "
+        "in the tax decision process.")
 
     _sql_constraints = [
         ('name_uniq', 'unique(customer_code)', 'Customer Code must be unique!'),
@@ -112,7 +121,7 @@ class ResPartner(models.Model):
                     })
                     partner.write(vals)
                 except UserError as error:
-                    _logger.warning('couldn\'t validate address for partner %s: %s' % (partner.display_name, error))
+                    _LOGGER.warning('couldn\'t validate address for partner %s: %s' % (partner.display_name, error))
 
         return True
 

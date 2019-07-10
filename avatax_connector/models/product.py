@@ -44,7 +44,7 @@ class ProductTemplate(models.Model):
     @api.model
     def create(self, vals):
         p_brw = super(ProductTemplate, self).create(vals)
-        if _brw.categ_id.tax_code_id:
+        if p_brw.categ_id.tax_code_id:
             p_brw.write({'tax_code_id': p_brw.categ_id.tax_code_id.id})
         else:
             p_brw.write({'tax_code_id': False})

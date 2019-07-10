@@ -4,11 +4,11 @@ import os
 import datetime
 import logging
 
-#import base64
 from odoo import tools
 from odoo.tools.translate import _
 from odoo import fields
 from odoo.exceptions import UserError
+
 
 _logger = logging.getLogger(__name__)
 
@@ -104,7 +104,9 @@ class AvaTaxService:
                             'and removing "Customers" filter from the search at the top.  '
                             'Then go to your company contact info and validate your address in the Avatax Tab'))
                     elif (w_message._Name == 'UnsupportedCountryError'):
-                        raise UserError(_("AvaTax: Notice\n\n Address Validation for this country not supported. But, Avalara will still calculate global tax rules."))
+                        raise UserError(_(
+                            "AvaTax: Notice\n\n Address Validation for this country not supported. "
+                            "But, Avalara will still calculate global tax rules."))
                     else:
                         raise UserError(_(
                             'AvaTax: Error: ' + str(w_message._Name) +
@@ -232,9 +234,11 @@ class AvaTaxService:
         result = self.get_result(self.taxSvc, self.taxSvc.service.CancelTax, request)
         return result
 
+
 class Error(Exception):
     """Base class for exceptions in this module."""
     pass
+
 
 class AvaTaxError(Error):
     """Exception raised for errors calling AvaTax.
@@ -254,9 +258,10 @@ class AvaTaxError(Error):
         for item in self.messages:
             message = item[1][0]    # SUDS gives us the message in a list, in a tuple
 
-            output_str = "Severity: %s\n\nDetails: %s\n\n RefersTo: %s\n\n Summary: %s" \
-            % (message.Severity, message.Details, message.RefersTo, message.Summary)
+            output_str = "Severity: %s\n\nDetails: %s\n\n RefersTo: %s\n\n Summary: %s" % (
+                message.Severity, message.Details, message.RefersTo, message.Summary)
         return output_str
+
 
 class BaseAddress:
 
@@ -270,6 +275,7 @@ class BaseAddress:
         self.data.Region = Region
         self.data.Country = Country
         self.data.AddressCode = AddressCode
+
 
 class Line:
 

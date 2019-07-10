@@ -1,0 +1,9 @@
+<odoo>
+    <record model="ir.actions.server" id="action_sale_order_compute_taxes">
+        <field name="name">Update taxes with Avatax</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order" />
+        <field name="state">code</field>
+        <field name="code">records.avalara_compute_taxes()</field>
+    </record>
+</odoo>

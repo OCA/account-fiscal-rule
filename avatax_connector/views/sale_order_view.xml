@@ -2,8 +2,6 @@
 <odoo>
     <data>
         
-        
-        
         <record id="group_avatax_view" model="res.groups">
             <field name="name">Avalara Order Line View</field>
         </record>
@@ -14,13 +12,9 @@
             <field name="type">form</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-                <!--                <field name='name' position="after">
-                     <div class="oe_right oe_button_box">
-                        <button name="button_dummy" states="draft" string="Compute" type="object" icon="gtk-execute" class="oe_highlight"/>
-                    </div> 
-                </field>-->
-                <!--                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total" position="replace">
-                         <group class="oe_subtotal_footer oe_right" name="sale_total" colspan="2">
+		<!--
+	        <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total" position="replace">
+		     <group class="oe_subtotal_footer oe_right" name="sale_total" colspan="2">
                          <field name="amount_untaxed" sum="Net Total" string="Net Total"/>
                                                  <field name="amount_shipping" help="The shipping charge on this order."/>
                          <field name="amount_tax"/>
@@ -31,7 +25,8 @@
                          </div>
                          <field name="amount_total" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}" nolabel="1"/>
                      </group>
-                </group>-->
+		</group>
+		-->
                 <xpath expr="/form/sheet/notebook/page[1]/field[@name='order_line']/tree/field[@name='price_unit']" position="after">
                     <field name="tax_amt" readonly="1" groups="avatax_connector.group_avatax_view"/>
                 </xpath>
@@ -81,9 +76,5 @@
             </field>
         </record>
                  
-       
-        
-        
-        
     </data>
 </odoo>

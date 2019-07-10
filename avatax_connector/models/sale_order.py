@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
-
 from odoo import api, fields, models, _
 import odoo.addons.decimal_precision as dp
-from datetime import datetime
 from odoo.exceptions import UserError
 
 
@@ -15,7 +12,6 @@ class SaleOrder(models.Model):
         @param part- update vals with partner exemption number and code,
         also check address validation by avalara
         """
-
         res = super(SaleOrder, self).onchange_partner_id()
         self.exemption_code = self.partner_id.exemption_number or ''
         self.exemption_code_id = self.partner_id.exemption_code_id.id or None
@@ -177,28 +173,33 @@ class SaleOrder(models.Model):
 
         # Make sure Avatax is configured
         if not avatax_config:
-            raise UserError(_('Your Avatax Countries settings are not configured. You need a country code in the Countries section.  \nIf you have a multi-company installation, you must add settings for each company.  \n\nYou can update settings in Avatax->Avatax API.'))
+            raise UserError(_(
+                'Your Avatax Countries settings are not configured. '
+                'You need a country code in the Countries section.  \n'
+                'If you have a multi-company installation, '
+                'you must add settings for each company.  \n\n'
+                'You can update settings in Avatax->Avatax API.'))
 
         tax_amount = o_tax_amt = 0.0
 
         # ship from Address / Origin Address either warehouse or company if none
-        if self.warehouse_id and self.warehouse_id.partner_id:
+        # warehouse_id might not be available if the Inventory app is not installed
+        if hasattr(self, 'warehouse_id') and self.warehouse_id.partner_id:
             ship_from_address_id = self.warehouse_id.partner_id
         else:
             ship_from_address_id = self.company_id.partner_id
 
         if avatax_config and not avatax_config.disable_tax_calculation:
             ava_tax = account_tax_obj.search(
-                            [('is_avatax', '=', True),
-                            ('type_tax_use', 'in', ['sale', 'all']),
-                            ('company_id', '=', self.company_id.id)])
+                [('is_avatax', '=', True),
+                ('type_tax_use', 'in', ['sale', 'all']),
+                ('company_id', '=', self.company_id.id)])
 
             shipping_add_id = self.tax_add_id
 
             lines = self.create_lines(self.order_line)
 
-            order_date = str((self.date_order)).split(' ')[0]
-            order_date = datetime.strptime(order_date, "%Y-%m-%d").date()
+            order_date = self.date_order.date()
             if lines:
                 if avatax_config.on_line:
                     # Line level tax calculation
@@ -208,20 +209,22 @@ class SaleOrder(models.Model):
                         tax_id = line['tax_id'] and [tax.id for tax in line['tax_id']] or []
                         if ava_tax and ava_tax[0].id not in tax_id:
                             tax_id.append(ava_tax[0].id)
-                        ol_tax_amt = account_tax_obj._get_compute_tax(avatax_config, order_date,
-                                                                    self.name, 'SalesOrder', self.partner_id, ship_from_address_id,
-                                                                    shipping_add_id, [line], self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
-                                                                    currency_id=self.currency_id).TotalTax
+                        ol_tax_amt = account_tax_obj._get_compute_tax(
+                            avatax_config, order_date,
+                            self.name, 'SalesOrder', self.partner_id, ship_from_address_id,
+                            shipping_add_id, [line], self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
+                            currency_id=self.currency_id).TotalTax
                         o_tax_amt += ol_tax_amt  # tax amount based on total order line total
                         line['id'].write({'tax_amt': ol_tax_amt, 'tax_id': [(6, 0, tax_id)]})
 
                     tax_amount = o_tax_amt
 
                 elif avatax_config.on_order:
-                    tax_amount = account_tax_obj._get_compute_tax(avatax_config, order_date,
-                                                                    self.name, 'SalesOrder', self.partner_id, ship_from_address_id,
-                                                                    shipping_add_id, lines, self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
-                                                                    currency_id=self.currency_id).TotalTax
+                    tax_amount = account_tax_obj._get_compute_tax(
+                        avatax_config, order_date,
+                        self.name, 'SalesOrder', self.partner_id, ship_from_address_id,
+                        shipping_add_id, lines, self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
+                        currency_id=self.currency_id).TotalTax
 
                     for o_line in self.order_line:
                         o_line.write({'tax_amt': 0.0})
@@ -239,7 +242,7 @@ class SaleOrder(models.Model):
         return True
 
     @api.multi
-    def button_dummy(self):
+    def avalara_compute_taxes(self):
         """ It used to called manually calculation method of avalara and get tax amount"""
         self.compute_tax()
         return True
@@ -254,5 +257,3 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     tax_amt = fields.Float('Avalara Tax', help="tax calculate by avalara")
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

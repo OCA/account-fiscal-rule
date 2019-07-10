@@ -1,5 +1,5 @@
-from odoo import api, fields, models
 import time
+from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
 
@@ -126,12 +126,12 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def avatax_compute_taxes(self, commit_taxes=False):
-        """ 
+        """
         Called from Invoice's Action menu.
         Forces computation of the Invoice taxes
         """
         for invoice in self:
-            # The onchange invoice lines call get_taxes_values() 
+            # The onchange invoice lines call get_taxes_values()
             # and applies it to the invoice's tax_line_ids
             invoice.with_context(contact_avatax=True)._onchange_invoice_line_ids()
 
@@ -208,7 +208,6 @@ class AccountInvoice(models.Model):
         avatax_config = self.env['avalara.salestax'].get_avatax_config_company()
         account_tax_obj = self.env['account.tax']
         tax_grouped = {}
-        #import pudb; pu.db
         if avatax_config and not avatax_config.disable_tax_calculation and self.type in ['out_invoice', 'out_refund']:
             # avatax charges customers per API call, so don't hit their API in every onchange, only when saving
             # TODO
@@ -237,7 +236,7 @@ class AccountInvoice(models.Model):
                 o_tax = account_tax_obj._get_compute_tax(
                     avatax_config, self.date_invoice or time.strftime('%Y-%m-%d'),
                     self.number, 'SalesOrder', self.partner_id, ship_from_address_id,
-                    self.shipping_add_id, 
+                    self.shipping_add_id,
                     lines, self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
                     is_override=self.type == 'out_refund', currency_id=self.currency_id)
                 if o_tax:
@@ -256,8 +255,6 @@ class AccountInvoice(models.Model):
                     if not val.get('account_analytic_id') and lines[0]['account_analytic_id'] and val['account_id'] == lines[0]['account_id']:
                         val['account_analytic_id'] = lines[0]['account_analytic_id']
 
-                    #key = tax[0].id
-                    #import pudb; pu.db
                     key = avatax_id.get_grouping_key(val)
                     if key not in tax_grouped:
                         tax_grouped[key] = val
@@ -289,14 +286,12 @@ class AccountInvoice(models.Model):
                     if not val.get('account_analytic_id') and line.account_analytic_id and val['account_id'] == line.account_id.id:
                         val['account_analytic_id'] = line.account_analytic_id.id
 
-                    #key = tax['id']
                     key = avatax_id.get_grouping_key(val)
                     if key not in tax_grouped:
                         tax_grouped[key] = val
                     else:
                         tax_grouped[key]['amount'] += val['amount']
                         tax_grouped[key]['base'] += val['base']
-            print('tax_grouped', tax_grouped)
             return tax_grouped
         else:
             tax_grouped = super(AccountInvoice, self).get_taxes_values()

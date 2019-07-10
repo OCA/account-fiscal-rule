@@ -1,6 +1,6 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
-from .avalara_api import AvaTaxService, BaseAddress  # Line
+from .avalara_api import AvaTaxService, BaseAddress
 
 
 class AccountTax(models.Model):
@@ -12,7 +12,7 @@ class AccountTax(models.Model):
     @api.model
     def _get_compute_tax(self, avatax_config, doc_date, doc_code, doc_type, partner, ship_from_address, shipping_address,
                          lines, user=None, exemption_number=None, exemption_code_name=None, commit=False, invoice_date=False,
-                         reference_code=False, location_code=False, is_override=False, currency_id=False, context=None):
+                         reference_code=False, location_code=False, is_override=False, currency_id=False):
         currency_code = self.env.user.company_id.currency_id.name
         if currency_id:
             currency_code = currency_id.name
@@ -37,8 +37,9 @@ class AccountTax(models.Model):
         if not avatax_config.address_validation:
             if avatax_config.force_address_validation:
                 if not shipping_address.date_validation:
-                    raise UserError(_('Please validate the shipping address for the partner %s.'
-                                % (partner.name)))
+                    raise UserError(_(
+                        'Please validate the shipping address for the partner %s.'
+                        % (partner.name)))
 
         # if not avatax_config.address_validation:
             if not ship_from_address.date_validation:
@@ -46,8 +47,8 @@ class AccountTax(models.Model):
 
         #For check credential
         avalara_obj = AvaTaxService(
-                avatax_config.account_number, avatax_config.license_key,
-                 avatax_config.service_url, avatax_config.request_timeout, avatax_config.logging)
+            avatax_config.account_number, avatax_config.license_key,
+            avatax_config.service_url, avatax_config.request_timeout, avatax_config.logging)
         avalara_obj.create_tax_service()
         addSvc = avalara_obj.create_address_service().addressSvc
         origin = BaseAddress(addSvc, ship_from_address.street or None,
@@ -68,15 +69,15 @@ class AccountTax(models.Model):
                                      exemption_code_name,
                                      user and user.name or None, commit, invoice_date, reference_code,
                                      location_code, currency_code, partner.vat_id or None, is_override)
-        print('_get_compute_tax', result)
         return result
 
     @api.model
     def cancel_tax(self, avatax_config, doc_code, doc_type, cancel_code):
         """Sometimes we have not need to tax calculation, then method is used to cancel taxation"""
-        avalara_obj = AvaTaxService(avatax_config.account_number, avatax_config.license_key,
-                                  avatax_config.service_url, avatax_config.request_timeout,
-                                  avatax_config.logging)
+        avalara_obj = AvaTaxService(
+            avatax_config.account_number, avatax_config.license_key,
+            avatax_config.service_url, avatax_config.request_timeout,
+            avatax_config.logging)
         avalara_obj.create_tax_service()
         try:
             result = avalara_obj.get_tax_history(avatax_config.company_code, doc_code, doc_type)
@@ -85,10 +86,3 @@ class AccountTax(models.Model):
 
         result = avalara_obj.cancel_tax(avatax_config.company_code, doc_code, doc_type, cancel_code)
         return result
-
-    # TODO: delete me?
-    #@api.multi
-    #def compute_all(self, price_unit, currency=None, quantity=1.0, product=None, partner=None):
-    #    res = super(AccountTax, self).compute_all(price_unit, currency, quantity, product, partner)
-    #    import pudb; pu.db
-    #    return res

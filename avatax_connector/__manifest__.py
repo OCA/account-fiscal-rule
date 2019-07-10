@@ -37,6 +37,7 @@ This module has Following Features:
         "views/account_invoice_action.xml",
         "views/account_invoice_view.xml",
         "views/sale_order_view.xml",
+        "views/sale_order_action.xml",
         "views/account_tax_view.xml",
         #"report/sale_order_templates.xml",
         #"views/res_config_settings_view.xml",
