@@ -1,6 +1,10 @@
+import logging
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from .avalara_api import AvaTaxService, BaseAddress
+
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountTax(models.Model):
@@ -45,6 +49,10 @@ class AccountTax(models.Model):
             if not ship_from_address.date_validation:
                 raise UserError(_('Please validate the company address.'))
 
+        if avatax_config.disable_tax_calculation:
+            _logger.info('Avatax tax calculation is disabled. Skipping %s %s.', doc_code, doc_type)
+            return False
+
         #For check credential
         avalara_obj = AvaTaxService(
             avatax_config.account_number, avatax_config.license_key,
@@ -74,15 +82,19 @@ class AccountTax(models.Model):
     @api.model
     def cancel_tax(self, avatax_config, doc_code, doc_type, cancel_code):
         """Sometimes we have not need to tax calculation, then method is used to cancel taxation"""
+        if avatax_config.disable_tax_calculation:
+            _logger.info('Avatax tax calculation is disabled. Skipping %s %s.', doc_code, doc_type)
+            return False
+
         avalara_obj = AvaTaxService(
             avatax_config.account_number, avatax_config.license_key,
             avatax_config.service_url, avatax_config.request_timeout,
             avatax_config.logging)
         avalara_obj.create_tax_service()
-        try:
-            result = avalara_obj.get_tax_history(avatax_config.company_code, doc_code, doc_type)
-        except:
-            return True
-
+        # Why the silent failure? Let explicitly raise the error.
+        #try:
+        result = avalara_obj.get_tax_history(avatax_config.company_code, doc_code, doc_type)
+        #except:
+        #    return True
         result = avalara_obj.cancel_tax(avatax_config.company_code, doc_code, doc_type, cancel_code)
         return result

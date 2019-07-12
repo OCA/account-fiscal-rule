@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import time
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
@@ -11,12 +9,12 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
     _name = 'avalara.salestax.address.validate'
     _description = 'Address Validation using AvaTax'
 
-    original_street = fields.Char('Street', readonly=True)
-    original_street2 = fields.Char('Street2', readonly=True)
-    original_city = fields.Char('City', readonly=True)
-    original_zip = fields.Char('Zip', readonly=True)
-    original_state = fields.Char('State', readonly=True)
-    original_country = fields.Char('Country', readonly=True)
+    original_street = fields.Char('Original Street', readonly=True)
+    original_street2 = fields.Char('Original Street2', readonly=True)
+    original_city = fields.Char('Original City', readonly=True)
+    original_zip = fields.Char('Original Zip', readonly=True)
+    original_state = fields.Char('Original State', readonly=True)
+    original_country = fields.Char('Original Country', readonly=True)
     street = fields.Char('Street')
     street2 = fields.Char('Street2')
     city = fields.Char('City')
@@ -66,7 +64,6 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
                                 'date_validation': False,
                                 'validation_method': '',
                             })
-#            cr.commit()     #Need to forcefully commit data when address not validate after changes in validate address
 
             address = address_brw.read(['street', 'street2', 'city', 'state_id', 'zip', 'country_id'])[0]
             address['state_id'] = address.get('state_id') and address['state_id'][0]
@@ -127,5 +124,3 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
             }
             address_brw.write(address_result)
         return {'type': 'ir.actions.act_window_close'}
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

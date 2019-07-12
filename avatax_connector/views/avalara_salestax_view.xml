@@ -15,13 +15,13 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="company_id"/>
                             </group>
                             <group>
-                                <a href="https://admin.avalara.com/" target="_blank">Visit the AvaTax Website</a>
+				<field name="disable_tax_calculation"/>
                             </group>
                         </group>
-                        <notebook>
+			<notebook attrs="{'invisible': [('disable_tax_calculation', '=', True)]}">
                             <page string="Configuration">
                                 <group>
                                     <group string="Connection">
@@ -30,6 +30,7 @@
                                         <field name="service_url"/>
 					<field name="company_code"/>
                                         <field name="date_expiration"/>
+					<a colspan="2" href="https://admin.avalara.com/" target="_blank">Visit the AvaTax Admin webpage</a>
                                         <button name="%(avatax_connector.action_avalara_salestax_ping)d"
                                                 string="Test Connection" type="action" icon="fa-television"/>
                                     </group>
@@ -38,19 +39,20 @@
                                         <field name="logging"/>
                                     </group>
                                 </group>
-				<group string="Address Validation">
+				<group>
+				    <group string="Address Validation">
                                         <field name="address_validation"/>
                                         <field name="validation_on_save" />
                                         <field name="force_address_validation" />
                                         <field name="result_in_uppercase" />
                                         <field name="auto_generate_customer_code" />
-                                </group>
-                                <group string="Avalara Submissions / Transactions">
+                                    </group>
+                                    <group string="Avalara Submissions / Transactions">
+                                        <field name="disable_tax_reporting"/>
                                         <field name="on_order" invisible="1"/>
                                         <field name="on_line" invisible="1"/>
                                         <field name="upc_enable" />
-					<field name="disable_tax_calculation"/>
-                                        <field name="disable_tax_reporting"/>
+                                    </group>
                                 </group>
                                 <group string="Countries">
                                     <label for="country_ids" string="Countries Authorized to Process (ISO code)"/>

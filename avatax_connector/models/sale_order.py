@@ -17,11 +17,7 @@ class SaleOrder(models.Model):
         self.exemption_code_id = self.partner_id.exemption_code_id.id or None
         self.tax_add_shipping = True
         self.tax_add_id = self.partner_shipping_id.id
-        if self.partner_id.validation_method:
-            self.is_add_validate = True
-        else:
-            self.is_add_validate = False
-        return res
+        self.is_add_validate = bool(self.partner_id.validation_method)
 
     @api.model
     def create(self, vals):
@@ -126,19 +122,18 @@ class SaleOrder(models.Model):
                 order.tax_add_id = order.partner_id
 
     exemption_code = fields.Char('Exemption Number', help="It show the customer exemption number")
-    is_add_validate = fields.Boolean('Address validated')
+    is_add_validate = fields.Boolean('Address Is validated')
     exemption_code_id = fields.Many2one('exemption.code', 'Exemption Code', help="It show the customer exemption code")
     amount_untaxed = fields.Monetary(string='Untaxed Amount', store=True, readonly=True, compute='_amount_all', track_visibility='always')
     amount_tax = fields.Monetary(string='Taxes', store=True, readonly=True, compute='_amount_all', track_visibility='always')
     amount_total = fields.Monetary(string='Total', store=True, readonly=True, compute='_amount_all', track_visibility='always')
     tax_amount = fields.Float('Tax Code Amount', digits=dp.get_precision('Sale Price'))
-    tax_add_default = fields.Boolean('Default Address', readonly=True, states={'draft': [('readonly', False)]})
-    tax_add_invoice = fields.Boolean('Invoice Address', readonly=True, states={'draft': [('readonly', False)]})
-    tax_add_shipping = fields.Boolean('Delivery Address', default=True, readonly=True, states={'draft': [('readonly', False)]})
+    tax_add_default = fields.Boolean('Tax uses Default Address', readonly=True, states={'draft': [('readonly', False)]})
+    tax_add_invoice = fields.Boolean('Tax uses Invoice Address', readonly=True, states={'draft': [('readonly', False)]})
+    tax_add_shipping = fields.Boolean('Tax uses Delivery Address', default=True, readonly=True, states={'draft': [('readonly', False)]})
     tax_add_id = fields.Many2one('res.partner', 'Tax Address', readonly=True, states={'draft': [('readonly', False)]},
                                  compute='_compute_tax_id', store=True)
-    tax_address = fields.Text('Tax Address')
-    disable_tax_calculation = fields.Boolean('Disable Avatax Tax calculation')
+    tax_address = fields.Text('Tax Address Text')
     location_code = fields.Char('Location Code', help='Origin address location code')
 
     @api.model
@@ -189,7 +184,8 @@ class SaleOrder(models.Model):
         else:
             ship_from_address_id = self.company_id.partner_id
 
-        if avatax_config and not avatax_config.disable_tax_calculation:
+        compute_taxes = self.env.context.get('avatax_recomputation') or avatax_config.disable_tax_calculation
+        if compute_taxes:
             ava_tax = account_tax_obj.search(
                 [('is_avatax', '=', True),
                 ('type_tax_use', 'in', ['sale', 'all']),
@@ -235,8 +231,7 @@ class SaleOrder(models.Model):
                         o_line.write({'tax_amt': 0.0})
 
         else:
-            for o_line in self.order_line:
-                o_line.write({'tax_amt': 0.0})
+            self.order_line.write({'tax_amt': 0.0})
 
         self.write({'tax_amount': tax_amount, 'order_line': []})
         return True
@@ -244,12 +239,12 @@ class SaleOrder(models.Model):
     @api.multi
     def avalara_compute_taxes(self):
         """ It used to called manually calculation method of avalara and get tax amount"""
-        self.compute_tax()
+        self.with_context(avatax_recomputation=True).compute_tax()
         return True
 
     @api.multi
     def action_confirm(self):
-        self.compute_tax()
+        self.with_context(avatax_recomputation=True).compute_tax()
         return super(SaleOrder, self).action_confirm()
 
 

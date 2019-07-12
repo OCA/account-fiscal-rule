@@ -27,14 +27,14 @@ class AccountInvoice(models.Model):
                 self.location_code = self.warehouse_id.code
 
     invoice_doc_no = fields.Char('Source/Ref Invoice No', readonly=True, states={'draft': [('readonly', False)]}, help="Reference of the invoice")
-    invoice_date = fields.Date('Invoice Date', readonly=True)
-    is_add_validate = fields.Boolean('Address validated')
+    invoice_date = fields.Date('Tax Invoice Date', readonly=True)
+    is_add_validate = fields.Boolean('Address Is Validated')
     exemption_code = fields.Char('Exemption Number', help="It show the customer exemption number")
     exemption_code_id = fields.Many2one('exemption.code', 'Exemption Code', help="It show the customer exemption code")
     tax_on_shipping_address = fields.Boolean('Tax based on shipping address', default=False, required=True)
-    shipping_add_id = fields.Many2one('res.partner', 'Tax Address', compute='_compute_shipping_add_id')
-    shipping_address = fields.Text('Tax Address')
-    location_code = fields.Char('Location code', readonly=True, states={'draft': [('readonly', False)]})
+    shipping_add_id = fields.Many2one('res.partner', 'Tax Shipping Address', compute='_compute_shipping_add_id')
+    shipping_address = fields.Text('Tax Shipping Address Text')
+    location_code = fields.Char('Location Code', readonly=True, states={'draft': [('readonly', False)]})
     warehouse_id = fields.Many2one('stock.warehouse', 'Warehouse')
     disable_tax_calculation = fields.Boolean('Disable Avatax Tax calculation')
 
@@ -61,8 +61,8 @@ class AccountInvoice(models.Model):
                         return invoice.date_invoice
                     else:
                         return inv_obj.date_invoice
-            else:
-                return False
+        # else:
+        return False
 
     @api.multi
     def avatax_compute_taxes(self, commit_taxes=False):
@@ -83,16 +83,12 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_commit_tax(self):
-        avatax_config_obj = self.env['avalara.salestax']
         account_tax_obj = self.env['account.tax']
+        avatax_config_obj = self.env['avalara.salestax']
         avatax_config = avatax_config_obj.get_avatax_config_company()
 
         commit = not avatax_config.disable_tax_reporting
-        #if avatax_config.disable_tax_reporting:
-        #    return True
-
         for invoice in self:
-            #if not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund']:
             if invoice.type in ['out_invoice', 'out_refund']:
                 shipping_add_id = self.shipping_add_id
                 if self.warehouse_id and self.warehouse_id.partner_id:
@@ -149,7 +145,7 @@ class AccountInvoice(models.Model):
         avatax_config = self.env['avalara.salestax'].get_avatax_config_company()
         account_tax_obj = self.env['account.tax']
         tax_grouped = {}
-        compute_taxes = self.env.context.get('contact_avatax') or not avatax_config.disable_tax_calculation
+        compute_taxes = self.env.context.get('contact_avatax') or enable_immediate_calculation
         if compute_taxes and self.type in ['out_invoice', 'out_refund']:
             # avatax charges customers per API call, so don't hit their API in every onchange, only when saving
             # TODO
@@ -305,7 +301,7 @@ class AccountInvoice(models.Model):
             cs_code = []    # Countries where Avalara address validation is enabled
             for c_brw in avatax_config.country_ids:
                 cs_code.append(str(c_brw.code))
-            if not invoice.disable_tax_calculation and avatax_config and not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund'] and c_code in cs_code:
+            if invoice.type in ['out_invoice', 'out_refund'] and c_code in cs_code:
                 doc_type = invoice.type == 'out_invoice' and 'SalesInvoice' or 'ReturnInvoice'
                 account_tax_obj.cancel_tax(avatax_config, invoice.number, doc_type, 'DocVoided')
         return super(AccountInvoice, self).action_cancel()

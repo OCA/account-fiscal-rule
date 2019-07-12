@@ -11,7 +11,7 @@ class ExemptionCode(models.Model):
     @api.multi
     @api.depends('name', 'code')
     def name_get(self):
-        return [(r.id, ('(' + r.code + ')' + ' ' + r.name)) for r in self]
+        return [(r.id, '(%s) %s' % (r.code, r.name)) for r in self]
 
 
 class AvalaraSalestax(models.Model):
@@ -56,13 +56,19 @@ class AvalaraSalestax(models.Model):
         "and manually generate their customer code.  "
         "This is required for Avatax and is only generated one time.")
     disable_tax_calculation = fields.Boolean(
-        'Disable Immediate Tax Calculation',
-        help="Check to not send Avatax requests when edit are being made in a sales document.",
-        default=True)
+        'Disable AvaTax Calculation',
+        help="No tax calculation requests will be sent to the AvaTax web service.",
+        default=True,
+        )
     disable_tax_reporting = fields.Boolean(
-        "Don't Commit Sales Documents",
-        help="Check to disable Avalara tax reporting to Avatax Service.  "
-        "The document status will not be set to 'Commited' on the Avalara transaction web portal.")
+        'Disable Avalara Tax Commit',
+        help="Validated Invoices won't be set to Committed status on the Avalara service.",
+        )
+    enable_immediate_calculation = fields.Boolean(
+        'Immediate AvaTax Calculation',
+        help="Tax is computed immediately, as document lines are being added."
+        " Warning: will cause heavy traffic on the Avatax service.",
+        )
     default_shipping_code_id = fields.Many2one(
         'product.tax.code', 'Default Shipping Code',
         help="The default shipping code which will be passed to Avalara")
