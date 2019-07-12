@@ -64,66 +64,6 @@ class AccountInvoice(models.Model):
             else:
                 return False
 
-    # TODO: not used???
-    @api.multi
-    def XXXcompute(self):
-        #self.compute_taxes()
-        avatax_config_obj = self.env['avalara.salestax']
-        account_tax_obj = self.env['account.tax']
-        avatax_config = avatax_config_obj.get_avatax_config_company()
-
-        for invoice in self:
-            if not invoice.disable_tax_calculation and avatax_config and not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund']:
-                shipping_add_id = self.shipping_add_id
-                if self.warehouse_id and self.warehouse_id.partner_id:
-                    shipping_add_origin_id = self.warehouse_id.partner_id
-                else:
-                    shipping_add_origin_id = self.company_id.partner_id
-                tax_date = self.get_origin_tax_date()
-                if not tax_date:
-                    tax_date = invoice.date_invoice or time.strftime('%Y-%m-%d')
-
-                sign = invoice.type == 'out_invoice' and 1 or -1
-                lines = self.create_lines(invoice.invoice_line_ids, sign)
-                if lines:
-                    if avatax_config.on_line:
-                        ava_tax = account_tax_obj.search(
-                                [('is_avatax', '=', True),
-                                ('type_tax_use', 'in', ['sale', 'all']),
-                                ('company_id', '=', self.company_id.id)])
-                        tax_id = []
-                        for line in lines:
-                            tax_id = line['tax_id'] and [tax.id for tax in line['tax_id']] or []
-                            if ava_tax and ava_tax[0].id not in tax_id:
-                                tax_id.append(ava_tax[0].id)
-                            ol_tax_amt = account_tax_obj._get_compute_tax(
-                                avatax_config,
-                                invoice.date_invoice,
-                                invoice.number,
-                                'SalesOrder',
-                                invoice.partner_id,
-                                shipping_add_origin_id,
-                                shipping_add_id, [line],
-                                invoice.user_id,
-                                invoice.exemption_code or None,
-                                invoice.exemption_code_id.code or None,
-                                is_override=invoice.type == 'out_refund',
-                                currency_id=invoice.currency_id
-                            ).TotalTax
-                            # o_tax_amt += ol_tax_amt  # tax amount based on total order line total
-                            line['id'].write({
-                                'tax_amt': ol_tax_amt,
-                                'invoice_line_tax_ids': [(6, 0, tax_id)]
-                            })
-
-                    elif avatax_config.on_order:
-                        for o_line in invoice.invoice_line_ids:
-                            o_line.write({'tax_amt': 0.0})
-                else:
-                    for o_line in invoice.invoice_line_ids:
-                        o_line.write({'tax_amt': 0.0})
-        return True
-
     @api.multi
     def avatax_compute_taxes(self, commit_taxes=False):
         """
@@ -147,11 +87,13 @@ class AccountInvoice(models.Model):
         account_tax_obj = self.env['account.tax']
         avatax_config = avatax_config_obj.get_avatax_config_company()
 
-        if avatax_config and avatax_config.disable_tax_reporting:
-            return True
+        commit = not avatax_config.disable_tax_reporting
+        #if avatax_config.disable_tax_reporting:
+        #    return True
 
         for invoice in self:
-            if not invoice.disable_tax_calculation and avatax_config and not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund']:
+            #if not avatax_config.disable_tax_calculation and invoice.type in ['out_invoice', 'out_refund']:
+            if invoice.type in ['out_invoice', 'out_refund']:
                 shipping_add_id = self.shipping_add_id
                 if self.warehouse_id and self.warehouse_id.partner_id:
                     shipping_add_origin_id = self.warehouse_id.partner_id
@@ -171,7 +113,7 @@ class AccountInvoice(models.Model):
                                 invoice.number, 'SalesOrder',
                                 invoice.partner_id, shipping_add_origin_id,
                                 shipping_add_id, [line], invoice.user_id, invoice.exemption_code or None, invoice.exemption_code_id.code or None,
-                                is_override=invoice.type == 'out_refund', currency_id=invoice.currency_idi
+                                is_override=invoice.type == 'out_refund', currency_id=invoice.currency_id
                             ).TotalTax
                             # o_tax_amt += ol_tax_amt  #tax amount based on total order line total
                             line['id'].write({'tax_amt': ol_tax_amt})
@@ -191,12 +133,11 @@ class AccountInvoice(models.Model):
                         invoice.number, not invoice.invoice_doc_no and 'SalesInvoice' or 'ReturnInvoice',
                         invoice.partner_id, shipping_add_origin_id,
                         shipping_add_id, lines, invoice.user_id, invoice.exemption_code or None, invoice.exemption_code_id.code or None,
-                        False, tax_date,
+                        commit, tax_date,
                         invoice.invoice_doc_no, invoice.location_code or '',
                         is_override=invoice.type == 'out_refund', currency_id=invoice.currency_id)
             else:
-                for o_line in invoice.invoice_line_ids:
-                    o_line.write({'tax_amt': 0.0})
+                invoice.invoice_line_ids.write({'tax_amt': 0.0})
         return True
 
     @api.multi
@@ -208,7 +149,8 @@ class AccountInvoice(models.Model):
         avatax_config = self.env['avalara.salestax'].get_avatax_config_company()
         account_tax_obj = self.env['account.tax']
         tax_grouped = {}
-        if avatax_config and not avatax_config.disable_tax_calculation and self.type in ['out_invoice', 'out_refund']:
+        compute_taxes = self.env.context.get('contact_avatax') or not avatax_config.disable_tax_calculation
+        if compute_taxes and self.type in ['out_invoice', 'out_refund']:
             # avatax charges customers per API call, so don't hit their API in every onchange, only when saving
             # TODO
             # But with this, every edit on the Invoice lines resets the taxes to zero, do we want that?
@@ -250,7 +192,11 @@ class AccountInvoice(models.Model):
                         'sequence': tax[0].sequence,
                         'account_analytic_id': tax[0].analytic and lines[0]['account_analytic_id'] or False,
                         'analytic_tag_ids': lines[0]['analytic_tag_ids'] or False,
-                        'account_id': self.type in ('out_invoice', 'in_invoice') and (tax[0].account_id.id or lines[0]['account_id']) or (tax[0].refund_account_id.id or lines[0]['account_id']),
+                        'account_id': (
+                            self.type in ('out_invoice', 'in_invoice') and 
+                            (tax[0].account_id.id or lines[0]['account_id']) or 
+                            (tax[0].refund_account_id.id or lines[0]['account_id'])
+                        ),
                     }
                     if not val.get('account_analytic_id') and lines[0]['account_analytic_id'] and val['account_id'] == lines[0]['account_id']:
                         val['account_analytic_id'] = lines[0]['account_analytic_id']

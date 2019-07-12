@@ -15,7 +15,6 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="company_code"/>
                                 <field name="company_id" groups="base.group_multi_company"/>
                             </group>
                             <group>
@@ -29,6 +28,7 @@
                                         <field name="account_number"/>
                                         <field name="license_key" password="True"/>
                                         <field name="service_url"/>
+					<field name="company_code"/>
                                         <field name="date_expiration"/>
                                         <button name="%(avatax_connector.action_avalara_salestax_ping)d"
                                                 string="Test Connection" type="action" icon="fa-television"/>
@@ -38,27 +38,23 @@
                                         <field name="logging"/>
                                     </group>
                                 </group>
-                                <group>
-                                    <group string="Address Validation">
+				<group string="Address Validation">
                                         <field name="address_validation"/>
                                         <field name="validation_on_save" />
                                         <field name="force_address_validation" />
                                         <field name="result_in_uppercase" />
                                         <field name="auto_generate_customer_code" />
-                                    </group>
-                                    <group string="Avalara Submissions / Transactions">
+                                </group>
+                                <group string="Avalara Submissions / Transactions">
                                         <field name="on_order" invisible="1"/>
                                         <field name="on_line" invisible="1"/>
                                         <field name="upc_enable" />
-                                    </group>
+					<field name="disable_tax_calculation"/>
+                                        <field name="disable_tax_reporting"/>
                                 </group>
                                 <group string="Countries">
                                     <label for="country_ids" string="Countries Authorized to Process (ISO code)"/>
                                     <field name="country_ids" nolabel="1"/>
-                                </group>
-                                <group string="Disable">
-                                    <field name="disable_tax_calculation"/>
-                                    <field name="disable_tax_reporting"/>
                                 </group>
                             </page>
                         </notebook>

@@ -56,12 +56,13 @@ class AvalaraSalestax(models.Model):
         "and manually generate their customer code.  "
         "This is required for Avatax and is only generated one time.")
     disable_tax_calculation = fields.Boolean(
-        'Disable Avalara Tax Calculation and reporting', default=False,
-        help="Check to disable avalara tax calculation and reporting")
+        'Disable Immediate Tax Calculation',
+        help="Check to not send Avatax requests when edit are being made in a sales document.",
+        default=True)
     disable_tax_reporting = fields.Boolean(
-        'Disable Avalara Tax reporting only',
-        help="Check to disable avalara tax reporting to Avatax Service.  "
-        "You will not see the transactions on the Avalara transaction web portal.")
+        "Don't Commit Sales Documents",
+        help="Check to disable Avalara tax reporting to Avatax Service.  "
+        "The document status will not be set to 'Commited' on the Avalara transaction web portal.")
     default_shipping_code_id = fields.Many2one(
         'product.tax.code', 'Default Shipping Code',
         help="The default shipping code which will be passed to Avalara")

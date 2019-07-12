@@ -15,6 +15,7 @@ _logger = logging.getLogger(__name__)
 
 class AvaTaxService:
 
+    # TODO: removee, deprecated in favour of Odoo log
     def enable_log(self):
         import logging, tempfile
         logger = logging.getLogger('suds.client')
@@ -26,11 +27,12 @@ class AvaTaxService:
         logger.addHandler(handler)
 
     def __init__(self, username, password, url, timeout, enable_log=False):
-        self.username = username    # This is the company's Development/Production Account number
-        self.password = password    # Put in the License Key received from AvaTax
+        self.username = username  # This is the company's Development/Production Account number
+        self.password = password  # Put in the License Key received from AvaTax
         self.url = url
         self.timeout = timeout
-        enable_log and self.enable_log()
+        self.is_log_enabled = enable_log
+        # enable_log and self.enable_log()
 
     def create_tax_service(self):
         self.taxSvc = self.service('tax')
@@ -144,7 +146,9 @@ class AvaTaxService:
             return information about how the tax was calculated. Intended for use only while the SDK is in a development environment.
         """
         if commit:
-            _logger.info('committing document %s (type: %s)', doc_code, doc_type)
+            _logger.info('GetTaxrequest committing document %s (type: %s)', doc_code, doc_type)
+        else:
+            _logger.info('GetTaxRequest for document %s (type: %s)', doc_code, doc_type)
         lineslist = []
         request = self.taxSvc.factory.create('GetTaxRequest')
         request.Commit = commit
@@ -209,10 +213,11 @@ class AvaTaxService:
         lines.Line = lineslist
         request.Lines = lines
         # And we're ready to make the call
-        print(request)
         result = self.get_result(self.taxSvc, self.taxSvc.service.GetTax, request)
-        print(result)
-        import traceback; traceback.print_stack()  #import pudb; pu.db
+        #import traceback; traceback.print_stack()  #import pudb; pu.db
+        if self.is_log_enabled:
+            _logger.info(request)
+            _logger.info(result)
         return result
 
     def get_tax_history(self, company_code, doc_code, doc_type):
