@@ -145,13 +145,9 @@ class AccountInvoice(models.Model):
         avatax_config = self.env['avalara.salestax'].get_avatax_config_company()
         account_tax_obj = self.env['account.tax']
         tax_grouped = {}
-        compute_taxes = self.env.context.get('contact_avatax') or enable_immediate_calculation
+        # avatax charges customers per API call, so don't hit their API in every onchange, only when saving
+        compute_taxes = self.env.context.get('contact_avatax') or avatax_config.enable_immediate_calculation
         if compute_taxes and self.type in ['out_invoice', 'out_refund']:
-            # avatax charges customers per API call, so don't hit their API in every onchange, only when saving
-            # TODO
-            # But with this, every edit on the Invoice lines resets the taxes to zero, do we want that?
-            #if not self.env.context.get('contact_avatax'):
-            #    return {}
             avatax_id = account_tax_obj.search(
                 [('is_avatax', '=', True),
                  ('type_tax_use', 'in', ['sale', 'all']),
