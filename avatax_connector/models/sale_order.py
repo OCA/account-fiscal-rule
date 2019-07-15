@@ -56,9 +56,9 @@ class SaleOrder(models.Model):
                 vals['exemption_code_id'] = partner.browse(vals['partner_id']).exemption_code_id.id
         res = super(SaleOrder, self).write(vals)
 
-#         if not self._context.get('avatax_recalculation'):
-#             for order in self:
-#                 order.with_context(avatax_recalculation=True).compute_tax()
+        if not self._context.get('avatax_recalculation'):
+            for order in self:
+                order.compute_tax()
 
         return res
 
@@ -160,8 +160,10 @@ class SaleOrder(models.Model):
         @param order_line: send sub_total of each line and get tax amount
         @param shiiping_line: send shipping amount of each ship line and get ship tax amount
         """
-        if self.disable_tax_calculation:
+        if self.env.context.get('doing_compute_tax'):
             return False
+        self = self.with_context(doing_compute_tax=True)
+
         avatax_config_obj = self.env['avalara.salestax']
         account_tax_obj = self.env['account.tax']
         avatax_config = avatax_config_obj.get_avatax_config_company()
@@ -184,7 +186,8 @@ class SaleOrder(models.Model):
         else:
             ship_from_address_id = self.company_id.partner_id
 
-        compute_taxes = self.env.context.get('avatax_recomputation') or avatax_config.disable_tax_calculation
+        compute_taxes = self.env.context.get('avatax_recomputation') or avatax_config.enable_immediate_calculation
+        print(compute_taxes)
         if compute_taxes:
             ava_tax = account_tax_obj.search(
                 [('is_avatax', '=', True),
