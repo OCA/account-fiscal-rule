@@ -76,7 +76,7 @@ class AvaTaxService:
         # Set elements adapter defaults
         ADAPTER = 'Odoo S.A.'
         # Profile Client.
-        CLIENT = 'a0o33000004WSkW'
+        CLIENT = 'a0o0b0000058pOuAAI'
         #Build the Profile element
         profileNameSpace = ('ns1', 'http://avatax.avalara.com/services')
         profile = suds.sax.element.Element('Profile', ns=profileNameSpace)
