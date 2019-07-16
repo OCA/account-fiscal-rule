@@ -7,11 +7,11 @@
 
 <odoo>
     <record model="account.product.fiscal.classification.template" id="fiscal_classification_template_1">
-        <field name="code">1000.00.00</field>
         <field name="name">Demo Fiscal Classification Template 1</field>
         <field name="purchase_tax_ids" eval="[(6, 0, [ref('account_product_fiscal_classification_test.account_tax_template_purchase_1')])]"/>
         <field name="sale_tax_ids" eval="[(6, 0, [
             ref('account_product_fiscal_classification_test.account_tax_template_sale_1'),
             ref('account_product_fiscal_classification_test.account_tax_template_sale_2')])]"/>
+        <field name="chart_template_id" ref="l10n_generic_coa.configurable_chart_template"/>
     </record>
 </odoo>
