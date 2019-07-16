@@ -13,15 +13,25 @@
     'license': 'AGPL-3',
     'depends': [
         'account',
+        'account_coa_menu',
     ],
     'data': [
         'security/ir_rule.xml',
         'security/ir.model.access.csv',
-        'views/view_related.xml',
-        'views/action.xml',
-        'views/view.xml',
-        'views/menu.xml',
+        'views/view_product_template.xml',
+        'wizard/view_wizard_change_fiscal_classification.xml',
         'views/view_product_category.xml',
+        'views/view_account_product_fiscal_classification.xml',
+        'views/view_account_product_fiscal_classification_template.xml',
     ],
+    'demo': [
+        'demo/account_tax.xml',
+        'demo/account_product_fiscal_classification.xml',
+        'demo/product_template.xml',
+        'demo/product_category.xml',
+        'demo/res_groups.xml',
+    ],
+    'post_init_hook':
+        'create_fiscal_classification_from_product_template',
     'installable': True,
 }

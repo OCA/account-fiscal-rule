@@ -8,12 +8,20 @@ from odoo.exceptions import ValidationError
 
 class AccountProductFiscalClassification(models.Model):
     _name = 'account.product.fiscal.classification'
-    _inherit = 'account.product.fiscal.classification.model'
     _description = 'Fiscal Classification'
 
     # Default Section
     def _default_company_id(self):
         return self.env['res.users']._get_company()
+
+    name = fields.Char(required=True, translate=True)
+
+    description = fields.Text()
+
+    active = fields.Boolean(
+        default=True,
+        help="If unchecked, it will allow you to hide the Fiscal"
+        " Classification without removing it.")
 
     company_id = fields.Many2one(
         comodel_name='res.company', default=_default_company_id,
@@ -42,6 +50,11 @@ class AccountProductFiscalClassification(models.Model):
         column1='fiscal_classification_id', column2='tax_id',
         string='Sale Taxes', oldname="sale_base_tax_ids", domain="""[
             ('type_tax_use', 'in', ['sale', 'all'])]""")
+
+    usage_group_id = fields.Many2one(
+        comodel_name='res.groups', string="Usage Group", help="If defined"
+        ", the user should be member to this group, to use this fiscal"
+        " classification when creating or updating products")
 
     # Compute Section
     def _compute_product_tmpl_info(self):
@@ -118,8 +131,6 @@ class AccountProductFiscalClassification(models.Model):
                 name += tax.description and tax.description or tax.name
                 name += ' + '
             name = name[:-3]
-        name = name[:self._MAX_LENGTH_NAME] \
-            if len(name) > self._MAX_LENGTH_NAME else name
         return self.create({
             'name': name,
             'company_id': company_id,

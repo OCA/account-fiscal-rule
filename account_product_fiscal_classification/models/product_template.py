@@ -6,7 +6,7 @@
 from lxml import etree
 
 from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 from odoo.osv.orm import setup_modifiers
 
 
@@ -26,12 +26,14 @@ class ProductTemplate(models.Model):
     @api.model
     def create(self, vals):
         res = super(ProductTemplate, self).create(vals)
+        self._check_access_fiscal_classification(vals)
         res.write_taxes_setting(vals)
         return res
 
     @api.multi
     def write(self, vals):
         res = super(ProductTemplate, self).write(vals)
+        self._check_access_fiscal_classification(vals)
         self.write_taxes_setting(vals)
         return res
 
@@ -107,7 +109,7 @@ class ProductTemplate(models.Model):
                         x.id for x in classification.purchase_tax_ids]]],
                     'taxes_id': [[6, 0, [
                         x.id for x in classification.sale_tax_ids]]],
-                    }
+                }
                 super(ProductTemplate, template.sudo()).write(tax_vals)
             elif ('supplier_taxes_id' in vals.keys() or
                     'taxes_id' in vals.keys()):
@@ -124,3 +126,17 @@ class ProductTemplate(models.Model):
                     template.company_id.id, sale_tax_ids, purchase_tax_ids)
                 super(ProductTemplate, template.sudo()).write(
                     {'fiscal_classification_id': fc_id})
+
+    @api.multi
+    def _check_access_fiscal_classification(self, vals):
+        FiscalClassification =\
+            self.env['account.product.fiscal.classification']
+        if vals.get('fiscal_classification_id', False):
+            classification = FiscalClassification.browse(
+                vals['fiscal_classification_id'])
+            group = classification.usage_group_id
+            if group and group.id not in self.env.user.groups_id.ids:
+                raise UserError(_(
+                    "You can not use the fiscal classification '%s' because"
+                    " you're not member of the group '%s'.") % (
+                        classification.name, group.name))
