@@ -16,21 +16,18 @@ class WizardChangeFiscalClassification(models.TransientModel):
     # Field Section
     old_fiscal_classification_id = fields.Many2one(
         comodel_name='account.product.fiscal.classification',
-        string='Old Fiscal Classification',
+        string='Old Classification',
         default=_default_old_fiscal_classification_id,
         readonly=True)
 
     new_fiscal_classification_id = fields.Many2one(
         comodel_name='account.product.fiscal.classification',
-        string='New Fiscal Classification',
+        string='New Classification',
         required=True, domain="[('id', '!=', old_fiscal_classification_id)]")
 
     # View Section
     def button_change_fiscal_classification(self):
         self.ensure_one()
-        template_obj = self.env['product.template']
-        template_ids = [
-            x.id for x in self.old_fiscal_classification_id.product_tmpl_ids]
-        templates = template_obj.browse(template_ids)
-        templates.write({
-            'fiscal_classification_id': self.new_fiscal_classification_id.id})
+        self.old_fiscal_classification_id.product_tmpl_ids.write({
+            'fiscal_classification_id': self.new_fiscal_classification_id.id,
+        })
