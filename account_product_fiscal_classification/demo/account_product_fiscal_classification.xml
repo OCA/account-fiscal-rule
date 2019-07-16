@@ -11,20 +11,20 @@
     <record model="account.product.fiscal.classification" id="fiscal_classification_1">
         <field name="name">Demo Fiscal Classification 1</field>
         <field name="company_id" ref="base.main_company"/>
-        <field name="purchase_tax_ids" eval="[(6, 0, [ref('account_product_fiscal_classification_test.account_tax_template_purchase_1')])]"/>
+        <field name="purchase_tax_ids" eval="[(6, 0, [ref('account_tax_purchase_1')])]"/>
         <field name="sale_tax_ids" eval="[(6, 0, [
-            ref('account_product_fiscal_classification_test.account_tax_template_sale_1'),
-            ref('account_product_fiscal_classification_test.account_tax_template_sale_2')])]"/>
+            ref('account_tax_sale_1'),
+            ref('account_tax_sale_2')])]"/>
     </record>
     <record model="account.product.fiscal.classification" id="fiscal_classification_2">
         <field name="name">Demo Fiscal Classification 2</field>
         <field name="company_id" ref="base.main_company"/>
-        <field name="sale_tax_ids" eval="[(6, 0, [ref('account_product_fiscal_classification_test.account_tax_template_sale_2')])]"/>
+        <field name="sale_tax_ids" eval="[(6, 0, [ref('account_tax_sale_2')])]"/>
     </record>
     <record model="account.product.fiscal.classification" id="fiscal_classification_3">
         <field name="name">Demo Fiscal Classification 3</field>
         <field name="company_id" ref="base.main_company"/>
-        <field name="purchase_tax_ids" eval="[(6, 0, [ref('account_product_fiscal_classification_test.account_tax_template_purchase_1')])]"/>
+        <field name="purchase_tax_ids" eval="[(6, 0, [ref('account_tax_purchase_1')])]"/>
     </record>
     <record model="account.product.fiscal.classification" id="global_fiscal_classification_1">
         <field name="company_id" eval="False"/>

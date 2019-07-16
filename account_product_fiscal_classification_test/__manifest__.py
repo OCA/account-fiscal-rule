@@ -16,15 +16,8 @@
         'l10n_generic_coa',
     ],
     'demo': [
-        'demo/account_tax.xml',
         'demo/account_tax_template.xml',
-        'demo/account_product_fiscal_classification.xml',
         'demo/account_product_fiscal_classification_template.xml',
-        'demo/product_category.xml',
-        'demo/product_template.xml',
-        'demo/res_company.xml',
-        'demo/res_groups.xml',
-        'demo/res_users.xml',
     ],
     'installable': True,
 }
