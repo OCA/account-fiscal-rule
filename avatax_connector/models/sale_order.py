@@ -69,6 +69,7 @@ class SaleOrder(models.Model):
             'exemption_code': self.exemption_code or '',
             'exemption_code_id': self.exemption_code_id.id or False,
             'location_code': self.location_code or '',
+            'warehouse_id': self.warehouse_id.id or '',
             'tax_on_shipping_address': self.tax_add_shipping,
             'disable_tax_calculation': self.disable_tax_calculation,
         })
@@ -135,6 +136,7 @@ class SaleOrder(models.Model):
                                  compute='_compute_tax_id', store=True)
     tax_address = fields.Text('Tax Address Text')
     location_code = fields.Char('Location Code', help='Origin address location code')
+    warehouse_id = fields.Many2one('stock.warehouse', 'Warehouse')
 
     @api.model
     def create_lines(self, order_lines):
@@ -158,7 +160,7 @@ class SaleOrder(models.Model):
     def compute_tax(self):
         """ Create and update tax amount for each and every order line and shipping line.
         @param order_line: send sub_total of each line and get tax amount
-        @param shiiping_line: send shipping amount of each ship line and get ship tax amount
+        @param shiping_line: send shipping amount of each ship line and get ship tax amount
         """
         if self.env.context.get('doing_compute_tax'):
             return False
@@ -180,14 +182,10 @@ class SaleOrder(models.Model):
         tax_amount = o_tax_amt = 0.0
 
         # ship from Address / Origin Address either warehouse or company if none
-        # warehouse_id might not be available if the Inventory app is not installed
-        if hasattr(self, 'warehouse_id') and self.warehouse_id.partner_id:
-            ship_from_address_id = self.warehouse_id.partner_id
-        else:
-            ship_from_address_id = self.company_id.partner_id
+        ship_from_address_id = self.warehouse_id.partner_id or self.company_id.partner_id
 
-        compute_taxes = self.env.context.get('avatax_recomputation') or avatax_config.enable_immediate_calculation
-        print(compute_taxes)
+        compute_taxes = (self.env.context.get('avatax_recomputation') or
+                         avatax_config.enable_immediate_calculation)
         if compute_taxes:
             ava_tax = account_tax_obj.search(
                 [('is_avatax', '=', True),
@@ -247,8 +245,9 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_confirm(self):
+        res =  super(SaleOrder, self).action_confirm()
         self.with_context(avatax_recomputation=True).compute_tax()
-        return super(SaleOrder, self).action_confirm()
+        return res
 
 
 class SaleOrderLine(models.Model):

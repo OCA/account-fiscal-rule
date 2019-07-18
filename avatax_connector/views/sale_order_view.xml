@@ -39,6 +39,7 @@
                 <field name="payment_term_id" position="after">
                     <field name="exemption_code" readonly="1"/>
                     <field name="exemption_code_id" readonly="1"/>
+                    <field name="warehouse_id" options="{'no_create': True}" groups="stock.group_stock_multi_warehouses"/>
                     <field name="location_code"/>
                     <field name="is_add_validate" readonly="1" invisible="1"/>
                 </field>
