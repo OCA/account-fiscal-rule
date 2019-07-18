@@ -44,7 +44,7 @@ class AccountInvoice(models.Model):
         for invoice in self:
             invoice.shipping_add_id = invoice.partner_shipping_id if invoice.tax_on_shipping_address else invoice.partner_id
 
-    @api.model
+    @api.multi
     def get_origin_tax_date(self):
         for inv_obj in self:
             if inv_obj.origin:
@@ -65,7 +65,7 @@ class AccountInvoice(models.Model):
         return False
 
     @api.multi
-    def avatax_compute_taxes(self, commit_taxes=False):
+    def avatax_compute_taxes(self):
         """
         Called from Invoice's Action menu.
         Forces computation of the Invoice taxes
@@ -78,11 +78,12 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_invoice_open(self):
         super(AccountInvoice, self).action_invoice_open()
-        self.action_commit_tax()
+        #self.action_commit_tax()
+        self.with_context(avatax_commit=True).avatax_compute_taxes()
         return True
 
     @api.multi
-    def action_commit_tax(self):
+    def OBSOLETEaction_commit_tax(self):
         account_tax_obj = self.env['account.tax']
         avatax_config_obj = self.env['avalara.salestax']
         avatax_config = avatax_config_obj.get_avatax_config_company()
@@ -139,7 +140,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def get_taxes_values(self):
         """
-        Extends the stantard method reposnible for computing taxes.
+        Extends the stantard method reponsible for computing taxes.
         Returns a dict with the taxes values, ready to be use to create tax_line_ids.
         """
         avatax_config = self.env['avalara.salestax'].get_avatax_config_company()
@@ -159,6 +160,10 @@ class AccountInvoice(models.Model):
                     'of all the tax code settings as well as '
                     'how they relate to the product. '
                     '\n\n Accounting->Configuration->Taxes->Taxes'))
+
+            commit = self.env.context.get('avatax_commit') or False
+            tax_date = self.get_origin_tax_date() or self.date_invoice
+
             lines = self.create_lines(self.invoice_line_ids)
             if lines:
                 if self.warehouse_id and self.warehouse_id.partner_id:
@@ -172,6 +177,8 @@ class AccountInvoice(models.Model):
                     self.number, 'SalesOrder', self.partner_id, ship_from_address_id,
                     self.shipping_add_id,
                     lines, self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
+                    commit, tax_date,
+                    self.invoice_doc_no, self.location_code or '',
                     is_override=self.type == 'out_refund', currency_id=self.currency_id)
                 if o_tax:
                     val = {
