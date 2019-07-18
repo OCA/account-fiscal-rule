@@ -74,7 +74,7 @@ class AvaTaxService:
 
     def my_profile(self):
         # Set elements adapter defaults
-        ADAPTER = 'Odoo S.A.'
+        ADAPTER = 'Odoo, by Open Source Integrators'
         # Profile Client.
         CLIENT = 'a0o0b0000058pOuAAI'
         #Build the Profile element
@@ -214,6 +214,7 @@ class AvaTaxService:
         request.Lines = lines
         # And we're ready to make the call
         result = self.get_result(self.taxSvc, self.taxSvc.service.GetTax, request)
+        # This helps trace the source of redundant API calls
         #import traceback; traceback.print_stack()  #import pudb; pu.db
         if self.is_log_enabled:
             _logger.info(request)
