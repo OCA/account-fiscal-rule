@@ -11,6 +11,7 @@ class TestAccountFiscalPositionRuleStock(common.TransactionCase):
     def setUp(self):
         super(TestAccountFiscalPositionRuleStock, self).setUp()
         self.stock_picking_obj = self.env['stock.picking']
+        self.invoice_model = self.env['account.invoice']
         self.stock_invoice_onshipping = self.env['stock.invoice.onshipping']
         self.stock_return_picking = self.env['stock.return.picking']
         self.stock_picking_1 = self.stock_picking_obj.browse(
@@ -43,6 +44,7 @@ class TestAccountFiscalPositionRuleStock(common.TransactionCase):
         ))
 
     def test_onchange_partner(self):
+        """Test onchage to map Fiscal Position."""
         self.stock_picking_3.onchange_partner_id()
         self.assertTrue(
             self.stock_picking_3.fiscal_position_id,
@@ -50,22 +52,35 @@ class TestAccountFiscalPositionRuleStock(common.TransactionCase):
         )
 
     def test_create_invoice(self):
-        wizard_group_partner = self.stock_invoice_onshipping.with_context(
-            active_ids=[self.stock_picking_2.id]
+        """Test create Invoice from Picking."""
+
+        self.stock_picking_2.action_confirm()
+        self.stock_picking_2.force_assign()
+        self.stock_picking_2.do_new_transfer()
+        self.stock_picking_2.action_done()
+
+        wizard_obj = self.stock_invoice_onshipping.with_context(
+            active_ids=[self.stock_picking_2.id],
+            active_model=self.stock_picking_2._name,
+            active_id=self.stock_picking_2.id,
         ).create({
-            'group': False,
+            'group': 'picking',
             'journal_type': 'sale'
         })
-        wizard_group_partner.open_invoice()
+        fields_list = wizard_obj.fields_get().keys()
+        wizard_values = wizard_obj.default_get(fields_list)
+        wizard = wizard_obj.create(wizard_values)
+        wizard.onchange_group()
+        action = wizard.action_generate()
+        domain = action.get('domain', [])
+        invoice = self.invoice_model.search(domain)
 
-        invoice = self.env['account.invoice'].search([(
-            'origin', '=', self.stock_picking_2.name
-        )])
         self.assertTrue(invoice, 'Invoice is not created.')
-        for line in invoice.invoice_line_ids:
+        for line in invoice.picking_ids:
             self.assertEquals(
-                line.picking_id.id, self.stock_picking_2.id,
-                'Relation between invoice line and picking are missing.')
+                line.id, self.stock_picking_2.id,
+                'Relation between invoice and picking are missing.')
+        for line in invoice.invoice_line_ids:
             self.assertTrue(
                 line.invoice_line_tax_ids,
                 'Taxes in invoice lines are missing.'
