@@ -13,7 +13,7 @@
     'depends': [
         'account_fiscal_position_rule',
         'stock_account',
-        'account_invoice_from_picking',
+        'stock_picking_invoicing',
     ],
     'data': [
         'views/stock_picking.xml',
