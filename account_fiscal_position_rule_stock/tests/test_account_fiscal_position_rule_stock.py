@@ -12,6 +12,7 @@ class TestAccountFiscalPositionRuleStock(common.TransactionCase):
         super(TestAccountFiscalPositionRuleStock, self).setUp()
         self.stock_picking_obj = self.env['stock.picking']
         self.invoice_model = self.env['account.invoice']
+        self.stock_move = self.env['stock.move']
         self.stock_invoice_onshipping = self.env['stock.invoice.onshipping']
         self.stock_return_picking = self.env['stock.return.picking']
         self.stock_picking_1 = self.stock_picking_obj.browse(
@@ -92,3 +93,19 @@ class TestAccountFiscalPositionRuleStock(common.TransactionCase):
             invoice.fiscal_position_id,
             'Mapping fiscal position on wizard to create invoice fail.'
         )
+
+    def test_create_stock_move_without_picking(self):
+        """Test create stock move object without picking."""
+        self.stock_move_1 = self.stock_move.create(dict(
+            name='Test - account_fiscal_position_rule_stock - 4',
+            product_id=self.env.ref(
+                'product.product_product_7_product_template').id,
+            product_uom_qty=2,
+            product_uom=self.env.ref('product.product_uom_unit').id,
+            location_dest_id=self.env.ref('stock.stock_location_stock').id,
+            location_id=self.env.ref(
+                'stock.stock_location_customers').id,
+            invoice_state='2binvoiced',
+            picking_type_id=self.env.ref('stock.picking_type_in').id,
+        ))
+        self.stock_move_1.action_confirm()
