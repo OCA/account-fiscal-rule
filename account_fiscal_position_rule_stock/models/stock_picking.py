@@ -52,14 +52,3 @@ class StockPicking(models.Model):
         obj_fiscal_position = self._fiscal_position_map(**kwargs)
         if obj_fiscal_position:
             self.fiscal_position_id = obj_fiscal_position.id
-
-    @api.multi
-    def _get_invoice_vals(self, key, inv_type, journal_id, move):
-        inv_vals = super(StockPicking, self)._get_invoice_vals(
-            key, inv_type, journal_id, move
-        )
-        inv_vals.update({
-            'fiscal_position_id': (move.picking_id.fiscal_position_id.id and
-                                   move.picking_id.fiscal_position_id.id),
-        })
-        return inv_vals
