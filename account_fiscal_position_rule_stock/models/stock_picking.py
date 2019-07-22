@@ -14,8 +14,8 @@ class StockMove(models.Model):
         result = super(StockMove, self)._get_new_picking_values()
 
         result['fiscal_position_id'] = \
-            self.procurement_id.sale_line_id.order_id.fiscal_position and \
-            self.procurement_id.sale_line_id.order_id.fiscal_position.id
+            self.procurement_id.sale_line_id.order_id.fiscal_position_id and \
+            self.procurement_id.sale_line_id.order_id.fiscal_position_id.id
         return result
 
 
