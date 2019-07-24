@@ -1,6 +1,6 @@
 from odoo import api, fields, models, _
 
-# TODO: seems redundant -original wi<rd already calls compute_taxes. Remove?
+
 class SaleAdvancePaymentInv(models.TransientModel):
     _inherit = "sale.advance.payment.inv"
     _description = "Sales Advance Payment Invoice"
@@ -12,8 +12,7 @@ class SaleAdvancePaymentInv(models.TransientModel):
             'exemption_code': order.exemption_code or '',
             'exemption_code_id': order.exemption_code_id.id or False,
             'location_code': order.location_code or '',
-            'tax_on_shipping_address': order.tax_add_shipping,
+            'tax_on_shipping_address': order.tax_on_shipping_address,
         })
-        # TODO: "compute" method deprecated by "compute_tax". Confirm?
-        invoice.compute_taxes()
+        #invoice.compute_taxes()
         return invoice

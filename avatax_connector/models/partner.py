@@ -243,14 +243,6 @@ class ResPartner(models.Model):
                 if avatax_config and avatax_config.validation_on_save:
 
                     if self.check_avatax_support(avatax_config, address.get('country_id')):
-                        # fields_to_read = filter(lambda x: x not in vals, ['street', 'street2', 'city', 'state_id', 'zip', 'country_id'])
-                        # print"self.read(fields_to_read)",self.read(fields_to_read)
-                        # address = fields_to_read and self.read(fields_to_read)[0] or {}
-                        # print"address",address
-                        # address['state_id'] = address.get('state_id') and address['state_id'][0]
-                        # address['country_id'] = address.get('country_id') and address['country_id'][0]
-                        # address.update(vals)
-
                         valid_address = self._validate_address(address, avatax_config)
                         vals.update({
                             'street': valid_address.Line1,

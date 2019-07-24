@@ -15,24 +15,12 @@ _logger = logging.getLogger(__name__)
 
 class AvaTaxService:
 
-    # TODO: removee, deprecated in favour of Odoo log
-    def enable_log(self):
-        import logging, tempfile
-        logger = logging.getLogger('suds.client')
-        logger.setLevel(logging.DEBUG)
-        handler = logging.FileHandler(os.path.join(tempfile.gettempdir(), "soap-messages.log"))
-        logger.propagate = False
-        formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-        handler.setFormatter(formatter)
-        logger.addHandler(handler)
-
     def __init__(self, username, password, url, timeout, enable_log=False):
         self.username = username  # This is the company's Development/Production Account number
         self.password = password  # Put in the License Key received from AvaTax
         self.url = url
         self.timeout = timeout
         self.is_log_enabled = enable_log
-        # enable_log and self.enable_log()
 
     def create_tax_service(self):
         self.taxSvc = self.service('tax')
@@ -213,9 +201,9 @@ class AvaTaxService:
         lines.Line = lineslist
         request.Lines = lines
         # And we're ready to make the call
+        #import traceback; traceback.print_stack()  #import pudb; pu.db
         result = self.get_result(self.taxSvc, self.taxSvc.service.GetTax, request)
         # This helps trace the source of redundant API calls
-        #import traceback; traceback.print_stack()  #import pudb; pu.db
         if self.is_log_enabled:
             _logger.info(request)
             _logger.info(result)

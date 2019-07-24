@@ -31,7 +31,7 @@ class AccountInvoice(models.Model):
     is_add_validate = fields.Boolean('Address Is Validated')
     exemption_code = fields.Char('Exemption Number', help="It show the customer exemption number")
     exemption_code_id = fields.Many2one('exemption.code', 'Exemption Code', help="It show the customer exemption code")
-    tax_on_shipping_address = fields.Boolean('Tax based on shipping address', default=False, required=True)
+    tax_on_shipping_address = fields.Boolean('Tax based on shipping address', default=True)
     shipping_add_id = fields.Many2one('res.partner', 'Tax Shipping Address', compute='_compute_shipping_add_id')
     shipping_address = fields.Text('Tax Shipping Address Text')
     location_code = fields.Char('Location Code', readonly=True, states={'draft': [('readonly', False)]})
@@ -65,7 +65,7 @@ class AccountInvoice(models.Model):
         return False
 
     @api.multi
-    def avatax_compute_taxes(self):
+    def avatax_compute_taxes(self, commit_avatax=False):
         """
         Called from Invoice's Action menu.
         Forces computation of the Invoice taxes
@@ -73,13 +73,21 @@ class AccountInvoice(models.Model):
         for invoice in self:
             # The onchange invoice lines call get_taxes_values()
             # and applies it to the invoice's tax_line_ids
-            invoice.with_context(contact_avatax=True)._onchange_invoice_line_ids()
+            # invoice.with_context(contact_avatax=True)._onchange_invoice_line_ids()
+            taxes_grouped = invoice.get_taxes_values(contact_avatax=True, commit_avatax=commit_avatax)
+            tax_lines = invoice.tax_line_ids.filtered('manual')
+            for tax in taxes_grouped.values():
+                tax_lines += tax_lines.new(tax)
+            invoice.tax_line_ids = tax_lines
+        return True
 
     @api.multi
     def action_invoice_open(self):
+        # We should compute taxes before validating the invoice, to ensure correct account moves
+        # We can only commit to Avatax after validating the invoice, because we need the generated Invoice number
+        self.avatax_compute_taxes(commit_avatax=False)
         super(AccountInvoice, self).action_invoice_open()
-        #self.action_commit_tax()
-        self.with_context(avatax_commit=True).avatax_compute_taxes()
+        self.avatax_compute_taxes(commit_avatax=True)
         return True
 
     @api.multi
@@ -138,7 +146,7 @@ class AccountInvoice(models.Model):
         return True
 
     @api.multi
-    def get_taxes_values(self):
+    def get_taxes_values(self, contact_avatax=False, commit_avatax=False):
         """
         Extends the stantard method reponsible for computing taxes.
         Returns a dict with the taxes values, ready to be use to create tax_line_ids.
@@ -147,8 +155,8 @@ class AccountInvoice(models.Model):
         account_tax_obj = self.env['account.tax']
         tax_grouped = {}
         # avatax charges customers per API call, so don't hit their API in every onchange, only when saving
-        compute_taxes = self.env.context.get('contact_avatax') or avatax_config.enable_immediate_calculation
-        if compute_taxes and self.type in ['out_invoice', 'out_refund']:
+        contact_avatax = contact_avatax or self.env.context.get('contact_avatax') or avatax_config.enable_immediate_calculation
+        if contact_avatax and self.type in ['out_invoice', 'out_refund']:
             avatax_id = account_tax_obj.search(
                 [('is_avatax', '=', True),
                  ('type_tax_use', 'in', ['sale', 'all']),
@@ -161,25 +169,31 @@ class AccountInvoice(models.Model):
                     'how they relate to the product. '
                     '\n\n Accounting->Configuration->Taxes->Taxes'))
 
-            commit = self.env.context.get('avatax_commit') or False
             tax_date = self.get_origin_tax_date() or self.date_invoice
 
             lines = self.create_lines(self.invoice_line_ids)
             if lines:
-                if self.warehouse_id and self.warehouse_id.partner_id:
-                    ship_from_address_id = self.warehouse_id.partner_id
-                else:
-                    ship_from_address_id = self.company_id.partner_id
+                ship_from_address_id = self.warehouse_id.partner_id or self.company_id.partner_id
                 o_tax_amt = 0.0
                 tax = avatax_id
+
+                commit = commit_avatax and not avatax_config.disable_tax_reporting
+                if commit:
+                    doc_type = 'ReturnInvoice' if self.invoice_doc_no else 'SalesInvoice'
+                else:
+                    doc_type = 'SalesOrder'
+
                 o_tax = account_tax_obj._get_compute_tax(
                     avatax_config, self.date_invoice or time.strftime('%Y-%m-%d'),
-                    self.number, 'SalesOrder', self.partner_id, ship_from_address_id,
+                    self.number,
+                    doc_type,  #'SalesOrder',
+                    self.partner_id, ship_from_address_id,
                     self.shipping_add_id,
                     lines, self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
                     commit, tax_date,
                     self.invoice_doc_no, self.location_code or '',
                     is_override=self.type == 'out_refund', currency_id=self.currency_id)
+
                 if o_tax:
                     val = {
                         'invoice_id': self.id,
@@ -192,8 +206,8 @@ class AccountInvoice(models.Model):
                         'account_analytic_id': tax[0].analytic and lines[0]['account_analytic_id'] or False,
                         'analytic_tag_ids': lines[0]['analytic_tag_ids'] or False,
                         'account_id': (
-                            self.type in ('out_invoice', 'in_invoice') and 
-                            (tax[0].account_id.id or lines[0]['account_id']) or 
+                            self.type in ('out_invoice', 'in_invoice') and
+                            (tax[0].account_id.id or lines[0]['account_id']) or
                             (tax[0].refund_account_id.id or lines[0]['account_id'])
                         ),
                     }

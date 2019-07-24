@@ -10,54 +10,29 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
 
-                <field name="payment_term_id" position="after">
-                    <field name="invoice_doc_no" attrs="{'invisible': [('type','!=','out_refund')]}"/>
-                </field>
                 <xpath expr="//notebook/page[1]/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="before">
                     <field name="tax_amt" readonly="1" groups="avatax_connector.group_avatax_view"/>
                 </xpath>
 
-<!--                <field name="invoice_line" position="after">
-                    <h3>
-                        <label style="color: #7c7bad;" for="shipping_lines"/>
-                    </h3>
-                    <field name="shipping_lines">
-                        <tree string="Shipping Order Lines" editable="bottom">
-                            <field name="ship_method_id" on_change="onchange_select(ship_method_id)"/>
-                            <field name="ship_code_id" domain="[('type', '=', 'freight')]" context="{'search_default_type': 'freight', 'default_type': 'freight'}"/>
-                            <field name="tax_amt" readonly="1" groups="avatax_connector.group_avatax_view"/>
-                            <field name="shipping_cost"/>
-                            <field name="sale_account_id" invisible="1"/>
-                        </tree>
-                    </field>
-                </field>-->
-
-<!--                <field name="amount_untaxed" position="replace">
-                    <field name="amount_untaxed" string="Net Total"/>
-                    <field name="shipping_amt"/>
-                </field>-->
-
-                <xpath expr="/form/sheet/group/group[2]/field[@name='user_id']" position="after">
+                <field name="user_id" position="after">
                     <field name="exemption_code" readonly="1"/>
                     <field name="exemption_code_id" readonly="1"/>
                     <field name="warehouse_id" options="{'no_create': True}" groups="stock.group_stock_multi_warehouses"/>
                     <field name="location_code" />
+		    <field name="tax_on_shipping_address"/>
+                    <field name="invoice_doc_no" attrs="{'invisible': [('type','!=','out_refund')]}"/>
                     <field name="is_add_validate" readonly="1" invisible="1"/>
-                </xpath>
+                </field>
 
-                <xpath expr="/form/sheet/group" position="after">
-                    <group string="Avalara Tax on...">
-                        <group>
-                            <field name="tax_on_shipping_address"/>
-                        </group>
-                        <group>
-                            <!--<field name="shipping_address" readonly="1"/>-->
-                            <field name="shipping_add_id" context="{'show_address': 1}"
-                            options='{"always_reload": True}' readonly="1"/>
-                        </group>
-                    </group>
-                </xpath>
-            </field>
+		<field name="incoterm_id" position="before">
+		    <field name="shipping_add_id" />
+		    <!--
+		    <field name="shipping_add_id" context="{'show_address': 1}"
+		           options='{"always_reload": True}' readonly="1"/>
+		    -->
+		</field>
+
+	    </field>
         </record>
 
         <record id="inherit_view_invoice_line_form" model="ir.ui.view">
@@ -86,5 +61,6 @@
                 </field>
             </field>
         </record>
+
     </data>
 </odoo>

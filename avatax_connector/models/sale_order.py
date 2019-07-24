@@ -15,52 +15,8 @@ class SaleOrder(models.Model):
         res = super(SaleOrder, self).onchange_partner_id()
         self.exemption_code = self.partner_id.exemption_number or ''
         self.exemption_code_id = self.partner_id.exemption_code_id.id or None
-        self.tax_add_shipping = True
-        self.tax_add_id = self.partner_shipping_id.id
+        self.tax_on_shipping_address = bool(self.partner_shipping_id)
         self.is_add_validate = bool(self.partner_id.validation_method)
-
-    @api.model
-    def create(self, vals):
-        partner = self.env['res.partner']
-        ship_add_id = False
-        if 'tax_add_default' in vals and vals['tax_add_default']:
-            ship_add_id = vals['partner_id']
-        elif 'tax_add_invoice' in vals and vals['tax_add_invoice']:
-            ship_add_id = vals['partner_invoice_id']
-        elif 'tax_add_shipping' in vals and vals['tax_add_shipping']:
-            ship_add_id = vals['partner_shipping_id']
-        if ship_add_id:
-            vals['tax_add_id'] = ship_add_id
-        if not self.env.user.has_group('account.group_account_manager') and 'partner_id' in vals:
-            vals['exemption_code'] = partner.browse(vals['partner_id']).exemption_number
-            vals['exemption_code_id'] = partner.browse(vals['partner_id']).exemption_code_id.id
-        res = super(SaleOrder, self).create(vals)
-#         res.compute_tax()
-        return res
-
-    @api.multi
-    def write(self, vals):
-        partner = self.env['res.partner']
-        for self_obj in self:
-            ship_add_id = False
-            if 'tax_add_default' in vals and vals['tax_add_default']:
-                ship_add_id = self_obj.partner_id
-            elif 'tax_add_invoice' in vals and vals['tax_add_invoice']:
-                ship_add_id = self_obj.partner_invoice_id or self_obj.partner_id
-            elif 'tax_add_shipping' in vals and vals['tax_add_shipping']:
-                ship_add_id = self_obj.partner_shipping_id or self_obj.partner_id
-            if ship_add_id:
-                vals['tax_add_id'] = ship_add_id.id
-            if not self.env.user.has_group('account.group_account_manager') and 'partner_id' in vals:
-                vals['exemption_code'] = partner.browse(vals['partner_id']).exemption_number
-                vals['exemption_code_id'] = partner.browse(vals['partner_id']).exemption_code_id.id
-        res = super(SaleOrder, self).write(vals)
-
-        if not self._context.get('avatax_recalculation'):
-            for order in self:
-                order.compute_tax()
-
-        return res
 
     @api.multi
     def _prepare_invoice(self):
@@ -70,8 +26,7 @@ class SaleOrder(models.Model):
             'exemption_code_id': self.exemption_code_id.id or False,
             'location_code': self.location_code or '',
             'warehouse_id': self.warehouse_id.id or '',
-            'tax_on_shipping_address': self.tax_add_shipping,
-            'disable_tax_calculation': self.disable_tax_calculation,
+            'tax_on_shipping_address': self.tax_on_shipping_address,
         })
         return invoice_vals
 
@@ -92,35 +47,10 @@ class SaleOrder(models.Model):
                 'amount_total': amount_untaxed + amount_tax,
             })
 
-    @api.onchange('tax_add_default', 'partner_id')
-    def default_tax_address(self):
-        if self.tax_add_default and self.partner_id:
-            self.tax_add_invoice = self.tax_add_shipping = False
-            self.tax_add_default = True
-
-    @api.onchange('tax_add_invoice', 'partner_invoice_id', 'partner_id')
-    def invoice_tax_address(self):
-        if (self.tax_add_invoice and self.partner_invoice_id) or (self.tax_add_invoice and self.partner_id):
-            self.tax_add_default = self.tax_add_shipping = False
-            self.tax_add_invoice = True
-
-    @api.onchange('tax_add_shipping', 'partner_shipping_id', 'partner_id')
-    def delivery_tax_address(self):
-        if (self.tax_add_shipping and self.partner_shipping_id) or (self.tax_add_shipping and self.partner_id):
-            self.tax_add_default = self.tax_add_invoice = False
-            self.tax_add_shipping = True
-
-    @api.multi
-    @api.depends('partner_id', 'partner_invoice_id', 'partner_shipping_id',
-                 'tax_add_default', 'tax_add_invoice', 'tax_add_shipping')
+    @api.depends('tax_on_shipping_address', 'partner_id', 'partner_shipping_id')
     def _compute_tax_id(self):
-        for order in self:
-            if order.tax_add_shipping:
-                order.tax_add_id = order.partner_shipping_id or order.partner_id
-            elif order.tax_add_invoice:
-                order.tax_add_id = order.partner_invoice_id or order.partner_id
-            else:
-                order.tax_add_id = order.partner_id
+        for invoice in self:
+            invoice.tax_add_id = invoice.partner_shipping_id if invoice.tax_on_shipping_address else invoice.partner_id
 
     exemption_code = fields.Char('Exemption Number', help="It show the customer exemption number")
     is_add_validate = fields.Boolean('Address Is validated')
@@ -129,14 +59,16 @@ class SaleOrder(models.Model):
     amount_tax = fields.Monetary(string='Taxes', store=True, readonly=True, compute='_amount_all', track_visibility='always')
     amount_total = fields.Monetary(string='Total', store=True, readonly=True, compute='_amount_all', track_visibility='always')
     tax_amount = fields.Float('Tax Code Amount', digits=dp.get_precision('Sale Price'))
-    tax_add_default = fields.Boolean('Tax uses Default Address', readonly=True, states={'draft': [('readonly', False)]})
-    tax_add_invoice = fields.Boolean('Tax uses Invoice Address', readonly=True, states={'draft': [('readonly', False)]})
-    tax_add_shipping = fields.Boolean('Tax uses Delivery Address', default=True, readonly=True, states={'draft': [('readonly', False)]})
-    tax_add_id = fields.Many2one('res.partner', 'Tax Address', readonly=True, states={'draft': [('readonly', False)]},
-                                 compute='_compute_tax_id', store=True)
+    tax_on_shipping_address = fields.Boolean('Tax based on shipping address', default=True)
+    tax_add_id = fields.Many2one(
+        'res.partner', 'Tax Address',
+        readonly=True,
+        states={'draft': [('readonly', False)]},
+        compute='_compute_tax_id', store=True)
     tax_address = fields.Text('Tax Address Text')
     location_code = fields.Char('Location Code', help='Origin address location code')
     warehouse_id = fields.Many2one('stock.warehouse', 'Warehouse')
+
 
     @api.model
     def create_lines(self, order_lines):
@@ -252,5 +184,4 @@ class SaleOrder(models.Model):
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
-
     tax_amt = fields.Float('Avalara Tax', help="tax calculate by avalara")
