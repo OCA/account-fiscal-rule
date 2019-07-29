@@ -1,13 +1,16 @@
 {
     "name": "Avalara Avatax Connector",
-    'version': '12.0.1.0.0',
-    "author": "Fabrice Henrion, Sodexis Inc<dev@sodexis.com>",
-    "website": "http://www.sodexis.com",
+    "version": "1.0",
+    "author": "Fabrice Henrioni, Open Source Integrators",
     "summary": "Sales tax Calculation",
     "license": "Other proprietary",
     "description": """
 
-The Avatax module automates the complex task of sales tax calculation with ease.  Sale tax calculations are based on prevalidated shop, warehouse and customer address.  This app plugs into your current installation of odoo with minimal configuration and just works.  Your sales orders, invoices and refunds activity is automatically calculated from Avalara's calc service returning the proper sales tax and places the tax into the order/invoice seamlessly.
+The Avatax module automates the complex task of sales tax calculation with ease.
+Sale tax calculations are based on prevalidated shop, warehouse and customer address.
+This app plugs into your current installation of odoo with minimal configuration and just works.
+Your sales orders, invoices and refunds activity is automatically calculated from Avalara's calc service
+returning the proper sales tax and places the tax into the order/invoice seamlessly.
 
 This module has Following Features:
 
@@ -19,7 +22,7 @@ This module has Following Features:
 6. Use both Avalara and Odoo Taxes etc
 7. International support
 8. Discount management
-9. Reporting record through an avalara management console to verify transactions
+9. Detailed logging to verify transactions
 10. Documentation included
 
 """,
