@@ -91,61 +91,6 @@ class AccountInvoice(models.Model):
         return True
 
     @api.multi
-    def OBSOLETEaction_commit_tax(self):
-        account_tax_obj = self.env['account.tax']
-        avatax_config_obj = self.env['avalara.salestax']
-        avatax_config = avatax_config_obj.get_avatax_config_company()
-
-        commit = not avatax_config.disable_tax_reporting
-        for invoice in self:
-            if invoice.type in ['out_invoice', 'out_refund']:
-                shipping_add_id = self.shipping_add_id
-                if self.warehouse_id and self.warehouse_id.partner_id:
-                    shipping_add_origin_id = self.warehouse_id.partner_id
-                else:
-                    shipping_add_origin_id = self.company_id.partner_id
-                tax_date = self.get_origin_tax_date()
-                if not tax_date:
-                    tax_date = invoice.date_invoice
-
-                sign = invoice.type == 'out_invoice' and 1 or -1
-                lines = self.create_lines(invoice.invoice_line_ids, sign)
-                if lines:
-                    if avatax_config.on_line:
-                        for line in lines:
-                            ol_tax_amt = account_tax_obj._get_compute_tax(
-                                avatax_config, invoice.date_invoice,
-                                invoice.number, 'SalesOrder',
-                                invoice.partner_id, shipping_add_origin_id,
-                                shipping_add_id, [line], invoice.user_id, invoice.exemption_code or None, invoice.exemption_code_id.code or None,
-                                is_override=invoice.type == 'out_refund', currency_id=invoice.currency_id
-                            ).TotalTax
-                            # o_tax_amt += ol_tax_amt  #tax amount based on total order line total
-                            line['id'].write({'tax_amt': ol_tax_amt})
-
-                    elif avatax_config.on_order:
-                        for o_line in invoice.invoice_line_ids:
-                            o_line.write({'tax_amt': 0.0})
-                    else:
-                        raise UserError(_('Please select system calls in Avatax API Configuration.'))
-                else:
-                    for o_line in invoice.invoice_line_ids:
-                        o_line.write({'tax_amt': 0.0})
-                # extend list lines1 with lines2 to send all invoice lines in avalara
-                if lines:
-                    account_tax_obj._get_compute_tax(
-                        avatax_config, invoice.date_invoice,
-                        invoice.number, not invoice.invoice_doc_no and 'SalesInvoice' or 'ReturnInvoice',
-                        invoice.partner_id, shipping_add_origin_id,
-                        shipping_add_id, lines, invoice.user_id, invoice.exemption_code or None, invoice.exemption_code_id.code or None,
-                        commit, tax_date,
-                        invoice.invoice_doc_no, invoice.location_code or '',
-                        is_override=invoice.type == 'out_refund', currency_id=invoice.currency_id)
-            else:
-                invoice.invoice_line_ids.write({'tax_amt': 0.0})
-        return True
-
-    @api.multi
     def get_taxes_values(self, contact_avatax=False, commit_avatax=False):
         """
         Extends the stantard method reponsible for computing taxes.
@@ -171,7 +116,8 @@ class AccountInvoice(models.Model):
 
             tax_date = self.get_origin_tax_date() or self.date_invoice
 
-            lines = self.create_lines(self.invoice_line_ids)
+            sign = self.type == 'out_invoice' and 1 or -1
+            lines = self.create_lines(self.invoice_line_ids, sign)
             if lines:
                 ship_from_address_id = self.warehouse_id.partner_id or self.company_id.partner_id
                 o_tax_amt = 0.0
@@ -199,7 +145,7 @@ class AccountInvoice(models.Model):
                         'invoice_id': self.id,
                         'name': tax[0].name,
                         'tax_id': tax[0].id,
-                        'amount': float(o_tax.TotalTax),
+                        'amount': float(o_tax.TotalTax) * sign,
                         'base': 0, #float(o_tax.TotalTaxable),
                         'manual': False,
                         'sequence': tax[0].sequence,
