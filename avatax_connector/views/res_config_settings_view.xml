@@ -11,9 +11,9 @@
                     <field name="module_avatax_connector" widget="upgrade_boolean"/>
                 </div>
                 <div class="o_setting_right_pane" name="avalara_connector_right_pane">
-                    <label for="module_avatax_connector" string="Avatax"/>
+                    <label for="module_avatax_connector" string="AvaTax"/>
                     <div class="text-muted">
-                    Compute tax rates using Avatax service
+                    Compute tax rates using AvaTax service
                     </div>
                 </div>
                 <div class="row mt16">

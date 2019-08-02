@@ -34,7 +34,7 @@
 		                   <button name="button_avatax_validate_address" string="Validate" type="object" icon="fa-cogs" colspan="2" context="{'from_validate_button': True}"/>
 		                </group>
 
-		          	<group col="4" colspan="4" string="TAX Exemption">
+		          	<group col="4" colspan="4" string="Tax Exemption">
                                     <group col="4" colspan="4">
                                         <field name="tax_exempt"/>
 	                       <newline/>
