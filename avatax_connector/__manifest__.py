@@ -1,7 +1,7 @@
 {
     "name": "Avalara Avatax Connector",
     "version": "1.0",
-    "author": "Fabrice Henrioni, Open Source Integrators",
+    "author": "Fabrice Henrion, Open Source Integrators",
     "summary": "Sales tax Calculation",
     "license": "Other proprietary",
     "description": """
