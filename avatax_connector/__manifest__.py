@@ -27,7 +27,11 @@ This module has Following Features:
 
 """,
     "category": "Generic Modules/Accounting",
-    "depends": ['account', 'account_accountant', 'sale', 'stock'   ],
+    "depends": [
+        'account',
+        'sale',
+        'stock',
+    ],
     "data": [
         "security/avalara_salestax_security.xml",
         "security/ir.model.access.csv",
