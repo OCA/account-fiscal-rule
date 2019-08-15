@@ -21,8 +21,8 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
     zip = fields.Char('Zip')
     state = fields.Char('State')
     country = fields.Char('Country')
-    latitude = fields.Char('Laitude')
-    longitude = fields.Char('Longitude')
+    partner_latitude = fields.Float('Latitude')
+    partner_longitude = fields.Float('Longitude')
 
     @api.model
     def view_init(self, fields):
@@ -59,8 +59,8 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
             address_obj = self.env['res.partner']
             address_brw = address_obj.browse(active_id)
             address_brw.write({
-                                'latitude': '',
-                                'longitude': '',
+                                'partner_latitude': 0,
+                                'partner_longitude': 0,
                                 'date_validation': False,
                                 'validation_method': '',
                             })
@@ -94,16 +94,15 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
                 res.update({'zip': str(valid_address.PostalCode or '')})
             if 'country' in fields:
                 res.update({'country': str(valid_address.Country or '')})
-            if 'latitude' in fields:
-                res.update({'latitude': str(valid_address.Latitude or '')})
-            if 'longitude' in fields:
-                res.update({'longitude': str(valid_address.Longitude or '')})
+            if 'partner_latitude' in fields:
+                res.update({'partner_latitude': valid_address.Latitude or 0)})
+            if 'partner_longitude' in fields:
+                res.update({'partner_longitude': valid_address.Longitude or 0)})
         return res
 
     @api.multi
     def accept_valid_address(self):
         """ Updates the existing address with the valid address returned by the service. """
-
         valid_address = self.read()[0]
         context = dict(self._context or {})
         active_id = context.get('active_id')
@@ -117,8 +116,8 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
                 'state_id': address_obj.get_state_id(valid_address['state'], valid_address['country']),
                 'zip': valid_address['zip'],
                 'country_id': address_obj.get_country_id(valid_address['country']),
-                'latitude': valid_address['latitude'] or 'unavailable',
-                'longitude': valid_address['longitude'] or 'unavailable',
+                'partner_latitude': valid_address['partner_latitude'] or 0,
+                'partner_longitude': valid_address['partner_longitude'] or 0,
                 'date_validation': time.strftime(DEFAULT_SERVER_DATE_FORMAT),
                 'validation_method': 'avatax'
             }

@@ -31,6 +31,7 @@ This module has Following Features:
         'account',
         'sale',
         'stock',
+        'base_geolocalize',
     ],
     "data": [
         "security/avalara_salestax_security.xml",

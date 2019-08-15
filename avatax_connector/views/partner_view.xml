@@ -23,8 +23,6 @@
 	            <xpath expr="//notebook" position="inside">
 	        	    <page string="AvaTax">
 	        	        <group col="4" colspan="2">
-		                    <field name="latitude" readonly="1" invisible="1"/>
-		                    <field name="longitude" readonly="1" invisible="1"/>
 		                    <field name="vat_id"/>
 		                </group>
 		                <newline/>

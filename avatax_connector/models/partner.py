@@ -23,8 +23,6 @@ class ResPartner(models.Model):
         'Address Validation Method',
         readonly=True,
         help="It gets populated when the address is validated by the method")
-    latitude = fields.Char('Latitude')
-    longitude = fields.Char('Longitude')
     validated_on_save = fields.Boolean('Validated On Save', help="Indicates if the address is already validated on save before calling the wizard")
     customer_code = fields.Char('Customer Code')
     tax_exempt = fields.Boolean('Is Tax Exempt', help="Indicates the exemption tax calculation is compulsory")
@@ -113,8 +111,8 @@ class ResPartner(models.Model):
                         'state_id': self.get_state_id(valid_address.Region, valid_address.Country),
                         'zip': valid_address.PostalCode,
                         'country_id': self.get_country_id(valid_address.Country),
-                        'latitude': valid_address.Latitude,
-                        'longitude': valid_address.Longitude,
+                        'partner_latitude': valid_address.Latitude,
+                        'partner_longitude': valid_address.Longitude,
                         'date_validation': time.strftime(DEFAULT_SERVER_DATE_FORMAT),
                         'validation_method': 'avatax',
                         'validated_on_save': True
@@ -215,8 +213,8 @@ class ResPartner(models.Model):
                             'state_id': self.get_state_id(valid_address.Region, valid_address.Country),
                             'zip': valid_address.PostalCode,
                             'country_id': self.get_country_id(valid_address.Country),
-                            'latitude': valid_address.Latitude,
-                            'longitude': valid_address.Longitude,
+                            'partner_latitude': valid_address.Latitude,
+                            'partner_longitude': valid_address.Longitude,
                             'date_validation': time.strftime(DEFAULT_SERVER_DATE_FORMAT),
                             'validation_method': 'avatax',
                             'validated_on_save': True
@@ -251,8 +249,8 @@ class ResPartner(models.Model):
                             'state_id': self.get_state_id(valid_address.Region, valid_address.Country),
                             'zip': valid_address.PostalCode,
                             'country_id': self.get_country_id(valid_address.Country),
-                            'latitude': valid_address.Latitude,
-                            'longitude': valid_address.Longitude,
+                            'partner_latitude': valid_address.Latitude,
+                            'partner_longitude': valid_address.Longitude,
                             'date_validation': time.strftime(DEFAULT_SERVER_DATE_FORMAT),
                             'validation_method': 'avatax',
                             'validated_on_save': True
@@ -271,8 +269,8 @@ class ResPartner(models.Model):
     def write(self, vals):
         if any(address_field in vals for address_field in ADDRESS_FIELDS) and not vals.get('date_validation'):
             vals.update({
-                'latitude': '',
-                'longitude': '',
+                'partner_latitude': '',
+                'partner_longitude': '',
                 'date_validation': False,
                 'validation_method': '',
                 'validated_on_save': False,
