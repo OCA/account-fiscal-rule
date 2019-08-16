@@ -10,8 +10,8 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     fiscal_position_id = fields.Many2one(
-        'account.fiscal.position', string='Fiscal Position'
-    )
+        comodel_name='account.fiscal.position',
+        string='Fiscal Position')
 
     def _fiscal_position_map(self, **kwargs):
         ctx = dict(self.env.context)
