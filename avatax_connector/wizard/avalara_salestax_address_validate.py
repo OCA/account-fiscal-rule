@@ -95,9 +95,9 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
             if 'country' in fields:
                 res.update({'country': str(valid_address.Country or '')})
             if 'partner_latitude' in fields:
-                res.update({'partner_latitude': valid_address.Latitude or 0)})
+                res.update({'partner_latitude': valid_address.Latitude or 0})
             if 'partner_longitude' in fields:
-                res.update({'partner_longitude': valid_address.Longitude or 0)})
+                res.update({'partner_longitude': valid_address.Longitude or 0})
         return res
 
     @api.multi

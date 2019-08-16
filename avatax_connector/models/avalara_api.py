@@ -1,4 +1,5 @@
 import suds
+import suds.client  # Avoid AttributeError: module 'suds' has no attribute 'client' ?
 import socket
 import os
 import datetime
