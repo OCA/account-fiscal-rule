@@ -7,12 +7,11 @@
     'name': 'Account Fiscal Position Rule Stock',
     'version': '10.0.1.0.0',
     'category': 'Generic Modules/Accounting',
-    'author': "Akretion,Odoo Community Association (OCA)",
+    'author': "Akretion, Odoo Community Association (OCA)",
     'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
     'depends': [
         'account_fiscal_position_rule',
-        'stock_account',
         'stock_picking_invoicing',
     ],
     'data': [
