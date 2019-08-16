@@ -21,7 +21,7 @@ class StockPicking(models.Model):
 
     @api.multi
     @api.onchange('partner_id')
-    def onchange_partner_id(self):
+    def _onchange_partner_id(self):
         partner_address = self.partner_id.address_get(['invoice', 'delivery'])
         obj_partner_shipping = self.env['res.partner'].browse(
             partner_address.get('delivery')

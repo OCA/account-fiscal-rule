@@ -46,7 +46,7 @@ class TestAccountFiscalPositionRuleStock(common.TransactionCase):
 
     def test_onchange_partner(self):
         """Test onchage to map Fiscal Position."""
-        self.stock_picking_3.onchange_partner_id()
+        self.stock_picking_3._onchange_partner_id()
         self.assertTrue(
             self.stock_picking_3.fiscal_position_id,
             'Onchange on partner_id fail to mapping fiscal position.'
