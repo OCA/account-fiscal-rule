@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo10-addon-account_fiscal_position_rule',
         'odoo10-addon-account_fiscal_position_rule_purchase',
         'odoo10-addon-account_fiscal_position_rule_sale',
+        'odoo10-addon-account_fiscal_position_rule_stock',
         'odoo10-addon-account_product_fiscal_classification',
     ],
     classifiers=[
