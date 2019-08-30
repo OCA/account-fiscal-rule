@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+    <!-- Tax used to test -->
+    <record id="demo_tax_out_position_rule_stock" model="account.tax">
+        <field name="description">Test Fiscal Position Rule Stock</field>
+        <field name="name">Test Fiscal Position Rule Stock</field>
+        <field name="type_tax_use">sale</field>
+        <field name="amount">0.0</field>
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="account.tax_group_taxes"/>
+    </record>
+
+    <!-- Tax used to test -->
+    <record id="demo_tax_out_picking" model="account.tax">
+        <field name="description">Test Invoice From Picking 20%</field>
+        <field name="name">Test Invoice From Picking 20%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="amount">20.00</field>
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="account.tax_group_taxes"/>
+    </record>
+
+    <!-- Include Tax on Produtcs -->
+    <record id="product.product_product_5b_product_template" model="product.template">
+        <field name="taxes_id" eval="[(6,0,[ref('demo_tax_out_position_rule_stock')])]"/>
+    </record>
+
+    <record id="product.product_product_11b_product_template" model="product.template">
+        <field name="taxes_id" eval="[(6,0,[ref('demo_tax_out_position_rule_stock')])]"/>
+    </record>
+
+    <record model="product.template" id="product.product_product_10_product_template" >
+        <field name="taxes_id" eval="[(6,0,[ref('demo_tax_out_position_rule_stock')])]"/>
+    </record>
+
+    <record model="product.template" id="product.product_product_5_product_template" >
+        <field name="taxes_id" eval="[(6,0,[ref('demo_tax_out_position_rule_stock')])]"/>
+    </record>
+
+    <record model="product.template" id="product.product_product_9_product_template" >
+        <field name="taxes_id" eval="[(6,0,[ref('demo_tax_out_position_rule_stock')])]"/>
+    </record>
+
+    <!-- Fiscal Position -->
+    <record model="account.fiscal.position" id="test_fiscal_position_stock">
+        <field name="name">Test - Fiscal Position Stock</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Fiscal Position Tax -->
+    <record model="account.fiscal.position.tax" id="test_fiscal_position_stock_tax">
+        <field name="position_id" ref="test_fiscal_position_stock"/>
+        <field name="tax_src_id" ref="demo_tax_out_position_rule_stock"/>
+        <field name="tax_dest_id" ref="demo_tax_out_picking"/>
+    </record>
+
+    <!-- Fiscal Rule -->
+    <record model="account.fiscal.position.rule" id="test_fiscal_position_rule">
+        <field name="name">Test - Fiscal Position Stock</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="fiscal_position_id" ref="test_fiscal_position_stock"/>
+        <field name="use_picking">True</field>
+    </record>
+
+    <!-- Picking Test - 1 -->
+    <record model="stock.picking" id="test_fiscal_position_rule_stock_1">
+        <field name="partner_id" ref="base.res_partner_12"/>
+        <field name="picking_type_id" ref="stock.picking_type_out"/>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="invoice_state">2binvoiced</field>
+        <field name="origin">Test - account_fiscal_position_rule_stock - 1</field>
+        <field name="fiscal_position_id" ref="test_fiscal_position_stock"/>
+    </record>
+
+    <record model="stock.move" id="test_fiscal_position_rule_stock_move_1_1">
+        <field name="name">Test - account_fiscal_position_rule_stock - 1</field>
+        <field name="product_id" ref="product.product_product_7_product_template"/>
+        <field name="product_uom_qty">2</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="picking_id" ref="test_fiscal_position_rule_stock_1"/>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="invoice_state">2binvoiced</field>
+    </record>
+
+    <record model="stock.move" id="test_fiscal_rule_stock_move_1_2">
+        <field name="name">Test - account_fiscal_position_rule_stock - 1</field>
+        <field name="product_id" ref="product.product_product_11"/>
+        <field name="product_uom_qty">2</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="picking_id" ref="test_fiscal_position_rule_stock_1"/>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="invoice_state">2binvoiced</field>
+    </record>
+
+    <!-- Picking Test - 2 -->
+    <record model="stock.picking" id="test_fiscal_position_rule_stock_2">
+        <field name="partner_id" ref="base.res_partner_2"/>
+        <field name="picking_type_id" ref="stock.picking_type_out"/>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="invoice_state">2binvoiced</field>
+        <field name="origin">Test - account_fiscal_position_rule_stock - 2 </field>
+        <field name="fiscal_position_id" ref="test_fiscal_position_stock"/>
+    </record>
+
+    <record model="stock.move" id="test_fiscal_position_rule_stock_move_2_1">
+        <field name="name">Test - account_fiscal_position_rule_stock - 2</field>
+        <field name="product_id" ref="product.product_product_8_product_template"/>
+        <field name="product_uom_qty">3</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="picking_id" ref="test_fiscal_position_rule_stock_2"/>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="invoice_state">2binvoiced</field>
+    </record>
+
+    <record model="stock.move" id="test_fiscal_position_rule_stock_move_2_2">
+        <field name="name">Test - account_fiscal_position_rule_stock - 2</field>
+        <field name="product_id" ref="product.product_product_9"/>
+        <field name="product_uom_qty">3</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="picking_id" ref="test_fiscal_position_rule_stock_2"/>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="invoice_state">2binvoiced</field>
+    </record>
+
+    <record model="stock.move" id="test_fiscal_position_rule_stock_move_2_3">
+        <field name="name">Test - account_fiscal_position_rule_stock - 2</field>
+        <field name="product_id" ref="product.product_product_10"/>
+        <field name="product_uom_qty">3</field>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="picking_id" ref="test_fiscal_position_rule_stock_2"/>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="invoice_state">2binvoiced</field>
+    </record>
+
+    </data>
+</odoo>
