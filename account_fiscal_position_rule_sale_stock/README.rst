@@ -25,7 +25,7 @@ Account Fiscal Position Rule Sale Stock
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-This module extends the sale stock.
+This module enables the account_fiscal_position_rule features (see module README) in the context of a sale order with a delivery order (sale and stock modules).
 
 **Table of contents**
 
@@ -43,7 +43,7 @@ Changelog
 10.0.1.0.0 (2019-08-16)
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-* Created module, it's a extraction of account_fiscal_rule_stock to better modularization.
+* Module creation. It is an extraction from account_fiscal_rule_stock for a better modularization.
 
 
 Bug Tracker
