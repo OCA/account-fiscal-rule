@@ -5,13 +5,14 @@ class ExemptionCode(models.Model):
     _name = 'exemption.code'
     _description = 'Exemption Code'
 
-    name = fields.Char('Name')
+    name = fields.Char('Name', required=True)
     code = fields.Char('Code')
 
     @api.multi
     @api.depends('name', 'code')
     def name_get(self):
-        return [(r.id, '(%s) %s' % (r.code, r.name)) for r in self]
+        name = lambda r: r.code and '(%s) %s' % (r.code, r.name) or r.name
+        return [(r.id, name(r)) for r in self]
 
 
 class AvalaraSalestax(models.Model):
