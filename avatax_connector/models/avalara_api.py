@@ -141,8 +141,8 @@ class AvaTaxService:
         lineslist = []
         request = self.taxSvc.factory.create('GetTaxRequest')
         request.Commit = commit
-        # request.DetailLevel = 'Diagnostic'
-        request.DetailLevel = 'Document'
+        request.DetailLevel = 'Diagnostic'
+        # request.DetailLevel = 'Document'
         request.Discount = 0.0
         request.ServiceMode = 'Automatic'  # service mode = Automatic/Local/Remote
         request.PaymentDate = doc_date
