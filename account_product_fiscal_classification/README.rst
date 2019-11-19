@@ -23,6 +23,7 @@ Functionality
   * Purchase Taxes: 5.5%;
   * Sale Taxes: 20%;
 
+
 * Provides the possibility to the account manager to change incorrect
   parameters massively;
 
