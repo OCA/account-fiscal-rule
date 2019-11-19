@@ -20,13 +20,13 @@ msgstr ""
 "2);\n"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:119
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:120
 #, python-format
 msgid " - Sale Taxes: "
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:112
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:113
 #, python-format
 msgid "- No Sale Taxes"
 msgstr ""
@@ -290,13 +290,13 @@ msgid "New Fiscal Classification"
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:101
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:102
 #, python-format
 msgid "No Purchase Taxes - Sale Taxes: "
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:99
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:100
 #, python-format
 msgid "No taxes"
 msgstr ""
@@ -342,8 +342,8 @@ msgid "Purchase Taxes"
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:107
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:114
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:108
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:115
 #, python-format
 msgid "Purchase Taxes: "
 msgstr ""
@@ -426,7 +426,7 @@ msgid "You cannot change Taxes for many Products."
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:73
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:74
 #, python-format
 msgid ""
 "You cannot delete The Fiscal Classification '%s' because it contents %s "
