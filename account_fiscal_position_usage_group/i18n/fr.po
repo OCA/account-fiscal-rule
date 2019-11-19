@@ -1,0 +1,61 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * account_fiscal_position_usage_group
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-19 10:30+0000\n"
+"PO-Revision-Date: 2019-11-19 10:30+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_fiscal_position_usage_group
+#: model:ir.model,name:account_fiscal_position_usage_group.model_res_partner
+msgid "Contact"
+msgstr "Contact"
+
+#. module: account_fiscal_position_usage_group
+#: model:res.groups,name:account_fiscal_position_usage_group.demo_group_restricted
+msgid "Demo Group Limited Access"
+msgstr "Groupe de démonstration à accès limité"
+
+#. module: account_fiscal_position_usage_group
+#: model:ir.model,name:account_fiscal_position_usage_group.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Position fiscale"
+
+#. module: account_fiscal_position_usage_group
+#: model:ir.model.fields,help:account_fiscal_position_usage_group.field_account_fiscal_position__usage_group_ids
+msgid "If defined, the user should be member to one of there groups, to use this fiscal position when creating or updating a supplier, or an invoice"
+msgstr "Si défini, l'utilisateur devra être membre de l'un de ces groupes, pour utiliser cette position fiscale, lors de la création ou de la modification d'un partenaire ou d'une facture."
+
+#. module: account_fiscal_position_usage_group
+#: model:ir.model,name:account_fiscal_position_usage_group.model_account_invoice
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: account_fiscal_position_usage_group
+#: model:ir.model.fields,field_description:account_fiscal_position_usage_group.field_account_fiscal_position__usage_group_ids
+msgid "Usage Groups"
+msgstr "Groupes d'utilisation"
+
+#. module: account_fiscal_position_usage_group
+#: code:addons/account_fiscal_position_usage_group/models/account_invoice.py:19
+#: code:addons/account_fiscal_position_usage_group/models/res_partner.py:19
+#, python-format
+msgid "You can not use the fiscal position '%s' because you're not a member of one of the following groups:\n"
+"\n"
+" - %s\n"
+"\n"
+"Please contact your accountant or the administrator."
+msgstr "Vous ne pouvez pas utiliser cette position fiscale '%s' car vous n'êtes pas membre de l'un des groupes suivants:\n"
+"\n"
+" - %s\n"
+"\n"
+"Veuillez contacter votre comptable ou l'administrateur."
