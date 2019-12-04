@@ -260,11 +260,9 @@ class AccountInvoice(models.Model):
         account_tax_obj = self.env['account.tax']
         avatax_config = self.env['avalara.salestax'].get_avatax_config_company()
         for invoice in self:
-            c_code = invoice.partner_id.country_id and invoice.partner_id.country_id.code or False
-            cs_code = []    # Countries where Avalara address validation is enabled
-            for c_brw in avatax_config.country_ids:
-                cs_code.append(str(c_brw.code))
-            if invoice.type in ['out_invoice', 'out_refund'] and c_code in cs_code:
+            if (invoice.type in ['out_invoice', 'out_refund'] and
+                    invoice.partner_id.country_id in avatax_config.country_ids and
+                    invoice.state != 'draft'):
                 doc_type = invoice.type == 'out_invoice' and 'SalesInvoice' or 'ReturnInvoice'
                 account_tax_obj.cancel_tax(avatax_config, invoice.number, doc_type, 'DocVoided')
         return super(AccountInvoice, self).action_cancel()
