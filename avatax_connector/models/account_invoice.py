@@ -93,7 +93,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def get_taxes_values(self, contact_avatax=False, commit_avatax=False):
         """
-        Extends the stantard method reponsible for computing taxes.
+        Extends the standard method reponsible for computing taxes.
         Returns a dict with the taxes values, ready to be use to create tax_line_ids.
         """
         avatax_config = self.env['avalara.salestax'].get_avatax_config_company()
@@ -204,40 +204,45 @@ class AccountInvoice(models.Model):
 
     @api.model
     def create_lines(self, invoice_lines, sign=1):
+        """
+        Prepare the lines to use for Avatax computation.
+        Returns a list of dicts
+        """
         avatax_config_obj = self.env['avalara.salestax']
         avatax_config = avatax_config_obj.get_avatax_config_company()
         lines = []
         for line in invoice_lines:
-            # Add UPC to product item code
-            if line.product_id.barcode and avatax_config.upc_enable:
-                item_code = "upc:" + line.product_id.barcode
-            else:
-                item_code = line.product_id.default_code
-            # Get Tax Code
-            #if line.product_id:
-            tax_code = (line.product_id.tax_code_id and line.product_id.tax_code_id.name) or None
-            # else:
-            #    tax_code = (line.product_id.categ_id.tax_code_id  and line.product_id.categ_id.tax_code_id.name) or None
-            # Calculate discount amount
-            discount_amount = 0.0
-            is_discounted = False
-            if line.discount != 0.0 or line.discount != None:
-                discount_amount = sign * line.price_unit * ((line.discount or 0.0)/100.0) * line.quantity,
-                is_discounted = True
-            lines.append({
-                'qty': line.quantity,
-                'itemcode': line.product_id and item_code or None,
-                'description': line.name,
-                'discounted': is_discounted,
-                'discount': discount_amount[0],
-                'amount': sign * line.price_unit * (1-(line.discount or 0.0)/100.0) * line.quantity,
-                'tax_code': tax_code,
-                'id': line,
-                'account_analytic_id': line.account_analytic_id.id,
-                'analytic_tag_ids': line.analytic_tag_ids.ids,
-                'account_id': line.account_id.id,
-                'tax_id': line.invoice_line_tax_ids,
-            })
+            if any(tax.is_avatax for tax in line.invoice_line_tax_ids):
+                # Add UPC to product item code
+                if line.product_id.barcode and avatax_config.upc_enable:
+                    item_code = "upc:" + line.product_id.barcode
+                else:
+                    item_code = line.product_id.default_code
+                # Get Tax Code
+                #if line.product_id:
+                tax_code = (line.product_id.tax_code_id and line.product_id.tax_code_id.name) or None
+                # else:
+                #    tax_code = (line.product_id.categ_id.tax_code_id  and line.product_id.categ_id.tax_code_id.name) or None
+                # Calculate discount amount
+                discount_amount = 0.0
+                is_discounted = False
+                if line.discount != 0.0 or line.discount != None:
+                    discount_amount = sign * line.price_unit * ((line.discount or 0.0)/100.0) * line.quantity,
+                    is_discounted = True
+                lines.append({
+                    'qty': line.quantity,
+                    'itemcode': line.product_id and item_code or None,
+                    'description': line.name,
+                    'discounted': is_discounted,
+                    'discount': discount_amount[0],
+                    'amount': sign * line.price_unit * (1-(line.discount or 0.0)/100.0) * line.quantity,
+                    'tax_code': tax_code,
+                    'id': line,
+                    'account_analytic_id': line.account_analytic_id.id,
+                    'analytic_tag_ids': line.analytic_tag_ids.ids,
+                    'account_id': line.account_id.id,
+                    'tax_id': line.invoice_line_tax_ids,
+                })
         return lines
 
     @api.model
