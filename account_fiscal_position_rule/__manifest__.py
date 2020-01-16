@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2009-TODAY Akretion <http://www.akretion.com>
 #   @author Sébastien BEAU <sebastien.beau@akretion.com>
 #   @author Renato Lima <renato.lima@akretion.com>
@@ -7,29 +6,20 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 {
-    'name': 'Account Fiscal Position Rule',
-    'summary': 'Account Fiscal Position Rule',
-    'category': 'Generic Modules/Accounting',
-    'version': '12.0.1.0.0',
-    'author': (
-        'Akretion',
-        'Odoo Community Association (OCA)',
-    ),
-    'license': 'AGPL-3',
-    'website': 'http://www.akretion.com',
-    'depends': [
-        'account',
-        'l10n_generic_coa',
+    "name": "Account Fiscal Position Rule",
+    "summary": "Account Fiscal Position Rule",
+    "category": "Generic Modules/Accounting",
+    "version": "13.0.1.0.0",
+    "author": "Akretion, Odoo Community Association (OCA)",
+    "license": "AGPL-3",
+    "website": "http://www.akretion.com",
+    "depends": ["account", "l10n_generic_coa"],
+    "data": [
+        "security/ir.model.access.csv",
+        "security/account_fiscal_position_rule_security.xml",
+        "views/account_fiscal_position_rule_view.xml",
+        "views/account_fiscal_position_rule_template_view.xml",
+        "wizard/wizard_account_fiscal_position_rule_view.xml",
     ],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/account_fiscal_position_rule_security.xml',
-        'views/account_fiscal_position_rule_view.xml',
-        'views/account_fiscal_position_rule_template_view.xml',
-        'wizard/wizard_account_fiscal_position_rule_view.xml',
-    ],
-    'test': [
-        'test/account_fiscal_position_rule_data.xml',
-        'test/test_rules.yml'],
-    'installable': True,
+    "installable": True,
 }
