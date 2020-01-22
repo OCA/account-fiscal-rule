@@ -32,12 +32,13 @@ class AccountTax(models.Model):
                 partner.generate_cust_code()
 
         if not shipping_address:
-            raise UserError(_('There is no source shipping address defined for partner %s.') % partner.name)
+            raise UserError(
+                _('There is no source shipping address defined for partner %s.') % partner.name)
 
         if not ship_from_address:
             raise UserError(_('There is no company address defined.'))
 
-        #this condition is required, in case user select force address validation on AvaTax API Configuration
+        # this condition is required, in case user select force address validation on AvaTax API Configuration
         if not avatax_config.address_validation:
             if avatax_config.force_address_validation:
                 if not shipping_address.date_validation:
@@ -50,10 +51,11 @@ class AccountTax(models.Model):
                 raise UserError(_('Please validate the company address.'))
 
         if avatax_config.disable_tax_calculation:
-            _logger.info('Avatax tax calculation is disabled. Skipping %s %s.', doc_code, doc_type)
+            _logger.info(
+                'Avatax tax calculation is disabled. Skipping %s %s.', doc_code, doc_type)
             return False
 
-        #For check credential
+        # For check credential
         avalara_obj = AvaTaxService(
             avatax_config.account_number, avatax_config.license_key,
             avatax_config.service_url, avatax_config.request_timeout, avatax_config.logging)
@@ -83,7 +85,8 @@ class AccountTax(models.Model):
     def cancel_tax(self, avatax_config, doc_code, doc_type, cancel_code):
         """Sometimes we have not need to tax calculation, then method is used to cancel taxation"""
         if avatax_config.disable_tax_calculation:
-            _logger.info('Avatax tax calculation is disabled. Skipping %s %s.', doc_code, doc_type)
+            _logger.info(
+                'Avatax tax calculation is disabled. Skipping %s %s.', doc_code, doc_type)
             return False
 
         avalara_obj = AvaTaxService(
@@ -92,9 +95,11 @@ class AccountTax(models.Model):
             avatax_config.logging)
         avalara_obj.create_tax_service()
         # Why the silent failure? Let explicitly raise the error.
-        #try:
-        result = avalara_obj.get_tax_history(avatax_config.company_code, doc_code, doc_type)
-        #except:
+        # try:
+        result = avalara_obj.get_tax_history(
+            avatax_config.company_code, doc_code, doc_type)
+        # except:
         #    return True
-        result = avalara_obj.cancel_tax(avatax_config.company_code, doc_code, doc_type, cancel_code)
+        result = avalara_obj.cancel_tax(
+            avatax_config.company_code, doc_code, doc_type, cancel_code)
         return result

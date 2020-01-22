@@ -3,54 +3,47 @@
     <data>
 
         <!--Invoice Form -->
-        <record id="invoice_form_inherit_1" model="ir.ui.view">
-            <field name="name">account.invoice.form.inherit</field>
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_form"/>
+        <record id="view_move_form_inherit_1" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
-
                 <xpath expr="//notebook/page[1]/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="before">
                     <field name="tax_amt" readonly="1" groups="avatax_connector.group_avatax_view"/>
                 </xpath>
 
-                <field name="user_id" position="after">
+                <xpath expr="//notebook/page[1]/field[@name='invoice_line_ids']/form/sheet/group/field[@name='price_unit']" position="before">
+                    <field name="tax_amt" readonly="1" groups="avatax_connector.group_avatax_view"/>
+                </xpath>
+
+                <field name="invoice_user_id" position="after">
                     <field name="exemption_code" readonly="1"/>
                     <field name="exemption_code_id" readonly="1"/>
                     <field name="warehouse_id" options="{'no_create': True}" groups="stock.group_stock_multi_warehouses"/>
                     <field name="location_code" />
-		    <field name="tax_on_shipping_address"/>
+                    <field name="tax_on_shipping_address"/>
                     <field name="invoice_doc_no" attrs="{'invisible': [('type','!=','out_refund')]}"/>
                     <field name="is_add_validate" readonly="1" invisible="1"/>
                 </field>
-
-		<field name="incoterm_id" position="before">
-		    <field name="shipping_add_id" />
-		    <!--
-		    <field name="shipping_add_id" context="{'show_address': 1}"
-		           options='{"always_reload": True}' readonly="1"/>
-		    -->
-		</field>
-
-	    </field>
-        </record>
-
-        <record id="inherit_view_invoice_line_form" model="ir.ui.view">
-            <field name="name">account.invoice.line.form.inherit</field>
-            <field name="model">account.invoice.line</field>
-            <field name="inherit_id" ref="account.view_invoice_line_form"/>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <field name="price_unit" position="before">
-                    <field name="tax_amt" readonly="1" groups="avatax_connector.group_avatax_view"/>
+                
+                <field name="amount_untaxed" position="after">
+                    <field name="tax_amount" attrs="{'invisible': [('type','not in',('out_invoice', 'out_refund'))]}"/>
                 </field>
+
+                <field name="invoice_incoterm_id" position="before">
+                    <field name="shipping_add_id" />
+                    <!-- <field name="shipping_add_id" context="{'show_address': 1}"
+                           options='{"always_reload": True}' readonly="1"/> -->
+                </field>
+
             </field>
         </record>
 
         <record id="invoice_form_view_editable_field" model="ir.ui.view">
             <field name="name">invoice.form.view.editable</field>
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="invoice_form_inherit_1"/>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="view_move_form_inherit_1"/>
             <field name="groups_id" eval="[(6, 0, [ref('account.group_account_manager') ])]"/>
             <field name="arch" type="xml">
                 <field name='exemption_code' position="attributes">
@@ -61,6 +54,6 @@
                 </field>
             </field>
         </record>
-
+        
     </data>
 </odoo>

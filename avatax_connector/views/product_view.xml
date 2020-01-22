@@ -40,7 +40,7 @@
             <field name="name">Product Tax Codes</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">product.tax.code</field>
-            <field name="view_type">form</field>
+            <field name="binding_view_types">tree</field>
             <field name="view_mode">tree,form</field>
         </record>
 

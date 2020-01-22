@@ -24,7 +24,7 @@ class ProductTaxCode(models.Model):
     company_id = fields.Many2one(
         'res.company', 'Company',
         required=True,
-        default=lambda self: self.env['res.company']._company_default_get('product.tax.code'))
+        default=lambda self: self.env['res.company']._get_main_company())
 
 
 class ProductTemplate(models.Model):
@@ -50,7 +50,6 @@ class ProductTemplate(models.Model):
             p_brw.write({'tax_code_id': False})
         return p_brw
 
-    @api.multi
     def write(self, vals):
         if 'categ_id' in vals:
             p_brw = self.env['product.category'].browse(vals['categ_id'])

@@ -41,12 +41,14 @@ class AvaTaxService:
         # or use a local file URL. We'll use a local file URL.
         #    wsdl_url = 'file:///' + os.getcwd().replace('\\', '/') + '/%ssvc.wsdl.xml' % name
         # If you want to fetch the WSDL from the server, use this instead:
-        wsdl_url = 'https://avatax.avalara.net/%s/%ssvc.wsdl' % (nameCap, nameCap)
+        wsdl_url = 'https://avatax.avalara.net/%s/%ssvc.wsdl' % (
+            nameCap, nameCap)
 
         svc = suds.client.Client(url=wsdl_url)
         svc.set_options(service='%sSvc' % nameCap)
         svc.set_options(port='%sSvcSoap' % nameCap)
-        svc.set_options(location='%s/%s/%sSvc.asmx' % (self.url, nameCap, nameCap))
+        svc.set_options(location='%s/%s/%sSvc.asmx' %
+                        (self.url, nameCap, nameCap))
         svc.set_options(wsse=self.my_security(self.username, self.password))
         svc.set_options(soapheaders=self.my_profile())
         svc.set_options(timeout=self.timeout)
@@ -66,13 +68,16 @@ class AvaTaxService:
         ADAPTER = 'Odoo, by Open Source Integrators'
         # Profile Client.
         CLIENT = 'a0o0b0000058pOuAAI'
-        #Build the Profile element
+        # Build the Profile element
         profileNameSpace = ('ns1', 'http://avatax.avalara.com/services')
         profile = suds.sax.element.Element('Profile', ns=profileNameSpace)
-        profile.append(suds.sax.element.Element('Client', ns=profileNameSpace).setText(CLIENT))
-        profile.append(suds.sax.element.Element('Adapter', ns=profileNameSpace).setText(ADAPTER))
+        profile.append(suds.sax.element.Element(
+            'Client', ns=profileNameSpace).setText(CLIENT))
+        profile.append(suds.sax.element.Element(
+            'Adapter', ns=profileNameSpace).setText(ADAPTER))
         hostname = socket.gethostname()
-        profile.append(suds.sax.element.Element('Machine', ns=profileNameSpace).setText(hostname))
+        profile.append(suds.sax.element.Element(
+            'Machine', ns=profileNameSpace).setText(hostname))
         return profile
 
     def get_result(self, svc, operation, request):
@@ -122,7 +127,8 @@ class AvaTaxService:
         request.Date = '2013-08-09'
         request.Address = baseaddress
 
-        result = self.get_result(self.addressSvc, self.addressSvc.service.Validate, request)
+        result = self.get_result(
+            self.addressSvc, self.addressSvc.service.Validate, request)
         return result
 
     def get_tax(self, company_code, doc_date, doc_type, partner_code, doc_code, origin, destination,
@@ -135,9 +141,11 @@ class AvaTaxService:
             return information about how the tax was calculated. Intended for use only while the SDK is in a development environment.
         """
         if commit:
-            _logger.info('GetTaxrequest committing document %s (type: %s)', doc_code, doc_type)
+            _logger.info(
+                'GetTaxrequest committing document %s (type: %s)', doc_code, doc_type)
         else:
-            _logger.info('GetTaxRequest for document %s (type: %s)', doc_code, doc_type)
+            _logger.info('GetTaxRequest for document %s (type: %s)',
+                         doc_code, doc_type)
         lineslist = []
         request = self.taxSvc.factory.create('GetTaxRequest')
         request.Commit = commit
@@ -202,8 +210,9 @@ class AvaTaxService:
         lines.Line = lineslist
         request.Lines = lines
         # And we're ready to make the call
-        #import traceback; traceback.print_stack()  #import pudb; pu.db
-        result = self.get_result(self.taxSvc, self.taxSvc.service.GetTax, request)
+        # import traceback; traceback.print_stack()  #import pudb; pu.db
+        result = self.get_result(
+            self.taxSvc, self.taxSvc.service.GetTax, request)
         # This helps trace the source of redundant API calls
         if self.is_log_enabled:
             _logger.info(request)
@@ -217,7 +226,8 @@ class AvaTaxService:
         request.DocCode = doc_code
         request.DocType = doc_type
         # request.CancelCode = cancel_code
-        result = self.get_result(self.taxSvc, self.taxSvc.service.GetTaxHistory, request)
+        result = self.get_result(
+            self.taxSvc, self.taxSvc.service.GetTaxHistory, request)
         return result
 
     def cancel_tax(self, company_code, doc_code, doc_type, cancel_code):
@@ -226,7 +236,8 @@ class AvaTaxService:
         request.DocCode = doc_code
         request.DocType = doc_type
         request.CancelCode = cancel_code
-        result = self.get_result(self.taxSvc, self.taxSvc.service.CancelTax, request)
+        result = self.get_result(
+            self.taxSvc, self.taxSvc.service.CancelTax, request)
         return result
 
 
@@ -251,7 +262,8 @@ class AvaTaxError(Error):
     def __str__(self):
         output_str = ''
         for item in self.messages:
-            message = item[1][0]    # SUDS gives us the message in a list, in a tuple
+            # SUDS gives us the message in a list, in a tuple
+            message = item[1][0]
 
             output_str = "Severity: %s\n\nDetails: %s\n\n RefersTo: %s\n\n Summary: %s" % (
                 message.Severity, message.Details, message.RefersTo, message.Summary)

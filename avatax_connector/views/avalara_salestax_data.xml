@@ -87,19 +87,19 @@
         </record>
         
         <record id="avatax" model="account.tax">
-	           <field name="name">AVATAX</field>
-	           <field eval="0.0" name="amount"/>
+               <field name="name">AVATAX</field>
+               <field eval="0.0" name="amount"/>
                 <!-- oldname: type -->
-	           <field name="amount_type">percent</field>
-	           <!-- <field name="account_collected_id" ref="conf_iva"/>
-	           <field name="account_paid_id" ref="conf_iva"/>
-	           <field name="base_code_id" ref="tax_code_sales_X"/>
-	           <field name="tax_code_id" ref="tax_code_input_X"/>
-	           <field name="ref_base_code_id" ref="tax_code_sales_X"/>
-	           <field name="ref_tax_code_id" ref="tax_code_input_X"/> -->
-	           <field name="type_tax_use">sale</field>
-                   <field name="is_avatax">True</field>
-	       </record>
+               <field name="amount_type">percent</field>
+               <!-- <field name="account_collected_id" ref="conf_iva"/>
+               <field name="account_paid_id" ref="conf_iva"/>
+               <field name="base_code_id" ref="tax_code_sales_X"/>
+               <field name="tax_code_id" ref="tax_code_input_X"/>
+               <field name="ref_base_code_id" ref="tax_code_sales_X"/>
+               <field name="ref_tax_code_id" ref="tax_code_input_X"/> -->
+               <field name="type_tax_use">sale</field>
+               <field name="is_avatax">True</field>
+           </record>
 
   </data>
 </odoo>

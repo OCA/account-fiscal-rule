@@ -18,19 +18,19 @@
                                 <field name="company_id"/>
                             </group>
                             <group>
-				<field name="disable_tax_calculation"/>
+                                <field name="disable_tax_calculation"/>
                             </group>
                         </group>
-			<notebook attrs="{'invisible': [('disable_tax_calculation', '=', True)]}">
+                        <notebook attrs="{'invisible': [('disable_tax_calculation', '=', True)]}">
                             <page string="Configuration">
                                 <group>
                                     <group string="Connection">
                                         <field name="account_number"/>
                                         <field name="license_key" password="True"/>
                                         <field name="service_url"/>
-					<field name="company_code"/>
+                                        <field name="company_code"/>
                                         <field name="date_expiration"/>
-					<a colspan="2" href="https://admin.avalara.com/" target="_blank">Visit the AvaTax Admin webpage</a>
+                                        <a colspan="2" href="https://admin.avalara.com/" target="_blank">Visit the AvaTax Admin webpage</a>
                                         <button name="%(avatax_connector.action_avalara_salestax_ping)d"
                                                 string="Test Connection" type="action" icon="fa-television"/>
                                     </group>
@@ -39,8 +39,8 @@
                                         <field name="logging"/>
                                     </group>
                                 </group>
-				<group>
-				    <group string="Address Validation">
+                                <group>
+                                    <group string="Address Validation">
                                         <field name="address_validation"/>
                                         <field name="validation_on_save" />
                                         <field name="force_address_validation" />
@@ -49,8 +49,8 @@
                                     </group>
                                     <group string="Avalara Submissions / Transactions">
                                         <field name="disable_tax_reporting"/>
-                                        <field name="on_order" invisible="1"/>
-                                        <field name="on_line" invisible="1"/>
+                                        <field name="on_order" invisible="0"/>
+                                        <field name="on_line" invisible="0"/>
                                         <field name="upc_enable" />
                                     </group>
                                 </group>
@@ -83,7 +83,7 @@
         <record id="action_avalara_salestax" model="ir.actions.act_window">
             <field name="name">AvaTax API</field>
             <field name="res_model">avalara.salestax</field>
-            <field name="view_type">form</field>
+            <field name="binding_view_types">tree</field>
             <field name="view_mode">tree,form</field>
             <field name="help">Configuration of AvaTax in odoo</field>
         </record>
@@ -107,7 +107,7 @@
         <record id="action_exemption_code_details" model="ir.actions.act_window">
             <field name="name">Exemption Code</field>
             <field name="res_model">exemption.code</field>
-            <field name="view_type">form</field>
+            <field name="binding_view_types">tree</field>
             <field name="view_mode">tree,form</field>
         </record>
 

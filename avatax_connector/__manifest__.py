@@ -1,6 +1,6 @@
 {
     "name": "Avalara Avatax Connector",
-    "version": "12.0.2.0.0",
+    "version": "13.0.1.0.0",
     "author": "Fabrice Henrion, Sodexis"
               ", Open Source Integrators",
     "summary": "Sales tax Calculation",
@@ -43,13 +43,14 @@ This module has Following Features:
         "views/avalara_salestax_data.xml",
         "views/partner_view.xml",
         "views/product_view.xml",
-        "views/account_invoice_action.xml",
-        "views/account_invoice_view.xml",
+        "views/account_move_action.xml",
+        "views/account_move_view.xml",
         "views/sale_order_view.xml",
         "views/sale_order_action.xml",
         "views/account_tax_view.xml",
         "report/sale_order_templates.xml",
-        #"views/res_config_settings_view.xml",
+
+        # "views/res_config_settings_view.xml",
     ],
     'images': [
         'static/description/avatax_icon.png',
