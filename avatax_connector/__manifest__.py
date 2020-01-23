@@ -49,8 +49,6 @@ This module has Following Features:
         "views/sale_order_action.xml",
         "views/account_tax_view.xml",
         "report/sale_order_templates.xml",
-
-        # "views/res_config_settings_view.xml",
     ],
     'images': [
         'static/description/avatax_icon.png',
