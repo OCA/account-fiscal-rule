@@ -1,0 +1,146 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_multi_vat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_multi_vat
+#: model:ir.model,name:account_multi_vat.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model,name:account_multi_vat.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_tax__country_id
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_tax_repartition_line__country_id
+msgid "Country"
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_move__customer_vat
+msgid "Customer VAT"
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_move__customer_vat_partner_id
+msgid "Customer tax administration"
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model,name:account_multi_vat.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_res_partner__has_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_res_users__has_vat
+msgid "Has Vat"
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model,name:account_multi_vat.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model,name:account_multi_vat.model_res_partner_id_category
+msgid "Partner ID Category"
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model,name:account_multi_vat.model_res_partner_id_number
+msgid "Partner ID Number"
+msgstr ""
+
+#. module: account_multi_vat
+#: code:addons/account_multi_vat/models/res_partner_id_number.py:0
+#, python-format
+msgid "Please specify a tax administration in the 'Issued by' field."
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model,name:account_multi_vat.model_account_tax
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_tax_repartition_line__tax_id
+msgid "Tax"
+msgstr ""
+
+#. module: account_multi_vat
+#: model_terms:ir.ui.view,arch_db:account_multi_vat.multi_vat_report_invoice_document
+msgid "Tax ID"
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model,name:account_multi_vat.model_account_tax_repartition_line
+msgid "Tax Repartition Line"
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_fiscal_position__vat_partner_id
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_tax__vat_partner_id
+#: model:ir.model.fields,field_description:account_multi_vat.field_res_partner__is_tax_administration
+#: model:ir.model.fields,field_description:account_multi_vat.field_res_users__is_tax_administration
+#: model_terms:ir.ui.view,arch_db:account_multi_vat.account_tax_search_view
+msgid "Tax administration"
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model.fields,help:account_multi_vat.field_account_tax_repartition_line__country_id
+msgid "Technical field used to restrict tags domain in form view."
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model.fields,help:account_multi_vat.field_account_tax__country_id
+msgid ""
+"Technical field used to restrict the domain of account tags for tax "
+"repartition lines created for this tax."
+msgstr ""
+
+#. module: account_multi_vat
+#: code:addons/account_multi_vat/models/res_partner_id_number.py:0
+#, python-format
+msgid "The VAT number must be issued by a tax administration."
+msgstr ""
+
+#. module: account_multi_vat
+#: code:addons/account_multi_vat/models/res_partner.py:0
+#, python-format
+msgid "The country is mandatory for tax administrations."
+msgstr ""
+
+#. module: account_multi_vat
+#: code:addons/account_multi_vat/models/account_tax.py:0
+#, python-format
+msgid "The country of the tax must match the one of the tax grids."
+msgstr ""
+
+#. module: account_multi_vat
+#: code:addons/account_multi_vat/models/res_partner_id_number.py:0
+#, python-format
+msgid ""
+"There is already a VAT number for the tax administration "
+"'{tax_administration}' on this contact."
+msgstr ""
+
+#. module: account_multi_vat
+#: code:addons/account_multi_vat/models/res_partner.py:0
+#, python-format
+msgid "There's already a tax administration for {country_name}"
+msgstr ""
+
+#. module: account_multi_vat
+#: model:res.partner.id_category,name:account_multi_vat.partner_id_category_vat
+msgid "VAT number"
+msgstr ""
