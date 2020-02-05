@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="multi_vat_report_invoice_document"
+        inherit_id="account.report_invoice_document"
+    >
+        <xpath expr="//div[@t-if='o.partner_id.vat']" position="replace">
+            <div t-if="o.partner_id.has_vat" class="mt16">
+                <t
+                    t-if="o.company_id.country_id.vat_label"
+                    t-esc="o.company_id.country_id.vat_label"
+                    id="inv_tax_id_label"
+                />
+                <t t-else="">Tax ID</t>: <span t-field="o.customer_vat" />
+            </div>
+        </xpath>
+    </template>
+    <template id="external_layout_multi_vat" inherit_id="web.external_layout_standard">
+        <xpath
+            expr="//li[@t-if='company.vat']/span[@t-field='company.vat']"
+            position="replace"
+        >
+            <t
+                t-if="'fiscal_position_id' in o._fields and o._name == 'account.move' and o.type in ['out_invoice', 'out_refund']"
+            >
+                <li
+                    t-if="company.partner_id.has_vat"
+                    class="list-inline-item d-inline"
+                ><t t-esc="company.country_id.vat_label or 'Tax ID'" />: <span
+                        t-esc="company.partner_id._get_vat_number_for_administration(o.fiscal_position_id.vat_partner_id)"
+                    /></li>
+            </t>
+            <t t-else="else">
+                <li t-if="company.vat" class="list-inline-item d-inline"><t
+                        t-esc="company.country_id.vat_label or 'Tax ID'"
+                    />: <span t-field="company.vat" /></li>
+            </t>
+        </xpath>
+    </template>
+</odoo>

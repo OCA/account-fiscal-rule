@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="account_move_form_view">
+        <field name="name">account.move.form (in account_multi_vat)</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute name="context">{'res_partner_search_mode':
+                    (context.get('default_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt')
+                    and 'customer')
+                    or (context.get('default_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt')
+                    and 'supplier') or False,
+                  'show_address': 1,
+                  'default_is_company': True,
+                  'show_vat': False}</attribute>
+            </field>
+            <group name="accounting_info_group" position="inside">
+                <field
+                    name="customer_vat_partner_id"
+                    attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund'))]}"
+                />
+                <field
+                    name="customer_vat"
+                    attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund'))]}"
+                />
+            </group>
+        </field>
+    </record>
+</odoo>
