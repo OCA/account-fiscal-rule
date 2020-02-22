@@ -9,52 +9,53 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-09 01:39+0000\n"
-"PO-Revision-Date: 2018-03-09 01:39+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
+"PO-Revision-Date: 2020-02-22 19:13+0000\n"
+"Last-Translator: alvarorib <alvaro.ribeiro@exo.pt>\n"
 "Language-Team: Portuguese (https://www.transifex.com/oca/teams/23907/pt/)\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:129
 #, python-format
 msgid " - Sale Taxes: "
-msgstr ""
+msgstr " - Impostos de Venda: "
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:122
 #, python-format
 msgid "- No Sale Taxes"
-msgstr ""
+msgstr "- Não existem Impostos de Venda"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_chart_template
 msgid "Account Chart Template"
-msgstr ""
+msgstr "Modelo de Plano de Contas"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__active
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__active
 msgid "Active"
-msgstr ""
+msgstr "Ativo"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category__fiscal_classification_ids
 msgid "Allowed Fiscal Classifications"
-msgstr ""
+msgstr "Classificações fiscais permitidas"
 
 #. module: account_product_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_change_fiscal_classification
 msgid "Apply"
-msgstr ""
+msgstr "Aplicar"
 
 #. module: account_product_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_form
 msgid "Apply to Child Categories"
-msgstr ""
+msgstr "Aplicar em Categorias Descendentes"
 
 #. module: account_product_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_change_fiscal_classification
@@ -64,18 +65,18 @@ msgstr "Cancelar"
 #. module: account_product_fiscal_classification
 #: model:product.category,name:account_product_fiscal_classification.category_with_fiscal_restriction
 msgid "Category with Fiscal Restriction"
-msgstr ""
+msgstr "Categoria com Restrição Fiscal"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__chart_template_id
 msgid "Chart Template"
-msgstr ""
+msgstr "Modelo de Plano"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_category__fiscal_restriction
 msgid ""
 "Check this box if you want to enable Restriction on Fiscal Classifications."
-msgstr ""
+msgstr "Selecionar se pretende ativar as Restrições em Classificações Fiscais."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__company_id
@@ -99,27 +100,27 @@ msgstr "Criado em"
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_1
 msgid "Demo Fiscal Classification 1"
-msgstr ""
+msgstr "Classificação Fiscal Demo 1"
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_2
 msgid "Demo Fiscal Classification 2"
-msgstr ""
+msgstr "Classificação Fiscal Demo 2"
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_3
 msgid "Demo Fiscal Classification 3"
-msgstr ""
+msgstr "Classificação Fiscal Demo 3"
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_1
 msgid "Demo Global Fiscal Classification 1"
-msgstr ""
+msgstr "Classificação Fiscal Global Demo 1"
 
 #. module: account_product_fiscal_classification
 #: model:product.template,name:account_product_fiscal_classification.product_template_1
 msgid "Demo Product With Fiscal Classification"
-msgstr ""
+msgstr "Produto com Classificação Fiscal Demo"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__description
@@ -140,30 +141,30 @@ msgstr "Nome"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__fiscal_classification_id
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_tree
 msgid "Fiscal Classification"
-msgstr ""
+msgstr "Classificação Fiscal"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification_template
 msgid "Fiscal Classification Template"
-msgstr ""
+msgstr "Modelo de Classificação Fiscal"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification_template
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_chart_template__classification_template_ids
 #: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_classification_template
 msgid "Fiscal Classification Templates"
-msgstr ""
+msgstr "Modelo de Classificação Fiscal"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
 #: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_classification
 msgid "Fiscal Classifications"
-msgstr ""
+msgstr "Classificações Fiscais"
 
 #. module: account_product_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_form
 msgid "Fiscal Settings"
-msgstr ""
+msgstr "Configurações Fiscais"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__id
@@ -179,6 +180,8 @@ msgid ""
 "If defined, the user should be member to this group, to use this fiscal "
 "classification when creating or updating products"
 msgstr ""
+"Se definido, o utilizador deverá ser membro deste grupo, para usar esta "
+"classificação fiscal quando criam ou atualizam artigos"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_template__active
@@ -186,6 +189,8 @@ msgid ""
 "If unchecked, it will allow you to hide the Fiscal Classification Template "
 "without removing it."
 msgstr ""
+"Se não selecionado, permitirá esconder o Modelo de Classificação Fiscal sem "
+"o remover."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__active
@@ -193,6 +198,7 @@ msgid ""
 "If unchecked, it will allow you to hide the Fiscal Classification without "
 "removing it."
 msgstr ""
+"Se não selecionado, permitirá esconder a Classificação Fiscal sem a remover."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification____last_update
@@ -219,7 +225,7 @@ msgstr "Atualizado pela última vez em"
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_wizard_change_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 msgid "Move Products into another Fiscal Classification"
-msgstr ""
+msgstr "Mover artigos para outra Classificação Fiscal"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__name
