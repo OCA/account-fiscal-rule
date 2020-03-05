@@ -19,12 +19,24 @@ class AccountFiscalPositionRule(models.Model):
 
     description = fields.Char(string="Description")
 
+    from_country_group_id = fields.Many2one(
+        string="Country group from",
+        comodel_name="res.country.group",
+        ondelete="restrict",
+    )
+
     from_country = fields.Many2one(comodel_name="res.country", string="Country From")
 
     from_state = fields.Many2one(
         comodel_name="res.country.state",
         string="State From",
         domain="[('country_id', '=', from_country)]",
+    )
+
+    to_invoice_country_group_id = fields.Many2one(
+        string="Invoice Country Group",
+        comodel_name="res.country.group",
+        ondelete="restrict",
     )
 
     to_invoice_country = fields.Many2one(
@@ -35,6 +47,12 @@ class AccountFiscalPositionRule(models.Model):
         comodel_name="res.country.state",
         string="Invoice State",
         domain="[('country_id','=',to_invoice_country)]",
+    )
+
+    to_shipping_country_group_id = fields.Many2one(
+        string="Destination Country Group",
+        comodel_name="res.country.group",
+        ondelete="restrict",
     )
 
     to_shipping_country = fields.Many2one(
@@ -95,14 +113,50 @@ class AccountFiscalPositionRule(models.Model):
         ),
     )
 
+    @api.onchange("from_country_group_id")
+    def _onchange_from_country_group_id(self):
+        self.ensure_one()
+        self.from_country = False
+        if not self.from_country_group_id:
+            from_country_domain = []
+        else:
+            from_country_domain = [
+                ("country_group_ids", "in", self.from_country_group_id.id)
+            ]
+        return {"domain": {"from_country": from_country_domain}}
+
+    @api.onchange("to_invoice_country_group_id")
+    def _onchange_to_invoice_country_group_id(self):
+        self.ensure_one()
+        self.to_invoice_country = False
+        if not self.to_invoice_country_group_id:
+            to_invoice_country_domain = []
+        else:
+            to_invoice_country_domain = [
+                ("country_group_ids", "in", self.to_invoice_country_group_id.id)
+            ]
+        return {"domain": {"to_invoice_country": to_invoice_country_domain}}
+
+    @api.onchange("to_shipping_country_group_id")
+    def _onchange_to_shipping_country_group_id(self):
+        self.ensure_one()
+        self.to_shipping_country = False
+        if not self.to_shipping_country_group_id:
+            to_shipping_country_domain = []
+        else:
+            to_shipping_country_domain = [
+                ("country_group_ids", "in", self.to_shipping_country_group_id.id)
+            ]
+        return {"domain": {"to_shipping_country": to_shipping_country_domain}}
+
     @api.onchange("company_id")
     def onchange_company(self):
         self.from_country = self.company_id.country_id
         self.from_state = self.company_id.state_id
 
     def _map_domain(self, partner, addrs, company, **kwargs):
-        from_country = company.partner_id.country_id.id
-        from_state = company.partner_id.state_id.id
+        from_country = company.partner_id.country_id
+        from_state = company.partner_id.state_id
 
         document_date = self.env.context.get("date", time.strftime("%Y-%m-%d"))
         use_domain = self.env.context.get("use_domain", ("use_sale", "=", True))
@@ -112,10 +166,13 @@ class AccountFiscalPositionRule(models.Model):
             ("company_id", "=", company.id),
             use_domain,
             "|",
-            ("from_country", "=", from_country),
+            ("from_country_group_id", "in", from_country.country_group_ids.ids),
+            ("from_country_group_id", "=", False),
+            "|",
+            ("from_country", "=", from_country.id),
             ("from_country", "=", False),
             "|",
-            ("from_state", "=", from_state),
+            ("from_state", "=", from_state.id),
             ("from_state", "=", False),
             "|",
             ("date_start", "=", False),
@@ -134,13 +191,22 @@ class AccountFiscalPositionRule(models.Model):
             ]
 
         for address_type, address in addrs.items():
+            key_country_group = "to_%s_country_group_id" % address_type
             key_country = "to_%s_country" % address_type
             key_state = "to_%s_state" % address_type
-            to_country = address.country_id.id or False
-            domain += ["|", (key_country, "=", to_country), (key_country, "=", False)]
-            to_state = address.state_id.id or False
-            domain += ["|", (key_state, "=", to_state), (key_state, "=", False)]
-
+            to_country = address.country_id or self.env["res.country"].browse()
+            domain += [
+                "|",
+                (key_country_group, "in", to_country.country_group_ids.ids),
+                (key_country_group, "=", False),
+            ]
+            domain += [
+                "|",
+                (key_country, "=", to_country.id),
+                (key_country, "=", False),
+            ]
+            to_state = address.state_id or self.env["res.country.state"].browse()
+            domain += ["|", (key_state, "=", to_state.id), (key_state, "=", False)]
         return domain
 
     def fiscal_position_map(self, **kwargs):

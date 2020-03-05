@@ -25,10 +25,13 @@ class WizardAccountFiscalPositionRule(models.TransientModel):
         return {
             "name": template.name,
             "description": template.description,
+            "from_country_group_id": template.from_country_group_id.id,
             "from_country": template.from_country.id,
             "from_state": template.from_state.id,
+            "to_invoice_country_group_id": template.to_invoice_country_group_id.id,
             "to_invoice_country": template.to_invoice_country.id,
             "to_invoice_state": template.to_invoice_state.id,
+            "to_shipping_country_group_id": template.to_shipping_country_group_id.id,
             "to_shipping_country": template.to_shipping_country.id,
             "to_shipping_state": template.to_shipping_state.id,
             "company_id": company_id,
