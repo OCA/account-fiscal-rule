@@ -18,15 +18,18 @@
                         <field name="description" />
                     </group>
                     <group string="Origin" name="origin" colspan="4">
+                        <field name="from_country_group_id" />
                         <field name="from_country" />
                         <field name="from_state" />
                     </group>
                     <group string="Destination" name="destination">
                         <group string="Invoice">
+                            <field name="to_invoice_country_group_id" />
                             <field name="to_invoice_country" />
                             <field name="to_invoice_state" />
                         </group>
                         <group string="Shipping" name="shipping">
+                            <field name="to_shipping_country_group_id" />
                             <field name="to_shipping_country" />
                             <field name="to_shipping_state" />
                         </group>
@@ -54,10 +57,13 @@
             <tree string="Fiscal Position Rule Template">
                 <field name="sequence" widget="handle" />
                 <field name="name" />
+                <field name="from_country_group_id" />
                 <field name="from_country" />
                 <field name="from_state" />
+                <field name="to_invoice_country_group_id" />
                 <field name="to_invoice_country" />
                 <field name="to_invoice_state" />
+                <field name="to_shipping_country_group_id" />
                 <field name="to_shipping_country" />
                 <field name="to_shipping_state" />
                 <field name="vat_rule" />
