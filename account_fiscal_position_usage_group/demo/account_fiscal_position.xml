@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2019-Today GRAP (http://www.grap.coop)
+    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="fiscal_position_everybody" model="account.fiscal.position">
+        <field name="name">Fiscal Position for everybody</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="fiscal_position_restricted" model="account.fiscal.position">
+        <field name="name">Fiscal Position Restricted</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="usage_group_ids" eval="[(6, 0, [ref('demo_group_restricted')])]"/>
+    </record>
+
+</odoo>

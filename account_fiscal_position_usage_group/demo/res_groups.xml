@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2019-Today GRAP (http://www.grap.coop)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record model="res.groups" id="account.group_account_user">
+        <field name="users" eval="[(6, 0, [ref('base.user_admin')])]"/>
+    </record>
+
+    <record model="res.groups" id="demo_group_restricted">
+        <field name="name">Demo Group Limited Access</field>
+    </record>
+
+</odoo>
