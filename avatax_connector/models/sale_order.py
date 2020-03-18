@@ -74,7 +74,6 @@ class SaleOrder(models.Model):
     tax_address = fields.Text('Tax Address Text')
     location_code = fields.Char(
         'Location Code', help='Origin address location code')
-    warehouse_id = fields.Many2one('stock.warehouse', 'Warehouse')
 
     def create_lines(self, order_lines):
         """ Tax line creation for calculating tax amount using avalara tax code. """

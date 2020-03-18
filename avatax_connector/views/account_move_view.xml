@@ -20,7 +20,6 @@
                 <field name="invoice_user_id" position="after">
                     <field name="exemption_code" readonly="1"/>
                     <field name="exemption_code_id" readonly="1"/>
-                    <field name="warehouse_id" options="{'no_create': True}" groups="stock.group_stock_multi_warehouses"/>
                     <field name="location_code" />
                     <field name="tax_on_shipping_address"/>
                     <field name="invoice_doc_no" attrs="{'invisible': [('type','!=','out_refund')]}"/>
@@ -32,6 +31,7 @@
                 </field>
 
                 <field name="invoice_incoterm_id" position="before">
+                    <field name="warehouse_id" options="{'no_create': True}" groups="stock.group_stock_multi_warehouses"/>
                     <field name="shipping_add_id" />
                     <field name="exemption_locked" />
                 </field>
