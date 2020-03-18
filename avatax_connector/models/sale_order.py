@@ -23,6 +23,7 @@ class SaleOrder(models.Model):
         invoice_vals.update({
             'exemption_code': self.exemption_code or '',
             'exemption_code_id': self.exemption_code_id.id or False,
+            'exemption_locked': True,
             'location_code': self.location_code or '',
             'warehouse_id': self.warehouse_id.id or '',
             'tax_on_shipping_address': self.tax_on_shipping_address,

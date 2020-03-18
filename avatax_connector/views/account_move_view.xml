@@ -26,15 +26,14 @@
                     <field name="invoice_doc_no" attrs="{'invisible': [('type','!=','out_refund')]}"/>
                     <field name="is_add_validate" readonly="1" invisible="1"/>
                 </field>
-                
+
                 <field name="amount_untaxed" position="after">
                     <field name="tax_amount" attrs="{'invisible': [('type','not in',('out_invoice', 'out_refund'))]}"/>
                 </field>
 
                 <field name="invoice_incoterm_id" position="before">
                     <field name="shipping_add_id" />
-                    <!-- <field name="shipping_add_id" context="{'show_address': 1}"
-                           options='{"always_reload": True}' readonly="1"/> -->
+                    <field name="exemption_locked" />
                 </field>
 
             </field>
@@ -54,6 +53,6 @@
                 </field>
             </field>
         </record>
-        
+
     </data>
 </odoo>

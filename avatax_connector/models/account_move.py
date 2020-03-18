@@ -10,8 +10,9 @@ class AccountMove(models.Model):
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id(self):
         res = super(AccountMove, self)._onchange_partner_id()
-        self.exemption_code = self.partner_id.exemption_number or ''
-        self.exemption_code_id = self.partner_id.exemption_code_id.id or None
+        if not self.exemption_locked:
+            self.exemption_code = self.partner_id.exemption_number or ''
+            self.exemption_code_id = self.partner_id.exemption_code_id.id or None
         if self.partner_id.validation_method:
             self.is_add_validate = True
         else:
@@ -34,6 +35,9 @@ class AccountMove(models.Model):
         'Exemption Number', help="It show the customer exemption number")
     exemption_code_id = fields.Many2one(
         'exemption.code', 'Exemption Code', help="It show the customer exemption code")
+    exemption_locked = fields.Boolean(
+        help="Exemption code won't be automatically changed, "
+        "for instance, when changing the Customer.")
     tax_on_shipping_address = fields.Boolean(
         'Tax based on shipping address', default=True)
     shipping_add_id = fields.Many2one(
