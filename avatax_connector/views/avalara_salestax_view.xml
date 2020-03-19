@@ -15,7 +15,7 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="company_id"/>
+                                <field name="company_id" options="{'no_create_edit': True}" />
                             </group>
                             <group>
                                 <field name="disable_tax_calculation"/>
