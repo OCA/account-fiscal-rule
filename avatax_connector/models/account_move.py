@@ -240,8 +240,7 @@ class AccountMove(models.Model):
             lines = self.create_lines(sign)
             if lines:
                 ship_from_address_id = self.warehouse_id.partner_id or self.company_id.partner_id
-                commit = commit_avatax and not avatax_config.disable_tax_reporting
-                if commit:
+                if commit_avatax:
                     doc_type = 'ReturnInvoice' if self.invoice_doc_no else 'SalesInvoice'
                 else:
                     doc_type = 'SalesOrder'
@@ -276,7 +275,7 @@ class AccountMove(models.Model):
                         self.partner_id, ship_from_address_id,
                         self.shipping_add_id,
                         lines, self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
-                        commit, tax_date,
+                        commit_avatax, tax_date,
                         self.invoice_doc_no, self.location_code or '',
                         is_override=self.type == 'out_refund', currency_id=self.currency_id).TotalTax
                     for o_line in self.invoice_line_ids:
@@ -331,6 +330,10 @@ class AccountMove(models.Model):
                 'tax_id': line.tax_ids,
             })
         return lines
+
+    def action_post(self):
+        self.avatax_compute_taxes(commit_avatax=True)
+        super().action_post()
 
     def _reverse_move_vals(self, default_values, cancel=True):
         # OVERRIDE
