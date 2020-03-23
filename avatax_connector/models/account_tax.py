@@ -55,6 +55,12 @@ class AccountTax(models.Model):
                 'Avatax tax calculation is disabled. Skipping %s %s.', doc_code, doc_type)
             return False
 
+        if commit and avatax_config.disable_tax_reporting:
+            _logger.warn(_(
+                "Avatax commiting document %s, "
+                "but it tax reporting is disabled."),
+                doc_code)
+
         # For check credential
         avalara_obj = AvaTaxService(
             avatax_config.account_number, avatax_config.license_key,
