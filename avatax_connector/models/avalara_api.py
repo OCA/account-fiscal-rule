@@ -16,12 +16,14 @@ _logger = logging.getLogger(__name__)
 
 class AvaTaxService:
 
-    def __init__(self, username, password, url, timeout, enable_log=False):
+    def __init__(self, username, password, url, timeout, enable_log=False,
+                 detailed_response=False):
         self.username = username  # This is the company's Development/Production Account number
         self.password = password  # Put in the License Key received from AvaTax
         self.url = url
         self.timeout = timeout
         self.is_log_enabled = enable_log
+        self.detail_level = 'Diagnostic' if detailed_response else 'Document'
 
     def create_tax_service(self):
         self.taxSvc = self.service('tax')
@@ -149,8 +151,7 @@ class AvaTaxService:
         lineslist = []
         request = self.taxSvc.factory.create('GetTaxRequest')
         request.Commit = commit
-        request.DetailLevel = 'Diagnostic'
-        # request.DetailLevel = 'Document'
+        request.DetailLevel = self.detail_level
         request.Discount = 0.0
         request.ServiceMode = 'Automatic'  # service mode = Automatic/Local/Remote
         request.PaymentDate = doc_date
