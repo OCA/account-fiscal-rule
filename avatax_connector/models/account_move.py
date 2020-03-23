@@ -216,8 +216,7 @@ class AccountMove(models.Model):
         Extends the standard method reponsible for computing taxes.
         Returns a dict with the taxes values, ready to be use to create tax_line_ids.
         """
-        avatax_config = self.env['avalara.salestax'].get_avatax_config_company(
-        )
+        avatax_config = self.company_id.get_avatax_config_company()
         account_tax_obj = self.env['account.tax']
         # avatax charges customers per API call, so don't hit their API in every onchange, only when saving
         contact_avatax = contact_avatax or self.env.context.get(
@@ -238,7 +237,7 @@ class AccountMove(models.Model):
             tax_date = self.get_origin_tax_date() or self.invoice_date
             tax_amount = o_tax_amt = 0.0
             sign = self.type == 'out_invoice' and 1 or -1
-            lines = self.create_lines(self.invoice_line_ids, sign)
+            lines = self.create_lines(sign)
             if lines:
                 ship_from_address_id = self.warehouse_id.partner_id or self.company_id.partner_id
                 commit = commit_avatax and not avatax_config.disable_tax_reporting
@@ -291,16 +290,15 @@ class AccountMove(models.Model):
         self.write({'tax_amount': tax_amount * sign})
         return True
 
-    def create_lines(self, invoice_lines, sign=1):
+    def create_lines(self, sign=1):
         """
         Prepare the lines to use for Avatax computation.
         Returns a list of dicts
         """
-        avatax_config_obj = self.env['avalara.salestax']
-        avatax_config = avatax_config_obj.get_avatax_config_company()
+        avatax_config = self.company_id.get_avatax_config_company()
         lines = []
-        for line in invoice_lines:
-                # Add UPC to product item code
+        for line in self.invoice_line_ids:
+            # Add UPC to product item code
             if line.product_id.barcode and avatax_config.upc_enable:
                 item_code = "upc:" + line.product_id.barcode
             else:
@@ -353,8 +351,7 @@ class AccountMove(models.Model):
 
     def button_cancel(self):
         account_tax_obj = self.env['account.tax']
-        avatax_config = self.env['avalara.salestax'].get_avatax_config_company(
-        )
+        avatax_config = self.company_id.get_avatax_config_company()
         for invoice in self:
             if (invoice.type in ['out_invoice', 'out_refund'] and
                     invoice.partner_id.country_id in avatax_config.country_ids and
@@ -373,8 +370,7 @@ class AccountMoveLine(models.Model):
 
     @api.onchange('product_id')
     def _onchange_product_id(self):
-        avatax_config = self.env['avalara.salestax'].get_avatax_config_company(
-        )
+        avatax_config = self.company_id.get_avatax_config_company()
         if not avatax_config.disable_tax_calculation:
             if self.move_id.type in ('out_invoice', 'out_refund'):
                 taxes = self.product_id.taxes_id or self.account_id.tax_ids

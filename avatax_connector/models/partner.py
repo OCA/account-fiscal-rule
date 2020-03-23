@@ -105,8 +105,8 @@ class ResPartner(models.Model):
             vals['country_id'] = vals.get(
                 'country_id') and vals['country_id'][0]
 
-            avatax_config_obj = avatax_config_obj = self.env['avalara.salestax']
-            avatax_config = avatax_config_obj.get_avatax_config_company()
+            company = partner.company_id or self.env.user.company_id
+            avatax_config = company.get_avatax_config_company()
 
             if avatax_config:
                 try:
@@ -165,10 +165,9 @@ class ResPartner(models.Model):
 
     def _validate_address(self, address, avatax_config=False):
         """ Returns the valid address from the AvaTax Address Validation Service. """
-        avatax_config_obj = self.env['avalara.salestax']
-
         if not avatax_config:
-            avatax_config = avatax_config_obj.get_avatax_config_company()
+            company = self.company_id or self.env.user.company_id
+            avatax_config = company.get_avatax_config_company()
 
         if not avatax_config:
             raise UserError(
@@ -208,8 +207,8 @@ class ResPartner(models.Model):
         if vals:
             if (vals.get('street') or vals.get('street2') or vals.get('zip') or vals.get('city') or
                     vals.get('country_id') or vals.get('state_id')):
-                avatax_config_obj = self.env['avalara.salestax']
-                avatax_config = avatax_config_obj.get_avatax_config_company()
+                company = self.company_id or self.env.user.company_id
+                avatax_config = company.get_avatax_config_company()
 
                 if avatax_config and avatax_config.validation_on_save:
                     brw_address = self.read(
@@ -257,8 +256,8 @@ class ResPartner(models.Model):
             address = vals
             if (vals.get('street') or vals.get('street2') or vals.get('zip') or vals.get('city') or
                     vals.get('country_id') or vals.get('state_id')):
-                avatax_config_obj = self.env['avalara.salestax']
-                avatax_config = avatax_config_obj.get_avatax_config_company()
+                company = self.company_id or self.env.user.company_id
+                avatax_config = company.get_avatax_config_company()
                 if vals.get('tax_exempt'):
                     if not vals.get('exemption_number') and not vals.get('exemption_code_id'):
                         raise UserError(
