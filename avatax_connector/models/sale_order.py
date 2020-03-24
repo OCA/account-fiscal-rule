@@ -158,8 +158,7 @@ class SaleOrder(models.Model):
                         self.name, 'SalesOrder', self.partner_id, ship_from_address_id,
                         shipping_add_id, lines, self.user_id, self.exemption_code or None, self.exemption_code_id.code or None,
                         currency_id=self.currency_id).TotalTax
-                    for o_line in self.order_line:
-                        o_line.write({'tax_amt': 0.0})
+                    self.order_line.write({'tax_amt': 0.0})
                 else:
                     raise UserError(
                         _('Please select system calls in Avatax API Configuration'))

@@ -216,6 +216,8 @@ class AccountMove(models.Model):
         Extends the standard method reponsible for computing taxes.
         Returns a dict with the taxes values, ready to be use to create tax_line_ids.
         """
+        tax_amount = o_tax_amt = 0.0
+        sign = self.type == 'out_invoice' and 1 or -1
         avatax_config = self.company_id.get_avatax_config_company()
         account_tax_obj = self.env['account.tax']
         # avatax charges customers per API call, so don't hit their API in every onchange, only when saving
@@ -235,8 +237,6 @@ class AccountMove(models.Model):
                     '\n\n Accounting->Configuration->Taxes->Taxes'))
 
             tax_date = self.get_origin_tax_date() or self.invoice_date
-            tax_amount = o_tax_amt = 0.0
-            sign = self.type == 'out_invoice' and 1 or -1
             lines = self.create_lines(sign)
             if lines:
                 ship_from_address_id = self.warehouse_id.partner_id or self.company_id.partner_id
@@ -278,8 +278,7 @@ class AccountMove(models.Model):
                         commit_avatax, tax_date,
                         self.invoice_doc_no, self.location_code or '',
                         is_override=self.type == 'out_refund', currency_id=self.currency_id).TotalTax
-                    for o_line in self.invoice_line_ids:
-                        o_line.write({'tax_amt': 0.0})
+                    self.invoice_line_ids.write({'tax_amt': 0.0})
                 else:
                     raise UserError(
                         _('Please select system calls in Avatax API Configuration'))
