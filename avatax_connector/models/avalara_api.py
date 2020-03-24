@@ -106,11 +106,21 @@ class AvaTaxService:
                             "AvaTax: Notice\n\n Address Validation for this country not supported. "
                             "But, Avalara will still calculate global tax rules."))
                     else:
-                        raise UserError(_(
-                            'AvaTax: Error: ' + str(w_message._Name) +
-                            "\n\n" "Summary: " + w_message.Summary +
-                            "\n Details: " + str(w_message.Details or '') +
-                            "\n Severity: " + w_message.Severity))
+                        message = _(
+                            "AvaTax: Error: %s"
+                            "\n"
+                            "\n Summary: %s"
+                            "\n Details: %s"
+                            "\n Severity: %s") % (
+                            str(w_message._Name),
+                            w_message.Summary,
+                            str(w_message.Details or ''),
+                            w_message.Severity)
+                        if "Expected Saved|Posted" in str(w_message.Details):
+                            message += _(
+                                "\n\nMaybe this document was already "
+                                "commited to Avatax?")
+                        raise UserError(message)
         else:
             return result
 
