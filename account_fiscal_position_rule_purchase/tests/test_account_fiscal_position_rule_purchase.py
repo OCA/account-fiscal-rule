@@ -27,13 +27,12 @@ class Tests(SavepointCase):
             {"name": "internal_purchase", "auto_apply": True}
         )
         cls.partner_without_fiscal_position = cls.env["res.partner"].create(
-            {"name": "partner_name_without_fiscal_position", "supplier": True}
+            {"name": "partner_name_without_fiscal_position"}
         )
         cls.partner_with_fiscal_position = cls.env["res.partner"].create(
             {
                 "name": "partner_name_with_fiscal_position",
                 "property_account_position_id": cls.account_fiscal_position_test.id,
-                "supplier": True,
             }
         )
 
