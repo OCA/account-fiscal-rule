@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo13-addon-account_fiscal_position_rule',
+        'odoo13-addon-account_fiscal_position_rule_sale',
     ],
     classifiers=[
         'Programming Language :: Python',
