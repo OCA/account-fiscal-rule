@@ -202,6 +202,11 @@ msgid "Invoice State"
 msgstr "Provincia de factura"
 
 #. module: account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule____last_update
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template____last_update
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_wizard_account_fiscal_position_rule____last_update
