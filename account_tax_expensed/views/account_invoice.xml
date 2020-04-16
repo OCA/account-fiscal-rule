@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Open Source Integrators
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="account_invoice_form_view">
+        <field name="name">account.invoice.form (in account_tax_expense)</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+
+            <field name="price_subtotal" position="before">
+                <field name="tax_expense" invisible="True"/>
+                <field name="tax_total" />
+           </field>
+
+            <field name="payments_widget" position="before">
+                <field name="amount_tax_expense" />
+           </field>
+
+        </field>
+    </record>
+
+</odoo>

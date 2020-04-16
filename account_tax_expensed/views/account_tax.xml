@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Open Source Integrators
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="account_tax_form_view">
+        <field name="name">account.tax.form (in account_tax_expense)</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+
+            <field name="type_tax_use" position="after">
+                <field name="is_expensed_tax" />
+            </field>
+            <field name="refund_account_id" position="after">
+                <field name="expense_account_id"
+                    attrs="{'required':[('is_expensed_tax','=', True)],
+                            'invisible':[('is_expensed_tax','=', False)]}"/>
+            </field>
+
+        </field>
+    </record>
+
+</odoo>
