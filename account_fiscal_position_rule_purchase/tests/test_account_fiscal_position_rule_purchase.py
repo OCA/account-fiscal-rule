@@ -13,45 +13,34 @@ class Tests(SavepointCase):
         super(Tests, cls).setUpClass()
 
         cls.account_fiscal_position_test_for_rule = cls.env[
-            'account.fiscal.position'
-        ].create({
-            'name': 'name_account_fiscal_position_for_rule',
-            'auto_apply': True,
-        })
-        cls.fiscal_position_rule = cls.env[
-            'account.fiscal.position.rule'
-        ].create({
-            'name': 'name_fiscal_position_rule',
-            'company_id': cls.env.ref('base.main_company').id,
-            'fiscal_position_id':
-            cls.account_fiscal_position_test_for_rule.id,
-            'use_purchase': True,
-        })
-        cls.account_fiscal_position_test = cls.env[
-            'account.fiscal.position'
-        ].create({
-            'name': 'internal_purchase',
-            'auto_apply': True,
-        })
-        cls.partner_without_fiscal_position = cls.env[
-            'res.partner'
-        ].create({
-            'name': 'partner_name_without_fiscal_position',
-            'supplier': True,
-        })
-        cls.partner_with_fiscal_position = cls.env[
-            'res.partner'
-        ].create({
-            'name': 'partner_name_with_fiscal_position',
-            'property_account_position_id':
-            cls.account_fiscal_position_test.id,
-            'supplier': True,
-        })
+            "account.fiscal.position"
+        ].create({"name": "name_account_fiscal_position_for_rule", "auto_apply": True})
+        cls.fiscal_position_rule = cls.env["account.fiscal.position.rule"].create(
+            {
+                "name": "name_fiscal_position_rule",
+                "company_id": cls.env.ref("base.main_company").id,
+                "fiscal_position_id": cls.account_fiscal_position_test_for_rule.id,
+                "use_purchase": True,
+            }
+        )
+        cls.account_fiscal_position_test = cls.env["account.fiscal.position"].create(
+            {"name": "internal_purchase", "auto_apply": True}
+        )
+        cls.partner_without_fiscal_position = cls.env["res.partner"].create(
+            {"name": "partner_name_without_fiscal_position", "supplier": True}
+        )
+        cls.partner_with_fiscal_position = cls.env["res.partner"].create(
+            {
+                "name": "partner_name_with_fiscal_position",
+                "property_account_position_id": cls.account_fiscal_position_test.id,
+                "supplier": True,
+            }
+        )
 
     def create_purchase_order(self, purchase_order, values):
         specs = purchase_order._onchange_spec()
-        update = purchase_order.onchange(values, ['partner_id'], specs)
-        value = update.get('value', {})
+        update = purchase_order.onchange(values, ["partner_id"], specs)
+        value = update.get("value", {})
 
         for name, val in value.items():
             if isinstance(val, tuple):
@@ -65,12 +54,12 @@ class Tests(SavepointCase):
         and any fiscal position has already been declared then,
         has any fiscal position"""
 
-        self.env['account.fiscal.position.rule'].search([]).unlink()
-        purchase_order = self.env['purchase.order']
+        self.env["account.fiscal.position.rule"].search([]).unlink()
+        purchase_order = self.env["purchase.order"]
         values = {
-            'partner_id': self.partner_without_fiscal_position.id,
-            'company_id': self.env.ref('base.main_company').id,
-            'fiscal_position_id': False,
+            "partner_id": self.partner_without_fiscal_position.id,
+            "company_id": self.env.ref("base.main_company").id,
+            "fiscal_position_id": False,
         }
 
         po = self.create_purchase_order(purchase_order, values)
@@ -82,29 +71,27 @@ class Tests(SavepointCase):
         and any fiscal position has already been declared then,
         the purchase order fiscal position is the same as partner"""
 
-        self.env['account.fiscal.position.rule'].search([]).unlink()
-        purchase_order = self.env['purchase.order']
+        self.env["account.fiscal.position.rule"].search([]).unlink()
+        purchase_order = self.env["purchase.order"]
         values = {
-            'partner_id': self.partner_with_fiscal_position.id,
-            'company_id': self.env.ref('base.main_company').id,
-            'fiscal_position_id': False,
+            "partner_id": self.partner_with_fiscal_position.id,
+            "company_id": self.env.ref("base.main_company").id,
+            "fiscal_position_id": False,
         }
 
         po = self.create_purchase_order(purchase_order, values)
 
-        self.assertEqual(
-            po.fiscal_position_id, self.account_fiscal_position_test
-        )
+        self.assertEqual(po.fiscal_position_id, self.account_fiscal_position_test)
 
     def test_02_fiscal_position(self):
         """Test if the purchase order from partner without fiscal position,
         has fiscal position from the main_company"""
 
-        purchase_order = self.env['purchase.order']
+        purchase_order = self.env["purchase.order"]
         values = {
-            'partner_id': self.partner_without_fiscal_position.id,
-            'company_id': self.env.ref('base.main_company').id,
-            'fiscal_position_id': False,
+            "partner_id": self.partner_without_fiscal_position.id,
+            "company_id": self.env.ref("base.main_company").id,
+            "fiscal_position_id": False,
         }
 
         po = self.create_purchase_order(purchase_order, values)
@@ -117,15 +104,13 @@ class Tests(SavepointCase):
         """Test if the purchase order from partner with fiscal position,
         has fiscal position from the partner"""
 
-        purchase_order = self.env['purchase.order']
+        purchase_order = self.env["purchase.order"]
         values = {
-            'partner_id': self.partner_with_fiscal_position.id,
-            'company_id': self.env.ref('base.main_company').id,
-            'fiscal_position_id': False,
+            "partner_id": self.partner_with_fiscal_position.id,
+            "company_id": self.env.ref("base.main_company").id,
+            "fiscal_position_id": False,
         }
 
         po = self.create_purchase_order(purchase_order, values)
 
-        self.assertEqual(
-            po.fiscal_position_id, self.account_fiscal_position_test
-        )
+        self.assertEqual(po.fiscal_position_id, self.account_fiscal_position_test)

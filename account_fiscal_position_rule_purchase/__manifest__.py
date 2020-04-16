@@ -6,20 +6,15 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 {
-    'name': 'Account Fiscal Position Rule Purchase',
-    'version': '11.0.1.0.0',
-    'category': 'Generic Modules/Accounting',
-    'author': "Akretion,Odoo Community Association (OCA)",
-    'license': 'AGPL-3',
-    'website': 'http://www.akretion.com',
-    'depends': [
-        'account_fiscal_position_rule',
-        'purchase',
-    ],
-    'data': [],
-    'demo': [],
-    'test': [
-        'test/account_fiscal_position_rule_purchase.yml',
-    ],
-    'installable': True,
+    "name": "Account Fiscal Position Rule Purchase",
+    "version": "11.0.1.0.0",
+    "category": "Generic Modules/Accounting",
+    "author": "Akretion,Odoo Community Association (OCA)",
+    "license": "AGPL-3",
+    "website": "http://www.akretion.com",
+    "depends": ["account_fiscal_position_rule", "purchase"],
+    "data": [],
+    "demo": [],
+    "test": ["test/account_fiscal_position_rule_purchase.yml"],
+    "installable": True,
 }
