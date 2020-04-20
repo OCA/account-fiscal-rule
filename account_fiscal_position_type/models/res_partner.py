@@ -20,7 +20,7 @@ class ResPartner(models.Model):
                 raise ValidationError(_(
                     "You have selected a Sale fiscal position for a non"
                     " customer partner."))
-            if not partner.purchase and\
+            if not partner.supplier and\
                     position.type_position_use == 'purchase':
                 raise ValidationError(_(
                     "You have selected a Purchase fiscal position for a non"
