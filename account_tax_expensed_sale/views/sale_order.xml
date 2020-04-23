@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Open Source Integrators
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="sale_order_form_view">
+        <field name="name">sale.order.form (in account_tax_expensed_sale)</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//tree/field[@name='tax_id']" position="after">
+                <field name="tax_expense"  invisible="True" />
+                <field name="tax_total" />
+           </xpath>
+
+            <field name="amount_total" position="after">
+                <field name="amount_tax_expense" />
+           </field>
+
+        </field>
+    </record>
+
+</odoo>
