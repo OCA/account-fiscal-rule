@@ -1,0 +1,77 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_fiscal_position_type
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_fiscal_position_type
+#: model:ir.model,name:account_fiscal_position_type.model_account_chart_template
+msgid "Account Chart Template"
+msgstr ""
+
+#. module: account_fiscal_position_type
+#: selection:account.fiscal.position,type_position_use:0
+#: selection:account.fiscal.position.template,type_position_use:0
+msgid "All"
+msgstr ""
+
+#. module: account_fiscal_position_type
+#: model:ir.model,name:account_fiscal_position_type.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: account_fiscal_position_type
+#: model:ir.model,name:account_fiscal_position_type.model_account_fiscal_position
+#: model:ir.model.fields,field_description:account_fiscal_position_type.field_account_invoice__fiscal_position_id
+msgid "Fiscal Position"
+msgstr ""
+
+#. module: account_fiscal_position_type
+#: model:ir.model,name:account_fiscal_position_type.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: account_fiscal_position_type
+#: model:ir.model.fields,field_description:account_fiscal_position_type.field_account_fiscal_position__type_position_use
+#: model:ir.model.fields,field_description:account_fiscal_position_type.field_account_fiscal_position_template__type_position_use
+msgid "Position Application"
+msgstr ""
+
+#. module: account_fiscal_position_type
+#: selection:account.fiscal.position,type_position_use:0
+#: selection:account.fiscal.position.template,type_position_use:0
+msgid "Purchase"
+msgstr ""
+
+#. module: account_fiscal_position_type
+#: selection:account.fiscal.position,type_position_use:0
+#: selection:account.fiscal.position.template,type_position_use:0
+msgid "Sale"
+msgstr ""
+
+#. module: account_fiscal_position_type
+#: model:ir.model,name:account_fiscal_position_type.model_account_fiscal_position_template
+msgid "Template for Fiscal Position"
+msgstr ""
+
+#. module: account_fiscal_position_type
+#: code:addons/account_fiscal_position_type/models/res_partner.py:25
+#, python-format
+msgid "You have selected a Purchase fiscal position for a non supplier partner."
+msgstr ""
+
+#. module: account_fiscal_position_type
+#: code:addons/account_fiscal_position_type/models/res_partner.py:20
+#, python-format
+msgid "You have selected a Sale fiscal position for a non customer partner."
+msgstr ""
+
