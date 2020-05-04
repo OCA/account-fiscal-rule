@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-account-fiscal-rule Odoo addons",
     version=version,
     install_requires=[
+        'odoo12-addon-account_fiscal_position_type',
         'odoo12-addon-account_fiscal_position_usage_group',
         'odoo12-addon-account_product_fiscal_classification',
         'odoo12-addon-account_product_fiscal_classification_test',
