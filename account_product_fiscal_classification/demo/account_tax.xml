@@ -7,6 +7,7 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
+
     <record model="account.tax" id="account_tax_purchase_1">
         <field name="name">Demo Purchase Tax 10%</field>
         <field name="company_id" ref="base.main_company"/>
@@ -25,4 +26,38 @@
         <field name="type_tax_use">sale</field>
         <field name="amount">0.03</field>
     </record>
+
+    <!-- Alternate company -->
+    <record id="sale_tax_7_other" model="account.tax">
+        <field name="name">Demo 7 %</field>
+        <field name="amount">7</field>
+        <field name="type_tax_use">sale</field>
+        <field name="company_id" ref="cpny_onlyshare_classification"/>
+        <field name="tax_group_id" ref="account.tax_group_taxes"/>
+    </record>
+
+    <record id="sale_tax_44_other" model="account.tax">
+        <field name="name">Demo 44 %</field>
+        <field name="amount">44</field>
+        <field name="type_tax_use">sale</field>
+        <field name="company_id" ref="cpny_onlyshare_classification"/>
+        <field name="tax_group_id" ref="account.tax_group_taxes"/>
+    </record>
+
+    <record id="purchase_tax_7_other" model="account.tax">
+        <field name="name">Demo 7 % purch</field>
+        <field name="amount">7</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="company_id" ref="cpny_onlyshare_classification"/>
+        <field name="tax_group_id" ref="account.tax_group_taxes"/>
+    </record>
+
+    <record id="purchase_tax_44_other" model="account.tax">
+        <field name="name">Demo 44 % purch</field>
+        <field name="amount">44</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="company_id" ref="cpny_onlyshare_classification"/>
+        <field name="tax_group_id" ref="account.tax_group_taxes"/>
+    </record>
+
 </odoo>
