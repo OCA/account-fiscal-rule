@@ -25,6 +25,7 @@
         'views/view_account_product_fiscal_classification_template.xml',
     ],
     'demo': [
+        'demo/res_company.xml',
         'demo/account_tax.xml',
         'demo/account_product_fiscal_classification.xml',
         'demo/product_template.xml',
