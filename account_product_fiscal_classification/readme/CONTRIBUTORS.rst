@@ -1,4 +1,8 @@
-* Sylvain LE GAL (https://twitter.com/legalsylvain);
-* Sébastien BEAU <sebastien.beau@akretion.com>;
-* Danimar RIBEIRO;
-* Pierrick Brun <pierrick.brun@akretion.com>
+* Sylvain LE GAL (https://twitter.com/legalsylvain)
+* Akretion
+
+    * Sébastien BEAU <sebastien.beau@akretion.com>
+    * Pierrick Brun <pierrick.brun@akretion.com>
+    * Renato Lima <renato.lima@akretion.com>
+
+* Danimar RIBEIRO
