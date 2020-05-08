@@ -101,6 +101,32 @@ msgid "Created on"
 msgstr "Angelegt am"
 
 #. module: account_product_fiscal_classification
+#: model:res.company,overdue_msg:account_product_fiscal_classification.cpny_onlyshare_classification
+msgid ""
+"Dear Sir/Madam,\n"
+"\n"
+"Our records indicate that some payments on your account are still due. "
+"Please find details below.\n"
+"If the amount has already been paid, please disregard this notice. "
+"Otherwise, please forward us the total amount stated below.\n"
+"If you have any queries regarding your account, Please contact us.\n"
+"\n"
+"Thank you in advance for your cooperation.\n"
+"Best Regards,"
+msgstr ""
+"Sehr geehrte Damen und Herren,\n"
+"\n"
+"Unsere Buchhaltung weist überfällige offene Rechnungen von Ihnen aus. "
+"Details dazu ersehen Sie unten.\n"
+"Sollte der Betrag zwischenzeitlich angewiesen worden sein, betrachten Sie "
+"dieses Schreiben bitte als gegenstandslos. Anderenfalls weisen Sie bitte die "
+"unten aufgeführte Gesamtsumme an.\n"
+"Sollten Sie Fragen zu Ihrem Konto bei uns haben, sprechen Sie uns bitte an.\n"
+"\n"
+"Vielen Dank im Voraus für Ihre Zusammenarbeit.\n"
+"Mit freundlichem Gruß,"
+
+#. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_1
 msgid "Demo Fiscal Classification 1"
 msgstr "Beispiel-Steuerklassifizierung 1"
@@ -119,6 +145,20 @@ msgstr "Beispiel-Steuerklassifizierung 3"
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_1
 msgid "Demo Global Fiscal Classification 1"
 msgstr "Beispiel für globale Steuerklassifizierung 1"
+
+#. module: account_product_fiscal_classification
+#: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_2
+#, fuzzy
+#| msgid "Demo Global Fiscal Classification 1"
+msgid "Demo Global Fiscal Classification 2"
+msgstr "Beispiel für globale Steuerklassifizierung 1"
+
+#. module: account_product_fiscal_classification
+#: model:product.template,name:account_product_fiscal_classification.product_template_all_cpnies
+#, fuzzy
+#| msgid "Demo Product With Fiscal Classification"
+msgid "Demo Product Fiscal Classif all companies"
+msgstr "Beispielprodukt mit Steuerklassifizierung"
 
 #. module: account_product_fiscal_classification
 #: model:product.template,name:account_product_fiscal_classification.product_template_1
@@ -377,6 +417,7 @@ msgstr ""
 
 #. module: account_product_fiscal_classification
 #: model:product.template,uom_name:account_product_fiscal_classification.product_template_1
+#: model:product.template,uom_name:account_product_fiscal_classification.product_template_all_cpnies
 msgid "Unit(s)"
 msgstr ""
 
@@ -434,6 +475,7 @@ msgstr ""
 
 #. module: account_product_fiscal_classification
 #: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_1
+#: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_all_cpnies
 msgid "kg"
 msgstr ""
 
@@ -448,31 +490,6 @@ msgstr ""
 
 #~ msgid "Create"
 #~ msgstr "Anlegen"
-
-#~ msgid ""
-#~ "Dear Sir/Madam,\n"
-#~ "\n"
-#~ "Our records indicate that some payments on your account are still due. "
-#~ "Please find details below.\n"
-#~ "If the amount has already been paid, please disregard this notice. "
-#~ "Otherwise, please forward us the total amount stated below.\n"
-#~ "If you have any queries regarding your account, Please contact us.\n"
-#~ "\n"
-#~ "Thank you in advance for your cooperation.\n"
-#~ "Best Regards,"
-#~ msgstr ""
-#~ "Sehr geehrte Damen und Herren,\n"
-#~ "\n"
-#~ "Unsere Buchhaltung weist überfällige offene Rechnungen von Ihnen aus. "
-#~ "Details dazu ersehen Sie unten.\n"
-#~ "Sollte der Betrag zwischenzeitlich angewiesen worden sein, betrachten Sie "
-#~ "dieses Schreiben bitte als gegenstandslos. Anderenfalls weisen Sie bitte "
-#~ "die unten aufgeführte Gesamtsumme an.\n"
-#~ "Sollten Sie Fragen zu Ihrem Konto bei uns haben, sprechen Sie uns bitte "
-#~ "an.\n"
-#~ "\n"
-#~ "Vielen Dank im Voraus für Ihre Zusammenarbeit.\n"
-#~ "Mit freundlichem Gruß,"
 
 #~ msgid "Demo Fiscal Classification Template 1"
 #~ msgstr "Beispielvorlage zur Steuerklassifizierung 1"
