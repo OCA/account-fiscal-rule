@@ -99,6 +99,21 @@ msgid "Created on"
 msgstr "Создан"
 
 #. module: account_product_fiscal_classification
+#: model:res.company,overdue_msg:account_product_fiscal_classification.cpny_onlyshare_classification
+msgid ""
+"Dear Sir/Madam,\n"
+"\n"
+"Our records indicate that some payments on your account are still due. "
+"Please find details below.\n"
+"If the amount has already been paid, please disregard this notice. "
+"Otherwise, please forward us the total amount stated below.\n"
+"If you have any queries regarding your account, Please contact us.\n"
+"\n"
+"Thank you in advance for your cooperation.\n"
+"Best Regards,"
+msgstr ""
+
+#. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_1
 msgid "Demo Fiscal Classification 1"
 msgstr ""
@@ -116,6 +131,16 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_1
 msgid "Demo Global Fiscal Classification 1"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_2
+msgid "Demo Global Fiscal Classification 2"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:product.template,name:account_product_fiscal_classification.product_template_all_cpnies
+msgid "Demo Product Fiscal Classif all companies"
 msgstr ""
 
 #. module: account_product_fiscal_classification
@@ -354,6 +379,7 @@ msgstr ""
 
 #. module: account_product_fiscal_classification
 #: model:product.template,uom_name:account_product_fiscal_classification.product_template_1
+#: model:product.template,uom_name:account_product_fiscal_classification.product_template_all_cpnies
 msgid "Unit(s)"
 msgstr ""
 
@@ -400,6 +426,7 @@ msgstr ""
 
 #. module: account_product_fiscal_classification
 #: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_1
+#: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_all_cpnies
 msgid "kg"
 msgstr ""
 
