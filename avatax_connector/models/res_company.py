@@ -24,4 +24,4 @@ class Company(models.Model):
             _LOGGER.warn(
                 _("Company %s has no Avatax configuration."),
                 self.display_name)
-        return res[0]
+        return res and res[0]

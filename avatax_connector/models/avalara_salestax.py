@@ -1,4 +1,5 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class ExemptionCode(models.Model):
@@ -41,8 +42,10 @@ class AvalaraSalestax(models.Model):
     license_key = fields.Char(
         'License Key', required=True, help="License Key provided by AvaTax")
     service_url = fields.Selection(
-        [('https://development.avalara.net', 'Test'),
-         ('https://avatax.avalara.net', 'Production')],
+        [('https://development.avalara.net', 'SOAP API Test'),
+         ('https://avatax.avalara.net', 'SOAP API Production'),
+         ('https://sandbox-rest.avatax.com/api/v2', 'REST API Test'),
+         ('https://rest.avatax.com/api/v2', 'REST API Production')],
         string='Service URL',
         default='https://development.avalara.net',
         required=True,
@@ -105,6 +108,12 @@ class AvalaraSalestax(models.Model):
                               help="It will calculate tax for order not line by line.")
     upc_enable = fields.Boolean(
         'Enable UPC Taxability', help="Allows ean13 to be reported in place of Item Reference as upc identifier.")
+
+    @api.constrains('service_url', 'on_line')
+    def _check_tax_by_line(self):
+        if 'rest' in self.service_url and self.on_line:
+            raise ValidationError(_(
+                'Calculate tax by line is not supported in Rest API.'))
 
     # constraints on uniq records creation with account_number and company_id
     _sql_constraints = [
