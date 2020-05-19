@@ -372,7 +372,7 @@ class AccountMoveLine(models.Model):
 
     @api.onchange('product_id')
     def _onchange_product_id(self):
-        avatax_config = self.company_id.get_avatax_config_company()
+        avatax_config = self.move_id.company_id.get_avatax_config_company()
         if not avatax_config.disable_tax_calculation:
             if self.move_id.type in ('out_invoice', 'out_refund'):
                 taxes = self.product_id.taxes_id or self.account_id.tax_ids

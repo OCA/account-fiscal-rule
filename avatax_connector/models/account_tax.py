@@ -113,18 +113,27 @@ class AccountTax(models.Model):
             _logger.info(
                 'Avatax tax calculation is disabled. Skipping %s %s.', doc_code, doc_type)
             return False
-
-        avalara_obj = AvaTaxService(
-            avatax_config.account_number, avatax_config.license_key,
-            avatax_config.service_url, avatax_config.request_timeout,
-            avatax_config.logging)
-        avalara_obj.create_tax_service()
-        # Why the silent failure? Let explicitly raise the error.
-        # try:
-        result = avalara_obj.get_tax_history(
-            avatax_config.company_code, doc_code, doc_type)
-        # except:
-        #    return True
-        result = avalara_obj.cancel_tax(
-            avatax_config.company_code, doc_code, doc_type, cancel_code)
+        if 'rest' in avatax_config.service_url:
+            avatax_restpoint = AvaTaxRESTService(
+                avatax_config.account_number,
+                avatax_config.license_key,
+                avatax_config.service_url,
+                avatax_config.request_timeout,
+                avatax_config.logging)
+            result = avatax_restpoint.cancel_tax(
+                avatax_config.company_code, doc_code, doc_type, cancel_code)
+        else:
+            avalara_obj = AvaTaxService(
+                avatax_config.account_number, avatax_config.license_key,
+                avatax_config.service_url, avatax_config.request_timeout,
+                avatax_config.logging)
+            avalara_obj.create_tax_service()
+            # Why the silent failure? Let explicitly raise the error.
+            # try:
+            result = avalara_obj.get_tax_history(
+                avatax_config.company_code, doc_code, doc_type)
+            # except:
+            #    return True
+            result = avalara_obj.cancel_tax(
+                avatax_config.company_code, doc_code, doc_type, cancel_code)
         return result
