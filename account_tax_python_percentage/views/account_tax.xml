@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Open Source Integrators
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="account_tax_form_view">
+        <field name="name">account.tax.form (in account_tax_python_percentage)</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page/group/group/div" position="attributes">
+                <attribute name="attrs">{'invisible':[('amount_type','not in', ('fixed', 'percent', 'division', 'code_perc'))]}</attribute>
+            </xpath>
+            <xpath expr="//page/group[2]" position="attributes">
+                <attribute name="attrs">{'invisible':[('amount_type','not in', ('code', 'code_perc'))]}</attribute>
+            </xpath>
+            <field name="python_compute" position="attributes">
+                <attribute name="attrs">{'required':[('amount_type' ,'like', 'code')]}</attribute>
+            </field>
+            <field name="python_applicable" position="attributes">
+                <attribute name="attrs">{'required':[('amount_type' ,'like', 'code')]}</attribute>
+            </field>
+
+        </field>
+    </record>
+
+</odoo>
