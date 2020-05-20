@@ -131,7 +131,7 @@ class SaleOrder(models.Model):
 
             lines = self.create_lines(self.order_line)
             order_date = self.date_order.date()
-            if lines:
+            if lines: 
                 if avatax_config.on_line:
                     # Line level tax calculation
                     # tax based on individual order line
@@ -173,12 +173,23 @@ class SaleOrder(models.Model):
 
     def avalara_compute_taxes(self):
         """ It used to called manually calculation method of avalara and get tax amount"""
-        self.with_context(avatax_recomputation=True).compute_tax()
+        has_avatax_tax = self.mapped('order_line.tax_id.is_avatax')
+        if has_avatax_tax:
+            self.with_context(avatax_recomputation=True).compute_tax()
         return True
 
     def action_confirm(self):
+        avatax_config = self.company_id.get_avatax_config_company()
+        if avatax_config and avatax_config.force_address_validation:
+            for addr in [self.partner_id, self.partner_shipping_id]:
+                if not addr.date_validation:
+                    # The Confirm action will be interrupted
+                    # if the address is not validated
+                    return addr.button_avatax_validate_address()
         res = super(SaleOrder, self).action_confirm()
-        self.with_context(avatax_recomputation=True).compute_tax()
+        if avatax_config:
+            self.avalara_compute_taxes()
+        # self.with_context(avatax_recomputation=True).compute_tax()
         return res
 
 

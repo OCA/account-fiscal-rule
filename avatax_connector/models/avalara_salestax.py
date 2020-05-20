@@ -44,10 +44,10 @@ class AvalaraSalestax(models.Model):
     service_url = fields.Selection(
         [('https://development.avalara.net', 'SOAP API Test'),
          ('https://avatax.avalara.net', 'SOAP API Production'),
-         ('https://sandbox-rest.avatax.com/api/v2', 'REST API Test'),
-         ('https://rest.avatax.com/api/v2', 'REST API Production')],
+         ('https://rest.avatax.com/api/v2', 'REST API Production'),
+         ('https://sandbox-rest.avatax.com/api/v2', 'REST API Test')],
         string='Service URL',
-        default='https://development.avalara.net',
+        default='https://rest.avatax.com/api/v2',
         required=True,
         help="The url to connect with")
     date_expiration = fields.Date(

@@ -331,8 +331,21 @@ class AccountMove(models.Model):
         return lines
 
     def action_post(self):
-        self.avatax_compute_taxes(commit_avatax=True)
+        avatax_config = self.company_id.get_avatax_config_company()
+        if avatax_config and avatax_config.force_address_validation:
+            for addr in [self.partner_id, self.partner_shipping_id]:
+                if not addr.date_validation:
+                    # The Validate action will be interrupted
+                    # if the address is not validated
+                    return addr.button_avatax_validate_address()
+        # We should compute taxes before validating the invoice
+        # , to ensure correct account moves
+        # We can only commit to Avatax after validating the invoice
+        # , because we need the generated Invoice number
+        self.avatax_compute_taxes(commit_avatax=False)
         super().action_post()
+        self.avatax_compute_taxes(commit_avatax=True)
+        return True
 
     def _reverse_move_vals(self, default_values, cancel=True):
         # OVERRIDE
@@ -351,17 +364,21 @@ class AccountMove(models.Model):
         })
         return move_vals
 
-    def button_cancel(self):
+    def button_draft(self):
         account_tax_obj = self.env['account.tax']
         avatax_config = self.company_id.get_avatax_config_company()
         for invoice in self:
+            avatax_config = invoice.company_id.get_avatax_config_company()
+            has_avatax_tax = invoice.mapped(
+                'invoice_line_ids.tax_ids.is_avatax')
             if (invoice.type in ['out_invoice', 'out_refund'] and
+                    has_avatax_tax and
                     invoice.partner_id.country_id in avatax_config.country_ids and
-                    invoice.state != 'posted'):
+                    invoice.state != 'draft'):
                 doc_type = invoice.type == 'out_invoice' and 'SalesInvoice' or 'ReturnInvoice'
                 account_tax_obj.cancel_tax(
                     avatax_config, invoice.name, doc_type, 'DocVoided')
-        return super(AccountMove, self).button_cancel()
+        return super(AccountMove, self).button_draft()
 
 
 class AccountMoveLine(models.Model):
