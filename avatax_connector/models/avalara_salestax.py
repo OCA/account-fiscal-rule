@@ -42,9 +42,7 @@ class AvalaraSalestax(models.Model):
     license_key = fields.Char(
         'License Key', required=True, help="License Key provided by AvaTax")
     service_url = fields.Selection(
-        [('https://development.avalara.net', 'SOAP API Test'),
-         ('https://avatax.avalara.net', 'SOAP API Production'),
-         ('https://rest.avatax.com/api/v2', 'REST API Production'),
+        [('https://rest.avatax.com/api/v2', 'REST API Production'),
          ('https://sandbox-rest.avatax.com/api/v2', 'REST API Test')],
         string='Service URL',
         default='https://rest.avatax.com/api/v2',

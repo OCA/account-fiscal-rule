@@ -131,7 +131,7 @@ class SaleOrder(models.Model):
 
             lines = self.create_lines(self.order_line)
             order_date = self.date_order.date()
-            if lines: 
+            if lines:
                 if avatax_config.on_line:
                     # Line level tax calculation
                     # tax based on individual order line

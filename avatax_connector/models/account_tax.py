@@ -1,7 +1,6 @@
 import logging
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
-from .avalara_api import AvaTaxService, BaseAddress
 from .avatax_rest_api import AvaTaxRESTService
 
 
@@ -62,48 +61,22 @@ class AccountTax(models.Model):
                 "but it tax reporting is disabled."),
                 doc_code)
 
-        if 'rest' in avatax_config.service_url:
-            avatax_restpoint = AvaTaxRESTService(
-                avatax_config.account_number,
-                avatax_config.license_key,
-                avatax_config.service_url,
-                avatax_config.request_timeout,
-                avatax_config.logging)
-            result = avatax_restpoint.get_tax(
-                avatax_config.company_code, doc_date, doc_type,
-                partner.customer_code, doc_code, ship_from_address,
-                shipping_address,
-                lines, exemption_number,
-                exemption_code_name,
-                user and user.name or None, commit,
-                invoice_date, reference_code,
-                location_code, currency_code,
-                partner.vat_id or None, is_override)
-        else:
-            # For check credential
-            avalara_obj = AvaTaxService(
-                avatax_config.account_number, avatax_config.license_key,
-                avatax_config.service_url, avatax_config.request_timeout, avatax_config.logging)
-            avalara_obj.create_tax_service()
-            addSvc = avalara_obj.create_address_service().addressSvc
-            origin = BaseAddress(addSvc, ship_from_address.street or None,
-                                 ship_from_address.street2 or None,
-                                 ship_from_address.city, ship_from_address.zip,
-                                 ship_from_address.state_id and ship_from_address.state_id.code or None,
-                                 ship_from_address.country_id and ship_from_address.country_id.code or None, 0).data
-            destination = BaseAddress(addSvc, shipping_address.street or None,
-                                      shipping_address.street2 or None,
-                                      shipping_address.city, shipping_address.zip,
-                                      shipping_address.state_id and shipping_address.state_id.code or None,
-                                      shipping_address.country_id and shipping_address.country_id.code or None, 1).data
-
-            # using get_tax method to calculate tax based on address
-            result = avalara_obj.get_tax(avatax_config.company_code, doc_date, doc_type,
-                                         partner.customer_code, doc_code, origin, destination,
-                                         lines, exemption_number,
-                                         exemption_code_name,
-                                         user and user.name or None, commit, invoice_date, reference_code,
-                                         location_code, currency_code, partner.vat_id or None, is_override)
+        avatax_restpoint = AvaTaxRESTService(
+            avatax_config.account_number,
+            avatax_config.license_key,
+            avatax_config.service_url,
+            avatax_config.request_timeout,
+            avatax_config.logging)
+        result = avatax_restpoint.get_tax(
+            avatax_config.company_code, doc_date, doc_type,
+            partner.customer_code, doc_code, ship_from_address,
+            shipping_address,
+            lines, exemption_number,
+            exemption_code_name,
+            user and user.name or None, commit,
+            invoice_date, reference_code,
+            location_code, currency_code,
+            partner.vat_id or None, is_override)
         return result
 
     @api.model
@@ -113,27 +86,13 @@ class AccountTax(models.Model):
             _logger.info(
                 'Avatax tax calculation is disabled. Skipping %s %s.', doc_code, doc_type)
             return False
-        if 'rest' in avatax_config.service_url:
-            avatax_restpoint = AvaTaxRESTService(
-                avatax_config.account_number,
-                avatax_config.license_key,
-                avatax_config.service_url,
-                avatax_config.request_timeout,
-                avatax_config.logging)
-            result = avatax_restpoint.cancel_tax(
-                avatax_config.company_code, doc_code, doc_type, cancel_code)
-        else:
-            avalara_obj = AvaTaxService(
-                avatax_config.account_number, avatax_config.license_key,
-                avatax_config.service_url, avatax_config.request_timeout,
-                avatax_config.logging)
-            avalara_obj.create_tax_service()
-            # Why the silent failure? Let explicitly raise the error.
-            # try:
-            result = avalara_obj.get_tax_history(
-                avatax_config.company_code, doc_code, doc_type)
-            # except:
-            #    return True
-            result = avalara_obj.cancel_tax(
-                avatax_config.company_code, doc_code, doc_type, cancel_code)
+
+        avatax_restpoint = AvaTaxRESTService(
+            avatax_config.account_number,
+            avatax_config.license_key,
+            avatax_config.service_url,
+            avatax_config.request_timeout,
+            avatax_config.logging)
+        result = avatax_restpoint.cancel_tax(
+            avatax_config.company_code, doc_code, doc_type, cancel_code)
         return result

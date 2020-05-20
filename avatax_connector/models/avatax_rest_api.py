@@ -286,4 +286,6 @@ class AvaTaxRESTService:
         response_cancel_tax = self.client.void_transaction(
             company_code, doc_code, tax_data)
         result = self.get_result(response_cancel_tax)
+        if self.is_log_enabled:
+            _logger.info("\n" + pprint.pformat(result, indent=1))
         return result
