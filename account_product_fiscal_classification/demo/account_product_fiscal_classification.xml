@@ -38,8 +38,8 @@
         <field name="purchase_tax_ids" eval="[(6, 0, [ref('account_tax_purchase_1'), ref('purchase_tax_7_other')])]"/>
         <field name="sale_tax_ids" eval="[(6, 0, [ref('account_tax_sale_2'), ref('sale_tax_7_other')])]"/>
     </record>
-    <record model="account.product.fiscal.classification" id="global_fiscal_classification_1">
+    <record model="account.product.fiscal.classification" id="global_fiscal_classification_3">
         <field name="company_id" eval="False"/>
-        <field name="name">Demo Global Fiscal Classification 1</field>
+        <field name="name">Demo Global Fiscal Classification 3</field>
     </record>
 </odoo>
