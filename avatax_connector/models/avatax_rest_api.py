@@ -204,13 +204,13 @@ class AvaTaxRESTService:
                     "and validate the address. Save partner update when done."
                 )
             )
-        for i, line in enumerate(received_lines):
+        for line in received_lines:
             desc = line.get("description", None)
             line_dict = {
                 "amount": line.get("amount", 0.0),
                 "description": tools.ustr(desc)[:255],
                 "itemCode": line.get("itemcode", None),
-                "number": "%d" % (i + 1),
+                "number": line["id"].id,
                 "quantity": line.get("qty", 1),
                 "taxCode": line.get("tax_code", None),
             }
@@ -272,9 +272,7 @@ class AvaTaxRESTService:
         # This helps trace the source of redundant API calls
         if self.is_log_enabled:
             _logger.info("\n" + pprint.pformat(result, indent=1))
-        Taxvalue = collections.namedtuple("Taxvalue", ["TotalTax"])
-        tax_result = Taxvalue(TotalTax=result.get("totalTax"))
-        return tax_result
+        return result
 
     def cancel_tax(self, company_code, doc_code, doc_type, cancel_code):
         tax_data = {
@@ -286,6 +284,4 @@ class AvaTaxRESTService:
             company_code, doc_code, tax_data
         )
         result = self.get_result(response_cancel_tax)
-        if self.is_log_enabled:
-            _logger.info("\n" + pprint.pformat(result, indent=1))
         return result

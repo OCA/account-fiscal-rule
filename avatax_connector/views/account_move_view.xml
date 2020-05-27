@@ -7,13 +7,6 @@
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <xpath expr="//notebook/page[1]/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="before">
-                <field name="tax_amt" readonly="1" groups="avatax_connector.group_avatax_view"/>
-            </xpath>
-
-            <xpath expr="//notebook/page[1]/field[@name='invoice_line_ids']/form/sheet/group/field[@name='price_unit']" position="before">
-                <field name="tax_amt" readonly="1" groups="avatax_connector.group_avatax_view"/>
-            </xpath>
 
             <field name="invoice_user_id" position="after">
                 <field name="exemption_code" readonly="1"/>
@@ -21,11 +14,6 @@
                 <field name="location_code" />
                 <field name="tax_on_shipping_address"/>
                 <field name="invoice_doc_no" attrs="{'invisible': [('type','!=','out_refund')]}"/>
-                <field name="is_add_validate" readonly="1" invisible="1"/>
-            </field>
-
-            <field name="amount_untaxed" position="after">
-                <field name="tax_amount" attrs="{'invisible': [('type','not in',('out_invoice', 'out_refund'))]}"/>
             </field>
 
             <field name="invoice_incoterm_id" position="before">

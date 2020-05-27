@@ -32,6 +32,7 @@ This module has Following Features:
         "security/avalara_salestax_security.xml",
         "security/ir.model.access.csv",
         "data/avalara_salestax_data.xml",
+        "data/avalara_salestax_exemptions.xml",
         "wizard/avalara_salestax_ping_view.xml",
         "wizard/avalara_salestax_address_validate_view.xml",
         "views/avalara_salestax_view.xml",
@@ -42,9 +43,12 @@ This module has Following Features:
         "views/sale_order_view.xml",
         "views/sale_order_action.xml",
         "views/account_tax_view.xml",
-        "report/sale_order_templates.xml",
+        "views/account_fiscal_position_view.xml",
     ],
     "images": ["static/description/avatax_icon.png",],
     "installable": True,
     "application": True,
+    "external_dependencies": {
+        "python": ["Avalara"],
+    },
 }
