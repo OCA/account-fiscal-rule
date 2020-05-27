@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 import collections
 import socket
+
 try:
     from avalara import AvataxClient
 except Exception:
@@ -25,8 +26,8 @@ class AvaTaxRESTService:
         self.version = "13.0"  # TODO: hardcoded or retrieved from Avatax?
         self.hostname = socket.gethostname()
         self.environment = (
-            "sandbox" if "sandbox" in url or "development" in url
-            else "production")
+            "sandbox" if "sandbox" in url or "development" in url else "production"
+        )
         # Profile Client.
         # FIXME: set on client Header the Appname and OSI Key
         self.CLIENT = "a0o0b0000058pOuAAI"
@@ -35,10 +36,13 @@ class AvaTaxRESTService:
                 self.appname, self.version, self.hostname, self.environment
             )
         except NameError:
-            raise UserError(_(
-                "AvataxClient is not available in your system. "
-                "Please contact your system administrator "
-                "to 'pip3 install Avatax'"))
+            raise UserError(
+                _(
+                    "AvataxClient is not available in your system. "
+                    "Please contact your system administrator "
+                    "to 'pip3 install Avatax'"
+                )
+            )
         if username and password:
             self.client.add_credentials(username, password)
 
@@ -51,13 +55,13 @@ class AvaTaxRESTService:
             if result.get("messages"):
                 result = result.get("messages")
             elif result.get("error"):
-                result = result.get('error').get('details')
+                result = result.get("error").get("details")
             for w_message in result:
                 if w_message.get("severity") == "Error":
                     if (
-                        w_message.get("refersTo") == "Address" or
-                        w_message.get("refersTo") == "Address.Line0" or
-                        w_message.get("refersTo") == "Address.City"
+                        w_message.get("refersTo") == "Address"
+                        or w_message.get("refersTo") == "Address.Line0"
+                        or w_message.get("refersTo") == "Address.City"
                     ):
                         raise UserError(
                             _(
@@ -87,28 +91,25 @@ class AvaTaxRESTService:
                             )
                         )
                     else:
-                        message = ("AvaTax: Error: ")
+                        message = "AvaTax: Error: "
                         if w_message.get("refersTo"):
-                            message += (str(w_message.get("refersTo")) + "\n\n")
+                            message += str(w_message.get("refersTo")) + "\n\n"
                         elif w_message.get("code"):
-                            message += (str(w_message.get("code")) + "\n\n")
+                            message += str(w_message.get("code")) + "\n\n"
                         if w_message.get("summary"):
-                            message += ("Summary: "
-                                        + str(w_message.get("summary")))
+                            message += "Summary: " + str(w_message.get("summary"))
                         elif w_message.get("message"):
-                            message += ("Message: "
-                                        + str(w_message.get("message")))
+                            message += "Message: " + str(w_message.get("message"))
                         if w_message.get("details"):
-                            message += ("\n Details: "
-                                        + str(w_message.get("details", "")))
+                            message += "\n Details: " + str(
+                                w_message.get("details", "")
+                            )
                         elif w_message.get("description"):
-                            message += ("\n Description: "
-                                        + str(w_message.get("description", "")))
-                        message += ("\n Severity: "
-                                    + str(w_message.get("severity")))
-                        raise UserError(
-                            _(message)
-                        )
+                            message += "\n Description: " + str(
+                                w_message.get("description", "")
+                            )
+                        message += "\n Severity: " + str(w_message.get("severity"))
+                        raise UserError(_(message))
         else:
             return result
 
@@ -118,8 +119,7 @@ class AvaTaxRESTService:
         if self.is_log_enabled:
             _logger.info(pprint.pformat(res, indent=1))
         if not res.get("authenticated"):
-            raise UserError(
-                _("The user or account could not be authenticated"))
+            raise UserError(_("The user or account could not be authenticated"))
         return res
 
     def validate_rest_address(self, address, state_code, country_code):
@@ -191,8 +191,7 @@ class AvaTaxRESTService:
                 "GetTaxrequest committing document %s (type: %s)", doc_code, doc_type
             )
         else:
-            _logger.info("GetTaxRequest for document %s (type: %s)",
-                         doc_code, doc_type)
+            _logger.info("GetTaxRequest for document %s (type: %s)", doc_code, doc_type)
         lineslist = []
         if not origin.street:
             raise UserError(
@@ -219,7 +218,7 @@ class AvaTaxRESTService:
 
         if doc_date and type(doc_date) != str:
             doc_date = fields.Date.to_string(doc_date)
-           # else fields.Date.today())  # TODO use context_today()
+        # else fields.Date.today())  # TODO use context_today()
         tax_document = {
             "addresses": {
                 # 'SingleLocation': {'city': origin.city,
@@ -281,10 +280,11 @@ class AvaTaxRESTService:
         tax_data = {
             "code": cancel_code,
         }
-        if '/' or '+' or '?' in doc_code:
-            doc_code = doc_code.replace('/', '_-ava2f-_')
+        if "/" or "+" or "?" in doc_code:
+            doc_code = doc_code.replace("/", "_-ava2f-_")
         response_cancel_tax = self.client.void_transaction(
-            company_code, doc_code, tax_data)
+            company_code, doc_code, tax_data
+        )
         result = self.get_result(response_cancel_tax)
         if self.is_log_enabled:
             _logger.info("\n" + pprint.pformat(result, indent=1))
