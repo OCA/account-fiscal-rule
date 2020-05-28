@@ -22,15 +22,12 @@ class AvaTaxRESTService:
         self.timeout = timeout
         self.is_log_enabled = enable_log
         # Set elements adapter defaults
-        self.appname = "Odoo, by Open Source Integrators"
-        self.version = "13.0"  # TODO: hardcoded or retrieved from Avatax?
+        self.appname = "Odoo 13, by Open Source Integrators"
+        self.version = "a0o0b0000058pOuAAI"
         self.hostname = socket.gethostname()
         self.environment = (
             "sandbox" if "sandbox" in url or "development" in url else "production"
         )
-        # Profile Client.
-        # FIXME: set on client Header the Appname and OSI Key
-        self.CLIENT = "a0o0b0000058pOuAAI"
         try:
             self.client = AvataxClient(
                 self.appname, self.version, self.hostname, self.environment
