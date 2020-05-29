@@ -1,7 +1,7 @@
 # Copyright 2020 Open Source Integrators
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class SaleOrderLine(models.Model):
@@ -26,11 +26,12 @@ class SaleOrderLine(models.Model):
         """ Compute the tax_expense field """
         super()._compute_amount()
         for line in self:
-            if line.tax_id.filtered('is_expensed_tax'):
+            taxes = {}
+            if any(x.is_expensed_tax for x in line.tax_id):
                 price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
                 taxes = line.tax_id.compute_all(
                     price, line.order_id.currency_id, line.product_uom_qty,
                     product=line.product_id,
                     partner=line.order_id.partner_shipping_id)
-                line.tax_expense = taxes.get('total_expense') or 0
-                line.tax_total = line.price_tax + line.tax_expense
+            line.tax_expense = taxes.get('total_expense') or 0
+            line.tax_total = line.price_tax + line.tax_expense
