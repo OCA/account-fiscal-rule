@@ -1,0 +1,12 @@
+<odoo>
+    <record id="view_tax_form_avatax" model="ir.ui.view">
+        <field name="name">account.tax.form.avatax</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form" />
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="is_avatax" />
+            </field>
+        </field>
+    </record>
+</odoo>
