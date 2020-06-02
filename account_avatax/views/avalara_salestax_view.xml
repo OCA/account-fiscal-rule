@@ -58,8 +58,6 @@
                                 </group>
                                 <group string="Avalara Submissions / Transactions">
                                     <field name="disable_tax_reporting" />
-                                    <field name="on_order" invisible="0" />
-                                    <field name="on_line" invisible="0" />
                                     <field name="upc_enable" />
                                 </group>
                             </group>
