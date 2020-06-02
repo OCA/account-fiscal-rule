@@ -13,14 +13,12 @@ class AccountInvoiceLine(models.Model):
 
     tax_expense = fields.Monetary(
         string="Tax Expense",
-        store=True,
         readonly=True,
         compute="_compute_price",
         help="Tax expense amount",
     )
     tax_total = fields.Monetary(
         string="Tax",
-        store=True,
         readonly=True,
         compute="_compute_price",
         help="Total tax amount, collected plus expensed",

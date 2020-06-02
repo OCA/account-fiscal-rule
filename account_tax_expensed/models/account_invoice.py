@@ -12,7 +12,7 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     amount_tax_expense = fields.Monetary(
-        string="Tax Expense", store=True, readonly=True, compute="_compute_amount",
+        string="Tax Expense", readonly=True, compute="_compute_amount",
     )
 
     @api.one
