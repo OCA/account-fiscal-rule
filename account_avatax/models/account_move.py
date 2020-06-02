@@ -146,7 +146,7 @@ class AccountMove(models.Model):
                     sum(x["rate"] for x in tax_result_line["details"]) * 100, 4
                 )
                 tax = Tax.get_avalara_tax(rate, doc_type)
-                if tax not in line.tax_ids:
+                if tax and tax not in line.tax_ids:
                     line_taxes = line.tax_ids.filtered(lambda x: not x.is_avatax)
                     taxes_to_set.append((index, line_taxes | tax))
 
