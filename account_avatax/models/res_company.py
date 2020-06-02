@@ -19,7 +19,7 @@ class Company(models.Model):
             _LOGGER.warn(
                 _("Company %s has too many Avatax configurations!"), self.display_name
             )
-        if len(res) == 1:
+        if len(res) < 1:
             _LOGGER.warn(
                 _("Company %s has no Avatax configuration."), self.display_name
             )
