@@ -1,5 +1,11 @@
+import logging
+
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
+
+from .avatax_rest_api import AvaTaxRESTService
+
+_logger = logging.getLogger(__name__)
 
 
 class ExemptionCode(models.Model):
@@ -26,18 +32,6 @@ class AvalaraSalestax(models.Model):
     def _get_avatax_supported_countries(self):
         """ Returns the countries supported by AvaTax Address Validation Service."""
         return self.env["res.country"].search([("code", "in", ["US", "CA"])])
-
-    @api.onchange("on_order")
-    def onchange_system_call1(self):
-        if self.on_order:
-            self.on_order = self.on_order
-            self.on_line = False
-
-    @api.onchange("on_line")
-    def onchange_system_call2(self):
-        if self.on_line:
-            self.on_order = False
-            self.on_line = self.on_line
 
     account_number = fields.Char(
         "Account Number", required=True, help="Account Number provided by AvaTax"
@@ -142,14 +136,6 @@ class AvalaraSalestax(models.Model):
         default=lambda self: self.env["res.company"]._get_main_company(),
         help="Company which has subscribed to the AvaTax service",
     )
-    on_line = fields.Boolean(
-        "Line-level", help="It will calculate tax line by line and also show."
-    )
-    on_order = fields.Boolean(
-        "Order-level",
-        default=True,
-        help="It will calculate tax for order not line by line.",
-    )
     upc_enable = fields.Boolean(
         "Enable UPC Taxability",
         help="Allows ean13 to be reported in place of Item Reference"
@@ -176,3 +162,143 @@ class AvalaraSalestax(models.Model):
             "The account number must be unique per company!",
         ),
     ]
+
+    def get_avatax_rest_service(self):
+        self.ensure_one()
+        if self.disable_tax_calculation:
+            _logger.info(
+                "Avatax tax calculation is disabled, skipping Avatax API contact."
+            )
+            return False
+        return AvaTaxRESTService(
+            self.account_number,
+            self.license_key,
+            self.service_url,
+            self.request_timeout,
+            self.logging,
+        )
+
+    def create_transaction(
+        self,
+        doc_date,
+        doc_code,
+        doc_type,
+        partner,
+        ship_from_address,
+        shipping_address,
+        lines,
+        user=None,
+        exemption_number=None,
+        exemption_code_name=None,
+        commit=False,
+        invoice_date=None,
+        reference_code=None,
+        location_code=None,
+        is_override=None,
+        currency_id=None,
+        ignore_error=None,
+    ):
+        self.ensure_one()
+        avatax_config = self
+
+        currency_code = self.env.user.company_id.currency_id.name
+        if currency_id:
+            currency_code = currency_id.name
+
+        if not partner.customer_code:
+            if not avatax_config.auto_generate_customer_code:
+                raise UserError(
+                    _(
+                        "Customer Code for customer %s not defined.\n\n  "
+                        "You can edit the Customer Code in customer profile. "
+                        'You can fix by clicking "Generate Customer Code" '
+                        "button in the customer contact information" % (partner.name)
+                    )
+                )
+            else:
+                partner.generate_cust_code()
+
+        if not shipping_address:
+            raise UserError(
+                _("There is no source shipping address defined for partner %s.")
+                % partner.name
+            )
+
+        if not ship_from_address:
+            raise UserError(_("There is no company address defined."))
+
+        # this condition is required, in case user select force address validation
+        # on AvaTax API Configuration
+        if not avatax_config.address_validation:
+            if avatax_config.force_address_validation:
+                if not shipping_address.date_validation:
+                    raise UserError(
+                        _(
+                            "Please validate the shipping address for the partner %s."
+                            % (partner.name)
+                        )
+                    )
+
+            # if not avatax_config.address_validation:
+            if not ship_from_address.date_validation:
+                raise UserError(_("Please validate the company address."))
+
+        if avatax_config.disable_tax_calculation:
+            _logger.info(
+                "Avatax tax calculation is disabled. Skipping %s %s.",
+                doc_code,
+                doc_type,
+            )
+            return False
+
+        if commit and avatax_config.disable_tax_reporting:
+            _logger.warn(
+                _("Avatax commiting document %s, " "but it tax reporting is disabled."),
+                doc_code,
+            )
+
+        avatax = self.get_avatax_rest_service()
+        result = avatax.get_tax(
+            avatax_config.company_code,
+            doc_date,
+            doc_type,
+            partner.customer_code,
+            doc_code,
+            ship_from_address,
+            shipping_address,
+            lines,
+            exemption_number,
+            exemption_code_name,
+            user and user.name or None,
+            commit and not avatax_config.disable_tax_reporting,
+            invoice_date,
+            reference_code,
+            location_code,
+            currency_code,
+            partner.vat_id or None,
+            is_override,
+            ignore_error=ignore_error,
+        )
+        return result
+
+    def commit_transaction(self, doc_code, doc_type):
+        self.ensure_one()
+        avatax = self.get_avatax_rest_service()
+        result = avatax.call(
+            "commit_transaction", self.company_code, doc_code, {"commit": True}
+        )
+        return result
+
+    def void_transaction(self, doc_code, doc_type):
+        self.ensure_one()
+        avatax = self.get_avatax_rest_service()
+        result = avatax.call(
+            "void_transaction", self.company_code, doc_code, {"code": "DocVoided"}
+        )
+        return result
+
+    def unvoid_transaction(self, doc_code, doc_type):
+        self.ensure_one()
+        avatax = self.get_avatax_rest_service()
+        result = avatax.call("unvoid_transaction", self.company_code, doc_code)
+        return result

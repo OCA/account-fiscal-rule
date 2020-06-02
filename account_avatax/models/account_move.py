@@ -81,14 +81,14 @@ class AccountMove(models.Model):
         return False
 
     # Same as v12
-    def _get_avatax_doc_type(self, commit=False):
+    def _get_avatax_doc_type(self, commit=True):
         self.ensure_one()
-        if self.type == "out_refund":
-            doc_type = "ReturnInvoice"
-        elif commit:
-            doc_type = "SalesInvoice"
-        else:
+        if not commit:
             doc_type = "SalesOrder"
+        elif self.type == "out_refund":
+            doc_type = "ReturnInvoice"
+        else:
+            doc_type = "SalesInvoice"
         return doc_type
 
     # Same as v12
@@ -109,12 +109,10 @@ class AccountMove(models.Model):
         self and self.ensure_one()
         Tax = self.env["account.tax"]
         avatax_config = self.company_id.get_avatax_config_company()
-        commit = commit and not avatax_config.disable_tax_reporting
-        doc_type = self._get_avatax_doc_type(commit)
+        doc_type = self._get_avatax_doc_type(commit=commit)
         tax_date = self.get_origin_tax_date() or self.invoice_date
         taxable_lines = self._avatax_prepare_lines(doc_type)
-        tax_result = Tax._get_compute_tax(
-            avatax_config,
+        tax_result = avatax_config.create_transaction(
             self.invoice_date or fields.Date.today(),
             self.name,
             doc_type,
@@ -131,7 +129,14 @@ class AccountMove(models.Model):
             self.location_code or "",
             is_override=self.type == "out_refund",
             currency_id=self.currency_id,
+            ignore_error=300 if commit else None,
         )
+        # If commiting, and document exists, try unvoiding it
+        # GetTaxError, Expected Saved|Posted
+        if commit and tax_result.get("number") == 300:
+            avatax_config.unvoid_transaction(self.name, doc_type)
+            avatax_config.commit_transaction(self.name, doc_type)
+            return True
 
         tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
         taxes_to_set = []
@@ -160,14 +165,22 @@ class AccountMove(models.Model):
         return True
 
     # Same as v12
-    def avatax_compute_taxes(self, commit_avatax=False):
+    def avatax_compute_taxes(self, commit=False):
         """
         Called from Invoice's Action menu.
         Forces computation of the Invoice taxes
         """
         for invoice in self:
             if invoice.fiscal_position_id.is_avatax:
-                invoice._avatax_compute_tax(commit=commit_avatax)
+                invoice._avatax_compute_tax(commit=commit)
+        return True
+
+    def avatax_commit_taxes(self):
+        for invoice in self:
+            avatax_config = invoice.company_id.get_avatax_config_company()
+            if not avatax_config.disable_tax_reporting:
+                doc_type = invoice._get_avatax_doc_type()
+                avatax_config.commit_transaction(invoice.name, doc_type)
         return True
 
     # action_invoice_open in v12
@@ -180,15 +193,17 @@ class AccountMove(models.Model):
                     # if the address is not validated
                     return addr.button_avatax_validate_address()
         # We should compute taxes before validating the invoice
-        # , to ensure correct account moves
-        # We can only commit to Avatax after validating the invoice
-        # , because we need the generated Invoice number
-        self.avatax_compute_taxes(commit_avatax=False)
+        # to ensure correct account moves
+        # However, we can't save the invoice because it wasn't assigned a
+        # number yet
+        self.avatax_compute_taxes(commit=False)
         super().post()
-        self.avatax_compute_taxes(commit_avatax=True)
+        # We can only commit to Avatax after validating the invoice
+        # because we need the generated Invoice number
+        self.avatax_compute_taxes(commit=True)
         return True
 
-    # prepare_redunf in v12
+    # prepare_return in v12
     def _reverse_move_vals(self, default_values, cancel=True):
         # OVERRIDE
         # Don't keep anglo-saxon lines if not cancelling an existing invoice.
@@ -211,21 +226,18 @@ class AccountMove(models.Model):
 
     # action_cancel in v12
     def button_draft(self):
-        account_tax_obj = self.env["account.tax"]
-        avatax_config = self.company_id.get_avatax_config_company()
+        """
+        Sets invoice to Draft, either from the Posted or Cancelled states
+        """
         for invoice in self:
             if (
                 invoice.type in ["out_invoice", "out_refund"]
                 and self.fiscal_position_id.is_avatax
-                and invoice.partner_id.country_id in avatax_config.country_ids
-                and invoice.state != "draft"
+                and invoice.state == "posted"
             ):
-                doc_type = (
-                    invoice.type == "out_invoice" and "SalesInvoice" or "ReturnInvoice"
-                )
-                account_tax_obj.cancel_tax(
-                    avatax_config, invoice.name, doc_type, "DocVoided"
-                )
+                avatax = self.company_id.get_avatax_config_company()
+                doc_type = invoice._get_avatax_doc_type()
+                avatax.void_transaction(invoice.name, doc_type)
         return super(AccountMove, self).button_draft()
 
 

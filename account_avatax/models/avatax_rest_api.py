@@ -43,18 +43,26 @@ class AvaTaxRESTService:
         if username and password:
             self.client.add_credentials(username, password)
 
-    def get_result(self, response):
+    def _sanitize_text(self, text):
+        res = (
+            text.replace("/", "_-ava2f-_")
+            .replace("+", "_-ava2b-_")
+            .replace("?", "_-ava3f-_")
+            .replace(" ", "%20")
+        )
+        return res
+
+    def get_result(self, response, ignore_error=None):
         # To call from validate address and from compute tax
         result = response.json()
         if self.is_log_enabled:
-            _logger.info(pprint.pformat(result, indent=1))
+            _logger.info("\n" + pprint.pformat(result, indent=1))
         if result.get("messages") or result.get("error"):
-            if result.get("messages"):
-                result = result.get("messages")
-            elif result.get("error"):
-                result = result.get("error").get("details")
-            for w_message in result:
-                if w_message.get("severity") == "Error":
+            messages = result.get("messages") or result.get("error", {}).get("details")
+            if ignore_error and messages and messages[0].get("number") == ignore_error:
+                return messages[0]
+            for w_message in messages:
+                if w_message.get("severity") in ("Error", "Exception"):
                     if (
                         w_message.get("refersTo") == "Address"
                         or w_message.get("refersTo") == "Address.Line0"
@@ -107,8 +115,7 @@ class AvaTaxRESTService:
                             )
                         message += "\n Severity: " + str(w_message.get("severity"))
                         raise UserError(_(message))
-        else:
-            return result
+        return result
 
     def ping(self):
         response = self.client.ping()
@@ -176,6 +183,7 @@ class AvaTaxRESTService:
         currency_code="USD",
         vat_id=None,
         is_override=False,
+        ignore_error=None,
     ):
         """ Create tax request and get tax amount by customer address
             @currency_code : 'USD' is the default currency code for avalara,
@@ -268,21 +276,27 @@ class AvaTaxRESTService:
             )
         if self.is_log_enabled:
             _logger.info("\n" + pprint.pformat(tax_document, indent=1))
+
         response = self.client.create_transaction(tax_document)
-        result = self.get_result(response)
-        # This helps trace the source of redundant API calls
-        if self.is_log_enabled:
-            _logger.info("\n" + pprint.pformat(result, indent=1))
+        result = self.get_result(response, ignore_error=ignore_error)
         return result
 
-    def cancel_tax(self, company_code, doc_code, doc_type, cancel_code):
-        tax_data = {
-            "code": cancel_code,
-        }
-        if "/" or "+" or "?" in doc_code:
-            doc_code = doc_code.replace("/", "_-ava2f-_")
-        response_cancel_tax = self.client.void_transaction(
-            company_code, doc_code, tax_data
-        )
-        result = self.get_result(response_cancel_tax)
+    def call(self, endpoint, company_code, doc_code, model=None, params=None):
+        if self.is_log_enabled:
+            _logger.info(
+                "Call %s(%s, %s, %s, %s)",
+                endpoint,
+                company_code,
+                doc_code,
+                model,
+                params,
+            )
+        company_code = self._sanitize_text(company_code)
+        doc_code = self._sanitize_text(doc_code)
+        endpoint_method = getattr(self.client, endpoint)
+        if params:
+            response = endpoint_method(company_code, doc_code, model, params)
+        else:
+            response = endpoint_method(company_code, doc_code, model)
+        result = self.get_result(response)
         return result
