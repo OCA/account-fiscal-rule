@@ -79,8 +79,7 @@ class SaleOrder(models.Model):
         Tax = self.env["account.tax"]
         avatax_config = self.company_id.get_avatax_config_company()
         taxable_lines = self._avatax_prepare_lines(self.order_line)
-        tax_result = Tax._get_compute_tax(
-            avatax_config,
+        tax_result = avatax_config.create_transaction(
             self.date_order,
             self.name,
             doc_type,
