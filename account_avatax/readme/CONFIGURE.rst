@@ -74,7 +74,7 @@ Configure AVATAX Tax Type:
   with the proper tax account configuration for your system.
 
 Note: Upon initial install the settings will be blank.
- The image shows the demo configuration.
+The image shows the demo configuration.
 
 
 Product Category Configuration
