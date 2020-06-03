@@ -56,7 +56,7 @@ class AvaTaxRESTService:
         # To call from validate address and from compute tax
         result = response.json()
         if self.is_log_enabled:
-            _logger.info("\n" + pprint.pformat(result, indent=1))
+            _logger.info("Response\n" + pprint.pformat(result, indent=1))
         if result.get("messages") or result.get("error"):
             messages = result.get("messages") or result.get("error", {}).get("details")
             if ignore_error and messages and messages[0].get("number") == ignore_error:
@@ -181,7 +181,7 @@ class AvaTaxRESTService:
         reference_code=None,
         location_code=None,
         currency_code="USD",
-        vat_id=None,
+        vat_id=None,  # not used (businessIdentificationNo)
         is_override=False,
         ignore_error=None,
     ):
@@ -191,12 +191,6 @@ class AvaTaxRESTService:
             return information about how the tax was calculated.  Intended
             for use only while the SDK is in a development environment.
         """
-        if commit:
-            _logger.info(
-                "GetTaxrequest committing document %s (type: %s)", doc_code, doc_type
-            )
-        else:
-            _logger.info("GetTaxRequest for document %s (type: %s)", doc_code, doc_type)
         lineslist = []
         if not origin.street:
             raise UserError(
@@ -251,17 +245,21 @@ class AvaTaxRESTService:
                     "region": destination.state_id.code or None,
                 },
             },
-            "commit": commit,
+            "lines": lineslist,
             # 'purchaseOrderNo": "2020-02-05-001"
             "companyCode": company_code,
             "currencyCode": currency_code,
             "customerCode": partner_code,
+            "referenceCode": reference_code,
+            "salespersonCode": salesman_code,
+            "reportingLocationCode": location_code,
+            "entityUseCode": customer_usage_type,
+            "exemptionNo": exemption_no,
+            "description": doc_code or "Draft",
             "date": doc_date,
             "code": doc_code,
-            "referenceCode": doc_code,
-            "description": doc_code or "Draft",
-            "lines": lineslist,
             "type": doc_type,
+            "commit": commit,
         }
         if is_override and invoice_date:
             tax_document.update(
@@ -275,7 +273,13 @@ class AvaTaxRESTService:
                 }
             )
         if self.is_log_enabled:
-            _logger.info("\n" + pprint.pformat(tax_document, indent=1))
+            _logger.info(
+                "Request CreateTransaction %s %s (commit %s)\n%s",
+                doc_type,
+                doc_code,
+                commit,
+                pprint.pformat(tax_document, indent=1),
+            )
 
         response = self.client.create_transaction(tax_document)
         result = self.get_result(response, ignore_error=ignore_error)
@@ -284,7 +288,7 @@ class AvaTaxRESTService:
     def call(self, endpoint, company_code, doc_code, model=None, params=None):
         if self.is_log_enabled:
             _logger.info(
-                "Call %s(%s, %s, %s, %s)",
+                "Request Call %s(%s, %s, %s, %s)",
                 endpoint,
                 company_code,
                 doc_code,
