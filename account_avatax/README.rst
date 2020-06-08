@@ -119,7 +119,7 @@ Other Avatax API advanced configurations:
       for a country unless it's on the list.
 
 Configure Exemption Codes
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Exemption codes are allowed for users where they may apply (ex. Government entities).
  Navigate to: Accounting or Invoicing App >> Configuration >> AvaTax >> Exemption Code
@@ -128,7 +128,7 @@ The module is installed with 16 predefined exemption codes.
  You can add, remove, and modify exemption codes.
 
 Product Tax Codes
------------------
+~~~~~~~~~~~~~~~~~
 
 Create product tax codes to assign to products and/or product categories.
 Navigate to: Accounting or Invoicing App >> Configuration >> AvaTax >> Product Tax Codes.
@@ -137,7 +137,7 @@ From here you can add, remove, and modify the product tax codes.
 
 
 Configure Taxes
----------------
+~~~~~~~~~~~~~~~
 
 The AvaTax module is integrated into the tax calculation of Odoo.
 AVATAX is automatically added as a type of taxes to be applied.
@@ -151,11 +151,11 @@ Configure AVATAX Tax Type:
   with the proper tax account configuration for your system.
 
 Note: Upon initial install the settings will be blank.
- The image shows the demo configuration.
+The image shows the demo configuration.
 
 
 Product Category Configuration
-------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Products in Odoo are typically assigned to product categories.
 AvaTax settings can also be assigned to the product category
@@ -173,7 +173,7 @@ when a product category is created.
 
 
 Company Configuration
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 Each company linked to AvaTax and their associated warehouses
 should be configured to ensure the correct tax is calculated
@@ -192,7 +192,7 @@ Configure Warehouse Address
 
 
 Customer Configuration
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 Properly configuring each customer ensures the correct tax is calculated
 and applied for all transactions.
@@ -220,7 +220,7 @@ Usage
 =====
 
 Customer Invoices
------------------
+~~~~~~~~~~~~~~~~~
 
 The AvaTax module is integrated into Sales Invoices
 and is applied to each transaction.
@@ -240,13 +240,13 @@ They are calculated as a net deduction on the line item cost
 before the total is sent to AvaTax.
 
 Create New Customer Invoice
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++++++
 
 - Navigate to: Accounting or Invoicing >> Customers >> Invoices.
 - Click Create button.
 
 Validate Invoice
-~~~~~~~~~~~~~~~~
+++++++++++++++++
 
 - Ensure that Tax based on shipping address is checked.
 - Line items should have AVATAX selected under Taxes for internal records.
@@ -254,13 +254,13 @@ Validate Invoice
 - The sale order will now appear in the AvaTax dashboard.
 
 Register Payment
-~~~~~~~~~~~~~~~~
+++++++++++++++++
 
 - Click the Register Payment button to finalize the invoice.
 
 
 Customer Refunds
-----------------
+~~~~~~~~~~~~~~~~
 
 Odoo applies refunds as opposed to voids in its accounting module.
 As with customer invoices, the AvaTax module is integrated
@@ -293,7 +293,7 @@ Register Refund Payment
 
 
 Sales Orders
-------------
+~~~~~~~~~~~~
 
 The AvaTax module is integrated into Sales Orders and allows computation of taxes.
 Sales order transactions do not appear in the in the AvaTax interface.
@@ -333,6 +333,11 @@ However the Avatax service supports more use cases, that could be added:
 - Add support to EU VAT
 - Add support to US Use Tax on Purchases / vendor Bills
 
+Other improvements that could be added:
+
+- Detect and warn if Odoo tax amount differs from Avatax tax amount
+- Detect and warn if customers State is not a nexus available for the current account
+
 Bug Tracker
 ===========
 
@@ -347,14 +352,14 @@ Credits
 =======
 
 Authors
--------
+~~~~~~~
 
 * Open Source Integrators
 * Fabrice Henrion
 * Odoo SA
 
 Contributors
-------------
+~~~~~~~~~~~~
 
 * Odoo SA
 
@@ -373,7 +378,7 @@ Contributors
   * Atchuthan Ubendran
 
 Other credits
--------------
+~~~~~~~~~~~~~
 
 This module was originally developed by Frabrice Henrion at Odoo SA,
 and maintained up to version 11.
@@ -395,7 +400,7 @@ additional refactoring was done to contribute the module
 to the odoo Community Association.
 
 Maintainers
------------
+~~~~~~~~~~~
 
 This module is maintained by the OCA.
 
