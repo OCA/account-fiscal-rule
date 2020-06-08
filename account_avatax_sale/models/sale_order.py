@@ -99,9 +99,7 @@ class SaleOrder(models.Model):
                 # Should we check the rate with the tax amount?
                 # tax_amount = tax_result_line["taxCalculated"]
                 # rate = round(tax_amount / line.price_subtotal * 100, 2)
-                rate = round(
-                    sum(x["rate"] for x in tax_result_line["details"]) * 100, 4
-                )
+                rate = tax_result_line["rate"]
                 tax = Tax.get_avalara_tax(rate, doc_type)
                 if tax not in line.tax_id:
                     line_taxes = line.tax_id.filtered(lambda x: not x.is_avatax)
