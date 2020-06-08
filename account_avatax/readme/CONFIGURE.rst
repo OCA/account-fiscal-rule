@@ -42,7 +42,7 @@ Other Avatax API advanced configurations:
       for a country unless it's on the list.
 
 Configure Exemption Codes
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Exemption codes are allowed for users where they may apply (ex. Government entities).
  Navigate to: Accounting or Invoicing App >> Configuration >> AvaTax >> Exemption Code
@@ -51,7 +51,7 @@ The module is installed with 16 predefined exemption codes.
  You can add, remove, and modify exemption codes.
 
 Product Tax Codes
------------------
+~~~~~~~~~~~~~~~~~
 
 Create product tax codes to assign to products and/or product categories.
 Navigate to: Accounting or Invoicing App >> Configuration >> AvaTax >> Product Tax Codes.
@@ -60,7 +60,7 @@ From here you can add, remove, and modify the product tax codes.
 
 
 Configure Taxes
----------------
+~~~~~~~~~~~~~~~
 
 The AvaTax module is integrated into the tax calculation of Odoo.
 AVATAX is automatically added as a type of taxes to be applied.
@@ -78,7 +78,7 @@ The image shows the demo configuration.
 
 
 Product Category Configuration
-------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Products in Odoo are typically assigned to product categories.
 AvaTax settings can also be assigned to the product category
@@ -96,7 +96,7 @@ when a product category is created.
 
 
 Company Configuration
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 Each company linked to AvaTax and their associated warehouses
 should be configured to ensure the correct tax is calculated
@@ -115,7 +115,7 @@ Configure Warehouse Address
 
 
 Customer Configuration
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 Properly configuring each customer ensures the correct tax is calculated
 and applied for all transactions.
