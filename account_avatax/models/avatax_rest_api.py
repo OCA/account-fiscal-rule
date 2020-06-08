@@ -191,7 +191,6 @@ class AvaTaxRESTService:
             return information about how the tax was calculated.  Intended
             for use only while the SDK is in a development environment.
         """
-        lineslist = []
         if not origin.street:
             raise UserError(
                 _(
@@ -207,17 +206,18 @@ class AvaTaxRESTService:
                     "and validate the address. Save partner update when done."
                 )
             )
-        for line in received_lines:
-            desc = line.get("description", None)
-            line_dict = {
-                "amount": line.get("amount", 0.0),
-                "description": tools.ustr(desc)[:255],
-                "itemCode": line.get("itemcode", None),
+        lineslist = [
+            {
                 "number": line["id"].id,
+                "description": tools.ustr(line.get("description", ""))[:255],
+                "itemCode": line.get("itemcode"),
                 "quantity": line.get("qty", 1),
-                "taxCode": line.get("tax_code", None),
+                "amount": line.get("amount", 0.0),
+                "taxCode": line.get("tax_code"),
             }
-            lineslist.append(line_dict)
+            for line in received_lines
+            if line
+        ]
 
         if doc_date and type(doc_date) != str:
             doc_date = fields.Date.to_string(doc_date)
