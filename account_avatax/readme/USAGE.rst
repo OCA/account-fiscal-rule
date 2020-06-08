@@ -1,5 +1,5 @@
 Customer Invoices
------------------
+~~~~~~~~~~~~~~~~~
 
 The AvaTax module is integrated into Sales Invoices
 and is applied to each transaction.
@@ -19,13 +19,13 @@ They are calculated as a net deduction on the line item cost
 before the total is sent to AvaTax.
 
 Create New Customer Invoice
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++++++
 
 - Navigate to: Accounting or Invoicing >> Customers >> Invoices.
 - Click Create button.
 
 Validate Invoice
-~~~~~~~~~~~~~~~~
+++++++++++++++++
 
 - Ensure that Tax based on shipping address is checked.
 - Line items should have AVATAX selected under Taxes for internal records.
@@ -33,13 +33,13 @@ Validate Invoice
 - The sale order will now appear in the AvaTax dashboard.
 
 Register Payment
-~~~~~~~~~~~~~~~~
+++++++++++++++++
 
 - Click the Register Payment button to finalize the invoice.
 
 
 Customer Refunds
-----------------
+~~~~~~~~~~~~~~~~
 
 Odoo applies refunds as opposed to voids in its accounting module.
 As with customer invoices, the AvaTax module is integrated
@@ -72,7 +72,7 @@ Register Refund Payment
 
 
 Sales Orders
-------------
+~~~~~~~~~~~~
 
 The AvaTax module is integrated into Sales Orders and allows computation of taxes.
 Sales order transactions do not appear in the in the AvaTax interface.
