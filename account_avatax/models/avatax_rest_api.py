@@ -283,6 +283,13 @@ class AvaTaxRESTService:
 
         response = self.client.create_transaction(tax_document)
         result = self.get_result(response, ignore_error=ignore_error)
+        # Enrich Avatax result with Odoo tax computation
+        for line in result.get("lines", []):
+            line["rate"] = (
+                round(sum(x["rate"] for x in line["details"]) * 100, 4)
+                if line.get("tax")
+                else 0.0
+            )
         return result
 
     def call(self, endpoint, company_code, doc_code, model=None, params=None):
