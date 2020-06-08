@@ -132,7 +132,7 @@ class AccountMove(models.Model):
             ignore_error=300 if commit else None,
         )
         # If commiting, and document exists, try unvoiding it
-        # GetTaxError, Expected Saved|Posted
+        # Error number 300 = GetTaxError, Expected Saved|Posted
         if commit and tax_result.get("number") == 300:
             avatax_config.unvoid_transaction(self.name, doc_type)
             avatax_config.commit_transaction(self.name, doc_type)
@@ -147,9 +147,7 @@ class AccountMove(models.Model):
                 # Should we check the rate with the tax amount?
                 # tax_amount = tax_result_line["taxCalculated"]
                 # rate = round(tax_amount / line.price_subtotal * 100, 2)
-                rate = round(
-                    sum(x["rate"] for x in tax_result_line["details"]) * 100, 4
-                )
+                rate = tax_result_line["rate"]
                 tax = Tax.get_avalara_tax(rate, doc_type)
                 if tax and tax not in line.tax_ids:
                     line_taxes = line.tax_ids.filtered(lambda x: not x.is_avatax)
