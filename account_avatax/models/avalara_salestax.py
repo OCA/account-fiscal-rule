@@ -48,11 +48,6 @@ class AvalaraSalestax(models.Model):
         default="https://rest.avatax.com/api/v2",
         help="The url to connect with",
     )
-    date_expiration = fields.Date(
-        "Service Expiration Date",
-        readonly=True,
-        help="The expiration date of the service",
-    )
     request_timeout = fields.Integer(
         "Request Timeout",
         default=300,
@@ -65,33 +60,30 @@ class AvalaraSalestax(models.Model):
         help="The company code as defined in the Admin Console of AvaTax",
     )
     logging = fields.Boolean(
-        "Enable Logging",
+        "Log API Request Details",
         help="Enables detailed AvaTax transaction logging within application",
     )
-    address_validation = fields.Boolean(
+    logging_response = fields.Boolean(
+        "Log API Response Details",
+        help="Enables detailed AvaTax transaction logging within application",
+    )
+    disable_address_validation = fields.Boolean(
         "Disable Address Validation", help="Check to disable address validation"
     )
-    enable_address_validation = fields.Boolean(
-        "Enable Address Validation", help="Check to Enable address validation"
-    )
-    result_in_uppercase = fields.Boolean(
-        "Return validation results in upper case",
-        help="Check is address validation results desired to be in upper case",
-    )
     validation_on_save = fields.Boolean(
-        "Address Validation on save for customer profile",
-        help="Validates the address and automatically saves"
+        "Automatic Address Validation",
+        help="Automatically validates addresses when they are created or modified"
         " when Customer profile is saved.",
     )
     force_address_validation = fields.Boolean(
-        "Force Address Validation",
-        help="Check if address validation should be done before tax calculation",
+        "Require Validated Addresses",
+        help="Only compute taxes if addresses were validated by the Avatax service",
     )
     auto_generate_customer_code = fields.Boolean(
-        "Automatically generate customer code",
+        "Automatically generate missing customer code",
         default=True,
-        help="This will generate customer code for customers in the system"
-        " who do not have codes already created.  "
+        help="This will generate customer code for the customer used in the "
+        "transaction, if it doesn't have one already. "
         "Each code is unique per customer.  "
         "When this is disabled, you will have to manually go to each customer "
         "and manually generate their customer code.  "
@@ -103,9 +95,8 @@ class AvalaraSalestax(models.Model):
         default=True,
     )
     disable_tax_reporting = fields.Boolean(
-        "Disable Avalara Tax Commit",
-        help="Validated Invoices won't be set to Committed status"
-        " on the Avalara service.",
+        "Disable Document Recording/Commiting",
+        help="No transactions will be recorded in the Avatax service.",
     )
     enable_immediate_calculation = fields.Boolean(
         "Immediate AvaTax Calculation",
@@ -133,7 +124,7 @@ class AvalaraSalestax(models.Model):
         "res.company",
         "Company",
         required=True,
-        default=lambda self: self.env["res.company"]._get_main_company(),
+        default=lambda self: self.env.company,
         help="Company which has subscribed to the AvaTax service",
     )
     upc_enable = fields.Boolean(
@@ -141,6 +132,7 @@ class AvalaraSalestax(models.Model):
         help="Allows ean13 to be reported in place of Item Reference"
         " as upc identifier.",
     )
+    # TODO: add option to Display Prices with Tax Included
 
     @api.constrains("service_url", "on_line")
     def _check_tax_by_line(self):
@@ -225,11 +217,11 @@ class AvalaraSalestax(models.Model):
             )
 
         if not ship_from_address:
-            raise UserError(_("There is no company address defined."))
+            raise UserError(_("There is no Company address defined."))
 
         # this condition is required, in case user select force address validation
         # on AvaTax API Configuration
-        if not avatax_config.address_validation:
+        if not avatax_config.disable_address_validation:
             if avatax_config.force_address_validation:
                 if not shipping_address.date_validation:
                     raise UserError(
@@ -253,7 +245,7 @@ class AvalaraSalestax(models.Model):
 
         if commit and avatax_config.disable_tax_reporting:
             _logger.warn(
-                _("Avatax commiting document %s, " "but it tax reporting is disabled."),
+                _("Avatax commiting document %s, but it tax reporting is disabled."),
                 doc_code,
             )
 
@@ -275,7 +267,7 @@ class AvalaraSalestax(models.Model):
             reference_code,
             location_code,
             currency_code,
-            partner.vat_id or None,
+            partner.vat or None,
             is_override,
             ignore_error=ignore_error,
         )
@@ -284,21 +276,29 @@ class AvalaraSalestax(models.Model):
     def commit_transaction(self, doc_code, doc_type):
         self.ensure_one()
         avatax = self.get_avatax_rest_service()
-        result = avatax.call(
-            "commit_transaction", self.company_code, doc_code, {"commit": True}
-        )
+        if not avatax.disable_tax_reporting:
+            result = avatax.call(
+                "commit_transaction", self.company_code, doc_code, {"commit": True}
+            )
         return result
 
     def void_transaction(self, doc_code, doc_type):
         self.ensure_one()
         avatax = self.get_avatax_rest_service()
-        result = avatax.call(
-            "void_transaction", self.company_code, doc_code, {"code": "DocVoided"}
-        )
+        if not avatax.disable_tax_reporting:
+            result = avatax.call(
+                "void_transaction", self.company_code, doc_code, {"code": "DocVoided"}
+            )
         return result
 
     def unvoid_transaction(self, doc_code, doc_type):
         self.ensure_one()
         avatax = self.get_avatax_rest_service()
-        result = avatax.call("unvoid_transaction", self.company_code, doc_code)
+        if not avatax.disable_tax_reporting:
+            result = avatax.call("unvoid_transaction", self.company_code, doc_code)
         return result
+
+    def ping(self):
+        avatax_restpoint = AvaTaxRESTService(config=self)
+        avatax_restpoint.ping()
+        return True

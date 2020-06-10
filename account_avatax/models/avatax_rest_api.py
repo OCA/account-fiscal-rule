@@ -1,6 +1,5 @@
 # Copyright (C) 2020 Open Source Integrators
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-import collections
 import logging
 import pprint
 import socket
@@ -18,13 +17,23 @@ _logger = logging.getLogger(__name__)
 
 
 class AvaTaxRESTService:
-    def __init__(self, username, password, url, timeout=300, enable_log=False):
-        self.timeout = timeout
-        self.is_log_enabled = enable_log
+    def __init__(
+        self,
+        username=None,
+        password=None,
+        url=None,
+        timeout=300,
+        enable_log=False,
+        config=None,
+    ):
+        self.config = config
+        self.timeout = timeout or config.request_timeout
+        self.is_log_enabled = enable_log or config.logging
         # Set elements adapter defaults
         self.appname = "Odoo 13, by Open Source Integrators"
         self.version = "a0o0b0000058pOuAAI"
         self.hostname = socket.gethostname()
+        url = url or config.service_url
         self.environment = (
             "sandbox" if "sandbox" in url or "development" in url else "production"
         )
@@ -40,6 +49,8 @@ class AvaTaxRESTService:
                     "to 'pip3 install Avatax'"
                 )
             )
+        username = username or config.account_number
+        password = password or config.license_key
         if username and password:
             self.client.add_credentials(username, password)
 
@@ -55,7 +66,7 @@ class AvaTaxRESTService:
     def get_result(self, response, ignore_error=None):
         # To call from validate address and from compute tax
         result = response.json()
-        if self.is_log_enabled:
+        if self.config and self.config.logging_response or self.is_log_enabled:
             _logger.info("Response\n" + pprint.pformat(result, indent=1))
         if result.get("messages") or result.get("error"):
             messages = result.get("messages") or result.get("error", {}).get("details")
@@ -63,15 +74,11 @@ class AvaTaxRESTService:
                 return messages[0]
             for w_message in messages:
                 if w_message.get("severity") in ("Error", "Exception"):
-                    if (
-                        w_message.get("refersTo") == "Address"
-                        or w_message.get("refersTo") == "Address.Line0"
-                        or w_message.get("refersTo") == "Address.City"
-                    ):
+                    if w_message.get("refersTo", "").startswith("Address"):
                         raise UserError(
                             _(
-                                "AvaTax: Warning AvaTax could not validate the"
-                                " street address. \n "
+                                "AvaTax: Warning vaTax could not validate the"
+                                " address:\n%s\n\n"
                                 "You can save the address and AvaTax will make an"
                                 " attempt to "
                                 "compute taxes based on the zip code if"
@@ -85,6 +92,7 @@ class AvaTaxRESTService:
                                 "Then go to your company contact info and validate"
                                 " your address in the Avatax Tab"
                             )
+                            % str(", ".join(result.get("address", {}).values()))
                         )
                     elif w_message.get("refersTo") == "Country":
                         raise UserError(
@@ -120,48 +128,61 @@ class AvaTaxRESTService:
     def ping(self):
         response = self.client.ping()
         res = response.json()
-        if self.is_log_enabled:
+        if self.config and self.config.logging or self.is_log_enabled:
             _logger.info(pprint.pformat(res, indent=1))
         if not res.get("authenticated"):
             raise UserError(_("The user or account could not be authenticated"))
         return res
 
-    def validate_rest_address(self, address, state_code, country_code):
+    def validate_rest_address(
+        self, street, street2, city, zip_code, state_code, country_code
+    ):
+        if self.config.disable_address_validation:
+            raise UserError(
+                _(
+                    "The AvaTax Address Validation Service"
+                    " is disabled by the administrator."
+                    " Please make sure it's enabled for the address validation"
+                )
+            )
+        supported_countries = [x.code for x in self.config.country_ids]
+        if not country_code or country_code not in supported_countries:
+            raise UserError(
+                _(
+                    "The AvaTax Address Validation Service does not support"
+                    " this country in the configuration,"
+                    " please continue with your normal process."
+                )
+            )
         partner_data = {
-            "line1": address.get("street") or None,
-            "line2": address.get("street2") or None,
-            "city": address.get("city"),
-            "region": state_code,
-            "country": country_code,
-            "postalCode": address.get("zip"),
+            "line1": street or "",
+            "line2": street2 or "",
+            "city": city or "",
+            "postalCode": zip_code or "",
+            "region": state_code or "",
+            "country": country_code or "",
         }
         response_partner = self.client.resolve_address(partner_data)
         partner_dict = self.get_result(response_partner)
-        addresses_dict = partner_dict.get("validatedAddresses")[0]
-        BaseAddress = collections.namedtuple(
-            "BaseAddress",
-            [
-                "Line1",
-                "Line2",
-                "City",
-                "PostalCode",
-                "Country",
-                "Region",
-                "Latitude",
-                "Longitude",
-            ],
+        valid_address = partner_dict.get("validatedAddresses")[0]
+        Partner = self.config.env["res.partner"]
+        country = Partner.get_country_from_code(valid_address.get("country"))
+        state = Partner.get_state_from_code(
+            valid_address.get("region"), valid_address.get("country"),
         )
-        Address = BaseAddress(
-            Line1=addresses_dict.get("line1"),
-            Line2=addresses_dict.get("line2"),
-            City=addresses_dict.get("city"),
-            PostalCode=addresses_dict.get("postalCode"),
-            Country=addresses_dict.get("country"),
-            Region=addresses_dict.get("region"),
-            Latitude=addresses_dict.get("latitude"),
-            Longitude=addresses_dict.get("longitude"),
-        )
-        return Address
+        address_vals = {
+            "street": valid_address.get("line1", ""),
+            "street2": valid_address.get("line2", ""),
+            "city": valid_address.get("city", ""),
+            "zip": valid_address.get("postalCode", ""),
+            "country_id": country.id,
+            "state_id": state.id,
+            "date_validation": fields.Date.today(),
+            "validation_method": "avatax",
+            "partner_latitude": valid_address.get("latitude"),
+            "partner_longitude": valid_address.get("longitude"),
+        }
+        return address_vals
 
     def get_tax(
         self,
@@ -181,7 +202,7 @@ class AvaTaxRESTService:
         reference_code=None,
         location_code=None,
         currency_code="USD",
-        vat_id=None,  # not used (businessIdentificationNo)
+        vat=None,
         is_override=False,
         ignore_error=None,
     ):
@@ -250,6 +271,7 @@ class AvaTaxRESTService:
             "companyCode": company_code,
             "currencyCode": currency_code,
             "customerCode": partner_code,
+            "businessIdentificationNo": vat,
             "referenceCode": reference_code,
             "salespersonCode": salesman_code,
             "reportingLocationCode": location_code,
@@ -272,7 +294,7 @@ class AvaTaxRESTService:
                     }
                 }
             )
-        if self.is_log_enabled:
+        if self.config and self.config.logging or self.is_log_enabled:
             _logger.info(
                 "Request CreateTransaction %s %s (commit %s)\n%s",
                 doc_type,
@@ -293,7 +315,7 @@ class AvaTaxRESTService:
         return result
 
     def call(self, endpoint, company_code, doc_code, model=None, params=None):
-        if self.is_log_enabled:
+        if self.config and self.config.logging or self.is_log_enabled:
             _logger.info(
                 "Request Call %s(%s, %s, %s, %s)",
                 endpoint,
