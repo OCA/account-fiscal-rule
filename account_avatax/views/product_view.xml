@@ -11,7 +11,6 @@
                 <field name="name" />
                 <field name="description" />
                 <field name="type" />
-                <field name="company_id" groups="base.group_multi_company" />
             </tree>
         </field>
     </record>
@@ -22,7 +21,6 @@
             <form string="Product Tax Code">
                 <group name="taxcode" col="4" colspan="4">
                     <field name="name" />
-                    <field name="company_id" groups="base.group_multi_company" />
                     <field name="description" />
                     <field name="type" />
                 </group>

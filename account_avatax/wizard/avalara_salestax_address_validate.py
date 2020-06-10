@@ -1,7 +1,4 @@
-import time
-
 from odoo import api, fields, models
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
 class AvalaraSalestaxAddressValidate(models.TransientModel):
@@ -24,72 +21,34 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
     country = fields.Char("Country")
     partner_latitude = fields.Float("Latitude")
     partner_longitude = fields.Float("Longitude")
+    date_validation = fields.Date()
+    validation_method = fields.Char()
 
     @api.model
     def default_get(self, fields):
         """  Returns the default values for the fields. """
         res = super(AvalaraSalestaxAddressValidate, self).default_get(fields)
-
-        context = dict(self._context or {})
-        active_id = context.get("active_id")
-
+        active_id = self.env.context.get("active_id")
         if active_id:
-            address_obj = self.env["res.partner"]
-            address_brw = address_obj.browse(active_id)
-            address_brw.write(
+            Partner = self.env["res.partner"]
+            address = Partner.browse(active_id)
+            res.update(
                 {
-                    "partner_latitude": 0,
-                    "partner_longitude": 0,
-                    "date_validation": False,
-                    "validation_method": "",
+                    "original_street": address.street,
+                    "original_street2": address.street2,
+                    "original_city": address.city,
+                    "original_zip": address.zip,
+                    "original_state": address.state_id.code,
+                    "original_country": address.country_id.code,
                 }
             )
-
-            address = address_brw.read(
-                ["street", "street2", "city", "state_id", "zip", "country_id"]
-            )[0]
-            address["state_id"] = address.get("state_id") and address["state_id"][0]
-            address["country_id"] = (
-                address.get("country_id") and address["country_id"][0]
-            )
-            # Get the valid result from the AvaTax Address Validation Service
-            valid_address = address_obj._validate_address(address)
-            if "original_street" in fields:
-                res.update({"original_street": address["street"]})
-            if "original_street2" in fields:
-                res.update({"original_street2": address["street2"]})
-            if "original_city" in fields:
-                res.update({"original_city": address["city"]})
-            if "original_state" in fields:
-                res.update(
-                    {"original_state": address_obj.get_state_code(address["state_id"])}
-                )
-            if "original_zip" in fields:
-                res.update({"original_zip": address["zip"]})
-            if "original_country" in fields:
-                res.update(
-                    {
-                        "original_country": address_obj.get_country_code(
-                            address["country_id"]
-                        )
-                    }
-                )
-            if "street" in fields:
-                res.update({"street": str(valid_address.Line1 or "")})
-            if "street2" in fields:
-                res.update({"street2": str(valid_address.Line2 or "")})
-            if "city" in fields:
-                res.update({"city": str(valid_address.City or "")})
-            if "state" in fields:
-                res.update({"state": str(valid_address.Region or "")})
-            if "zip" in fields:
-                res.update({"zip": str(valid_address.PostalCode or "")})
-            if "country" in fields:
-                res.update({"country": str(valid_address.Country or "")})
-            if "partner_latitude" in fields:
-                res.update({"partner_latitude": valid_address.Latitude or 0})
-            if "partner_longitude" in fields:
-                res.update({"partner_longitude": valid_address.Longitude or 0})
+            valid_address = address.get_valid_address_vals()
+            state_id = valid_address.pop("state_id", 0)
+            state = self.env["res.country.state"].browse(state_id)
+            country_id = valid_address.pop("country_id", 0)
+            country = self.env["res.country"].browse(country_id)
+            res.update(valid_address)
+            res.update({"state": state.code, "country": country.code})
         return res
 
     def accept_valid_address(self):
@@ -97,25 +56,21 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
         Updates the existing address with the valid address
         returned by the service.
         """
-        valid_address = self.read()[0]
-        context = dict(self._context or {})
-        active_id = context.get("active_id")
+        active_id = self.env.context.get("active_id")
         if active_id:
-            address_obj = self.env["res.partner"]
-            address_brw = address_obj.browse(active_id)
-            address_result = {
-                "street": valid_address["street"],
-                "street2": valid_address["street2"],
-                "city": valid_address["city"],
-                "state_id": address_obj.get_state_id(
-                    valid_address["state"], valid_address["country"]
-                ),
-                "zip": valid_address["zip"],
-                "country_id": address_obj.get_country_id(valid_address["country"]),
-                "partner_latitude": valid_address["partner_latitude"] or 0,
-                "partner_longitude": valid_address["partner_longitude"] or 0,
-                "date_validation": time.strftime(DEFAULT_SERVER_DATE_FORMAT),
+            Partner = self.env["res.partner"].with_context(avatax_writing=True)
+            address = Partner.browse(active_id)
+            vals = {
+                "street": self.street,
+                "street2": self.street2,
+                "city": self.city,
+                "zip": self.zip,
+                "state_id": Partner.get_state_from_code(self.state, self.country),
+                "country_id": Partner.get_country_from_code(self.country),
+                "partner_latitude": self.partner_latitude or 0,
+                "partner_longitude": self.partner_longitude or 0,
+                "date_validation": fields.Date.today(),
                 "validation_method": "avatax",
             }
-            address_brw.write(address_result)
+            address.write(vals)
         return {"type": "ir.actions.act_window_close"}
