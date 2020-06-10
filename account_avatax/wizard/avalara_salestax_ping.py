@@ -1,7 +1,5 @@
 from odoo import api, fields, models
 
-from odoo.addons.account_avatax.models.avatax_rest_api import AvaTaxRESTService
-
 
 class AvalaraSalestaxPing(models.TransientModel):
     _name = "avalara.salestax.ping"
@@ -20,14 +18,6 @@ class AvalaraSalestaxPing(models.TransientModel):
         """ Call the AvaTax's Ping Service to test the connection. """
         active_id = self.env.context.get("active_id")
         if active_id:
-            avatax_config = self.env["avalara.salestax"].browse(active_id)
-            avatax_restpoint = AvaTaxRESTService(
-                avatax_config.account_number,
-                avatax_config.license_key,
-                avatax_config.service_url,
-                avatax_config.request_timeout,
-                avatax_config.logging,
-            )
-            avatax_restpoint.ping()
-            avatax_config.write({"date_expiration": "9998-12-31"})
+            avatax = self.env["avalara.salestax"].browse(active_id)
+            avatax.ping()
         return True
