@@ -142,14 +142,12 @@ class SaleOrderLine(models.Model):
         res = {}
         # Add UPC to product item code
         avatax_config = line.company_id.get_avatax_config_company()
-        if line.product_id.barcode and avatax_config.upc_enable:
-            item_code = "upc:" + line.product_id.barcode
+        product = line.product_id
+        if product.barcode and avatax_config.upc_enable:
+            item_code = "UPC:%d" % product.barcode
         else:
-            item_code = line.product_id.default_code
-        tax_code = (
-            line.product_id.tax_code_id.name
-            or line.product_id.categ_id.tax_code_id.name
-        )
+            item_code = product.default_code or ("ID:%d" % product.id)
+        tax_code = line.product_id.applicable_tax_code_id.name
         amount = (
             sign * line.price_unit * line.product_uom_qty * (1 - line.discount / 100.0)
         )
@@ -163,7 +161,7 @@ class SaleOrderLine(models.Model):
             is_discounted = True
         res = {
             "qty": line.product_uom_qty,
-            "itemcode": line.product_id and item_code or None,
+            "itemcode": item_code,
             "description": line.name,
             "discounted": is_discounted,
             "discount": discount_amount,
