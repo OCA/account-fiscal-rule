@@ -54,9 +54,9 @@ class ProductCategory(models.Model):
 
     def _compute_applicable_tax_code(self):
         for categ in self:
-            categ.applicable_tax_code_id = categ.tax_code_id or (
-                categ.parent_id and categ.applicable_tax_code_id
-            )
+            categ.applicable_tax_code_id = categ.tax_code_id
+            if not categ.applicable_tax_code_id and categ.parent_id:
+                categ.applicable_tax_code_id = categ.parent_id.applicable_tax_code_id
 
     applicable_tax_code_id = fields.Many2one(
         "product.tax.code",
