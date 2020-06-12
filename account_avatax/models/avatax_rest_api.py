@@ -146,7 +146,7 @@ class AvaTaxRESTService:
                 )
             )
         supported_countries = [x.code for x in self.config.country_ids]
-        if not country_code or country_code not in supported_countries:
+        if country_code and country_code not in supported_countries:
             raise UserError(
                 _(
                     "The AvaTax Address Validation Service does not support"
