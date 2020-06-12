@@ -39,7 +39,7 @@ class AccountTax(models.Model):
                 tax_template = self.search(
                     self._get_avalara_tax_domain(0, doc_type), limit=1
                 )
-                tax = tax_template.copy(default={"amount": tax_rate})
+                tax = tax_template.sudo().copy(default={"amount": tax_rate})
                 tax.name = self._get_avalara_tax_name(tax_rate, doc_type)
             return tax
         else:
