@@ -212,17 +212,24 @@ class AvalaraSalestax(models.Model):
         if not ship_from_address:
             raise UserError(_("There is no Company address defined."))
 
+        if avatax_config.validation_on_save:
+            for address in [partner, shipping_address, ship_from_address]:
+                if not address.date_validation:
+                    address.multi_address_validation()
+
         # this condition is required, in case user select force address validation
         # on AvaTax API Configuration
-        if not avatax_config.disable_address_validation:
-            if avatax_config.force_address_validation:
-                if not shipping_address.date_validation:
-                    raise UserError(
-                        _(
-                            "Please validate the shipping address for the partner %s."
-                            % (partner.name)
-                        )
+        if (
+            avatax_config.force_address_validation
+            and not avatax_config.disable_address_validation
+        ):
+            if not shipping_address.date_validation:
+                raise UserError(
+                    _(
+                        "Please validate the shipping address for the partner %s."
+                        % (partner.name)
                     )
+                )
 
             # if not avatax_config.address_validation:
             if not ship_from_address.date_validation:

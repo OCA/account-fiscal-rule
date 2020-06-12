@@ -70,7 +70,7 @@ class ResPartner(models.Model):
 
     def _get_avatax_customer_code(self):
         self.ensure_one()
-        return "%d-%d-%Cust-%d" % (int(time.time()), int(random() * 10), self.id,)
+        return "%d-%d-Cust-%d" % (int(time.time()), int(random() * 10), self.id,)
 
     def generate_cust_code(self):
         "Auto populate customer code"
@@ -96,9 +96,20 @@ class ResPartner(models.Model):
         country = self.env["res.country"].search([("code", "=", code)])
         return country
 
-    def get_valid_address_vals(self):
+    def get_valid_address_vals(self, validation_on_save=False):
         self.ensure_one()
         partner = self
+        # For automatic validation on save, skip
+        # if no relevant address details are given
+        if validation_on_save and not (
+            partner.city or partner.zip or partner.country_id
+        ):
+            _LOGGER.info(
+                "Skipping address validation for %d %s, not enough details.",
+                partner.id,
+                partner.name,
+            )
+            return False
         company = partner.company_id or self.env.user.company_id
         avatax_config = company.get_avatax_config_company()
         avatax_restpoint = AvaTaxRESTService(config=avatax_config)
@@ -112,11 +123,14 @@ class ResPartner(models.Model):
         )
         return valid_address
 
-    def multi_address_validation(self):
+    def multi_address_validation(self, validation_on_save=False):
         for partner in self:
             if not (partner.parent_id and partner.type == "contact"):
-                valid_address = self.get_valid_address_vals()
-                partner.write(valid_address)
+                valid_address = self.get_valid_address_vals(
+                    validation_on_save=validation_on_save
+                )
+                if valid_address:
+                    partner.write(valid_address)
         return True
 
     def button_avatax_validate_address(self):
@@ -146,7 +160,7 @@ class ResPartner(models.Model):
         company = partner.company_id or self.env.user.company_id
         avatax_config = company.get_avatax_config_company()
         if avatax_config.validation_on_save:
-            partner.multi_address_validation()
+            partner.multi_address_validation(validation_on_save=True)
             partner.validated_on_save = True
         return partner
 
@@ -160,6 +174,6 @@ class ResPartner(models.Model):
             company = partner.company_id or self.env.user.company_id
             avatax_config = company.get_avatax_config_company()
             if avatax_config.validation_on_save:
-                partner.multi_address_validation()
+                partner.multi_address_validation(validation_on_save=True)
                 partner.validated_on_save = True
         return res
