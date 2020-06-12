@@ -54,7 +54,6 @@ class SaleOrder(models.Model):
         states={"draft": [("readonly", False)]},
         compute="_compute_tax_address_id",
         store=True,
-        oldname="tax_add_id",
     )
     location_code = fields.Char("Location Code", help="Origin address location code")
 
