@@ -1,7 +1,7 @@
 import logging
 
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import UserError
 
 from .avatax_rest_api import AvaTaxRESTService
 
@@ -133,13 +133,6 @@ class AvalaraSalestax(models.Model):
         " as upc identifier.",
     )
     # TODO: add option to Display Prices with Tax Included
-
-    @api.constrains("service_url", "on_line")
-    def _check_tax_by_line(self):
-        if "rest" in self.service_url and self.on_line:
-            raise ValidationError(
-                _("Calculate tax by line is not supported in Rest API.")
-            )
 
     # constraints on uniq records creation with account_number and company_id
     _sql_constraints = [
