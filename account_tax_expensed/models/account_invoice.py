@@ -1,9 +1,6 @@
 # Copyright 2020 Open Source Integrators
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-# We need to use @api.one to extend base methods using it
-# pylint: disable=W8104
-
 from odoo import api, fields, models
 
 
@@ -11,17 +8,20 @@ class AccountInvoice(models.Model):
 
     _inherit = "account.invoice"
 
-    amount_tax_expense = fields.Monetary(
-        string="Tax Expense", store=True, readonly=True, compute="_compute_amount",
+    amount_tax_expense = fields.Float(
+        string="Tax Expense", store=True, compute="_compute_amount_tax_expense",
     )
 
-    @api.one
-    def _compute_amount(self):
-        super()._compute_amount()
-        round_curr = self.currency_id.round
-        self.amount_tax_expense = sum(
-            round_curr(line.tax_expense) for line in self.invoice_line_ids
-        )
+    @api.depends("invoice_line_ids.tax_expense")
+    def _compute_amount_tax_expense(self):
+        """
+        Compute the Tax Expense amount
+        """
+        for inv in self:
+            round_curr = inv.currency_id.round
+            inv.amount_tax_expense = round_curr(
+                sum(line.tax_expense for line in inv.invoice_line_ids)
+            )
 
     def _prepare_tax_line_vals(self, line, tax):
         """ Prepare values to create an account.invoice.tax line
@@ -39,9 +39,9 @@ class AccountInvoice(models.Model):
         for tax_line in sorted(self.tax_line_ids, key=lambda x: -x.sequence):
             if tax_line.amount_tax_expense:
                 # Tax Payable move
-                res.append(tax_line._prepare_tax_line_move_vals(sign=+1))
+                res.append(tax_line._prepare_tax_expense_move_vals(sign=+1))
                 # Tax Expense move
-                res.append(tax_line._prepare_tax_line_move_vals(sign=-1))
+                res.append(tax_line._prepare_tax_expense_move_vals(sign=-1))
         return res
 
 
@@ -51,7 +51,7 @@ class AccountInvoiceTax(models.Model):
 
     amount_tax_expense = fields.Monetary(string="Tax Expense")
 
-    def _prepare_tax_line_move_vals(self, sign=1):
+    def _prepare_tax_expense_move_vals(self, sign=1):
         self.ensure_one()
         tax_line = self
         account = (

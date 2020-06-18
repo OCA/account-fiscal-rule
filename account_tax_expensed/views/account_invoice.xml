@@ -8,12 +8,14 @@
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
 
+            <!-- Invoice Line -->
             <field name="price_subtotal" position="before">
                 <field name="tax_expense" invisible="True"/>
                 <field name="tax_total" />
            </field>
 
-            <field name="payments_widget" position="before">
+            <!-- Invoice Totals -->
+            <field name="amount_total" position="after">
                 <field name="amount_tax_expense" />
            </field>
 
