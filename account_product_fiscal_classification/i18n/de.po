@@ -154,6 +154,13 @@ msgid "Demo Global Fiscal Classification 2"
 msgstr "Beispiel für globale Steuerklassifizierung 1"
 
 #. module: account_product_fiscal_classification
+#: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_3
+#, fuzzy
+#| msgid "Demo Global Fiscal Classification 1"
+msgid "Demo Global Fiscal Classification 3"
+msgstr "Beispiel für globale Steuerklassifizierung 1"
+
+#. module: account_product_fiscal_classification
 #: model:product.template,name:account_product_fiscal_classification.product_template_all_cpnies
 #, fuzzy
 #| msgid "Demo Product With Fiscal Classification"
