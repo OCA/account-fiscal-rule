@@ -137,6 +137,11 @@ msgid "Demo Global Fiscal Classification 2"
 msgstr ""
 
 #. module: account_product_fiscal_classification
+#: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_3
+msgid "Demo Global Fiscal Classification 3"
+msgstr ""
+
+#. module: account_product_fiscal_classification
 #: model:product.template,name:account_product_fiscal_classification.product_template_all_cpnies
 msgid "Demo Product Fiscal Classif all companies"
 msgstr ""
