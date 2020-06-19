@@ -48,7 +48,9 @@ class SaleOrderLine(models.Model):
                     product=line.product_id,
                     partner=line.order_id.partner_shipping_id,
                 )
-                line.tax_expense = taxes.get["total_expense"]
+                line.tax_expense = taxes["total_expense"]
+                line.price_tax = 0
+                line.price_total = line.price_subtotal
 
     @api.depends("price_tax", "tax_expense")
     def _compute_tax_total(self):

@@ -8,15 +8,17 @@ class SaleOrder(models.Model):
 
     _inherit = "sale.order"
 
-    amount_tax_expense = fields.Monetary(
-        string="Tax Expense", compute="_compute_amount_tax_expense",
-    )
+    amount_tax_expense = fields.Monetary(string="Tax Expense", compute="_amount_all")
 
-    @api.depends("order_line.tax_expense")
-    def _compute_amount_tax_expense(self):
-        """ Compute Expensed Tax """
+    def _amount_all(self):
+        """
+        Compute Expensed Tax
+        Correct the previously computed tax, deducting the expensed tax
+        """
+        super()._amount_all()
         for order in self:
-            round_curr = order.currency_id.round
-            order.amount_tax_expense = round_curr(
-                sum([line.tax_expense for line in order.order_line])
+            order.amount_tax_expense = sum(
+                line.tax_expense for line in order.order_line
             )
+            order.amount_tax -= order.amount_tax_expense
+            order.amount_total -= order.amount_tax_expense
