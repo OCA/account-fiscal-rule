@@ -9,7 +9,8 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     amount_tax_expense = fields.Float(
-        string="Tax Expense", store=True, compute="_compute_amount_tax_expense",
+        string="Tax Expense",
+        compute="_compute_amount_tax_expense",
     )
 
     @api.depends("invoice_line_ids.tax_expense")
