@@ -37,7 +37,7 @@ class AccountInvoice(models.Model):
     def tax_line_move_line_get(self):
         res = super().tax_line_move_line_get() or []
         for tax_line in sorted(self.tax_line_ids, key=lambda x: -x.sequence):
-            if tax_line.amount_tax_expense:
+            if tax_line.amount_tax_expense and tax_line.tax_id.expense_account_id:
                 # Tax Payable move
                 res.append(tax_line._prepare_tax_expense_move_vals(sign=+1))
                 # Tax Expense move
@@ -71,6 +71,6 @@ class AccountInvoiceTax(models.Model):
             "account_id": account.id,
             "account_analytic_id": tax_line.account_analytic_id.id,
             "analytic_tag_ids": analytic_tag_ids,
-            "invoice_id": self.id,
+            "invoice_id": tax_line.invoice_id.id,
         }
         return value
