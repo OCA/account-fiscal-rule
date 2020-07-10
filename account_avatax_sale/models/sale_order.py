@@ -4,6 +4,8 @@ from odoo import api, fields, models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    tax_amount = fields.Monetary(string="AvaTax")
+
     @api.onchange("partner_id")
     def onchange_partner_id(self):
         """Override method to add new fields values.
@@ -28,6 +30,34 @@ class SaleOrder(models.Model):
             }
         )
         return invoice_vals
+
+    @api.onchange("order_line.price_total", "fiscal_position_id")
+    def onchange_reset_avatax_amount(self):
+        """
+        When changing quantities or prices, reset the Avatax computed amount.
+        The Odoo computed tax amount will then be shown, as a reference.
+        The Avatax amount will be recomputed upon document validation.
+        """
+        for order in self:
+            order.tax_amount = 0
+            order.order_line.write({"tax_amt": 0})
+
+    @api.depends("order_line.price_total", "order_line.product_uom_qty", "tax_amount")
+    def _amount_all(self):
+        """
+        Compute fields amount_untaxed, amount_tax, amount_total
+        Their computation needs to be overriden,
+        to use the amounts returned by Avatax service, stored in specific fields.
+        """
+        super()._amount_all()
+        for order in self:
+            if order.tax_amount:
+                order.update(
+                    {
+                        "amount_tax": order.tax_amount,
+                        "amount_total": order.amount_untaxed + order.tax_amount,
+                    }
+                )
 
     @api.depends("tax_on_shipping_address", "partner_id", "partner_shipping_id")
     def _compute_tax_address_id(self):
@@ -103,6 +133,8 @@ class SaleOrder(models.Model):
                 if tax not in line.tax_id:
                     line_taxes = line.tax_id.filtered(lambda x: not x.is_avatax)
                     line.tax_id = line_taxes | tax
+                line.tax_amt = tax_result_line["tax"]
+        self.tax_amount = tax_result.get("totalTax")
         return True
 
     def avalara_compute_taxes(self):
@@ -131,6 +163,8 @@ class SaleOrder(models.Model):
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
+
+    tax_amt = fields.Monetary(string="AvaTax")
 
     def _avatax_prepare_line(self, sign=1, doc_type=None):
         """
@@ -170,3 +204,28 @@ class SaleOrderLine(models.Model):
             "tax_id": line.tax_id,
         }
         return res
+
+    @api.onchange("product_uom_qty", "discount", "price_unit", "tax_id")
+    def onchange_reset_avatax_amount(self):
+        """
+        When changing quantities or prices, reset the Avatax computed amount.
+        The Odoo computed tax amount will then be shown, as a reference.
+        The Avatax amount will be recomputed upon document validation.
+        """
+        for line in self:
+            line.tax_amt = 0
+            line.order_id.tax_amount = 0
+
+    @api.depends("product_uom_qty", "discount", "price_unit", "tax_id", "tax_amt")
+    def _compute_amount(self):
+        """
+        If we have a Avatax computed amount, use it instead of the Odoo computed one
+        """
+        super()._compute_amount()
+        for line in self:
+            if line.tax_amt:  # Has Avatax computed amount
+                vals = {
+                    "price_tax": line.tax_amt,
+                    "price_total": line.price_subtotal + line.tax_amt,
+                }
+                line.update(vals)
