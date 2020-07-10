@@ -1,5 +1,9 @@
+import logging
+
 from odoo import api, fields, models
 from odoo.tests.common import Form
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountMove(models.Model):
@@ -50,9 +54,26 @@ class AccountMove(models.Model):
         "Location Code", readonly=True, states={"draft": [("readonly", False)]}
     )
     warehouse_id = fields.Many2one("stock.warehouse", "Warehouse")
-    tax_amount = fields.Monetary(
-        string="AvaTax", store=True, readonly=True, currency_field="company_currency_id"
+    avatax_amount = fields.Float(string="AvaTax")
+
+    @api.depends(
+        "line_ids.debit",
+        "line_ids.credit",
+        "line_ids.currency_id",
+        "line_ids.amount_currency",
+        "line_ids.amount_residual",
+        "line_ids.amount_residual_currency",
+        "line_ids.payment_id.state",
+        "avatax_amount",
     )
+    def _compute_amount(self):
+        super()._compute_amount()
+        for inv in self:
+            if inv.avatax_amount:
+                inv.amount_tax = inv.avatax_amount
+                inv.amount_total = inv.amount_untaxed + inv.amount_tax
+                sign = self.type in ["in_refund", "out_refund"] and -1 or 1
+                inv.amount_total_signed = inv.amount_total * sign
 
     @api.depends("tax_on_shipping_address", "partner_id", "partner_shipping_id")
     def _compute_shipping_add_id(self):
@@ -62,6 +83,17 @@ class AccountMove(models.Model):
                 if invoice.tax_on_shipping_address
                 else invoice.partner_id
             )
+
+    @api.onchange("invoice_line_ids")
+    def onchange_reset_avatax_amount(self):
+        """
+        When changing quantities or prices, reset the Avatax computed amount.
+        The Odoo computed tax amount will then be shown, as a reference.
+        The Avatax amount will be recomputed upon document validation.
+        """
+        for inv in self:
+            inv.avatax_amount = 0
+            inv.invoice_line_ids.write({"tax_amt": 0})
 
     # Same as v12
     def get_origin_tax_date(self):
@@ -134,6 +166,13 @@ class AccountMove(models.Model):
         # If commiting, and document exists, try unvoiding it
         # Error number 300 = GetTaxError, Expected Saved|Posted
         if commit and tax_result.get("number") == 300:
+            _logger.info(
+                "Document %s (%s) already exists in Avatax. "
+                "Should be a voided transaction. "
+                "Unvoiding and re-commiting.",
+                self.number,
+                doc_type,
+            )
             avatax_config.unvoid_transaction(self.name, doc_type)
             avatax_config.commit_transaction(self.name, doc_type)
             return True
@@ -144,14 +183,13 @@ class AccountMove(models.Model):
         for index, line in enumerate(lines):
             tax_result_line = tax_result_lines.get(line.id)
             if tax_result_line:
-                # Should we check the rate with the tax amount?
-                # tax_amount = tax_result_line["taxCalculated"]
-                # rate = round(tax_amount / line.price_subtotal * 100, 2)
                 rate = tax_result_line["rate"]
                 tax = Tax.get_avalara_tax(rate, doc_type)
                 if tax and tax not in line.tax_ids:
                     line_taxes = line.tax_ids.filtered(lambda x: not x.is_avatax)
                     taxes_to_set.append((index, line_taxes | tax))
+                line.tax_amt = tax_result_line["tax"]
+        self.avatax_amount = tax_result["totalTax"]
 
         with Form(self) as move_form:
             for index, taxes in taxes_to_set:
@@ -242,6 +280,9 @@ class AccountMove(models.Model):
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
+    tax_amt = fields.Float(string="AvaTax")
+    avatax_amt = fields.Float(string="AvaTax")
+
     # Same in v12
     def _avatax_prepare_line(self, sign=1, doc_type=None):
         """
@@ -279,4 +320,34 @@ class AccountMoveLine(models.Model):
             "account_id": line.account_id.id,
             "tax_id": line.tax_ids,
         }
+        return res
+
+    @api.onchange("price_unit", "discount", "quantity")
+    def onchange_reset_tax_amt(self):
+        """
+        When changing quantities or prices, reset the Avatax computed amount.
+        The Odoo computed tax amount will then be shown, as a reference.
+        The Avatax amount will be recomputed upon document validation.
+        """
+        for line in self:
+            line.tax_amt = 0.0
+
+    def _get_price_total_and_subtotal(
+        self,
+        price_unit=None,
+        quantity=None,
+        discount=None,
+        currency=None,
+        product=None,
+        partner=None,
+        taxes=None,
+        move_type=None,
+    ):
+        """ Override tax amount, if we have an Avatax calculated amount """
+        self.ensure_one()
+        res = super()._get_price_total_and_subtotal(
+            price_unit, quantity, discount, currency, product, partner, taxes, move_type
+        )
+        if self.tax_amt:
+            res["price_total"] = res["price_total"] + self.tax_amt
         return res
