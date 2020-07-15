@@ -31,7 +31,7 @@ class SaleOrder(models.Model):
         )
         return invoice_vals
 
-    @api.onchange("order_line.price_total", "fiscal_position_id")
+    @api.onchange("order_line", "fiscal_position_id")
     def onchange_reset_avatax_amount(self):
         """
         When changing quantities or prices, reset the Avatax computed amount.
