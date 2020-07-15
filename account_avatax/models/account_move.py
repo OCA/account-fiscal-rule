@@ -27,7 +27,7 @@ class AccountMove(models.Model):
             if self.warehouse_id.code:
                 self.location_code = self.warehouse_id.code
 
-    # TODo: replace with "ref" ?
+    # TODO: replace with "ref" ?
     invoice_doc_no = fields.Char(
         "Source/Ref Invoice No",
         readonly=True,
@@ -54,7 +54,7 @@ class AccountMove(models.Model):
         "Location Code", readonly=True, states={"draft": [("readonly", False)]}
     )
     warehouse_id = fields.Many2one("stock.warehouse", "Warehouse")
-    avatax_amount = fields.Float(string="AvaTax")
+    avatax_amount = fields.Float(string="AvaTax", copy=False)
 
     @api.depends(
         "line_ids.debit",
@@ -70,9 +70,9 @@ class AccountMove(models.Model):
         super()._compute_amount()
         for inv in self:
             if inv.avatax_amount:
-                inv.amount_tax = inv.avatax_amount
+                inv.amount_tax = abs(inv.avatax_amount)
                 inv.amount_total = inv.amount_untaxed + inv.amount_tax
-                sign = self.type in ["in_refund", "out_refund"] and -1 or 1
+                sign = inv.type in ["in_refund", "out_refund"] and -1 or 1
                 inv.amount_total_signed = inv.amount_total * sign
 
     @api.depends("tax_on_shipping_address", "partner_id", "partner_shipping_id")
@@ -84,7 +84,7 @@ class AccountMove(models.Model):
                 else invoice.partner_id
             )
 
-    @api.onchange("invoice_line_ids")
+    @api.onchange("shipping_add_id", "fiscal_position_id")
     def onchange_reset_avatax_amount(self):
         """
         When changing quantities or prices, reset the Avatax computed amount.
@@ -93,7 +93,8 @@ class AccountMove(models.Model):
         """
         for inv in self:
             inv.avatax_amount = 0
-            inv.invoice_line_ids.write({"tax_amt": 0})
+            for line in inv.invoice_line_ids:
+                line.avatax_amt_line = 0
 
     # Same as v12
     def get_origin_tax_date(self):
@@ -115,12 +116,10 @@ class AccountMove(models.Model):
     # Same as v12
     def _get_avatax_doc_type(self, commit=True):
         self.ensure_one()
-        if not commit:
-            doc_type = "SalesOrder"
-        elif self.type == "out_refund":
-            doc_type = "ReturnInvoice"
+        if "refund" in self.type:
+            doc_type = "ReturnInvoice" if commit else "ReturnOrder"
         else:
-            doc_type = "SalesInvoice"
+            doc_type = "SalesInvoice" if commit else "SalesOrder"
         return doc_type
 
     # Same as v12
@@ -131,7 +130,9 @@ class AccountMove(models.Model):
         """
         sign = self.type == "out_invoice" and 1 or -1
         lines = [
-            line._avatax_prepare_line(sign, doc_type) for line in self.invoice_line_ids
+            line._avatax_prepare_line(sign, doc_type)
+            for line in self.invoice_line_ids
+            if line.price_subtotal or line.quantity
         ]
         return lines
 
@@ -157,7 +158,8 @@ class AccountMove(models.Model):
             self.exemption_code_id.code or None,
             commit,
             tax_date,
-            self.invoice_doc_no,
+            # TODO: can we report self.invoice_doc_no?
+            self.name if self.type == "out_refund" else "",
             self.location_code or "",
             is_override=self.type == "out_refund",
             currency_id=self.currency_id,
@@ -170,12 +172,12 @@ class AccountMove(models.Model):
                 "Document %s (%s) already exists in Avatax. "
                 "Should be a voided transaction. "
                 "Unvoiding and re-commiting.",
-                self.number,
+                self.name,
                 doc_type,
             )
             avatax_config.unvoid_transaction(self.name, doc_type)
             avatax_config.commit_transaction(self.name, doc_type)
-            return True
+            return tax_result
 
         tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
         taxes_to_set = []
@@ -183,14 +185,19 @@ class AccountMove(models.Model):
         for index, line in enumerate(lines):
             tax_result_line = tax_result_lines.get(line.id)
             if tax_result_line:
-                rate = tax_result_line["rate"]
+                rate = tax_result_line.get("rate", 0.0)
                 tax = Tax.get_avalara_tax(rate, doc_type)
                 if tax and tax not in line.tax_ids:
                     line_taxes = line.tax_ids.filtered(lambda x: not x.is_avatax)
                     taxes_to_set.append((index, line_taxes | tax))
-                line.tax_amt = tax_result_line["tax"]
+                line.avatax_amt_line = tax_result_line["tax"]
         self.avatax_amount = tax_result["totalTax"]
-
+        self.with_context(
+            avatax_invoice=self, check_move_validity=False
+        )._recompute_dynamic_lines(True, False)
+        self.line_ids.mapped("move_id")._check_balanced()
+        # Set Taxes on lines in a way that properly triggers onchanges
+        # This same approach is also used by the official account_taxcloud connector
         with Form(self) as move_form:
             for index, taxes in taxes_to_set:
                 with move_form.invoice_line_ids.edit(index) as line_form:
@@ -198,7 +205,7 @@ class AccountMove(models.Model):
                     for tax in taxes:
                         line_form.tax_ids.add(tax)
 
-        return True
+        return tax_result
 
     # Same as v12
     def avatax_compute_taxes(self, commit=False):
@@ -280,8 +287,7 @@ class AccountMove(models.Model):
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    tax_amt = fields.Float(string="AvaTax")
-    avatax_amt = fields.Float(string="AvaTax")
+    avatax_amt_line = fields.Float(string="AvaTax Line", copy=False)
 
     # Same in v12
     def _avatax_prepare_line(self, sign=1, doc_type=None):
@@ -330,7 +336,8 @@ class AccountMoveLine(models.Model):
         The Avatax amount will be recomputed upon document validation.
         """
         for line in self:
-            line.tax_amt = 0.0
+            line.avatax_amt_line = 0.0
+            line.move_id.avatax_amount = 0.0
 
     def _get_price_total_and_subtotal(
         self,
@@ -348,6 +355,6 @@ class AccountMoveLine(models.Model):
         res = super()._get_price_total_and_subtotal(
             price_unit, quantity, discount, currency, product, partner, taxes, move_type
         )
-        if self.tax_amt:
-            res["price_total"] = res["price_total"] + self.tax_amt
+        if self.avatax_amt_line:
+            res["price_total"] = res["price_total"] + self.avatax_amt_line
         return res
