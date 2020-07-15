@@ -233,7 +233,7 @@ class AvalaraSalestax(models.Model):
 
             # if not avatax_config.address_validation:
             if not ship_from_address.date_validation:
-                raise UserError(_("Please validate the company address."))
+                raise UserError(_("Please validate the origin warehouse address."))
 
         if avatax_config.disable_tax_calculation:
             _logger.info(
@@ -275,8 +275,8 @@ class AvalaraSalestax(models.Model):
 
     def commit_transaction(self, doc_code, doc_type):
         self.ensure_one()
-        avatax = self.get_avatax_rest_service()
-        if not avatax.disable_tax_reporting:
+        if not self.disable_tax_reporting:
+            avatax = self.get_avatax_rest_service()
             result = avatax.call(
                 "commit_transaction", self.company_code, doc_code, {"commit": True}
             )
@@ -284,8 +284,8 @@ class AvalaraSalestax(models.Model):
 
     def void_transaction(self, doc_code, doc_type):
         self.ensure_one()
-        avatax = self.get_avatax_rest_service()
-        if not avatax.disable_tax_reporting:
+        if not self.disable_tax_reporting:
+            avatax = self.get_avatax_rest_service()
             result = avatax.call(
                 "void_transaction", self.company_code, doc_code, {"code": "DocVoided"}
             )
@@ -293,8 +293,8 @@ class AvalaraSalestax(models.Model):
 
     def unvoid_transaction(self, doc_code, doc_type):
         self.ensure_one()
-        avatax = self.get_avatax_rest_service()
-        if not avatax.disable_tax_reporting:
+        if not self.disable_tax_reporting:
+            avatax = self.get_avatax_rest_service()
             result = avatax.call("unvoid_transaction", self.company_code, doc_code)
         return result
 
