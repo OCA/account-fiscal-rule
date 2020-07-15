@@ -25,4 +25,5 @@
     "installable": True,
     "application": True,
     "external_dependencies": {"python": ["Avalara"]},
+    "development_status": "Beta",
 }
