@@ -1,4 +1,5 @@
 import logging
+from math import copysign
 
 from odoo import _, api, fields, models
 from odoo.tools.float_utils import float_compare
@@ -71,15 +72,35 @@ class AccountTax(models.Model):
         )
         avatax_invoice = self.env.context.get("avatax_invoice")
         if avatax_invoice:
+            # Find the Avatax amount in the invoice Lines
+            # Looks up the line for the current product, price_unit, and quantity
+            # Note that the price_unit used must consider discount
+            base = res["total_excluded"]
             digits = 6
-            invoice_line = avatax_invoice.invoice_line_ids.filtered(
-                lambda x: float_compare(x.price_unit, -price_unit, digits)
-                and float_compare(x.quantity, quantity, digits)
-                and x.product_id == product
-            )[:1]
-            avatax_amount = -invoice_line.avatax_amt_line
+            avatax_amount = None
+            for line in avatax_invoice.invoice_line_ids:
+                if (
+                    line.product_id == product
+                    and float_compare(line.quantity, quantity, digits) == 0
+                ):
+                    line_price = line._get_avatax_price_unit()
+                    if float_compare(line_price, -price_unit, digits) == 0:
+                        avatax_amount = copysign(line.avatax_amt_line, base)
+                        break
+            if avatax_amount is None:
+                _logger.error(
+                    _(
+                        "Incorrect retrieval of Avatax amount for Invoice %s:"
+                        " product %s, price_unit %f, quantity %f"
+                    ),
+                    avatax_invoice,
+                    product.display_name,
+                    -price_unit,
+                    quantity,
+                )
+                avatax_amount = 0.0
             for tax_item in res["taxes"]:
                 if tax_item["amount"] != 0:
                     tax_item["amount"] = avatax_amount
-            res["total_included"] = res["total_excluded"] + avatax_amount
+            res["total_included"] = base + avatax_amount
         return res
