@@ -1,0 +1,75 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_avatax_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_avatax_sale
+#: model:ir.model.fields,field_description:account_avatax_sale.field_sale_order__tax_amount
+#: model:ir.model.fields,field_description:account_avatax_sale.field_sale_order_line__tax_amt
+msgid "AvaTax"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.model.fields,field_description:account_avatax_sale.field_sale_order__exemption_code_id
+msgid "Exemption Code"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.model.fields,field_description:account_avatax_sale.field_sale_order__exemption_code
+msgid "Exemption Number"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.model.fields,help:account_avatax_sale.field_sale_order__exemption_code_id
+msgid "It show the customer exemption code"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.model.fields,help:account_avatax_sale.field_sale_order__exemption_code
+msgid "It show the customer exemption number"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.model.fields,field_description:account_avatax_sale.field_sale_order__location_code
+msgid "Location Code"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.model.fields,help:account_avatax_sale.field_sale_order__location_code
+msgid "Origin address location code"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.model,name:account_avatax_sale.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.model,name:account_avatax_sale.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.model.fields,field_description:account_avatax_sale.field_sale_order__tax_address_id
+msgid "Tax Address"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.model.fields,field_description:account_avatax_sale.field_sale_order__tax_on_shipping_address
+msgid "Tax based on shipping address"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.actions.server,name:account_avatax_sale.action_sale_order_compute_taxes
+msgid "Update taxes with AvaTax"
+msgstr ""
