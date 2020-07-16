@@ -289,6 +289,34 @@ class AccountMoveLine(models.Model):
 
     avatax_amt_line = fields.Float(string="AvaTax Line", copy=False)
 
+    def _get_avatax_price_unit(self):
+        """
+        Return the company currey unit price, after discounts,
+        to use for Tax calculation.
+
+        Code extracted from account/models/account_move.py,
+        from the compute_base_line_taxes() nested function.
+        """
+        self.ensure_one()
+        base_line = self
+        move = base_line.move_id
+        sign = -1 if move.is_inbound() else 1
+        if base_line.currency_id:
+            price_unit_foreign_curr = (
+                sign * base_line.price_unit * (1 - (base_line.discount / 100.0))
+            )
+            price_unit_comp_curr = base_line.currency_id._convert(
+                price_unit_foreign_curr,
+                move.company_id.currency_id,
+                move.company_id,
+                move.date,
+            )
+        else:
+            price_unit_comp_curr = (
+                sign * base_line.price_unit * (1 - (base_line.discount / 100.0))
+            )
+        return -price_unit_comp_curr
+
     # Same in v12
     def _avatax_prepare_line(self, sign=1, doc_type=None):
         """
@@ -305,21 +333,11 @@ class AccountMoveLine(models.Model):
         else:
             item_code = product.default_code or ("ID:%d" % product.id)
         tax_code = line.product_id.applicable_tax_code_id.name
-        amount = sign * line.price_unit * line.quantity * (1 - line.discount / 100.0)
-        # Calculate discount amount
-        discount_amount = 0.0
-        is_discounted = False
-        if line.discount:
-            discount_amount = (
-                sign * line.price_unit * line.quantity * line.discount / 100.0
-            )
-            is_discounted = True
+        amount = sign * line._get_avatax_price_unit()
         res = {
             "qty": line.quantity,
             "itemcode": item_code,
             "description": line.name,
-            "discounted": is_discounted,
-            "discount": discount_amount,
             "amount": amount,
             "tax_code": tax_code,
             "id": line,
