@@ -442,6 +442,14 @@ msgid "Immediate AvaTax Calculation"
 msgstr ""
 
 #. module: account_avatax
+#: code:addons/account_avatax/models/account_tax.py:0
+#, python-format
+msgid ""
+"Incorrect retrieval of Avatax amount for Invoice %s: product %s, price_unit "
+"%f, quantity %f"
+msgstr ""
+
+#. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_res_partner__validated_on_save
 #: model:ir.model.fields,help:account_avatax.field_res_users__validated_on_save
 msgid ""
