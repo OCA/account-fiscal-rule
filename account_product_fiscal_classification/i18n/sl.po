@@ -10,15 +10,16 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-17 00:24+0000\n"
-"PO-Revision-Date: 2018-03-17 00:24+0000\n"
-"Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>, 2018\n"
+"PO-Revision-Date: 2020-08-07 09:59+0000\n"
+"Last-Translator: Matjaz Mozetic <matjaz@matmoz.si>\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:129
@@ -34,10 +35,8 @@ msgstr "- Brez prodajnih davkov"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_chart_template
-#, fuzzy
-#| msgid "Product Template"
 msgid "Account Chart Template"
-msgstr "Predloga proizvoda"
+msgstr "Predloga kontnega plana"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__active
@@ -72,16 +71,14 @@ msgstr "Kategorija s fiskalno restrikcijo"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__chart_template_id
-#, fuzzy
-#| msgid "Product Template"
 msgid "Chart Template"
-msgstr "Predloga proizvoda"
+msgstr "Predloga plana"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_category__fiscal_restriction
 msgid ""
 "Check this box if you want to enable Restriction on Fiscal Classifications."
-msgstr "Označite, če želite omogočiti restrikcije na fiskalnih klasifikacijah"
+msgstr "Označite, če želite omogočiti omejitve na fiskalnih klasifikacijah."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__company_id
@@ -118,14 +115,13 @@ msgid ""
 msgstr ""
 "Spoštovani.\n"
 "\n"
-"Po naši evidenci nekatera zapadla plačila na vašem računu še niso poravnana. "
-"Več podrobnosti je spodaj.\n"
+"Po naši evidenci nekatere zapadle terjatve na vaši kontni kartici še niso "
+"poravnane. Več podrobnosti je spodaj.\n"
 "Če je znesek medtem bil že poravnan, lahko smatrate ta opomin kot ničen. V "
-"nasprotnem primeru, vas prosimo, da spodaj navedeni znesek poravnate.\n"
-"Za kakršnihkoli pojasnila smo vam na voljo.\n"
+"nasprotnem primeru pa vas prosimo, da poravnate navedeni znesek.\n"
+"Za kakršnakoli dodatna pojasnila smo vam na voljo.\n"
 "\n"
-"Za vaše sodelovanje se vam v naprej zahvaljujemo.\n"
-"Lep pozdrav."
+"Hvala za razumevanje in lep pozdrav."
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_1
@@ -149,24 +145,18 @@ msgstr "Demonstracijska globalna fiskalna klasifikacija 1"
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_2
-#, fuzzy
-#| msgid "Demo Global Fiscal Classification 1"
 msgid "Demo Global Fiscal Classification 2"
-msgstr "Demonstracijska globalna fiskalna klasifikacija 1"
+msgstr "Demonstracijska globalna fiskalna klasifikacija 2"
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_3
-#, fuzzy
-#| msgid "Demo Global Fiscal Classification 1"
 msgid "Demo Global Fiscal Classification 3"
-msgstr "Demonstracijska globalna fiskalna klasifikacija 1"
+msgstr "Demonstracijska globalna fiskalna klasifikacija 3"
 
 #. module: account_product_fiscal_classification
 #: model:product.template,name:account_product_fiscal_classification.product_template_all_cpnies
-#, fuzzy
-#| msgid "Demo Product With Fiscal Classification"
 msgid "Demo Product Fiscal Classif all companies"
-msgstr "Demonstracijski proizvod s fiskalno klasifikacijo"
+msgstr "Demonstracijski proizvod s fiskalno klasifikacijo vse družbe"
 
 #. module: account_product_fiscal_classification
 #: model:product.template,name:account_product_fiscal_classification.product_template_1
@@ -203,8 +193,6 @@ msgstr "Osnutek fiskalne klasifikacije"
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification_template
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_chart_template__classification_template_ids
 #: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_classification_template
-#, fuzzy
-#| msgid "Fiscal Classification Template"
 msgid "Fiscal Classification Templates"
 msgstr "Osnutek fiskalne klasifikacije"
 
@@ -233,18 +221,16 @@ msgid ""
 "If defined, the user should be member to this group, to use this fiscal "
 "classification when creating or updating products"
 msgstr ""
+"Če je določeno, mora uporabnik biti član te skupine, da bi lahko uporabljal "
+"to fiskalno klasifikacijo pri ustvarjanju in posodabljanju proizvodov"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_template__active
-#, fuzzy
-#| msgid ""
-#| "If unchecked, it will allow you to hide the Fiscal Classification without "
-#| "removing it."
 msgid ""
 "If unchecked, it will allow you to hide the Fiscal Classification Template "
 "without removing it."
 msgstr ""
-"Če ni označeno, se fiskalne klasifikacije lahko skrije, ne da bi jih "
+"Če ni označeno, se osnutek fiskalne klasifikacije lahko skrije, ne da bi ga "
 "odstranili."
 
 #. module: account_product_fiscal_classification
@@ -293,16 +279,14 @@ msgstr "Naziv"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__new_fiscal_classification_id
-#, fuzzy
-#| msgid "New Fiscal Classification"
 msgid "New Classification"
-msgstr "Nova fiskalna klasifikacija"
+msgstr "Nova klasifikacija"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:111
 #, python-format
 msgid "No Purchase Taxes - Sale Taxes: "
-msgstr "Brez nabavnih davkov - prodajnih davkov:"
+msgstr "Brez nabavnih - prodajnih davkov: "
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:109
@@ -312,10 +296,8 @@ msgstr "Brez davkov"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__old_fiscal_classification_id
-#, fuzzy
-#| msgid "Old Fiscal Classification"
 msgid "Old Classification"
-msgstr "Stara fiskalna klasifikacija"
+msgstr "Stara klasifikacija"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_product_category
@@ -356,7 +338,7 @@ msgstr "Nabavni davki"
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:124
 #, python-format
 msgid "Purchase Taxes: "
-msgstr "Nabavni davki:"
+msgstr "Nabavni davki: "
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category__forbidden_classification_template_qty
@@ -434,20 +416,18 @@ msgstr ""
 #: model:product.template,uom_name:account_product_fiscal_classification.product_template_1
 #: model:product.template,uom_name:account_product_fiscal_classification.product_template_all_cpnies
 msgid "Unit(s)"
-msgstr ""
+msgstr "Enot(a)"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__usage_group_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__usage_group_id
 msgid "Usage Group"
-msgstr ""
+msgstr "Skupina uporabe"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_wizard_change_fiscal_classification
-#, fuzzy
-#| msgid "wizard.change.fiscal.classification"
 msgid "Wizard : Change fiscal classification on product"
-msgstr "wizard.change.fiscal.classification"
+msgstr "Čarovnik : spremeni fiskalno klasifikacijo na proizvodu"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/product_category.py:42
@@ -461,16 +441,13 @@ msgstr ""
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/product_template.py:139
-#, fuzzy, python-format
-#| msgid ""
-#| "You can not set fiscal classifications on %s if Restriction on Fiscal "
-#| "Classifications is not enabled for the category."
+#, python-format
 msgid ""
 "You can not use the fiscal classification '%s' because you're not member of "
 "the group '%s'."
 msgstr ""
-"Ne morete nastaviti fiskalnih klasifikacij na %s, če ni omogočena "
-"restrikcija na fiskalnih klasifikacijah za to kategorijo."
+"Fiskalne klasifikacije na '%s' ne morete uporabljati, ker niste član skupine "
+"'%s'."
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/product_template.py:120
@@ -492,7 +469,7 @@ msgstr ""
 #: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_1
 #: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_all_cpnies
 msgid "kg"
-msgstr ""
+msgstr "kg"
 
 #~ msgid "0.03%"
 #~ msgstr "0.03%"
