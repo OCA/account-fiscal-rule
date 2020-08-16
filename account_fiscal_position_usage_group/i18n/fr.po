@@ -50,7 +50,6 @@ msgstr "Facture"
 #. module: account_fiscal_position_usage_group
 #: model:ir.model,name:account_fiscal_position_usage_group.model_account_fiscal_position_template
 #, fuzzy
-#| msgid "Fiscal Position"
 msgid "Template for Fiscal Position"
 msgstr "Position fiscale"
 
