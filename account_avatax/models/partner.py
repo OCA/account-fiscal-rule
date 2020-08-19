@@ -110,8 +110,7 @@ class ResPartner(models.Model):
                 partner.name,
             )
             return False
-        company = partner.company_id or self.env.user.company_id
-        avatax_config = company.get_avatax_config_company()
+        avatax_config = self.env.company.get_avatax_config_company()
         avatax_restpoint = AvaTaxRESTService(config=avatax_config)
         valid_address = avatax_restpoint.validate_rest_address(
             partner.street,
@@ -157,8 +156,7 @@ class ResPartner(models.Model):
         # Auto populate customer code
         partner.generate_cust_code()
         # Auto validate address, if enabled
-        company = partner.company_id or self.env.user.company_id
-        avatax_config = company.get_avatax_config_company()
+        avatax_config = self.env.company.get_avatax_config_company()
         if avatax_config.validation_on_save:
             partner.multi_address_validation(validation_on_save=True)
             partner.validated_on_save = True
@@ -171,8 +169,7 @@ class ResPartner(models.Model):
             x in vals for x in address_fields
         ):
             partner = self.with_context(avatax_writing=True)
-            company = partner.company_id or self.env.user.company_id
-            avatax_config = company.get_avatax_config_company()
+            avatax_config = self.env.company.get_avatax_config_company()
             if avatax_config.validation_on_save:
                 partner.multi_address_validation(validation_on_save=True)
                 partner.validated_on_save = True
