@@ -128,7 +128,7 @@ class AccountMove(models.Model):
         Prepare the lines to use for Avatax computation.
         Returns a list of dicts
         """
-        sign = self.type == "out_invoice" and 1 or -1
+        sign = 1 if self.type.startswith("out") else -1
         lines = [
             line._avatax_prepare_line(sign, doc_type)
             for line in self.invoice_line_ids
