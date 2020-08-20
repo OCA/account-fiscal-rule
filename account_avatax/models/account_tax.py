@@ -27,23 +27,20 @@ class AccountTax(models.Model):
 
     @api.model
     def get_avalara_tax(self, tax_rate, doc_type):
-        if tax_rate:
-            tax = self.with_context(active_test=False).search(
-                self._get_avalara_tax_domain(tax_rate, doc_type), limit=1
+        tax = self.with_context(active_test=False).search(
+            self._get_avalara_tax_domain(tax_rate, doc_type), limit=1
+        )
+        if tax and not tax.active:
+            tax.active = True
+        if not tax:
+            tax_template = self.search(
+                self._get_avalara_tax_domain(0, doc_type), limit=1
             )
-            if tax and not tax.active:
-                tax.active = True
-            if not tax:
-                tax_template = self.search(
-                    self._get_avalara_tax_domain(0, doc_type), limit=1
-                )
-                tax = tax_template.sudo().copy(default={"amount": tax_rate})
-                # If you get a unique constraint error here,
-                # check the data for your existing Avatax taxes.
-                tax.name = self._get_avalara_tax_name(tax_rate, doc_type)
-            return tax
-        else:
-            return self
+            tax = tax_template.sudo().copy(default={"amount": tax_rate})
+            # If you get a unique constraint error here,
+            # check the data for your existing Avatax taxes.
+            tax.name = self._get_avalara_tax_name(tax_rate, doc_type)
+        return tax
 
     def compute_all(
         self,
