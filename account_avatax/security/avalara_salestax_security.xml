@@ -6,13 +6,6 @@
         <field name="global" eval="True" />
         <field
             name="domain_force"
-        >['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
-    </record>
-    <!-- Deprecated, to remove in the future -->
-    <record id="account_salestax_avatax_tax_codes_rule" model="ir.rule">
-        <field name="name">AvaTax Tax Code multi-company</field>
-        <field name="model_id" ref="model_product_tax_code" />
-        <field name="global" eval="True" />
-        <field name="domain_force">[]</field>
+        >['|',('company_id','=',False),('company_id','in',company_ids])]</field>
     </record>
 </odoo>
