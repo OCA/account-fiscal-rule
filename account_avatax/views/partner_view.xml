@@ -46,6 +46,31 @@
                     </group>
                 </page>
             </xpath>
+            <xpath expr="//field[@name='child_ids']/form/sheet/group" position="inside">
+                <group
+                    name="avatax_validation"
+                    colspan="5"
+                    attrs="{'invisible': [('type', '!=', 'delivery')]}"
+                >
+                    <separator string="Avatax" />
+                    <field name="date_validation" />
+                    <field name="validation_method" />
+                    <button
+                        name="button_avatax_validate_address"
+                        string="Validate Address"
+                        type="object"
+                        icon="fa-cogs"
+                        colspan="2"
+                        context="{'from_validate_button': True}"
+                    />
+                    <field name="tax_exempt" />
+                    <field
+                        name="exemption_code_id"
+                        attrs="{'invisible': [('tax_exempt','!=',True)]}"
+                    />
+                </group>
+                <group name="avatax_exemption" colspan="7" />
+            </xpath>
         </field>
     </record>
     <record id="action_call_address_validation_method" model="ir.actions.server">

@@ -6,16 +6,23 @@ class SaleOrder(models.Model):
 
     tax_amount = fields.Monetary(string="AvaTax")
 
-    @api.onchange("partner_id")
-    def onchange_partner_id(self):
-        """Override method to add new fields values.
-        @param part- update vals with partner exemption number and code,
-        also check address validation by avalara
+    @api.onchange("partner_shipping_id", "partner_id")
+    def onchange_partner_shipping_id(self):
         """
-        super(SaleOrder, self).onchange_partner_id()
-        self.exemption_code = self.partner_id.exemption_number or ""
-        self.exemption_code_id = self.partner_id.exemption_code_id.id or None
+        Apply the exemption number and code from either
+        the delivery address or the customer
+        """
+        res = super(SaleOrder, self).onchange_partner_shipping_id()
+        self.exemption_code = (
+            self.partner_shipping_id.exemption_number
+            or self.partner_id.exemption_number
+        )
+        self.exemption_code_id = (
+            self.partner_shipping_id.exemption_code_id
+            or self.partner_id.exemption_code_id.id
+        )
         self.tax_on_shipping_address = bool(self.partner_shipping_id)
+        return res
 
     def _prepare_invoice(self):
         invoice_vals = super(SaleOrder, self)._prepare_invoice()
