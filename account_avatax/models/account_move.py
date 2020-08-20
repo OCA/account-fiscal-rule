@@ -151,7 +151,7 @@ class AccountMove(models.Model):
             doc_type,
             self.partner_id,
             self.warehouse_id.partner_id or self.company_id.partner_id,
-            self.partner_shipping_id or self.partner_id,
+            self.shipping_add_id or self.partner_id,
             taxable_lines,
             self.user_id,
             self.exemption_code or None,
