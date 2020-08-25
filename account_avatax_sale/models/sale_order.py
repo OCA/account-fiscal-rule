@@ -99,7 +99,7 @@ class SaleOrder(models.Model):
             line._avatax_prepare_line(sign=1, doc_type=doc_type)
             for line in self.order_line
         ]
-        return lines
+        return [x for x in lines if x]
 
     def _avatax_compute_tax(self):
         """ Contact REST API and recompute taxes for a Sale Order """
