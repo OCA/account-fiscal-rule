@@ -134,7 +134,7 @@ class AccountMove(models.Model):
             for line in self.invoice_line_ids
             if line.price_subtotal or line.quantity
         ]
-        return lines
+        return [x for x in lines if x]
 
     # Same as v12
     def _avatax_compute_tax(self, commit=False):
