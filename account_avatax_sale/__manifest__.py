@@ -7,7 +7,7 @@
     "license": "AGPL-3",
     "category": "Accounting",
     "depends": ["account_avatax", "sale"],
-    "data": ["views/sale_order_view.xml"],
+    "data": ["views/sale_order_view.xml", "views/partner_view.xml"],
     "auto_install": True,
     "development_status": "Beta",
 }
