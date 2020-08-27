@@ -1,4 +1,5 @@
 <odoo>
+    <function model="res.partner" name="_migrate_exemption_data" />
     <!--
     Partner Tax & Address Validation
     -->
@@ -25,6 +26,17 @@
                             />
                         </group>
                         <group>
+                            <separator string="Tax Exemption" />
+                            <field name="tax_exempt" />
+                            <field
+                                name="property_exemption_code_id"
+                                attrs="{'invisible': [('tax_exempt','!=',True)]}"
+                            />
+                            <field
+                                name="property_exemption_number"
+                                attrs="{'invisible': [('tax_exempt','!=',True)]}"
+                            />
+                            <newline />
                             <separator string="Customer Code" />
                             <field name="customer_code" readonly="1" />
                             <button
@@ -33,18 +45,45 @@
                                 type="object"
                                 attrs="{'invisible': [('customer_code','!=',False)]}"
                             />
-                            <newline />
-                            <separator string="Tax Exemption" />
-                            <field name="tax_exempt" />
-                            <!-- Avalara recomemnded to use exemption code only, and not exemption number:
-                            <field name="exemption_number" attrs="{'invisible': [('tax_exempt','!=',True)]}"/>-->
-                            <field
-                                name="exemption_code_id"
-                                attrs="{'invisible': [('tax_exempt','!=',True)]}"
-                            />
                         </group>
                     </group>
                 </page>
+            </xpath>
+            <xpath
+                expr="//field[@name='child_ids']/form/sheet/group/group[3]"
+                position="after"
+            >
+                <group
+                    name="avatax_validation"
+                    attrs="{'invisible': [('type', '!=', 'delivery')]}"
+                    colspan="5"
+                >
+                    <button
+                        name="button_avatax_validate_address"
+                        string="Validate Address"
+                        type="object"
+                        icon="fa-cogs"
+                        colspan="2"
+                        context="{'from_validate_button': True}"
+                    />
+                    <field name="date_validation" />
+                    <field name="validation_method" />
+                </group>
+                <group
+                    name="avatax_exemption"
+                    attrs="{'invisible': [('type', '!=', 'delivery')]}"
+                    colspan="7"
+                >
+                    <field name="property_tax_exempt" />
+                    <field
+                        name="property_exemption_code_id"
+                        attrs="{'invisible': [('property_tax_exempt','!=',True)]}"
+                    />
+                    <field
+                        name="property_exemption_number"
+                        attrs="{'invisible': [('property_tax_exempt','!=',True)]}"
+                    />
+                </group>
             </xpath>
         </field>
     </record>
