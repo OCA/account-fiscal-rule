@@ -31,7 +31,7 @@ class AvaTaxRESTService:
         self.is_log_enabled = enable_log or config.logging
         # Set elements adapter defaults
         self.appname = "Odoo 13, by Open Source Integrators"
-        self.version = "a0o0b0000058pOuAAI"
+        self.version = "a0o0b000005b8lsAAA"
         self.hostname = socket.gethostname()
         url = url or config.service_url
         self.environment = (
