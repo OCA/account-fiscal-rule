@@ -1,10 +1,8 @@
-import logging
 from math import copysign
 
 from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 from odoo.tools.float_utils import float_compare
-
-_logger = logging.getLogger(__name__)
 
 
 class AccountTax(models.Model):
@@ -83,12 +81,13 @@ class AccountTax(models.Model):
                     line.product_id == product
                     and float_compare(line.quantity, quantity, digits) == 0
                 ):
-                    line_price = line._get_avatax_price_unit()
+                    line_price = line._get_avatax_amount(qty=1)
                     if float_compare(line_price, -price_unit, digits) == 0:
                         avatax_amount = copysign(line.avatax_amt_line, base)
                         break
             if avatax_amount is None:
-                _logger.error(
+                avatax_amount = 0.0
+                raise UserError(
                     _(
                         "Incorrect retrieval of Avatax amount for Invoice %s:"
                         " product %s, price_unit %f, quantity %f"
@@ -98,7 +97,6 @@ class AccountTax(models.Model):
                     -price_unit,
                     quantity,
                 )
-                avatax_amount = 0.0
             for tax_item in res["taxes"]:
                 if tax_item["amount"] != 0:
                     tax_item["amount"] = avatax_amount
