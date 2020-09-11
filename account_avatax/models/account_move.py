@@ -98,19 +98,9 @@ class AccountMove(models.Model):
 
     # Same as v12
     def get_origin_tax_date(self):
-        for inv_obj in self:
-            if inv_obj.invoice_origin:
-                a = inv_obj.invoice_origin
-                if len(a.split(":")) > 1:
-                    inv_origin = a.split(":")[1]
-                else:
-                    inv_origin = a.split(":")[0]
-                inv_ids = self.search([("name", "=", inv_origin)])
-                for invoice in inv_ids:
-                    if invoice.invoice_date:
-                        return invoice.invoice_date
-                    else:
-                        return inv_obj.invoice_date
+        if self.invoice_doc_no:
+            orig_invoice = self.search([("name", "=", self.invoice_doc_no)])
+            return orig_invoice.invoice_date
         return False
 
     # Same as v12
