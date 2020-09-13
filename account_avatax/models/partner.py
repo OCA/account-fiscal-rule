@@ -18,14 +18,36 @@ class ResPartner(models.Model):
 
     _inherit = "res.partner"
 
-    exemption_number = fields.Char(
-        "Exemption Number", help="Indicates if the customer is exempt or not"
-    )
-    exemption_code_id = fields.Many2one(
-        "exemption.code",
-        "Exemption Code",
-        help="Indicates the type of exemption the customer may have",
-    )
+    @api.model
+    def _migrate_exemption_data(self):
+        """
+        Migrate values from old exemption fields
+        into the new per company property fields
+        """
+        companies = self.env["res.company"].search([])
+        for company in companies:
+            Partner = self.env["res.partner"].with_context(force_company=company.id)
+            pending_exempt_partners = Partner.search(
+                [
+                    ("exemption_code_id", "!=", False),
+                    ("property_exemption_code_id", "=", False),
+                ]
+            )
+            if pending_exempt_partners:
+                _LOGGER.info(
+                    "Migrating exemption data on %d partners for company %s",
+                    len(pending_exempt_partners),
+                    company.display_name,
+                )
+            for partner in pending_exempt_partners:
+                partner.write(
+                    {
+                        "property_tax_exempt": partner.tax_exempt,
+                        "property_exemption_code_id": partner.exemption_code_id.id,
+                        "property_exemption_number": partner.exemption_number,
+                    }
+                )
+
     date_validation = fields.Date(
         "Last Validation Date",
         readonly=True,
@@ -43,23 +65,43 @@ class ResPartner(models.Model):
         " before calling the wizard",
     )
     customer_code = fields.Char("Customer Code")
-    tax_exempt = fields.Boolean(
-        "Is Tax Exempt", help="Indicates the exemption tax calculation is compulsory"
+    tax_exempt = fields.Boolean("Is Tax Exempt (Deprecated))", deprecated=True,)
+    exemption_number = fields.Char("Exemption Number (Deprecated)", deprecated=True,)
+    exemption_code_id = fields.Many2one(
+        "exemption.code", "Exemption Code (Deprecated)", deprecated=True,
+    )
+    property_tax_exempt = fields.Boolean(
+        "Is Tax Exempt",
+        company_dependent=True,
+        help="This company or address can claim for tax exemption",
+    )
+    property_exemption_number = fields.Char(
+        "Exemption Number",
+        company_dependent=True,
+        help="The State identification number relevant fot the exemption",
+    )
+    property_exemption_code_id = fields.Many2one(
+        "exemption.code",
+        "Exemption Code",
+        company_dependent=True,
+        help="The type of exemption granted",
     )
 
     _sql_constraints = [
         ("name_uniq", "unique(customer_code)", "Customer Code must be unique!"),
     ]
 
-    @api.depends("tax_exempt", "exemption_code_id", "exemption_number")
+    @api.depends(
+        "property_tax_exempt", "property_exemption_code_id", "property_exemption_number"
+    )
     def check_exemption_number(self):
         """
         When tax exempt check then atleast exemption number
         or exemption code should be filled
         """
         for partner in self:
-            if partner.tax_exempt and not (
-                partner.exemption_code_id or partner.exemption_number
+            if partner.property_tax_exempt and not (
+                partner.property_exemption_code_id or partner.property_exemption_number
             ):
                 raise UserError(
                     _(
@@ -80,9 +122,9 @@ class ResPartner(models.Model):
 
     @api.onchange("tax_exempt")
     def onchange_tax_exemption(self):
-        if not self.tax_exempt:
-            self.exemption_number = ""
-            self.exemption_code_id = None
+        if not self.property_tax_exempt:
+            self.property_exemption_number = ""
+            self.property_exemption_code_id = None
 
     def get_state_from_code(self, state_code, country_code):
         """ Returns the state from the code. """

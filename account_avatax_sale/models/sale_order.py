@@ -6,16 +6,41 @@ class SaleOrder(models.Model):
 
     tax_amount = fields.Monetary(string="AvaTax")
 
-    @api.onchange("partner_id")
-    def onchange_partner_id(self):
-        """Override method to add new fields values.
-        @param part- update vals with partner exemption number and code,
-        also check address validation by avalara
+    @api.onchange("partner_shipping_id", "partner_id")
+    def onchange_partner_shipping_id(self):
         """
-        super(SaleOrder, self).onchange_partner_id()
-        self.exemption_code = self.partner_id.exemption_number or ""
-        self.exemption_code_id = self.partner_id.exemption_code_id.id or None
+        Apply the exemption number and code from the Invoice Partner Data
+        We can only apply an exemption status that matches the delivery
+        address Country and State.
+
+        The setup for this is to add contact/addresses for the Invoicing Partner,
+        for each of the states we can claim exepmtion for.
+        """
+        res = super(SaleOrder, self).onchange_partner_shipping_id()
+
+        invoice_partner = self.partner_invoice_id.commercial_partner_id
+        ship_to_address = self.tax_add_id
+        # Find an exemption address matching the Country + State
+        # of the Delivery address
+        exemption_addresses = (invoice_partner | invoice_partner.child_ids).filtered(
+            "property_tax_exempt"
+        )
+        exemption_address_naive = exemption_addresses.filtered(
+            lambda a: a.country_id == ship_to_address.country_id
+            and (
+                a.state_id == ship_to_address.state_id
+                or invoice_partner.property_exemption_country_wide
+            )
+        )[:1]
+        # Force Company to get the correct values form the Property fields
+        exemption_address = exemption_address_naive.with_context(
+            force_company=self.company_id.id
+        )
+        self.exemption_code = exemption_address.property_exemption_number
+        self.exemption_code_id = exemption_address.property_exemption_code_id
+
         self.tax_on_shipping_address = bool(self.partner_shipping_id)
+        return res
 
     def _prepare_invoice(self):
         invoice_vals = super(SaleOrder, self)._prepare_invoice()
