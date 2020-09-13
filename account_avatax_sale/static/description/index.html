@@ -387,10 +387,8 @@ Please refer to the corresponding documentation.</p>
 <h1><a class="toc-backref" href="#id1">Usage</a></h1>
 <p>The AvaTax module is integrated into Sales Orders and allows computation of taxes.
 Sales order transactions do not appear in the in the AvaTax interface.</p>
-<dl class="docutils">
-<dt>The information placed in the sales order will automatically pass to the invoice</dt>
-<dd>on the Avalara server and can be viewed in the AvaTax control panel.</dd>
-</dl>
+<p>The information placed in the sales order will automatically pass to the invoice
+on the Avalara server and can be viewed in the AvaTax control panel.</p>
 <p>Discounts are handled when they are enabled in Odoo’s settings.
 They will be reported as a net deduction on the line item cost.</p>
 <p>Create New Sales Order</p>
@@ -411,6 +409,27 @@ and the origin location. If no address is assigned to the warehouse
 the module will automatically use the address of the company as its origin.
 Location code will automatically populate with the warehouse code
 but can be modified if needed.</li>
+</ul>
+<p>Tax Exemption Status</p>
+<ul class="simple">
+<li>Tax exemption status can be defined on Contacts.</li>
+<li>In a multi-company environment, the exemption status is defined per
+Company, since each individual company is required to secure the
+exemption certificates to claim for exemption application,
+and this may not be the case for all Companies.</li>
+<li>If the customer is tax exempt, in the “Avatax” tab, check the “Is Tax Exempt” checkbox.
+When checked, the exemption details can be provided.
+The Exemption Code is the type of exemption,
+and the Exemption Number is an identification number to use on the customer’s State.</li>
+<li>This exemption status will only be applied for delivery addresses
+in the State matching the State of the exemption address.
+The same customer can have exemptiions on several states.
+For this use additional Contact/Addresses for those states,
+and enter the exempention details there.</li>
+<li>To make this data management simpler, is it possible to set the customer as exempt
+country wide, using the corresponding checkbox. In this case the exemption status will
+be used for delivery addresses in any state. Using this option has compliance risks, so
+plase use it with care.</li>
 </ul>
 </div>
 <div class="section" id="bug-tracker">
