@@ -386,11 +386,17 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_avatax.action_exemption_code_details
 #: model:ir.model,name:account_avatax.model_exemption_code
 #: model:ir.model.fields,field_description:account_avatax.field_account_move__exemption_code_id
-#: model:ir.model.fields,field_description:account_avatax.field_res_partner__exemption_code_id
-#: model:ir.model.fields,field_description:account_avatax.field_res_users__exemption_code_id
+#: model:ir.model.fields,field_description:account_avatax.field_res_partner__property_exemption_code_id
+#: model:ir.model.fields,field_description:account_avatax.field_res_users__property_exemption_code_id
 #: model:ir.ui.menu,name:account_avatax.menu_action_exemption_code_details
 #: model_terms:ir.ui.view,arch_db:account_avatax.exemption_code_form_view
 msgid "Exemption Code"
+msgstr ""
+
+#. module: account_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_res_partner__exemption_code_id
+#: model:ir.model.fields,field_description:account_avatax.field_res_users__exemption_code_id
+msgid "Exemption Code (Deprecated)"
 msgstr ""
 
 #. module: account_avatax
@@ -400,9 +406,15 @@ msgstr ""
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_account_move__exemption_code
+#: model:ir.model.fields,field_description:account_avatax.field_res_partner__property_exemption_number
+#: model:ir.model.fields,field_description:account_avatax.field_res_users__property_exemption_number
+msgid "Exemption Number"
+msgstr ""
+
+#. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_partner__exemption_number
 #: model:ir.model.fields,field_description:account_avatax.field_res_users__exemption_number
-msgid "Exemption Number"
+msgid "Exemption Number (Deprecated)"
 msgstr ""
 
 #. module: account_avatax
@@ -458,32 +470,20 @@ msgid ""
 msgstr ""
 
 #. module: account_avatax
-#: model:ir.model.fields,help:account_avatax.field_res_partner__exemption_number
-#: model:ir.model.fields,help:account_avatax.field_res_users__exemption_number
-msgid "Indicates if the customer is exempt or not"
-msgstr ""
-
-#. module: account_avatax
-#: model:ir.model.fields,help:account_avatax.field_res_partner__tax_exempt
-#: model:ir.model.fields,help:account_avatax.field_res_users__tax_exempt
-msgid "Indicates the exemption tax calculation is compulsory"
-msgstr ""
-
-#. module: account_avatax
-#: model:ir.model.fields,help:account_avatax.field_res_partner__exemption_code_id
-#: model:ir.model.fields,help:account_avatax.field_res_users__exemption_code_id
-msgid "Indicates the type of exemption the customer may have"
-msgstr ""
-
-#. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_account_tax__is_avatax
 msgid "Is Avatax"
 msgstr ""
 
 #. module: account_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_res_partner__property_tax_exempt
+#: model:ir.model.fields,field_description:account_avatax.field_res_users__property_tax_exempt
+msgid "Is Tax Exempt"
+msgstr ""
+
+#. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_partner__tax_exempt
 #: model:ir.model.fields,field_description:account_avatax.field_res_users__tax_exempt
-msgid "Is Tax Exempt"
+msgid "Is Tax Exempt (Deprecated))"
 msgstr ""
 
 #. module: account_avatax
@@ -830,6 +830,12 @@ msgid ""
 msgstr ""
 
 #. module: account_avatax
+#: model:ir.model.fields,help:account_avatax.field_res_partner__property_exemption_number
+#: model:ir.model.fields,help:account_avatax.field_res_users__property_exemption_number
+msgid "The State identification number relevant fot the exemption"
+msgstr ""
+
+#. module: account_avatax
 #: model:ir.model.constraint,message:account_avatax.constraint_avalara_salestax_account_number_company_uniq
 msgid "The account number must be unique per company!"
 msgstr ""
@@ -848,6 +854,12 @@ msgstr ""
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_avalara_salestax__default_shipping_code_id
 msgid "The default shipping code which will be passed to Avalara"
+msgstr ""
+
+#. module: account_avatax
+#: model:ir.model.fields,help:account_avatax.field_res_partner__property_exemption_code_id
+#: model:ir.model.fields,help:account_avatax.field_res_users__property_exemption_code_id
+msgid "The type of exemption granted"
 msgstr ""
 
 #. module: account_avatax
@@ -871,6 +883,12 @@ msgstr ""
 #: code:addons/account_avatax/models/avalara_salestax.py:0
 #, python-format
 msgid "There is no source shipping address defined for partner %s."
+msgstr ""
+
+#. module: account_avatax
+#: model:ir.model.fields,help:account_avatax.field_res_partner__property_tax_exempt
+#: model:ir.model.fields,help:account_avatax.field_res_users__property_tax_exempt
+msgid "This company or address can claim for tax exemption"
 msgstr ""
 
 #. module: account_avatax
@@ -916,6 +934,11 @@ msgstr ""
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.view_partner_details_form_inherit1
 msgid "Validate"
+msgstr ""
+
+#. module: account_avatax
+#: model_terms:ir.ui.view,arch_db:account_avatax.view_partner_details_form_inherit1
+msgid "Validate Address"
 msgstr ""
 
 #. module: account_avatax
