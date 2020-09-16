@@ -19,7 +19,7 @@ class SaleOrder(models.Model):
         res = super(SaleOrder, self).onchange_partner_shipping_id()
 
         invoice_partner = self.partner_invoice_id.commercial_partner_id
-        ship_to_address = self.tax_add_id
+        ship_to_address = self.tax_address_id
         # Find an exemption address matching the Country + State
         # of the Delivery address
         exemption_addresses = (invoice_partner | invoice_partner.child_ids).filtered(
