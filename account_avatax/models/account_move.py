@@ -14,9 +14,11 @@ class AccountMove(models.Model):
     @api.onchange("partner_id", "company_id")
     def _onchange_partner_id(self):
         res = super(AccountMove, self)._onchange_partner_id()
-        if not self.exemption_locked:
-            self.exemption_code = self.partner_id.exemption_number or ""
-            self.exemption_code_id = self.partner_id.exemption_code_id.id or None
+        # partner_shipping_id is added by the sale module,
+        # so its logic is found in account_avatax_sale
+        if not self.exemption_locked and not hasattr(self, "partner_shipping_id"):
+            self.exemption_code = self.partner_id.property_exemption_number
+            self.exemption_code_id = self.partner_id.property_exemption_code_id.id
         return res
 
     @api.onchange("warehouse_id")
@@ -128,7 +130,7 @@ class AccountMove(models.Model):
         Prepare the lines to use for Avatax computation.
         Returns a list of dicts
         """
-        sign = self.type == "out_invoice" and 1 or -1
+        sign = 1 if self.type.startswith("out") else -1
         lines = [
             line._avatax_prepare_line(sign, doc_type)
             for line in self.invoice_line_ids
