@@ -193,6 +193,11 @@ msgid "Cancel"
 msgstr ""
 
 #. module: account_avatax
+#: model:ir.model.fields,help:account_avatax.field_avalara_salestax__result_in_uppercase
+msgid "Check is address validation results desired to be in upper case"
+msgstr ""
+
+#. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_avalara_salestax__disable_address_validation
 msgid "Check to disable address validation"
 msgstr ""
@@ -742,6 +747,11 @@ msgstr ""
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__force_address_validation
 msgid "Require Validated Addresses"
+msgstr ""
+
+#. module: account_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__result_in_uppercase
+msgid "Return validation results in upper case"
 msgstr ""
 
 #. module: account_avatax
