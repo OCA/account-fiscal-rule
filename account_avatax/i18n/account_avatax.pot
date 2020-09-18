@@ -800,7 +800,7 @@ msgid "Tax Exemption"
 msgstr ""
 
 #. module: account_avatax
-#: model:ir.model.fields,field_description:account_avatax.field_account_move__shipping_add_id
+#: model:ir.model.fields,field_description:account_avatax.field_account_move__tax_address_id
 msgid "Tax Shipping Address"
 msgstr ""
 
