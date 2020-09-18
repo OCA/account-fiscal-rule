@@ -117,8 +117,8 @@
         parent="menu_avatax"
         sequence="30"
     />
-    <record id="exemption_code_form_view" model="ir.ui.view">
-        <field name="name">exemption.code.form.view</field>
+    <record id="exemption_code_tree_view" model="ir.ui.view">
+        <field name="name">exemption.code.tree.view</field>
         <field name="model">exemption.code</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
