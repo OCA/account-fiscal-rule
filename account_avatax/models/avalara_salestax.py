@@ -67,6 +67,10 @@ class AvalaraSalestax(models.Model):
         "Log API Response Details",
         help="Enables detailed AvaTax transaction logging within application",
     )
+    result_in_uppercase = fields.Boolean(
+        "Return validation results in upper case",
+        help="Check is address validation results desired to be in upper case",
+    )
     disable_address_validation = fields.Boolean(
         "Disable Address Validation", help="Check to disable address validation"
     )
