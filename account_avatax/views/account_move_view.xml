@@ -22,7 +22,7 @@
                     options="{'no_create': True}"
                     groups="stock.group_stock_multi_warehouses"
                 />
-                <field name="shipping_add_id" />
+                <field name="tax_address_id" />
                 <field name="exemption_locked" />
             </field>
         </field>
