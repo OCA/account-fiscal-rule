@@ -49,8 +49,8 @@ class AccountMove(models.Model):
     tax_on_shipping_address = fields.Boolean(
         "Tax based on shipping address", default=True
     )
-    shipping_add_id = fields.Many2one(
-        "res.partner", "Tax Shipping Address", compute="_compute_shipping_add_id"
+    tax_address_id = fields.Many2one(
+        "res.partner", "Tax Shipping Address", compute="_compute_tax_address_id"
     )
     location_code = fields.Char(
         "Location Code", readonly=True, states={"draft": [("readonly", False)]}
@@ -78,15 +78,15 @@ class AccountMove(models.Model):
                 inv.amount_total_signed = inv.amount_total * sign
 
     @api.depends("tax_on_shipping_address", "partner_id", "partner_shipping_id")
-    def _compute_shipping_add_id(self):
+    def _compute_tax_address_id(self):
         for invoice in self:
-            invoice.shipping_add_id = (
+            invoice.tax_address_id = (
                 invoice.partner_shipping_id
                 if invoice.tax_on_shipping_address
                 else invoice.partner_id
             )
 
-    @api.onchange("shipping_add_id", "fiscal_position_id")
+    @api.onchange("tax_address_id", "fiscal_position_id")
     def onchange_reset_avatax_amount(self):
         """
         When changing quantities or prices, reset the Avatax computed amount.
@@ -143,7 +143,7 @@ class AccountMove(models.Model):
             doc_type,
             self.partner_id,
             self.warehouse_id.partner_id or self.company_id.partner_id,
-            self.shipping_add_id or self.partner_id,
+            self.tax_address_id or self.partner_id,
             taxable_lines,
             self.user_id,
             self.exemption_code or None,
@@ -254,7 +254,7 @@ class AccountMove(models.Model):
                 "location_code": self.location_code,
                 "exemption_code": self.exemption_code or "",
                 "exemption_code_id": self.exemption_code_id.id or None,
-                "shipping_add_id": self.shipping_add_id.id,
+                "tax_address_id": self.tax_address_id.id,
             }
         )
         return move_vals
