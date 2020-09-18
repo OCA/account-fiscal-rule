@@ -61,6 +61,7 @@
                             <group string="Address Validation">
                                 <field name="validation_on_save" />
                                 <field name="force_address_validation" />
+                                <field name="result_in_uppercase" />
                             </group>
                         </page>
                         <page string="Advanced" name="advanced_page">

@@ -154,6 +154,7 @@ class AvaTaxRESTService:
                     " please continue with your normal process."
                 )
             )
+        textcase = "Upper" if self.config.result_in_uppercase else "Mixed"
         partner_data = {
             "line1": street or "",
             "line2": street2 or "",
@@ -161,6 +162,7 @@ class AvaTaxRESTService:
             "postalCode": zip_code or "",
             "region": state_code or "",
             "country": country_code or "",
+            "textcase": textcase,
         }
         response_partner = self.client.resolve_address(partner_data)
         partner_dict = self.get_result(response_partner)
