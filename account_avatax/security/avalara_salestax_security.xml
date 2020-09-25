@@ -8,4 +8,13 @@
             name="domain_force"
         >['|',('company_id','=',False),('company_id','in',company_ids])]</field>
     </record>
+    <!--
+    company_id field was removed from Product Tax Codes,
+    and the corresponding record rule also.
+    This ensures the old record rule is removed from the database.
+    -->
+    <delete
+        model="ir.rule"
+        search="[('model_id', '=', ref('model_product_tax_code'))]"
+    />
 </odoo>
