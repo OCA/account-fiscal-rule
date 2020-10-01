@@ -11,15 +11,12 @@ class AccountMove(models.Model):
 
     _inherit = "account.move"
 
-    @api.onchange("partner_id", "company_id")
-    def _onchange_partner_id(self):
-        res = super(AccountMove, self)._onchange_partner_id()
-        # partner_shipping_id is added by the sale module,
-        # so its logic is found in account_avatax_sale
-        if not self.exemption_locked and not hasattr(self, "partner_shipping_id"):
-            self.exemption_code = self.partner_id.property_exemption_number
-            self.exemption_code_id = self.partner_id.property_exemption_code_id.id
-        return res
+    @api.depends("partner_shipping_id", "partner_id", "company_id")
+    def _compute_onchange_exemption(self):
+        for move in self:
+            if not move.exemption_locked and not hasattr(move, "partner_shipping_id"):
+                move.exemption_code = move.partner_id.property_exemption_number
+                move.exemption_code_id = move.partner_id.property_exemption_code_id.id
 
     @api.onchange("warehouse_id")
     def onchange_warehouse_id(self):
@@ -37,10 +34,19 @@ class AccountMove(models.Model):
         help="Reference of the invoice",
     )
     exemption_code = fields.Char(
-        "Exemption Number", help="It show the customer exemption number"
+        "Exemption Number",
+        compute=_compute_onchange_exemption,
+        readonly=False,  # New computed writeable fields
+        store=True,
+        help="It show the customer exemption number",
     )
     exemption_code_id = fields.Many2one(
-        "exemption.code", "Exemption Code", help="It show the customer exemption code"
+        "exemption.code",
+        "Exemption Code",
+        compute=_compute_onchange_exemption,
+        readonly=False,  # New computed writeable fields
+        store=True,
+        help="It show the customer exemption code",
     )
     exemption_locked = fields.Boolean(
         help="Exemption code won't be automatically changed, "
