@@ -17,30 +17,32 @@ class SaleOrder(models.Model):
         for each of the states we can claim exepmtion for.
         """
         res = super(SaleOrder, self).onchange_partner_shipping_id()
-
-        invoice_partner = self.partner_invoice_id.commercial_partner_id
-        ship_to_address = self.tax_address_id
-        # Find an exemption address matching the Country + State
-        # of the Delivery address
-        exemption_addresses = (invoice_partner | invoice_partner.child_ids).filtered(
-            "property_tax_exempt"
-        )
-        exemption_address_naive = exemption_addresses.filtered(
-            lambda a: a.country_id == ship_to_address.country_id
-            and (
-                a.state_id == ship_to_address.state_id
-                or invoice_partner.property_exemption_country_wide
-            )
-        )[:1]
-        # Force Company to get the correct values form the Property fields
-        exemption_address = exemption_address_naive.with_context(
-            force_company=self.company_id.id
-        )
-        self.exemption_code = exemption_address.property_exemption_number
-        self.exemption_code_id = exemption_address.property_exemption_code_id
-
         self.tax_on_shipping_address = bool(self.partner_shipping_id)
         return res
+
+    @api.depends("partner_shipping_id", "partner_id", "company_id")
+    def _compute_onchange_exemption(self):
+        for order in self:
+            invoice_partner = order.partner_invoice_id.commercial_partner_id
+            ship_to_address = order.tax_address_id
+            # Find an exemption address matching the Country + State
+            # of the Delivery address
+            exemption_addresses = (
+                invoice_partner | invoice_partner.child_ids
+            ).filtered("property_tax_exempt")
+            exemption_address_naive = exemption_addresses.filtered(
+                lambda a: a.country_id == ship_to_address.country_id
+                and (
+                    a.state_id == ship_to_address.state_id
+                    or invoice_partner.property_exemption_country_wide
+                )
+            )[:1]
+            # Force Company to get the correct values form the Property fields
+            exemption_address = exemption_address_naive.with_context(
+                force_company=order.company_id.id
+            )
+            order.exemption_code = exemption_address.property_exemption_number
+            order.exemption_code_id = exemption_address.property_exemption_code_id
 
     def _prepare_invoice(self):
         invoice_vals = super(SaleOrder, self)._prepare_invoice()
@@ -94,10 +96,19 @@ class SaleOrder(models.Model):
             )
 
     exemption_code = fields.Char(
-        "Exemption Number", help="It show the customer exemption number"
+        "Exemption Number",
+        compute=_compute_onchange_exemption,
+        readonly=False,  # New computed writeable fields
+        store=True,
+        help="It show the customer exemption number",
     )
     exemption_code_id = fields.Many2one(
-        "exemption.code", "Exemption Code", help="It show the customer exemption code"
+        "exemption.code",
+        "Exemption Code",
+        compute=_compute_onchange_exemption,
+        readonly=False,  # New computed writeable fields
+        store=True,
+        help="It show the customer exemption code",
     )
     tax_on_shipping_address = fields.Boolean(
         "Tax based on shipping address", default=True
