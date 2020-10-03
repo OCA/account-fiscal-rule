@@ -20,6 +20,11 @@ msgid "AvaTax"
 msgstr ""
 
 #. module: account_avatax_sale
+#: model_terms:ir.ui.view,arch_db:account_avatax_sale.sale_order_update_form_view
+msgid "Compute Taxes"
+msgstr ""
+
+#. module: account_avatax_sale
 #: model:ir.model,name:account_avatax_sale.model_res_partner
 msgid "Contact"
 msgstr ""
