@@ -246,6 +246,11 @@ msgid "Company which has subscribed to the AvaTax service"
 msgstr ""
 
 #. module: account_avatax
+#: model_terms:ir.ui.view,arch_db:account_avatax.view_move_form_inherit_1
+msgid "Compute Taxes"
+msgstr ""
+
+#. module: account_avatax
 #: model_terms:ir.actions.act_window,help:account_avatax.action_avalara_salestax
 msgid "Configuration of AvaTax in odoo"
 msgstr ""
