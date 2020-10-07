@@ -20,7 +20,7 @@ class SaleOrder(models.Model):
         self.tax_on_shipping_address = bool(self.partner_shipping_id)
         return res
 
-    @api.depends("partner_shipping_id", "partner_id", "company_id")
+    @api.depends("partner_invoice_id", "tax_address_id", "company_id")
     def _compute_onchange_exemption(self):
         for order in self:
             invoice_partner = order.partner_invoice_id.commercial_partner_id
