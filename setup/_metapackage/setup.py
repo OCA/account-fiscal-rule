@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo13-addon-account_avatax',
         'odoo13-addon-account_avatax_sale',
         'odoo13-addon-account_fiscal_position_rule',
+        'odoo13-addon-account_fiscal_position_rule_purchase',
         'odoo13-addon-account_fiscal_position_rule_sale',
     ],
     classifiers=[
