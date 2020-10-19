@@ -6,7 +6,7 @@
 {
     'name': 'Account Product - Fiscal Classification',
     'summary': 'Simplify taxes management for products',
-    'version': '12.0.1.2.0',
+    'version': '12.0.1.3.0',
     'category': 'Accounting',
     'author': 'Akretion,GRAP,La Louve,Odoo Community Association (OCA)',
     'website': 'https://github.com/OCA/account-fiscal-rule',
