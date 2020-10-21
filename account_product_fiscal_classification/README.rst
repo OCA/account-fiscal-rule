@@ -28,13 +28,13 @@ Account Product - Fiscal Classification
 * Add a new light concept 'fiscal_classification' to associate possible
   purchase and sale taxes;
 
-.. image:: https://raw.githubusercontent.com/account_product_fiscal_classification/static/description/img/fiscal_classification_form.png
+.. image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/12.0/account_product_fiscal_classification/static/description/img/fiscal_classification_form.png
 
 * Make more usable taxes selection in product view. The user has now the
   possibility to select a fiscal classification, instead of select manually
   all the taxes;
 
-.. image:: https://raw.githubusercontent.com/account_product_fiscal_classification/static/description/img/product_template_accounting_setting.png
+.. image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/12.0/account_product_fiscal_classification/static/description/img/product_template_accounting_setting.png
 
 * Prevent users to select incompatible purchase and sale taxes.
   French Exemple: A product can not be configured with:
@@ -56,7 +56,7 @@ Usage
 * Add possibility to restrict fiscal settings on product, depending of its
   category
 
-.. image:: https://raw.githubusercontent.com/account_product_fiscal_classification/static/description/img/category_with_fiscal_restriction.png
+.. image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/12.0/account_product_fiscal_classification/static/description/img/category_with_fiscal_restriction.png
 
 If you do so, user will not have the possibility to set a fiscal classification
 if product category settings do not allow.
@@ -64,7 +64,7 @@ if product category settings do not allow.
 Accounting people can see products that are bad set, in product category form
 view.
 
-.. image:: https://raw.githubusercontent.com/account_product_fiscal_classification/static/description/img/product_bad_settings.png
+.. image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/12.0/account_product_fiscal_classification/static/description/img/product_bad_settings.png
 
 Bug Tracker
 ===========
