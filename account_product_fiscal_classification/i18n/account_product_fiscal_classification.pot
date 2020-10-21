@@ -346,7 +346,7 @@ msgid "Taxes"
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:48
+#: code:addons/account_product_fiscal_classification/models/product_template.py:49
 #, python-format
 msgid "The category '%s' of the product '%s' doesn't not allow to set the classification '%s'.\n"
 " Please, change the classification of the product, or remove the constraint on the product category.\n"
@@ -378,13 +378,13 @@ msgid "You can not set fiscal classifications on %s if Restriction on Fiscal Cla
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:139
+#: code:addons/account_product_fiscal_classification/models/product_template.py:140
 #, python-format
 msgid "You can not use the fiscal classification '%s' because you're not member of the group '%s'."
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:120
+#: code:addons/account_product_fiscal_classification/models/product_template.py:121
 #, python-format
 msgid "You cannot change Taxes for many Products."
 msgstr ""
