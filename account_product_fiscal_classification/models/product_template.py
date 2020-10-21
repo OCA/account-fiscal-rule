@@ -17,6 +17,7 @@ class ProductTemplate(models.Model):
     fiscal_classification_id = fields.Many2one(
         comodel_name='account.product.fiscal.classification',
         string='Fiscal Classification',
+        track_visibility="onchange",
         help="Specify the combination of taxes for this product."
         " This field is required. If you dont find the correct Fiscal"
         " Classification, Please create a new one or ask to your account"
