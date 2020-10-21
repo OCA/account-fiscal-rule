@@ -135,21 +135,18 @@ msgstr "Catégorie fiscale Globale 1 (donnée de démonstration)"
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_2
 #, fuzzy
-#| msgid "Demo Global Fiscal Classification 1"
 msgid "Demo Global Fiscal Classification 2"
 msgstr "Catégorie fiscale Globale 1 (donnée de démonstration)"
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_3
 #, fuzzy
-#| msgid "Demo Global Fiscal Classification 1"
 msgid "Demo Global Fiscal Classification 3"
 msgstr "Catégorie fiscale Globale 1 (donnée de démonstration)"
 
 #. module: account_product_fiscal_classification
 #: model:product.template,name:account_product_fiscal_classification.product_template_all_cpnies
 #, fuzzy
-#| msgid "Demo Product With Fiscal Classification"
 msgid "Demo Product Fiscal Classif all companies"
 msgstr "Article de démonstration sans catégorie fiscale"
 
@@ -392,7 +389,7 @@ msgid "Taxes"
 msgstr "Taxes"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:48
+#: code:addons/account_product_fiscal_classification/models/product_template.py:49
 #, python-format
 msgid ""
 "The category '%s' of the product '%s' doesn't not allow to set the "
@@ -437,7 +434,7 @@ msgstr ""
 "restriction sur les classifications n'est pas activée pour la catégorie."
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:139
+#: code:addons/account_product_fiscal_classification/models/product_template.py:140
 #, python-format
 msgid ""
 "You can not use the fiscal classification '%s' because you're not member of "
@@ -447,7 +444,7 @@ msgstr ""
 "membre du groupe '%s'."
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:120
+#: code:addons/account_product_fiscal_classification/models/product_template.py:121
 #, python-format
 msgid "You cannot change Taxes for many Products."
 msgstr ""

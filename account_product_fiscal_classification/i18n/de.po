@@ -33,7 +33,6 @@ msgstr "- Keine Verkaufssteuern"
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_chart_template
 #, fuzzy
-#| msgid "Product Template"
 msgid "Account Chart Template"
 msgstr "Produktvorlage"
 
@@ -71,7 +70,6 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__chart_template_id
 #, fuzzy
-#| msgid "Product Template"
 msgid "Chart Template"
 msgstr "Produktvorlage"
 
@@ -149,21 +147,18 @@ msgstr "Beispiel für globale Steuerklassifizierung 1"
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_2
 #, fuzzy
-#| msgid "Demo Global Fiscal Classification 1"
 msgid "Demo Global Fiscal Classification 2"
 msgstr "Beispiel für globale Steuerklassifizierung 1"
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_3
 #, fuzzy
-#| msgid "Demo Global Fiscal Classification 1"
 msgid "Demo Global Fiscal Classification 3"
 msgstr "Beispiel für globale Steuerklassifizierung 1"
 
 #. module: account_product_fiscal_classification
 #: model:product.template,name:account_product_fiscal_classification.product_template_all_cpnies
 #, fuzzy
-#| msgid "Demo Product With Fiscal Classification"
 msgid "Demo Product Fiscal Classif all companies"
 msgstr "Beispielprodukt mit Steuerklassifizierung"
 
@@ -203,7 +198,6 @@ msgstr "Vorlage für Steuer-Klassifizierung"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_chart_template__classification_template_ids
 #: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_classification_template
 #, fuzzy
-#| msgid "Fiscal Classification Template"
 msgid "Fiscal Classification Templates"
 msgstr "Vorlage für Steuer-Klassifizierung"
 
@@ -236,9 +230,6 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_template__active
 #, fuzzy
-#| msgid ""
-#| "If unchecked, it will allow you to hide the Fiscal Classification without "
-#| "removing it."
 msgid ""
 "If unchecked, it will allow you to hide the Fiscal Classification Template "
 "without removing it."
@@ -293,7 +284,6 @@ msgstr "Bezeichnung"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__new_fiscal_classification_id
 #, fuzzy
-#| msgid "New Fiscal Classification"
 msgid "New Classification"
 msgstr "Neue Steuerklassifizierung"
 
@@ -312,7 +302,6 @@ msgstr "Keine Steuern"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__old_fiscal_classification_id
 #, fuzzy
-#| msgid "Old Fiscal Classification"
 msgid "Old Classification"
 msgstr "Alte Steuerklassifizierung"
 
@@ -411,7 +400,7 @@ msgid "Taxes"
 msgstr "Steuern"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:48
+#: code:addons/account_product_fiscal_classification/models/product_template.py:49
 #, python-format
 msgid ""
 "The category '%s' of the product '%s' doesn't not allow to set the "
@@ -437,7 +426,6 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_wizard_change_fiscal_classification
 #, fuzzy
-#| msgid "wizard.change.fiscal.classification"
 msgid "Wizard : Change fiscal classification on product"
 msgstr "wizard.change.fiscal.classification"
 
@@ -450,11 +438,8 @@ msgid ""
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:139
+#: code:addons/account_product_fiscal_classification/models/product_template.py:140
 #, fuzzy, python-format
-#| msgid ""
-#| "You cannot delete The Fiscal Classification '%s' because it contents %s "
-#| "products. Please move products to another Fiscal Classification first."
 msgid ""
 "You can not use the fiscal classification '%s' because you're not member of "
 "the group '%s'."
@@ -464,7 +449,7 @@ msgstr ""
 "Steuerklassifizierung verschieben."
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:120
+#: code:addons/account_product_fiscal_classification/models/product_template.py:121
 #, python-format
 msgid "You cannot change Taxes for many Products."
 msgstr "Sie dürfen die Steuern von vielen Produkten nicht ändern."
