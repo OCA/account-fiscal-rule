@@ -1,12 +1,15 @@
 .. |avataxbadge1| image:: static/description/SalesTax.png
     :target: https://developer.avalara.com/certification/avatax/sales-tax-badge/
     :alt: Sales Tax Certification
+    :width: 250
 .. |avataxbadge2| image:: static/description/Refunds.png
     :target: https://developer.avalara.com/certification/avatax/refunds-credit-memos-badge/
     :alt: Refunds Certification
+    :width: 250
 .. |avataxbadge3| image:: static/description/AddressValidation.png
     :target: https://developer.avalara.com/certification/avatax/address-validation-badge/
     :alt: Address Validation Certification
+    :width: 250
 
 |avataxbadge1| |avataxbadge2| |avataxbadge3|
 
