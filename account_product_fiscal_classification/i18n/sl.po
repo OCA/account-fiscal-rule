@@ -17,8 +17,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3;\n"
 "X-Generator: Weblate 3.10\n"
 
 #. module: account_product_fiscal_classification
@@ -395,7 +395,7 @@ msgid "Taxes"
 msgstr "Davki"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:48
+#: code:addons/account_product_fiscal_classification/models/product_template.py:49
 #, python-format
 msgid ""
 "The category '%s' of the product '%s' doesn't not allow to set the "
@@ -440,7 +440,7 @@ msgstr ""
 "restrikcija na fiskalnih klasifikacijah za to kategorijo."
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:139
+#: code:addons/account_product_fiscal_classification/models/product_template.py:140
 #, python-format
 msgid ""
 "You can not use the fiscal classification '%s' because you're not member of "
@@ -450,7 +450,7 @@ msgstr ""
 "'%s'."
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:120
+#: code:addons/account_product_fiscal_classification/models/product_template.py:121
 #, python-format
 msgid "You cannot change Taxes for many Products."
 msgstr "Ne morete spreminjati davkov za več proizvodov."
