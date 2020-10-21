@@ -397,7 +397,7 @@ msgid "Taxes"
 msgstr "Impostos"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:48
+#: code:addons/account_product_fiscal_classification/models/product_template.py:49
 #, python-format
 msgid ""
 "The category '%s' of the product '%s' doesn't not allow to set the "
@@ -434,7 +434,7 @@ msgid ""
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:139
+#: code:addons/account_product_fiscal_classification/models/product_template.py:140
 #, fuzzy, python-format
 #| msgid ""
 #| "You cannot delete The Fiscal Classification '%s' because it contents %s "
@@ -447,7 +447,7 @@ msgstr ""
 "produtos. Por favor mova os produtos para outro grupo."
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:120
+#: code:addons/account_product_fiscal_classification/models/product_template.py:121
 #, python-format
 msgid "You cannot change Taxes for many Products."
 msgstr "Você não pode modificar impostos para vários produtos"
