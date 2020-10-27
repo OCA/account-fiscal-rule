@@ -21,7 +21,7 @@ class AccountInvoice(models.Model):
     def _onchange_partner_id(self):
         AccountFiscalPosition = self.env['account.fiscal.position']
         res = super(AccountInvoice, self)._onchange_partner_id()
-        res['domain'] = res['domain'] or{}
+        res['domain'] = res.get('domain', {})
 
         # Update Domain
         domain = self._get_domain_fiscal_position_id()
