@@ -5,12 +5,12 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
-            <button name="action_confirm" position="after">
+            <button name="action_cancel" position="before">
                 <button
                     name="avalara_compute_taxes"
                     type="object"
                     string="Compute Taxes"
-                    attrs="{'invisible': [('state', 'not in', ['draft'])]}"
+                    attrs="{'invisible': [('state', 'in', ['done', 'cancel'])]}"
                 />
             </button>
             <field name="payment_term_id" position="after">
