@@ -7,12 +7,14 @@ from odoo import api, models
 
 
 class AccountChartTemplate(models.Model):
-    _inherit = 'account.chart.template'
+    _inherit = "account.chart.template"
 
     @api.multi
     def _get_fp_vals(self, company, position):
         res = super()._get_fp_vals(company, position)
-        res.update({
-            'type_position_use': position.type_position_use,
-        })
+        res.update(
+            {
+                "type_position_use": position.type_position_use,
+            }
+        )
         return res
