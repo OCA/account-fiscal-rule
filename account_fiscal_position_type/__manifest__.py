@@ -5,7 +5,7 @@
 {
     'name': 'Account Fiscal Position - Type',
     'summary': 'Add sale / purchase type on fiscal position',
-    'version': '12.0.1.0.1',
+    'version': '12.0.1.0.2',
     'category': 'Accounting',
     'author': 'GRAP,Odoo Community Association (OCA)',
     'website': 'https://odoo-community.org/',
