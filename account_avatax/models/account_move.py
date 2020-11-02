@@ -212,7 +212,9 @@ class AccountMove(models.Model):
         Forces computation of the Invoice taxes
         """
         for invoice in self:
-            if invoice.fiscal_position_id.is_avatax:
+            if invoice.fiscal_position_id.is_avatax and (
+                invoice.state == "draft" or commit
+            ):
                 invoice._avatax_compute_tax(commit=commit)
         return True
 
