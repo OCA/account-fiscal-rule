@@ -78,6 +78,7 @@ msgstr ""
 
 #. module: account_multi_vat
 #: model:ir.model,name:account_multi_vat.model_account_tax
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_tax_repartition_line__tax_id
 #, fuzzy
 msgid "Tax"
 msgstr "N° TVA"
@@ -128,8 +129,16 @@ msgstr "Le numéro de TVA doit être délivré par une administration fiscale."
 #. module: account_multi_vat
 #: code:addons/account_multi_vat/models/account_tax.py:0
 #, python-format
-msgid "The country of the tax doesn't match the one of the tax grids."
-msgstr "Le pays de la taxe ne correspond pas à celui des tax grids."
+msgid "The country of the tax must match the one of the tax grids."
+msgstr ""
+
+#. module: account_multi_vat
+#: code:addons/account_multi_vat/models/res_partner_id_number.py:0
+#, python-format
+msgid ""
+"There is already a VAT number for the tax administration "
+"'{tax_administration}' on this contact."
+msgstr ""
 
 #. module: account_multi_vat
 #: code:addons/account_multi_vat/models/res_partner.py:0
@@ -141,3 +150,6 @@ msgstr "Il y a déjà une administration fiscale pour le pays {country_name}"
 #: model:res.partner.id_category,name:account_multi_vat.partner_id_category_vat
 msgid "VAT number"
 msgstr "Numéro de TVA"
+
+#~ msgid "The country of the tax doesn't match the one of the tax grids."
+#~ msgstr "Le pays de la taxe ne correspond pas à celui des tax grids."
