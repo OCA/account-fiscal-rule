@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+<record id="view_account_position_form" model="ir.ui.view">
+    <field name="name">view_account_position_form</field>
+    <field name="model">account.fiscal.position</field>
+    <field name="inherit_id" ref="account.view_account_position_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//page[@name='account_mapping']" position="after">
+            <page name="country_mapping" string="Country Mapping">
+                <group>
+                    <field name="country_line_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="country_id"/>
+                        </tree>
+                    </field>
+                </group>
+            </page>
+        
+        </xpath>
+        
+    </field>
+</record>
+</odoo>
