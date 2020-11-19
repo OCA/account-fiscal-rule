@@ -138,8 +138,10 @@ class AccountMove(models.Model):
     def _avatax_compute_tax(self, commit=False):
         """ Contact REST API and recompute taxes for a Sale Order """
         self and self.ensure_one()
-        Tax = self.env["account.tax"]
         avatax_config = self.company_id.get_avatax_config_company()
+        if not avatax_config:
+            # Skip Avatax computation if no configuration is found
+            return
         doc_type = self._get_avatax_doc_type(commit=commit)
         tax_date = self.get_origin_tax_date() or self.invoice_date
         taxable_lines = self._avatax_prepare_lines(doc_type)
@@ -177,6 +179,7 @@ class AccountMove(models.Model):
             avatax_config.commit_transaction(self.name, doc_type)
             return tax_result
 
+        Tax = self.env["account.tax"]
         tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
         taxes_to_set = []
         lines = self.invoice_line_ids.filtered(lambda l: not l.display_type)
