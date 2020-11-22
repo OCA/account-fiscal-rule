@@ -34,7 +34,6 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_chart_template
 #, fuzzy
-#| msgid "Product Template"
 msgid "Account Chart Template"
 msgstr "Predložak proizvoda"
 
@@ -72,7 +71,6 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__chart_template_id
 #, fuzzy
-#| msgid "Product Template"
 msgid "Chart Template"
 msgstr "Predložak proizvoda"
 
