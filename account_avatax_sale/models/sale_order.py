@@ -4,7 +4,17 @@ from odoo import api, fields, models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    @api.depends('tax_on_shipping_address', 'partner_id', 'partner_shipping_id')
+    def _compute_tax_id(self):
+        for order in self:
+            order.tax_add_id = order.partner_shipping_id if order.tax_on_shipping_address else order.partner_id
+
     tax_amount = fields.Monetary(string="AvaTax")
+    tax_add_id = fields.Many2one(
+        'res.partner', 'Tax Address',
+        readonly=True,
+        states={'draft': [('readonly', False)]},
+        compute='_compute_tax_id', store=True)
 
     @api.onchange("partner_shipping_id", "partner_id")
     def onchange_partner_shipping_id(self):
@@ -20,7 +30,7 @@ class SaleOrder(models.Model):
         self.tax_on_shipping_address = bool(self.partner_shipping_id)
         return res
 
-    @api.depends("partner_invoice_id", "tax_address_id", "company_id")
+    @api.depends("partner_shipping_id", "partner_id", "company_id")
     def _compute_onchange_exemption(self):
         for order in self:
             invoice_partner = order.partner_invoice_id.commercial_partner_id
@@ -143,12 +153,15 @@ class SaleOrder(models.Model):
         doc_type = self._get_avatax_doc_type()
         Tax = self.env["account.tax"]
         avatax_config = self.company_id.get_avatax_config_company()
+        partner = self.partner_id
+        if avatax_config.use_partner_invoice_id:
+            partner = self.partner_invoice_id
         taxable_lines = self._avatax_prepare_lines(self.order_line)
         tax_result = avatax_config.create_transaction(
             self.date_order,
             self.name,
             doc_type,
-            self.partner_id,
+            partner,
             self.warehouse_id.partner_id or self.company_id.partner_id,
             self.tax_address_id or self.partner_id,
             taxable_lines,
