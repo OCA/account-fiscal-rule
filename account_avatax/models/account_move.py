@@ -80,7 +80,7 @@ class AccountMove(models.Model):
             if inv.avatax_amount:
                 inv.amount_tax = abs(inv.avatax_amount)
                 inv.amount_total = inv.amount_untaxed + inv.amount_tax
-                sign = inv.type in ["in_refund", "out_refund"] and -1 or 1
+                sign = inv.move_type in ["in_refund", "out_refund"] and -1 or 1
                 inv.amount_total_signed = inv.amount_total * sign
 
     @api.depends("tax_on_shipping_address", "partner_id", "partner_shipping_id")
@@ -114,7 +114,7 @@ class AccountMove(models.Model):
     # Same as v12
     def _get_avatax_doc_type(self, commit=True):
         self.ensure_one()
-        if "refund" in self.type:
+        if "refund" in self.move_type:
             doc_type = "ReturnInvoice" if commit else "ReturnOrder"
         else:
             doc_type = "SalesInvoice" if commit else "SalesOrder"
@@ -126,7 +126,7 @@ class AccountMove(models.Model):
         Prepare the lines to use for Avatax computation.
         Returns a list of dicts
         """
-        sign = 1 if self.type.startswith("out") else -1
+        sign = 1 if self.move_type.startswith("out") else -1
         lines = [
             line._avatax_prepare_line(sign, doc_type)
             for line in self.invoice_line_ids
@@ -138,10 +138,8 @@ class AccountMove(models.Model):
     def _avatax_compute_tax(self, commit=False):
         """ Contact REST API and recompute taxes for a Sale Order """
         self and self.ensure_one()
+        Tax = self.env["account.tax"]
         avatax_config = self.company_id.get_avatax_config_company()
-        if not avatax_config:
-            # Skip Avatax computation if no configuration is found
-            return
         doc_type = self._get_avatax_doc_type(commit=commit)
         tax_date = self.get_origin_tax_date() or self.invoice_date
         taxable_lines = self._avatax_prepare_lines(doc_type)
@@ -159,9 +157,9 @@ class AccountMove(models.Model):
             commit,
             tax_date,
             # TODO: can we report self.invoice_doc_no?
-            self.name if self.type == "out_refund" else "",
+            self.name if self.move_type == "out_refund" else "",
             self.location_code or "",
-            is_override=self.type == "out_refund",
+            is_override=self.move_type == "out_refund",
             currency_id=self.currency_id,
             ignore_error=300 if commit else None,
         )
@@ -179,7 +177,6 @@ class AccountMove(models.Model):
             avatax_config.commit_transaction(self.name, doc_type)
             return tax_result
 
-        Tax = self.env["account.tax"]
         tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
         taxes_to_set = []
         lines = self.invoice_line_ids.filtered(lambda l: not l.display_type)
@@ -277,7 +274,7 @@ class AccountMove(models.Model):
         """
         for invoice in self:
             if (
-                invoice.type in ["out_invoice", "out_refund"]
+                invoice.move_type in ["out_invoice", "out_refund"]
                 and self.fiscal_position_id.is_avatax
                 and invoice.state == "posted"
             ):

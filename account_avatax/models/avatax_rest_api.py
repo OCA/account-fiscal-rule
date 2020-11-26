@@ -170,8 +170,7 @@ class AvaTaxRESTService:
         Partner = self.config.env["res.partner"]
         country = Partner.get_country_from_code(valid_address.get("country"))
         state = Partner.get_state_from_code(
-            valid_address.get("region"),
-            valid_address.get("country"),
+            valid_address.get("region"), valid_address.get("country"),
         )
         address_vals = {
             "street": valid_address.get("line1", ""),
@@ -210,10 +209,10 @@ class AvaTaxRESTService:
         ignore_error=None,
     ):
         """Create tax request and get tax amount by customer address
-        @currency_code : 'USD' is the default currency code for avalara,
-        if user not specify in the own company
-        return information about how the tax was calculated.  Intended
-        for use only while the SDK is in a development environment.
+            @currency_code : 'USD' is the default currency code for avalara,
+            if user not specify in the own company
+            return information about how the tax was calculated.  Intended
+            for use only while the SDK is in a development environment.
         """
         if not origin.street:
             raise UserError(
