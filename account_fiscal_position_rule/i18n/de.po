@@ -79,6 +79,12 @@ msgid "Country To"
 msgstr "Zielland"
 
 #. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__from_country_group_id
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__from_country_group_id
+msgid "Country group from"
+msgstr ""
+
+#. module: account_fiscal_position_rule
 #: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
 msgid "Create"
 msgstr "Anlegen"
@@ -114,6 +120,12 @@ msgstr "Ziel"
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__to_shipping_country
 msgid "Destination Country"
 msgstr "Bestimmungsland"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__to_shipping_country_group_id
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__to_shipping_country_group_id
+msgid "Destination Country Group"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__to_shipping_state
@@ -196,6 +208,12 @@ msgstr "RechnungInvoice"
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__to_invoice_country
 msgid "Invoice Country"
 msgstr "Rechnungsland"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__to_invoice_country_group_id
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__to_invoice_country_group_id
+msgid "Invoice Country Group"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__to_invoice_state
