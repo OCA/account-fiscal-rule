@@ -140,6 +140,9 @@ class AccountMove(models.Model):
         self and self.ensure_one()
         Tax = self.env["account.tax"]
         avatax_config = self.company_id.get_avatax_config_company()
+        if not avatax_config:
+            # Skip Avatax computation if no configuration is found
+            return
         doc_type = self._get_avatax_doc_type(commit=commit)
         tax_date = self.get_origin_tax_date() or self.invoice_date
         taxable_lines = self._avatax_prepare_lines(doc_type)

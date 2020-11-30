@@ -25,18 +25,6 @@ Taxes using Avalara Avatax API
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-.. |avataxbadge1| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/13.0/account_avatax/static/description/SalesTax.png
-    :target: https://developer.avalara.com/certification/avatax/sales-tax-badge/
-    :alt: Sales Tax Certification
-.. |avataxbadge2| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/13.0/account_avatax/static/description/Refunds.png
-    :target: https://developer.avalara.com/certification/avatax/refunds-credit-memos-badge/
-    :alt: Refunds Certification
-.. |avataxbadge3| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/13.0/account_avatax/static/description/AddressValidation.png
-    :target: https://developer.avalara.com/certification/avatax/address-validation-badge/
-    :alt: Address Validation Certification
-
-|avataxbadge1| |avataxbadge2| |avataxbadge3|
-
 Odoo provides integration with AvaTax, a tax solution software by Avalara
 which includes sales tax calculation for all US states and territories
 and all Canadian provinces and territories (including GST, PST, and HST).
