@@ -136,6 +136,10 @@ class AvalaraSalestax(models.Model):
         help="Allows ean13 to be reported in place of Item Reference"
         " as upc identifier.",
     )
+    avatax_company_id = fields.Char(
+        'Company ID',
+        help="The company ID as defined in the Admin Console of AvaTax",
+    )
     # TODO: add option to Display Prices with Tax Included
 
     # constraints on uniq records creation with account_number and company_id
