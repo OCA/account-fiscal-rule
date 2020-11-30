@@ -4,17 +4,24 @@ from odoo import api, fields, models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    @api.depends('tax_on_shipping_address', 'partner_id', 'partner_shipping_id')
+    @api.depends("tax_on_shipping_address", "partner_id", "partner_shipping_id")
     def _compute_tax_id(self):
         for order in self:
-            order.tax_add_id = order.partner_shipping_id if order.tax_on_shipping_address else order.partner_id
+            order.tax_add_id = (
+                order.partner_shipping_id
+                if order.tax_on_shipping_address
+                else order.partner_id
+            )
 
     tax_amount = fields.Monetary(string="AvaTax")
     tax_add_id = fields.Many2one(
-        'res.partner', 'Tax Address',
+        "res.partner",
+        "Tax Address",
         readonly=True,
-        states={'draft': [('readonly', False)]},
-        compute='_compute_tax_id', store=True)
+        states={"draft": [("readonly", False)]},
+        compute="_compute_tax_id",
+        store=True,
+    )
 
     @api.onchange("partner_shipping_id", "partner_id")
     def onchange_partner_shipping_id(self):

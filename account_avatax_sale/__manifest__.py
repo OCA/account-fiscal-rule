@@ -7,7 +7,11 @@
     "category": "Accounting",
     "website": "https://github.com/OCA/account-fiscal-rule",
     "depends": ["account_avatax", "sale"],
-    "data": ["views/sale_order_view.xml", "views/partner_view.xml", "views/avalara_salestax_view.xml",],
+    "data": [
+        "views/sale_order_view.xml",
+        "views/partner_view.xml",
+        "views/avalara_salestax_view.xml",
+    ],
     "auto_install": True,
     "development_status": "Beta",
 }
