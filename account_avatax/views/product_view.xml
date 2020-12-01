@@ -1,0 +1,85 @@
+<odoo>
+    <!--
+      Product Tax Code
+    -->
+    <record id="view_product_tax_code_tree" model="ir.ui.view">
+        <field name="name">product.tax.code.tree</field>
+        <field name="model">product.tax.code</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Product Tax Code">
+                <field name="name" />
+                <field name="description" />
+                <field name="type" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_product_tax_code_form" model="ir.ui.view">
+        <field name="name">product.tax.code.form</field>
+        <field name="model">product.tax.code</field>
+        <field name="arch" type="xml">
+            <form string="Product Tax Code">
+                <group name="taxcode" col="4" colspan="4">
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="type" />
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="action_product_tax_code" model="ir.actions.act_window">
+        <field name="name">Product Tax Codes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.tax.code</field>
+        <field name="binding_view_types">tree</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        action="action_product_tax_code"
+        id="menu_product_tax_code"
+        name="Product Tax Codes"
+        parent="account_avatax.menu_avatax"
+    />
+    <!--
+    Product
+    -->
+    <record id="view_product_normal_form_avatax_inherit" model="ir.ui.view">
+        <field name="name">product.normal.form.avatax</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="avatax" string="AvaTax">
+                    <group name="avatax" string="AvaTax Properties">
+                        <field name="tax_code_id" />
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//page[1]/group" position="after">
+                <group colspan="2" col="2" string="Product Description">
+                    <field
+                        name="description"
+                        placeholder="describe the product characteristics..."
+                        nolabel="1"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <!--
+    Product Category
+    -->
+    <record id="view_product_category_form_avatax_inherit" model="ir.ui.view">
+        <field name="name">product.category.form.avatax.inherit</field>
+        <field name="model">product.category</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="product.product_category_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="/form//group[@name='first']" position="after">
+                <group col="2" string="AvaTax Properties">
+                    <field name="tax_code_id" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
