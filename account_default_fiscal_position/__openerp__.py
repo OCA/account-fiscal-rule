@@ -5,12 +5,15 @@
 
 {
     "name": "Default Partner Fiscal Position",
-    "version": "9.0.1.0.0",
+    "version": "9.0.1.0.1",
     "author": "Coop IT Easy SCRLfs",
     "category": "Accounting",
     "website": "https://www.coopiteasy.be",
     "depends": ["account"],
-    "data": ["views/account_fiscal_position.xml",],
+    "data": [
+        "views/account_fiscal_position.xml",
+        "security/ir.model.access.csv",
+    ],
     "license": "AGPL-3",
     "summary": "Computes default partner fiscal position.",
     "installable": True,
