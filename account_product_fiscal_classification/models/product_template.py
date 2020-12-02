@@ -11,17 +11,18 @@ from odoo.osv.orm import setup_modifiers
 
 
 class ProductTemplate(models.Model):
-    _inherit = 'product.template'
+    _inherit = "product.template"
 
     # Field Section
     fiscal_classification_id = fields.Many2one(
-        comodel_name='account.product.fiscal.classification',
-        string='Fiscal Classification',
+        comodel_name="account.product.fiscal.classification",
+        string="Fiscal Classification",
         track_visibility="onchange",
         help="Specify the combination of taxes for this product."
         " This field is required. If you dont find the correct Fiscal"
         " Classification, Please create a new one or ask to your account"
-        " manager if you don't have the access right.")
+        " manager if you don't have the access right.",
+    )
 
     # Overload Section
     @api.model
@@ -40,42 +41,57 @@ class ProductTemplate(models.Model):
 
     # Constraint Section
     @api.multi
-    @api.constrains('fiscal_classification_id', 'categ_id')
+    @api.constrains("fiscal_classification_id", "categ_id")
     def _check_classification_categ(self):
         for template in self:
-            if template.categ_id.fiscal_restriction and\
-                    template.fiscal_classification_id not in\
-                    template.categ_id.fiscal_classification_ids:
-                raise ValidationError(_(
-                    "The category '%s' of the product '%s'"
-                    " doesn't not allow to set the classification '%s'.\n"
-                    " Please, change the classification of the product, or"
-                    " remove the constraint on the product category.\n\n"
-                    " Allowed Classifications for '%s': %s") % (
-                    template.categ_id.complete_name, template.name,
-                    template.fiscal_classification_id.name,
-                    template.categ_id.complete_name,
-                    ''.join(
-                        ['\n - ' + x.name for x in
-                            template.categ_id.fiscal_classification_ids])))
+            if (
+                template.categ_id.fiscal_restriction
+                and template.fiscal_classification_id
+                not in template.categ_id.fiscal_classification_ids
+            ):
+                raise ValidationError(
+                    _(
+                        "The category '%s' of the product '%s'"
+                        " doesn't not allow to set the classification '%s'.\n"
+                        " Please, change the classification of the product, or"
+                        " remove the constraint on the product category.\n\n"
+                        " Allowed Classifications for '%s': %s"
+                    )
+                    % (
+                        template.categ_id.complete_name,
+                        template.name,
+                        template.fiscal_classification_id.name,
+                        template.categ_id.complete_name,
+                        "".join(
+                            [
+                                "\n - " + x.name
+                                for x in template.categ_id.fiscal_classification_ids
+                            ]
+                        ),
+                    )
+                )
 
     # View Section
-    @api.onchange('categ_id', 'fiscal_classification_id')
+    @api.onchange("categ_id", "fiscal_classification_id")
     def _onchange_categ_fiscal_classification_id(self):
         if self.categ_id and self.categ_id.fiscal_restriction:
             if len(self.categ_id.fiscal_classification_ids) == 1:
                 # Set classification if category allows only one
-                self.fiscal_classification_id =\
-                    self.categ_id.fiscal_classification_ids[0]
-            elif self.fiscal_classification_id not in\
-                    self.categ_id.fiscal_classification_ids:
+                self.fiscal_classification_id = self.categ_id.fiscal_classification_ids[
+                    0
+                ]
+            elif (
+                self.fiscal_classification_id
+                not in self.categ_id.fiscal_classification_ids
+            ):
                 # Remove classification if category and classification are not
                 # compatible
                 self.fiscal_classification_id = None
 
     @api.model
-    def fields_view_get(self, view_id=None, view_type='form',
-                        toolbar=False, submenu=False):
+    def fields_view_get(
+        self, view_id=None, view_type="form", toolbar=False, submenu=False
+    ):
         """Set 'fiscal_classification_id' as required by fields_view_get:
         We don't set it by fields declaration in python file, to avoid
         incompatibility with other modules that could have demo data
@@ -84,15 +100,23 @@ class ProductTemplate(models.Model):
         We don't set it by view inheritance in xml file to impact all views
         (form / tree) that could define the model 'product.template';"""
         result = super(ProductTemplate, self).fields_view_get(
-            view_id, view_type, toolbar, submenu)
-        if view_type == 'form':
-            doc = etree.XML(result['arch'])
+            view_id, view_type, toolbar, submenu
+        )
+        if view_type == "form":
+            doc = etree.XML(result["arch"])
             nodes = doc.xpath("//field[@name='fiscal_classification_id']")
             if nodes:
-                nodes[0].set('required', '1')
+                nodes[0].set("required", "1")
+<<<<<<< HEAD
                 setup_modifiers(
-                    nodes[0], result['fields']['fiscal_classification_id'])
-                result['arch'] = etree.tostring(doc)
+                    nodes[0], result["fields"]["fiscal_classification_id"]
+                )
+=======
+                modifiers = json.loads(nodes[0].get("modifiers"))
+                modifiers["required"] = True
+                nodes[0].set("modifiers", json.dumps(modifiers))
+>>>>>>> 9a5cec3... !fixup precommit
+                result["arch"] = etree.tostring(doc)
         return result
 
     # Custom Section
@@ -102,42 +126,47 @@ class ProductTemplate(models.Model):
         to the product(s); Otherwise, find the correct Fiscal classification,
         depending of the taxes, or create a new one, if no one are found."""
         for template in self:
-            if vals.get('fiscal_classification_id', False):
+            if vals.get("fiscal_classification_id", False):
                 # update or replace 'taxes_id' and 'supplier_taxes_id'
                 classification = template.fiscal_classification_id
                 tax_vals = {
-                    'supplier_taxes_id': [[6, 0, [
-                        x.id for x in classification.sudo().purchase_tax_ids]]],
-                    'taxes_id': [[6, 0, [
-                        x.id for x in classification.sudo().sale_tax_ids]]],
+                    "supplier_taxes_id": [
+                        (6, 0, [x.id for x in classification.sudo().purchase_tax_ids])
+                    ],
+                    "taxes_id": [
+                        (6, 0, [x.id for x in classification.sudo().sale_tax_ids])
+                    ],
                 }
                 super(ProductTemplate, template.sudo()).write(tax_vals)
-            elif ('supplier_taxes_id' in vals.keys() or
-                    'taxes_id' in vals.keys()):
+            elif "supplier_taxes_id" in vals.keys() or "taxes_id" in vals.keys():
                 # product template Single update mode
-                fc_obj = self.env['account.product.fiscal.classification']
+                fc_obj = self.env["account.product.fiscal.classification"]
                 if len(self) != 1:
                     raise ValidationError(
-                        _("You cannot change Taxes for many Products."))
-                purchase_tax_ids = [
-                    x.id for x in template.sudo().supplier_taxes_id]
-                sale_tax_ids = [
-                    x.id for x in template.sudo().taxes_id]
+                        _("You cannot change Taxes for many Products.")
+                    )
+                purchase_tax_ids = [x.id for x in template.sudo().supplier_taxes_id]
+                sale_tax_ids = [x.id for x in template.sudo().taxes_id]
                 fc_id = fc_obj.find_or_create(
-                    template.company_id.id, sale_tax_ids, purchase_tax_ids)
+                    template.company_id.id, sale_tax_ids, purchase_tax_ids
+                )
                 super(ProductTemplate, template.sudo()).write(
-                    {'fiscal_classification_id': fc_id})
+                    {"fiscal_classification_id": fc_id}
+                )
 
     @api.multi
     def _check_access_fiscal_classification(self, vals):
-        FiscalClassification =\
-            self.env['account.product.fiscal.classification']
-        if vals.get('fiscal_classification_id', False):
+        FiscalClassification = self.env["account.product.fiscal.classification"]
+        if vals.get("fiscal_classification_id", False):
             classification = FiscalClassification.browse(
-                vals['fiscal_classification_id'])
+                vals["fiscal_classification_id"]
+            )
             group = classification.usage_group_id
             if group and group.id not in self.env.user.groups_id.ids:
-                raise UserError(_(
-                    "You can not use the fiscal classification '%s' because"
-                    " you're not member of the group '%s'.") % (
-                        classification.name, group.name))
+                raise UserError(
+                    _(
+                        "You can not use the fiscal classification '%s' because"
+                        " you're not member of the group '%s'."
+                    )
+                    % (classification.name, group.name)
+                )
