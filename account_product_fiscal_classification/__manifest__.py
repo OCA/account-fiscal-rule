@@ -6,15 +6,12 @@
 {
     "name": "Account Product - Fiscal Classification",
     "summary": "Simplify taxes management for products",
-    "version": "12.0.1.3.0",
+    "version": "13.0.1.0.0",
     "category": "Accounting",
     "author": "Akretion,GRAP,La Louve,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-fiscal-rule",
     "license": "AGPL-3",
-    "depends": [
-        "account",
-        "account_coa_menu",
-    ],
+    "depends": ["account", "account_menu"],
     "data": [
         "security/ir_rule.xml",
         "security/ir.model.access.csv",
