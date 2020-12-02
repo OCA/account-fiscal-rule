@@ -14,7 +14,6 @@ class AccountChartTemplate(models.Model):
         string="Fiscal Classification Templates",
     )
 
-    @api.multi
     def _load_template(
         self, company, code_digits=None, account_ref=None, taxes_ref=None
     ):
