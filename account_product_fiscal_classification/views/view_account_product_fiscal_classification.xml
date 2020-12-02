@@ -9,7 +9,7 @@
     <record id="view_account_product_fiscal_classification_tree" model="ir.ui.view">
         <field name="model">account.product.fiscal.classification</field>
         <field name="arch" type="xml">
-            <tree colors="gray:active == False;">
+            <tree decoration-muted="active == False">
                 <field name="name" />
                 <field name="purchase_tax_ids" />
                 <field name="sale_tax_ids" />
@@ -96,7 +96,6 @@
         <field name="name">Fiscal Classifications</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">account.product.fiscal.classification</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
     <menuitem

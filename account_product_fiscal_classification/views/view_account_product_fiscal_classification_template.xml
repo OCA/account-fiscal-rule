@@ -12,7 +12,7 @@
     >
         <field name="model">account.product.fiscal.classification.template</field>
         <field name="arch" type="xml">
-            <tree colors="gray:active == False;">
+            <tree decoration-muted="active == False">
                 <field name="name" />
                 <field name="purchase_tax_ids" />
                 <field name="sale_tax_ids" />
@@ -30,7 +30,7 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <div class="oe_title oe_left">
+                    <div class="oe_title">
                         <div class="oe_edit_only">
                             <label for="name" />
                         </div>
@@ -75,12 +75,11 @@
         <field name="name">Fiscal Classification Templates</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">account.product.fiscal.classification.template</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-
-    <menuitem id="menu_account_product_fiscal_classification_template"
-        parent="account_coa_menu.menu_account_coa_settings"
+    <menuitem
+        id="menu_account_product_fiscal_classification_template"
+        parent="account_menu.menu_account_coa_settings"
         action="action_account_product_fiscal_classification_template"
         sequence="50"
     />

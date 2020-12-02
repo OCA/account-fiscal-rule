@@ -12,7 +12,7 @@ class AccountProductFiscalClassification(models.Model):
 
     # Default Section
     def _default_company_id(self):
-        return self.env["res.users"]._get_company()
+        return self.env.company
 
     name = fields.Char(required=True, translate=True)
 
@@ -50,7 +50,6 @@ class AccountProductFiscalClassification(models.Model):
         column1="fiscal_classification_id",
         column2="tax_id",
         string="Purchase Taxes",
-        oldname="purchase_base_tax_ids",
         domain="""[
             ('type_tax_use', 'in', ['purchase', 'all'])]""",
     )
@@ -61,7 +60,6 @@ class AccountProductFiscalClassification(models.Model):
         column1="fiscal_classification_id",
         column2="tax_id",
         string="Sale Taxes",
-        oldname="sale_base_tax_ids",
         domain="""[
             ('type_tax_use', 'in', ['sale', 'all'])]""",
     )
@@ -86,7 +84,6 @@ class AccountProductFiscalClassification(models.Model):
             record.product_tmpl_qty = len(res)
 
     # Overload Section
-    @api.multi
     def write(self, vals):
         res = super(AccountProductFiscalClassification, self).write(vals)
         pt_obj = self.env["product.template"]
@@ -96,7 +93,6 @@ class AccountProductFiscalClassification(models.Model):
                 pt_lst.write({"fiscal_classification_id": fc.id})
         return res
 
-    @api.multi
     def unlink(self):
         for fc in self:
             if fc.product_tmpl_qty != 0:
