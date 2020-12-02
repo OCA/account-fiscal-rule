@@ -3,7 +3,7 @@ This module is a technical module to test some features of the module
 chart Template.
 
 For that purpose, this module depends on ``l10n_generic_coa`` to realize
-the tests related to the generation of fiscal classifications from 
+the tests related to the generation of fiscal classifications from
 fiscal classification templates.
 
 **You should not install this module on a production environment.**
