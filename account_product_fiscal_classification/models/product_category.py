@@ -39,7 +39,6 @@ class ProductCategory(models.Model):
     )
 
     # Constraint Section
-    @api.multi
     @api.constrains("fiscal_restriction", "fiscal_classification_ids")
     def _check_fiscal_restriction(self):
         for categ in self:
@@ -57,7 +56,6 @@ class ProductCategory(models.Model):
                 )
 
     # Compute Section
-    @api.multi
     def _compute_forbidden_classification(self):
         template_obj = self.env["product.template"]
         for categ in self:
@@ -78,7 +76,6 @@ class ProductCategory(models.Model):
             categ.forbidden_classification_template_qty = len(template_ids)
 
     # Action Section
-    @api.multi
     def apply_classification_to_childs(self):
         for categ in self:
             childs = self.search([("parent_id", "=", categ.id)])
