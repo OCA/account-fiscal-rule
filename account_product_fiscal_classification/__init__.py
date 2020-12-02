@@ -17,14 +17,15 @@ def create_fiscal_classification_from_product_template(cr, registry):
     in product"""
     env = api.Environment(cr, SUPERUSER_ID, {})
 
-    template_obj = env['product.template']
-    classification_obj = env['account.product.fiscal.classification']
+    template_obj = env["product.template"]
+    classification_obj = env["account.product.fiscal.classification"]
 
     classifications_keys = {}
 
     # Get all product template
-    templates = template_obj.search([
-        '|', ('active', '=', False), ('active', '=', True)])
+    templates = template_obj.search(
+        ["|", ("active", "=", False), ("active", "=", True)]
+    )
 
     counter = 0
     total = len(templates)
@@ -34,11 +35,13 @@ def create_fiscal_classification_from_product_template(cr, registry):
         arg_list = [
             template.company_id and template.company_id.id or False,
             sorted([x.id for x in template.taxes_id]),
-            sorted([x.id for x in template.supplier_taxes_id])]
+            sorted([x.id for x in template.supplier_taxes_id]),
+        ]
         if arg_list not in classifications_keys.values():
             _logger.info(
                 """create new Fiscal Classification. Product templates"""
-                """ managed %s/%s""" % (counter, total))
+                """ managed %s/%s""" % (counter, total)
+            )
             classification_id = classification_obj.find_or_create(*arg_list)
             classifications_keys[classification_id] = arg_list
             # associate product template to the new Fiscal Classification
