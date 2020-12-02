@@ -148,7 +148,7 @@ class Tests(TransactionCase):
 
     def test_07_access_restriction_fiscal_classification(self):
         # Give access to user to create product
-        self.product_group.users = [self.user_demo.id]
+        self.product_group.users = [(4, self.user_demo.id, 0)]
         # Create a product should success w/o classification
         self._create_product(self.user_demo, False)
         self._create_product(self.user_demo, True)
@@ -162,7 +162,7 @@ class Tests(TransactionCase):
             self._create_product(self.user_demo, True)
 
         # Give access to the user
-        self.restricted_group.users = [self.user_demo.id]
+        self.restricted_group.users = [(4, self.user_demo.id, 0)]
         # Create a product should success with classification
         self._create_product(self.user_demo, True)
 
