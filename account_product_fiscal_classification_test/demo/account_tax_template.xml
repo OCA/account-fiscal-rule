@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
     Copyright (C) 2014-Today Akretion (http://www.akretion.com)
     @author Renato Lima (https://twitter.com/renatonlima)
@@ -7,21 +7,30 @@
 -->
 <odoo>
     <record model="account.tax.template" id="account_tax_template_purchase_1">
-            <field name="name">Demo Purchase Tax 10%</field>
-            <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_generic_coa.configurable_chart_template"/>
-            <field name="amount">0.1</field>
+        <field name="name">Demo Purchase Tax 10%</field>
+        <field name="type_tax_use">purchase</field>
+        <field
+            name="chart_template_id"
+            ref="l10n_generic_coa.configurable_chart_template"
+        />
+        <field name="amount">0.1</field>
     </record>
     <record model="account.tax.template" id="account_tax_template_sale_1">
-            <field name="name">Demo Sale Tax 10%</field>
-            <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_generic_coa.configurable_chart_template"/>
-            <field name="amount">0.1</field>
+        <field name="name">Demo Sale Tax 10%</field>
+        <field name="type_tax_use">sale</field>
+        <field
+            name="chart_template_id"
+            ref="l10n_generic_coa.configurable_chart_template"
+        />
+        <field name="amount">0.1</field>
     </record>
     <record model="account.tax.template" id="account_tax_template_sale_2">
-            <field name="name">Demo Sale Tax 3%</field>
-            <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_generic_coa.configurable_chart_template"/>
-            <field name="amount">0.03</field>
+        <field name="name">Demo Sale Tax 3%</field>
+        <field name="type_tax_use">sale</field>
+        <field
+            name="chart_template_id"
+            ref="l10n_generic_coa.configurable_chart_template"
+        />
+        <field name="amount">0.03</field>
     </record>
 </odoo>
