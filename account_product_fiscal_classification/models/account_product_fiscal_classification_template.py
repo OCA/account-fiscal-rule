@@ -14,7 +14,9 @@ class AccountProductFiscalClassificationTemplate(models.Model):
     description = fields.Text()
 
     chart_template_id = fields.Many2one(
-        comodel_name="account.chart.template", string="Chart Template", required=True,
+        comodel_name="account.chart.template",
+        string="Chart Template",
+        required=True,
     )
 
     active = fields.Boolean(
