@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="sale_order_form_view">
+        <field name="name">sale.order.form (in account_multi_vat_sale)</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute
+                    name="context"
+                >{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': False}</attribute>
+            </field>
+            <field name="fiscal_position_id" position="after">
+                <field name="customer_vat_partner_id" />
+                <field name="customer_vat" />
+            </field>
+        </field>
+    </record>
+</odoo>
