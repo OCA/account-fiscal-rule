@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_avalara_salestax_form" model="ir.ui.view">
+        <field name="name">avalara.salestax.inherit</field>
+        <field name="model">avalara.salestax</field>
+        <field name="inherit_id" ref="account_avatax.view_avalara_salestax_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='disable_tax_reporting']" position="after">
+                <field name="use_partner_invoice_id" />
+                <field name="sale_calculate_tax" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

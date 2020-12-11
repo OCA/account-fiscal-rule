@@ -19,9 +19,10 @@
                 <field name="exemption_code_id" readonly="1" />
                 <field name="location_code" />
                 <field name="tax_on_shipping_address" />
+                <field name="calculate_tax_on_save" invisible="1" />
                 <field
                     name="invoice_doc_no"
-                    attrs="{'invisible': [('type','!=','out_refund')]}"
+                    attrs="{'invisible': [('move_type','!=','out_refund')]}"
                 />
             </field>
             <field name="invoice_incoterm_id" position="before">

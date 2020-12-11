@@ -51,6 +51,7 @@
                             <group string="Avalara Submissions / Transactions">
                                 <field name="disable_tax_reporting" />
                                 <field name="upc_enable" />
+                                <field name="invoice_calculate_tax" invisible="1" />
                             </group>
                         </page>
                         <page

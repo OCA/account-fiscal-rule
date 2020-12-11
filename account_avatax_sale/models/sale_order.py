@@ -38,8 +38,8 @@ class SaleOrder(models.Model):
                 )
             )[:1]
             # Force Company to get the correct values form the Property fields
-            exemption_address = exemption_address_naive.with_context(
-                force_company=order.company_id.id
+            exemption_address = exemption_address_naive.with_company(
+                order.company_id.id
             )
             order.exemption_code = exemption_address.property_exemption_number
             order.exemption_code_id = exemption_address.property_exemption_code_id
@@ -122,6 +122,7 @@ class SaleOrder(models.Model):
         store=True,
     )
     location_code = fields.Char("Location Code", help="Origin address location code")
+    calculate_tax_on_save = fields.Boolean()
 
     def _get_avatax_doc_type(self, commit=False):
         return "SalesOrder"
@@ -143,12 +144,17 @@ class SaleOrder(models.Model):
         doc_type = self._get_avatax_doc_type()
         Tax = self.env["account.tax"]
         avatax_config = self.company_id.get_avatax_config_company()
+        if not avatax_config:
+            return False
+        partner = self.partner_id
+        if avatax_config.use_partner_invoice_id:
+            partner = self.partner_invoice_id
         taxable_lines = self._avatax_prepare_lines(self.order_line)
         tax_result = avatax_config.create_transaction(
             self.date_order,
             self.name,
             doc_type,
-            self.partner_id,
+            partner,
             self.warehouse_id.partner_id or self.company_id.partner_id,
             self.tax_address_id or self.partner_id,
             taxable_lines,
@@ -195,6 +201,49 @@ class SaleOrder(models.Model):
         if avatax_config:
             self.avalara_compute_taxes()
         return res
+
+    @api.onchange(
+        "order_line",
+        "tax_on_shipping_address",
+        "tax_address_id",
+    )
+    def onchange_avatax_calculation(self):
+        avatax_config = self.env["avalara.salestax"].sudo().search([], limit=1)
+        self.calculate_tax_on_save = False
+        if avatax_config.sale_calculate_tax:
+            if (
+                self._origin.tax_address_id.street != self.tax_address_id.street
+                or self._origin.tax_on_shipping_address != self.tax_on_shipping_address
+            ):
+                self.calculate_tax_on_save = True
+                return
+            for line in self.order_line:
+                if (
+                    line._origin.product_uom_qty != line.product_uom_qty
+                    or line._origin.discount != line.discount
+                    or line._origin.price_unit != line.price_unit
+                    or line._origin.warehouse_id != line.warehouse_id
+                ):
+                    self.calculate_tax_on_save = True
+                    break
+
+    def write(self, vals):
+        result = super(SaleOrder, self).write(vals)
+        avatax_config = self.env["avalara.salestax"].sudo().search([], limit=1)
+        for record in self:
+            if (
+                avatax_config.sale_calculate_tax
+                and record.calculate_tax_on_save
+                and record.state == "draft"
+                and not self._context.get("skip_second_write", False)
+            ):
+                record.with_context(skip_second_write=True).write(
+                    {
+                        "calculate_tax_on_save": False,
+                    }
+                )
+                self.avalara_compute_taxes()
+        return result
 
 
 class SaleOrderLine(models.Model):
