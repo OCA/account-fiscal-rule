@@ -279,6 +279,7 @@ class AvalaraSalestax(models.Model):
 
     def commit_transaction(self, doc_code, doc_type):
         self.ensure_one()
+        result = False
         if not self.disable_tax_reporting:
             avatax = self.get_avatax_rest_service()
             result = avatax.call(
@@ -288,6 +289,7 @@ class AvalaraSalestax(models.Model):
 
     def void_transaction(self, doc_code, doc_type):
         self.ensure_one()
+        result = False
         if not self.disable_tax_reporting:
             avatax = self.get_avatax_rest_service()
             result = avatax.call(
@@ -297,6 +299,7 @@ class AvalaraSalestax(models.Model):
 
     def unvoid_transaction(self, doc_code, doc_type):
         self.ensure_one()
+        result = False
         if not self.disable_tax_reporting:
             avatax = self.get_avatax_rest_service()
             result = avatax.call("unvoid_transaction", self.company_code, doc_code)
