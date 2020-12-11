@@ -251,15 +251,12 @@ class AccountMove(models.Model):
 
     # prepare_return in v12
     def _reverse_move_vals(self, default_values, cancel=True):
-        # OVERRIDE
-        # Don't keep anglo-saxon lines if not cancelling an existing invoice.
         move_vals = super(AccountMove, self)._reverse_move_vals(
             default_values, cancel=cancel
         )
         move_vals.update(
             {
                 "invoice_doc_no": self.name,
-                "invoice_date": self.invoice_date,
                 "tax_on_shipping_address": self.tax_on_shipping_address,
                 "warehouse_id": self.warehouse_id.id,
                 "location_code": self.location_code,
