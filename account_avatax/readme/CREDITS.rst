@@ -1,10 +1,18 @@
-This module was originally developed by Frabrice Henrion at Odoo SA.
+This module was originally developed by Fabrice Henrion at Odoo SA,
+and maintained up to version 11.
 
-Upon release od Odoo 12, Fabrice and Odoo SA stopped supporting the module,
-and invited Odoo partners to maintain it.
+For version 12, Fabrice invited partners to migrate this modules to
+later version, and maintain it.
 
-Open Source Integrators decided to contribute the module to the OCA,
-on the Odoo 13 refactoring.
+Open Source Integrators performed the migration to Odoo 12
+, and later added support for the more up to date REST API
+, alongside with the legacy SOAP API.
 
-For previous Odoo versions, from Odoo 9 to Odoo 12, the code is
-maintained at https://github.com/sodexis/avatax_connector.
+With the addition of the REST API, a deep refactor was introduced,
+changing the tax calculation approach, from just setting the total
+tax amount, to instead adding the tax rates to each document line
+and then having Odoo do all the other computations.
+
+For Odoo 13, the legacy SOAP support was supported, and
+additional refactoring was done to contribute the module
+to the Odoo Community Association.

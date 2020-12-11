@@ -77,7 +77,7 @@ class AvaTaxRESTService:
                     if w_message.get("refersTo", "").startswith("Address"):
                         raise UserError(
                             _(
-                                "AvaTax: Warning vaTax could not validate the"
+                                "AvaTax: Warning AvaTax could not validate the"
                                 " address:\n%s\n\n"
                                 "You can save the address and AvaTax will make an"
                                 " attempt to "
