@@ -11,7 +11,8 @@
     :alt: Address Validation Certification
     :width: 250
 
-|avataxbadge1| |avataxbadge2| |avataxbadge3|
+.. Not certified yet
+   |avataxbadge1| |avataxbadge2| |avataxbadge3|
 
 Odoo provides integration with AvaTax, a tax solution software by Avalara
 which includes sales tax calculation for all US states and territories

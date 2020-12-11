@@ -1,5 +1,4 @@
 <odoo>
-    <function model="res.partner" name="_migrate_exemption_data" />
     <!--
     Partner Tax & Address Validation
     -->
