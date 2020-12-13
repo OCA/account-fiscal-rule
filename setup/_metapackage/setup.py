@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo13-addon-account_fiscal_position_rule_purchase',
         'odoo13-addon-account_fiscal_position_rule_sale',
         'odoo13-addon-account_multi_vat',
+        'odoo13-addon-account_multi_vat_sale',
     ],
     classifiers=[
         'Programming Language :: Python',
