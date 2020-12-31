@@ -1,0 +1,36 @@
+<odoo>
+    <template
+        id="portal_layout"
+        name="Portal layout: exemption menu entry"
+        inherit_id="portal.portal_breadcrumbs"
+        priority="50"
+    >
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li
+                t-if="page_name == 'exemption' or exemption"
+                t-attf-class="breadcrumb-item #{'active ' if not exemption else ''}"
+            >
+                <a t-if="exemption" t-attf-href="/my/exemptions?{{ keep_query() }}">
+                    Exemptions
+                </a>
+                <t t-else="">Exemptions</t>
+            </li>
+            <li t-if="exemption" class="breadcrumb-item active">
+                <t t-esc="exemption.display_name" />
+            </li>
+        </xpath>
+    </template>
+    <template
+        id="portal_my_home_exemptions"
+        name="Portal My Home: exemptions entries"
+        inherit_id="portal.portal_my_home"
+    >
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Exemptions</t>
+                <t t-set="url" t-value="'/my/exemptions'" />
+                <t t-set="count" t-value="exemption_count" />
+            </t>
+        </xpath>
+    </template>
+</odoo>
