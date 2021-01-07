@@ -59,7 +59,7 @@ class ExemptionRule(models.Model):
 
     def export_exemption_rule(self):
         if self.filtered(lambda x: x.state != "draft"):
-            raise UserError("Rule is not in Draft state to Export Custom Rule")
+            raise UserError(_("Rule is not in Draft state to Export Custom Rule"))
         self.write({"state": "progress"})
         avalara_salestax = (
             self.env["avalara.salestax"]
@@ -68,7 +68,7 @@ class ExemptionRule(models.Model):
         )
         if not avalara_salestax:
             raise UserError(
-                "Avatax Exemption Rule export is disabled in Avatax configuration"
+                _("Avatax Exemption Rule export is disabled in Avatax configuration")
             )
         avalara_salestax.export_new_exemption_rules(
             rules=self.filtered(lambda x: not x.avatax_id)
@@ -78,7 +78,7 @@ class ExemptionRule(models.Model):
     def cancel_exemption_rule(self):
         self.ensure_one()
         if self.state != "done":
-            raise UserError("Rule is not in Done state to Cancel Custom Rule")
+            raise UserError(_("Rule is not in Done state to Cancel Custom Rule"))
         self.write({"state": "progress"})
         avalara_salestax = (
             self.env["avalara.salestax"]
@@ -87,7 +87,7 @@ class ExemptionRule(models.Model):
         )
         if not avalara_salestax:
             raise UserError(
-                "Avatax Exemption Rule export is disabled in Avatax configuration"
+                _("Avatax Exemption Rule export is disabled in Avatax configuration")
             )
         avalara_salestax.with_delay(
             priority=5, max_retries=2, description="Cancel Custom Rule %s" % (self.name)
@@ -96,7 +96,9 @@ class ExemptionRule(models.Model):
 
     def enable_exemption_rule(self):
         if self.filtered(lambda x: x.state != "cancel"):
-            raise UserError("Rule is not in Cancelled state to Re-Export Custom Rule")
+            raise UserError(
+                _("Rule is not in Cancelled state to Re-Export Custom Rule")
+            )
         self.write({"state": "progress"})
         avalara_salestax = (
             self.env["avalara.salestax"]
@@ -105,7 +107,7 @@ class ExemptionRule(models.Model):
         )
         if not avalara_salestax:
             raise UserError(
-                "Avatax Exemption Rule export is disabled in Avatax configuration"
+                _("Avatax Exemption Rule export is disabled in Avatax configuration")
             )
         avalara_salestax.export_new_exemption_rules(
             rules=self.filtered(lambda x: not x.avatax_id)
@@ -139,7 +141,7 @@ class ExemptionCode(models.Model):
         )
         if not avalara_salestax:
             raise UserError(
-                "Avatax Exemption Rule export is disabled in Avatax configuration"
+                _("Avatax Exemption Rule export is disabled in Avatax configuration")
             )
         for rule in self.rule_ids.filtered(lambda x: x.state == "draft"):
             rule.export_exemption_rule()
@@ -179,12 +181,12 @@ class ResPartnerExemption(models.Model):
         )
         if not avalara_salestax:
             raise UserError(
-                "Avatax Exemption export is disabled in Avatax configuration"
+                _("Avatax Exemption export is disabled in Avatax configuration")
             )
         if not self.partner_id.customer_code:
-            raise UserError("No Customer code added in Partner")
+            raise UserError(_("No Customer code added in Partner"))
         if not self.exemption_line_ids:
-            raise UserError("No Exemption Lines added")
+            raise UserError(_("No Exemption Lines added"))
         if self.partner_id and not self.partner_id.avatax_id:
             avalara_salestax.with_delay(
                 priority=0,
@@ -209,7 +211,7 @@ class ResPartnerExemption(models.Model):
         )
         if not avalara_salestax:
             raise UserError(
-                "Avatax Exemption export is disabled in Avatax configuration"
+                _("Avatax Exemption export is disabled in Avatax configuration")
             )
         if self.state == "done":
             for exemption_line in self.exemption_line_ids:
@@ -220,7 +222,7 @@ class ResPartnerExemption(models.Model):
                 )._update_avatax_exemption_line_status(exemption_line, False)
             self.write({"state": "progress"})
         else:
-            raise UserError("Exemption status needs to be in Done status to cancel")
+            raise UserError(_("Exemption status needs to be in Done status to cancel"))
         return True
 
     def enable_exemption(self):
@@ -231,7 +233,7 @@ class ResPartnerExemption(models.Model):
         )
         if not avalara_salestax:
             raise UserError(
-                "Avatax Exemption export is disabled in Avatax configuration"
+                _("Avatax Exemption export is disabled in Avatax configuration")
             )
         if self.state == "cancel":
             for exemption_line in self.exemption_line_ids:
@@ -242,5 +244,7 @@ class ResPartnerExemption(models.Model):
                 )._update_avatax_exemption_line_status(exemption_line, True)
             self.write({"state": "progress"})
         else:
-            raise UserError("Exemption status needs to be in Cancel status to enable")
+            raise UserError(
+                _("Exemption status needs to be in Cancel status to enable")
+            )
         return True
