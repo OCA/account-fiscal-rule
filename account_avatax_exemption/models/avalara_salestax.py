@@ -1,6 +1,6 @@
 import requests
 
-from odoo import fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 from odoo.addons.account_avatax.models.avatax_rest_api import AvaTaxRESTService
@@ -288,7 +288,7 @@ class AvalaraSalestax(models.Model):
             self = self.search([("exemption_export", "=", True)], limit=1)
         if not self.exemption_export:
             raise UserError(
-                "Avatax Exemption export is disabled in Avatax configuration"
+                _("Avatax Exemption export is disabled in Avatax configuration")
             )
 
         avatax_restpoint = AvaTaxRESTService(config=self)
