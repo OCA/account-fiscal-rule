@@ -125,7 +125,7 @@
         <field name="model">res.partner.exemption.business.type</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="Exemption Type">
+            <tree string="Exemption Activity Type">
                 <field name="name" />
                 <field name="exemption_code_id" />
                 <field name="avatax_id" />
@@ -133,7 +133,7 @@
         </field>
     </record>
     <record id="exemption_reason_type_act_window" model="ir.actions.act_window">
-        <field name="name">Exemption Reason Type</field>
+        <field name="name">Exemption Activity Type</field>
         <field name="res_model">res.partner.exemption.business.type</field>
         <field name="binding_view_types">tree</field>
         <field name="view_mode">tree,form</field>
