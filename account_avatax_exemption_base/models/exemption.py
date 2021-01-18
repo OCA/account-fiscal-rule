@@ -39,7 +39,7 @@ class ResPartnerExemptionLine(models.Model):
 
 class ResPartnerExemptionBusinessType(models.Model):
     _name = "res.partner.exemption.business.type"
-    _description = "Exemption Business Type"
+    _description = "Exemption Activity Type"
 
     name = fields.Char(required=True)
     avatax_id = fields.Char(required=True, readonly=True)
@@ -53,8 +53,13 @@ class ResPartnerExemptionType(models.Model):
     name = fields.Char()
     business_type = fields.Many2one(
         "res.partner.exemption.business.type",
+        string="Activity Type",
     )
-    exemption_code_id = fields.Many2one("exemption.code", string="Entity Use Code")
+    exemption_code_id = fields.Many2one(
+        related="business_type.exemption_code_id",
+        string="Entity Use Code",
+        readonly=True,
+    )
     group_of_state = fields.Many2one(
         "res.partner.group.state", string="Group of States"
     )
@@ -95,13 +100,12 @@ class ResPartnerExemption(models.Model):
     )
     # Fields already defined in Avatax Exemption Type, adding only readonly attrs
     business_type = fields.Many2one(
-        readonly=True, states={"draft": [("readonly", False)]}
+        string="Activity Type", readonly=True, states={"draft": [("readonly", False)]}
     )
     exemption_code_id = fields.Many2one(
-        "exemption.code",
+        related="business_type.exemption_code_id",
         string="Entity Use Code",
         readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     group_of_state = fields.Many2one(
         readonly=True, states={"draft": [("readonly", False)]}
@@ -184,13 +188,7 @@ class ResPartnerExemption(models.Model):
     @api.onchange("exemption_type")
     def onchange_exemption_type(self):
         self.business_type = self.exemption_type.business_type.id
-        self.exemption_code_id = self.exemption_type.exemption_code_id.id
         self.group_of_state = self.exemption_type.group_of_state
-
-    @api.onchange("business_type")
-    def onchange_business_type(self):
-        if self.business_type and self.business_type.exemption_code_id:
-            self.exemption_code_id = self.business_type.exemption_code_id.id
 
     @api.onchange("exemption_type", "effective_date")
     def onchange_effective_date(self):
