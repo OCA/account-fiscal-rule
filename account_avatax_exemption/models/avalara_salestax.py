@@ -86,10 +86,10 @@ class AvalaraSalestax(models.Model):
         if "error" in result:
             error = result["error"]
             error_message = "Code: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
-                error["code"],
-                error["message"],
-                error["target"],
-                error["details"],
+                error.get("code", False),
+                error.get("message", False),
+                error.get("target", False),
+                error.get("details", False),
             )
             raise FailedJobError(error_message)
         for record in result["value"]:
@@ -114,10 +114,10 @@ class AvalaraSalestax(models.Model):
         if "error" in result:
             error = result["error"]
             error_message = "Code: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
-                error["code"],
-                error["message"],
-                error["target"],
-                error["details"],
+                error.get("code", False),
+                error.get("message", False),
+                error.get("target", False),
+                error.get("details", False),
             )
             raise FailedJobError(error_message)
         for record in result["value"]:
@@ -144,10 +144,10 @@ class AvalaraSalestax(models.Model):
         if "error" in result2:
             error = result2["error"]
             error_message = "Code: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
-                error["code"],
-                error["message"],
-                error["target"],
-                error["details"],
+                error.get("code", False),
+                error.get("message", False),
+                error.get("target", False),
+                error.get("details", False),
             )
             raise FailedJobError(error_message)
         for record in result2["value"]:
@@ -218,10 +218,10 @@ class AvalaraSalestax(models.Model):
             if "error" in result:
                 error = result["error"]
                 error_message = "Code: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
-                    error["code"],
-                    error["message"],
-                    error["target"],
-                    error["details"],
+                    error.get("code", False),
+                    error.get("message", False),
+                    error.get("target", False),
+                    error.get("details", False),
                 )
                 raise FailedJobError(error_message)
             result_vals += result["value"]
@@ -292,25 +292,36 @@ class AvalaraSalestax(models.Model):
             )
 
         avatax_restpoint = AvaTaxRESTService(config=self)
-        r = avatax_restpoint.client.query_certificates(self.avatax_company_id)
-        result = r.json()
-
-        if "error" in result:
-            error = result["error"]
-            error_message = "Code: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
-                error["code"],
-                error["message"],
-                error["target"],
-                error["details"],
+        count = 0
+        result_vals = []
+        include_option = None
+        while True:
+            r = avatax_restpoint.client.query_certificates(
+                self.avatax_company_id, include_option
             )
-            raise UserError(error_message)
+            result = r.json()
+            count += 100
+            if "error" in result:
+                error = result["error"]
+                error_message = "Code: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
+                    error.get("code", False),
+                    error.get("message", False),
+                    error.get("target", False),
+                    error.get("details", False),
+                )
+                raise UserError(error_message)
+            result_vals += result["value"]
+            if result["@recordsetCount"] <= count:
+                break
+            else:
+                include_option = "$skip=" + str(count)
 
         exemptions = (
             self.env["res.partner.exemption.line"]
             .sudo()
             .search([("avatax_id", "!=", False)])
         )
-        for exemption in result["value"]:
+        for exemption in result_vals:
             avatax_id = exemption["id"]
             if avatax_id not in exemptions.mapped("avatax_id"):
                 self.with_delay(
@@ -367,10 +378,10 @@ class AvalaraSalestax(models.Model):
                 "Rule: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
                 % (
                     rule.name,
-                    error["code"],
-                    error["message"],
-                    error["target"],
-                    error["details"],
+                    error.get("code", False),
+                    error.get("message", False),
+                    error.get("target", False),
+                    error.get("details", False),
                 )
             )
             raise FailedJobError(error_message)
@@ -399,10 +410,10 @@ class AvalaraSalestax(models.Model):
                 "Rule: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
                 % (
                     rule.name,
-                    error["code"],
-                    error["message"],
-                    error["target"],
-                    error["details"],
+                    error.get("code", False),
+                    error.get("message", False),
+                    error.get("target", False),
+                    error.get("details", False),
                 )
             )
             raise FailedJobError(error_message)
@@ -436,10 +447,10 @@ class AvalaraSalestax(models.Model):
                 "Product: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
                 % (
                     product.display_name,
-                    error["code"],
-                    error["message"],
-                    error["target"],
-                    error["details"],
+                    error.get("code", False),
+                    error.get("message", False),
+                    error.get("target", False),
+                    error.get("details", False),
                 )
             )
             raise FailedJobError(error_message)
@@ -469,10 +480,10 @@ class AvalaraSalestax(models.Model):
                 "Product: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
                 % (
                     product.display_name,
-                    error["code"],
-                    error["message"],
-                    error["target"],
-                    error["details"],
+                    error.get("code", False),
+                    error.get("message", False),
+                    error.get("target", False),
+                    error.get("details", False),
                 )
             )
             raise FailedJobError(error_message)
@@ -505,10 +516,10 @@ class AvalaraSalestax(models.Model):
                 "Product: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
                 % (
                     product.display_name,
-                    error["code"],
-                    error["message"],
-                    error["target"],
-                    error["details"],
+                    error.get("code", False),
+                    error.get("message", False),
+                    error.get("target", False),
+                    error.get("details", False),
                 )
             )
             raise FailedJobError(error_message)
@@ -550,10 +561,10 @@ class AvalaraSalestax(models.Model):
                 "Partner: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
                 % (
                     partner.display_name,
-                    error["code"],
-                    error["message"],
-                    error["target"],
-                    error["details"],
+                    error.get("code", False),
+                    error.get("message", False),
+                    error.get("target", False),
+                    error.get("details", False),
                 )
             )
             raise FailedJobError(error_message)
@@ -611,10 +622,10 @@ class AvalaraSalestax(models.Model):
                 "Exemption: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
                 % (
                     exemption_line.display_name,
-                    error["code"],
-                    error["message"],
-                    error["target"],
-                    error["details"],
+                    error.get("code", False),
+                    error.get("message", False),
+                    error.get("target", False),
+                    error.get("details", False),
                 )
             )
             raise FailedJobError(error_message)
@@ -655,10 +666,10 @@ class AvalaraSalestax(models.Model):
                 "Exemption: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
                 % (
                     exemption_line.display_name,
-                    error["code"],
-                    error["message"],
-                    error["target"],
-                    error["details"],
+                    error.get("code", False),
+                    error.get("message", False),
+                    error.get("target", False),
+                    error.get("details", False),
                 )
             )
             raise FailedJobError(error_message)
@@ -704,10 +715,10 @@ class AvalaraSalestax(models.Model):
                 "Exemption: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
                 % (
                     exemption_line.display_name,
-                    error["code"],
-                    error["message"],
-                    error["target"],
-                    error["details"],
+                    error.get("code", False),
+                    error.get("message", False),
+                    error.get("target", False),
+                    error.get("details", False),
                 )
             )
             raise FailedJobError(error_message)
@@ -723,10 +734,10 @@ class AvalaraSalestax(models.Model):
                 "Exemption: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
                 % (
                     exemption_line.display_name,
-                    error["code"],
-                    error["message"],
-                    error["target"],
-                    error["details"],
+                    error.get("code", False),
+                    error.get("message", False),
+                    error.get("target", False),
+                    error.get("details", False),
                 )
             )
             raise FailedJobError(error_message)
@@ -760,10 +771,10 @@ class AvalaraSalestax(models.Model):
         if "error" in result:
             error = result["error"]
             error_message = "Code: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
-                error["code"],
-                error["message"],
-                error["target"],
-                error["details"],
+                error.get("code", False),
+                error.get("message", False),
+                error.get("target", False),
+                error.get("details", False),
             )
             raise FailedJobError(error_message)
         if result.get("customers", []):
@@ -778,17 +789,24 @@ class AvalaraSalestax(models.Model):
                     [("customer_code", "=", customer_info["customerCode"])], limit=1
                 )
             if not partner:
-                state = (
-                    self.env["res.country.state"]
-                    .sudo()
-                    .search(
-                        [
-                            ("code", "=", customer_info["region"]),
-                            ("country_id.code", "=", customer_info["country"]),
-                        ],
-                        limit=1,
-                    )
+                partner = partner_sudo.search(
+                    [("customer_code", "=", "%s:0" % (customer_info["customerCode"]))],
+                    limit=1,
                 )
+            if not partner:
+                state = self.env["res.country.state"]
+                if "region" in customer_info:
+                    state = (
+                        self.env["res.country.state"]
+                        .sudo()
+                        .search(
+                            [
+                                ("code", "=", customer_info["region"]),
+                                ("country_id.code", "=", customer_info["country"]),
+                            ],
+                            limit=1,
+                        )
+                    )
                 partner_vals = {
                     "name": customer_info["name"],
                     "street": customer_info["line1"],
@@ -804,13 +822,13 @@ class AvalaraSalestax(models.Model):
                 partner = partner_sudo.create(partner_vals)
 
             # Check if exemption is already available in system
-            exemption = (
+            exemption_line = (
                 self.env["res.partner.exemption.line"]
                 .sudo()
                 .search([("avatax_id", "=", result["id"])], limit=1)
             )
-            if exemption:
-                return result
+            if exemption_line:
+                return "Exemption Already Downloaded\nSearch Response: %s" % (result)
             exposure_zone_info = result["exposureZone"]
             exposure_state = (
                 self.env["res.country.state"]
