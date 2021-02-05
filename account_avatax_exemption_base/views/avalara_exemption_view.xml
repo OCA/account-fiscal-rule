@@ -196,6 +196,7 @@
                                     />
                                     <field name="avatax_id" />
                                     <field name="avatax_status" />
+                                    <field name="exemption_number" />
                                 </tree>
                                 <form string="Exemption Lines">
                                     <group>
