@@ -52,6 +52,7 @@
                                 <field name="disable_tax_reporting" />
                                 <field name="upc_enable" />
                                 <field name="invoice_calculate_tax" invisible="1" />
+                                <field name="use_so_partner_id" />
                             </group>
                         </page>
                         <page
