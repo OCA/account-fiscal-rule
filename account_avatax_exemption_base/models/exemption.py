@@ -68,13 +68,10 @@ class ResPartnerExemptionType(models.Model):
         help="Validity duration in days", default=30
     )
 
-    @api.onchange("state_ids")
-    def onchange_state_ids(self):
-        state_ids = []
-        for state_id in self.state_ids:
-            if state_id.id not in self.group_of_state.state_ids.ids:
-                state_ids.append(state_id.id)
-        self.state_ids = [(6, 0, state_ids)]
+    @api.onchange("group_of_state")
+    def onchange_group_of_state(self):
+        if self.group_of_state.state_ids and not self.state_ids:
+            self.state_ids = [(6, 0, self.group_of_state.state_ids.ids)]
 
 
 class ResPartnerExemption(models.Model):
@@ -185,10 +182,20 @@ class ResPartnerExemption(models.Model):
             self.partner_id = self.partner_id.commercial_partner_id.id
             return {"domain": {"partner_id": [("parent_id", "=", False)]}}
 
-    @api.onchange("exemption_type")
+    @api.onchange("exemption_type", "group_of_state")
     def onchange_exemption_type(self):
         self.business_type = self.exemption_type.business_type.id
-        self.group_of_state = self.exemption_type.group_of_state
+        if self.exemption_type.group_of_state and not self.group_of_state:
+            self.group_of_state = self.exemption_type.group_of_state.id
+        if self.exemption_type or self.group_of_state:
+            state_ids = []
+            if self.exemption_type.group_of_state.state_ids:
+                state_ids += self.exemption_type.group_of_state.state_ids.ids
+            if self.exemption_type.state_ids:
+                state_ids += self.exemption_type.state_ids.ids
+            if self.group_of_state.state_ids:
+                state_ids += self.group_of_state.state_ids.ids
+            self.state_ids = [(6, 0, list(set(state_ids)))]
 
     @api.onchange("exemption_type", "effective_date")
     def onchange_effective_date(self):
@@ -197,18 +204,13 @@ class ResPartnerExemption(models.Model):
                 days=self.exemption_type.exemption_validity_duration
             )
 
-    @api.onchange("exemption_type", "group_of_state", "state_ids")
+    @api.onchange("state_ids")
     def onchange_state_ids(self):
-        state_ids = self.state_ids.ids
-        if self.exemption_type.state_ids:
-            state_ids += self.exemption_type.state_ids.ids
-        if self.exemption_type.group_of_state.state_ids:
-            state_ids += self.exemption_type.group_of_state.state_ids.ids
-        if self.group_of_state.state_ids:
-            state_ids += self.group_of_state.state_ids.ids
-        if not any(self.exemption_line_ids.mapped("avatax_id")):
+        if not any(self.exemption_line_ids.mapped("avatax_id")) and not any(
+            self.exemption_line_ids.mapped("add_exemption_number")
+        ):
             self.exemption_line_ids = [(6, 0, [])]
-        for state_id in list(set(state_ids)):
+        for state_id in self.state_ids:
             if state_id not in self.exemption_line_ids.mapped("state_id").ids:
                 self.exemption_line_ids += self.exemption_line_ids.new(
                     {
