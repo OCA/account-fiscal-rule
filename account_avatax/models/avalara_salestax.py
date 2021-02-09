@@ -165,6 +165,7 @@ class AvalaraSalestax(models.Model):
             self.service_url,
             self.request_timeout,
             self.logging,
+            config=self,
         )
 
     def create_transaction(

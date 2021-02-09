@@ -155,6 +155,8 @@ class ResPartner(models.Model):
             )
             return False
         avatax_config = self.env.company.get_avatax_config_company()
+        if not avatax_config:
+            return False
         avatax_restpoint = AvaTaxRESTService(config=avatax_config)
         valid_address = avatax_restpoint.validate_rest_address(
             partner.street,
