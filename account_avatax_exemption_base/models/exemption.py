@@ -210,7 +210,7 @@ class ResPartnerExemption(models.Model):
             self.exemption_line_ids.mapped("add_exemption_number")
         ):
             self.exemption_line_ids = [(6, 0, [])]
-        for state_id in self.state_ids:
+        for state_id in self.state_ids.ids:
             if state_id not in self.exemption_line_ids.mapped("state_id").ids:
                 self.exemption_line_ids += self.exemption_line_ids.new(
                     {
