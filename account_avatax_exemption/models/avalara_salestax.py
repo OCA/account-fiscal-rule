@@ -77,7 +77,7 @@ class AvalaraSalestax(models.Model):
             vals["avatax_item_id"] = record["id"]
             product.with_context(skip_job_creation=True).write(vals)
 
-    def import_exemption_business_type(self):
+    def import_exemption_activity_type(self):
         self.ensure_one()
         business_type_obj = self.env["res.partner.exemption.business.type"]
         avatax_restpoint = AvaTaxRESTService(config=self)
