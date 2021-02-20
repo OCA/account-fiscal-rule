@@ -122,7 +122,9 @@ class AvalaraSalestax(models.Model):
         help="Countries where address validation will be used",
     )
     active = fields.Boolean(
-        "Active", default=True, help="Uncheck the active field to hide the record"
+        "Active",
+        default=True,
+        help="Uncheck the active field to hide the record",
     )
     company_id = fields.Many2one(
         "res.company",
@@ -143,8 +145,9 @@ class AvalaraSalestax(models.Model):
         "Invoice line's price_unit, discount, quantity",
     )
     use_so_partner_id = fields.Boolean(
-        string="Use SO Customer Code",
-        help="If the Boolean is checked SO Partner Customer Code will be used",
+        string="Use Sale Customer Code on Invoice",
+        help="If Boolean is checked, SO Partner Customer Code "
+        "on Invoice will be used",
     )
     # TODO: add option to Display Prices with Tax Included
 
