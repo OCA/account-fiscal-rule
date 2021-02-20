@@ -19,11 +19,7 @@
                     <field name="use_commercial_entity" invisible="1" />
                     <label for="exemption_ids" />
                 </group>
-                <field
-                    name="exemption_ids"
-                    context="{'default_partner_id': id}"
-                    nolabel="1"
-                />
+                <field name="exemption_ids" context="{'hide_partner':id}" nolabel="1" />
                 <div
                     attrs="{'invisible': ['|','|',('is_company','=',True),('parent_id','=',False),('use_commercial_entity','=',False)]}"
                 >

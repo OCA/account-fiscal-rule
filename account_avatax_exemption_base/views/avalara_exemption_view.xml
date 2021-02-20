@@ -160,7 +160,11 @@
                 </header>
                 <sheet>
                     <group>
-                        <field name="partner_id" options="{'always_reload': True}" />
+                        <field
+                            name="partner_id"
+                            options="{'always_reload': True}"
+                            invisible="context.get('hide_partner', False)"
+                        />
                         <field name="exemption_type" />
                         <field
                             name="business_type"
@@ -235,7 +239,10 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string="Exemption">
-                <field name="partner_id" />
+                <field
+                    name="partner_id"
+                    invisible="context.get('hide_partner', False)"
+                />
                 <field name="exemption_type" />
                 <field name="state_ids" widget="many2many_tags" />
                 <field name="state" />
