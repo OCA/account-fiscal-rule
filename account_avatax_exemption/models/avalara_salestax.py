@@ -188,7 +188,7 @@ class AvalaraSalestax(models.Model):
                             "exemption_code_id": use_code.id,
                             "state_id": state.id,
                             "taxable": True,
-                            "state": "progress",
+                            "state": "draft",
                         }
                     )
 
