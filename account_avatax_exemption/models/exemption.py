@@ -121,6 +121,30 @@ class ExemptionRule(models.Model):
             }
         )
 
+    def cancel_exemption_rule_failed(self):
+        self.ensure_one()
+        queue_job_sudo = self.env["queue.job"].sudo()
+        queue_job = queue_job_sudo.search(
+            [
+                ("method_name", "=", "_export_base_rule_based_on_type"),
+                ("state", "!=", "done"),
+                ("args", "ilike", "%[" + str(self.id) + "]%"),
+            ],
+            limit=1,
+        )
+
+        if queue_job:
+            queue_job.write(
+                {
+                    "state": "done",
+                }
+            )
+            self.write(
+                {
+                    "state": "cancel",
+                }
+            )
+
 
 class ExemptionCode(models.Model):
     _inherit = "exemption.code"
