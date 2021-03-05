@@ -139,11 +139,11 @@ class ExemptionRule(models.Model):
                     "state": "done",
                 }
             )
-            self.write(
-                {
-                    "state": "cancel",
-                }
-            )
+        self.write(
+            {
+                "state": "cancel",
+            }
+        )
 
 
 class ExemptionCode(models.Model):
