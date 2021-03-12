@@ -38,7 +38,7 @@ class ExemptionRule(models.Model):
         default=True, readonly=True, states={"draft": [("readonly", False)]}
     )
     avatax_rate = fields.Float(readonly=True, states={"draft": [("readonly", False)]})
-    taxable = fields.Boolean(readonly=True)
+    taxable = fields.Boolean()
 
     @api.constrains("avatax_rate")
     def _check_avatax_rate(self):
