@@ -206,7 +206,7 @@ class AccountMove(models.Model):
         self.line_ids.mapped("move_id")._check_balanced()
         # Set Taxes on lines in a way that properly triggers onchanges
         # This same approach is also used by the official account_taxcloud connector
-        if commit and self.state == 'draft':
+        if commit and self.state == "draft":
             with Form(self) as move_form:
                 for index, taxes in taxes_to_set:
                     with move_form.invoice_line_ids.edit(index) as line_form:
@@ -223,8 +223,10 @@ class AccountMove(models.Model):
         Forces computation of the Invoice taxes
         """
         for invoice in self:
-            if invoice.fiscal_position_id.is_avatax and (
-                invoice.state == "draft" or commit
+            if (
+                invoice.move_type in ["out_invoice", "out_refund"]
+                and invoice.fiscal_position_id.is_avatax
+                and (invoice.state == "draft" or commit)
             ):
                 invoice._avatax_compute_tax(commit=commit)
         return True
@@ -288,9 +290,10 @@ class AccountMove(models.Model):
                 and self.fiscal_position_id.is_avatax
                 and invoice.state == "posted"
             ):
-                avatax = self.company_id.get_avatax_config_company()
-                doc_type = invoice._get_avatax_doc_type()
-                avatax.void_transaction(invoice.name, doc_type)
+                avatax_config = self.company_id.get_avatax_config_company()
+                if avatax_config:
+                    doc_type = invoice._get_avatax_doc_type()
+                    avatax_config.void_transaction(invoice.name, doc_type)
         return super(AccountMove, self).button_draft()
 
     @api.onchange(
