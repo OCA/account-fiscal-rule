@@ -206,7 +206,7 @@ class AccountMove(models.Model):
         self.line_ids.mapped("move_id")._check_balanced()
         # Set Taxes on lines in a way that properly triggers onchanges
         # This same approach is also used by the official account_taxcloud connector
-        if commit and self.state == "draft":
+        if self.state == "draft":
             with Form(self) as move_form:
                 for index, taxes in taxes_to_set:
                     with move_form.invoice_line_ids.edit(index) as line_form:
