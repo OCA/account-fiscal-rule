@@ -415,8 +415,17 @@ class AccountMoveLine(models.Model):
             item_code = product.default_code or ("ID:%d" % product.id)
         tax_code = line.product_id.applicable_tax_code_id.name
         amount = sign * line._get_avatax_amount()
+        product_id = int(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("sale.default_deposit_product_id")
+        )
+        if product_id and line.product_id.id == product_id:
+            quantity = abs(line.quantity)
+        else:
+            quantity = line.quantity
         res = {
-            "qty": line.quantity,
+            "qty": quantity,
             "itemcode": item_code,
             "description": line.name,
             "amount": amount,
