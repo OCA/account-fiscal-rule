@@ -7,14 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-27 11:17+0000\n"
-"PO-Revision-Date: 2020-02-06 14:26+0000\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2021-03-19 14:46+0000\n"
+"Last-Translator: Sandrine (ACSONE) <sandrine.ravet@acsone.eu>\n"
 "Language-Team: \n"
-"Language: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: account_multi_vat
 #: model:ir.model,name:account_multi_vat.model_account_move_reversal
@@ -39,9 +40,8 @@ msgstr "N° TVA du client"
 
 #. module: account_multi_vat
 #: model:ir.model.fields,field_description:account_multi_vat.field_account_move__customer_vat_partner_id
-#, fuzzy
 msgid "Customer tax administration"
-msgstr "Administration fiscale"
+msgstr "Administration fiscale du client"
 
 #. module: account_multi_vat
 #: model:ir.model,name:account_multi_vat.model_account_fiscal_position
