@@ -78,6 +78,12 @@ class AccountTax(models.Model):
             digits = 6
             avatax_amount = None
             for line in avatax_invoice.invoice_line_ids:
+                price_unit = line.currency_id._convert(
+                    price_unit,
+                    avatax_invoice.company_id.currency_id,
+                    avatax_invoice.company_id,
+                    avatax_invoice.date,
+                )
                 if (
                     line.product_id == product
                     and float_compare(line.quantity, quantity, digits) == 0
@@ -92,11 +98,13 @@ class AccountTax(models.Model):
                     _(
                         "Incorrect retrieval of Avatax amount for Invoice %s:"
                         " product %s, price_unit %f, quantity %f"
-                    ),
-                    avatax_invoice,
-                    product.display_name,
-                    -price_unit,
-                    quantity,
+                    )
+                    % (
+                        avatax_invoice,
+                        product.display_name,
+                        -price_unit,
+                        quantity,
+                    )
                 )
             for tax_item in res["taxes"]:
                 if tax_item["amount"] != 0:
