@@ -418,7 +418,7 @@ class AccountMoveLine(models.Model):
         if line.quantity < 0:
             amount = -amount
         res = {
-            "qty": abs(line.quantity),
+            "qty": line.quantity,
             "itemcode": item_code,
             "description": line.name,
             "amount": amount,
