@@ -14,7 +14,7 @@
             <div class="row mt16 mb16">
                 <t t-if="exemptions">
                     <div class="col-xs-12 table-responsive mt8">
-                        <t t-call="avatax_exemption.exemptions_table" />
+                        <t t-call="account_avatax_exemption.exemptions_table" />
                     </div>
                 </t>
             </div>
