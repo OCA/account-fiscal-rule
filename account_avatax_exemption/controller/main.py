@@ -73,7 +73,6 @@ class WebsiteExemption(CustomerPortal):
 
         # Get the required domains
         domain = self._exemptions_domain(search)
-        archive_groups = self._get_archive_groups("res.partner.exemption", domain)
 
         if date_begin and date_end:
             domain += [
@@ -106,7 +105,6 @@ class WebsiteExemption(CustomerPortal):
                 "exemptions": exemptions,
                 "page_name": "exemption",
                 "pager": pager,
-                "archive_groups": archive_groups,
                 "default_url": base_url,
                 "search": search,
                 "searchbar_sortings": searchbar_sortings,

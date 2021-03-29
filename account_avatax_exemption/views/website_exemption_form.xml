@@ -1,7 +1,7 @@
 <odoo>
     <template id="exemptions_followup" name="Portal Exemption Form">
         <t t-call="portal.portal_layout">
-            <t t-call="avatax_exemption.form_breadcrumb" />
+            <t t-call="account_avatax_exemption.form_breadcrumb" />
             <div class="container mt16">
                 <div id="wrap" t-attf-class="pb-2 pt-3 #{'card-header bg-white'}">
                     <t t-set="breadcrumbs_searchbar" t-value="True" />
@@ -22,7 +22,7 @@
                             name="csrf_token"
                             t-att-value="request.csrf_token()"
                         />
-                        <t t-call="avatax_exemption.form_field" />
+                        <t t-call="account_avatax_exemption.form_field" />
                         <table
                             class="table table-hover table-striped mt32"
                             t-if="exemption.exemption_line_ids"
