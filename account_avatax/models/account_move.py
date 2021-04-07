@@ -264,25 +264,33 @@ class AccountMove(models.Model):
                 avatax_config.commit_transaction(invoice.name, doc_type)
         return True
 
-    # action_invoice_open in v12
-    def post(self):
-        avatax_config = self.company_id.get_avatax_config_company()
-        if avatax_config and avatax_config.force_address_validation:
-            for addr in [self.partner_id, self.partner_shipping_id]:
-                if not addr.date_validation:
-                    # The Validate action will be interrupted
-                    # if the address is not validated
-                    return addr.button_avatax_validate_address()
-        # We should compute taxes before validating the invoice
-        # to ensure correct account moves
-        # However, we can't save the invoice because it wasn't assigned a
-        # number yet
-        self.avatax_compute_taxes(commit=False)
-        super().post()
-        # We can only commit to Avatax after validating the invoice
-        # because we need the generated Invoice number
-        self.avatax_compute_taxes(commit=True)
-        return True
+    def is_avatax_calculated(self):
+        """
+        Only apply Avatax for these types of documents.
+        Can be extended to support other types.
+        """
+        return self.is_sale_document()
+
+    def _post(self, soft=True):
+        if self.is_avatax_calculated():
+            avatax_config = self.company_id.get_avatax_config_company()
+            if avatax_config and avatax_config.force_address_validation:
+                for addr in [self.partner_id, self.partner_shipping_id]:
+                    if not addr.date_validation:
+                        # The Validate action will be interrupted
+                        # if the address is not validated
+                        return addr.button_avatax_validate_address()
+            # We should compute taxes before validating the invoice
+            # to ensure correct account moves
+            # However, we can't save the invoice because it wasn't assigned a
+            # number yet
+            self.avatax_compute_taxes(commit=False)
+        res = super()._post()
+        if self.is_avatax_calculated():
+            # We can only commit to Avatax after validating the invoice
+            # because we need the generated Invoice number
+            self.avatax_compute_taxes(commit=True)
+        return res
 
     # prepare_return in v12
     def _reverse_move_vals(self, default_values, cancel=True):
