@@ -7,23 +7,39 @@ Avalara Avatax Connector
    !! changes will be overwritten.                   !!
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-.. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
+.. |badge1| image:: https://img.shields.io/badge/maturity-Alpha-red.png
     :target: https://odoo-community.org/page/development-status
-    :alt: Beta
+    :alt: Alpha
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-fiscal-rule/tree/13.0/account_avatax
+    :target: https://github.com/OCA/account-fiscal-rule/tree/14.0/account_avatax
     :alt: OCA/account-fiscal-rule
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-13-0/account-fiscal-rule-13-0-account_avatax
+    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-14-0/account-fiscal-rule-14-0-account_avatax
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/93/13.0
+    :target: https://runbot.odoo-community.org/runbot/93/14.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
+
+.. |avataxbadge1| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/14.0/account_avatax/static/description/SalesTax.png
+    :target: https://developer.avalara.com/certification/avatax/sales-tax-badge/
+    :alt: Sales Tax Certification
+    :width: 250
+.. |avataxbadge2| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/14.0/account_avatax/static/description/Refunds.png
+    :target: https://developer.avalara.com/certification/avatax/refunds-credit-memos-badge/
+    :alt: Refunds Certification
+    :width: 250
+.. |avataxbadge3| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/14.0/account_avatax/static/description/AddressValidation.png
+    :target: https://developer.avalara.com/certification/avatax/address-validation-badge/
+    :alt: Address Validation Certification
+    :width: 250
+
+.. Not certified yet
+   |avataxbadge1| |avataxbadge2| |avataxbadge3|
 
 Odoo provides integration with AvaTax, a tax solution software by Avalara
 which includes sales tax calculation for all US states and territories
@@ -53,6 +69,11 @@ This guide includes instructions for the following elements:
 Note: Test the module before deploying in live environment.
 All changes to the AvaTax settings must be performed by a user with
 administrative access rights.
+
+.. IMPORTANT::
+   This is an alpha version, the data model and design can change at any time without warning.
+   Only for development or testing purpose, do not use in production.
+   `More details on development status <https://odoo-community.org/page/development-status>`_
 
 **Table of contents**
 
@@ -343,7 +364,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-fiscal-rule/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_avatax%0Aversion:%2013.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_avatax%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -355,7 +376,7 @@ Authors
 
 * Open Source Integrators
 * Fabrice Henrion
-* Odoo SA
+* Sodexis
 
 Contributors
 ~~~~~~~~~~~~
@@ -379,16 +400,24 @@ Contributors
 Other credits
 ~~~~~~~~~~~~~
 
-This module was originally developed by Frabrice Henrion at Odoo SA.
+This module was originally developed by Fabrice Henrion at Odoo SA,
+and maintained up to version 11.
 
-Upon release od Odoo 12, Fabrice and Odoo SA stopped supporting the module,
-and invited Odoo partners to maintain it.
+For version 12, Fabrice invited partners to migrate this modules to
+later version, and maintain it.
 
-Open Source Integrators decided to contribute the module to the OCA,
-on the Odoo 13 refactoring.
+Open Source Integrators performed the migration to Odoo 12
+, and later added support for the more up to date REST API
+, alongside with the legacy SOAP API.
 
-For previous Odoo versions, from Odoo 9 to Odoo 12, the code is
-maintained at https://github.com/sodexis/avatax_connector.
+With the addition of the REST API, a deep refactor was introduced,
+changing the tax calculation approach, from just setting the total
+tax amount, to instead adding the tax rates to each document line
+and then having Odoo do all the other computations.
+
+For Odoo 13, the legacy SOAP support was supported, and
+additional refactoring was done to contribute the module
+to the Odoo Community Association.
 
 Maintainers
 ~~~~~~~~~~~
@@ -411,6 +440,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-dreispt| 
 
-This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/13.0/account_avatax>`_ project on GitHub.
+This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/14.0/account_avatax>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
