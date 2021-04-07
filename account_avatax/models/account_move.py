@@ -14,9 +14,12 @@ class AccountMove(models.Model):
     @api.depends("partner_shipping_id", "partner_id", "company_id")
     def _compute_onchange_exemption(self):
         for move in self:
-            if not move.exemption_locked and not hasattr(move, "partner_shipping_id"):
-                move.exemption_code = move.partner_id.property_exemption_number
-                move.exemption_code_id = move.partner_id.property_exemption_code_id.id
+            if not move.exemption_locked:
+                address = move.partner_id
+                if hasattr(move, "partner_shipping_id") and move.partner_shipping_id:
+                    address = move.partner_shipping_id
+                move.exemption_code = address.property_exemption_number
+                move.exemption_code_id = address.property_exemption_code_id.id
 
     @api.onchange("warehouse_id")
     def onchange_warehouse_id(self):
@@ -335,9 +338,7 @@ class AccountMove(models.Model):
                 and not self._context.get("skip_second_write", False)
             ):
                 record.with_context(skip_second_write=True).write(
-                    {
-                        "calculate_tax_on_save": False,
-                    }
+                    {"calculate_tax_on_save": False}
                 )
                 record.avatax_compute_taxes()
         return result
@@ -352,9 +353,7 @@ class AccountMove(models.Model):
             and not self._context.get("skip_second_write", False)
         ):
             record.with_context(skip_second_write=True).write(
-                {
-                    "calculate_tax_on_save": False,
-                }
+                {"calculate_tax_on_save": False}
             )
             record.avatax_compute_taxes()
         return record
