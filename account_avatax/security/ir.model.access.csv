@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_avalara_salestax_manager,avalara.salestax.manager,model_avalara_salestax,account.group_account_manager,1,1,1,1
+access_avalara_salestax_employee,avalara.salestax.employee,model_avalara_salestax,base.group_user,1,0,0,0
+access_product_tax_code_employee,product.tax.code.employee,model_product_tax_code,base.group_user,1,0,0,0
+access_product_tax_code_manager,product.tax.code.manager,model_product_tax_code,account.group_account_manager,1,1,1,1
+access_exemption_code_manager,exemption.code.manager,model_exemption_code,account.group_account_manager,1,1,1,1
+access_exemption_code_employee,exemption.code.employee,model_exemption_code,base.group_user,1,0,0,0
+access_avalara_salestax_ping,avalara_salestax_ping,model_avalara_salestax_ping,base.group_user,1,1,1,1
+access_avalara_salestax_address_validate,avalara_salestax_address_validate,model_avalara_salestax_address_validate,base.group_user,1,1,1,1

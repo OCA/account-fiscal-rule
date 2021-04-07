@@ -1,0 +1,96 @@
+<odoo>
+    <!--
+    Partner Tax & Address Validation
+    -->
+    <record id="view_partner_details_form_inherit1" model="ir.ui.view">
+        <field name="name">res.partner.details.form.inherit1</field>
+        <field name="model">res.partner</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="AvaTax">
+                    <group>
+                        <group>
+                            <separator string="Validation" />
+                            <field name="date_validation" />
+                            <field name="validation_method" />
+                            <button
+                                name="button_avatax_validate_address"
+                                string="Validate"
+                                type="object"
+                                icon="fa-cogs"
+                                colspan="2"
+                                context="{'from_validate_button': True}"
+                            />
+                        </group>
+                        <group>
+                            <separator string="Tax Exemption" />
+                            <field name="property_tax_exempt" />
+                            <field
+                                name="property_exemption_code_id"
+                                attrs="{'invisible': [('property_tax_exempt','!=',True)]}"
+                            />
+                            <field
+                                name="property_exemption_number"
+                                attrs="{'invisible': [('property_tax_exempt','!=',True)]}"
+                            />
+                            <newline />
+                            <separator string="Customer Code" />
+                            <field name="customer_code" readonly="1" />
+                            <button
+                                name="generate_cust_code"
+                                string="Generate"
+                                type="object"
+                                attrs="{'invisible': [('customer_code','!=',False)]}"
+                            />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath
+                expr="//field[@name='child_ids']/form/sheet/group/group[3]"
+                position="after"
+            >
+                <group
+                    name="avatax_validation"
+                    attrs="{'invisible': [('type', '!=', 'delivery')]}"
+                    colspan="5"
+                >
+                    <button
+                        name="button_avatax_validate_address"
+                        string="Validate Address"
+                        type="object"
+                        icon="fa-cogs"
+                        colspan="2"
+                        context="{'from_validate_button': True}"
+                    />
+                    <field name="date_validation" />
+                    <field name="validation_method" />
+                </group>
+                <group
+                    name="avatax_exemption"
+                    attrs="{'invisible': [('type', '!=', 'delivery')]}"
+                    colspan="7"
+                >
+                    <field name="property_tax_exempt" />
+                    <field
+                        name="property_exemption_code_id"
+                        attrs="{'invisible': [('property_tax_exempt','!=',True)]}"
+                    />
+                    <field
+                        name="property_exemption_number"
+                        attrs="{'invisible': [('property_tax_exempt','!=',True)]}"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_call_address_validation_method" model="ir.actions.server">
+        <field name="name">Address Validation</field>
+        <field name="model_id" ref="model_res_partner" />
+        <field name="binding_model_id" ref="model_res_partner" />
+        <field name="state">code</field>
+        <field name="code">records.multi_address_validation()</field>
+    </record>
+</odoo>

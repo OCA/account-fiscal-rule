@@ -1,0 +1,145 @@
+<odoo>
+    <!--
+    AvaTax API Configuration in Odoo
+    -->
+    <record id="view_avalara_salestax_form" model="ir.ui.view">
+        <field name="name">avalara.salestax.form</field>
+        <field name="model">avalara.salestax</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="AvaTax API">
+                <sheet>
+                    <group>
+                        <group>
+                            <field
+                                name="company_id"
+                                options="{'no_create_edit': True}"
+                            />
+                        </group>
+                        <group>
+                            <field name="disable_tax_calculation" />
+                            <field name="disable_address_validation" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Connection" name="connection_page">
+                            <group>
+                                <group string="Connection">
+                                    <field name="account_number" />
+                                    <field name="license_key" password="True" />
+                                    <field name="service_url" />
+                                    <field name="company_code" />
+                                    <button
+                                        name="%(account_avatax.action_avalara_salestax_ping)d"
+                                        string="Test Connection"
+                                        type="action"
+                                        icon="fa-television"
+                                    />
+                                    <a
+                                        colspan="2"
+                                        href="https://admin.avalara.com/"
+                                        target="_blank"
+                                    >Visit the AvaTax Admin webpage</a>
+                                </group>
+                            </group>
+                        </page>
+                        <page
+                            string="Tax Calculation"
+                            name="calculation_page"
+                            attrs="{'invisible': [('disable_tax_calculation', '=', True)]}"
+                        >
+                            <group string="Avalara Submissions / Transactions">
+                                <field name="disable_tax_reporting" />
+                                <field name="upc_enable" />
+                                <field name="invoice_calculate_tax" />
+                                <field name="use_so_partner_id" />
+                            </group>
+                        </page>
+                        <page
+                            string="Address Validation"
+                            name="address_page"
+                            attrs="{'invisible': [('disable_address_validation', '=', True)]}"
+                        >
+                            <group string="Address Validation">
+                                <field name="validation_on_save" />
+                                <field name="force_address_validation" />
+                                <field name="result_in_uppercase" />
+                            </group>
+                        </page>
+                        <page string="Advanced" name="advanced_page">
+                            <group string="Adapter">
+                                <field name="auto_generate_customer_code" />
+                                <field name="logging" />
+                                <field name="logging_response" />
+                                <field name="request_timeout" />
+                            </group>
+                            <group string="Countries">
+                                <label
+                                    for="country_ids"
+                                    string="Countries Authorized to Process (ISO code)"
+                                />
+                                <field name="country_ids" nolabel="1" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_avalara_salestax_tree" model="ir.ui.view">
+        <field name="name">avalara.salestax.tree</field>
+        <field name="model">avalara.salestax</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="AvaTax API">
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="company_code" />
+                <field name="account_number" />
+                <field name="service_url" />
+            </tree>
+        </field>
+    </record>
+    <record id="action_avalara_salestax" model="ir.actions.act_window">
+        <field name="name">AvaTax API</field>
+        <field name="res_model">avalara.salestax</field>
+        <field name="binding_view_types">tree</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help">Configuration of AvaTax in odoo</field>
+    </record>
+    <menuitem
+        id="menu_avatax"
+        name="AvaTax"
+        parent="account.menu_finance_configuration"
+        sequence="2"
+    />
+    <menuitem
+        action="action_avalara_salestax"
+        id="menu_avatax_api"
+        name="AvaTax API"
+        parent="menu_avatax"
+        sequence="30"
+    />
+    <record id="exemption_code_tree_view" model="ir.ui.view">
+        <field name="name">exemption.code.tree.view</field>
+        <field name="model">exemption.code</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Exemption Code">
+                <field name="name" />
+                <field name="code" />
+            </tree>
+        </field>
+    </record>
+    <record id="action_exemption_code_details" model="ir.actions.act_window">
+        <field name="name">Exemption Code</field>
+        <field name="res_model">exemption.code</field>
+        <field name="binding_view_types">tree</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        action="action_exemption_code_details"
+        id="menu_action_exemption_code_details"
+        parent="menu_avatax"
+        sequence="25"
+    />
+</odoo>
