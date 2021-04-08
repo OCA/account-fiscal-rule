@@ -289,14 +289,18 @@ class AvalaraSalestax(models.Model):
         return result
 
     def void_transaction(self, doc_code, doc_type):
-        self.ensure_one()
-        result = False
-        if not self.disable_tax_reporting:
-            avatax = self.get_avatax_rest_service()
-            result = avatax.call(
-                "void_transaction", self.company_code, doc_code, {"code": "DocVoided"}
-            )
-        return result
+        if self:
+            self.ensure_one()
+            result = False
+            if not self.disable_tax_reporting:
+                avatax = self.get_avatax_rest_service()
+                result = avatax.call(
+                    "void_transaction",
+                    self.company_code,
+                    doc_code,
+                    {"code": "DocVoided"},
+                )
+            return result
 
     def unvoid_transaction(self, doc_code, doc_type):
         self.ensure_one()
