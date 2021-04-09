@@ -13,13 +13,49 @@ class AccountMove(models.Model):
 
     @api.depends("partner_shipping_id", "partner_id", "company_id")
     def _compute_onchange_exemption(self):
-        for move in self:
-            if not move.exemption_locked:
-                address = move.partner_id
-                if hasattr(move, "partner_shipping_id") and move.partner_shipping_id:
-                    address = move.partner_shipping_id
-                move.exemption_code = address.property_exemption_number
-                move.exemption_code_id = address.property_exemption_code_id.id
+        """
+        Set the exemption to use for the Invoice.
+        An exemption can be applied if
+        there an exemption for the delivery address Country + State
+        - Get the delivery address Country & State
+        - Search the invoiced commercial partner addresses
+          for an exemption in this Country & State
+        - In case there is a "country wide" exemption, use it.
+
+        Example:
+        - ACME company partner, USA CA, has exemption status
+        - ACME Invoicing address, USA CA, no exemption status
+        - ACME Delivery address, USA CA, no exemption status
+
+        Invoice to ACME Invoicing, Shipped to ACME Delivery with be exempt.
+
+        For this to work properly, the "exemption_lock" is no longer supported.
+        """
+        for invoice in self:
+            invoice_partner = invoice.partner_id.commercial_partner_id
+            ship_to_address = (
+                hasattr(invoice, "partner_shipping_id")
+                and invoice.partner_shipping_id
+                or invoice_partner
+            )
+            # Find an exemption address matching the Country + State
+            # of the Delivery address
+            exemption_addresses = (
+                invoice_partner | invoice_partner.child_ids
+            ).filtered("property_tax_exempt")
+            exemption_address_naive = exemption_addresses.filtered(
+                lambda a: a.country_id == ship_to_address.country_id
+                and (
+                    a.state_id == ship_to_address.state_id
+                    or invoice_partner.property_exemption_country_wide
+                )
+            )[:1]
+            # Force Company to get the correct values from the Property fields
+            exemption_address = exemption_address_naive.with_company(
+                invoice.company_id.id
+            )
+            invoice.exemption_code = exemption_address.property_exemption_number
+            invoice.exemption_code_id = exemption_address.property_exemption_code_id
 
     @api.onchange("warehouse_id")
     def onchange_warehouse_id(self):
