@@ -31,7 +31,6 @@
                     groups="stock.group_stock_multi_warehouses"
                 />
                 <field name="tax_address_id" />
-                <field name="exemption_locked" />
             </field>
         </field>
     </record>
