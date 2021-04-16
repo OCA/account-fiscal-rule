@@ -19,7 +19,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[account_avatax](account_avatax/) | 14.0.1.1.0 | Automatic Tax application using the Avalara Avatax Service
+[account_avatax](account_avatax/) | 14.0.1.1.1 | Automatic Tax application using the Avalara Avatax Service
 [account_avatax_sale](account_avatax_sale/) | 14.0.1.0.0 | Sales Orders with automatic Tax application using Avatax
 
 [//]: # (end addons)
