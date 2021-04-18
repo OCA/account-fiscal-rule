@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2014-Today GRAP (http://www.grap.coop)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="ir_rule_tax_group" model="ir.rule">
+        <field name="name">Fiscal Classification</field>
+        <field name="model_id" ref="model_account_product_fiscal_classification" />
+        <field name="global" eval="True" />
+        <field
+            name="domain_force"
+        >['|', ('company_id', '=', user.company_id.id), ('company_id', '=', False)]</field>
+    </record>
+</odoo>

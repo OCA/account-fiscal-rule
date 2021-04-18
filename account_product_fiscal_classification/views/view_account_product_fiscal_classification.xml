@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2014-Today GRAP (http://www.grap.coop)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <!-- Define: account.product.fiscal.classification -->
+    <record id="view_account_product_fiscal_classification_tree" model="ir.ui.view">
+        <field name="model">account.product.fiscal.classification</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="active == False">
+                <field name="name" />
+                <field name="purchase_tax_ids" />
+                <field name="sale_tax_ids" />
+                <field name="product_tmpl_qty" />
+                <field name="usage_group_id" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="active" invisible="1" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_account_product_fiscal_classification_form" model="ir.ui.view">
+        <field name="model">account.product.fiscal.classification</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            type="action"
+                            class="oe_stat_button"
+                            icon="fa-bars"
+                            name="%(action_template_list_by_fiscal_classification)d"
+                            context="{'search_default_fiscal_classification_id': active_id}"
+                            attrs="{'invisible': [('product_tmpl_qty', '=', 0)]}"
+                        >
+                            <field
+                                string="Products"
+                                widget="statinfo"
+                                name="product_tmpl_qty"
+                            />
+                        </button>
+                    </div>
+                    <widget
+                        name="web_ribbon"
+                        text="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <field name="active" invisible="1" />
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name" />
+                        </div>
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name" />
+                        </h1>
+                    </div>
+                    <group col="4" name="description">
+                        <field name="company_id" groups="base.group_multi_company" />
+                        <field name="usage_group_id" />
+                        <newline />
+                        <field name="description" colspan="4" />
+                    </group>
+                    <group col="2" name="action_wizard_change_fiscal_classification">
+                        <button
+                            name="%(action_wizard_change_fiscal_classification)d"
+                            string="Move Products into another Fiscal Classification"
+                            type="action"
+                            class="oe_link"
+                            groups="account.group_account_manager"
+                            attrs="{'invisible':[('product_tmpl_qty','=',0)]}"
+                        />
+                    </group>
+                    <separator string="Taxes" />
+                    <group col="4" name="tax_ids">
+                        <field
+                            name="purchase_tax_ids"
+                            quick_create="false"
+                            widget="many2many_tags"
+                        />
+                        <field
+                            name="sale_tax_ids"
+                            quick_create="false"
+                            widget="many2many_tags"
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record
+        id="action_account_product_fiscal_classification"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Fiscal Classifications</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.product.fiscal.classification</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_account_product_fiscal_classification"
+        parent="account.account_account_menu"
+        action="action_account_product_fiscal_classification"
+        sequence="3"
+    />
+</odoo>

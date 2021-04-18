@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2014-Today GRAP (http://www.grap.coop)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="view_product_template_search" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view" />
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field name="fiscal_classification_id" />
+            </field>
+        </field>
+    </record>
+    <record id="view_product_template_form" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="account.product_template_form_view" />
+        <field name="arch" type="xml">
+            <field name="taxes_id" position="before">
+                <field
+                    name="fiscal_classification_id"
+                    colspan="2"
+                    quick_create="false"
+                />
+            </field>
+            <field name="taxes_id" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
+            <field name="supplier_taxes_id" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
+        </field>
+    </record>
+    <record
+        id="action_template_list_by_fiscal_classification"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Products</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form,graph</field>
+        <field
+            name="domain"
+        >['|', ('active', '=', False), ('active', '=', True)]</field>
+        <field
+            name="context"
+        >{'search_default_fiscal_classification_id': active_id}</field>
+    </record>
+    <!--         <field name="view_id" ref="view_product_template_tree" />
+        <field name="search_view_id" ref="view_product_template_search" /> -->
+</odoo>

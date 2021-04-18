@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2016-Today La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record model="product.category" id="category_with_fiscal_restriction">
+        <field name="name">Category with Fiscal Restriction</field>
+        <field name="fiscal_restriction" eval="True" />
+        <field
+            name="fiscal_classification_ids"
+            eval="[(4, ref('fiscal_classification_1'))]"
+        />
+    </record>
+</odoo>

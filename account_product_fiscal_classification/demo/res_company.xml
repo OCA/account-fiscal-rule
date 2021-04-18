@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="cpny_onlyshare_classification" model="res.company">
+        <field name="name">Other Company</field>
+    </record>
+    <record id="base.user_admin" model="res.users">
+        <field name="company_ids" eval="[(4,ref('cpny_onlyshare_classification'))]" />
+    </record>
+    <record id="base.user_demo" model="res.users">
+        <field name="company_ids" eval="[(4,ref('cpny_onlyshare_classification'))]" />
+    </record>
+</odoo>
