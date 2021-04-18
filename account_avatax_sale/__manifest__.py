@@ -1,6 +1,6 @@
 {
     "name": "Avalara Avatax Connector for Sales Orders",
-    "version": "13.0.2.4.1",
+    "version": "13.0.2.4.2",
     "author": "Fabrice Henrion, Odoo Community Association (OCA)",
     "summary": "Sales Orders with automatic Tax application using Avatax",
     "license": "AGPL-3",
