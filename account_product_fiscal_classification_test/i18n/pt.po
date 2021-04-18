@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_product_fiscal_classification_test
+# 	* account_product_fiscal_classification_test
 #
 msgid ""
 msgstr ""
