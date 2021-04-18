@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2014-Today GRAP (http://www.grap.coop)
+    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
+    Copyright (C) 2019-Today Akretion (https://akretion.com)
+    @author Pierrick Brun <pierrick.brun@akretion.com>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record model="account.product.fiscal.classification" id="fiscal_classification_1">
+        <field name="name">Demo Fiscal Classification 1</field>
+        <field name="company_id" ref="base.main_company" />
+        <field
+            name="purchase_tax_ids"
+            eval="[(6, 0, [ref('account_tax_purchase_1')])]"
+        />
+        <field
+            name="sale_tax_ids"
+            eval="[(6, 0, [
+            ref('account_tax_sale_1'),
+            ref('account_tax_sale_2')])]"
+        />
+    </record>
+    <record model="account.product.fiscal.classification" id="fiscal_classification_2">
+        <field name="name">Demo Fiscal Classification 2</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="sale_tax_ids" eval="[(6, 0, [ref('account_tax_sale_2')])]" />
+    </record>
+    <record model="account.product.fiscal.classification" id="fiscal_classification_3">
+        <field name="name">Demo Fiscal Classification 3</field>
+        <field name="company_id" ref="base.main_company" />
+        <field
+            name="purchase_tax_ids"
+            eval="[(6, 0, [ref('account_tax_purchase_1')])]"
+        />
+    </record>
+    <record
+        model="account.product.fiscal.classification"
+        id="global_fiscal_classification_1"
+    >
+        <field name="name">Demo Global Fiscal Classification 1</field>
+        <field name="company_id" eval="0" />
+        <field
+            name="purchase_tax_ids"
+            eval="[(6, 0, [ref('account_tax_purchase_1'), ref('purchase_tax_44_other')])]"
+        />
+        <field
+            name="sale_tax_ids"
+            eval="[(6, 0, [ref('account_tax_sale_1'), ref('sale_tax_44_other')])]"
+        />
+    </record>
+    <record
+        model="account.product.fiscal.classification"
+        id="global_fiscal_classification_2"
+    >
+        <field name="name">Demo Global Fiscal Classification 2</field>
+        <field name="company_id" eval="0" />
+        <field
+            name="purchase_tax_ids"
+            eval="[(6, 0, [ref('account_tax_purchase_1'), ref('purchase_tax_7_other')])]"
+        />
+        <field
+            name="sale_tax_ids"
+            eval="[(6, 0, [ref('account_tax_sale_2'), ref('sale_tax_7_other')])]"
+        />
+    </record>
+    <record
+        model="account.product.fiscal.classification"
+        id="global_fiscal_classification_3"
+    >
+        <field name="company_id" eval="False" />
+        <field name="name">Demo Global Fiscal Classification 3</field>
+    </record>
+</odoo>

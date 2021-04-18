@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2014 -Today GRAP (http://www.grap.coop)
+    @author Sylvain LE GAL (https://twitter.com/legalsylvain
+    Copyright (C) 2019-Today Akretion (http://www.akretion.com)
+    @author Pierrick Brun <pierrick.brun@akretion.com>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record model="account.tax" id="account_tax_purchase_1">
+        <field name="name">Demo Purchase Tax 10%</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="type_tax_use">purchase</field>
+        <field name="amount">0.1</field>
+    </record>
+    <record model="account.tax" id="account_tax_sale_1">
+        <field name="name">Demo Sale Tax 10%</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="type_tax_use">sale</field>
+        <field name="amount">0.1</field>
+    </record>
+    <record model="account.tax" id="account_tax_sale_2">
+        <field name="name">Demo Sale Tax 3%</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="type_tax_use">sale</field>
+        <field name="amount">0.03</field>
+    </record>
+    <!-- Alternate company -->
+    <record id="sale_tax_7_other" model="account.tax">
+        <field name="name">Demo 7 %</field>
+        <field name="amount">7</field>
+        <field name="type_tax_use">sale</field>
+        <field name="company_id" ref="cpny_onlyshare_classification" />
+        <field name="tax_group_id" ref="account.tax_group_taxes" />
+    </record>
+    <record id="sale_tax_44_other" model="account.tax">
+        <field name="name">Demo 44 %</field>
+        <field name="amount">44</field>
+        <field name="type_tax_use">sale</field>
+        <field name="company_id" ref="cpny_onlyshare_classification" />
+        <field name="tax_group_id" ref="account.tax_group_taxes" />
+    </record>
+    <record id="purchase_tax_7_other" model="account.tax">
+        <field name="name">Demo 7 % purch</field>
+        <field name="amount">7</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="company_id" ref="cpny_onlyshare_classification" />
+        <field name="tax_group_id" ref="account.tax_group_taxes" />
+    </record>
+    <record id="purchase_tax_44_other" model="account.tax">
+        <field name="name">Demo 44 % purch</field>
+        <field name="amount">44</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="company_id" ref="cpny_onlyshare_classification" />
+        <field name="tax_group_id" ref="account.tax_group_taxes" />
+    </record>
+</odoo>

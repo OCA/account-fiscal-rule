@@ -1,0 +1,6 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+ir_model_access_account_product_fiscal_classification_reader,Fiscal Classification Reader,model_account_product_fiscal_classification,base.group_user,1,0,0,0
+ir_model_access_account_product_fiscal_classification_manager,Fiscal Classification Manager,model_account_product_fiscal_classification,account.group_account_manager,1,1,1,1
+ir_model_access_account_product_fiscal_classification_template_reader,Fiscal Classification Template Reader,model_account_product_fiscal_classification_template,base.group_user,1,0,0,0
+ir_model_access_account_product_fiscal_classification_template_manager,Fiscal Classification Template Writer,model_account_product_fiscal_classification_template,account.group_account_manager,1,1,1,1
+access_wizard_change_fiscal_classification,access_wizard_change_fiscal_classification,model_wizard_change_fiscal_classification,base.group_user,1,1,1,1
