@@ -191,9 +191,9 @@ class SaleOrder(models.Model):
                     # The Confirm action will be interrupted
                     # if the address is not validated
                     return addr.button_avatax_validate_address()
-        res = super(SaleOrder, self).action_confirm()
         if avatax_config:
             self.avalara_compute_taxes()
+        res = super(SaleOrder, self).action_confirm()
         return res
 
 
