@@ -214,32 +214,34 @@ class AccountMove(models.Model):
             avatax_config.commit_transaction(self.name, doc_type)
             return tax_result
 
-        Tax = self.env["account.tax"]
-        tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
-        taxes_to_set = []
-        lines = self.invoice_line_ids.filtered(lambda l: not l.display_type)
-        for index, line in enumerate(lines):
-            tax_result_line = tax_result_lines.get(line.id)
-            if tax_result_line:
-                rate = tax_result_line.get("rate", 0.0)
-                tax = Tax.get_avalara_tax(rate, doc_type)
-                if tax and tax not in line.tax_ids:
-                    line_taxes = line.tax_ids.filtered(lambda x: not x.is_avatax)
-                    taxes_to_set.append((index, line_taxes | tax))
-                line.avatax_amt_line = tax_result_line["tax"]
-        self.avatax_amount = tax_result["totalTax"]
-        self.with_context(
-            avatax_invoice=self, check_move_validity=False
-        )._recompute_dynamic_lines(True, False)
-        self.line_ids.mapped("move_id")._check_balanced()
-        # Set Taxes on lines in a way that properly triggers onchanges
-        # This same approach is also used by the official account_taxcloud connector
-        with Form(self) as move_form:
-            for index, taxes in taxes_to_set:
-                with move_form.invoice_line_ids.edit(index) as line_form:
-                    line_form.tax_ids.clear()
-                    for tax in taxes:
-                        line_form.tax_ids.add(tax)
+        if self.state == "draft":
+            Tax = self.env["account.tax"]
+            tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
+            taxes_to_set = []
+            lines = self.invoice_line_ids.filtered(lambda l: not l.display_type)
+            for index, line in enumerate(lines):
+                tax_result_line = tax_result_lines.get(line.id)
+                if tax_result_line:
+                    rate = tax_result_line.get("rate", 0.0)
+                    tax = Tax.get_avalara_tax(rate, doc_type)
+                    if tax and tax not in line.tax_ids:
+                        line_taxes = line.tax_ids.filtered(lambda x: not x.is_avatax)
+                        taxes_to_set.append((index, line_taxes | tax))
+                    line.avatax_amt_line = tax_result_line["tax"]
+            self.avatax_amount = tax_result["totalTax"]
+            self.with_context(
+                avatax_invoice=self, check_move_validity=False
+            )._recompute_dynamic_lines(True, False)
+            self.line_ids.mapped("move_id")._check_balanced()
+
+            # Set Taxes on lines in a way that properly triggers onchanges
+            # This same approach is also used by the official account_taxcloud connector
+            with Form(self) as move_form:
+                for index, taxes in taxes_to_set:
+                    with move_form.invoice_line_ids.edit(index) as line_form:
+                        line_form.tax_ids.clear()
+                        for tax in taxes:
+                            line_form.tax_ids.add(tax)
 
         return tax_result
 
