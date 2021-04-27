@@ -1,6 +1,6 @@
 {
     "name": "Avalara Avatax Connector",
-    "version": "14.0.1.2.0",
+    "version": "14.0.1.3.0",
     "author": "Open Source Integrators, Fabrice Henrion,"
     "Sodexis, Odoo Community Association (OCA)",
     "summary": "Automatic Tax application using the Avalara Avatax Service",
