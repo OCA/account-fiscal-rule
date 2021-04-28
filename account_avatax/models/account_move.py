@@ -173,7 +173,7 @@ class AccountMove(models.Model):
         sign = 1 if self.move_type.startswith("out") else -1
         lines = [
             line._avatax_prepare_line(sign, doc_type)
-            for line in self.invoice_line_ids
+            for line in self.invoice_line_ids.filtered(lambda l: not l.display_type)
             if line.price_subtotal or line.quantity
         ]
         return [x for x in lines if x]
@@ -229,7 +229,7 @@ class AccountMove(models.Model):
             Tax = self.env["account.tax"]
             tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
             taxes_to_set = []
-            lines = self.invoice_line_ids.filtered(lambda l: not l.display_type)
+            lines = self.invoice_line_ids
             for index, line in enumerate(lines):
                 tax_result_line = tax_result_lines.get(line.id)
                 if tax_result_line:
