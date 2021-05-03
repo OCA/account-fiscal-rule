@@ -189,6 +189,12 @@ msgid "Avalara setting is already available for this company code"
 msgstr ""
 
 #. module: account_avatax
+#: code:addons/account_avatax/models/account_move.py:0
+#, python-format
+msgid "Avatax address is not validated!"
+msgstr ""
+
+#. module: account_avatax
 #: code:addons/account_avatax/models/avalara_salestax.py:0
 #, python-format
 msgid "Avatax commiting document %s, but it tax reporting is disabled."
