@@ -302,12 +302,12 @@ class AccountMove(models.Model):
                 # However, we can't save the invoice because it wasn't assigned a
                 # number yet
                 invoice.avatax_compute_taxes(commit=False)
-        res = super()._post()
-        for invoice in res:
+        for invoice in self:
             if invoice.is_avatax_calculated():
                 # We can only commit to Avatax after validating the invoice
                 # because we need the generated Invoice number
                 invoice.avatax_compute_taxes(commit=True)
+        res = super()._post()
         return res
 
     # prepare_return in v12
