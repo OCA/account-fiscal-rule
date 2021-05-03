@@ -1,6 +1,7 @@
 import logging
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 from odoo.tests.common import Form
 
 _logger = logging.getLogger(__name__)
@@ -295,7 +296,7 @@ class AccountMove(models.Model):
                         if not addr.date_validation:
                             # The Validate action will be interrupted
                             # if the address is not validated
-                            return addr.button_avatax_validate_address()
+                            raise UserError(_("Avatax address is not validated!"))
                 # We should compute taxes before validating the invoice
                 # to ensure correct account moves
                 # However, we can't save the invoice because it wasn't assigned a
