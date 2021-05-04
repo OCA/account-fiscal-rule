@@ -21,7 +21,7 @@
         "views/account_tax_view.xml",
         "views/account_fiscal_position_view.xml",
     ],
-    "image": ["static/description/avatax_icon.png"],
+    "images": ["static/description/avatax_icon.png"],
     "installable": True,
     "application": True,
     "external_dependencies": {"python": ["Avalara"]},
