@@ -274,7 +274,7 @@ class AccountMove(models.Model):
         """
         return self.is_sale_document()
 
-    def _post(self, soft=True):
+    def post(self):
         for invoice in self:
             if invoice.is_avatax_calculated():
                 avatax_config = self.company_id.get_avatax_config_company()
@@ -289,7 +289,7 @@ class AccountMove(models.Model):
                 # However, we can't save the invoice because it wasn't assigned a
                 # number yet
                 invoice.avatax_compute_taxes(commit=False)
-        res = super()._post()
+        res = super().post()
         for invoice in res:
             if invoice.is_avatax_calculated():
                 # We can only commit to Avatax after validating the invoice
