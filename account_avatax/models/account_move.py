@@ -290,7 +290,7 @@ class AccountMove(models.Model):
                 # number yet
                 invoice.avatax_compute_taxes(commit=False)
         res = super().post()
-        for invoice in res:
+        for invoice in self:
             if invoice.is_avatax_calculated():
                 # We can only commit to Avatax after validating the invoice
                 # because we need the generated Invoice number
