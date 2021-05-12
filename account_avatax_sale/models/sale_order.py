@@ -210,7 +210,7 @@ class SaleOrder(models.Model):
         "partner_id",
     )
     def onchange_avatax_calculation(self):
-        avatax_config = self.env["avalara.salestax"].sudo().search([], limit=1)
+        avatax_config = self.env.company.get_avatax_config_company()
         self.calculate_tax_on_save = False
         if avatax_config.sale_calculate_tax:
             if (
@@ -233,7 +233,7 @@ class SaleOrder(models.Model):
     @api.model
     def create(self, vals):
         record = super(SaleOrder, self).create(vals)
-        avatax_config = self.env["avalara.salestax"].sudo().search([], limit=1)
+        avatax_config = self.env.company.get_avatax_config_company()
         if (
             avatax_config.sale_calculate_tax
             and record.calculate_tax_on_save
@@ -249,7 +249,7 @@ class SaleOrder(models.Model):
 
     def write(self, vals):
         result = super(SaleOrder, self).write(vals)
-        avatax_config = self.env["avalara.salestax"].sudo().search([], limit=1)
+        avatax_config = self.env.company.get_avatax_config_company()
         for record in self:
             if (
                 avatax_config.sale_calculate_tax
