@@ -1,7 +1,6 @@
 from math import copysign
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo import _, api, exceptions, fields, models
 from odoo.tools.float_utils import float_compare
 
 
@@ -17,6 +16,11 @@ class AccountTax(models.Model):
         return [
             ("amount", "=", tax_rate),
             ("is_avatax", "=", True),
+            (
+                "company_id",
+                "=",
+                self.env.company.id,
+            ),
         ]
 
     @api.model
@@ -25,24 +29,26 @@ class AccountTax(models.Model):
 
     @api.model
     def get_avalara_tax(self, tax_rate, doc_type):
-        if tax_rate:
-            tax = self.with_context(active_test=False).search(
-                self._get_avalara_tax_domain(tax_rate, doc_type), limit=1
-            )
-            if tax and not tax.active:
-                tax.active = True
-            if not tax:
-                tax_template = self.search(
-                    self._get_avalara_tax_domain(0, doc_type), limit=1
+        domain = self._get_avalara_tax_domain(tax_rate, doc_type)
+        tax = self.with_context(active_test=False).search(domain, limit=1)
+        if tax and not tax.active:
+            tax.active = True
+        if not tax:
+            domain = self._get_avalara_tax_domain(0, doc_type)
+            tax_template = self.search(domain, limit=1)
+            if not tax_template:
+                raise exceptions.UserError(
+                    _("Please configure Avatax Tax for Company %s:")
+                    % self.env.user.company_id.name
                 )
-                tax = tax_template.sudo().copy(default={"amount": tax_rate})
-                # If you get a unique constraint error here,
-                # check the data for your existing Avatax taxes.
-                tax.name = self._get_avalara_tax_name(tax_rate, doc_type)
-            return tax
-        else:
-            tax = self.env.ref("account_avatax.avatax", raise_if_not_found=False)
-            return tax or self
+            # If you get a unique constraint error here,
+            # check the data for your existing Avatax taxes.
+            vals = {
+                "amount": tax_rate,
+                "name": self._get_avalara_tax_name(tax_rate, doc_type),
+            }
+            tax = tax_template.sudo().copy(default=vals)
+        return tax
 
     def compute_all(
         self,
@@ -94,17 +100,12 @@ class AccountTax(models.Model):
                         break
             if avatax_amount is None:
                 avatax_amount = 0.0
-                raise UserError(
+                raise exceptions.UserError(
                     _(
                         "Incorrect retrieval of Avatax amount for Invoice %s:"
                         " product %s, price_unit %f, quantity %f"
                     )
-                    % (
-                        avatax_invoice,
-                        product.display_name,
-                        -price_unit,
-                        quantity,
-                    )
+                    % (avatax_invoice, product.display_name, -price_unit, quantity)
                 )
             for tax_item in res["taxes"]:
                 if tax_item["amount"] != 0:
