@@ -27,31 +27,31 @@ class AvaTaxRESTService:
         config=None,
     ):
         self.config = config
-        self.timeout = timeout or config.request_timeout
-        self.is_log_enabled = enable_log or config.logging
+        self.timeout = not config and timeout or config.request_timeout
+        self.is_log_enabled = enable_log or config and config.logging
         # Set elements adapter defaults
         self.appname = "Odoo 14, published by Odoo Community Association"
         self.version = "a0o5a0000064hvAAAQ"
         self.hostname = socket.gethostname()
-        url = url or config.service_url
+        url = url or (config and config.service_url) or ""
         self.environment = (
             "sandbox" if "sandbox" in url or "development" in url else "production"
         )
-        try:
-            self.client = AvataxClient(
-                self.appname, self.version, self.hostname, self.environment
-            )
-        except NameError:
-            raise UserError(
-                _(
-                    "AvataxClient is not available in your system. "
-                    "Please contact your system administrator "
-                    "to 'pip3 install Avalara'"
-                )
-            )
-        username = username or config.account_number
-        password = password or config.license_key
         if username and password:
+            try:
+                self.client = AvataxClient(
+                    self.appname, self.version, self.hostname, self.environment
+                )
+            except NameError:
+                raise UserError(
+                    _(
+                        "AvataxClient is not available in your system. "
+                        "Please contact your system administrator "
+                        "to 'pip3 install Avalara'"
+                    )
+                )
+            username = username or config.account_number
+            password = password or config.license_key
             self.client.add_credentials(username, password)
 
     def _sanitize_text(self, text):
@@ -170,8 +170,7 @@ class AvaTaxRESTService:
         Partner = self.config.env["res.partner"]
         country = Partner.get_country_from_code(valid_address.get("country"))
         state = Partner.get_state_from_code(
-            valid_address.get("region"),
-            valid_address.get("country"),
+            valid_address.get("region"), valid_address.get("country")
         )
         address_vals = {
             "street": valid_address.get("line1", ""),
@@ -186,6 +185,24 @@ class AvaTaxRESTService:
             "partner_longitude": valid_address.get("longitude"),
         }
         return address_vals
+
+    def _enrich_result_lines_with_tax_rate(self, avatax_result):
+        """
+        Enrich Avatax result with Odoo tax computation.
+        Tax details can have a tax rate with zero tax amount.
+        In this case the tax rate should be ignored.
+
+        result is a dict with a 'createTransactionModel' returned by Avatax
+        """
+        for line in avatax_result.get("lines", []):
+            line["rate"] = (
+                round(
+                    sum(x["rate"] for x in line["details"] if x and x.get("tax")) * 100,
+                    4,
+                )
+                or 0.0
+            )
+        return avatax_result
 
     def get_tax(
         self,
@@ -302,14 +319,7 @@ class AvaTaxRESTService:
 
         response = self.client.create_or_adjust_transaction(data)
         result = self.get_result(response, ignore_error=ignore_error)
-        # Enrich Avatax result with Odoo tax computation
-        for line in result.get("lines", []):
-            line["rate"] = (
-                round(sum(x["rate"] for x in line["details"]) * 100, 4)
-                if line.get("tax")
-                else 0.0
-            )
-        return result
+        return self._enrich_result_lines_with_tax_rate(result)
 
     def call(self, endpoint, company_code, doc_code, model=None, params=None):
         if self.config and self.config.logging or self.is_log_enabled:
