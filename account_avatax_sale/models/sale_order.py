@@ -22,7 +22,7 @@ class SaleOrder(models.Model):
 
     @api.depends("partner_invoice_id", "tax_address_id", "company_id")
     def _compute_onchange_exemption(self):
-        for order in self:
+        for order in self.filtered(lambda x: x.state not in ["done", "cancel"]):
             invoice_partner = order.partner_invoice_id.commercial_partner_id
             ship_to_address = order.tax_address_id
             # Find an exemption address matching the Country + State
