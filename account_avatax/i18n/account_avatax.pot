@@ -735,6 +735,12 @@ msgid "Ping Service"
 msgstr ""
 
 #. module: account_avatax
+#: code:addons/account_avatax/models/account_tax.py:0
+#, python-format
+msgid "Please configure Avatax Tax for Company %s:"
+msgstr ""
+
+#. module: account_avatax
 #: code:addons/account_avatax/models/partner.py:0
 #, python-format
 msgid ""
