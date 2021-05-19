@@ -32,7 +32,7 @@ class AccountMove(models.Model):
 
         For this to work properly, the "exemption_lock" is no longer supported.
         """
-        for invoice in self:
+        for invoice in self.filtered(lambda x: x.state == "draft"):
             invoice_partner = invoice.partner_id.commercial_partner_id
             ship_to_address = invoice.partner_shipping_id
             # Find an exemption address matching the Country + State
