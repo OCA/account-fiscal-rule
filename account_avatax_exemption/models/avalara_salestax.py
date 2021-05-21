@@ -686,12 +686,6 @@ class AvalaraSalestax(models.Model):
                     "state": "done",
                 }
             )
-            if exemption_line.exemption_id.sign_request_id:
-                exemption_line.exemption_id.sign_request_id.write(
-                    {
-                        "exemption_sent": True,
-                    }
-                )
         return result
 
     def _update_avatax_exemption_line_status(self, exemption_line, exemption_status):
