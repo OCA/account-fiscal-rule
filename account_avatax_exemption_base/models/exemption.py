@@ -144,8 +144,6 @@ class ResPartnerExemption(models.Model):
         ],
         default="draft",
     )
-    sign_request_id = fields.Many2one("sign.request")
-    sign_request_item_id = fields.Many2one("sign.request.item")
 
     def _get_document_folder(self):
         return self.env.company.documents_exemption_folder
