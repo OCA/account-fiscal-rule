@@ -430,13 +430,17 @@ msgstr ""
 
 #. module: account_avatax
 #: model:ir.actions.act_window,name:account_avatax.action_exemption_code_details
+#: model:ir.ui.menu,name:account_avatax.menu_action_exemption_code_details
+msgid "Entity Use Code"
+msgstr ""
+
+#. module: account_avatax
 #: model:ir.model,name:account_avatax.model_exemption_code
 #: model:ir.model.fields,field_description:account_avatax.field_account_bank_statement_line__exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax.field_account_move__exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax.field_account_payment__exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax.field_res_partner__property_exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax.field_res_users__property_exemption_code_id
-#: model:ir.ui.menu,name:account_avatax.menu_action_exemption_code_details
 #: model_terms:ir.ui.view,arch_db:account_avatax.exemption_code_tree_view
 msgid "Exemption Code"
 msgstr ""
