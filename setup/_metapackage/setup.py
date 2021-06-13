@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo14-addon-account_avatax',
         'odoo14-addon-account_avatax_sale',
+        'odoo14-addon-account_avatax_website_sale',
         'odoo14-addon-account_product_fiscal_classification',
         'odoo14-addon-account_product_fiscal_classification_test',
     ],
