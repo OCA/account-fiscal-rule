@@ -21,6 +21,7 @@ addon | version | summary
 --- | --- | ---
 [account_avatax](account_avatax/) | 14.0.2.0.3 | Automatic Tax application using the Avalara Avatax Service
 [account_avatax_sale](account_avatax_sale/) | 14.0.1.1.3 | Sales Orders with automatic Tax application using Avatax
+[account_avatax_website_sale](account_avatax_website_sale/) | 14.0.1.1.0 | Ecommerce Sales Orders require tax recalculation prior to payment.
 [account_product_fiscal_classification](account_product_fiscal_classification/) | 14.0.1.0.0 | Simplify taxes management for products
 [account_product_fiscal_classification_test](account_product_fiscal_classification_test/) | 14.0.1.0.0 | tests account_product_fiscal_classification module
 
