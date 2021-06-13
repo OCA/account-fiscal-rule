@@ -1,0 +1,101 @@
+<odoo>
+    <record id="view_avalara_salestax_form" model="ir.ui.view">
+        <field name="name">avalara.salestax.inherit</field>
+        <field name="model">avalara.salestax</field>
+        <field name="inherit_id" ref="account_avatax.view_avalara_salestax_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button
+                        type="object"
+                        name="import_tax_items"
+                        string="Import TaxItems"
+                    />
+                    <button
+                        type="object"
+                        name="import_exemption_activity_type"
+                        string="Import Exemption Activity Type"
+                    />
+                    <button
+                        type="object"
+                        name="import_exemption_country_state_code"
+                        string="Import Nexus Fed State Info"
+                    />
+                    <button
+                        type="object"
+                        name="download_exemptions"
+                        string="Import Exemptions"
+                    />
+                    <button
+                        type="object"
+                        name="export_new_tax_items"
+                        string="Export New TaxItems"
+                    />
+                </header>
+            </xpath>
+            <xpath expr="//field[@name='company_code']" position="after">
+                <field name="avatax_company_id" />
+            </xpath>
+            <xpath expr="//field[@name='disable_tax_reporting']" position="after">
+                <field name="use_commercial_entity" />
+            </xpath>
+            <xpath expr="//field[@name='request_timeout']" position="after">
+                <field name="tax_item_export" />
+                <field name="exemption_export" />
+                <field name="exemption_rule_export" />
+            </xpath>
+        </field>
+    </record>
+    <record id="exemption_code_tree_view" model="ir.ui.view">
+        <field name="name">exemption.code.tree.view</field>
+        <field name="model">exemption.code</field>
+        <field name="type">tree</field>
+        <field name="inherit_id" ref="account_avatax.exemption_code_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="string">Entity Use Code</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record
+        id="account_avatax.action_exemption_code_details"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Entity Use Code</field>
+    </record>
+    <record id="account_avatax.menu_action_exemption_code_details" model="ir.ui.menu">
+        <field name="name">Entity Use Code</field>
+    </record>
+    <record id="exemption_code_form_view" model="ir.ui.view">
+        <field name="name">exemption.code.form.view</field>
+        <field name="model">exemption.code</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Entity Use Code">
+                <header>
+                    <button
+                        name="create_rules"
+                        string="Create Custom Rules"
+                        type="object"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="code" />
+                        <field name="flag" />
+                        <field name="id" invisible="1" />
+                    </group>
+                    <notebook>
+                        <page string="Exemption Rules" name="exemption_rules">
+                            <field
+                                name="rule_ids"
+                                context="{'default_exemption_code_id': id}"
+                            />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
