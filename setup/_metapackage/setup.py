@@ -9,6 +9,8 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo14-addon-account_avatax',
+        'odoo14-addon-account_avatax_exemption',
+        'odoo14-addon-account_avatax_exemption_base',
         'odoo14-addon-account_avatax_sale',
         'odoo14-addon-account_avatax_website_sale',
         'odoo14-addon-account_product_fiscal_classification',
