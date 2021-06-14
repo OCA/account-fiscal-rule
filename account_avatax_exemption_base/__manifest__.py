@@ -7,7 +7,7 @@
     """,
     "website": "https://github.com/OCA/account-fiscal-rule",
     "author": "Sodexis, Odoo Community Association (OCA)",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "depends": [
         "account_avatax",
         "account_avatax_sale",
