@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="view_account_position_form_fiscal_position_type" model="ir.ui.view">
+        <field name="name">view.account.position.form.fiscal.position.type</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='auto_apply']" position="after">
+                <field
+                    name="fiscal_position_type"
+                    attrs="{'invisible': [('auto_apply', '!=', True)]}"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

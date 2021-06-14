@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="view_company_form_fiscal_position_type" model="ir.ui.view">
+        <field name="name">view.company.form.fiscal.position.type</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="default_fiscal_position_type" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
