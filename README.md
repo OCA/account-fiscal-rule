@@ -21,7 +21,7 @@ addon | version | summary
 --- | --- | ---
 [account_avatax](account_avatax/) | 14.0.2.0.3 | Automatic Tax application using the Avalara Avatax Service
 [account_avatax_exemption](account_avatax_exemption/) | 14.0.1.0.3 | This application allows you to add exemptions to Avatax
-[account_avatax_exemption_base](account_avatax_exemption_base/) | 14.0.1.0.0 | This application allows you to add exemptions base to Avatax
+[account_avatax_exemption_base](account_avatax_exemption_base/) | 14.0.1.0.1 | This application allows you to add exemptions base to Avatax
 [account_avatax_sale](account_avatax_sale/) | 14.0.1.1.3 | Sales Orders with automatic Tax application using Avatax
 [account_avatax_website_sale](account_avatax_website_sale/) | 14.0.1.1.0 | Ecommerce Sales Orders require tax recalculation prior to payment.
 [account_product_fiscal_classification](account_product_fiscal_classification/) | 14.0.1.0.0 | Simplify taxes management for products
