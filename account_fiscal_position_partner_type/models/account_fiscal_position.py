@@ -15,7 +15,12 @@ class AccountFiscalPosition(models.Model):
 
     @api.model
     def _default_fiscal_position_type(self):
-        return self.env.company.default_fiscal_position_type
+        fiscal_position_type = None
+        if self.env['res.company']._company_default_get():
+            fiscal_position_type = self.env[
+                'res.company']._company_default_get(
+                    )[0].default_fiscal_position_type
+        return fiscal_position_type
 
     @api.model
     def _get_fpos_by_region_and_position_type(
