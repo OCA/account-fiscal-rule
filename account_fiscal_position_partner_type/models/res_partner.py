@@ -1,7 +1,8 @@
+# -*- encoding: utf-8 -*-
 # Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from openerp import api, fields, models
 
 
 class ResPartner(models.Model):
@@ -21,7 +22,7 @@ class ResPartner(models.Model):
 
     @api.model
     def _default_fiscal_position_type(self):
-        return self.env.company.default_fiscal_position_type
+        return self.env.user.company_id.default_fiscal_position_type
 
     @api.model
     def _commercial_fields(self):
