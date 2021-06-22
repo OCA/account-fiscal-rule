@@ -10,7 +10,7 @@ class TestAccountFiscalPositionPartnerType(SavepointCase):
         super(TestAccountFiscalPositionPartnerType, cls).setUpClass()
         # MODELS
         cls.res_partner_model = cls.env["res.partner"]
-        cls.account_move_model = cls.env["account.move"]
+        cls.account_invoice_model = cls.env["account.invoice"]
         cls.fiscal_position_model = cls.env["account.fiscal.position"]
         # INSTANCES
         # Company
@@ -68,10 +68,10 @@ class TestAccountFiscalPositionPartnerType(SavepointCase):
 
     @classmethod
     def _invoice_sale_create(cls, partner):
-        invoice_id = cls.account_move_model.create(
+        invoice_id = cls.account_invoice_model.create(
             {
-                "company_id": cls.company_main,
-                "partner_id": partner,
+                "company_id": cls.company_main.id,
+                "partner_id": partner.id,
                 "type": "in_invoice",
             }
         )
