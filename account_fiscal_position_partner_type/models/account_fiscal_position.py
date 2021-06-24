@@ -16,7 +16,7 @@ class AccountFiscalPosition(models.Model):
 
     @api.model
     def search(self, args, offset=0, limit=None, order=None, count=False):
-        if "fiscal_position_type" in self.env.context:
+        if self.env.context.get("fiscal_position_type"):
             args = expression.AND(
                 (
                     args,
