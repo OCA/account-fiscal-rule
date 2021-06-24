@@ -21,7 +21,7 @@ class ResPartner(models.Model):
 
     @api.model
     def _default_fiscal_position_type(self):
-        return self.env.company.default_fiscal_position_type
+        return self.env.user.company_id.default_fiscal_position_type
 
     @api.model
     def _commercial_fields(self):
