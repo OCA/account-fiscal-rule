@@ -10,7 +10,7 @@ class ResPartner(models.Model):
     fiscal_position_type = fields.Selection(
         selection="_selection_fiscal_position_type",
         string="Fiscal Position Type",
-        default=lambda self: self._default_fiscal_position_type(),
+        default=lambda self: self.env.company.default_fiscal_position_type,
     )
 
     def _selection_fiscal_position_type(self):
@@ -18,10 +18,6 @@ class ResPartner(models.Model):
         return self.env["account.fiscal.position"].fields_get(allfields=[field])[field][
             "selection"
         ]
-
-    @api.model
-    def _default_fiscal_position_type(self):
-        return self.env.company.default_fiscal_position_type
 
     @api.model
     def _commercial_fields(self):

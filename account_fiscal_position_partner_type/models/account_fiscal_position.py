@@ -11,16 +11,12 @@ class AccountFiscalPosition(models.Model):
     fiscal_position_type = fields.Selection(
         selection=[("b2c", "End customer (B2C)"), ("b2b", "Company (B2B)")],
         string="Type",
-        default=lambda self: self._default_fiscal_position_type(),
+        default=lambda self: self.env.company.default_fiscal_position_type,
     )
 
     @api.model
-    def _default_fiscal_position_type(self):
-        return self.env.company.default_fiscal_position_type
-
-    @api.model
     def search(self, args, offset=0, limit=None, order=None, count=False):
-        if self.env.context.get("fiscal_position_type"):
+        if "fiscal_position_type" in self.env.context:
             args = expression.AND(
                 (
                     args,
@@ -28,7 +24,7 @@ class AccountFiscalPosition(models.Model):
                         (
                             "fiscal_position_type",
                             "=",
-                            self.env.context.get("fiscal_position_type", False),
+                            self.env.context["fiscal_position_type"],
                         )
                     ],
                 )
