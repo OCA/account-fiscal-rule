@@ -3,7 +3,7 @@
 
 {
     "name": "L10n EU OSS",
-    "version": "13.0.1.0.0",
+    "version": "11.0.1.0.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/l10n-spain",
     "author": "Sygel Technology," "Odoo Community Association (OCA)",
