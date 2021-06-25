@@ -1,8 +1,9 @@
+# -*- encoding: utf-8 -*-
 # Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, fields, models
-from odoo.exceptions import Warning
+from openerp import _, fields, models, api
+from openerp.exceptions import Warning
 
 
 class L10nEuOssWizard(models.TransientModel):
@@ -10,7 +11,7 @@ class L10nEuOssWizard(models.TransientModel):
     _description = "l10n.eu.oss.wizard"
 
     def _get_default_company_id(self):
-        return self.env.company.id
+        return self.env.user.company_id.id
 
     def _get_eu_res_country_group(self):
         eu_group = self.env.ref("base.europe", raise_if_not_found=False)
@@ -90,35 +91,14 @@ class L10nEuOssWizard(models.TransientModel):
         comodel_name="account.tax", string="Second Super Reduced Tax"
     )
 
-    def _prepare_repartition_line_vals(self, original_rep_lines):
-        return [
-            (
-                0,
-                0,
-                {
-                    "factor_percent": line.factor_percent,
-                    "repartition_type": line.repartition_type,
-                    "account_id": line.repartition_type == "tax"
-                    and line.account_id.id
-                    or None,
-                    "company_id": line.company_id.id,
-                    "sequence": line.sequence,
-                },
-            )
-            for line in original_rep_lines
-        ]
-
     def _prepare_tax_vals(self, country_id, tax_id, rate):
         return {
             "name": _("OSS for EU to %(country_name)s: %(rate)s")
             % {"country_name": country_id.name, "rate": rate},
             "amount": rate,
-            "invoice_repartition_line_ids": self._prepare_repartition_line_vals(
-                tax_id.invoice_repartition_line_ids
-            ),
-            "refund_repartition_line_ids": self._prepare_repartition_line_vals(
-                tax_id.refund_repartition_line_ids
-            ),
+            "type": tax_id.type,
+            "account_collected_id": tax_id.account_collected_id.id,
+            "account_paid_id": tax_id.account_paid_id.id,
             "type_tax_use": "sale",
             "description": "EU-OSS-VAT-{}-{}".format(country_id.code, rate),
             "oss_country_id": country_id.id,
@@ -158,6 +138,7 @@ class L10nEuOssWizard(models.TransientModel):
         ).unlink()
         fpos_id.write({"tax_ids": [(0, 0, tax_data) for tax_data in taxes_data]})
 
+    @api.multi
     def generate_eu_oss_taxes(self):
         oss_rate = self.env["oss.tax.rate"]
         account_tax = self.env["account.tax"]

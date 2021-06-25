@@ -3,7 +3,9 @@
     Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
-<odoo>
+<openerp>
+
+	<data>
     <record id="l10n_eu_oss_wizard_form_view" model="ir.ui.view">
         <field name="name">l10n eu oss wizard form view</field>
         <field name="model">l10n.eu.oss.wizard</field>
@@ -33,7 +35,7 @@
                         <field
                             name="general_tax"
                             domain="[('type_tax_use', '=', 'sale'),
-                                    ('amount_type', '=', 'percent'),
+                                    ('type', '=', 'percent'),
                                     ('company_id','=', company_id)]"
                             options="{'no_create': True}"
                         />
@@ -42,7 +44,7 @@
                         <field
                             name="reduced_tax"
                             domain="[('type_tax_use', '=', 'sale'),
-                                    ('amount_type', '=', 'percent'),
+                                    ('type', '=', 'percent'),
                                     ('company_id','=', company_id)]"
                             options="{'no_create': True}"
                         />
@@ -51,7 +53,7 @@
                         <field
                             name="superreduced_tax"
                             domain="[('type_tax_use', '=', 'sale'),
-                                    ('amount_type', '=', 'percent'),
+                                    ('type', '=', 'percent'),
                                     ('company_id','=', company_id)]"
                             options="{'no_create': True}"
                         />
@@ -60,7 +62,7 @@
                         <field
                             name="second_superreduced_tax"
                             domain="[('type_tax_use', '=', 'sale'),
-                                    ('amount_type', '=', 'percent'),
+                                    ('type', '=', 'percent'),
                                     ('company_id','=', company_id)]"
                             options="{'no_create': True}"
                         />
@@ -85,4 +87,6 @@
         <field name="view_id" ref="l10n_eu_oss_wizard_form_view" />
         <field name="target">new</field>
     </record>
-</odoo>
+</data>
+
+</openerp>

@@ -1,9 +1,10 @@
+# -*- encoding: utf-8 -*-
 # Copyright 2021 Valentín Vinagre <valentin.vinagre@sygel.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     "name": "L10n EU OSS",
-    "version": "13.0.1.0.0",
+    "version": "8.0.1.0.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/l10n-spain",
     "author": "Sygel Technology," "Odoo Community Association (OCA)",

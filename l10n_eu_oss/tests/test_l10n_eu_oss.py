@@ -1,7 +1,8 @@
+# -*- encoding: utf-8 -*-
 # Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import SavepointCase
+from openerp.tests.common import SavepointCase
 
 
 class TestL10nEuOss(SavepointCase):
@@ -19,17 +20,17 @@ class TestL10nEuOss(SavepointCase):
         # Sale Taxes
         tax_vals = {
             "name": "general tax",
-            "amount": 20.0,
+            "amount": 0.21,
             "type_tax_use": "sale",
             "amount_type": "percent",
             "company_id": cls.company_main.id,
         }
         cls.general_tax = cls.account_tax.create(tax_vals)
-        tax_vals.update({"name": "reduced tax", "amount": 10.0})
+        tax_vals.update({"name": "reduced tax", "amount": 0.1})
         cls.reduced_tax = cls.account_tax.create(tax_vals)
-        tax_vals.update({"name": "superreduced tax", "amount": 5.0})
+        tax_vals.update({"name": "superreduced tax", "amount": 0.05})
         cls.superreduced_tax = cls.account_tax.create(tax_vals)
-        tax_vals.update({"name": "second superreduced tax", "amount": 2.0})
+        tax_vals.update({"name": "second superreduced tax", "amount": 0.02})
         cls.second_superreduced_tax = cls.account_tax.create(tax_vals)
         # Oss tax rate
         cls.oss_tax_rate_fr = cls.env.ref("l10n_eu_oss.oss_eu_rate_fr")
@@ -99,7 +100,7 @@ class TestL10nEuOss(SavepointCase):
         )
         # Change amount in one tax and relaunch wizard
         original_amount = self.oss_tax_rate_fr.general_rate
-        self.oss_tax_rate_fr.general_rate = 19.9
+        self.oss_tax_rate_fr.general_rate = 0.199
         wizard = self._oss_wizard_create(wizard_vals)
         self.assertEqual(
             wizard.todo_country_ids, self._default_todo_country_ids() - self.country_fr
@@ -108,6 +109,6 @@ class TestL10nEuOss(SavepointCase):
         wizard.todo_country_ids = [(6, 0, [self.country_fr.id])]
         wizard.generate_eu_oss_taxes()
         self.assertEqual(len(fpos_id.tax_ids), 1)
-        self.assertEqual(fpos_id.tax_ids[0].tax_dest_id.amount, 19.9)
+        self.assertEqual(fpos_id.tax_ids[0].tax_dest_id.amount, 0.199)
         original_tax = self._tax_search(self.country_fr.id, original_amount)
         self.assertTrue(original_tax)
