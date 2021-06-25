@@ -18,6 +18,7 @@ setuptools.setup(
         'odoo13-addon-account_multi_vat_sale',
         'odoo13-addon-account_product_fiscal_classification',
         'odoo13-addon-account_product_fiscal_classification_test',
+        'odoo13-addon-l10n_eu_oss',
     ],
     classifiers=[
         'Programming Language :: Python',
