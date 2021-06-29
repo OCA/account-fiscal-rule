@@ -90,6 +90,9 @@ class L10nEuOssWizard(models.TransientModel):
         comodel_name="account.tax", string="Second Super Reduced Tax"
     )
 
+    def _prepare_tax_group_vals(self, rate):
+        return {"name": _("OSS VAT %s%%") % rate}
+
     def _prepare_repartition_line_vals(self, original_rep_lines):
         return [
             (
@@ -108,7 +111,7 @@ class L10nEuOssWizard(models.TransientModel):
             for line in original_rep_lines
         ]
 
-    def _prepare_tax_vals(self, country_id, tax_id, rate):
+    def _prepare_tax_vals(self, country_id, tax_id, rate, tax_group):
         return {
             "name": _("OSS for EU to %(country_name)s: %(rate)s")
             % {"country_name": country_id.name, "rate": rate},
@@ -124,6 +127,7 @@ class L10nEuOssWizard(models.TransientModel):
             "oss_country_id": country_id.id,
             "company_id": self.company_id.id,
             "price_include": self.price_include_tax,
+            "tax_group_id": tax_group.id,
             "sequence": 1000,
         }
 
@@ -161,6 +165,7 @@ class L10nEuOssWizard(models.TransientModel):
     def generate_eu_oss_taxes(self):
         oss_rate = self.env["oss.tax.rate"]
         account_tax = self.env["account.tax"]
+        account_tax_group = self.env["account.tax.group"]
         selected_taxes = []
         fpos_obj = self.env["account.fiscal.position"]
         # Get the taxes configured in the wizard
@@ -194,8 +199,16 @@ class L10nEuOssWizard(models.TransientModel):
                         limit=1,
                     )
                     if not tax_dest_id:
+                        tax_group = account_tax_group.search(
+                            [("name", "=", self._prepare_tax_group_vals(rate)["name"])],
+                            limit=1,
+                        )
+                        if not tax_group:
+                            tax_group = account_tax_group.create(
+                                self._prepare_tax_group_vals(rate)
+                            )
                         tax_dest_id = account_tax.create(
-                            self._prepare_tax_vals(country, tax, rate)
+                            self._prepare_tax_vals(country, tax, rate, tax_group)
                         )
                 taxes_data.append({"tax_src_id": tax.id, "tax_dest_id": tax_dest_id.id})
                 last_rate = rate
