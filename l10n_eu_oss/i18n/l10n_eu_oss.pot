@@ -119,6 +119,12 @@ msgstr ""
 #. module: l10n_eu_oss
 #: code:addons/l10n_eu_oss/wizard/l10n_eu_oss_wizard.py:0
 #, python-format
+msgid "OSS VAT %s%%"
+msgstr ""
+
+#. module: l10n_eu_oss
+#: code:addons/l10n_eu_oss/wizard/l10n_eu_oss_wizard.py:0
+#, python-format
 msgid "OSS for EU to %(country_name)s: %(rate)s"
 msgstr ""
 
