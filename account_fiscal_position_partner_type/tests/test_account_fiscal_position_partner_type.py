@@ -72,7 +72,7 @@ class TestAccountFiscalPositionPartnerType(SavepointCase):
             {
                 "company_id": cls.company_main,
                 "partner_id": partner,
-                "type": "in_invoice",
+                "move_type": "in_invoice",
             }
         )
         invoice_id._onchange_partner_id()
