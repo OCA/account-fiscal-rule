@@ -82,9 +82,13 @@ class L10nEuOssWizard(models.TransientModel):
     general_tax = fields.Many2one(
         comodel_name="account.tax", string="General Tax", required=True
     )
-    reduced_tax = fields.Many2one(comodel_name="account.tax", string="Reduced Tax",)
+    reduced_tax = fields.Many2one(
+        comodel_name="account.tax",
+        string="Reduced Tax",
+    )
     superreduced_tax = fields.Many2one(
-        comodel_name="account.tax", string="Super Reduced Tax",
+        comodel_name="account.tax",
+        string="Super Reduced Tax",
     )
     second_superreduced_tax = fields.Many2one(
         comodel_name="account.tax", string="Second Super Reduced Tax"

@@ -8,7 +8,10 @@ class OssTaxRate(models.Model):
     _name = "oss.tax.rate"
     _description = "oss tax rate"
 
-    oss_country_id = fields.Many2one(comodel_name="res.country", string="Country",)
+    oss_country_id = fields.Many2one(
+        comodel_name="res.country",
+        string="Country",
+    )
     general_rate = fields.Float(string="General Rate", digits=(16, 4))
     reduced_rate = fields.Float(string="Reduced Rate", digits=(16, 4))
     superreduced_rate = fields.Float(string="Super Reduced Rate", digits=(16, 4))
