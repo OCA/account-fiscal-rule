@@ -88,7 +88,7 @@ class TestL10nEuOss(SavepointCase):
         }
         wizard = self._oss_wizard_create(wizard_vals)
         self.assertEqual(wizard.todo_country_ids, self._default_todo_country_ids())
-        self.assertEqual(wizard.done_country_ids, self.res_country)
+        self.assertIn(self.country_fr, wizard.done_country_ids)
         wizard.todo_country_ids = [(6, 0, [self.country_fr.id])]
         wizard.generate_eu_oss_taxes()
         fpos_id = self._fpos_search(self.country_fr.id)
@@ -104,7 +104,7 @@ class TestL10nEuOss(SavepointCase):
         self.assertEqual(
             wizard.todo_country_ids, self._default_todo_country_ids() - self.country_fr
         )
-        self.assertEqual(wizard.done_country_ids, self.country_fr)
+        self.assertIn(self.country_fr, wizard.done_country_ids)
         wizard.todo_country_ids = [(6, 0, [self.country_fr.id])]
         wizard.generate_eu_oss_taxes()
         self.assertEqual(len(fpos_id.tax_ids), 1)

@@ -8,7 +8,6 @@
     "website": "https://github.com/OCA/account-fiscal-rule",
     "author": "Sygel Technology," "Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "application": False,
     "installable": True,
     "development_status": "Production/Stable",
     "depends": ["account", "account_fiscal_position_partner_type"],

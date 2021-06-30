@@ -2,20 +2,17 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import _, fields, models
-from odoo.exceptions import Warning
+from odoo.exceptions import ValidationError
 
 
 class L10nEuOssWizard(models.TransientModel):
     _name = "l10n.eu.oss.wizard"
     _description = "l10n.eu.oss.wizard"
 
-    def _get_default_company_id(self):
-        return self.env.company.id
-
     def _get_eu_res_country_group(self):
         eu_group = self.env.ref("base.europe", raise_if_not_found=False)
         if not eu_group:
-            raise Warning(
+            raise ValidationError(
                 _(
                     "The Europe country group cannot be found. "
                     "Please update the base module."
@@ -63,7 +60,10 @@ class L10nEuOssWizard(models.TransientModel):
         )
 
     company_id = fields.Many2one(
-        "res.company", string="Company", required=True, default=_get_default_company_id
+        "res.company",
+        string="Company",
+        required=True,
+        default=lambda self: self.env.company,
     )
     done_country_ids = fields.Many2many(
         "res.country",
@@ -78,7 +78,7 @@ class L10nEuOssWizard(models.TransientModel):
         string="EU Customers From",
         required=True,
     )
-    price_include_tax = fields.Boolean(string="Price Include Tax", default=False)
+    price_include_tax = fields.Boolean(string="Price Include Tax")
     general_tax = fields.Many2one(
         comodel_name="account.tax", string="General Tax", required=True
     )
