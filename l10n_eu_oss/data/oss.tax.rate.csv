@@ -23,7 +23,6 @@ oss_eu_rate_pl,base.pl,23,8,5,0
 oss_eu_rate_pt,base.pt,23,13,6,0
 oss_eu_rate_ro,base.ro,19,9,5,0
 oss_eu_rate_sk,base.sk,20,10,0,0
-oss_eu_rate_si,base.si,22,9.5,0,0
+oss_eu_rate_si,base.si,22,9.5,5,0
 oss_eu_rate_es,base.es,21,10,4,0
 oss_eu_rate_se,base.se,25,12,6,0
-oss_eu_rate_uk,base.uk,20,5,0,0
