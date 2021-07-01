@@ -13,9 +13,9 @@ class AccountFiscalPosition(models.Model):
     def _get_base_domain(self, vat_required, company_id, partner_domain=False):
         base_domain = super()._get_base_domain(vat_required, company_id)
         extra_domain = (
-            [("partner_domain", "!=", False), ("partner_domain", "!=", "[]")]
+            [("partner_domain", "!=", False)]
             if partner_domain
-            else [("partner_domain", "=", False), ("partner_domain", "=", "[]")]
+            else [("partner_domain", "=", False)]
         )
         return base_domain + extra_domain
 
