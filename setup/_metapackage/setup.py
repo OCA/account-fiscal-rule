@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo11-addon-account_fiscal_position_partner_type',
+        'odoo11-addon-l10n_eu_oss',
     ],
     classifiers=[
         'Programming Language :: Python',
