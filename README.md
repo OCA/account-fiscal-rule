@@ -24,6 +24,7 @@ addon | version | summary
 [account_avatax_exemption_base](account_avatax_exemption_base/) | 14.0.1.0.1 | This application allows you to add exemptions base to Avatax
 [account_avatax_sale](account_avatax_sale/) | 14.0.1.1.3 | Sales Orders with automatic Tax application using Avatax
 [account_avatax_website_sale](account_avatax_website_sale/) | 14.0.1.1.0 | Ecommerce Sales Orders require tax recalculation prior to payment.
+[account_fiscal_position_partner_type](account_fiscal_position_partner_type/) | 14.0.1.0.0 | Account Fiscal Position Partner Type
 [account_product_fiscal_classification](account_product_fiscal_classification/) | 14.0.1.0.0 | Simplify taxes management for products
 [account_product_fiscal_classification_test](account_product_fiscal_classification_test/) | 14.0.1.0.0 | tests account_product_fiscal_classification module
 
