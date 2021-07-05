@@ -16,6 +16,7 @@ setuptools.setup(
         'odoo14-addon-account_fiscal_position_partner_type',
         'odoo14-addon-account_product_fiscal_classification',
         'odoo14-addon-account_product_fiscal_classification_test',
+        'odoo14-addon-l10n_eu_oss',
     ],
     classifiers=[
         'Programming Language :: Python',
