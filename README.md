@@ -27,7 +27,7 @@ addon | version | summary
 [account_fiscal_position_partner_type](account_fiscal_position_partner_type/) | 14.0.1.0.0 | Account Fiscal Position Partner Type
 [account_product_fiscal_classification](account_product_fiscal_classification/) | 14.0.1.0.0 | Simplify taxes management for products
 [account_product_fiscal_classification_test](account_product_fiscal_classification_test/) | 14.0.1.0.0 | tests account_product_fiscal_classification module
-[l10n_eu_oss](l10n_eu_oss/) | 14.0.1.0.0 | L10n EU OSS
+[l10n_eu_oss](l10n_eu_oss/) | 14.0.1.1.0 | L10n EU OSS
 
 [//]: # (end addons)
 
