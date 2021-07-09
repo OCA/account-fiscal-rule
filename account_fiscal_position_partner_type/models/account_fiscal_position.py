@@ -9,7 +9,10 @@ class AccountFiscalPosition(models.Model):
     _inherit = "account.fiscal.position"
 
     fiscal_position_type = fields.Selection(
-        selection=[("b2c", "End customer (B2C)"), ("b2b", "Company (B2B)")],
+        selection=[
+            ("b2c", "End customer (B2C)"),
+            ("b2b", "Company/Self-employed (B2B)"),
+        ],
         string="Type",
         default=lambda self: self._default_fiscal_position_type(),
     )
