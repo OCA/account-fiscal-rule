@@ -20,7 +20,7 @@ msgstr ""
 
 #. module: account_fiscal_position_partner_type
 #: model:ir.model.fields.selection,name:account_fiscal_position_partner_type.selection__account_fiscal_position__fiscal_position_type__b2b
-msgid "Company (B2B)"
+msgid "Company/Self-employed (B2B)"
 msgstr ""
 
 #. module: account_fiscal_position_partner_type
