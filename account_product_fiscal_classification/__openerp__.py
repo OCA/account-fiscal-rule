@@ -45,9 +45,9 @@
         'demo/account_product_fiscal_classification.yml',
         'demo/account_product_fiscal_classification_template.yml',
         'demo/product_template.yml',
-        'demo/res_company.yml',
+        # 'demo/res_company.yml',
         'demo/res_groups.yml',
-        'demo/res_users.yml',
+        # 'demo/res_users.yml',
     ],
     'images': [
         'static/description/img/fiscal_classification_form.png',
