@@ -1,22 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * account_fiscal_position_rule
+#	* account_fiscal_position_rule
 #
-# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: account-fiscal-rule (8.0)\n"
+"Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-04 16:27+0000\n"
-"PO-Revision-Date: 2015-09-22 00:33+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Catalan (Spain) (http://www.transifex.com/oca/OCA-account-"
-"fiscal-rule-8-0/language/ca_ES/)\n"
-"Language: ca_ES\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule
@@ -36,21 +31,19 @@ msgstr ""
 #. module: account_fiscal_position_rule
 #: view:wizard.account.fiscal.position.rule:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
 msgid "Cancel"
-msgstr "Cancel·la"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,vat_rule:0
 #: help:account.fiscal.position.rule.template,vat_rule:0
-msgid ""
-"Choose if the customer need to have the field VAT fill for using this fiscal "
-"position"
+msgid "Choose if the customer need to have the field VAT fill for using this fiscal position"
 msgstr ""
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,company_id:0
 #: field:wizard.account.fiscal.position.rule,company_id:0
 msgid "Company"
-msgstr "Companyia"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -83,20 +76,20 @@ msgstr ""
 #: field:account.fiscal.position.rule.template,create_uid:0
 #: field:wizard.account.fiscal.position.rule,create_uid:0
 msgid "Created by"
-msgstr "Creat per"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,create_date:0
 #: field:account.fiscal.position.rule.template,create_date:0
 #: field:wizard.account.fiscal.position.rule,create_date:0
 msgid "Created on"
-msgstr "Creat a"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,description:0
 #: field:account.fiscal.position.rule.template,description:0
 msgid "Description"
-msgstr "Descripció"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -127,7 +120,7 @@ msgstr ""
 #: field:account.fiscal.position.rule,date_end:0
 #: field:account.fiscal.position.rule.template,date_end:0
 msgid "End Date"
-msgstr "Data final"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,date_end:0
@@ -200,29 +193,28 @@ msgstr ""
 #: field:account.fiscal.position.rule,__last_update:0
 #: field:account.fiscal.position.rule.template,__last_update:0
 #: field:wizard.account.fiscal.position.rule,__last_update:0
-#, fuzzy
 msgid "Last Modified on"
-msgstr "Darrera actualització el"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,write_uid:0
 #: field:account.fiscal.position.rule.template,write_uid:0
 #: field:wizard.account.fiscal.position.rule,write_uid:0
 msgid "Last Updated by"
-msgstr "Darrera actualització per"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,write_date:0
 #: field:account.fiscal.position.rule.template,write_date:0
 #: field:wizard.account.fiscal.position.rule,write_date:0
 msgid "Last Updated on"
-msgstr "Darrera actualització el"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: field:account.fiscal.position.rule,name:0
 #: field:account.fiscal.position.rule.template,name:0
 msgid "Name"
-msgstr "Nom"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: view:account.fiscal.position.rule:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -246,7 +238,7 @@ msgstr ""
 #: field:account.fiscal.position.rule,date_start:0
 #: field:account.fiscal.position.rule.template,date_start:0
 msgid "Start Date"
-msgstr "Data d'inici"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: help:account.fiscal.position.rule,date_start:0
@@ -380,3 +372,4 @@ msgstr ""
 #: view:account.fiscal.position.rule.template:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 msgid "used in purchase"
 msgstr ""
+
