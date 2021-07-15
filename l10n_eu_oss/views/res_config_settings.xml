@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<openerp>
+
+	<data>
+    <record id="view_account_config_settings_l10n_eu_oss" model="ir.ui.view">
+        <field name="name">view.account.config.settings.inherit.l10n.eu.oss</field>
+        <field name="model">account.config.settings</field>
+        <field name="inherit_id" ref="account.view_account_config_settings" />
+        <field name="arch" type="xml">
+            <field name="default_sale_tax" position="after">
+                <button type="action" name="%(l10n_eu_oss.l10n_eu_oss_wizard_action)d"
+                        string="Apply EU taxes regarding OSS" class="oe_link"/>
+            </field>
+        </field>
+    </record>
+    </data>
+
+</openerp>
