@@ -111,7 +111,9 @@ class ProductTemplate(models.Model):
                     'taxes_id': [[6, 0, [
                         x.id for x in classification.sudo().sale_tax_ids]]],
                 }
-                super(ProductTemplate, template.sudo()).write(tax_vals)
+                super(ProductTemplate, template.sudo().with_context(
+                    force_company=self.env.user.company_id.id
+                )).write(tax_vals)
             elif ('supplier_taxes_id' in vals.keys() or
                     'taxes_id' in vals.keys()):
                 # product template Single update mode
@@ -125,7 +127,9 @@ class ProductTemplate(models.Model):
                     x.id for x in template.sudo().taxes_id]
                 fc_id = fc_obj.find_or_create(
                     template.company_id.id, sale_tax_ids, purchase_tax_ids)
-                super(ProductTemplate, template.sudo()).write(
+                super(ProductTemplate, template.sudo().with_context(
+                    force_company=self.env.user.company_id.id
+                )).write(
                     {'fiscal_classification_id': fc_id})
 
     @api.multi
