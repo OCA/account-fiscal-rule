@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo12-addon-account_fiscal_position_usage_group',
         'odoo12-addon-account_product_fiscal_classification',
         'odoo12-addon-account_product_fiscal_classification_test',
+        'odoo12-addon-l10n_eu_oss',
     ],
     classifiers=[
         'Programming Language :: Python',
