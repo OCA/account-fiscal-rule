@@ -128,7 +128,7 @@ class ResPartnerExemption(models.Model):
         readonly=True,
         states={"draft": [("readonly", False)]},
     )
-    expiry_date = fields.Date(readonly=True, states={"draft": [("readonly", False)]})
+    expiry_date = fields.Date()
     exemption_line_ids = fields.One2many(
         "res.partner.exemption.line",
         "exemption_id",
