@@ -186,7 +186,12 @@
                         <field name="exemption_number" />
                         <field name="exemption_number_type" required="1" />
                         <field name="effective_date" required="1" />
-                        <field name="expiry_date" required="1" />
+                        <field
+                            name="expiry_date"
+                            required="1"
+                            attrs="{'readonly': ['&amp;',('expiry_date','!=',False),('state','!=','draft'),'|',('expiry_date','!=',False)]}"
+                            force_save="1"
+                        />
                     </group>
                     <notebook>
                         <page string="Exemption Lines">
