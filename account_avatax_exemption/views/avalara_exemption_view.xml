@@ -18,7 +18,7 @@
                 />
                 <button
                     name="cancel_exemption"
-                    states="done"
+                    states="progress,done"
                     string="Cancel"
                     class="oe_highlight"
                     type="object"

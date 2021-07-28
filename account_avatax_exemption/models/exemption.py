@@ -245,6 +245,8 @@ class ResPartnerExemption(models.Model):
                     description="Disable Exemption Line %s" % (exemption_line.name),
                 )._update_avatax_exemption_line_status(exemption_line, False)
             self.write({"state": "progress"})
+        elif self.state == "progress":
+            self.write({"state": "cancel"})
         else:
             raise UserError(_("Exemption status needs to be in Done status to cancel"))
         return True
