@@ -7,3 +7,4 @@ access_exemption_code_manager,exemption.code.manager,model_exemption_code,accoun
 access_exemption_code_employee,exemption.code.employee,model_exemption_code,base.group_user,1,0,0,0
 access_avalara_salestax_ping,avalara_salestax_ping,model_avalara_salestax_ping,base.group_user,1,1,1,1
 access_avalara_salestax_address_validate,avalara_salestax_address_validate,model_avalara_salestax_address_validate,base.group_user,1,1,1,1
+access_avatax_log,avatax_log,model_avatax_log,base.group_user,1,1,1,1

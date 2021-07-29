@@ -19,6 +19,7 @@
         "views/partner_view.xml",
         "views/product_view.xml",
         "views/account_move_action.xml",
+        "views/avatax_log_view.xml",
         "views/account_move_view.xml",
         "views/account_tax_view.xml",
         "views/account_fiscal_position_view.xml",
