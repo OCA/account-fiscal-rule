@@ -48,6 +48,8 @@ class AccountTax(models.Model):
                 "name": self._get_avalara_tax_name(tax_rate, doc_type),
             }
             tax = tax_template.sudo().copy(default=vals)
+            # Odoo core does not use the name set in default dict
+            tax.name = vals.get("name")
         return tax
 
     def compute_all(
