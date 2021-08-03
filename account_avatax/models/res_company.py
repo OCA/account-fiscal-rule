@@ -1,12 +1,16 @@
 import logging
 
-from odoo import _, models
+from odoo import _, fields, models
 
 _LOGGER = logging.getLogger(__name__)
 
 
 class Company(models.Model):
     _inherit = "res.company"
+
+    avatax_api_call_notification = fields.Char(
+        string="Avatax API Call Notification",
+    )
 
     def get_avatax_config_company(self):
         """ Returns the AvaTax configuration for the Company """
@@ -26,3 +30,12 @@ class Company(models.Model):
                     _("Company %s has no Avatax configuration."), self.display_name
                 )
             return res and res[0]
+
+
+class Settings(models.TransientModel):
+    _inherit = "res.config.settings"
+
+    avatax_api_call_notification = fields.Char(
+        readonly=False,
+        related="company_id.avatax_api_call_notification",
+    )

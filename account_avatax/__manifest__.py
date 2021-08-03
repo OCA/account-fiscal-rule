@@ -13,6 +13,8 @@
         "security/ir.model.access.csv",
         "data/avalara_salestax_data.xml",
         "data/avalara_salestax_exemptions.xml",
+        "data/cron.xml",
+        "data/emails.xml",
         "wizard/avalara_salestax_ping_view.xml",
         "wizard/avalara_salestax_address_validate_view.xml",
         "views/avalara_salestax_view.xml",
