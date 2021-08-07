@@ -37,7 +37,7 @@ class AvataxLog(models.Model):
                 logs.filtered(lambda p: p.avatax_type == "SalesInvoice")
             )
         if len(logs) > int(call_counter_config_values):
-            avatax_api_call_notification = self.env["ir.config_parameter"].sudo().get_param('account_avatax.avatax_api_call_notification_ids')
+            avatax_api_call_notification = self.env["ir.config_parameter"].sudo().get_param('account_avatax.avatax_api_call_notification_ids',default="[]")
             user_ids = literal_eval(avatax_api_call_notification)
             user_email = self.env['res.users'].browse(user_ids).mapped('login')
             email = ','.join(user_email)
