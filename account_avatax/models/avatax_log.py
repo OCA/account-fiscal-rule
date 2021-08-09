@@ -34,7 +34,6 @@ class AvataxLog(models.Model):
             invoices_call_count = len(
                 logs.filtered(lambda p: p.avatax_type == "SalesInvoice")
             )
-            others_call_count = len(logs.filtered(lambda p: p.avatax_type == "others"))
         if len(logs):
             self.env.ref(
                 "account_avatax.reaching_limit_avatax_api_call_email"
@@ -42,8 +41,7 @@ class AvataxLog(models.Model):
                 {
                     "sales_call_count": sales_call_count,
                     "invoices_call_count": invoices_call_count,
-                    "others_call_count": others_call_count,
                 }
             ).send_mail(
-                logs[0].id, force_send=True
+                self.env.company.id, force_send=True
             )

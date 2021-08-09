@@ -324,7 +324,9 @@ class AvaTaxRESTService:
                 "avatax_request": data,
                 "avatax_response": result,
                 "create_date_time": fields.Datetime.now(),
-                "avatax_type": doc_type,
+                "avatax_type": "SalesOrder"
+                if doc_type in ["SalesOrder", "ReturnOrder"]
+                else "SalesInvoice",
             }
         )
         return self._enrich_result_lines_with_tax_rate(result)

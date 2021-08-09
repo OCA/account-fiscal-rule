@@ -18,7 +18,6 @@
                 </p>
                 <p style="font-family: arial, sans-serif; font-size: 12.8px;">Sale Transactions : ${ctx['sales_call_count']}</p>
                 <p style="font-family: arial, sans-serif; font-size: 12.8px;">Invoice Transactions : ${ctx['invoices_call_count']}</p>
-                <p style="font-family: arial, sans-serif; font-size: 12.8px;">Other Transactions : ${ctx['others_call_count']}</p>
                 <br/>
                 <p style="font-family: arial, sans-serif; font-size: 12.8px;">Thank you for your cooperation.</p>
                 <p style="font-family: arial, sans-serif; font-size: 12.8px;">Kind regards,</p>
