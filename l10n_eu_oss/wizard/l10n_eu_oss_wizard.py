@@ -91,7 +91,27 @@ class L10nEuOssWizard(models.TransientModel):
         comodel_name="account.tax", string="Second Super Reduced Tax"
     )
 
+    def _upgrade_tax_code(self, country_id, rate, type):
+        account_tax_code = self.env["account.tax.code"]
+        rate_str = str(rate).replace(".", '')
+        code_name = 'OSSEU{}{}{}'.format(country_id.code, type, rate_str)
+        account_tax_code_id = account_tax_code.search([
+            ('code', '=', code_name),
+            ('oss_country_id', '=', country_id.id),
+            ], limit=1).id
+        if not account_tax_code_id:
+            account_tax_code_id = account_tax_code.create({
+                "code": code_name,
+                "name": _("OSS for EU to %(country_name)s: %(type)s %(rate)s")
+                % {"country_name": country_id.name, "type": type, "rate": rate_str},
+                "sign": 1,
+                "oss_country_id": country_id.id,
+                })
+        return account_tax_code_id
+
     def _prepare_tax_vals(self, country_id, tax_id, rate):
+        code_bi = self._upgrade_tax_code(country_id, rate, 'TB')
+        code_c = self._upgrade_tax_code(country_id, rate, 'C')
         return {
             "name": _("OSS for EU to %(country_name)s: %(rate)s")
             % {"country_name": country_id.name, "rate": rate},
@@ -104,6 +124,14 @@ class L10nEuOssWizard(models.TransientModel):
             "oss_country_id": country_id.id,
             "company_id": self.company_id.id,
             "price_include": self.price_include_tax,
+            "base_code_id": code_bi.id,
+            "base_sign": 1,
+            "tax_code_id": code_c.id,
+            "tax_sign": 1,
+            "ref_base_code_id": code_bi.id,
+            "ref_base_sign": -1,
+            "ref_tax_code_id": code_c.id,
+            "ref_tax_sign": -1,
             "sequence": 1000,
         }
 

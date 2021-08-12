@@ -9,3 +9,9 @@ class AccountTax(models.Model):
     _inherit = "account.tax"
 
     oss_country_id = fields.Many2one(comodel_name="res.country", string="Oss Country",)
+
+
+class AccountTaxCode(models.Model):
+    _inherit = "account.tax.code"
+
+    oss_country_id = fields.Many2one(comodel_name="res.country", string="Oss Country",)
