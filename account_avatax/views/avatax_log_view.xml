@@ -47,7 +47,7 @@
                         <div class="o_setting_left_pane" />
                         <div class="o_setting_right_pane">
                             <label
-                                for="avatax_api_call_notification"
+                                for="avatax_api_call_notification_ids"
                                 string="API Call Counter"
                             />
                             <div class="text-muted">
@@ -55,7 +55,21 @@
                             </div>
                             <div class="content-group">
                                 <field
-                                    name="avatax_api_call_notification"
+                                    name="avatax_api_call_notification_ids"
+                                    class="oe_inline"
+                                    widget="many2many_tags"
+                                />
+                            </div>
+                            <label
+                                for="call_counter_limit"
+                                string="Call Counter Limit"
+                            />
+                            <div class="text-muted">
+                                 Avatax API call counter limit.
+                            </div>
+                            <div class="content-group">
+                                <field
+                                    name="call_counter_limit"
                                     class="oe_inline"
                                 />
                             </div>

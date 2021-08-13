@@ -1,6 +1,7 @@
 import logging
 
-from odoo import _, fields, models
+from odoo import _, fields, models, api
+from ast import literal_eval
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -8,7 +9,7 @@ _LOGGER = logging.getLogger(__name__)
 class Company(models.Model):
     _inherit = "res.company"
 
-    avatax_api_call_notification = fields.Char(
+    avatax_api_call_notification_ids = fields.Many2many('res.partner',
         string="Avatax API Call Notification",
     )
 
@@ -35,7 +36,26 @@ class Company(models.Model):
 class Settings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    avatax_api_call_notification = fields.Char(
+    avatax_api_call_notification_ids = fields.Many2many('res.partner',
         readonly=False,
-        related="company_id.avatax_api_call_notification",
+        related="company_id.avatax_api_call_notification_ids",
     )
+    call_counter_limit = fields.Integer(string="Call Counter Limit", config_parameter="account_avatax.call_counter_limit", default=100)
+
+    @api.model
+    def get_values(self):
+        res = super(Settings, self).get_values()
+        ICPSudo = self.env['ir.config_parameter'].sudo()
+        get_param = 'account_avatax.avatax_api_call_notification_ids'
+        calls = ICPSudo.get_param(get_param)
+        res.update(
+            avatax_api_call_notification_ids=[(6, 0, literal_eval(calls))] if calls else False,
+        )
+        return res
+
+    def set_values(self):
+        res = super(Settings, self).set_values()
+        ICPSudo = self.env['ir.config_parameter'].sudo()
+        set_param = 'account_avatax.avatax_api_call_notification_ids'
+        ICPSudo.set_param(set_param, self.avatax_api_call_notification_ids.ids)
+        return res
