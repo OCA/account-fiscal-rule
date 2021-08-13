@@ -9,10 +9,6 @@ _LOGGER = logging.getLogger(__name__)
 class Company(models.Model):
     _inherit = "res.company"
 
-    avatax_api_call_notification_ids = fields.Many2many('res.partner',
-        string="Avatax API Call Notification",
-    )
-
     def get_avatax_config_company(self):
         """ Returns the AvaTax configuration for the Company """
         if self:
@@ -36,9 +32,8 @@ class Company(models.Model):
 class Settings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    avatax_api_call_notification_ids = fields.Many2many('res.partner',
+    avatax_api_call_notification_ids = fields.Many2many('res.users',
         readonly=False,
-        related="company_id.avatax_api_call_notification_ids",
     )
     call_counter_limit = fields.Integer(string="Call Counter Limit", config_parameter="account_avatax.call_counter_limit", default=100)
 
