@@ -21,14 +21,14 @@ default product sale and purchase taxes based on a tax class.
 
 Available addons
 ----------------
-addon | version | summary
---- | --- | ---
-[account_fiscal_position_rule](account_fiscal_position_rule/) | 10.0.1.0.0 | Account Fiscal Position Rule
-[account_fiscal_position_rule_purchase](account_fiscal_position_rule_purchase/) | 10.0.1.0.0 | Account Fiscal Position Rule Purchase
-[account_fiscal_position_rule_sale](account_fiscal_position_rule_sale/) | 10.0.1.0.0 | Account Fiscal Position Rule Sale
-[account_fiscal_position_rule_sale_stock](account_fiscal_position_rule_sale_stock/) | 10.0.1.0.0 | Account Fiscal Position Rule Sale Stock
-[account_fiscal_position_rule_stock](account_fiscal_position_rule_stock/) | 10.0.1.0.0 | Account Fiscal Position Rule Stock
-[account_product_fiscal_classification](account_product_fiscal_classification/) | 10.0.1.0.0 | Simplify taxes management for products
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[account_fiscal_position_rule](account_fiscal_position_rule/) | 10.0.1.0.0 |  | Account Fiscal Position Rule
+[account_fiscal_position_rule_purchase](account_fiscal_position_rule_purchase/) | 10.0.1.0.0 |  | Account Fiscal Position Rule Purchase
+[account_fiscal_position_rule_sale](account_fiscal_position_rule_sale/) | 10.0.1.0.0 |  | Account Fiscal Position Rule Sale
+[account_fiscal_position_rule_sale_stock](account_fiscal_position_rule_sale_stock/) | 10.0.1.0.0 |  | Account Fiscal Position Rule Sale Stock
+[account_fiscal_position_rule_stock](account_fiscal_position_rule_stock/) | 10.0.1.0.0 |  | Account Fiscal Position Rule Stock
+[account_product_fiscal_classification](account_product_fiscal_classification/) | 10.0.1.0.0 |  | Simplify taxes management for products
 
 [//]: # (end addons)
 
