@@ -25,8 +25,8 @@ addon | version | maintainers | summary
 [account_avatax_sale](account_avatax_sale/) | 14.0.1.1.3 | [![dreispt](https://github.com/dreispt.png?size=30px)](https://github.com/dreispt) | Sales Orders with automatic Tax application using Avatax
 [account_avatax_website_sale](account_avatax_website_sale/) | 14.0.1.1.0 | [![cybernexus](https://github.com/cybernexus.png?size=30px)](https://github.com/cybernexus) | Ecommerce Sales Orders require tax recalculation prior to payment.
 [account_fiscal_position_partner_type](account_fiscal_position_partner_type/) | 14.0.1.0.0 |  | Account Fiscal Position Partner Type
-[account_product_fiscal_classification](account_product_fiscal_classification/) | 14.0.1.0.0 |  | Simplify taxes management for products
-[account_product_fiscal_classification_test](account_product_fiscal_classification_test/) | 14.0.1.0.0 |  | tests account_product_fiscal_classification module
+[account_product_fiscal_classification](account_product_fiscal_classification/) | 14.0.1.0.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Simplify taxes management for products
+[account_product_fiscal_classification_test](account_product_fiscal_classification_test/) | 14.0.1.0.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | tests account_product_fiscal_classification module
 [l10n_eu_oss](l10n_eu_oss/) | 14.0.1.1.0 |  | L10n EU OSS
 
 [//]: # (end addons)
