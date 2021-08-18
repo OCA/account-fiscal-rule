@@ -68,10 +68,7 @@
                                  Avatax API call counter limit.
                             </div>
                             <div class="content-group">
-                                <field
-                                    name="call_counter_limit"
-                                    class="oe_inline"
-                                />
+                                <field name="call_counter_limit" class="oe_inline" />
                             </div>
                         </div>
                     </div>

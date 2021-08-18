@@ -1,6 +1,9 @@
-from odoo import fields, models
-from dateutil.relativedelta import relativedelta
 from ast import literal_eval
+
+from dateutil.relativedelta import relativedelta
+
+from odoo import fields, models
+
 
 class AvataxLog(models.Model):
     _name = "avatax.log"
@@ -25,10 +28,15 @@ class AvataxLog(models.Model):
         return result
 
     def avatax_api_call_counter(self):
-        call_counter_config_values = self.env["ir.config_parameter"].sudo().get_param('account_avatax.call_counter_limit')
+        call_counter_config_values = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("account_avatax.call_counter_limit")
+        )
         if not self.avatax_request:
             logs = self.search([]).filtered(
-                lambda p: p.create_date_time.date() == fields.date.today()-relativedelta(days=1)
+                lambda p: p.create_date_time.date()
+                == fields.date.today() - relativedelta(days=1)
             )
             sales_call_count = len(
                 logs.filtered(lambda p: p.avatax_type == "SalesOrder")
@@ -37,18 +45,24 @@ class AvataxLog(models.Model):
                 logs.filtered(lambda p: p.avatax_type == "SalesInvoice")
             )
         if len(logs) > int(call_counter_config_values):
-            avatax_api_call_notification = self.env["ir.config_parameter"].sudo().get_param('account_avatax.avatax_api_call_notification_ids',default="[]")
+            avatax_api_call_notification = (
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param(
+                    "account_avatax.avatax_api_call_notification_ids", default="[]"
+                )
+            )
             user_ids = literal_eval(avatax_api_call_notification)
-            user_email = self.env['res.users'].browse(user_ids).mapped('login')
-            email = ','.join(user_email)
+            user_email = self.env["res.users"].browse(user_ids).mapped("login")
+            email = ",".join(user_email)
             self.env.ref(
-                    "account_avatax.reaching_limit_avatax_api_call_email"
-                    ).with_context(
-                        {
-                            "sales_call_count": sales_call_count,
-                            "invoices_call_count": invoices_call_count,
-                            "email": email,
-                        }
-                    ).send_mail(
-                        self.env.company.id, force_send=True
-                    )
+                "account_avatax.reaching_limit_avatax_api_call_email"
+            ).with_context(
+                {
+                    "sales_call_count": sales_call_count,
+                    "invoices_call_count": invoices_call_count,
+                    "email": email,
+                }
+            ).send_mail(
+                self.env.company.id, force_send=True
+            )
