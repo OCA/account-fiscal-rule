@@ -222,6 +222,7 @@ class AvaTaxRESTService:
         location_code=None,
         currency_code="USD",
         vat=None,
+        avatax_line_override=None,
         is_override=False,
         ignore_error=None,
         log_to_record=False,
@@ -255,6 +256,18 @@ class AvaTaxRESTService:
                 "quantity": line.get("qty", 1),
                 "amount": line.get("amount", 0.0),
                 "taxCode": line.get("tax_code"),
+                "taxOverride": {
+                    "type": "TaxAmountByTaxType",
+                    "reason": "Refund",
+                    "taxAmountByTaxTypes": [
+                        {
+                            "taxTypeId": line.get("avatax_tax_type"),
+                            "TaxAmount": line.get("avatax_amt_line", 0.0),
+                        }
+                    ],
+                }
+                if avatax_line_override and line.get("avatax_tax_type")
+                else None,
             }
             for line in received_lines
         ]
@@ -295,7 +308,7 @@ class AvaTaxRESTService:
             "type": doc_type,
             "commit": commit,
         }
-        if is_override and invoice_date:
+        if is_override and invoice_date and not avatax_line_override:
             create_transaction.update(
                 {
                     "taxOverride": {
