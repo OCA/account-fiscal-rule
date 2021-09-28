@@ -11,10 +11,13 @@ class TestAccountFiscalPostitionVies(common.SavepointCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.company = cls.env.ref("base.main_company")
-        cls.fp_vat = cls.env["account.fiscal.position"].create(
+        # We make sure that there is no previous record
+        fp_model = cls.env["account.fiscal.position"]
+        fp_model.search([("auto_apply", "=", True)]).write({"auto_apply": False})
+        cls.fp_vat = fp_model.create(
             {"name": "Test vat required", "auto_apply": True, "vat_required": True}
         )
-        cls.fp_vat_vies = cls.env["account.fiscal.position"].create(
+        cls.fp_vat_vies = fp_model.create(
             {
                 "name": "Test vat VIES required",
                 "auto_apply": True,
