@@ -91,30 +91,40 @@ class L10nEuOssWizard(models.TransientModel):
         comodel_name="account.tax", string="Second Super Reduced Tax"
     )
 
-    def _upgrade_tax_code(self, country_id, rate, type):
+    def _upgrade_tax_code(self, country_id, rate, code_type, company):
         account_tax_code = self.env["account.tax.code"]
         rate_str = str(rate).replace(".", '')
-        code_name = 'OSSEU{}{}{}'.format(country_id.code, type, rate_str)
-        account_tax_code_id = account_tax_code.search([
+        code_name = 'OSSEU{}{}{}'.format(country_id.code, code_type, rate_str)
+        account_tax_code = account_tax_code.search([
             ('code', '=', code_name),
             ('oss_country_id', '=', country_id.id),
-            ], limit=1).id
-        if not account_tax_code_id:
-            account_tax_code_id = account_tax_code.create({
+            ('company_id', '=', company.id),
+        ], limit=1)
+        if not account_tax_code:
+            account_tax_code = account_tax_code.create({
                 "code": code_name,
-                "name": _("OSS for EU to %(country_name)s: %(type)s %(rate)s")
-                % {"country_name": country_id.name, "type": type, "rate": rate_str},
+                "name": _(
+                    "OSS for EU to %(country_name)s: %(type)s %(rate)s"
+                ) % {
+                    "country_name": country_id.name,
+                    "type": code_type,
+                    "rate": rate_str,
+                },
                 "sign": 1,
                 "oss_country_id": country_id.id,
-                })
-        return account_tax_code_id
+                "company_id": company.id,
+            })
+        return account_tax_code
 
     def _prepare_tax_vals(self, country_id, tax_id, rate):
-        code_bi = self._upgrade_tax_code(country_id, rate, 'TB')
-        code_c = self._upgrade_tax_code(country_id, rate, 'C')
+        self.ensure_one()
+        company = self.company_id
+        code_bi = self._upgrade_tax_code(country_id, rate, 'TB', company)
+        code_c = self._upgrade_tax_code(country_id, rate, 'C', company)
         return {
-            "name": _("OSS for EU to %(country_name)s: %(rate)s")
-            % {"country_name": country_id.name, "rate": rate},
+            "name": _("OSS for EU to %(country_name)s: %(rate)s") % {
+                "country_name": country_id.name, "rate": rate
+            },
             "amount": rate,
             "type": tax_id.type,
             "account_collected_id": tax_id.account_collected_id.id,
