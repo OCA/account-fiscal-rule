@@ -30,7 +30,7 @@ class AvalaraSalestax(models.Model):
 
     @api.model
     def _get_avatax_supported_countries(self):
-        """ Returns the countries supported by AvaTax Address Validation Service."""
+        """Returns the countries supported by AvaTax Address Validation Service."""
         return self.env["res.country"].search([("code", "in", ["US", "CA"])])
 
     account_number = fields.Char(
