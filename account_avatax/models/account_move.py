@@ -181,7 +181,7 @@ class AccountMove(models.Model):
 
     # Same as v12
     def _avatax_compute_tax(self, commit=False):
-        """ Contact REST API and recompute taxes for a Sale Order """
+        """Contact REST API and recompute taxes for a Sale Order"""
         self and self.ensure_one()
         avatax_config = self.company_id.get_avatax_config_company()
         if not avatax_config:
@@ -500,7 +500,7 @@ class AccountMoveLine(models.Model):
         taxes=None,
         move_type=None,
     ):
-        """ Override tax amount, if we have an Avatax calculated amount """
+        """Override tax amount, if we have an Avatax calculated amount"""
         self.ensure_one()
         res = super()._get_price_total_and_subtotal(
             price_unit, quantity, discount, currency, product, partner, taxes, move_type

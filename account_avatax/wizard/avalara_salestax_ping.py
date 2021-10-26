@@ -15,7 +15,7 @@ class AvalaraSalestaxPing(models.TransientModel):
 
     @api.model
     def ping(self):
-        """ Call the AvaTax's Ping Service to test the connection. """
+        """Call the AvaTax's Ping Service to test the connection."""
         active_id = self.env.context.get("active_id")
         if active_id:
             avatax = self.env["avalara.salestax"].browse(active_id)
