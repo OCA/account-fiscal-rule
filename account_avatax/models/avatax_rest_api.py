@@ -7,13 +7,12 @@ import socket
 from odoo import _, fields, tools
 from odoo.exceptions import UserError
 
+_logger = logging.getLogger(__name__)
+
 try:
     from avalara import AvataxClient
 except Exception:
-    pass
-
-
-_logger = logging.getLogger(__name__)
+    _logger.info("AvataxClient missing")
 
 
 class AvaTaxRESTService:
@@ -44,14 +43,14 @@ class AvaTaxRESTService:
                 self.client = AvataxClient(
                     self.appname, self.version, self.hostname, self.environment
                 )
-            except NameError:
+            except NameError as exc:
                 raise UserError(
                     _(
                         "AvataxClient is not available in your system. "
                         "Please contact your system administrator "
                         "to 'pip3 install Avalara'"
                     )
-                )
+                ) from exc
             self.client.add_credentials(username, password)
 
     def _sanitize_text(self, text):

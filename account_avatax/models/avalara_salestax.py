@@ -12,8 +12,8 @@ class ExemptionCode(models.Model):
     _name = "exemption.code"
     _description = "Exemption Code"
 
-    name = fields.Char("Name", required=True)
-    code = fields.Char("Code")
+    name = fields.Char(required=True)
+    code = fields.Char()
 
     @api.depends("name", "code")
     def name_get(self):
@@ -34,11 +34,9 @@ class AvalaraSalestax(models.Model):
         return self.env["res.country"].search([("code", "in", ["US", "CA"])])
 
     account_number = fields.Char(
-        "Account Number", required=True, help="Account Number provided by AvaTax"
+        required=True, help="Account Number provided by AvaTax"
     )
-    license_key = fields.Char(
-        "License Key", required=True, help="License Key provided by AvaTax"
-    )
+    license_key = fields.Char(required=True, help="License Key provided by AvaTax")
     service_url = fields.Selection(
         [
             ("https://sandbox-rest.avatax.com/api/v2", "REST API Test"),
@@ -49,16 +47,19 @@ class AvalaraSalestax(models.Model):
         help="The url to connect with",
     )
     request_timeout = fields.Integer(
-        "Request Timeout",
         default=300,
         help="Defines AvaTax request time out length"
         ", AvaTax best practices prescribes default setting of 300 seconds",
     )
+    # TODO: Implement Company Code Lookup
+    # https://developer.avalara.com/api-reference
+    # /avatax/rest/v2/methods/Companies/QueryCompanies
     company_code = fields.Char(
-        "Company Code",
         required=True,
         help="The company code as defined in the Admin Console of AvaTax",
     )
+    # TODO: Enable client side logging (user retrievable)
+    # Mereg https://github.com/OCA/account-fiscal-rule/pull/233
     logging = fields.Boolean(
         "Log API Request Details",
         help="Enables detailed AvaTax transaction logging within application",
@@ -72,7 +73,7 @@ class AvalaraSalestax(models.Model):
         help="Check is address validation results desired to be in upper case",
     )
     disable_address_validation = fields.Boolean(
-        "Disable Address Validation", help="Check to disable address validation"
+        help="Check to disable address validation"
     )
     validation_on_save = fields.Boolean(
         "Automatic Address Validation",
@@ -96,8 +97,13 @@ class AvalaraSalestax(models.Model):
     disable_tax_calculation = fields.Boolean(
         "Disable AvaTax Calculation",
         help="No tax calculation requests will be sent to the AvaTax web service.",
-        default=True,
     )
+    # TODO: Control - Disable Document Recording
+    # In order for this connector to be used in conjunction
+    # with other integrations to AvaTax, the user must be able to control which connector
+    # is used for recording documents to AvaTax.
+    # From a technical standpoint, simply use DocType: 'SalesOrder' on all calls
+    # and suppress any non-getTax calls (i.e. cancelTax, postTax).
     disable_tax_reporting = fields.Boolean(
         "Disable Document Recording/Commiting",
         help="No transactions will be recorded in the Avatax service.",
@@ -122,7 +128,6 @@ class AvalaraSalestax(models.Model):
         help="Countries where address validation will be used",
     )
     active = fields.Boolean(
-        "Active",
         default=True,
         help="Uncheck the active field to hide the record",
     )
@@ -150,6 +155,7 @@ class AvalaraSalestax(models.Model):
         "on Invoice will be used",
     )
     # TODO: add option to Display Prices with Tax Included
+    # Enabled the tax inclusive flag in the GetTax Request.
 
     # constraints on uniq records creation with account_number and company_id
     _sql_constraints = [
@@ -212,10 +218,10 @@ class AvalaraSalestax(models.Model):
             if not avatax_config.auto_generate_customer_code:
                 raise UserError(
                     _(
-                        "Customer Code for customer %s not defined.\n\n  "
+                        "Customer Code for customer %(partner.name)s not defined.\n\n  "
                         "You can edit the Customer Code in customer profile. "
                         'You can fix by clicking "Generate Customer Code" '
-                        "button in the customer contact information" % (partner.name)
+                        "button in the customer contact information"
                     )
                 )
             else:
@@ -244,8 +250,7 @@ class AvalaraSalestax(models.Model):
             if not shipping_address.date_validation:
                 raise UserError(
                     _(
-                        "Please validate the shipping address for the partner %s."
-                        % (partner.name)
+                        "Please validate the shipping address for the partner %(partner.name)s."
                     )
                 )
 
@@ -262,7 +267,7 @@ class AvalaraSalestax(models.Model):
             return False
 
         if commit and avatax_config.disable_tax_reporting:
-            _logger.warn(
+            _logger.warning(
                 _("Avatax commiting document %s, but it tax reporting is disabled."),
                 doc_code,
             )

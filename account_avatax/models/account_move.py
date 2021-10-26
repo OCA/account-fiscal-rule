@@ -98,9 +98,7 @@ class AccountMove(models.Model):
     tax_address_id = fields.Many2one(
         "res.partner", "Tax Shipping Address", compute="_compute_tax_address_id"
     )
-    location_code = fields.Char(
-        "Location Code", readonly=True, states={"draft": [("readonly", False)]}
-    )
+    location_code = fields.Char(readonly=True, states={"draft": [("readonly", False)]})
     warehouse_id = fields.Many2one("stock.warehouse", "Warehouse")
     avatax_amount = fields.Float(string="AvaTax", copy=False)
     calculate_tax_on_save = fields.Boolean()
@@ -117,13 +115,14 @@ class AccountMove(models.Model):
         "avatax_amount",
     )
     def _compute_amount(self):
-        super()._compute_amount()
+        res = super()._compute_amount()
         for inv in self:
             if inv.avatax_amount:
                 inv.amount_tax = abs(inv.avatax_amount)
                 inv.amount_total = inv.amount_untaxed + inv.amount_tax
                 sign = inv.move_type in ["in_refund", "out_refund"] and -1 or 1
                 inv.amount_total_signed = inv.amount_total * sign
+        return res
 
     @api.depends("tax_on_shipping_address", "partner_id", "partner_shipping_id")
     def _compute_tax_address_id(self):

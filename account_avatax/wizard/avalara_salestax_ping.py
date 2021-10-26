@@ -11,7 +11,7 @@ class AvalaraSalestaxPing(models.TransientModel):
         self.ping()
         return res
 
-    name = fields.Char("Name")
+    name = fields.Char()
 
     @api.model
     def ping(self):
