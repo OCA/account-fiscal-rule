@@ -32,11 +32,10 @@ class ResPartner(models.Model):
         help="It gets populated when the address is validated by the method",
     )
     validated_on_save = fields.Boolean(
-        "Validated On Save",
         help="Indicates if the address is already validated on save"
         " before calling the wizard",
     )
-    customer_code = fields.Char("Customer Code", copy=False)
+    customer_code = fields.Char(copy=False)
     tax_exempt = fields.Boolean(
         "Is Tax Exempt (Deprecated))",
         deprecated=True,

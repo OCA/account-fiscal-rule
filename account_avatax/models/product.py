@@ -12,7 +12,7 @@ class ProductTaxCode(models.Model):
     _description = "AvaTax Code"
 
     name = fields.Char("Code", required=True)
-    description = fields.Char("Description")
+    description = fields.Char()
     type = fields.Selection(
         [
             ("product", "Product"),
@@ -21,7 +21,6 @@ class ProductTaxCode(models.Model):
             ("digital", "Digital"),
             ("other", "Other"),
         ],
-        "Type",
         required=True,
         help="Type of tax code as defined in AvaTax",
     )

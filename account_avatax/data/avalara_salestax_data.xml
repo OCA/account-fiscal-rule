@@ -17,5 +17,6 @@
         <field name="amount" eval="0.00" />
         <field name="type_tax_use">sale</field>
         <field name="is_avatax">True</field>
+        <field name="country_id" ref="base.us" />
     </record>
 </odoo>

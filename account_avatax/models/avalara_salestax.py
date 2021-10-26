@@ -12,8 +12,8 @@ class ExemptionCode(models.Model):
     _name = "exemption.code"
     _description = "Exemption Code"
 
-    name = fields.Char("Name", required=True)
-    code = fields.Char("Code")
+    name = fields.Char(required=True)
+    code = fields.Char()
 
     @api.depends("name", "code")
     def name_get(self):
@@ -34,11 +34,9 @@ class AvalaraSalestax(models.Model):
         return self.env["res.country"].search([("code", "in", ["US", "CA"])])
 
     account_number = fields.Char(
-        "Account Number", required=True, help="Account Number provided by AvaTax"
+        required=True, help="Account Number provided by AvaTax"
     )
-    license_key = fields.Char(
-        "License Key", required=True, help="License Key provided by AvaTax"
-    )
+    license_key = fields.Char(required=True, help="License Key provided by AvaTax")
     service_url = fields.Selection(
         [
             ("https://sandbox-rest.avatax.com/api/v2", "REST API Test"),
@@ -49,13 +47,11 @@ class AvalaraSalestax(models.Model):
         help="The url to connect with",
     )
     request_timeout = fields.Integer(
-        "Request Timeout",
         default=300,
         help="Defines AvaTax request time out length"
         ", AvaTax best practices prescribes default setting of 300 seconds",
     )
     company_code = fields.Char(
-        "Company Code",
         required=True,
         help="The company code as defined in the Admin Console of AvaTax",
     )
@@ -72,7 +68,7 @@ class AvalaraSalestax(models.Model):
         help="Check is address validation results desired to be in upper case",
     )
     disable_address_validation = fields.Boolean(
-        "Disable Address Validation", help="Check to disable address validation"
+        help="Check to disable address validation"
     )
     validation_on_save = fields.Boolean(
         "Automatic Address Validation",
@@ -122,7 +118,6 @@ class AvalaraSalestax(models.Model):
         help="Countries where address validation will be used",
     )
     active = fields.Boolean(
-        "Active",
         default=True,
         help="Uncheck the active field to hide the record",
     )
@@ -212,10 +207,10 @@ class AvalaraSalestax(models.Model):
             if not avatax_config.auto_generate_customer_code:
                 raise UserError(
                     _(
-                        "Customer Code for customer %s not defined.\n\n  "
+                        "Customer Code for customer %(partner.name)s not defined.\n\n  "
                         "You can edit the Customer Code in customer profile. "
                         'You can fix by clicking "Generate Customer Code" '
-                        "button in the customer contact information" % (partner.name)
+                        "button in the customer contact information"
                     )
                 )
             else:
@@ -244,8 +239,7 @@ class AvalaraSalestax(models.Model):
             if not shipping_address.date_validation:
                 raise UserError(
                     _(
-                        "Please validate the shipping address for the partner %s."
-                        % (partner.name)
+                        "Please validate the shipping address for the partner %(partner.name)s."
                     )
                 )
 

@@ -9,7 +9,7 @@ class AccountTax(models.Model):
 
     _inherit = "account.tax"
 
-    is_avatax = fields.Boolean("Is Avatax")
+    is_avatax = fields.Boolean()
 
     @api.model
     def _get_avalara_tax_domain(self, tax_rate, doc_type):
@@ -61,6 +61,7 @@ class AccountTax(models.Model):
         partner=None,
         is_refund=False,
         handle_price_include=True,
+        include_caba_tags=False,
     ):
         """
         Adopted as the central point to inject custom tax computations.
@@ -76,6 +77,7 @@ class AccountTax(models.Model):
             partner,
             is_refund,
             handle_price_include,
+            include_caba_tags=False,
         )
         avatax_invoice = self.env.context.get("avatax_invoice")
         if avatax_invoice:
@@ -104,10 +106,10 @@ class AccountTax(models.Model):
                 avatax_amount = 0.0
                 raise exceptions.UserError(
                     _(
-                        "Incorrect retrieval of Avatax amount for Invoice %s:"
-                        " product %s, price_unit %f, quantity %f"
+                        "Incorrect retrieval of Avatax amount for Invoice %(avatax_invoice)s:"
+                        " product %(product.display_name)s, price_unit %(-price_unit)f"
+                        " , quantity %(quantity)f"
                     )
-                    % (avatax_invoice, product.display_name, -price_unit, quantity)
                 )
             for tax_item in res["taxes"]:
                 if tax_item["amount"] != 0:
