@@ -6,6 +6,7 @@
         <field name="inherit_id" ref="account_avatax.view_avalara_salestax_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='disable_tax_reporting']" position="after">
+                <field name="override_line_taxes" />
                 <field name="use_partner_invoice_id" />
                 <field name="sale_calculate_tax" />
             </xpath>

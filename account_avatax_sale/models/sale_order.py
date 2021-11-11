@@ -140,7 +140,7 @@ class SaleOrder(models.Model):
         return [x for x in lines if x]
 
     def _avatax_compute_tax(self):
-        """ Contact REST API and recompute taxes for a Sale Order """
+        """Contact REST API and recompute taxes for a Sale Order"""
         self and self.ensure_one()
         doc_type = self._get_avatax_doc_type()
         Tax = self.env["account.tax"]
@@ -174,8 +174,12 @@ class SaleOrder(models.Model):
                 rate = tax_result_line["rate"]
                 tax = Tax.get_avalara_tax(rate, doc_type)
                 if tax not in line.tax_id:
-                    line_taxes = line.tax_id.filtered(lambda x: not x.is_avatax)
-                    line.tax_id = line_taxes | tax
+                    line_taxes = (
+                        tax
+                        if avatax_config.override_line_taxes
+                        else tax | line.tax_id.filtered(lambda x: not x.is_avatax)
+                    )
+                    line.tax_id = line_taxes
                 line.tax_amt = tax_result_line["tax"]
         self.tax_amount = tax_result.get("totalTax")
         return True
