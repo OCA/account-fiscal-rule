@@ -130,6 +130,11 @@ msgid "Origin address location code"
 msgstr ""
 
 #. module: account_avatax_sale
+#: model:ir.model.fields,field_description:account_avatax_sale.field_avalara_salestax__override_line_taxes
+msgid "Override Line Taxes"
+msgstr ""
+
+#. module: account_avatax_sale
 #: model:ir.model,name:account_avatax_sale.model_sale_order
 msgid "Sales Order"
 msgstr ""
@@ -163,6 +168,13 @@ msgstr ""
 #. module: account_avatax_sale
 #: model:ir.model.fields,field_description:account_avatax_sale.field_avalara_salestax__use_partner_invoice_id
 msgid "Use Invoice partner's customer code in SO"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.model.fields,help:account_avatax_sale.field_avalara_salestax__override_line_taxes
+msgid ""
+"When checked, the Avatax computed tax will replace any other taxes that may "
+"exist in the document line."
 msgstr ""
 
 #. module: account_avatax_sale
