@@ -26,7 +26,12 @@ class TestAccountFiscalPostitionVies(common.SavepointCase):
             }
         )
         cls.partner = cls.env["res.partner"].create(
-            {"name": "Mr Odoo", "vat": "VAT", "country_id": cls.env.ref("base.es").id}
+            {
+                "name": "Mr Odoo",
+                "vat": "VAT",
+                "country_id": cls.env.ref("base.es").id,
+                "company_type": "company",
+            }
         )
         cls.vatnumber_path = "odoo.addons.base_vat.models.res_partner.vatnumber"
 
