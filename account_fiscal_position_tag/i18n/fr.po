@@ -1,0 +1,114 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * account_fiscal_position_tag
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-01 00:03+0000\n"
+"PO-Revision-Date: 2021-12-01 00:03+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_fiscal_position_tag
+#: model:ir.model,name:account_fiscal_position_tag.model_account_chart_template
+msgid "Account Chart Template"
+msgstr "Modèle de plan comptable"
+
+#. module: account_fiscal_position_tag
+#: model:ir.model,name:account_fiscal_position_tag.model_account_fiscal_position_tag
+msgid "Account Fiscal Position Tags"
+msgstr "Etiquettes de position fiscale"
+
+#. module: account_fiscal_position_tag
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position_tag__code
+msgid "Code"
+msgstr ""
+
+#. module: account_fiscal_position_tag
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position_tag__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_fiscal_position_tag
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position_tag__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_fiscal_position_tag
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_chart_template__display_name
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position__display_name
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position_tag__display_name
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position_template__display_name
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_move__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: account_fiscal_position_tag
+#: model:ir.model,name:account_fiscal_position_tag.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Position fiscale"
+
+#. module: account_fiscal_position_tag
+#: model:ir.actions.act_window,name:account_fiscal_position_tag.action_account_fiscal_position_tag
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_bank_statement_line__tag_ids
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_move__tag_ids
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_payment__tag_ids
+#: model:ir.ui.menu,name:account_fiscal_position_tag.menu_account_fiscal_position_tag
+msgid "Fiscal Position Tags"
+msgstr "Etiquettes de position fiscale"
+
+#. module: account_fiscal_position_tag
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_chart_template__id
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position__id
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position_tag__id
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position_template__id
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_move__id
+msgid "ID"
+msgstr ""
+
+#. module: account_fiscal_position_tag
+#: model:ir.model,name:account_fiscal_position_tag.model_account_move
+msgid "Journal Entry"
+msgstr "Pièce comptable"
+
+#. module: account_fiscal_position_tag
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_chart_template____last_update
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position____last_update
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position_tag____last_update
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position_template____last_update
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_move____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: account_fiscal_position_tag
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position_tag__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_fiscal_position_tag
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position_tag__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_fiscal_position_tag
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position_tag__name
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_tag.view_account_fiscal_position_tag_form
+msgid "Name"
+msgstr "Nom"
+
+#. module: account_fiscal_position_tag
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position__tag_ids
+#: model:ir.model.fields,field_description:account_fiscal_position_tag.field_account_fiscal_position_template__tag_ids
+msgid "Tags"
+msgstr "Etiquettes"
+
+#. module: account_fiscal_position_tag
+#: model:ir.model,name:account_fiscal_position_tag.model_account_fiscal_position_template
+msgid "Template for Fiscal Position"
+msgstr "Modèle de position fiscale"
