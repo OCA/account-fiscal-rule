@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -125,7 +125,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_avatax.action_avalara_salestax
 #: model:ir.ui.menu,name:account_avatax.menu_avatax_api
 #: model_terms:ir.ui.view,arch_db:account_avatax.view_avalara_salestax_form
-#: model_terms:ir.ui.view,arch_db:account_avatax.view_avalara_salestax_tree
 msgid "AvaTax API"
 msgstr ""
 
@@ -348,7 +347,7 @@ msgstr ""
 #: code:addons/account_avatax/models/avalara_salestax.py:0
 #, python-format
 msgid ""
-"Customer Code for customer %s not defined.\n"
+"Customer Code for customer %(partner.name)s not defined.\n"
 "\n"
 "  You can edit the Customer Code in customer profile. You can fix by clicking \"Generate Customer Code\" button in the customer contact information"
 msgstr ""
@@ -401,19 +400,11 @@ msgid "Disable Document Recording/Commiting"
 msgstr ""
 
 #. module: account_avatax
-#: model:ir.model.fields,field_description:account_avatax.field_account_fiscal_position__display_name
-#: model:ir.model.fields,field_description:account_avatax.field_account_move__display_name
-#: model:ir.model.fields,field_description:account_avatax.field_account_move_line__display_name
-#: model:ir.model.fields,field_description:account_avatax.field_account_tax__display_name
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__display_name
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate__display_name
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_ping__display_name
 #: model:ir.model.fields,field_description:account_avatax.field_exemption_code__display_name
-#: model:ir.model.fields,field_description:account_avatax.field_product_category__display_name
 #: model:ir.model.fields,field_description:account_avatax.field_product_tax_code__display_name
-#: model:ir.model.fields,field_description:account_avatax.field_product_template__display_name
-#: model:ir.model.fields,field_description:account_avatax.field_res_company__display_name
-#: model:ir.model.fields,field_description:account_avatax.field_res_partner__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -430,18 +421,13 @@ msgstr ""
 
 #. module: account_avatax
 #: model:ir.actions.act_window,name:account_avatax.action_exemption_code_details
-#: model:ir.ui.menu,name:account_avatax.menu_action_exemption_code_details
-msgid "Entity Use Code"
-msgstr ""
-
-#. module: account_avatax
 #: model:ir.model,name:account_avatax.model_exemption_code
 #: model:ir.model.fields,field_description:account_avatax.field_account_bank_statement_line__exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax.field_account_move__exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax.field_account_payment__exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax.field_res_partner__property_exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax.field_res_users__property_exemption_code_id
-#: model_terms:ir.ui.view,arch_db:account_avatax.exemption_code_tree_view
+#: model:ir.ui.menu,name:account_avatax.menu_action_exemption_code_details
 msgid "Exemption Code"
 msgstr ""
 
@@ -498,19 +484,11 @@ msgid "Generate"
 msgstr ""
 
 #. module: account_avatax
-#: model:ir.model.fields,field_description:account_avatax.field_account_fiscal_position__id
-#: model:ir.model.fields,field_description:account_avatax.field_account_move__id
-#: model:ir.model.fields,field_description:account_avatax.field_account_move_line__id
-#: model:ir.model.fields,field_description:account_avatax.field_account_tax__id
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__id
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate__id
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_ping__id
 #: model:ir.model.fields,field_description:account_avatax.field_exemption_code__id
-#: model:ir.model.fields,field_description:account_avatax.field_product_category__id
 #: model:ir.model.fields,field_description:account_avatax.field_product_tax_code__id
-#: model:ir.model.fields,field_description:account_avatax.field_product_template__id
-#: model:ir.model.fields,field_description:account_avatax.field_res_company__id
-#: model:ir.model.fields,field_description:account_avatax.field_res_partner__id
 msgid "ID"
 msgstr ""
 
@@ -529,8 +507,9 @@ msgstr ""
 #: code:addons/account_avatax/models/account_tax.py:0
 #, python-format
 msgid ""
-"Incorrect retrieval of Avatax amount for Invoice %s: product %s, price_unit "
-"%f, quantity %f"
+"Incorrect retrieval of Avatax amount for Invoice %(avatax_invoice)s: product"
+" %(product.display_name)s, price_unit %(-price_unit)f , quantity "
+"%(quantity)f"
 msgstr ""
 
 #. module: account_avatax
@@ -589,19 +568,11 @@ msgid "Journal Item"
 msgstr ""
 
 #. module: account_avatax
-#: model:ir.model.fields,field_description:account_avatax.field_account_fiscal_position____last_update
-#: model:ir.model.fields,field_description:account_avatax.field_account_move____last_update
-#: model:ir.model.fields,field_description:account_avatax.field_account_move_line____last_update
-#: model:ir.model.fields,field_description:account_avatax.field_account_tax____last_update
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax____last_update
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate____last_update
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_ping____last_update
 #: model:ir.model.fields,field_description:account_avatax.field_exemption_code____last_update
-#: model:ir.model.fields,field_description:account_avatax.field_product_category____last_update
 #: model:ir.model.fields,field_description:account_avatax.field_product_tax_code____last_update
-#: model:ir.model.fields,field_description:account_avatax.field_product_template____last_update
-#: model:ir.model.fields,field_description:account_avatax.field_res_company____last_update
-#: model:ir.model.fields,field_description:account_avatax.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr ""
 
@@ -770,7 +741,7 @@ msgstr ""
 #. module: account_avatax
 #: code:addons/account_avatax/models/avalara_salestax.py:0
 #, python-format
-msgid "Please validate the shipping address for the partner %s."
+msgid "Please validate the shipping address for the partner %(partner.name)s."
 msgstr ""
 
 #. module: account_avatax
@@ -796,7 +767,6 @@ msgstr ""
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.view_product_tax_code_form
-#: model_terms:ir.ui.view,arch_db:account_avatax.view_product_tax_code_tree
 msgid "Product Tax Code"
 msgstr ""
 
