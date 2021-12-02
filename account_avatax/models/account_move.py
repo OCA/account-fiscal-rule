@@ -336,6 +336,7 @@ class AccountMove(models.Model):
         """
         Sets invoice to Draft, either from the Posted or Cancelled states
         """
+        res = super(AccountMove, self).button_draft()
         for invoice in self:
             if (
                 invoice.move_type in ["out_invoice", "out_refund"]
@@ -346,7 +347,7 @@ class AccountMove(models.Model):
                 if avatax_config:
                     doc_type = invoice._get_avatax_doc_type()
                     avatax_config.void_transaction(invoice.name, doc_type)
-        return super(AccountMove, self).button_draft()
+        return res
 
     @api.onchange(
         "invoice_line_ids",
