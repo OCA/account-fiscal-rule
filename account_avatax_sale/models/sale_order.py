@@ -77,7 +77,7 @@ class SaleOrder(models.Model):
         Their computation needs to be overriden,
         to use the amounts returned by Avatax service, stored in specific fields.
         """
-        super()._amount_all()
+        res = super()._amount_all()
         for order in self:
             if order.tax_amount:
                 order.update(
@@ -86,6 +86,7 @@ class SaleOrder(models.Model):
                         "amount_total": order.amount_untaxed + order.tax_amount,
                     }
                 )
+        return res
 
     @api.depends("tax_on_shipping_address", "partner_id", "partner_shipping_id")
     def _compute_tax_address_id(self):
@@ -122,7 +123,7 @@ class SaleOrder(models.Model):
         compute="_compute_tax_address_id",
         store=True,
     )
-    location_code = fields.Char("Location Code", help="Origin address location code")
+    location_code = fields.Char(help="Origin address location code")
     calculate_tax_on_save = fields.Boolean()
 
     def _get_avatax_doc_type(self, commit=False):
@@ -330,7 +331,7 @@ class SaleOrderLine(models.Model):
         """
         If we have a Avatax computed amount, use it instead of the Odoo computed one
         """
-        super()._compute_amount()
+        res = super()._compute_amount()
         for line in self:
             if line.tax_amt:  # Has Avatax computed amount
                 vals = {
@@ -338,3 +339,4 @@ class SaleOrderLine(models.Model):
                     "price_total": line.price_subtotal + line.tax_amt,
                 }
                 line.update(vals)
+        return res

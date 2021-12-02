@@ -1,6 +1,6 @@
 {
     "name": "Avalara Avatax Connector for Sales Orders",
-    "version": "14.0.1.2.0",
+    "version": "15.0.1.0.0",
     "author": "Open Source Integrators, Fabrice Henrion,"
     "Sodexis, Odoo Community Association (OCA)",
     "summary": "Sales Orders with automatic Tax application using Avatax",
@@ -14,6 +14,6 @@
         "views/avalara_salestax_view.xml",
     ],
     "auto_install": True,
-    "development_status": "Beta",
+    "development_status": "Production/Stable",
     "maintainers": ["dreispt"],
 }
