@@ -78,7 +78,10 @@ class SaleOrder(models.Model):
         """
         super()._amount_all()
         for order in self:
-            if order.tax_amount:
+            if not order.order_line:
+                order.onchange_reset_avatax_amount()
+            elif order.tax_amount:
+                order.avalara_compute_taxes()
                 order.update(
                     {
                         "amount_tax": order.tax_amount,
