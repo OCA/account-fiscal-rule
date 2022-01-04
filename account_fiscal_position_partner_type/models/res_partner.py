@@ -9,7 +9,6 @@ class ResPartner(models.Model):
 
     fiscal_position_type = fields.Selection(
         selection="_selection_fiscal_position_type",
-        string="Fiscal Position Type",
         default=lambda self: self.env.company.default_fiscal_position_type,
     )
 
