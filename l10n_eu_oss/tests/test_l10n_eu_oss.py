@@ -1,10 +1,10 @@
 # Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestL10nEuOss(SavepointCase):
+class TestL10nEuOss(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestL10nEuOss, cls).setUpClass()
@@ -16,6 +16,10 @@ class TestL10nEuOss(SavepointCase):
         # INSTANCES
         # Company
         cls.company_main = cls.env.ref("base.main_company")
+        # Oss tax rate
+        cls.oss_tax_rate_fr = cls.env.ref("l10n_eu_oss.oss_eu_rate_fr")
+        # Country
+        cls.country_fr = cls.env.ref("base.fr")
         # Sale Taxes
         tax_vals = {
             "name": "general tax",
@@ -23,6 +27,7 @@ class TestL10nEuOss(SavepointCase):
             "type_tax_use": "sale",
             "amount_type": "percent",
             "company_id": cls.company_main.id,
+            "country_id": cls.country_fr.id,
         }
         cls.general_tax = cls.account_tax.create(tax_vals)
         tax_vals.update({"name": "reduced tax", "amount": 10.0})
@@ -31,10 +36,6 @@ class TestL10nEuOss(SavepointCase):
         cls.superreduced_tax = cls.account_tax.create(tax_vals)
         tax_vals.update({"name": "second superreduced tax", "amount": 2.0})
         cls.second_superreduced_tax = cls.account_tax.create(tax_vals)
-        # Oss tax rate
-        cls.oss_tax_rate_fr = cls.env.ref("l10n_eu_oss.oss_eu_rate_fr")
-        # Country
-        cls.country_fr = cls.env.ref("base.fr")
 
     def _default_todo_country_ids(self):
         eu_country_group = self.env.ref("base.europe", raise_if_not_found=False)

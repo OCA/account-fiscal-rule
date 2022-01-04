@@ -78,13 +78,10 @@ class L10nEuOssWizard(models.TransientModel):
         string="EU Customers From",
         required=True,
     )
-    price_include_tax = fields.Boolean(string="Price Include Tax", default=False)
-    general_tax = fields.Many2one(
-        comodel_name="account.tax", string="General Tax", required=True
-    )
+    price_include_tax = fields.Boolean(default=False)
+    general_tax = fields.Many2one(comodel_name="account.tax", required=True)
     reduced_tax = fields.Many2one(
         comodel_name="account.tax",
-        string="Reduced Tax",
     )
     superreduced_tax = fields.Many2one(
         comodel_name="account.tax",
@@ -119,6 +116,7 @@ class L10nEuOssWizard(models.TransientModel):
         return {
             "name": _("OSS for EU to %(country_name)s: %(rate)s")
             % {"country_name": country_id.name, "rate": rate},
+            "country_id": country_id.id,
             "amount": rate,
             "invoice_repartition_line_ids": self._prepare_repartition_line_vals(
                 tax_id.invoice_repartition_line_ids

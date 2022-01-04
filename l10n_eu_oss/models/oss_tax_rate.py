@@ -12,8 +12,8 @@ class OssTaxRate(models.Model):
         comodel_name="res.country",
         string="Country",
     )
-    general_rate = fields.Float(string="General Rate", digits=(16, 4))
-    reduced_rate = fields.Float(string="Reduced Rate", digits=(16, 4))
+    general_rate = fields.Float(digits=(16, 4))
+    reduced_rate = fields.Float(digits=(16, 4))
     superreduced_rate = fields.Float(string="Super Reduced Rate", digits=(16, 4))
     second_superreduced_rate = fields.Float(
         string="Second Super Reduced Rate", digits=(16, 4)
