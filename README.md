@@ -21,6 +21,7 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_avatax](account_avatax/) | 15.0.1.0.0 | [![dreispt](https://github.com/dreispt.png?size=30px)](https://github.com/dreispt) | Automatic Tax application using the Avalara Avatax Service
 [account_fiscal_position_partner_type](account_fiscal_position_partner_type/) | 15.0.1.0.0 |  | Account Fiscal Position Partner Type
+[l10n_eu_oss](l10n_eu_oss/) | 15.0.1.0.0 |  | L10n EU OSS
 
 [//]: # (end addons)
 
