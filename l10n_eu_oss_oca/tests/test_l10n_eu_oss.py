@@ -17,7 +17,7 @@ class TestL10nEuOss(TransactionCase):
         # Company
         cls.company_main = cls.env.ref("base.main_company")
         # Oss tax rate
-        cls.oss_tax_rate_fr = cls.env.ref("l10n_eu_oss.oss_eu_rate_fr")
+        cls.oss_tax_rate_fr = cls.env.ref("l10n_eu_oss_oca.oss_eu_rate_fr")
         # Country
         cls.country_fr = cls.env.ref("base.fr")
         # Sale Taxes

@@ -4,11 +4,11 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
-    <record id="l10n_eu_oss_wizard_form_view" model="ir.ui.view">
-        <field name="name">l10n eu oss wizard form view</field>
+    <record id="l10n_eu_oss_oca_wizard_form_view" model="ir.ui.view">
+        <field name="name">l10n eu oss oca wizard form view</field>
         <field name="model">l10n.eu.oss.wizard</field>
         <field name="arch" type="xml">
-            <form string='Setup EU OSS Taxes'>
+            <form string='Setup EU OSS OCA Taxes'>
                 <group>
                     <field name="company_id" groups="base.group_multi_company" />
                     <field
@@ -78,11 +78,11 @@
             </form>
         </field>
     </record>
-    <record id="l10n_eu_oss_wizard_action" model="ir.actions.act_window">
-        <field name="name">Setup EU OSS Taxes</field>
+    <record id="l10n_eu_oss_oca_wizard_action" model="ir.actions.act_window">
+        <field name="name">Setup EU OSS OCA Taxes</field>
         <field name="res_model">l10n.eu.oss.wizard</field>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="l10n_eu_oss_wizard_form_view" />
+        <field name="view_id" ref="l10n_eu_oss_oca_wizard_form_view" />
         <field name="target">new</field>
     </record>
 </odoo>
