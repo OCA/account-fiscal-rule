@@ -58,14 +58,8 @@ class AvalaraSalestax(models.Model):
         required=True,
         help="The company code as defined in the Admin Console of AvaTax",
     )
-    # TODO: Enable client side logging (user retrievable)
-    # Mereg https://github.com/OCA/account-fiscal-rule/pull/233
     logging = fields.Boolean(
-        "Log API Request Details",
-        help="Enables detailed AvaTax transaction logging within application",
-    )
-    logging_response = fields.Boolean(
-        "Log API Response Details",
+        "Log API Requests",
         help="Enables detailed AvaTax transaction logging within application",
     )
     result_in_uppercase = fields.Boolean(
@@ -206,6 +200,7 @@ class AvalaraSalestax(models.Model):
         is_override=None,
         currency_id=None,
         ignore_error=None,
+        log_to_record=False,
     ):
         self.ensure_one()
         avatax_config = self
@@ -293,6 +288,7 @@ class AvalaraSalestax(models.Model):
             partner.vat or None,
             is_override,
             ignore_error=ignore_error,
+            log_to_record=log_to_record,
         )
         return result
 
