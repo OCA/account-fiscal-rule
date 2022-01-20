@@ -97,6 +97,7 @@ class SaleOrder(models.Model):
                 else invoice.partner_id
             )
 
+    is_avatax = fields.Boolean(related="fiscal_position_id.is_avatax")
     exemption_code = fields.Char(
         "Exemption Number",
         compute=_compute_onchange_exemption,
@@ -125,6 +126,12 @@ class SaleOrder(models.Model):
     )
     location_code = fields.Char(help="Origin address location code")
     calculate_tax_on_save = fields.Boolean()
+    avatax_request_log = fields.Text(
+        "Avatax API Request Log", readonly=True, copy=False
+    )
+    avatax_response_log = fields.Text(
+        "Avatax API Response Log", readonly=True, copy=False
+    )
 
     def _get_avatax_doc_type(self, commit=False):
         return "SalesOrder"
@@ -164,6 +171,7 @@ class SaleOrder(models.Model):
             self.exemption_code or None,
             self.exemption_code_id.code or None,
             currency_id=self.currency_id,
+            log_to_record=self,
         )
         tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
         for line in self.order_line:
