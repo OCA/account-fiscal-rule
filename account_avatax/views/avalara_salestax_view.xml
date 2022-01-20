@@ -70,7 +70,6 @@
                             <group string="Adapter">
                                 <field name="auto_generate_customer_code" />
                                 <field name="logging" />
-                                <field name="logging_response" />
                                 <field name="request_timeout" />
                             </group>
                             <group string="Countries">
