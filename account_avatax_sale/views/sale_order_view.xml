@@ -1,0 +1,67 @@
+<odoo>
+    <record id="sale_order_update_form_view" model="ir.ui.view">
+        <field name="name">sale.order.update.form.view</field>
+        <field name="model">sale.order</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <button name="action_cancel" position="before">
+                <button
+                    name="avalara_compute_taxes"
+                    type="object"
+                    string="Compute Taxes"
+                    attrs="{'invisible': [('state', 'in', ['done', 'cancel'])]}"
+                />
+            </button>
+            <field name="payment_term_id" position="after">
+                <field name="exemption_code" readonly="1" />
+                <field name="exemption_code_id" readonly="1" />
+                <field name="location_code" />
+                <field name="tax_on_shipping_address" />
+            </field>
+            <field name="fiscal_position_id" position="after">
+                <field
+                    name="tax_address_id"
+                    context="{'show_address': 1}"
+                    options='{"always_reload": True}'
+                    readonly="1"
+                />
+                <field name="calculate_tax_on_save" invisible="1" />
+                <field name="tax_amount" invisible="1" />
+            </field>
+            <xpath expr="//field[@name='order_line']//tree" position="inside">
+                <field name="tax_amt" invisible="1" />
+            </xpath>
+            <xpath
+                expr="//field[@name='order_line']//form//field[@name='product_id']"
+                position="after"
+            >
+                <field name="tax_amt" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+    <record id="sale_order_form_view_editable_field" model="ir.ui.view">
+        <field name="name">sale.order.form.view.editable</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_order_update_form_view" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('account.group_account_manager') ])]"
+        />
+        <field name="arch" type="xml">
+            <field name='exemption_code' position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
+            <field name='exemption_code_id' position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
+        </field>
+    </record>
+    <record model="ir.actions.server" id="action_sale_order_compute_taxes">
+        <field name="name">Update taxes with AvaTax</field>
+        <field name="model_id" ref="sale.model_sale_order" />
+        <field name="binding_model_id" ref="sale.model_sale_order" />
+        <field name="state">code</field>
+        <field name="code">records.avalara_compute_taxes()</field>
+    </record>
+</odoo>
