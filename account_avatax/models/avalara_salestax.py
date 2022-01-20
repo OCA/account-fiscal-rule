@@ -55,6 +55,7 @@ class AvalaraSalestax(models.Model):
     # https://developer.avalara.com/api-reference
     # /avatax/rest/v2/methods/Companies/QueryCompanies
     company_code = fields.Char(
+        default="DEFAULT",
         required=True,
         help="The company code as defined in the Admin Console of AvaTax",
     )
@@ -325,6 +326,6 @@ class AvalaraSalestax(models.Model):
         return result
 
     def ping(self):
-        avatax_restpoint = AvaTaxRESTService(config=self)
-        avatax_restpoint.ping()
+        client = AvaTaxRESTService(config=self)
+        client.ping()
         return True
