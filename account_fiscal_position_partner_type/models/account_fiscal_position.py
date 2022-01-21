@@ -33,7 +33,7 @@ class AccountFiscalPosition(models.Model):
                     ],
                 )
             )
-        return super().search(
+        return super(AccountFiscalPosition, self).search(
             args, offset=offset, limit=limit, order=order, count=count
         )
 

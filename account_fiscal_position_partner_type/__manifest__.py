@@ -3,7 +3,7 @@
 
 {
     "name": "Account Fiscal Position Partner Type",
-    "version": "11.0.1.0.0",
+    "version": "10.0.1.0.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-fiscal-rule",
     "author": "Sygel Technology," "Odoo Community Association (OCA)",
@@ -11,7 +11,7 @@
     "application": False,
     "installable": True,
     "development_status": "Production/Stable",
-    "depends": ["account"],
+    "depends": ["account", "base_vat"],
     "data": [
         "views/res_company.xml",
         "views/res_partner.xml",
