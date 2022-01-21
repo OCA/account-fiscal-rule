@@ -24,6 +24,7 @@
         "views/account_tax_view.xml",
         "views/account_fiscal_position_view.xml",
     ],
+    "demo": ["demo/avatax_demo.xml"],
     "images": ["static/description/avatax_icon.png"],
     "installable": True,
     "application": True,

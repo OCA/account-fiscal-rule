@@ -22,12 +22,12 @@ and destination (Client Address), then calculating and reporting taxes
 to the user's Avalara account as well as a recording the correct sales taxes
 for the validated addresses within Odoo ERP.
 
-This module is compatible both with the Odoo Enterprise and odoo Community
+This module is compatible both with the Odoo Enterprise and Odoo Community
 editions.
 
 An Avatax account is needed. Account information to access
 the Avatax dashboard can be obtained through the Avalara website here:
-https://www.avalara.com/products/avatax/
+https://www.avalara.com/products/calculations.html
 
 Once configured, the module operates in the background and performs
 calculations and reporting seamlessly to the AvaTax server.
