@@ -23,6 +23,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[account_fiscal_position_partner_type](account_fiscal_position_partner_type/) | 10.0.1.0.0 |  | Account Fiscal Position Partner Type
 [account_fiscal_position_rule](account_fiscal_position_rule/) | 10.0.1.0.0 |  | Account Fiscal Position Rule
 [account_fiscal_position_rule_purchase](account_fiscal_position_rule_purchase/) | 10.0.1.0.0 |  | Account Fiscal Position Rule Purchase
 [account_fiscal_position_rule_sale](account_fiscal_position_rule_sale/) | 10.0.1.0.0 |  | Account Fiscal Position Rule Sale
