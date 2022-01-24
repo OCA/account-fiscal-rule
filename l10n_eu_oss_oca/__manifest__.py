@@ -3,7 +3,7 @@
 
 {
     "name": "L10n EU OSS OCA",
-    "version": "15.0.2.0.0",
+    "version": "15.0.2.1.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-fiscal-rule",
     "author": "Sygel Technology," "Odoo Community Association (OCA)",
@@ -17,5 +17,6 @@
         "data/oss.tax.rate.csv",
         "wizard/l10n_eu_oss_wizard.xml",
         "views/res_config_settings.xml",
+        "views/account_fiscal_position_views.xml",
     ],
 }
