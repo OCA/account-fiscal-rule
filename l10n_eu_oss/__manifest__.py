@@ -3,7 +3,7 @@
 
 {
     "name": "L10n EU OSS",
-    "version": "11.0.1.0.0",
+    "version": "10.0.1.0.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/l10n-spain",
     "author": "Sygel Technology," "Odoo Community Association (OCA)",
@@ -11,7 +11,10 @@
     "application": False,
     "installable": True,
     "development_status": "Production/Stable",
-    "depends": ["account", "account_fiscal_position_partner_type"],
+    "depends": [
+        "account",
+        "account_fiscal_position_partner_type",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "data/oss.tax.rate.csv",

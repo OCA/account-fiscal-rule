@@ -4,15 +4,14 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
-    <record id="res_config_settings_view_form_l10n_eu_oss" model="ir.ui.view">
-        <field name="name">res.config.settings.view.form.inherit.l10n.eu.oss</field>
-        <field name="model">res.config.settings</field>
-        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+    <record id="account_config_settings_view_form_l10n_eu_oss" model="ir.ui.view">
+        <field name="name">account.config.settings.view.form.inherit.l10n.eu.oss</field>
+        <field name="model">account.config.settings</field>
+        <field name="inherit_id" ref="account.view_account_config_settings" />
         <field name="arch" type="xml">
-            <div id="eu_service" position="after">
-                <div class="col-12 col-lg-6 o_setting_box" id="l10n_eu_oss">
-                    <div class="o_setting_left_pane" />
-                    <div class="o_setting_right_pane">
+            <xpath expr="//group[@name='accounting']" position="before">
+                <group string="EU OSS" name="eu_oss">
+                    <div id="l10n_eu_oss">
                         <span class="o_form_label">EU OSS</span>
                         <div class="text-muted">
                             Apply EU taxes regarding OSS
@@ -27,8 +26,8 @@
                             />
                         </div>
                     </div>
-                </div>
-            </div>
+                </group>
+            </xpath>
         </field>
     </record>
 </odoo>

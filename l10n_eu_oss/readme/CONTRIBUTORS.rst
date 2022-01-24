@@ -2,6 +2,7 @@
 
     * Harald Panten
     * Valentin Vinagre
+    * Manuel Regidor
 
 * `Tecnativa <https://www.tecnativa.com>`_:
 
