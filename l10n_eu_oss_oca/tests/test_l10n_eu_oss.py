@@ -112,3 +112,30 @@ class TestL10nEuOss(TransactionCase):
         self.assertEqual(fpos_id.tax_ids[0].tax_dest_id.amount, 19.9)
         original_tax = self._tax_search(self.country_fr.id, original_amount)
         self.assertTrue(original_tax)
+
+    def test_02(self):
+        wizard_vals = {
+            "company_id": self.company_main.id,
+            "general_tax": self.general_tax.id,
+        }
+        wizard = self._oss_wizard_create(wizard_vals)
+        self.assertEqual(wizard.todo_country_ids, self._default_todo_country_ids())
+        self.assertEqual(wizard.done_country_ids, self.res_country)
+        wizard.todo_country_ids = [(6, 0, [self.country_fr.id])]
+        wizard.generate_eu_oss_taxes()
+        partner = self.env["res.partner"].create(
+            {"name": "Customer", "country_id": self.country_fr.id}
+        )
+        fiscal_position_id = self.env["account.fiscal.position"].get_fiscal_position(
+            partner.id
+        )
+        move = self.env["account.move"].create(
+            [
+                {
+                    "move_type": "out_invoice",
+                    "partner_id": partner.id,
+                    "fiscal_position_id": fiscal_position_id.id,
+                }
+            ]
+        )
+        self.assertEqual(move.tax_country_id, self.country_fr)

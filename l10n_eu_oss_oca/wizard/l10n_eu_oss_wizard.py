@@ -156,6 +156,7 @@ class L10nEuOssWizard(models.TransientModel):
             "country_id": country.id,
             "fiscal_position_type": "b2c",
             "tax_ids": [(0, 0, tax_data) for tax_data in taxes_data],
+            "oss_oca": True,
         }
 
     def update_fpos(self, fpos_id, taxes_data):
@@ -222,6 +223,7 @@ class L10nEuOssWizard(models.TransientModel):
                     ("auto_apply", "=", True),
                     ("company_id", "=", self.company_id.id),
                     ("fiscal_position_type", "=", "b2c"),
+                    ("oss_oca", "=", True),
                 ]
             )
             if not fpos:
