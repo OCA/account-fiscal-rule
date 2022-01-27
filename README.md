@@ -30,6 +30,7 @@ addon | version | maintainers | summary
 [account_fiscal_position_rule_sale_stock](account_fiscal_position_rule_sale_stock/) | 10.0.1.0.0 |  | Account Fiscal Position Rule Sale Stock
 [account_fiscal_position_rule_stock](account_fiscal_position_rule_stock/) | 10.0.1.0.0 |  | Account Fiscal Position Rule Stock
 [account_product_fiscal_classification](account_product_fiscal_classification/) | 10.0.1.0.0 |  | Simplify taxes management for products
+[l10n_eu_oss](l10n_eu_oss/) | 10.0.1.0.0 |  | L10n EU OSS
 
 [//]: # (end addons)
 
