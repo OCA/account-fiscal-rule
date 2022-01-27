@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="account_config_settings_view_form_l10n_eu_oss" model="ir.ui.view">
+        <field name="name">account.config.settings.view.form.inherit.l10n.eu.oss</field>
+        <field name="model">account.config.settings</field>
+        <field name="inherit_id" ref="account.view_account_config_settings" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='accounting']" position="before">
+                <group string="EU OSS" name="eu_oss">
+                    <div id="l10n_eu_oss">
+                        <span class="o_form_label">EU OSS</span>
+                        <div class="text-muted">
+                            Apply EU taxes regarding OSS
+                        </div>
+                        <div class="mt8">
+                            <button
+                                name="%(l10n_eu_oss.l10n_eu_oss_wizard_action)d"
+                                icon="fa-arrow-right"
+                                type="action"
+                                string="Add new taxes"
+                                class="btn-link"
+                            />
+                        </div>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
