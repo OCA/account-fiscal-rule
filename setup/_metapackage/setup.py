@@ -15,6 +15,7 @@ setuptools.setup(
         'odoo10-addon-account_fiscal_position_rule_sale_stock',
         'odoo10-addon-account_fiscal_position_rule_stock',
         'odoo10-addon-account_product_fiscal_classification',
+        'odoo10-addon-l10n_eu_oss',
     ],
     classifiers=[
         'Programming Language :: Python',
