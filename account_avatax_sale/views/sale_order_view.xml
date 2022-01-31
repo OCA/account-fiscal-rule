@@ -20,6 +20,7 @@
                 <field name="tax_on_shipping_address" />
             </field>
             <field name="fiscal_position_id" position="after">
+                <field name="is_avatax" groups="base.group_no_one" />
                 <field
                     name="tax_address_id"
                     context="{'show_address': 1}"
@@ -30,17 +31,14 @@
                 <field name="tax_amount" invisible="1" />
             </field>
             <xpath expr="//field[@name='order_line']//tree" position="inside">
-                <field name="tax_amt" invisible="1" />
+                <field name="tax_amt" groups="base.group_no_one" optional="hide" />
             </xpath>
             <xpath
                 expr="//field[@name='order_line']//form//field[@name='product_id']"
                 position="after"
             >
-                <field name="tax_amt" invisible="1" />
+                <field name="tax_amt" groups="base.group_no_one" optional="hide" />
             </xpath>
-            <field position="after" name="fiscal_position_id">
-                <field name="is_avatax" groups="base.group_no_one" />
-            </field>
             <notebook position="inside">
                 <page
                     name="avatax_page"
