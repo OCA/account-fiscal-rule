@@ -4,6 +4,15 @@ from odoo import api, fields, models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    @api.depends(
+        "order_line.tax_id", "order_line.price_unit", "amount_total", "amount_untaxed"
+    )
+    def _compute_tax_totals_json(self):
+        # Make the Sales Order data available to the AccountTax.compute_all() method
+        # This is needed to take in consideration the additional Avatax fields
+        enriched_self = self.with_context(for_avatax_object=self)
+        return super(SaleOrder, enriched_self)._compute_tax_totals_json()
+
     tax_amount = fields.Monetary(string="AvaTax")
 
     @api.onchange("partner_shipping_id", "partner_id")
