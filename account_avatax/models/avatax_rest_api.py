@@ -29,8 +29,8 @@ class AvaTaxRESTService:
         self.timeout = not config and timeout or config.request_timeout
         self.is_log_enabled = enable_log or config and config.logging
         # Set elements adapter defaults
-        self.appname = "Odoo 15 PREVIEW - Open Source Integrators/OCA"
-        self.version = "a0o5a0000064hvAAAQ"
+        self.appname = "Odoo 15 - Open Source Integrators/OCA"
+        self.version = "a0o5a000007SPdsAAG"
         self.hostname = socket.gethostname()
         url = url or (config and config.service_url) or ""
         self.environment = (

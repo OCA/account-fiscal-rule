@@ -1,121 +1,126 @@
-To Configure AvaTax API:
+To configure an Odoo company to use Avatax, follow these steps.
+Note tha tsome of them might be configured out of the box
+for the Odoo default company.
 
-- Navigate to: Accounting or Invoicing App >> Configuration >> AvaTax >> AvaTax API
-- Click the Create button.
-- Uncheck the Disable AvaTax Calculation box
-- Fill out the form with your Company Code, Account Number, and License Key
-   as provided with your Avalara account
-- Select the proper service URL provided to you by Avalara: test or production.
+1. Configure AvaTax API Connection
+2. Configure Company Taxes
+3. Configure Customers
+4. Configure Products
+
+
+Configure Avatax API Connection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before you can configure the Odoo Avatax connector,
+you will need some connection details ready:
+
+- Login to https://home.avalara.com/
+- Navigate to Settings >> All AvaTax Settings.
+  There you will see the company details.
+- Take note of the Account ID and Company Code
+- Navigate to Settings >> License and API Keys.
+  In the "Reset License Key" tab, click on the "Generate License Key" button,
+  and take note of it.
+
+To configure AvaTax connector in Odoo:
+
+- Navigate to: Accounting/Invoicing App >> Configuration >> AvaTax >> AvaTax API
+- Click on the Create button
+- Fill out the form with the elements collected from the AvaTax website:
+
+  * Account ID
+  * License Key
+  * Service URL: usually Production, or Sandox if you have that available.
+  * Company Code
+
 - Click the Test Connection button
 - Click the Save button
 
 Other Avatax API advanced configurations:
 
-- Adapter
+- Tax Calculation tab:
 
-  - Request Timeout -- default is 300ms
-  - Enable Logging -- enables detailed AvaTax transaction logging within application
-
-- Address Validation
-
-  - Disable Address Validation
-  - Address Validation on save for customer profile -- automatically attempts
-    to validate on creation and update of customer profile,
-    last validation date will be visible and stored
-  - Force Address Validation -- if validation for customer is required but not valid,
-    the validation will be forced
-  - Return validation results in upper case -- validation results
-    will return in upper case form
-  - Automatically generate customer code -- generates a customer code
-    on creation and update of customer profile
-
-- Avalara Submissions/Transactions
-
-  - Disable Avalara Tax Commit -- validated invoices will not be sent to Avalara
-  - Enable UPC Taxability -- this will transmit Odoo's product ean13 number
+  - Disable Document Recording/Commiting: invoices will not be stored in Avalara
+  - Enable UPC Taxability: this will transmit Odoo's product ean13 number
     instead of its Internal Reference. If there is no ean13
-    then the Internal Reference will be sent automatically.
+    then the Internal Reference will be sent automatically
 
-- Countries
+- Address Validation tab:
 
-    - Add or remove applicable countries -- the calculator will not calculate
-      for a country unless it's on the list.
+  - Automatic Address Validation: automatically attempts
+    to validate on creation and update of customer record,
+    last validation date will be visible and stored
+  - Require Validated Addresses: if validation for customer is required but not valid,
+    the validation will be forced
+  - Return validation results in upper case: validation results
+    will return in upper case form
 
-Configure Exemption Codes
-~~~~~~~~~~~~~~~~~~~~~~~~~
+- Advanced tab:
+
+  - Automatically generate missing customer code: generates a customer code
+    on creation and update of customer profile
+  - Log API requests: enables detailed AvaTax transaction logging within application
+  - Request Timeout: default is 300ms
+  - Countries: countries where AvaTax can be used.
+
+
+Configure Company Taxes
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Each company linked to AvaTax and their associated warehouses
+should be configured to ensure the correct tax is calculated
+and applied for all transactions.
+
+
+Validate Company Address:
+
+- On the AvTax API configuration form, click on the "Company Address" link
+- On the company address form, click on the "validate" button
+  in the "AvaTax" tab
+
+Validate Warehouse Address:
+
+- Navigate to: Inventory >> Configuration >> Warehouse Management >> Warehouses
+- For each warehouse, open the correspoding from view
+- On the Warehouse form, click on the "Address" link
+- On the warehouse address form, click on the "validate" button
+  in the "AvaTax" tab
+
+Fiscal Positions is what tells the AvaTax connector if the AvaTax service
+should be used for a particular Sales Order or Invoice.
+
+Configure Fiscal Position:
+
+- Navigate to: Accounting/Invoicing App >> Configuration >> Accounting
+  >> Fiscal Positions
+- Ensure there is a Fiscal Position record for the Company,
+  with the "Use Avatax API" flag checked
+
+When the appropriate Fiscal Position is being used, and a tax rate is retrieved form
+AvaTax, then the corresponding Tax is automatically created in Odoo
+using a template tax record, that should have the appropriate accounting configurations.
+
+Configure Taxes:
+
+- Navigate to: Accounting/Invoicing App >> Configuration >> Accounting >> Taxes
+- Ensure there is a Tax record for the Company, with the "Is Avatax" flag checked
+  (visible in the "Advanced Options" tab). This Tax should have:
+
+  * Tax Type: Sales
+  * Tax Computation: Percentage of Price
+  * Amount: 0.0%
+  * Distribution for Invoices: ensure correct account configuration
+  * Distribution for Credit Notes: ensure correct account configuration
+
+
+Configure Customers
+~~~~~~~~~~~~~~~~~~~
 
 Exemption codes are allowed for users where they may apply (ex. Government entities).
  Navigate to: Accounting or Invoicing App >> Configuration >> AvaTax >> Exemption Code
 
 The module is installed with 16 predefined exemption codes.
  You can add, remove, and modify exemption codes.
-
-Product Tax Codes
-~~~~~~~~~~~~~~~~~
-
-Create product tax codes to assign to products and/or product categories.
-Navigate to: Accounting or Invoicing App >> Configuration >> AvaTax >> Product Tax Codes.
-
-From here you can add, remove, and modify the product tax codes.
-
-
-Configure Taxes
-~~~~~~~~~~~~~~~
-
-The AvaTax module is integrated into the tax calculation of Odoo.
-AVATAX is automatically added as a type of taxes to be applied.
-You can configure how AVATAX integrates within the Odoo system.
-
-Configure AVATAX Tax Type:
-
-- Navigate to: Accounting or Invoicing App >> Configuration >> Accounting >> Taxes
-- Select AVATAX from the list view (automatically added on module install).
-- Click the Edit button to configure the AVATAX Tax Type
-  with the proper tax account configuration for your system.
-
-Note: Upon initial install the settings will be blank.
-The image shows the demo configuration.
-
-
-Product Category Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Products in Odoo are typically assigned to product categories.
-AvaTax settings can also be assigned to the product category
-when a product category is created.
-
-- Create New Product Category
-
-  - Navigate to: Inventory >> Configuration >> Products >> Product Categories
-  - Click Create button
-
-- Configure Product Category Tax Code
-
-  - Under AvaTax Properties >> Tax Code
-  - Select the desired Tax Code
-
-
-Company Configuration
-~~~~~~~~~~~~~~~~~~~~~
-
-Each company linked to AvaTax and their associated warehouses
-should be configured to ensure the correct tax is calculated
-and applied for all transactions.
-
-Warehouse Configuration
-
-- Navigate to: Inventory >> Configuration >> Warehouse Management >> Warehouses
-- Select the warehouse associated with your company
-- Under Address, follow the link to be directed to your warehouse profile
-
-Configure Warehouse Address
-
-- Enter Warehouse Address
-- Under AvaTax >> Validation, click Validate button
-
-
-Customer Configuration
-~~~~~~~~~~~~~~~~~~~~~~
 
 Properly configuring each customer ensures the correct tax is calculated
 and applied for all transactions.
@@ -138,3 +143,27 @@ Tax Exemption Status
 - If the customer is tax exempt, check the box under
   AvaTax >> Tax Exemption >> Is Tax Exempt and
 - Select the desired Tax Exempt Code from the dropdown menu.
+
+
+Configure Products
+~~~~~~~~~~~~~~~~~~
+
+Create product tax codes to assign to products and/or product categories.
+Navigate to: Accounting or Invoicing App >> Configuration >> AvaTax >> Product Tax Codes.
+
+From here you can add, remove, and modify the product tax codes.
+
+
+Products in Odoo are typically assigned to product categories.
+AvaTax settings can also be assigned to the product category
+when a product category is created.
+
+- Create New Product Category
+
+  - Navigate to: Inventory >> Configuration >> Products >> Product Categories
+  - Click Create button
+
+- Configure Product Category Tax Code
+
+  - Under AvaTax Properties >> Tax Code
+  - Select the desired Tax Code
