@@ -133,10 +133,22 @@ class ResPartner(models.Model):
             _LOGGER.info(
                 "Skipping address validation for %d %s, not enough details.",
                 partner.id,
-                partner.name,
+                partner.display_name,
             )
             return False
         avatax_config = self.env.company.get_avatax_config_company()
+        # Skip automatic validation for countries not supported by Avatax
+        supported_countries = [x.code for x in avatax_config.country_ids]
+        country_code = partner.country_id.code
+        if validation_on_save and country_code not in supported_countries:
+            _LOGGER.info(
+                "Skipping automatic address validation for %d %s"
+                ", country %s not supported.",
+                partner.id,
+                partner.display_name,
+                country_code,
+            )
+            return False
         avatax_restpoint = AvaTaxRESTService(config=avatax_config)
         valid_address = avatax_restpoint.validate_rest_address(
             partner.street,
