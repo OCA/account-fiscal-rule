@@ -34,13 +34,13 @@ class AvalaraSalestax(models.Model):
         return self.env["res.country"].search([("code", "in", ["US", "CA"])])
 
     account_number = fields.Char(
-        required=True, help="Account Number provided by AvaTax"
+        name="Account ID", required=True, help="Account Number provided by AvaTax"
     )
     license_key = fields.Char(required=True, help="License Key provided by AvaTax")
     service_url = fields.Selection(
         [
-            ("https://sandbox-rest.avatax.com/api/v2", "REST API Test"),
-            ("https://rest.avatax.com/api/v2", "REST API Production"),
+            ("https://rest.avatax.com/api/v2", "Production (REST API)"),
+            ("https://sandbox-rest.avatax.com/api/v2", "Sandbox (REST API)"),
         ],
         string="Service URL",
         default="https://rest.avatax.com/api/v2",
@@ -51,34 +51,25 @@ class AvalaraSalestax(models.Model):
         help="Defines AvaTax request time out length"
         ", AvaTax best practices prescribes default setting of 300 seconds",
     )
-    # TODO: Implement Company Code Lookup
-    # https://developer.avalara.com/api-reference
-    # /avatax/rest/v2/methods/Companies/QueryCompanies
     company_code = fields.Char(
+        default="DEFAULT",
         required=True,
         help="The company code as defined in the Admin Console of AvaTax",
     )
-    # TODO: Enable client side logging (user retrievable)
-    # Mereg https://github.com/OCA/account-fiscal-rule/pull/233
     logging = fields.Boolean(
-        "Log API Request Details",
-        help="Enables detailed AvaTax transaction logging within application",
-    )
-    logging_response = fields.Boolean(
-        "Log API Response Details",
+        "Log API Requests",
         help="Enables detailed AvaTax transaction logging within application",
     )
     result_in_uppercase = fields.Boolean(
         "Return validation results in upper case",
-        help="Check is address validation results desired to be in upper case",
+        help="The address validation results are returned in in upper case",
     )
     disable_address_validation = fields.Boolean(
-        help="Check to disable address validation"
+        help="Disables the ability to perform address validation"
     )
     validation_on_save = fields.Boolean(
         "Automatic Address Validation",
-        help="Automatically validates addresses when they are created or modified"
-        " when Customer profile is saved.",
+        help="Automatically validates addresses when they are created or modified",
     )
     force_address_validation = fields.Boolean(
         "Require Validated Addresses",
@@ -106,17 +97,7 @@ class AvalaraSalestax(models.Model):
     # and suppress any non-getTax calls (i.e. cancelTax, postTax).
     disable_tax_reporting = fields.Boolean(
         "Disable Document Recording/Commiting",
-        help="No transactions will be recorded in the Avatax service.",
-    )
-    enable_immediate_calculation = fields.Boolean(
-        "Immediate AvaTax Calculation",
-        help="Tax is computed immediately, as document lines are being added."
-        " Warning: will cause heavy traffic on the Avatax service.",
-    )
-    default_shipping_code_id = fields.Many2one(
-        "product.tax.code",
-        "Default Shipping Code",
-        help="The default shipping code which will be passed to Avalara",
+        help="No transactions will be recorded (commited) to the Avatax service.",
     )
     country_ids = fields.Many2many(
         "res.country",
@@ -137,6 +118,10 @@ class AvalaraSalestax(models.Model):
         required=True,
         default=lambda self: self.env.company,
         help="Company which has subscribed to the AvaTax service",
+    )
+    company_partner_id = fields.Many2one(
+        string="Company Address",
+        related="company_id.partner_id",
     )
     upc_enable = fields.Boolean(
         "Enable UPC Taxability",
@@ -206,11 +191,12 @@ class AvalaraSalestax(models.Model):
         is_override=None,
         currency_id=None,
         ignore_error=None,
+        log_to_record=False,
     ):
         self.ensure_one()
         avatax_config = self
 
-        currency_code = self.env.user.company_id.currency_id.name
+        currency_code = self.env.company.currency_id.name
         if currency_id:
             currency_code = currency_id.name
 
@@ -293,6 +279,7 @@ class AvalaraSalestax(models.Model):
             partner.vat or None,
             is_override,
             ignore_error=ignore_error,
+            log_to_record=log_to_record,
         )
         return result
 
@@ -329,6 +316,6 @@ class AvalaraSalestax(models.Model):
         return result
 
     def ping(self):
-        avatax_restpoint = AvaTaxRESTService(config=self)
-        avatax_restpoint.ping()
+        client = AvaTaxRESTService(config=self)
+        client.ping()
         return True

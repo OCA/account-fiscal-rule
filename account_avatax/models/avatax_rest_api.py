@@ -29,8 +29,8 @@ class AvaTaxRESTService:
         self.timeout = not config and timeout or config.request_timeout
         self.is_log_enabled = enable_log or config and config.logging
         # Set elements adapter defaults
-        self.appname = "Odoo 14, published by Odoo Community Association"
-        self.version = "a0o5a0000064hvAAAQ"
+        self.appname = "Odoo 15 - Open Source Integrators/OCA"
+        self.version = "a0o5a000007SPdsAAG"
         self.hostname = socket.gethostname()
         url = url or (config and config.service_url) or ""
         self.environment = (
@@ -65,7 +65,7 @@ class AvaTaxRESTService:
     def get_result(self, response, ignore_error=None):
         # To call from validate address and from compute tax
         result = response.json()
-        if self.config and self.config.logging_response or self.is_log_enabled:
+        if self.is_log_enabled:
             _logger.info("Response\n" + pprint.pformat(result, indent=1))
         if result.get("messages") or result.get("error"):
             messages = result.get("messages") or result.get("error", {}).get("details")
@@ -127,7 +127,7 @@ class AvaTaxRESTService:
     def ping(self):
         response = self.client.ping()
         res = response.json()
-        if self.config and self.config.logging or self.is_log_enabled:
+        if self.is_log_enabled:
             _logger.info(pprint.pformat(res, indent=1))
         if not res.get("authenticated"):
             raise UserError(_("The user or account could not be authenticated"))
@@ -224,6 +224,7 @@ class AvaTaxRESTService:
         vat=None,
         is_override=False,
         ignore_error=None,
+        log_to_record=False,
     ):
         """Create tax request and get tax amount by customer address
         @currency_code : 'USD' is the default currency code for avalara,
@@ -307,7 +308,7 @@ class AvaTaxRESTService:
             )
 
         data = {"createTransactionModel": create_transaction}
-        if self.config and self.config.logging or self.is_log_enabled:
+        if self.is_log_enabled:
             _logger.info(
                 "Request CreateOrAdjustTransaction %s %s (commit %s)\n%s",
                 doc_type,
@@ -315,13 +316,15 @@ class AvaTaxRESTService:
                 commit,
                 pprint.pformat(data, indent=1),
             )
-
         response = self.client.create_or_adjust_transaction(data)
         result = self.get_result(response, ignore_error=ignore_error)
+        if log_to_record:
+            log_to_record.avatax_request_log = pprint.pformat(data, indent=1)
+            log_to_record.avatax_response_log = pprint.pformat(result, indent=1)
         return self._enrich_result_lines_with_tax_rate(result)
 
     def call(self, endpoint, company_code, doc_code, model=None, params=None):
-        if self.config and self.config.logging or self.is_log_enabled:
+        if self.is_log_enabled:
             _logger.info(
                 "Request Call %s(%s, %s, %s, %s)",
                 endpoint,

@@ -7,7 +7,7 @@
     "license": "AGPL-3",
     "category": "Accounting",
     "website": "https://github.com/OCA/account-fiscal-rule",
-    "depends": ["account_avatax", "sale"],
+    "depends": ["account_avatax", "sale_stock"],
     "data": [
         "views/sale_order_view.xml",
         "views/partner_view.xml",
