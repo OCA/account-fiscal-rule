@@ -39,11 +39,6 @@ msgid "Active"
 msgstr ""
 
 #. module: account_avatax
-#: model_terms:ir.ui.view,arch_db:account_avatax.view_avalara_salestax_form
-msgid "Adapter"
-msgstr ""
-
-#. module: account_avatax
 #: model:ir.actions.act_window,name:account_avatax.action_avalara_salestax_address_validate
 #: model:ir.actions.server,name:account_avatax.action_call_address_validation_method
 #: model_terms:ir.ui.view,arch_db:account_avatax.view_avalara_salestax_address_validate
@@ -105,9 +100,7 @@ msgstr ""
 
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_avalara_salestax__validation_on_save
-msgid ""
-"Automatically validates addresses when they are created or modified when "
-"Customer profile is saved."
+msgid "Automatically validates addresses when they are created or modified"
 msgstr ""
 
 #. module: account_avatax
@@ -178,13 +171,32 @@ msgid ""
 msgstr ""
 
 #. module: account_avatax
-#: model_terms:ir.ui.view,arch_db:account_avatax.view_avalara_salestax_form
-msgid "Avalara Submissions / Transactions"
+#: model:ir.model.constraint,message:account_avatax.constraint_avalara_salestax_code_company_uniq
+msgid "Avalara setting is already available for this company code"
 msgstr ""
 
 #. module: account_avatax
-#: model:ir.model.constraint,message:account_avatax.constraint_avalara_salestax_code_company_uniq
-msgid "Avalara setting is already available for this company code"
+#: model:ir.model.fields,field_description:account_avatax.field_account_bank_statement_line__avatax_request_log
+#: model:ir.model.fields,field_description:account_avatax.field_account_move__avatax_request_log
+#: model:ir.model.fields,field_description:account_avatax.field_account_payment__avatax_request_log
+msgid "Avatax API Request Log"
+msgstr ""
+
+#. module: account_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_account_bank_statement_line__avatax_response_log
+#: model:ir.model.fields,field_description:account_avatax.field_account_move__avatax_response_log
+#: model:ir.model.fields,field_description:account_avatax.field_account_payment__avatax_response_log
+msgid "Avatax API Response Log"
+msgstr ""
+
+#. module: account_avatax
+#: model:ir.model,name:account_avatax.model_avalara_salestax_getcompany
+msgid "Avatax Get Company Code"
+msgstr ""
+
+#. module: account_avatax
+#: model_terms:ir.ui.view,arch_db:account_avatax.view_move_form_inherit_1
+msgid "Avatax Log"
 msgstr ""
 
 #. module: account_avatax
@@ -216,17 +228,8 @@ msgstr ""
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.view_avalara_salestax_address_validate
+#: model_terms:ir.ui.view,arch_db:account_avatax.view_avalara_salestax_getcompany
 msgid "Cancel"
-msgstr ""
-
-#. module: account_avatax
-#: model:ir.model.fields,help:account_avatax.field_avalara_salestax__result_in_uppercase
-msgid "Check is address validation results desired to be in upper case"
-msgstr ""
-
-#. module: account_avatax
-#: model:ir.model.fields,help:account_avatax.field_avalara_salestax__disable_address_validation
-msgid "Check to disable address validation"
 msgstr ""
 
 #. module: account_avatax
@@ -238,6 +241,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax.field_exemption_code__code
 #: model:ir.model.fields,field_description:account_avatax.field_product_tax_code__name
 msgid "Code"
+msgstr ""
+
+#. module: account_avatax
+#: model:product.product,name:account_avatax.avatax_product_freight
+#: model:product.template,name:account_avatax.avatax_product_freight_product_template
+msgid "Common Carrier FR020100"
 msgstr ""
 
 #. module: account_avatax
@@ -260,6 +269,11 @@ msgstr ""
 #: code:addons/account_avatax/models/res_company.py:0
 #, python-format
 msgid "Company %s has too many Avatax configurations!"
+msgstr ""
+
+#. module: account_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__company_partner_id
+msgid "Company Address"
 msgstr ""
 
 #. module: account_avatax
@@ -299,13 +313,7 @@ msgstr ""
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__country_ids
-#: model_terms:ir.ui.view,arch_db:account_avatax.view_avalara_salestax_form
 msgid "Countries"
-msgstr ""
-
-#. module: account_avatax
-#: model_terms:ir.ui.view,arch_db:account_avatax.view_avalara_salestax_form
-msgid "Countries Authorized to Process (ISO code)"
 msgstr ""
 
 #. module: account_avatax
@@ -321,6 +329,7 @@ msgstr ""
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__create_uid
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate__create_uid
+#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_getcompany__create_uid
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_ping__create_uid
 #: model:ir.model.fields,field_description:account_avatax.field_exemption_code__create_uid
 #: model:ir.model.fields,field_description:account_avatax.field_product_tax_code__create_uid
@@ -330,6 +339,7 @@ msgstr ""
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__create_date
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate__create_date
+#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_getcompany__create_date
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_ping__create_date
 #: model:ir.model.fields,field_description:account_avatax.field_exemption_code__create_date
 #: model:ir.model.fields,field_description:account_avatax.field_product_tax_code__create_date
@@ -360,11 +370,6 @@ msgstr ""
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate__date_validation
 msgid "Date Validation"
-msgstr ""
-
-#. module: account_avatax
-#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__default_shipping_code_id
-msgid "Default Shipping Code"
 msgstr ""
 
 #. module: account_avatax
@@ -400,8 +405,14 @@ msgid "Disable Document Recording/Commiting"
 msgstr ""
 
 #. module: account_avatax
+#: model:ir.model.fields,help:account_avatax.field_avalara_salestax__disable_address_validation
+msgid "Disables the ability to perform address validation"
+msgstr ""
+
+#. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__display_name
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate__display_name
+#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_getcompany__display_name
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_ping__display_name
 #: model:ir.model.fields,field_description:account_avatax.field_exemption_code__display_name
 #: model:ir.model.fields,field_description:account_avatax.field_product_tax_code__display_name
@@ -415,7 +426,6 @@ msgstr ""
 
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_avalara_salestax__logging
-#: model:ir.model.fields,help:account_avatax.field_avalara_salestax__logging_response
 msgid "Enables detailed AvaTax transaction logging within application"
 msgstr ""
 
@@ -486,6 +496,7 @@ msgstr ""
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__id
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate__id
+#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_getcompany__id
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_ping__id
 #: model:ir.model.fields,field_description:account_avatax.field_exemption_code__id
 #: model:ir.model.fields,field_description:account_avatax.field_product_tax_code__id
@@ -496,11 +507,6 @@ msgstr ""
 #: model:ir.model.fields,help:account_avatax.field_avalara_salestax__use_so_partner_id
 msgid ""
 "If Boolean is checked, SO Partner Customer Code on Invoice will be used"
-msgstr ""
-
-#. module: account_avatax
-#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__enable_immediate_calculation
-msgid "Immediate AvaTax Calculation"
 msgstr ""
 
 #. module: account_avatax
@@ -570,6 +576,7 @@ msgstr ""
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax____last_update
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate____last_update
+#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_getcompany____last_update
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_ping____last_update
 #: model:ir.model.fields,field_description:account_avatax.field_exemption_code____last_update
 #: model:ir.model.fields,field_description:account_avatax.field_product_tax_code____last_update
@@ -579,6 +586,7 @@ msgstr ""
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__write_uid
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate__write_uid
+#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_getcompany__write_uid
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_ping__write_uid
 #: model:ir.model.fields,field_description:account_avatax.field_exemption_code__write_uid
 #: model:ir.model.fields,field_description:account_avatax.field_product_tax_code__write_uid
@@ -588,6 +596,7 @@ msgstr ""
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__write_date
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate__write_date
+#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_getcompany__write_date
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_ping__write_date
 #: model:ir.model.fields,field_description:account_avatax.field_exemption_code__write_date
 #: model:ir.model.fields,field_description:account_avatax.field_product_tax_code__write_date
@@ -624,12 +633,7 @@ msgstr ""
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__logging
-msgid "Log API Request Details"
-msgstr ""
-
-#. module: account_avatax
-#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__logging_response
-msgid "Log API Response Details"
+msgid "Log API Requests"
 msgstr ""
 
 #. module: account_avatax
@@ -650,7 +654,7 @@ msgstr ""
 
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_avalara_salestax__disable_tax_reporting
-msgid "No transactions will be recorded in the Avatax service."
+msgid "No transactions will be recorded (commited) to the Avatax service."
 msgstr ""
 
 #. module: account_avatax
@@ -783,12 +787,7 @@ msgstr ""
 
 #. module: account_avatax
 #: model:ir.model.fields.selection,name:account_avatax.selection__avalara_salestax__service_url__https://rest_avatax_com/api/v2
-msgid "REST API Production"
-msgstr ""
-
-#. module: account_avatax
-#: model:ir.model.fields.selection,name:account_avatax.selection__avalara_salestax__service_url__https://sandbox-rest_avatax_com/api/v2
-msgid "REST API Test"
+msgid "Production (REST API)"
 msgstr ""
 
 #. module: account_avatax
@@ -818,6 +817,31 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax.field_account_move__so_partner_id
 #: model:ir.model.fields,field_description:account_avatax.field_account_payment__so_partner_id
 msgid "SO Partner"
+msgstr ""
+
+#. module: account_avatax
+#: model:ir.model.fields.selection,name:account_avatax.selection__avalara_salestax__service_url__https://sandbox-rest_avatax_com/api/v2
+msgid "Sandbox (REST API)"
+msgstr ""
+
+#. module: account_avatax
+#: model_terms:ir.ui.view,arch_db:account_avatax.view_avalara_salestax_getcompany
+msgid "Select"
+msgstr ""
+
+#. module: account_avatax
+#: model:ir.actions.act_window,name:account_avatax.action_avalara_salestax_getcompany
+msgid "Select Avatax Company Code"
+msgstr ""
+
+#. module: account_avatax
+#: model_terms:ir.ui.view,arch_db:account_avatax.view_avalara_salestax_form
+msgid "Select Company"
+msgstr ""
+
+#. module: account_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_getcompany__company_code
+msgid "Select a Company"
 msgstr ""
 
 #. module: account_avatax
@@ -882,17 +906,22 @@ msgid "Tax based on shipping address"
 msgstr ""
 
 #. module: account_avatax
-#: model:ir.model.fields,help:account_avatax.field_avalara_salestax__enable_immediate_calculation
-msgid ""
-"Tax is computed immediately, as document lines are being added. Warning: "
-"will cause heavy traffic on the Avatax service."
-msgstr ""
-
-#. module: account_avatax
 #: model:ir.actions.act_window,name:account_avatax.action_avalara_salestax_ping
 #: model_terms:ir.ui.view,arch_db:account_avatax.view_avalara_salestax_form
 #: model_terms:ir.ui.view,arch_db:account_avatax.view_avalara_salestax_ping
 msgid "Test Connection"
+msgstr ""
+
+#. module: account_avatax
+#: model:product.product,name:account_avatax.avatax_product_sku2
+#: model:product.template,name:account_avatax.avatax_product_sku2_product_template
+msgid "Test Item NT"
+msgstr ""
+
+#. module: account_avatax
+#: model:product.product,name:account_avatax.avatax_product_sku1
+#: model:product.template,name:account_avatax.avatax_product_sku1_product_template
+msgid "Test Item P0000000"
 msgstr ""
 
 #. module: account_avatax
@@ -923,6 +952,11 @@ msgid "The account number must be unique per company!"
 msgstr ""
 
 #. module: account_avatax
+#: model:ir.model.fields,help:account_avatax.field_avalara_salestax__result_in_uppercase
+msgid "The address validation results are returned in in upper case"
+msgstr ""
+
+#. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_avalara_salestax__company_code
 msgid "The company code as defined in the Admin Console of AvaTax"
 msgstr ""
@@ -931,11 +965,6 @@ msgstr ""
 #: model:ir.model.fields,help:account_avatax.field_res_partner__date_validation
 #: model:ir.model.fields,help:account_avatax.field_res_users__date_validation
 msgid "The date the address was last validated by AvaTax and accepted"
-msgstr ""
-
-#. module: account_avatax
-#: model:ir.model.fields,help:account_avatax.field_avalara_salestax__default_shipping_code_id
-msgid "The default shipping code which will be passed to Avalara"
 msgstr ""
 
 #. module: account_avatax
@@ -1004,12 +1033,25 @@ msgid "Uncheck the active field to hide the record"
 msgstr ""
 
 #. module: account_avatax
+#: model:product.product,uom_name:account_avatax.avatax_product_freight
+#: model:product.product,uom_name:account_avatax.avatax_product_sku1
+#: model:product.product,uom_name:account_avatax.avatax_product_sku2
+#: model:product.template,uom_name:account_avatax.avatax_product_freight_product_template
+#: model:product.template,uom_name:account_avatax.avatax_product_sku1_product_template
+#: model:product.template,uom_name:account_avatax.avatax_product_sku2_product_template
+msgid "Units"
+msgstr ""
+
+#. module: account_avatax
 #: model:ir.actions.server,name:account_avatax.action_account_invoice_compute_taxes
 msgid "Update taxes with AvaTax"
 msgstr ""
 
 #. module: account_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_account_bank_statement_line__is_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_account_fiscal_position__is_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_account_move__is_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_account_payment__is_avatax
 msgid "Use Avatax API"
 msgstr ""
 
