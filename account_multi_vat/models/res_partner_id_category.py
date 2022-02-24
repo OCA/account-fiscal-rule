@@ -13,4 +13,4 @@ class ResPartnerIdCategory(models.Model):
         for id_number in id_numbers:
             vat_code = id_number.name
             vat_country, vat_number = res_partner_model._split_vat(vat_code)
-            return res_partner_model.vies_vat_check(vat_country, vat_number)
+            return res_partner_model.simple_vat_check(vat_country, vat_number)

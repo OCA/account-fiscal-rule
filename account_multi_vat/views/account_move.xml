@@ -9,9 +9,9 @@
         <field name="arch" type="xml">
             <field name="partner_id" position="attributes">
                 <attribute name="context">{'res_partner_search_mode':
-                    (context.get('default_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt')
+                    (context.get('default_move_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt')
                     and 'customer')
-                    or (context.get('default_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt')
+                    or (context.get('default_move_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt')
                     and 'supplier') or False,
                   'show_address': 1,
                   'default_is_company': True,
@@ -20,11 +20,11 @@
             <group name="accounting_info_group" position="inside">
                 <field
                     name="customer_vat_partner_id"
-                    attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund'))]}"
+                    attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}"
                 />
                 <field
                     name="customer_vat"
-                    attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund'))]}"
+                    attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}"
                 />
             </group>
         </field>
