@@ -23,7 +23,7 @@ class AccountMove(models.Model):
     @api.depends("partner_id", "customer_vat_partner_id")
     def _compute_customer_vat(self):
         for rec in self:
-            if not rec.partner_id or rec.type not in ("out_invoice", "out_refund"):
+            if not rec.partner_id or rec.move_type not in ("out_invoice", "out_refund"):
                 rec.customer_vat = False
                 continue
             rec.customer_vat = rec.partner_id._get_vat_number_for_administration(
