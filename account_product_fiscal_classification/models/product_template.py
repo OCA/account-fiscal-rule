@@ -30,7 +30,7 @@ class ProductTemplate(models.Model):
     def create(self, vals):
         res = super(ProductTemplate, self).create(vals)
         self._check_access_fiscal_classification(vals)
-        res.write_taxes_setting(vals)
+        res.with_context(create_mode_fiscal_sync=True).write_taxes_setting(vals)
         return res
 
     def write(self, vals):
@@ -112,24 +112,31 @@ class ProductTemplate(models.Model):
                 result["arch"] = etree.tostring(doc)
         return result
 
+    def _apply_classification_taxes(self):
+        # update or replace 'taxes_id' and 'supplier_taxes_id'
+        classification = self.fiscal_classification_id
+        tax_vals = {
+            "supplier_taxes_id": [
+                (6, 0, [x.id for x in classification.sudo().purchase_tax_ids])
+            ],
+            "taxes_id": [(6, 0, [x.id for x in classification.sudo().sale_tax_ids])],
+        }
+        super(ProductTemplate, self.sudo()).write(tax_vals)
+
     # Custom Section
     def write_taxes_setting(self, vals):
         """If Fiscal Classification is defined, set the according taxes
         to the product(s); Otherwise, find the correct Fiscal classification,
         depending of the taxes, or create a new one, if no one are found."""
         for template in self:
-            if vals.get("fiscal_classification_id", False):
-                # update or replace 'taxes_id' and 'supplier_taxes_id'
-                classification = template.fiscal_classification_id
-                tax_vals = {
-                    "supplier_taxes_id": [
-                        (6, 0, [x.id for x in classification.sudo().purchase_tax_ids])
-                    ],
-                    "taxes_id": [
-                        (6, 0, [x.id for x in classification.sudo().sale_tax_ids])
-                    ],
-                }
-                super(ProductTemplate, template.sudo()).write(tax_vals)
+            # special case: using ir.default for fiscal_classification_id means
+            #   value is not in vals, but is actually present on record
+            create_mode_sync = (
+                template.fiscal_classification_id
+                and self.env.context.get("create_mode_fiscal_sync")
+            )
+            if vals.get("fiscal_classification_id", False) or create_mode_sync:
+                template._apply_classification_taxes()
             elif "supplier_taxes_id" in vals.keys() or "taxes_id" in vals.keys():
                 # product template Single update mode
                 fc_obj = self.env["account.product.fiscal.classification"]
