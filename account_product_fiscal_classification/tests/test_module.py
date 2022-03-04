@@ -166,6 +166,31 @@ class Tests(TransactionCase):
         # Create a product should success with classification
         self._create_product(self.user_demo, True)
 
+    def test_08_using_ir_property_defaults(self):
+        """When custom default values are set through ir.default,
+        taxes should be calculated as usual"""
+        self.env["ir.default"].create(
+            {
+                "field_id": self.env.ref(
+                    "account_product_fiscal_classification."
+                    "field_product_template__fiscal_classification_id"
+                ).id,
+                "json_value": self.classification_1.id,
+            }
+        )
+        vals = {
+            "name": "test template",
+            "company_id": self.main_company.id,
+        }
+        tmpl = self.ProductTemplate.create(vals)
+
+        self.assertEqual(
+            tmpl.fiscal_classification_id,
+            self.classification_1,
+        )
+        self.assertEqual(tmpl.fiscal_classification_id, self.classification_1)
+        self.assertEqual(tmpl.taxes_id, self.sale_tax_1 + self.sale_tax_2)
+
     def _create_product(self, user, with_classification):
         vals = {
             "name": "Demo Product",
