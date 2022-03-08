@@ -163,7 +163,7 @@ class ResPartner(models.Model):
     def multi_address_validation(self, validation_on_save=False):
         for partner in self:
             if not (partner.parent_id and partner.type == "contact"):
-                valid_address = self.get_valid_address_vals(
+                valid_address = partner.get_valid_address_vals(
                     validation_on_save=validation_on_save
                 )
                 if valid_address:
