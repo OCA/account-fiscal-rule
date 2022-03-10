@@ -336,17 +336,17 @@ class AccountMove(models.Model):
         """
         Sets invoice to Draft, either from the Posted or Cancelled states
         """
+        posted_invoices = self.filtered(
+            lambda invoice: invoice.move_type in ["out_invoice", "out_refund"]
+            and invoice.fiscal_position_id.is_avatax
+            and invoice.state == "posted"
+        )
         res = super(AccountMove, self).button_draft()
-        for invoice in self:
-            if (
-                invoice.move_type in ["out_invoice", "out_refund"]
-                and self.fiscal_position_id.is_avatax
-                and invoice.state == "posted"
-            ):
-                avatax_config = self.company_id.get_avatax_config_company()
-                if avatax_config:
-                    doc_type = invoice._get_avatax_doc_type()
-                    avatax_config.void_transaction(invoice.name, doc_type)
+        for invoice in posted_invoices:
+            avatax_config = invoice.company_id.get_avatax_config_company()
+            if avatax_config:
+                doc_type = invoice._get_avatax_doc_type()
+                avatax_config.void_transaction(invoice.name, doc_type)
         return res
 
     @api.onchange(
