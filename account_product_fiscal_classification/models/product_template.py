@@ -116,9 +116,7 @@ class ProductTemplate(models.Model):
         # update or replace 'taxes_id' and 'supplier_taxes_id'
         classification = self.fiscal_classification_id
         tax_vals = {
-            "supplier_taxes_id": [
-                (6, 0, classification.sudo().purchase_tax_ids.ids)
-            ],
+            "supplier_taxes_id": [(6, 0, classification.sudo().purchase_tax_ids.ids)],
             "taxes_id": [(6, 0, classification.sudo().sale_tax_ids.ids)],
         }
         super(ProductTemplate, self.sudo()).write(tax_vals)
