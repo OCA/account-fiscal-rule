@@ -117,7 +117,7 @@ class ProductTemplate(models.Model):
         classification = self.fiscal_classification_id
         tax_vals = {
             "supplier_taxes_id": [
-                (6, 0, [x.id for x in classification.sudo().purchase_tax_ids])
+                (6, 0, classification.sudo().purchase_tax_ids.ids)
             ],
             "taxes_id": [(6, 0, [x.id for x in classification.sudo().sale_tax_ids])],
         }
