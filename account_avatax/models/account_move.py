@@ -302,7 +302,7 @@ class AccountMove(models.Model):
                 # However, we can't save the invoice because it wasn't assigned a
                 # number yet
                 invoice.avatax_compute_taxes(commit=False)
-        res = super()._post()
+        res = super()._post(soft=soft)
         for invoice in res:
             if invoice.is_avatax_calculated():
                 # We can only commit to Avatax after validating the invoice
