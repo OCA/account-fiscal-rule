@@ -119,7 +119,7 @@ class ProductTemplate(models.Model):
             "supplier_taxes_id": [
                 (6, 0, classification.sudo().purchase_tax_ids.ids)
             ],
-            "taxes_id": [(6, 0, [x.id for x in classification.sudo().sale_tax_ids])],
+            "taxes_id": [(6, 0, classification.sudo().sale_tax_ids.ids)],
         }
         super(ProductTemplate, self.sudo()).write(tax_vals)
 
