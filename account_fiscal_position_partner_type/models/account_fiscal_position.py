@@ -16,19 +16,12 @@ class AccountFiscalPosition(models.Model):
 
     @api.model
     def search(self, args, offset=0, limit=None, order=None, count=False):
-        if self.env.context.get("fiscal_position_type"):
-            args = expression.AND(
-                (
-                    args,
-                    [
-                        (
-                            "fiscal_position_type",
-                            "=",
-                            self.env.context["fiscal_position_type"],
-                        )
-                    ],
-                )
-            )
+        add_domain = [
+            "|",
+            ("fiscal_position_type", "=", self.env.context["fiscal_position_type"]),
+            ("fiscal_position_type", "=", False),
+        ]
+        args = expression.AND((args, add_domain))
         return super().search(
             args, offset=offset, limit=limit, order=order, count=count
         )
