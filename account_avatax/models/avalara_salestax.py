@@ -191,7 +191,7 @@ class AvalaraSalestax(models.Model):
         self.ensure_one()
         avatax_config = self
 
-        currency_code = self.env.user.company_id.currency_id.name
+        currency_code = self.env.company.currency_id.name
         if currency_id:
             currency_code = currency_id.name
 
