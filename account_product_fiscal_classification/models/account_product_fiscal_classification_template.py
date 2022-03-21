@@ -8,6 +8,7 @@ from odoo import fields, models
 class AccountProductFiscalClassificationTemplate(models.Model):
     _name = "account.product.fiscal.classification.template"
     _description = "Fiscal Classification Template"
+    _order = "name"
 
     name = fields.Char(required=True, translate=True)
 
