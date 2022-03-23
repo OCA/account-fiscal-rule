@@ -142,8 +142,15 @@ class AvalaraSalestax(models.Model):
     )
     use_so_partner_id = fields.Boolean(
         string="Use Sale Customer Code on Invoice",
-        help="If Boolean is checked, SO Partner Customer Code "
-        "on Invoice will be used",
+        help="Use Sales Order's Customer field to determine Taxable "
+        "Status on the Customer Invoice. If no Sales Order exists, "
+        "Customer field on the invoice form view will be used instead",
+    )
+    hide_exemption = fields.Boolean(
+        "Hide Exemption & Tax Based on shipping address",
+        default=False,
+        help="Uncheck the this field to show exemption fields on SO/Invoice form view. "
+        "Also, it will show Tax based on shipping address button",
     )
     # TODO: add option to Display Prices with Tax Included
 
