@@ -6,6 +6,7 @@
 
   * Daniel Reis <dreis@opensourceintegrators.com>
   * Bhavesh Odedra <bodedra@opensourceintegrators.com>
+  * Sandip Mangukiya <smangukiya@opensourceintegrators.com>
 
 * Serpent CS
 

@@ -6,6 +6,8 @@ class AvalaraSalestax(models.Model):
 
     use_partner_invoice_id = fields.Boolean(
         "Use Invoice partner's customer code in SO",
+        default=True,
+        help="Use Sales Order's Invoice Address field to determine Taxable" "Status",
     )
     sale_calculate_tax = fields.Boolean(
         "Auto Calculate Tax on SO Save",

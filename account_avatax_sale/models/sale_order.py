@@ -13,6 +13,20 @@ class SaleOrder(models.Model):
         enriched_self = self.with_context(for_avatax_object=self)
         return super(SaleOrder, enriched_self)._compute_tax_totals_json()
 
+    @api.model
+    @api.depends("company_id", "partner_id", "partner_invoice_id", "state")
+    def _compute_hide_exemption(self):
+        avatax_config = self.env.company.get_avatax_config_company()
+        for order in self:
+            order.hide_exemption = avatax_config.hide_exemption
+
+    hide_exemption = fields.Boolean(
+        "Hide Exemption & Tax Based on shipping address",
+        compute=_compute_hide_exemption,  # For past transactions visibility
+        default=lambda self: self.env.company.get_avatax_config_company,
+        help="Uncheck the this field to show exemption fields on SO/Invoice form view. "
+        "Also, it will show Tax based on shipping address button",
+    )
     tax_amount = fields.Monetary(string="AvaTax")
 
     @api.onchange("partner_shipping_id", "partner_id")
