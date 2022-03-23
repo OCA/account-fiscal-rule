@@ -96,10 +96,8 @@ class AccountTax(models.Model):
                     line.product_id == product
                     and float_compare(line.quantity, quantity, digits) == 0
                 ):
-                    line_price = line._get_avatax_amount(qty=1)
-                    if float_compare(line_price, -price_unit, digits) == 0:
-                        avatax_amount = copysign(line.avatax_amt_line, base)
-                        break
+                    avatax_amount = copysign(line.avatax_amt_line, base)
+                    break
             if avatax_amount is None:
                 avatax_amount = 0.0
                 raise exceptions.UserError(
