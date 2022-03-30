@@ -58,7 +58,7 @@ class ResPartner(models.Model):
     def _check_is_tax_administration(self):
         if any(rec.is_tax_administration and not rec.country_id for rec in self):
             raise ValidationError(
-                _(u"The country is mandatory for tax administrations.")
+                _("The country is mandatory for tax administrations.")
             )
         country_model = self.env["res.country"]
         partner_model = self.env["res.partner"]
