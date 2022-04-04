@@ -66,7 +66,7 @@ class SaleOrder(models.Model):
                 "exemption_code_id": self.exemption_code_id.id or False,
                 "exemption_locked": True,
                 "location_code": self.location_code or "",
-                "warehouse_id": self.warehouse_id.id or "",
+                "ship_from_address_id": self.ship_from_address_id.id,
                 "tax_on_shipping_address": self.tax_on_shipping_address,
                 "so_partner_id": self.partner_id.id,
             }
@@ -126,6 +126,13 @@ class SaleOrder(models.Model):
         store=True,
         help="It show the customer exemption code",
     )
+    ship_from_address_id = fields.Many2one(
+        "res.partner",
+        compute="_compute_ship_from_address_id",
+        store=True,
+        readonly=False,
+    )
+    tax_amount = fields.Monetary(string="AvaTax")
     tax_on_shipping_address = fields.Boolean(
         "Tax based on shipping address", default=True
     )
@@ -177,7 +184,7 @@ class SaleOrder(models.Model):
             self.name,
             doc_type,
             partner,
-            self.warehouse_id.partner_id or self.company_id.partner_id,
+            self.ship_from_address_id or self.partner_id,
             self.tax_address_id or self.partner_id,
             taxable_lines,
             self.user_id,
@@ -251,7 +258,7 @@ class SaleOrder(models.Model):
                     line._origin.product_uom_qty != line.product_uom_qty
                     or line._origin.discount != line.discount
                     or line._origin.price_unit != line.price_unit
-                    or line._origin.warehouse_id != line.warehouse_id
+                    or line._origin.ship_from_address_id != line.ship_from_address_id
                 ):
                     self.calculate_tax_on_save = True
                     break
