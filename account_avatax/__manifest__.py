@@ -7,7 +7,7 @@
     "license": "AGPL-3",
     "category": "Accounting",
     "website": "https://github.com/OCA/account-fiscal-rule",
-    "depends": ["account", "sale_stock", "base_geolocalize"],
+    "depends": ["account", "sale", "base_geolocalize"],
     "data": [
         "security/avalara_salestax_security.xml",
         "security/ir.model.access.csv",

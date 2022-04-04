@@ -59,15 +59,8 @@ class AccountMove(models.Model):
             invoice.exemption_code = exemption_address.property_exemption_number
             invoice.exemption_code_id = exemption_address.property_exemption_code_id
 
-    @api.onchange("warehouse_id")
-    def onchange_warehouse_id(self):
-        if self.warehouse_id:
-            if self.warehouse_id.company_id:
-                self.company_id = self.warehouse_id.company_id
-            if self.warehouse_id.code:
-                self.location_code = self.warehouse_id.code
-
     is_avatax = fields.Boolean(related="fiscal_position_id.is_avatax")
+    # TODO: replace with "ref" ?
     invoice_doc_no = fields.Char(
         "Source/Ref Invoice No",
         readonly=True,
@@ -99,10 +92,15 @@ class AccountMove(models.Model):
     tax_address_id = fields.Many2one(
         "res.partner", "Tax Shipping Address", compute="_compute_tax_address_id"
     )
+    ship_from_address_id = fields.Many2one(
+        "res.partner",
+        compute="_compute_ship_from_address_id",
+        store=True,
+        readonly=False,
+    )
     location_code = fields.Char(
         "Location Code", readonly=True, states={"draft": [("readonly", False)]}
     )
-    warehouse_id = fields.Many2one("stock.warehouse", "Warehouse")
     avatax_amount = fields.Float(string="AvaTax", copy=False)
     calculate_tax_on_save = fields.Boolean()
     so_partner_id = fields.Many2one(comodel_name="res.partner", string="SO Partner")
@@ -160,6 +158,11 @@ class AccountMove(models.Model):
                 if invoice.tax_on_shipping_address
                 else invoice.partner_id
             )
+
+    @api.depends("company_id")
+    def _compute_ship_from_address_id(self):
+        for invoice in self:
+            invoice.ship_from_address_id = invoice.company_id.partner_id
 
     @api.onchange("tax_address_id", "fiscal_position_id")
     def onchange_reset_avatax_amount(self):
@@ -227,7 +230,7 @@ class AccountMove(models.Model):
             self.so_partner_id
             if self.so_partner_id and avatax_config.use_so_partner_id
             else self.partner_id,
-            self.warehouse_id.partner_id or self.company_id.partner_id,
+            self.ship_from_address_id or self.partner_id,
             self.tax_address_id or self.partner_id,
             taxable_lines,
             self.user_id,
@@ -344,7 +347,6 @@ class AccountMove(models.Model):
                 invoice.avatax_compute_taxes(commit=True)
         return res
 
-    # prepare_return in v12
     def _reverse_move_vals(self, default_values, cancel=True):
         # OVERRIDE
         # Don't keep anglo-saxon lines if not cancelling an existing invoice.
@@ -356,10 +358,10 @@ class AccountMove(models.Model):
                 "invoice_doc_no": self.name,
                 "invoice_date": self.invoice_date,
                 "tax_on_shipping_address": self.tax_on_shipping_address,
-                "warehouse_id": self.warehouse_id.id,
                 "location_code": self.location_code,
                 "exemption_code": self.exemption_code or "",
-                "exemption_code_id": self.exemption_code_id.id or None,
+                "exemption_code_id": self.exemption_code_id.id,
+                "ship_from_address_id": self.ship_from_address_id.id,
                 "tax_address_id": self.tax_address_id.id,
             }
         )
@@ -385,7 +387,7 @@ class AccountMove(models.Model):
 
     @api.onchange(
         "invoice_line_ids",
-        "warehouse_id",
+        "ship_from_address_id",
         "tax_address_id",
         "tax_on_shipping_address",
         "partner_id",
@@ -395,7 +397,7 @@ class AccountMove(models.Model):
         self.calculate_tax_on_save = False
         if avatax_config.invoice_calculate_tax:
             if (
-                self._origin.warehouse_id != self.warehouse_id
+                self._origin.ship_from_address_id != self.ship_from_address_id
                 or self._origin.tax_address_id.street != self.tax_address_id.street
                 or self._origin.partner_id != self.partner_id
                 or self._origin.tax_on_shipping_address != self.tax_on_shipping_address
