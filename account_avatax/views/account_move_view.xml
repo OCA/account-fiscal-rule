@@ -33,11 +33,7 @@
                 />
             </group>
             <field name="invoice_incoterm_id" position="before">
-                <field
-                    name="warehouse_id"
-                    options="{'no_create': True}"
-                    groups="stock.group_stock_multi_warehouses"
-                />
+                <field name="ship_from_address_id" />
                 <field name="tax_address_id" />
                 <field name="calculate_tax_on_save" invisible="1" />
                 <field
