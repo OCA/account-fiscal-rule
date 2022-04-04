@@ -33,6 +33,7 @@
             </field>
             <field name="fiscal_position_id" position="after">
                 <field name="is_avatax" groups="base.group_no_one" />
+                <field name="ship_from_address_id" />
                 <field
                     name="tax_address_id"
                     context="{'show_address': 1}"
