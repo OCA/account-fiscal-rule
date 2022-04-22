@@ -11,7 +11,7 @@
                     name="avatax_compute_taxes"
                     type="object"
                     string="Compute Taxes"
-                    attrs="{'invisible': [('state', 'not in', ['draft'])]}"
+                    attrs="{'invisible': ['|', ('is_avatax', '=', False), ('state', 'not in', ['draft'])]}"
                 />
             </button>
             <group id="header_right_group" position="inside">
@@ -36,6 +36,22 @@
             <xpath expr="//field[@name='partner_shipping_id']" position="after">
                 <field name="so_partner_id" readonly="1" />
             </xpath>
+            <field position="after" name="fiscal_position_id">
+                <field name="is_avatax" groups="base.group_no_one" />
+            </field>
+            <notebook position="inside">
+                <page
+                    name="avatax_page"
+                    string="Avatax Log"
+                    groups="base.group_no_one"
+                    attrs="{'invisible': [('is_avatax', '=', False)]}"
+                >
+                    <label for="avatax_request_log" />
+                    <field name="avatax_request_log" widget="ace" />
+                    <label for="avatax_response_log" />
+                    <field name="avatax_response_log" widget="ace" />
+                </page>
+            </notebook>
         </field>
     </record>
     <record id="invoice_form_view_editable_field" model="ir.ui.view">
