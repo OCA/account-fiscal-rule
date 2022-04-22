@@ -3,10 +3,10 @@
 
 
 from odoo import exceptions
-from odoo.tests.common import SavepointCase
+from odoo.tests import common
 
 
-class TestAvatax(SavepointCase):
+class TestAvatax(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

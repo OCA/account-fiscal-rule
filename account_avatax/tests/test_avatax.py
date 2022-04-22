@@ -2,10 +2,10 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 
-from odoo.tests.common import SavepointCase
+from odoo.tests import common
 
 
-class TestAvatax(SavepointCase):
+class TestAvatax(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
