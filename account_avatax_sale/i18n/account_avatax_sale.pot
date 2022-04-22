@@ -38,6 +38,21 @@ msgid "AvaTax Configuration"
 msgstr ""
 
 #. module: account_avatax_sale
+#: model:ir.model.fields,field_description:account_avatax_sale.field_sale_order__avatax_request_log
+msgid "Avatax API Request Log"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.model.fields,field_description:account_avatax_sale.field_sale_order__avatax_response_log
+msgid "Avatax API Response Log"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model_terms:ir.ui.view,arch_db:account_avatax_sale.sale_order_update_form_view
+msgid "Avatax Log"
+msgstr ""
+
+#. module: account_avatax_sale
 #: model:ir.model.fields,field_description:account_avatax_sale.field_sale_order__calculate_tax_on_save
 msgid "Calculate Tax On Save"
 msgstr ""
@@ -163,6 +178,11 @@ msgstr ""
 #. module: account_avatax_sale
 #: model:ir.actions.server,name:account_avatax_sale.action_sale_order_compute_taxes
 msgid "Update taxes with AvaTax"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.model.fields,field_description:account_avatax_sale.field_sale_order__is_avatax
+msgid "Use Avatax API"
 msgstr ""
 
 #. module: account_avatax_sale
