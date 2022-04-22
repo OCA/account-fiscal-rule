@@ -20,10 +20,10 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_avatax](account_avatax/) | 14.0.2.0.11 | [![dreispt](https://github.com/dreispt.png?size=30px)](https://github.com/dreispt) | Automatic Tax application using the Avalara Avatax Service
+[account_avatax](account_avatax/) | 14.0.2.1.0 | [![dreispt](https://github.com/dreispt.png?size=30px)](https://github.com/dreispt) | Automatic Tax application using the Avalara Avatax Service
 [account_avatax_exemption](account_avatax_exemption/) | 14.0.1.1.0 |  | This application allows you to add exemptions to Avatax
 [account_avatax_exemption_base](account_avatax_exemption_base/) | 14.0.1.1.0 |  | This application allows you to add exemptions base to Avatax
-[account_avatax_sale](account_avatax_sale/) | 14.0.1.2.0 | [![dreispt](https://github.com/dreispt.png?size=30px)](https://github.com/dreispt) | Sales Orders with automatic Tax application using Avatax
+[account_avatax_sale](account_avatax_sale/) | 14.0.1.3.0 | [![dreispt](https://github.com/dreispt.png?size=30px)](https://github.com/dreispt) | Sales Orders with automatic Tax application using Avatax
 [account_avatax_website_sale](account_avatax_website_sale/) | 14.0.1.1.0 | [![cybernexus](https://github.com/cybernexus.png?size=30px)](https://github.com/cybernexus) | Ecommerce Sales Orders require tax recalculation prior to payment.
 [account_fiscal_position_partner_type](account_fiscal_position_partner_type/) | 14.0.1.0.0 |  | Account Fiscal Position Partner Type
 [account_multi_vat](account_multi_vat/) | 14.0.1.0.0 | [![ThomasBinsfeld](https://github.com/ThomasBinsfeld.png?size=30px)](https://github.com/ThomasBinsfeld) | Allows setting multiple VAT numbers on any partner and select the right one depending on the fiscal position and delivery address of the invoice.
