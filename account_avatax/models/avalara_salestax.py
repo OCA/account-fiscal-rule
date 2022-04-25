@@ -30,7 +30,7 @@ class AvalaraSalestax(models.Model):
 
     @api.model
     def _get_avatax_supported_countries(self):
-        """ Returns the countries supported by AvaTax Address Validation Service."""
+        """Returns the countries supported by AvaTax Address Validation Service."""
         return self.env["res.country"].search([("code", "in", ["US", "CA"])])
 
     account_number = fields.Char(
@@ -60,11 +60,7 @@ class AvalaraSalestax(models.Model):
         help="The company code as defined in the Admin Console of AvaTax",
     )
     logging = fields.Boolean(
-        "Log API Request Details",
-        help="Enables detailed AvaTax transaction logging within application",
-    )
-    logging_response = fields.Boolean(
-        "Log API Response Details",
+        "Log API Requests",
         help="Enables detailed AvaTax transaction logging within application",
     )
     result_in_uppercase = fields.Boolean(
@@ -200,11 +196,12 @@ class AvalaraSalestax(models.Model):
         is_override=None,
         currency_id=None,
         ignore_error=None,
+        log_to_record=False,
     ):
         self.ensure_one()
         avatax_config = self
 
-        currency_code = self.env.user.company_id.currency_id.name
+        currency_code = self.env.company.currency_id.name
         if currency_id:
             currency_code = currency_id.name
 
@@ -233,7 +230,7 @@ class AvalaraSalestax(models.Model):
         if avatax_config.validation_on_save:
             for address in [partner, shipping_address, ship_from_address]:
                 if not address.date_validation:
-                    address.multi_address_validation()
+                    address.multi_address_validation(validation_on_save=True)
 
         # this condition is required, in case user select force address validation
         # on AvaTax API Configuration
@@ -288,6 +285,7 @@ class AvalaraSalestax(models.Model):
             partner.vat or None,
             is_override,
             ignore_error=ignore_error,
+            log_to_record=log_to_record,
         )
         return result
 

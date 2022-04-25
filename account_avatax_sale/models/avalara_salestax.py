@@ -13,3 +13,7 @@ class AvalaraSalestax(models.Model):
         "SO's warehouse_id, tax_on_shipping_address, "
         "SO line's price_unit, discount, product_uom_qty",
     )
+    override_line_taxes = fields.Boolean(
+        help="When checked, the Avatax computed tax will replace any other taxes"
+        " that may exist in the document line.",
+    )

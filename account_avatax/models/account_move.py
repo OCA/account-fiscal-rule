@@ -66,7 +66,7 @@ class AccountMove(models.Model):
             if self.warehouse_id.code:
                 self.location_code = self.warehouse_id.code
 
-    # TODO: replace with "ref" ?
+    is_avatax = fields.Boolean(related="fiscal_position_id.is_avatax")
     invoice_doc_no = fields.Char(
         "Source/Ref Invoice No",
         readonly=True,
@@ -105,6 +105,12 @@ class AccountMove(models.Model):
     avatax_amount = fields.Float(string="AvaTax", copy=False)
     calculate_tax_on_save = fields.Boolean()
     so_partner_id = fields.Many2one(comodel_name="res.partner", string="SO Partner")
+    avatax_request_log = fields.Text(
+        "Avatax API Request Log", readonly=True, copy=False
+    )
+    avatax_response_log = fields.Text(
+        "Avatax API Response Log", readonly=True, copy=False
+    )
 
     @api.depends(
         "line_ids.debit",
@@ -181,7 +187,7 @@ class AccountMove(models.Model):
 
     # Same as v12
     def _avatax_compute_tax(self, commit=False):
-        """ Contact REST API and recompute taxes for a Sale Order """
+        """Contact REST API and recompute taxes for a Sale Order"""
         self and self.ensure_one()
         avatax_config = self.company_id.get_avatax_config_company()
         if not avatax_config:
@@ -211,6 +217,7 @@ class AccountMove(models.Model):
             is_override=self.move_type == "out_refund",
             currency_id=self.currency_id,
             ignore_error=300 if commit else None,
+            log_to_record=self,
         )
         # If commiting, and document exists, try unvoiding it
         # Error number 300 = GetTaxError, Expected Saved|Posted
@@ -302,7 +309,7 @@ class AccountMove(models.Model):
                 # However, we can't save the invoice because it wasn't assigned a
                 # number yet
                 invoice.avatax_compute_taxes(commit=False)
-        res = super()._post()
+        res = super()._post(soft=soft)
         for invoice in res:
             if invoice.is_avatax_calculated():
                 # We can only commit to Avatax after validating the invoice
@@ -336,17 +343,18 @@ class AccountMove(models.Model):
         """
         Sets invoice to Draft, either from the Posted or Cancelled states
         """
-        for invoice in self:
-            if (
-                invoice.move_type in ["out_invoice", "out_refund"]
-                and self.fiscal_position_id.is_avatax
-                and invoice.state == "posted"
-            ):
-                avatax_config = self.company_id.get_avatax_config_company()
-                if avatax_config:
-                    doc_type = invoice._get_avatax_doc_type()
-                    avatax_config.void_transaction(invoice.name, doc_type)
-        return super(AccountMove, self).button_draft()
+        posted_invoices = self.filtered(
+            lambda invoice: invoice.move_type in ["out_invoice", "out_refund"]
+            and invoice.fiscal_position_id.is_avatax
+            and invoice.state == "posted"
+        )
+        res = super(AccountMove, self).button_draft()
+        for invoice in posted_invoices:
+            avatax_config = invoice.company_id.get_avatax_config_company()
+            if avatax_config:
+                doc_type = invoice._get_avatax_doc_type()
+                avatax_config.void_transaction(invoice.name, doc_type)
+        return res
 
     @api.onchange(
         "invoice_line_ids",
@@ -499,7 +507,7 @@ class AccountMoveLine(models.Model):
         taxes=None,
         move_type=None,
     ):
-        """ Override tax amount, if we have an Avatax calculated amount """
+        """Override tax amount, if we have an Avatax calculated amount"""
         self.ensure_one()
         res = super()._get_price_total_and_subtotal(
             price_unit, quantity, discount, currency, product, partner, taxes, move_type

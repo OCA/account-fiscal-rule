@@ -189,6 +189,25 @@ msgid "Avalara setting is already available for this company code"
 msgstr ""
 
 #. module: account_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_account_bank_statement_line__avatax_request_log
+#: model:ir.model.fields,field_description:account_avatax.field_account_move__avatax_request_log
+#: model:ir.model.fields,field_description:account_avatax.field_account_payment__avatax_request_log
+msgid "Avatax API Request Log"
+msgstr ""
+
+#. module: account_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_account_bank_statement_line__avatax_response_log
+#: model:ir.model.fields,field_description:account_avatax.field_account_move__avatax_response_log
+#: model:ir.model.fields,field_description:account_avatax.field_account_payment__avatax_response_log
+msgid "Avatax API Response Log"
+msgstr ""
+
+#. module: account_avatax
+#: model_terms:ir.ui.view,arch_db:account_avatax.view_move_form_inherit_1
+msgid "Avatax Log"
+msgstr ""
+
+#. module: account_avatax
 #: code:addons/account_avatax/models/account_move.py:0
 #, python-format
 msgid "Avatax address is not validated!"
@@ -424,7 +443,6 @@ msgstr ""
 
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_avalara_salestax__logging
-#: model:ir.model.fields,help:account_avatax.field_avalara_salestax__logging_response
 msgid "Enables detailed AvaTax transaction logging within application"
 msgstr ""
 
@@ -653,12 +671,7 @@ msgstr ""
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__logging
-msgid "Log API Request Details"
-msgstr ""
-
-#. module: account_avatax
-#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__logging_response
-msgid "Log API Response Details"
+msgid "Log API Requests"
 msgstr ""
 
 #. module: account_avatax
@@ -1039,7 +1052,10 @@ msgid "Update taxes with AvaTax"
 msgstr ""
 
 #. module: account_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_account_bank_statement_line__is_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_account_fiscal_position__is_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_account_move__is_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_account_payment__is_avatax
 msgid "Use Avatax API"
 msgstr ""
 

@@ -111,14 +111,14 @@ class ResPartner(models.Model):
             self.property_exemption_code_id = None
 
     def get_state_from_code(self, state_code, country_code):
-        """ Returns the state from the code. """
+        """Returns the state from the code."""
         state = self.env["res.country.state"].search(
             [("code", "=", state_code), ("country_id.code", "=", country_code)],
         )
         return state
 
     def get_country_from_code(self, code):
-        """ Returns the country from the code. """
+        """Returns the country from the code."""
         country = self.env["res.country"].search([("code", "=", code)])
         return country
 
@@ -133,10 +133,22 @@ class ResPartner(models.Model):
             _LOGGER.info(
                 "Skipping address validation for %d %s, not enough details.",
                 partner.id,
-                partner.name,
+                partner.display_name,
             )
             return False
         avatax_config = self.env.company.get_avatax_config_company()
+        # Skip automatic validation for countries not supported by Avatax
+        supported_countries = [x.code for x in avatax_config.country_ids]
+        country_code = partner.country_id.code
+        if validation_on_save and country_code not in supported_countries:
+            _LOGGER.info(
+                "Skipping automatic address validation for %d %s"
+                ", country %s not supported.",
+                partner.id,
+                partner.display_name,
+                country_code,
+            )
+            return False
         avatax_restpoint = AvaTaxRESTService(config=avatax_config)
         valid_address = avatax_restpoint.validate_rest_address(
             partner.street,
@@ -151,7 +163,7 @@ class ResPartner(models.Model):
     def multi_address_validation(self, validation_on_save=False):
         for partner in self:
             if not (partner.parent_id and partner.type == "contact"):
-                valid_address = self.get_valid_address_vals(
+                valid_address = partner.get_valid_address_vals(
                     validation_on_save=validation_on_save
                 )
                 if valid_address:
@@ -159,7 +171,7 @@ class ResPartner(models.Model):
         return True
 
     def button_avatax_validate_address(self):
-        """Method is used to verify of state and country """
+        """Method is used to verify of state and country"""
         view_ref = self.env.ref("account_avatax.view_avalara_salestax_address_validate")
         ctx = self.env.context.copy()
         ctx.update({"active_ids": self.ids, "active_id": self.id})

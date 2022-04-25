@@ -96,6 +96,7 @@ class SaleOrder(models.Model):
                 else invoice.partner_id
             )
 
+    is_avatax = fields.Boolean(related="fiscal_position_id.is_avatax")
     exemption_code = fields.Char(
         "Exemption Number",
         compute=_compute_onchange_exemption,
@@ -124,6 +125,12 @@ class SaleOrder(models.Model):
     )
     location_code = fields.Char("Location Code", help="Origin address location code")
     calculate_tax_on_save = fields.Boolean()
+    avatax_request_log = fields.Text(
+        "Avatax API Request Log", readonly=True, copy=False
+    )
+    avatax_response_log = fields.Text(
+        "Avatax API Response Log", readonly=True, copy=False
+    )
 
     def _get_avatax_doc_type(self, commit=False):
         return "SalesOrder"
@@ -140,7 +147,7 @@ class SaleOrder(models.Model):
         return [x for x in lines if x]
 
     def _avatax_compute_tax(self):
-        """ Contact REST API and recompute taxes for a Sale Order """
+        """Contact REST API and recompute taxes for a Sale Order"""
         self and self.ensure_one()
         doc_type = self._get_avatax_doc_type()
         Tax = self.env["account.tax"]
@@ -163,6 +170,7 @@ class SaleOrder(models.Model):
             self.exemption_code or None,
             self.exemption_code_id.code or None,
             currency_id=self.currency_id,
+            log_to_record=self,
         )
         tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
         for line in self.order_line:
@@ -174,8 +182,12 @@ class SaleOrder(models.Model):
                 rate = tax_result_line["rate"]
                 tax = Tax.get_avalara_tax(rate, doc_type)
                 if tax not in line.tax_id:
-                    line_taxes = line.tax_id.filtered(lambda x: not x.is_avatax)
-                    line.tax_id = line_taxes | tax
+                    line_taxes = (
+                        tax
+                        if avatax_config.override_line_taxes
+                        else tax | line.tax_id.filtered(lambda x: not x.is_avatax)
+                    )
+                    line.tax_id = line_taxes
                 line.tax_amt = tax_result_line["tax"]
         self.tax_amount = tax_result.get("totalTax")
         return True
