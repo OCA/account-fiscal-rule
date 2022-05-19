@@ -10,9 +10,9 @@ Account Fiscal Position Rule
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
-    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
-    :alt: License: AGPL-3
+.. |badge2| image:: https://img.shields.io/badge/licence-LGPL--3-blue.png
+    :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
+    :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github
     :target: https://github.com/OCA/account-fiscal-rule/tree/13.0/account_fiscal_position_rule
     :alt: OCA/account-fiscal-rule
