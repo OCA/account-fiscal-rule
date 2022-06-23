@@ -285,7 +285,7 @@ class AvaTaxRESTService:
             "customerCode": partner_code,
             "businessIdentificationNo": vat,
             "referenceCode": reference_code,
-            "salespersonCode": salesman_code,
+            "salespersonCode": salesman_code and salesman_code[:25] or None,
             "reportingLocationCode": location_code,
             "entityUseCode": customer_usage_type,
             "exemptionNo": exemption_no,
