@@ -10,6 +10,7 @@
     'category': 'Accounting',
     'author': 'Akretion,GRAP,La Louve,Odoo Community Association (OCA)',
     'website': 'https://github.com/OCA/account-fiscal-rule',
+    'maintainers': ['legalsylvain'],
     'license': 'AGPL-3',
     'depends': [
         'account',
