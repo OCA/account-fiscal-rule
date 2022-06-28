@@ -20,13 +20,13 @@ msgstr ""
 "X-Generator: Weblate 3.10\n"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:129
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:130
 #, python-format
 msgid " - Sale Taxes: "
 msgstr " - Impostos de Venda: "
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:122
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:123
 #, python-format
 msgid "- No Sale Taxes"
 msgstr "- Não existem Impostos de Venda"
@@ -274,13 +274,13 @@ msgid "New Classification"
 msgstr "Nova Classificação"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:111
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:112
 #, python-format
 msgid "No Purchase Taxes - Sale Taxes: "
 msgstr "Sem Impostos de Compra - Impostos de Venda "
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:109
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:110
 #, python-format
 msgid "No taxes"
 msgstr "Sem impostos"
@@ -325,8 +325,8 @@ msgid "Purchase Taxes"
 msgstr "Impostos de Compra"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:117
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:124
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:118
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:125
 #, python-format
 msgid "Purchase Taxes: "
 msgstr "Impostos de Compra: "
@@ -445,7 +445,7 @@ msgid "You cannot change Taxes for many Products."
 msgstr "Não pode alterar Impostos para vários Produtos."
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:83
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:84
 #, python-format
 msgid ""
 "You cannot delete The Fiscal Classification '%s' because it contents %s "
