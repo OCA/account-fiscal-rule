@@ -9,6 +9,7 @@ from odoo.exceptions import ValidationError
 class AccountProductFiscalClassification(models.Model):
     _name = 'account.product.fiscal.classification'
     _description = 'Fiscal Classification'
+    _order = "name"
 
     # Default Section
     def _default_company_id(self):
