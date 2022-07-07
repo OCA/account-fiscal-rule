@@ -62,6 +62,8 @@
             </field>
             <xpath expr="//field[@name='order_line']/tree" position="inside">
                 <field name="tax_amt" groups="base.group_no_one" optional="hide" />
+                <field name="retail_delivery_fee" invisible="1" />
+                <field name="retail_delivery_fee_id" invisible="1" />
             </xpath>
             <xpath
                 expr="//field[@name='order_line']/form//field[@name='product_id']"

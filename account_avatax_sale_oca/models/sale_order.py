@@ -202,6 +202,11 @@ class SaleOrder(models.Model):
         for line in self.order_line:
             tax_result_line = tax_result_lines.get(line.id)
             if tax_result_line:
+                fixed_tax_amount = tax_result_line["tax"]
+                retail_delivery_fee_tax = line.retail_delivery_fee_id.tax_ids
+                retail_delivery_fee_tax_match = retail_delivery_fee_tax.filtered(
+                    lambda t: t.amount == fixed_tax_amount
+                )
                 # Should we check the rate with the tax amount?
                 # tax_amount = tax_result_line["taxCalculated"]
                 # rate = round(tax_amount / line.price_subtotal * 100, 2)
@@ -215,6 +220,21 @@ class SaleOrder(models.Model):
                 rate = round(tax_calculation * 100, 4)
                 tax = Tax.get_avalara_tax(rate, doc_type)
                 tax, line = self.update_tax_details(tax, line, tax_result_line)
+                fixed_tax_amount = tax_result_line["tax"]
+                retail_delivery_fee_tax = line.retail_delivery_fee_id.tax_ids
+                retail_delivery_fee_tax_match = retail_delivery_fee_tax.filtered(
+                    lambda t: t.amount == fixed_tax_amount
+                )
+                if retail_delivery_fee_tax_match:
+                    tax = retail_delivery_fee_tax_match
+                    # tax amount doesn't match means creating copy record with new amount
+                elif retail_delivery_fee_tax:
+                    retail_delivery_fee_tax = retail_delivery_fee_tax[0]
+                    vals = {
+                        "amount": fixed_tax_amount,
+                        "name": f"{retail_delivery_fee_tax.name} - {fixed_tax_amount}",
+                    }
+                    tax = retail_delivery_fee_tax.sudo().copy(default=vals)
                 if tax not in line.tax_id:
                     line_taxes = (
                         tax
@@ -226,6 +246,61 @@ class SaleOrder(models.Model):
         self.tax_amount = tax_result.get("totalTax")
         return True
 
+    def add_retail_product(self):
+        order_line = self.env["sale.order.line"].sudo()
+        avatax_config = self.company_id.get_avatax_config_company()
+        if avatax_config:
+            retail_group = avatax_config.retail_group_ids.filtered(
+                lambda r: r.country_id.code == self.tax_address_id.country_id.code
+                and r.state_id.code == self.tax_address_id.state_id.code
+            )
+            if retail_group:
+                retail_group = retail_group[0]
+                order_line = self.order_line.filtered(
+                    lambda l: l.retail_delivery_fee
+                    and l.product_id == retail_group.product_id
+                )
+                if not order_line:
+                    temp_order_line = order_line.new(
+                        {
+                            "product_id": retail_group.product_id.id,
+                            "price_unit": retail_group.amount,
+                            "retail_delivery_fee": True,
+                            "retail_delivery_fee_id": retail_group.id,
+                            "order_id": self.id,
+                        }
+                    )
+                    for method in temp_order_line._onchange_methods.get(
+                        "product_id", ()
+                    ):
+                        method(temp_order_line)
+                    vals = temp_order_line._convert_to_write(temp_order_line._cache)
+                    vals["price_unit"] = retail_group.amount
+                    order_line = order_line.create(vals)
+                else:
+                    order_line_to_edit = order_line.filtered(
+                        lambda o: o.retail_delivery_fee_id
+                        and o.price_unit != retail_group.amount
+                    )
+                    if order_line_to_edit:
+                        self.write(
+                            {
+                                "order_line": [
+                                    (
+                                        1,
+                                        order_line_to_edit.id,
+                                        {"price_unit": retail_group.amount},
+                                    )
+                                ]
+                            }
+                        )
+            order_to_unlink = self.order_line.filtered(
+                lambda o: o.retail_delivery_fee
+                and o.retail_delivery_fee_id != retail_group
+            )
+            if order_to_unlink:
+                self.write({"order_line": [(2, x.id) for x in order_to_unlink]})
+
     def avalara_compute_taxes(self):
         """
         Use Avatax API to compute taxes.
@@ -233,6 +308,7 @@ class SaleOrder(models.Model):
         """
         for order in self:
             if order.fiscal_position_id.is_avatax:
+                order.add_retail_product()
                 order._avatax_compute_tax()
         return True
 
@@ -318,6 +394,15 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     tax_amt = fields.Monetary(string="AvaTax")
+    retail_delivery_fee = fields.Boolean(
+        compute="_compute_retail_delivery_fee", store=True, readonly=False
+    )
+    retail_delivery_fee_id = fields.Many2one(
+        "retail.group",
+        compute="_compute_retail_delivery_fee",
+        store=True,
+        readonly=False,
+    )
 
     def _avatax_prepare_line(self, sign=1, doc_type=None):
         """
@@ -358,6 +443,18 @@ class SaleOrderLine(models.Model):
         }
         return res
 
+    def _prepare_invoice_line(self, **optional_values):
+        invoice_line_vals = super(SaleOrderLine, self)._prepare_invoice_line(
+            **optional_values
+        )
+        invoice_line_vals.update(
+            {
+                "retail_delivery_fee": self.retail_delivery_fee,
+                "retail_delivery_fee_id": self.retail_delivery_fee_id,
+            }
+        )
+        return invoice_line_vals
+
     @api.onchange("product_uom_qty", "discount", "price_unit", "tax_id")
     def onchange_reset_avatax_amount(self):
         """
@@ -368,6 +465,31 @@ class SaleOrderLine(models.Model):
         for line in self:
             line.tax_amt = 0
             line.order_id.tax_amount = 0
+
+    @api.depends("product_id")
+    def _compute_retail_delivery_fee(self):
+        for rec in self:
+            retail_delivery_fee = False
+            retail_delivery_fee_id = False
+            avatax_config = rec.company_id.get_avatax_config_company()
+            if avatax_config:
+                order = rec.order_id
+                retail_group = avatax_config.retail_group_ids.filtered(
+                    lambda r: r.country_id.code == order.tax_address_id.country_id.code
+                    and r.state_id.code == order.tax_address_id.state_id.code
+                )
+                if retail_group and rec.product_id == retail_group.product_id:
+                    retail_delivery_fee = True
+                    retail_line = (
+                        order.order_line.filtered(
+                            lambda l: l.retail_delivery_fee and l.retail_delivery_fee_id
+                        )
+                        - rec
+                    )
+                    if not retail_line:
+                        retail_delivery_fee_id = retail_group.id
+            rec.retail_delivery_fee = retail_delivery_fee
+            rec.retail_delivery_fee_id = retail_delivery_fee_id
 
     @api.depends("product_uom_qty", "discount", "price_unit", "tax_id", "tax_amt")
     def _compute_amount(self):

@@ -146,6 +146,7 @@ class AvalaraSalestax(models.Model):
         help="Uncheck the this field to show exemption fields on SO/Invoice form view. "
         "Also, it will show Tax based on shipping address button",
     )
+    retail_group_ids = fields.Many2many("retail.group", string="Retail Delivery Fee")
     # TODO: add option to Display Prices with Tax Included
     # Enabled the tax inclusive flag in the GetTax Request.
 

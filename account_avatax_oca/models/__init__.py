@@ -5,4 +5,5 @@ from . import account_move
 from . import account_fiscal_position
 from . import account_tax
 from . import res_company
+from . import retail_group
 from . import avatax_rest_api
