@@ -39,6 +39,7 @@ class AvalaraSalestax(models.Model):
         is_override=None,
         currency_id=None,
         ignore_error=None,
+        log_to_record=False,
     ):
         if self.use_commercial_entity and partner.commercial_partner_id:
             partner = partner.commercial_partner_id
@@ -61,6 +62,7 @@ class AvalaraSalestax(models.Model):
             is_override=is_override,
             currency_id=currency_id,
             ignore_error=ignore_error,
+            log_to_record=log_to_record,
         )
 
     def set_tax_item_info_to_product(self, record, product):
