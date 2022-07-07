@@ -25,6 +25,7 @@
         "views/account_move_view.xml",
         "views/account_tax_view.xml",
         "views/account_fiscal_position_view.xml",
+        "views/retail_group.xml",
     ],
     "demo": ["demo/avatax_demo.xml"],
     "images": ["static/description/avatax_icon.png"],
