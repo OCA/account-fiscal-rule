@@ -21,7 +21,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_avatax](account_avatax/) | 14.0.2.1.0 | [![dreispt](https://github.com/dreispt.png?size=30px)](https://github.com/dreispt) | Automatic Tax application using the Avalara Avatax Service
-[account_avatax_exemption](account_avatax_exemption/) | 14.0.1.1.0 |  | This application allows you to add exemptions to Avatax
+[account_avatax_exemption](account_avatax_exemption/) | 14.0.1.1.1 |  | This application allows you to add exemptions to Avatax
 [account_avatax_exemption_base](account_avatax_exemption_base/) | 14.0.1.1.0 |  | This application allows you to add exemptions base to Avatax
 [account_avatax_sale](account_avatax_sale/) | 14.0.1.3.0 | [![dreispt](https://github.com/dreispt.png?size=30px)](https://github.com/dreispt) | Sales Orders with automatic Tax application using Avatax
 [account_avatax_website_sale](account_avatax_website_sale/) | 14.0.1.1.0 | [![cybernexus](https://github.com/cybernexus.png?size=30px)](https://github.com/cybernexus) | Ecommerce Sales Orders require tax recalculation prior to payment.
