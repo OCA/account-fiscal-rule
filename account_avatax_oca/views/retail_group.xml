@@ -1,0 +1,36 @@
+<odoo>
+    <record id="retail_group_tree_view" model="ir.ui.view">
+        <field name="name">retail.group.tree</field>
+        <field name="model">retail.group</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="country_id" />
+                <field name="state_id" />
+                <field name="product_id" />
+                <field name="amount" />
+                <field name="tax_ids" widget="many2many_tags" />
+            </tree>
+        </field>
+    </record>
+    <record id="retail_group_form_view" model="ir.ui.view">
+        <field name="name">retail.group.form</field>
+        <field name="model">retail.group</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="country_id" />
+                    <field name="state_id" />
+                    <field name="product_id" />
+                    <field name="amount" />
+                    <field
+                        name="tax_ids"
+                        widget="many2many_tags"
+                        context="{'default_amount_type': 'fixed'}"
+                    />
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -75,6 +75,7 @@
                                 <field name="auto_generate_customer_code" />
                                 <field name="logging" />
                                 <field name="request_timeout" />
+                                <field name="retail_group_ids" />
                             </group>
                             <group string="Countries">
                                 <label

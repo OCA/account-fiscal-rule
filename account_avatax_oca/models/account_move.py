@@ -266,12 +266,30 @@ class AccountMove(models.Model):
             for index, line in enumerate(lines):
                 tax_result_line = tax_result_lines.get(line.id)
                 if tax_result_line:
-                    rate = tax_result_line.get("rate", 0.0)
-                    tax = Tax.get_avalara_tax(rate, doc_type)
+                    fixed_tax_amount = tax_result_line["tax"]
+                    retail_delivery_fee_tax = line.retail_delivery_fee_id.tax_ids
+                    retail_delivery_fee_tax_match = retail_delivery_fee_tax.filtered(
+                        lambda t: t.amount == fixed_tax_amount
+                    )
+                    if not line.retail_delivery_fee:
+                        rate = tax_result_line.get("rate", 0.0)
+                        tax = Tax.get_avalara_tax(rate, doc_type)
+                    # setting Retail Delivery Fee from avatax salestax
+                    elif retail_delivery_fee_tax_match:
+                        tax = retail_delivery_fee_tax_match
+                    # tax amount doesn't match means creating copy record with new amount
+                    elif retail_delivery_fee_tax:
+                        retail_delivery_fee_tax = retail_delivery_fee_tax[0]
+                        vals = {
+                            "amount": fixed_tax_amount,
+                            "name": f"{retail_delivery_fee_tax.name} - {fixed_tax_amount}",
+                        }
+                        tax = retail_delivery_fee_tax.sudo().copy(default=vals)
+                        line.retail_delivery_fee_id.tax_ids |= tax
                     if tax and tax not in line.tax_ids:
                         line_taxes = line.tax_ids.filtered(lambda x: not x.is_avatax)
                         taxes_to_set.append((index, line_taxes | tax))
-                    line.avatax_amt_line = tax_result_line["tax"]
+                    line.avatax_amt_line = fixed_tax_amount
                     line.avatax_tax_type = tax_result_line["details"][0]["taxSubTypeId"]
             self.avatax_amount = tax_result["totalTax"]
             self.with_context(
@@ -290,6 +308,68 @@ class AccountMove(models.Model):
 
         return tax_result
 
+    def add_retail_product(self):
+        invoice_line = self.env["account.move.line"].sudo()
+        avatax_config = self.company_id.get_avatax_config_company()
+        if avatax_config:
+            retail_group = avatax_config.retail_group_ids.filtered(
+                lambda r: r.country_id.code == self.tax_address_id.country_id.code
+                and r.state_id.code == self.tax_address_id.state_id.code
+            )
+            if retail_group:
+                retail_group = retail_group[0]
+                invoice_line = self.invoice_line_ids.filtered(
+                    lambda l: l.retail_delivery_fee
+                    and l.product_id == retail_group.product_id
+                )
+                if not invoice_line:
+                    invoice_line = invoice_line.with_context(
+                        default_move_type=self.move_type,
+                        journal_id=self.journal_id.id,
+                        default_partner_id=self.commercial_partner_id.id,
+                        default_currency_id=self.currency_id.id,
+                    )
+                    temp_invoice_line = invoice_line.new(
+                        {
+                            "product_id": retail_group.product_id.id,
+                            "price_unit": retail_group.amount,
+                            "retail_delivery_fee_id": retail_group.id,
+                            "retail_delivery_fee": True,
+                            "move_id": self.id,
+                        }
+                    )
+                    for method in temp_invoice_line._onchange_methods.get(
+                        "product_id", ()
+                    ):
+                        method(temp_invoice_line)
+                    vals = temp_invoice_line._convert_to_write(temp_invoice_line._cache)
+                    vals["price_unit"] = retail_group.amount
+                    lines_before_create = self.invoice_line_ids
+                    self.write({"invoice_line_ids": [(0, 0, vals)]})
+                    invoice_line = self.invoice_line_ids - lines_before_create
+                else:
+                    invoice_line_to_edit = invoice_line.filtered(
+                        lambda o: o.price_unit != retail_group.amount
+                    )
+                    if invoice_line_to_edit:
+                        self.write(
+                            {
+                                "invoice_line_ids": [
+                                    (
+                                        1,
+                                        invoice_line_to_edit.id,
+                                        {"price_unit": retail_group.amount},
+                                    )
+                                ]
+                            }
+                        )
+            invoice_to_unlink = (
+                self.invoice_line_ids.filtered(lambda o: o.retail_delivery_fee)
+                - invoice_line
+            )
+            if invoice_to_unlink:
+                self.write({"invoice_line_ids": [(2, invoice_to_unlink[0].id)]})
+
     # Same as v13
     def avatax_compute_taxes(self, commit=False):
         """
@@ -303,6 +383,8 @@ class AccountMove(models.Model):
                 and (invoice.state == "draft" or commit)
                 and (not invoice.avatax_amt_line_override or commit)
             ):
+                if not commit:
+                    invoice.add_retail_product()
                 invoice._avatax_compute_tax(commit=commit)
         return True
 
@@ -458,6 +540,8 @@ class AccountMove(models.Model):
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
+    retail_delivery_fee = fields.Boolean()
+    retail_delivery_fee_id = fields.Many2one("retail.group")
     avatax_amt_line = fields.Float(string="AvaTax Line", copy=False)
     avatax_tax_type = fields.Char()
 

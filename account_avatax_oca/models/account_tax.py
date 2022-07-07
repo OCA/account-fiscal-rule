@@ -21,6 +21,7 @@ class AccountTax(models.Model):
                 "=",
                 self.env.company.id,
             ),
+            ("amount_type", "=", "percent"),
         ]
 
     @api.model
