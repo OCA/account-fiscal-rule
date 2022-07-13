@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo12-addon-account_product_fiscal_classification',
         'odoo12-addon-account_product_fiscal_classification_test',
         'odoo12-addon-l10n_eu_oss',
+        'odoo12-addon-product_refund_account',
     ],
     classifiers=[
         'Programming Language :: Python',
