@@ -37,6 +37,8 @@ class AvaTaxRESTService:
         self.environment = (
             "sandbox" if "sandbox" in url or "development" in url else "production"
         )
+        username = username or (config and config.account_number) or False
+        password = password or (config and config.license_key) or False
         if username and password:
             try:
                 self.client = AvataxClient(
@@ -50,8 +52,6 @@ class AvaTaxRESTService:
                         "to 'pip3 install Avalara'"
                     )
                 )
-            username = username or config.account_number
-            password = password or config.license_key
             self.client.add_credentials(username, password)
 
     def _sanitize_text(self, text):
