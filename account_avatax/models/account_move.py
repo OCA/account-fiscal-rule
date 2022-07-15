@@ -47,7 +47,7 @@ class AccountMove(models.Model):
                     or invoice_partner.property_exemption_country_wide
                 )
             )[:1]
-            # Force Company to get the correct values form the Property fields
+            # Force Company to get the correct values from the Property fields
             exemption_address = exemption_address_naive.with_context(
                 force_company=invoice.company_id.id
             )
