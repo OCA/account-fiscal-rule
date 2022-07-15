@@ -9,7 +9,7 @@ class Company(models.Model):
     _inherit = "res.company"
 
     def get_avatax_config_company(self):
-        """ Returns the AvaTax configuration for the Company """
+        """Returns the AvaTax configuration for the Company"""
         if self:
             self.ensure_one()
             AvataxConfig = self.env["avalara.salestax"]
