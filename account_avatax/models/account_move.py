@@ -152,6 +152,9 @@ class AccountMove(models.Model):
     # Same as v12
     def _get_avatax_doc_type(self, commit=True):
         self.ensure_one()
+        avatax_config = self.company_id.get_avatax_config_company()
+        if avatax_config.disable_tax_reporting:
+            commit = False
         if "refund" in self.type:
             doc_type = "ReturnInvoice" if commit else "ReturnOrder"
         else:
