@@ -244,15 +244,8 @@ class AvaTaxRESTService:
 
         if doc_date and type(doc_date) != str:
             doc_date = fields.Date.to_string(doc_date)
-        # else fields.Date.today())  # TODO use context_today()
-        tax_document = {
+        create_transaction = {
             "addresses": {
-                # 'SingleLocation': {'city': origin.city,
-                #                     'country': origin.country_id.code or None,
-                #                     'line1': origin.street or None,
-                #                     'postalCode': origin.zip,
-                #                     'region': origin.state_id.code or None
-                #                     }
                 "shipFrom": {
                     "city": origin.city,
                     "country": origin.country_id.code or None,
@@ -286,7 +279,7 @@ class AvaTaxRESTService:
             "commit": commit,
         }
         if is_override and invoice_date:
-            tax_document.update(
+            create_transaction.update(
                 {
                     "taxOverride": {
                         "type": "TaxDate",
@@ -296,16 +289,18 @@ class AvaTaxRESTService:
                     }
                 }
             )
+
+        data = {"createTransactionModel": create_transaction}
         if self.config and self.config.logging or self.is_log_enabled:
             _logger.info(
-                "Request CreateTransaction %s %s (commit %s)\n%s",
+                "Request CreateOrAdjustTransaction %s %s (commit %s)\n%s",
                 doc_type,
                 doc_code,
                 commit,
-                pprint.pformat(tax_document, indent=1),
+                pprint.pformat(data, indent=1),
             )
 
-        response = self.client.create_transaction(tax_document)
+        response = self.client.create_or_adjust_transaction(data)
         result = self.get_result(response, ignore_error=ignore_error)
         # Enrich Avatax result with Odoo tax computation
         for line in result.get("lines", []):
