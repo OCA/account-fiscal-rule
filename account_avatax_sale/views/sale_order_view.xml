@@ -10,7 +10,7 @@
                     name="avalara_compute_taxes"
                     type="object"
                     string="Compute Taxes"
-                    attrs="{'invisible': [('state', 'in', ['done', 'cancel'])]}"
+                    attrs="{'invisible': ['|', ('is_avatax', '=', False), ('state', 'in', ['done', 'cancel'])]}"
                 />
             </button>
             <field name="payment_term_id" position="after">
@@ -38,6 +38,22 @@
             >
                 <field name="tax_amt" invisible="1" />
             </xpath>
+            <field position="after" name="fiscal_position_id">
+                <field name="is_avatax" groups="base.group_no_one" />
+            </field>
+            <notebook position="inside">
+                <page
+                    name="avatax_page"
+                    string="Avatax Log"
+                    groups="base.group_no_one"
+                    attrs="{'invisible': [('is_avatax', '=', False)]}"
+                >
+                    <label for="avatax_request_log" />
+                    <field name="avatax_request_log" widget="ace" />
+                    <label for="avatax_response_log" />
+                    <field name="avatax_response_log" widget="ace" />
+                </page>
+            </notebook>
         </field>
     </record>
     <record id="sale_order_form_view_editable_field" model="ir.ui.view">
