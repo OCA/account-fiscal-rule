@@ -136,6 +136,12 @@ class AvalaraSalestax(models.Model):
         help="Allows ean13 to be reported in place of Item Reference"
         " as upc identifier.",
     )
+    invoice_calculate_tax = fields.Boolean(
+        "Auto Calculate Tax on Invoice Save",
+        help="Automatically triggers API to calculate tax If changes made on"
+        "Invoice's warehouse_id, tax_on_shipping_address, "
+        "Invoice line's price_unit, discount, quantity",
+    )
     # TODO: add option to Display Prices with Tax Included
 
     # constraints on uniq records creation with account_number and company_id
@@ -191,7 +197,7 @@ class AvalaraSalestax(models.Model):
         self.ensure_one()
         avatax_config = self
 
-        currency_code = self.env.company.currency_id.name
+        currency_code = self.env.user.company_id.currency_id.name
         if currency_id:
             currency_code = currency_id.name
 

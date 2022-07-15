@@ -108,7 +108,9 @@ Credits
 Authors
 ~~~~~~~
 
+* Open Source Integrators
 * Fabrice Henrion
+* Odoo SA
 
 Contributors
 ~~~~~~~~~~~~

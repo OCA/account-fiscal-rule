@@ -1,7 +1,8 @@
 {
     "name": "Avalara Avatax Connector",
     "version": "13.0.3.4.3",
-    "author": "Fabrice Henrion, Odoo Community Association (OCA)",
+    "author": "Open Source Integrators, Fabrice Henrion,"
+    "Sodexis, Odoo Community Association (OCA)",
     "summary": "Automatic Tax application using the Avalara Avatax Service",
     "license": "AGPL-3",
     "category": "Accounting",
@@ -26,6 +27,6 @@
     "installable": True,
     "application": True,
     "external_dependencies": {"python": ["Avalara"]},
-    "development_status": "Beta",
+    "development_status": "Alpha",
     "maintainers": ["dreispt"],
 }
