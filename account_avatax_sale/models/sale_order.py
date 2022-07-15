@@ -134,7 +134,8 @@ class SaleOrder(models.Model):
         Returns a list of dicts
         """
         lines = [
-            line._avatax_prepare_line(sign=1, doc_type=doc_type) for line in order_lines
+            line._avatax_prepare_line(sign=1, doc_type=doc_type)
+            for line in order_lines.filtered(lambda line: not line.display_type)
         ]
         return [x for x in lines if x]
 
