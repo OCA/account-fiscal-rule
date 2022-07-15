@@ -39,7 +39,7 @@ class AccountTax(models.Model):
             if not tax_template:
                 raise exceptions.UserError(
                     _("Please configure Avatax Tax for Company %s:")
-                    % self.env.user.company_id.name
+                    % self.env.company.name
                 )
             # If you get a unique constraint error here,
             # check the data for your existing Avatax taxes.
