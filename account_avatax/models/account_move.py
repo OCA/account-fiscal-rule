@@ -378,9 +378,7 @@ class AccountMove(models.Model):
                 and not self._context.get("skip_second_write", False)
             ):
                 record.with_context(skip_second_write=True).write(
-                    {
-                        "calculate_tax_on_save": False,
-                    }
+                    {"calculate_tax_on_save": False}
                 )
                 record.avatax_compute_taxes()
         return result
@@ -395,9 +393,7 @@ class AccountMove(models.Model):
             and not self._context.get("skip_second_write", False)
         ):
             record.with_context(skip_second_write=True).write(
-                {
-                    "calculate_tax_on_save": False,
-                }
+                {"calculate_tax_on_save": False}
             )
             record.avatax_compute_taxes()
         return record
