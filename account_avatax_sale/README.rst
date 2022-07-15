@@ -110,7 +110,7 @@ Authors
 
 * Open Source Integrators
 * Fabrice Henrion
-* Odoo SA
+* Sodexis
 
 Contributors
 ~~~~~~~~~~~~
@@ -145,6 +145,14 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/13.0/account_avatax_sale>`_ project on GitHub.
+.. |maintainer-dreispt| image:: https://github.com/dreispt.png?size=40px
+    :target: https://github.com/dreispt
+    :alt: dreispt
+
+Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
+
+|maintainer-dreispt| 
+
+This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/14.0/account_avatax_sale>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
