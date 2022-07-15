@@ -62,7 +62,7 @@ class AccountMove(models.Model):
             if self.warehouse_id.code:
                 self.location_code = self.warehouse_id.code
 
-    # TODO: replace with "ref" ?
+    is_avatax = fields.Boolean(related="fiscal_position_id.is_avatax")
     invoice_doc_no = fields.Char(
         "Source/Ref Invoice No",
         readonly=True,
@@ -101,6 +101,12 @@ class AccountMove(models.Model):
     avatax_amount = fields.Float(string="AvaTax", copy=False)
     calculate_tax_on_save = fields.Boolean()
     so_partner_id = fields.Many2one(comodel_name="res.partner", string="SO Partner")
+    avatax_request_log = fields.Text(
+        "Avatax API Request Log", readonly=True, copy=False
+    )
+    avatax_response_log = fields.Text(
+        "Avatax API Response Log", readonly=True, copy=False
+    )
 
     @api.depends(
         "line_ids.debit",
@@ -207,6 +213,7 @@ class AccountMove(models.Model):
             is_override=self.type == "out_refund",
             currency_id=self.currency_id,
             ignore_error=300 if commit else None,
+            log_to_record=self,
         )
         # If commiting, and document exists, try unvoiding it
         # Error number 300 = GetTaxError, Expected Saved|Posted
