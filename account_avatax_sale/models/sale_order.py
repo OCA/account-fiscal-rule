@@ -206,6 +206,7 @@ class SaleOrder(models.Model):
         "order_line",
         "tax_on_shipping_address",
         "tax_address_id",
+        "partner_id",
     )
     def onchange_avatax_calculation(self):
         avatax_config = self.env["avalara.salestax"].sudo().search([], limit=1)
@@ -213,6 +214,7 @@ class SaleOrder(models.Model):
         if avatax_config.sale_calculate_tax:
             if (
                 self._origin.tax_address_id.street != self.tax_address_id.street
+                or self._origin.partner_id != self.partner_id
                 or self._origin.tax_on_shipping_address != self.tax_on_shipping_address
             ):
                 self.calculate_tax_on_save = True
@@ -227,6 +229,23 @@ class SaleOrder(models.Model):
                     self.calculate_tax_on_save = True
                     break
 
+    @api.model
+    def create(self, vals):
+        record = super(SaleOrder, self).create(vals)
+        avatax_config = self.env["avalara.salestax"].sudo().search([], limit=1)
+        if (
+            avatax_config.sale_calculate_tax
+            and record.calculate_tax_on_save
+            and not self._context.get("skip_second_write", False)
+        ):
+            record.with_context(skip_second_write=True).write(
+                {
+                    "calculate_tax_on_save": False,
+                }
+            )
+            record.avalara_compute_taxes()
+        return record
+
     def write(self, vals):
         result = super(SaleOrder, self).write(vals)
         avatax_config = self.env["avalara.salestax"].sudo().search([], limit=1)
@@ -234,7 +253,7 @@ class SaleOrder(models.Model):
             if (
                 avatax_config.sale_calculate_tax
                 and record.calculate_tax_on_save
-                and record.state == "draft"
+                and record.state != "done"
                 and not self._context.get("skip_second_write", False)
             ):
                 record.with_context(skip_second_write=True).write(
@@ -242,7 +261,7 @@ class SaleOrder(models.Model):
                         "calculate_tax_on_save": False,
                     }
                 )
-                self.avalara_compute_taxes()
+                record.avalara_compute_taxes()
         return result
 
 

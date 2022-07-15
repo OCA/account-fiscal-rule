@@ -338,6 +338,7 @@ class AccountMove(models.Model):
         "warehouse_id",
         "tax_address_id",
         "tax_on_shipping_address",
+        "partner_id",
     )
     def onchange_avatax_calculation(self):
         avatax_config = self.env["avalara.salestax"].sudo().search([], limit=1)
@@ -346,6 +347,7 @@ class AccountMove(models.Model):
             if (
                 self._origin.warehouse_id != self.warehouse_id
                 or self._origin.tax_address_id.street != self.tax_address_id.street
+                or self._origin.partner_id != self.partner_id
                 or self._origin.tax_on_shipping_address != self.tax_on_shipping_address
             ):
                 self.calculate_tax_on_save = True
@@ -374,8 +376,25 @@ class AccountMove(models.Model):
                         "calculate_tax_on_save": False,
                     }
                 )
-                self.avatax_compute_taxes()
+                record.avatax_compute_taxes()
         return result
+
+    @api.model
+    def create(self, vals):
+        record = super(AccountMove, self).create(vals)
+        avatax_config = self.env["avalara.salestax"].sudo().search([], limit=1)
+        if (
+            avatax_config.invoice_calculate_tax
+            and record.calculate_tax_on_save
+            and not self._context.get("skip_second_write", False)
+        ):
+            record.with_context(skip_second_write=True).write(
+                {
+                    "calculate_tax_on_save": False,
+                }
+            )
+            record.avatax_compute_taxes()
+        return record
 
 
 class AccountMoveLine(models.Model):

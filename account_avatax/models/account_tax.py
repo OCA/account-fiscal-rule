@@ -41,7 +41,8 @@ class AccountTax(models.Model):
                 tax.name = self._get_avalara_tax_name(tax_rate, doc_type)
             return tax
         else:
-            return self
+            tax = self.env.ref("account_avatax.avatax", raise_if_not_found=False)
+            return tax or self
 
     def compute_all(
         self,
