@@ -142,6 +142,10 @@ class AvalaraSalestax(models.Model):
         "Invoice's warehouse_id, tax_on_shipping_address, "
         "Invoice line's price_unit, discount, quantity",
     )
+    use_so_partner_id = fields.Boolean(
+        string="Use SO Customer Code",
+        help="If the Boolean is checked SO Partner Customer Code will be used",
+    )
     # TODO: add option to Display Prices with Tax Included
 
     # constraints on uniq records creation with account_number and company_id

@@ -33,6 +33,9 @@
                 />
                 <field name="tax_address_id" />
             </field>
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="so_partner_id" readonly="1" />
+            </xpath>
         </field>
     </record>
     <record id="invoice_form_view_editable_field" model="ir.ui.view">

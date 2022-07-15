@@ -100,6 +100,7 @@ class AccountMove(models.Model):
     warehouse_id = fields.Many2one("stock.warehouse", "Warehouse")
     avatax_amount = fields.Float(string="AvaTax", copy=False)
     calculate_tax_on_save = fields.Boolean()
+    so_partner_id = fields.Many2one(comodel_name="res.partner", string="SO Partner")
 
     @api.depends(
         "line_ids.debit",
@@ -186,7 +187,9 @@ class AccountMove(models.Model):
             self.invoice_date or fields.Date.today(),
             self.name,
             doc_type,
-            self.partner_id,
+            self.so_partner_id
+            if self.so_partner_id and avatax_config.use_so_partner_id
+            else self.partner_id,
             self.warehouse_id.partner_id or self.company_id.partner_id,
             self.tax_address_id or self.partner_id,
             taxable_lines,
