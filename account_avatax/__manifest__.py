@@ -5,6 +5,7 @@
     "summary": "Automatic Tax application using the Avalara Avatax Service",
     "license": "AGPL-3",
     "category": "Accounting",
+    "website": "https://github.com/OCA/account-fiscal-rule",
     "depends": ["account", "sale_stock", "base_geolocalize"],
     "data": [
         "security/avalara_salestax_security.xml",

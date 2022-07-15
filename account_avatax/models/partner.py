@@ -67,10 +67,18 @@ class ResPartner(models.Model):
         " before calling the wizard",
     )
     customer_code = fields.Char("Customer Code", copy=False)
-    tax_exempt = fields.Boolean("Is Tax Exempt (Deprecated))", deprecated=True,)
-    exemption_number = fields.Char("Exemption Number (Deprecated)", deprecated=True,)
+    tax_exempt = fields.Boolean(
+        "Is Tax Exempt (Deprecated))",
+        deprecated=True,
+    )
+    exemption_number = fields.Char(
+        "Exemption Number (Deprecated)",
+        deprecated=True,
+    )
     exemption_code_id = fields.Many2one(
-        "exemption.code", "Exemption Code (Deprecated)", deprecated=True,
+        "exemption.code",
+        "Exemption Code (Deprecated)",
+        deprecated=True,
     )
     property_tax_exempt = fields.Boolean(
         "Is Tax Exempt",
@@ -114,7 +122,11 @@ class ResPartner(models.Model):
 
     def _get_avatax_customer_code(self):
         self.ensure_one()
-        return "%d-%d-Cust-%d" % (int(time.time()), int(random() * 10), self.id,)
+        return "%d-%d-Cust-%d" % (
+            int(time.time()),
+            int(random() * 10),
+            self.id,
+        )
 
     def generate_cust_code(self):
         "Auto populate customer code"

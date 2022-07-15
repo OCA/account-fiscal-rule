@@ -2,7 +2,7 @@ from odoo import fields, models
 
 
 class ProductTaxCode(models.Model):
-    """ Define type of tax code:
+    """Define type of tax code:
     @param type: product is use as product code,
     @param type: freight is use for shipping code
     @param type: service is use for service type product
