@@ -458,8 +458,10 @@ class AccountMoveLine(models.Model):
             item_code = product.default_code or ("ID:%d" % product.id)
         tax_code = line.product_id.applicable_tax_code_id.name
         amount = sign * line._get_avatax_amount()
+        if line.quantity < 0:
+            amount = -amount
         res = {
-            "qty": line.quantity,
+            "qty": abs(line.quantity),
             "itemcode": item_code,
             "description": line.name,
             "amount": amount,
