@@ -199,7 +199,9 @@ class AvalaraSalestax(models.Model):
         self.ensure_one()
         avatax_config = self
 
-        company = self.env['res.company'].browse(self._context.get('force_company', self.env.company.id))
+        company = self.env["res.company"].browse(
+            self._context.get("force_company", self.env.company.id)
+        )
         currency_code = company.currency_id.name
         if currency_id:
             currency_code = currency_id.name

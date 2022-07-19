@@ -124,7 +124,9 @@ class ResPartner(models.Model):
                 partner.display_name,
             )
             return False
-        company = self.env['res.company'].browse(self._context.get('force_company', self.env.company.id))
+        company = self.env["res.company"].browse(
+            self._context.get("force_company", self.env.company.id)
+        )
         avatax_config = company.get_avatax_config_company()
         if not avatax_config:
             return False
@@ -185,7 +187,9 @@ class ResPartner(models.Model):
         # Auto populate customer code
         partner.generate_cust_code()
         # Auto validate address, if enabled
-        company = self.env['res.company'].browse(self._context.get('force_company', self.env.company.id))
+        company = self.env["res.company"].browse(
+            self._context.get("force_company", self.env.company.id)
+        )
         avatax_config = company.get_avatax_config_company()
         if avatax_config.validation_on_save:
             partner.multi_address_validation(validation_on_save=True)
@@ -199,7 +203,9 @@ class ResPartner(models.Model):
             x in vals for x in address_fields
         ):
             partner = self.with_context(avatax_writing=True)
-            company = self.env['res.company'].browse(self._context.get('force_company', self.env.company.id))
+            company = self.env["res.company"].browse(
+                self._context.get("force_company", self.env.company.id)
+            )
             avatax_config = company.get_avatax_config_company()
             if avatax_config.validation_on_save:
                 partner.multi_address_validation(validation_on_save=True)
