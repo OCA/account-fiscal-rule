@@ -356,7 +356,8 @@ class AccountMove(models.Model):
         "partner_id",
     )
     def onchange_avatax_calculation(self):
-        avatax_config = self.env.company.get_avatax_config_company()
+        company = self.env['res.company'].browse(self._context.get('force_company', self.env.company.id))
+        avatax_config = company.get_avatax_config_company()
         self.calculate_tax_on_save = False
         if avatax_config.invoice_calculate_tax:
             if (
@@ -378,7 +379,8 @@ class AccountMove(models.Model):
 
     def write(self, vals):
         result = super(AccountMove, self).write(vals)
-        avatax_config = self.env.company.get_avatax_config_company()
+        company = self.env['res.company'].browse(self._context.get('force_company', self.env.company.id))
+        avatax_config = company.get_avatax_config_company()
         for record in self:
             if (
                 avatax_config.invoice_calculate_tax
@@ -395,7 +397,8 @@ class AccountMove(models.Model):
     @api.model
     def create(self, vals):
         record = super(AccountMove, self).create(vals)
-        avatax_config = self.env.company.get_avatax_config_company()
+        company = self.env['res.company'].browse(self._context.get('force_company', self.env.company.id))
+        avatax_config = company.get_avatax_config_company()
         if (
             avatax_config.invoice_calculate_tax
             and record.calculate_tax_on_save

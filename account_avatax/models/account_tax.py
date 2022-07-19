@@ -13,10 +13,11 @@ class AccountTax(models.Model):
 
     @api.model
     def _get_avalara_tax_domain(self, tax_rate, doc_type):
+        company = self.env['res.company'].browse(self._context.get('force_company', self.env.company.id))
         return [
             ("amount", "=", tax_rate),
             ("is_avatax", "=", True),
-            ("company_id", "=", self.env.company.id),
+            ("company_id", "=", company.id),
         ]
 
     @api.model
@@ -33,9 +34,10 @@ class AccountTax(models.Model):
             domain = self._get_avalara_tax_domain(0, doc_type)
             tax_template = self.search(domain, limit=1)
             if not tax_template:
+                company = self.env['res.company'].browse(self._context.get('force_company', self.env.company.id))
                 raise exceptions.UserError(
                     _("Please configure Avatax Tax for Company %s:")
-                    % self.env.company.name
+                    % company.name
                 )
             # If you get a unique constraint error here,
             # check the data for your existing Avatax taxes.
