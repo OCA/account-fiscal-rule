@@ -118,9 +118,7 @@ class AvalaraSalestax(models.Model):
         help="Countries where address validation will be used",
     )
     active = fields.Boolean(
-        "Active",
-        default=True,
-        help="Uncheck the active field to hide the record",
+        "Active", default=True, help="Uncheck the active field to hide the record"
     )
     company_id = fields.Many2one(
         "res.company",

@@ -16,11 +16,7 @@ class AccountTax(models.Model):
         return [
             ("amount", "=", tax_rate),
             ("is_avatax", "=", True),
-            (
-                "company_id",
-                "=",
-                self.env.company.id,
-            ),
+            ("company_id", "=", self.env.company.id),
         ]
 
     @api.model
