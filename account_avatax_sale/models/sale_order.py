@@ -38,8 +38,8 @@ class SaleOrder(models.Model):
                 )
             )[:1]
             # Force Company to get the correct values form the Property fields
-            exemption_address = exemption_address_naive.with_company(
-                order.company_id.id
+            exemption_address = exemption_address_naive.with_context(
+                force_company=order.company_id.id
             )
             order.exemption_code = exemption_address.property_exemption_number
             order.exemption_code_id = exemption_address.property_exemption_code_id

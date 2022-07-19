@@ -30,7 +30,7 @@
                 <field name="calculate_tax_on_save" invisible="1" />
                 <field
                     name="invoice_doc_no"
-                    attrs="{'invisible': [('move_type','!=','out_refund')]}"
+                    attrs="{'invisible': [('type','!=','out_refund')]}"
                 />
             </field>
             <xpath expr="//field[@name='partner_shipping_id']" position="after">

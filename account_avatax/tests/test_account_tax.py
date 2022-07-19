@@ -24,4 +24,4 @@ class TestAvatax(SavepointCase):
 
     def test_get_avatax_template_missing(self):
         with self.assertRaises(exceptions.UserError):
-            self.Tax.with_company(self.company2).get_avalara_tax(0, "out_invoice")
+            self.Tax.with_context(force_company=self.company2).get_avalara_tax(0, "out_invoice")

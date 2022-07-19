@@ -282,7 +282,7 @@ class AccountMove(models.Model):
                 avatax_config.commit_transaction(invoice.name, doc_type)
         return True
 
-   def is_avatax_calculated(self):
+    def is_avatax_calculated(self):
         """
         Only apply Avatax for these types of documents.
         Can be extended to support other types.
@@ -309,6 +309,7 @@ class AccountMove(models.Model):
             if invoice.is_avatax_calculated():
                 # We can only commit to Avatax after validating the invoice
                 # because we need the generated Invoice number
+                invoice.avatax_compute_taxes(commit=True)
         return res
 
     # prepare_return in v12
