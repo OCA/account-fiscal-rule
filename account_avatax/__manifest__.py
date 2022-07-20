@@ -1,12 +1,12 @@
 {
     "name": "Avalara Avatax Connector",
-    "version": "13.0.3.4.3",
+    "version": "13.0.3.4.4",
     "author": "Open Source Integrators, Fabrice Henrion,"
     "Sodexis, Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/account-fiscal-rule",
     "summary": "Automatic Tax application using the Avalara Avatax Service",
     "license": "AGPL-3",
     "category": "Accounting",
-    "website": "https://github.com/OCA/account-fiscal-rule",
     "depends": ["account", "sale_stock", "base_geolocalize"],
     "data": [
         "security/avalara_salestax_security.xml",

@@ -1,0 +1,23 @@
+# Do NOT update manually; changes here will be overwritten by Copier
+_commit: v1.7.0
+_src_path: https://github.com/OCA/oca-addons-repo-template.git
+ci: GitHub
+dependency_installation_mode: PIP
+generate_requirements_txt: true
+include_wkhtmltopdf: false
+odoo_version: 13.0
+org_name: Odoo Community Association (OCA)
+org_slug: OCA
+rebel_module_groups: []
+repo_description: With its fiscal position mapping, Odoo may have a limited ability
+    to apply the proper taxes and mapping depending on the context, for instance country
+    of origin and destination of the goods and this could put the fiscal burden on
+    the salesperson, not to speak about e-commerce where things should be automatic.
+    This extensible framework makes it possible to select the proper fiscal position
+    to apply according to an extensible flat decision table.
+repo_name: Fiscal Rules (multi-criteria decision tables)
+repo_slug: account-fiscal-rule
+repo_website: https://github.com/OCA/account-fiscal-rule
+travis_apt_packages: []
+travis_apt_sources: []
+
