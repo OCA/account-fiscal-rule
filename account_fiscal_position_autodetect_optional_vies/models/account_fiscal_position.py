@@ -37,7 +37,9 @@ class AccountFiscalPosition(models.Model):
         _self = self
         if partner_id:
             partner = self.env["res.partner"].browse(delivery_id or partner_id)
-            _self = self.with_context(vat_vies_required=partner.vies_passed)
+            _self = self.with_context(
+                vat_vies_required=partner.commercial_partner_id.vies_passed
+            )
         return super(AccountFiscalPosition, _self).get_fiscal_position(
             partner_id, delivery_id
         )

@@ -33,22 +33,31 @@ class TestAccountFiscalPostitionVies(common.SavepointCase):
                 "company_type": "company",
             }
         )
+        cls.child_partner = cls.env["res.partner"].create(
+            {"name": "Mr Odoo children", "parent_id": cls.partner.id}
+        )
         cls.vatnumber_path = "odoo.addons.base_vat.models.res_partner.vatnumber"
 
-    def _create_invoice(self):
+    def _create_invoice(self, partner):
         move_form = Form(
             self.env["account.move"].with_context(default_type="out_invoice")
         )
-        move_form.partner_id = self.partner
+        move_form.partner_id = partner
         return move_form
 
-    def test_invoice_fiscal_position_views(self):
-        invoice = self._create_invoice()
+    def test_invoice_fiscal_position_without_vies(self):
+        invoice = self._create_invoice(self.partner)
         self.assertEqual(invoice.fiscal_position_id, self.fp_vat)
+        invoice2 = self._create_invoice(self.child_partner)
+        self.assertEqual(invoice2.fiscal_position_id, self.fp_vat)
+
+    def test_invoice_fiscal_position_with_vies(self):
         # We need to use mock to be sure vies_passed set True
         with mock.patch(self.vatnumber_path) as mock_vatnumber:
             self.company.vat_check_vies = True
             mock_vatnumber.check_vies.return_value = True
             self.partner.vat = "ESB87530432"
-            invoice = self._create_invoice()
-            self.assertEqual(invoice.fiscal_position_id, self.fp_vat_vies)
+        invoice = self._create_invoice(self.partner)
+        self.assertEqual(invoice.fiscal_position_id, self.fp_vat_vies)
+        invoice2 = self._create_invoice(self.child_partner)
+        self.assertEqual(invoice2.fiscal_position_id, self.fp_vat_vies)
