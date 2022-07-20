@@ -10,7 +10,7 @@
     "license": "AGPL-3",
     "author": "ACSONE SA/NV,Odoo Community Association (OCA)",
     "maintainers": ["ThomasBinsfeld"],
-    "website": "https://github.com/OCA/sale-financial",
+    "website": "https://github.com/OCA/account-fiscal-rule",
     "depends": ["account_multi_vat", "sale"],
     "data": ["views/sale_order.xml", "report/sale_order_report.xml"],
     "demo": [],

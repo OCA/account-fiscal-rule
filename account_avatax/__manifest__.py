@@ -2,6 +2,7 @@
     "name": "Avalara Avatax Connector",
     "version": "13.0.3.4.3",
     "author": "Fabrice Henrion, Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/account-fiscal-rule",
     "summary": "Automatic Tax application using the Avalara Avatax Service",
     "license": "AGPL-3",
     "category": "Accounting",

@@ -12,7 +12,7 @@
     "version": "13.0.1.2.0",
     "author": "Akretion, Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "website": "http://www.akretion.com",
+    "website": "https://github.com/OCA/account-fiscal-rule",
     "depends": ["account", "l10n_generic_coa"],
     "data": [
         "security/ir.model.access.csv",
