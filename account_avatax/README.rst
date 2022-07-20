@@ -7,9 +7,9 @@ Avalara Avatax Connector
    !! changes will be overwritten.                   !!
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-.. |badge1| image:: https://img.shields.io/badge/maturity-Alpha-red.png
+.. |badge1| image:: https://img.shields.io/badge/maturity-Beta-red.png
     :target: https://odoo-community.org/page/development-status
-    :alt: Alpha
+    :alt: Beta
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
@@ -23,7 +23,7 @@ Avalara Avatax Connector
     :target: https://runbot.odoo-community.org/runbot/93/13.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 .. |avataxbadge1| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/13.0/account_avatax/static/description/SalesTax.png
     :target: https://developer.avalara.com/certification/avatax/sales-tax-badge/
@@ -439,7 +439,7 @@ promote its widespread use.
 
 Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-dreispt| 
+|maintainer-dreispt|
 
 This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/13.0/account_avatax>`_ project on GitHub.
 
