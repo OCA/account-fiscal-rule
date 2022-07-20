@@ -10,7 +10,7 @@
     "category": "Generic Modules/Accounting",
     "author": "Akretion,Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "website": "http://www.akretion.com",
+    "website": "https://github.com/OCA/account-fiscal-rule",
     "depends": ["account_fiscal_position_rule", "sale"],
     "data": ["security/ir.model.access.csv"],
     "demo": [],
