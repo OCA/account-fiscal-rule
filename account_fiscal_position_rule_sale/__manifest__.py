@@ -6,7 +6,7 @@
 
 {
     "name": "Account Fiscal Position Rule Sale",
-    "version": "13.0.1.0.0",
+    "version": "13.0.1.0.1",
     "category": "Generic Modules/Accounting",
     "author": "Akretion,Odoo Community Association (OCA)",
     "license": "AGPL-3",
