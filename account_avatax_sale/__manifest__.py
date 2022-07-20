@@ -1,6 +1,6 @@
 {
     "name": "Avalara Avatax Connector for Sales Orders",
-    "version": "13.0.2.4.3",
+    "version": "13.0.2.4.4",
     "author": "Fabrice Henrion, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-fiscal-rule",
     "summary": "Sales Orders with automatic Tax application using Avatax",
