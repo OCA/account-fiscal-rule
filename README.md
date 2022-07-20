@@ -21,18 +21,18 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_avatax](account_avatax/) | 13.0.3.4.3 | [![dreispt](https://github.com/dreispt.png?size=30px)](https://github.com/dreispt) | Automatic Tax application using the Avalara Avatax Service
-[account_avatax_sale](account_avatax_sale/) | 13.0.2.4.3 |  | Sales Orders with automatic Tax application using Avatax
+[account_avatax](account_avatax/) | 13.0.3.4.4 | [![dreispt](https://github.com/dreispt.png?size=30px)](https://github.com/dreispt) | Automatic Tax application using the Avalara Avatax Service
+[account_avatax_sale](account_avatax_sale/) | 13.0.2.4.4 |  | Sales Orders with automatic Tax application using Avatax
 [account_fiscal_position_autodetect_optional_vies](account_fiscal_position_autodetect_optional_vies/) | 13.0.1.0.1 | [![victoralmau](https://github.com/victoralmau.png?size=30px)](https://github.com/victoralmau) | Account Fiscal Position Autodetect optional VIES
 [account_fiscal_position_partner_type](account_fiscal_position_partner_type/) | 13.0.1.1.0 |  | Account Fiscal Position Partner Type
-[account_fiscal_position_rule](account_fiscal_position_rule/) | 13.0.1.2.0 |  | Account Fiscal Position Rule
+[account_fiscal_position_rule](account_fiscal_position_rule/) | 13.0.1.2.1 |  | Account Fiscal Position Rule
 [account_fiscal_position_rule_purchase](account_fiscal_position_rule_purchase/) | 13.0.1.0.0 |  | Account Fiscal Position Rule Purchase
-[account_fiscal_position_rule_sale](account_fiscal_position_rule_sale/) | 13.0.1.0.0 |  | Account Fiscal Position Rule Sale
+[account_fiscal_position_rule_sale](account_fiscal_position_rule_sale/) | 13.0.1.0.1 |  | Account Fiscal Position Rule Sale
 [account_multi_vat](account_multi_vat/) | 13.0.1.0.0 | [![ThomasBinsfeld](https://github.com/ThomasBinsfeld.png?size=30px)](https://github.com/ThomasBinsfeld) | Allows setting multiple VAT numbers on any partner and select the right one depending on the fiscal position and delivery address of the invoice.
-[account_multi_vat_sale](account_multi_vat_sale/) | 13.0.1.0.1 | [![ThomasBinsfeld](https://github.com/ThomasBinsfeld.png?size=30px)](https://github.com/ThomasBinsfeld) | Determines the tax administration from the delivery address of the invoice.
+[account_multi_vat_sale](account_multi_vat_sale/) | 13.0.1.0.2 | [![ThomasBinsfeld](https://github.com/ThomasBinsfeld.png?size=30px)](https://github.com/ThomasBinsfeld) | Determines the tax administration from the delivery address of the invoice.
 [account_product_fiscal_classification](account_product_fiscal_classification/) | 13.0.1.0.0 |  | Simplify taxes management for products
 [account_product_fiscal_classification_test](account_product_fiscal_classification_test/) | 13.0.1.0.0 |  | tests account_product_fiscal_classification module
-[l10n_eu_oss](l10n_eu_oss/) | 13.0.1.1.0 |  | L10n EU OSS
+[l10n_eu_oss](l10n_eu_oss/) | 13.0.1.1.1 |  | L10n EU OSS
 
 [//]: # (end addons)
 
