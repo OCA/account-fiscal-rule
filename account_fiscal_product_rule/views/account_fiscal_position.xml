@@ -1,0 +1,85 @@
+<odoo>
+
+    <record id="view_account_position_form" model="ir.ui.view">
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='account_mapping']" position="after">
+                <page name="product_fiscal_rule" string="Product Fiscal Rules">
+                <group>
+                    <field
+                            name="fiscal_position_product_rule_ids"
+                            widget="one2many"
+                            nolabel="1"
+                        >
+                        <tree string="Product Fiscal Rules" editable="bottom">
+                            <field name="name" />
+                            <field name="product_tmpl_ids" widget="many2many_tags" />
+                            <field
+                                    name="product_category_ids"
+                                    widget="many2many_tags"
+                                />
+                            <field name="seller_tax_ids" widget="many2many_tags" />
+                            <field name="supplier_tax_ids" widget="many2many_tags" />
+                            <field name="account_income_id" optional="hide" />
+                            <field name="account_expense_id" optional="hide" />
+                        </tree>
+                    </field>
+                </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_product_fiscal_rule_filter" model="ir.ui.view">
+        <field name="name">account.fiscal.product.rule.filter</field>
+        <field name="model">account.fiscal.position.product.rule</field>
+        <field name="arch" type="xml">
+            <search string="Search Product Fiscal Rules">
+                <field name="name" string="Product Fiscal Rule" />
+            </search>
+        </field>
+    </record>
+
+    <record id="view_account_product_fiscal_rule_tree" model="ir.ui.view">
+        <field name="name">account.fiscal.product.rule.tree</field>
+        <field name="model">account.fiscal.position.product.rule</field>
+        <field name="arch" type="xml">
+            <tree
+                string="Product Fiscal Rules"
+                editable="top"
+                create="1"
+                delete="1"
+                multi_edit="1"
+            >
+                <field name="name" />
+                <field name="fiscal_position_id" />
+                <field name="product_tmpl_ids" widget="many2many_tags" />
+                <field name="product_category_ids" widget="many2many_tags" />
+                <field name="seller_tax_ids" widget="many2many_tags" />
+                <field name="supplier_tax_ids" widget="many2many_tags" />
+                <field name="account_income_id" optional="hide" />
+                <field name="account_expense_id" optional="hide" />
+                <field
+                    name="company_id"
+                    optional="hide"
+                    groups="base.group_multi_company"
+                />
+            </tree>
+        </field>
+    </record>
+
+   <record id="action_account_product_fiscal_rule" model="ir.actions.act_window">
+        <field name="name">Product Fiscal Rules</field>
+        <field name="res_model">account.fiscal.position.product.rule</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="view_account_product_fiscal_rule_filter" />
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new product fiscal rule
+          </p>
+        </field>
+    </record>
+
+
+</odoo>
