@@ -1,0 +1,39 @@
+<odoo>
+    <record id="view_partner_details_form_inherit1" model="ir.ui.view">
+        <field name="name">res.partner.details.form.inherit1</field>
+        <field name="model">res.partner</field>
+        <field
+            name="inherit_id"
+            ref="account_avatax.view_partner_details_form_inherit1"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='customer_code']/.." position="after">
+                <group
+                    col="2"
+                    colspan="4"
+                    attrs="{'invisible': [('is_company','=',False),('parent_id','!=',False),('use_commercial_entity','!=',False)]}"
+                >
+                    <field name="avatax_id" />
+                    <field name="id" invisible="1" />
+                    <field name="is_company" invisible="1" />
+                    <field name="use_commercial_entity" invisible="1" />
+                    <label for="exemption_ids" />
+                </group>
+                <field name="exemption_ids" context="{'hide_partner':id}" nolabel="1" />
+                <div
+                    attrs="{'invisible': ['|','|',('is_company','=',True),('parent_id','=',False),('use_commercial_entity','=',False)]}"
+                >
+                    <p>
+                        Avatax Exemption related settings are managed on
+                        <button
+                            name="open_commercial_entity"
+                            type="object"
+                            string="the parent company"
+                            class="oe_link"
+                        />
+                    </p>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
