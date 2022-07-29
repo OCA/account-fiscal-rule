@@ -41,12 +41,7 @@
         <field name="binding_view_types">tree</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem
-        id="menu_group_of_states"
-        action="group_of_states_act_window"
-        parent="account_avatax.menu_avatax"
-        sequence="31"
-    />
+
     <!-- Exemption Type -->
     <record id="exemption_type_form_view" model="ir.ui.view">
         <field name="name">res.partner.exemption.type.form.view</field>
@@ -57,11 +52,6 @@
                 <group>
                     <field name="name" />
                     <field name="business_type" options="{'no_create': True}" />
-                    <field
-                        name="exemption_code_id"
-                        options="{'no_create': True}"
-                        required="1"
-                    />
                     <field name="group_of_state" />
                     <field
                         name="state_ids"
@@ -95,12 +85,7 @@
         <field name="binding_view_types">tree</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem
-        id="menu_exemption_type"
-        action="exemption_type_act_window"
-        parent="account_avatax.menu_avatax"
-        sequence="31"
-    />
+
     <!-- Exemption Reason Type -->
     <record id="exemption_reason_type_form_view" model="ir.ui.view">
         <field name="name">res.partner.exemption.business.type.form.view</field>
@@ -110,11 +95,6 @@
             <form string="Exemption Reason Type">
                 <group>
                     <field name="name" />
-                    <field
-                        name="exemption_code_id"
-                        options="{'no_create': True}"
-                        required="1"
-                    />
                     <field name="avatax_id" />
                 </group>
             </form>
@@ -127,7 +107,6 @@
         <field name="arch" type="xml">
             <tree string="Exemption Activity Type">
                 <field name="name" />
-                <field name="exemption_code_id" />
                 <field name="avatax_id" />
             </tree>
         </field>
@@ -138,12 +117,7 @@
         <field name="binding_view_types">tree</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem
-        id="menu_exemption_reason_type"
-        action="exemption_reason_type_act_window"
-        parent="account_avatax.menu_avatax"
-        sequence="31"
-    />
+
     <!-- Exemption -->
     <record id="exemption_form_view" model="ir.ui.view">
         <field name="name">res.partner.exemption.form.view</field>
@@ -168,11 +142,6 @@
                         <field name="exemption_type" />
                         <field
                             name="business_type"
-                            options="{'no_create': True, 'always_reload': True}"
-                            required="1"
-                        />
-                        <field
-                            name="exemption_code_id"
                             options="{'no_create': True, 'always_reload': True}"
                             required="1"
                         />
@@ -264,8 +233,32 @@
     </record>
     <menuitem
         id="menu_exemption"
+        name="AvaTax Exemption"
+        parent="account.menu_finance_configuration"
+        sequence="2"
+    />
+    <menuitem
+        id="menu_group_of_states"
+        action="group_of_states_act_window"
+        parent="menu_exemption"
+        sequence="31"
+    />
+       <menuitem
+        id="menu_exemption_type"
+        action="exemption_type_act_window"
+        parent="menu_exemption"
+        sequence="31"
+    />
+     <menuitem
+        id="menu_exemption_reason_type"
+        action="exemption_reason_type_act_window"
+        parent="menu_exemption"
+        sequence="31"
+    />
+       <menuitem
+        id="menu_avatax_exemption"
         action="exemption_act_window"
-        parent="account_avatax.menu_avatax"
+        parent="menu_exemption"
         sequence="31"
     />
 </odoo>
