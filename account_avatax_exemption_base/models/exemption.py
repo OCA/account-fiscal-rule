@@ -43,7 +43,6 @@ class ResPartnerExemptionBusinessType(models.Model):
 
     name = fields.Char(required=True)
     avatax_id = fields.Char(required=True, readonly=True)
-    exemption_code_id = fields.Many2one("exemption.code", string="Entity Use Code")
 
 
 class ResPartnerExemptionType(models.Model):
@@ -54,11 +53,6 @@ class ResPartnerExemptionType(models.Model):
     business_type = fields.Many2one(
         "res.partner.exemption.business.type",
         string="Activity Type",
-    )
-    exemption_code_id = fields.Many2one(
-        related="business_type.exemption_code_id",
-        string="Entity Use Code",
-        readonly=True,
     )
     group_of_state = fields.Many2one(
         "res.partner.group.state", string="Group of States"
@@ -98,11 +92,6 @@ class ResPartnerExemption(models.Model):
     # Fields already defined in Avatax Exemption Type, adding only readonly attrs
     business_type = fields.Many2one(
         string="Activity Type", readonly=True, states={"draft": [("readonly", False)]}
-    )
-    exemption_code_id = fields.Many2one(
-        related="business_type.exemption_code_id",
-        string="Entity Use Code",
-        readonly=True,
     )
     group_of_state = fields.Many2one(
         readonly=True, states={"draft": [("readonly", False)]}
