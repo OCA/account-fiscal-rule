@@ -82,12 +82,22 @@ msgid "Avatax Exemption Rule export is disabled in Avatax configuration"
 msgstr ""
 
 #. module: account_avatax_exemption
+#: model:ir.model,name:account_avatax_exemption.model_res_partner_exemption_type
+msgid "Avatax Exemption Type"
+msgstr ""
+
+#. module: account_avatax_exemption
 #: code:addons/account_avatax_exemption/models/avalara_salestax.py:0
 #: code:addons/account_avatax_exemption/models/exemption.py:0
 #: code:addons/account_avatax_exemption/models/exemption.py:0
 #: code:addons/account_avatax_exemption/models/exemption.py:0
 #, python-format
 msgid "Avatax Exemption export is disabled in Avatax configuration"
+msgstr ""
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.view_partner_details_form_inherit1
+msgid "Avatax Exemption related settings are managed on"
 msgstr ""
 
 #. module: account_avatax_exemption
@@ -194,6 +204,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_exemption.field_queue_job__display_name
 #: model:ir.model.fields,field_description:account_avatax_exemption.field_res_country_state__display_name
 #: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption__display_name
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption_business_type__display_name
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption_type__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -224,10 +236,18 @@ msgstr ""
 
 #. module: account_avatax_exemption
 #: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__exemption_code_id
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption__exemption_code_id
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption_business_type__exemption_code_id
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption_type__exemption_code_id
 #: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_code_form_view
 #: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_code_tree_view
 #: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemptions_table
 msgid "Entity Use Code"
+msgstr ""
+
+#. module: account_avatax_exemption
+#: model:ir.model,name:account_avatax_exemption.model_res_partner_exemption_business_type
+msgid "Exemption Activity Type"
 msgstr ""
 
 #. module: account_avatax_exemption
@@ -306,6 +326,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_exemption.field_queue_job__id
 #: model:ir.model.fields,field_description:account_avatax_exemption.field_res_country_state__id
 #: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption__id
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption_business_type__id
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption_type__id
 msgid "ID"
 msgstr ""
 
@@ -350,6 +372,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_exemption.field_queue_job____last_update
 #: model:ir.model.fields,field_description:account_avatax_exemption.field_res_country_state____last_update
 #: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption____last_update
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption_business_type____last_update
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption_type____last_update
 msgid "Last Modified on"
 msgstr ""
 
@@ -504,4 +528,9 @@ msgstr ""
 #. module: account_avatax_exemption
 #: model:ir.model.fields,help:account_avatax_exemption.field_exemption_code__flag
 msgid "helps to add custom rules for the nexus Avatax states"
+msgstr ""
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.view_partner_details_form_inherit1
+msgid "the parent company"
 msgstr ""
