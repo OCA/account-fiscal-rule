@@ -190,8 +190,9 @@ class ResPartner(models.Model):
     @api.model
     def create(self, vals):
         partner = super(ResPartner, self).create(vals)
-        # Auto populate customer code
-        partner.generate_cust_code()
+        # Auto populate customer code, if not provided
+        if not partner.customer_code:
+            partner.generate_cust_code()
         # Auto validate address, if enabled
         avatax_config = self.env.company.get_avatax_config_company()
         if avatax_config.validation_on_save:
