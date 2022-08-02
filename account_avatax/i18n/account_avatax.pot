@@ -24,6 +24,11 @@ msgid "Accept"
 msgstr ""
 
 #. module: account_avatax
+#: model:ir.model,name:account_avatax.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr ""
+
+#. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__account_number
 msgid "Account Number"
 msgstr ""
@@ -208,6 +213,11 @@ msgid "Avatax Log"
 msgstr ""
 
 #. module: account_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_account_move_line__avatax_tax_type
+msgid "Avatax Tax Type"
+msgstr ""
+
+#. module: account_avatax
 #: code:addons/account_avatax/models/account_move.py:0
 #, python-format
 msgid "Avatax address is not validated!"
@@ -232,6 +242,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax.field_account_move__calculate_tax_on_save
 #: model:ir.model.fields,field_description:account_avatax.field_account_payment__calculate_tax_on_save
 msgid "Calculate Tax On Save"
+msgstr ""
+
+#. module: account_avatax
+#: model:res.groups,name:account_avatax.access_avatax_override_group
+msgid "Can View Avatax Override"
 msgstr ""
 
 #. module: account_avatax
@@ -423,6 +438,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax.field_account_fiscal_position__display_name
 #: model:ir.model.fields,field_description:account_avatax.field_account_move__display_name
 #: model:ir.model.fields,field_description:account_avatax.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:account_avatax.field_account_move_reversal__display_name
 #: model:ir.model.fields,field_description:account_avatax.field_account_tax__display_name
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__display_name
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate__display_name
@@ -519,6 +535,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax.field_account_fiscal_position__id
 #: model:ir.model.fields,field_description:account_avatax.field_account_move__id
 #: model:ir.model.fields,field_description:account_avatax.field_account_move_line__id
+#: model:ir.model.fields,field_description:account_avatax.field_account_move_reversal__id
 #: model:ir.model.fields,field_description:account_avatax.field_account_tax__id
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__id
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate__id
@@ -610,6 +627,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax.field_account_fiscal_position____last_update
 #: model:ir.model.fields,field_description:account_avatax.field_account_move____last_update
 #: model:ir.model.fields,field_description:account_avatax.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:account_avatax.field_account_move_reversal____last_update
 #: model:ir.model.fields,field_description:account_avatax.field_account_tax____last_update
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax____last_update
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate____last_update
@@ -955,6 +973,14 @@ msgid ""
 msgstr ""
 
 #. module: account_avatax
+#: model:ir.model.fields,help:account_avatax.field_account_bank_statement_line__avatax_amt_line_override
+#: model:ir.model.fields,help:account_avatax.field_account_move__avatax_amt_line_override
+#: model:ir.model.fields,help:account_avatax.field_account_move_reversal__avatax_amt_line_override
+#: model:ir.model.fields,help:account_avatax.field_account_payment__avatax_amt_line_override
+msgid "The Odoo tax will be uploaded to Avatax"
+msgstr ""
+
+#. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_res_partner__property_exemption_number
 #: model:ir.model.fields,help:account_avatax.field_res_users__property_exemption_number
 msgid "The State identification number relevant fot the exemption"
@@ -1063,6 +1089,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax.field_res_partner__use_commercial_entity
 #: model:ir.model.fields,field_description:account_avatax.field_res_users__use_commercial_entity
 msgid "Use Commercial Entity"
+msgstr ""
+
+#. module: account_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_account_bank_statement_line__avatax_amt_line_override
+#: model:ir.model.fields,field_description:account_avatax.field_account_move__avatax_amt_line_override
+#: model:ir.model.fields,field_description:account_avatax.field_account_move_reversal__avatax_amt_line_override
+#: model:ir.model.fields,field_description:account_avatax.field_account_payment__avatax_amt_line_override
+msgid "Use Odoo Tax"
 msgstr ""
 
 #. module: account_avatax
