@@ -30,7 +30,7 @@
                                     <field name="service_url" />
                                     <field name="company_code" />
                                     <button
-                                        name="%(account_avatax.action_avalara_salestax_ping)d"
+                                        name="%(account_avatax_oca.action_avalara_salestax_ping)d"
                                         string="Test Connection"
                                         type="action"
                                         icon="fa-television"
