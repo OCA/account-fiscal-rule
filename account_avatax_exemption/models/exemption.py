@@ -175,6 +175,12 @@ class ExemptionCode(models.Model):
 class ResPartnerExemption(models.Model):
     _inherit = "res.partner.exemption"
 
+    exemption_code_id = fields.Many2one(
+        related="business_type.exemption_code_id",
+        string="Entity Use Code",
+        readonly=True,
+    )
+
     def search_exemption_line(self, avatax_id):
         exemption_line = (
             self.env["res.partner.exemption.line"]
@@ -274,3 +280,19 @@ class ResPartnerExemption(models.Model):
                 _("Exemption status needs to be in Cancel status to enable")
             )
         return True
+
+
+class ResPartnerExemptionBusinessType(models.Model):
+    _inherit = "res.partner.exemption.business.type"
+
+    exemption_code_id = fields.Many2one("exemption.code", string="Entity Use Code")
+
+
+class ResPartnerExemptionType(models.Model):
+    _inherit = "res.partner.exemption.type"
+
+    exemption_code_id = fields.Many2one(
+        related="business_type.exemption_code_id",
+        string="Entity Use Code",
+        readonly=True,
+    )
