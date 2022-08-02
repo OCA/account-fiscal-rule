@@ -41,3 +41,24 @@ This guide includes instructions for the following elements:
 Note: Test the module before deploying in live environment.
 All changes to the AvaTax settings must be performed by a user with
 administrative access rights.
+
+
+IMPORTANT - resolving name conflict with Odoo EE
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Avatax support was added to Odoo EE 14 and 15.
+Unfortunately the module names used are the same as the OCA ones,
+and because of this name collision the OCA modules were forced to change name.
+
+The main module was renamed from ``account_avatax`` (now used by Odoo EE) to
+``account_avatax_oca``.
+
+To apply this change in your odoo database and continue using the OCA Avalara certified
+connector:
+
+  1. Ensure you have the latest version from the OCA, and you see ``account_avatax_oca``
+       in your Apps list.
+  2. Install the new ``account_avatax_oca`` module
+  3. Unistall the ``account_avatax`` module
+  4. Confirm that your configurations were kept safe, in particular:
+       Avatax API, "Avatax" default Fiscal Position, and "Avatax" default Tax record.

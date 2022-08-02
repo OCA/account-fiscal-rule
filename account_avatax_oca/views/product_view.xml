@@ -38,7 +38,7 @@
         action="action_product_tax_code"
         id="menu_product_tax_code"
         name="Product Tax Codes"
-        parent="account_avatax.menu_avatax"
+        parent="menu_avatax"
     />
     <!--
     Product
