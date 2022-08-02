@@ -55,6 +55,11 @@ msgid "Attachment Count"
 msgstr ""
 
 #. module: account_avatax_exemption_base
+#: model:ir.ui.menu,name:account_avatax_exemption_base.menu_exemption
+msgid "AvaTax Exemption"
+msgstr ""
+
+#. module: account_avatax_exemption_base
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner__exemption_ids
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_users__exemption_ids
 msgid "Avalara Exemptions"
@@ -94,11 +99,6 @@ msgstr ""
 #. module: account_avatax_exemption_base
 #: model:ir.model,name:account_avatax_exemption_base.model_res_partner_exemption_type
 msgid "Avatax Exemption Type"
-msgstr ""
-
-#. module: account_avatax_exemption_base
-#: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.view_partner_details_form_inherit1
-msgid "Avatax Exemption related settings are managed on"
 msgstr ""
 
 #. module: account_avatax_exemption_base
@@ -191,16 +191,9 @@ msgid "Effective Date"
 msgstr ""
 
 #. module: account_avatax_exemption_base
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__exemption_code_id
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption_business_type__exemption_code_id
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption_type__exemption_code_id
-msgid "Entity Use Code"
-msgstr ""
-
-#. module: account_avatax_exemption_base
 #: model:ir.actions.act_window,name:account_avatax_exemption_base.exemption_act_window
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption_line__exemption_id
-#: model:ir.ui.menu,name:account_avatax_exemption_base.menu_exemption
+#: model:ir.ui.menu,name:account_avatax_exemption_base.menu_avatax_exemption
 #: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.exemption_form_view
 #: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.exemption_tree_view
 msgid "Exemption"
@@ -514,12 +507,6 @@ msgid "Unread Messages Counter"
 msgstr ""
 
 #. module: account_avatax_exemption_base
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner__use_commercial_entity
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_users__use_commercial_entity
-msgid "Use Commercial Entity"
-msgstr ""
-
-#. module: account_avatax_exemption_base
 #: model:ir.model.fields,help:account_avatax_exemption_base.field_res_partner_exemption__exemption_validity_duration
 #: model:ir.model.fields,help:account_avatax_exemption_base.field_res_partner_exemption_type__exemption_validity_duration
 msgid "Validity duration in days"
@@ -533,9 +520,4 @@ msgstr ""
 #. module: account_avatax_exemption_base
 #: model:ir.model.fields,help:account_avatax_exemption_base.field_res_partner_exemption__website_message_ids
 msgid "Website communication history"
-msgstr ""
-
-#. module: account_avatax_exemption_base
-#: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.view_partner_details_form_inherit1
-msgid "the parent company"
 msgstr ""
