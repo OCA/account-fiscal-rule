@@ -31,8 +31,8 @@ def create_fiscal_classification_from_product_template(cr, registry):
         counter += 1
         arg_list = [
             template.company_id and template.company_id.id or False,
-            sorted([x.id for x in template.taxes_id]),
-            sorted([x.id for x in template.supplier_taxes_id]),
+            sorted(x.id for x in template.taxes_id),
+            sorted(x.id for x in template.supplier_taxes_id),
         ]
         if arg_list not in classifications_keys.values():
             _logger.info(
