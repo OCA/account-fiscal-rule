@@ -1,0 +1,22 @@
+<odoo noupdate="1">
+    <record id="avatax_fiscal_position_us" model="account.fiscal.position">
+        <field name="name">Avatax Tax Mapping (US)</field>
+        <field name="is_avatax" eval="True" />
+        <field name="auto_apply" eval="True" />
+        <field name="country_id" ref="base.us" />
+    </record>
+    <record id="avatax_tax_group" model="account.tax.group">
+        <field name="name">AvaTax</field>
+    </record>
+    <!-- Used as template for automatic Tax records created -->
+    <record id="avatax" model="account.tax">
+        <field name="name">AVATAX</field>
+        <field name="description">Sales Tax</field>
+        <field name="tax_group_id" ref="avatax_tax_group" />
+        <field name="amount_type">percent</field>
+        <field name="amount" eval="0.00" />
+        <field name="type_tax_use">sale</field>
+        <field name="is_avatax">True</field>
+        <field name="country_id" ref="base.us" />
+    </record>
+</odoo>
