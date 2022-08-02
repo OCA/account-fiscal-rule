@@ -1,0 +1,49 @@
+<odoo>
+    <!-- Partner Address Validate -->
+    <record id="view_avalara_salestax_address_validate" model="ir.ui.view">
+        <field name="name">Address Validatation</field>
+        <field name="model">avalara.salestax.address.validate</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Address Validation">
+                <group>
+                    <group string="Original Address">
+                        <field name="original_street" />
+                        <field name="original_street2" />
+                        <field name="original_city" />
+                        <field name="original_state" />
+                        <field name="original_zip" />
+                        <field name="original_country" />
+                    </group>
+                    <group string="Validated Address">
+                        <field name="street" />
+                        <field name="street2" />
+                        <field name="city" />
+                        <field name="state" />
+                        <field name="zip" />
+                        <field name="country" />
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        name="accept_valid_address"
+                        type="object"
+                        string="Accept"
+                        class="oe_highlight"
+                    />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_avalara_salestax_address_validate" model="ir.actions.act_window">
+        <field name="name">Address Validation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">avalara.salestax.address.validate</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_avalara_salestax_address_validate" />
+        <field name="target">new</field>
+    </record>
+</odoo>

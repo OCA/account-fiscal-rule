@@ -1,0 +1,69 @@
+<data noupdate="1">
+    <!--
+   Partner Exemption Code
+   -->
+    <record id="federal_government_type" model="exemption.code">
+        <field name="name">Federal Government</field>
+        <field name="code">A</field>
+    </record>
+    <record id="state_government_type" model="exemption.code">
+        <field name="name">State Government</field>
+        <field name="code">B</field>
+    </record>
+    <record id="tribe_indian_band_type" model="exemption.code">
+        <field name="name">Tribe / Status Indian / Indian Band</field>
+        <field name="code">C</field>
+    </record>
+    <record id="foreign_diplomat_type" model="exemption.code">
+        <field name="name">Foreign Diplomat</field>
+        <field name="code">D</field>
+    </record>
+    <record id="charitable_org_type" model="exemption.code">
+        <field name="name">Charitable or Benevolent Org</field>
+        <field name="code">E</field>
+    </record>
+    <record id="religious_eductional_org_type" model="exemption.code">
+        <field name="name">Religious or Educational Org</field>
+        <field name="code">F</field>
+    </record>
+    <record id="resale_type" model="exemption.code">
+        <field name="name">Resale</field>
+        <field name="code">G</field>
+    </record>
+    <record id="commercial_agriculture_production_type" model="exemption.code">
+        <field name="name">Commercial Agricultural Production</field>
+        <field name="code">H</field>
+    </record>
+    <record id="industrial_manufacturer_type" model="exemption.code">
+        <field name="name">Industrial Production / Manufacturer</field>
+        <field name="code">I</field>
+    </record>
+    <record id="direct_pay_permit_type" model="exemption.code">
+        <field name="name">Direct Pay Permit</field>
+        <field name="code">J</field>
+    </record>
+    <record id="direct_mail_type" model="exemption.code">
+        <field name="name">Direct Mail</field>
+        <field name="code">K</field>
+    </record>
+    <record id="other_type" model="exemption.code">
+        <field name="name">Other</field>
+        <field name="code">L</field>
+    </record>
+    <record id="local_government_type" model="exemption.code">
+        <field name="name">Local Government</field>
+        <field name="code">N</field>
+    </record>
+    <record id="commercial_aquaculture_type" model="exemption.code">
+        <field name="name">Commercial Aquaculture</field>
+        <field name="code">P</field>
+    </record>
+    <record id="commercial_fishery_type" model="exemption.code">
+        <field name="name">Commercial Fishery</field>
+        <field name="code">Q</field>
+    </record>
+    <record id="non_resident_type" model="exemption.code">
+        <field name="name">Non-Resident</field>
+        <field name="code">R</field>
+    </record>
+</data>
