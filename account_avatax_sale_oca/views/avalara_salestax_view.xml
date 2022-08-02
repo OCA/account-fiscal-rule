@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_avalara_salestax_form" model="ir.ui.view">
+        <field name="name">avalara.salestax.inherit</field>
+        <field name="model">avalara.salestax</field>
+        <field name="inherit_id" ref="account_avatax_oca.view_avalara_salestax_form" />
+        <field name="arch" type="xml">
+
+            <div position="inside" id="calculation_page_container">
+                <div class="col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="override_line_taxes" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="override_line_taxes" />
+                    </div>
+                </div>
+                <div class="col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="use_partner_invoice_id" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="use_partner_invoice_id" />
+                    </div>
+                </div>
+                <div class="col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="sale_calculate_tax" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="sale_calculate_tax" />
+                    </div>
+                </div>
+            </div>
+
+        </field>
+    </record>
+</odoo>
