@@ -1,0 +1,28 @@
+<odoo>
+    <!-- Ping AvaTax Tax Service -->
+    <record id="view_avalara_salestax_ping" model="ir.ui.view">
+        <field name="name">Test Connection</field>
+        <field name="model">avalara.salestax.ping</field>
+        <field name="arch" type="xml">
+            <form string="Test Connection">
+                <group>
+                    <field name="name" invisible="1" />
+                    <h4>Connection test successful</h4>
+                </group>
+                <footer>
+                    <button special="cancel" class="btn-default" string="OK" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_avalara_salestax_ping" model="ir.actions.act_window">
+        <field name="name">Test Connection</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">avalara.salestax.ping</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_avalara_salestax_ping" />
+        <field name="context">{'record_id': active_id}</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
