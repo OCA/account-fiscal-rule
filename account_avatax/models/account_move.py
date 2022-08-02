@@ -392,7 +392,7 @@ class AccountMove(models.Model):
                     line._origin.price_unit != line.price_unit
                     or line._origin.discount != line.discount
                     or line._origin.quantity != line.quantity
-                ):
+                ) and not line.display_type:
                     self.calculate_tax_on_save = True
                     break
 
