@@ -494,6 +494,14 @@ msgid "Generate"
 msgstr ""
 
 #. module: account_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_account_bank_statement_line__hide_exemption
+#: model:ir.model.fields,field_description:account_avatax.field_account_move__hide_exemption
+#: model:ir.model.fields,field_description:account_avatax.field_account_payment__hide_exemption
+#: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__hide_exemption
+msgid "Hide Exemption & Tax Based on shipping address"
+msgstr ""
+
+#. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__id
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_address_validate__id
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax_getcompany__id
@@ -501,12 +509,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax.field_exemption_code__id
 #: model:ir.model.fields,field_description:account_avatax.field_product_tax_code__id
 msgid "ID"
-msgstr ""
-
-#. module: account_avatax
-#: model:ir.model.fields,help:account_avatax.field_avalara_salestax__use_so_partner_id
-msgid ""
-"If Boolean is checked, SO Partner Customer Code on Invoice will be used"
 msgstr ""
 
 #. module: account_avatax
@@ -1033,6 +1035,16 @@ msgid "Uncheck the active field to hide the record"
 msgstr ""
 
 #. module: account_avatax
+#: model:ir.model.fields,help:account_avatax.field_account_bank_statement_line__hide_exemption
+#: model:ir.model.fields,help:account_avatax.field_account_move__hide_exemption
+#: model:ir.model.fields,help:account_avatax.field_account_payment__hide_exemption
+#: model:ir.model.fields,help:account_avatax.field_avalara_salestax__hide_exemption
+msgid ""
+"Uncheck the this field to show exemption fields on SO/Invoice form view. "
+"Also, it will show Tax based on shipping address button"
+msgstr ""
+
+#. module: account_avatax
 #: model:product.product,uom_name:account_avatax.avatax_product_freight
 #: model:product.product,uom_name:account_avatax.avatax_product_sku1
 #: model:product.product,uom_name:account_avatax.avatax_product_sku2
@@ -1058,6 +1070,14 @@ msgstr ""
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__use_so_partner_id
 msgid "Use Sale Customer Code on Invoice"
+msgstr ""
+
+#. module: account_avatax
+#: model:ir.model.fields,help:account_avatax.field_avalara_salestax__use_so_partner_id
+msgid ""
+"Use Sales Order's Customer field to determine Taxable Status on the Customer"
+" Invoice. If no Sales Order exists, Customer field on the invoice form view "
+"will be used instead"
 msgstr ""
 
 #. module: account_avatax
