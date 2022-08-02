@@ -1060,6 +1060,12 @@ msgid "Use Avatax API"
 msgstr ""
 
 #. module: account_avatax
+#: model:ir.model.fields,field_description:account_avatax.field_res_partner__use_commercial_entity
+#: model:ir.model.fields,field_description:account_avatax.field_res_users__use_commercial_entity
+msgid "Use Commercial Entity"
+msgstr ""
+
+#. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avalara_salestax__use_so_partner_id
 msgid "Use Sale Customer Code on Invoice"
 msgstr ""
