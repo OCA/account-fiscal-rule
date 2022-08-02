@@ -132,6 +132,9 @@ Other Avatax API advanced configurations:
   - Enable UPC Taxability -- this will transmit Odoo's product ean13 number
     instead of its Internal Reference. If there is no ean13
     then the Internal Reference will be sent automatically.
+  - Hide Exemption & Tax Based on shipping address -- this will give user ability
+    to hide or show Tax Exemption and Tax Based on shipping address fields
+    at the invoice level.
 
 - Countries
 
@@ -388,6 +391,7 @@ Contributors
 
   * Daniel Reis <dreis@opensourceintegrators.com>
   * Bhavesh Odedra <bodedra@opensourceintegrators.com>
+  * Sandip Mangukiya <smangukiya@opensourceintegrators.com>
 
 * Serpent CS
 
