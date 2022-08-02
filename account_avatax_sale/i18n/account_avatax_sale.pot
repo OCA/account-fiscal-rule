@@ -102,6 +102,11 @@ msgid "Exemption Number"
 msgstr ""
 
 #. module: account_avatax_sale
+#: model:ir.model.fields,field_description:account_avatax_sale.field_sale_order__hide_exemption
+msgid "Hide Exemption & Tax Based on shipping address"
+msgstr ""
+
+#. module: account_avatax_sale
 #: model:ir.model.fields,field_description:account_avatax_sale.field_account_move__id
 #: model:ir.model.fields,field_description:account_avatax_sale.field_avalara_salestax__id
 #: model:ir.model.fields,field_description:account_avatax_sale.field_res_partner__id
@@ -176,6 +181,13 @@ msgid "Tax based on shipping address"
 msgstr ""
 
 #. module: account_avatax_sale
+#: model:ir.model.fields,help:account_avatax_sale.field_sale_order__hide_exemption
+msgid ""
+"Uncheck the this field to show exemption fields on SO/Invoice form view. "
+"Also, it will show Tax based on shipping address button"
+msgstr ""
+
+#. module: account_avatax_sale
 #: model:ir.actions.server,name:account_avatax_sale.action_sale_order_compute_taxes
 msgid "Update taxes with AvaTax"
 msgstr ""
@@ -188,6 +200,11 @@ msgstr ""
 #. module: account_avatax_sale
 #: model:ir.model.fields,field_description:account_avatax_sale.field_avalara_salestax__use_partner_invoice_id
 msgid "Use Invoice partner's customer code in SO"
+msgstr ""
+
+#. module: account_avatax_sale
+#: model:ir.model.fields,help:account_avatax_sale.field_avalara_salestax__use_partner_invoice_id
+msgid "Use Sales Order's Invoice Address field to determine TaxableStatus"
 msgstr ""
 
 #. module: account_avatax_sale
