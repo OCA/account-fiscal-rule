@@ -1,0 +1,38 @@
+<odoo>
+
+    <record
+        id="account_avatax_sale_oca_order_form_view_editable_field"
+        model="ir.ui.view"
+    >
+        <field name="name">account_avatax_oca.oca.sale.order.form.view.editable</field>
+        <field name="model">sale.order</field>
+        <field
+            name="inherit_id"
+            ref="account_avatax_sale_oca.sale_order_update_form_view"
+        />
+        <field name="arch" type="xml">
+            <field name='exemption_code' position="attributes">
+                <attribute
+                    name="groups"
+                >account_avatax_exemption.group_show_tax_exempt_exempt_number_exempt_code</attribute>
+            </field>
+            <field name='exemption_code_id' position="attributes">
+                <attribute
+                    name="groups"
+                >account_avatax_exemption.group_show_tax_exempt_exempt_number_exempt_code</attribute>
+            </field>
+            <field name='exemption_code' position="before">
+                <field
+                    name="exemption_code"
+                    groups="!account_avatax_exemption.group_show_tax_exempt_exempt_number_exempt_code"
+                />
+            </field>
+            <field name='exemption_code_id' position="before">
+                <field
+                    name="exemption_code_id"
+                    groups="!account_avatax_exemption.group_show_tax_exempt_exempt_number_exempt_code"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

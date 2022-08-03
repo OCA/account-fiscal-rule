@@ -1,0 +1,14 @@
+<odoo noupdate="1">
+
+    <record id="group_show_tax_exempt_exempt_number_exempt_code" model="res.groups">
+        <field name="name">Show Tax Exempt/Exemption number/Exemption code </field>
+        <field
+            name="comment"
+        >Show the Exemption fields on SO and Invoice and Contact</field>
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+    </record>
+
+</odoo>
