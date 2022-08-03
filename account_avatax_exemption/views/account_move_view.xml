@@ -1,0 +1,38 @@
+<odoo>
+
+    <record id="exemption_hide_view_move_form_inherit_1" model="ir.ui.view">
+        <field name="name">account.move.form.view.exemption.hide</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account_avatax_oca.view_move_form_inherit_1" />
+        <field name="arch" type="xml">
+            <field name='exemption_code' position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name='exemption_code_id' position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="exemption_hide_view_move_form_with_group_inherit_1">
+        <field name="name">account.move.form.view.exemption.hide_with_group</field>
+        <field name="model">account.move</field>
+        <field
+            name="inherit_id"
+            ref="account_avatax_exemption.exemption_hide_view_move_form_inherit_1"
+        />
+        <field
+            name="groups_id"
+            eval="[(4,ref('account_avatax_exemption.group_show_tax_exempt_exempt_number_exempt_code'))]"
+        />
+        <field name="arch" type="xml">
+            <field name='exemption_code' position="attributes">
+                <attribute name="invisible">0</attribute>
+            </field>
+            <field name='exemption_code_id' position="attributes">
+                <attribute name="invisible">0</attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>

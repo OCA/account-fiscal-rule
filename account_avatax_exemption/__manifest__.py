@@ -16,6 +16,7 @@
         "account_avatax_exemption_base",
     ],
     "data": [
+        "security/security.xml",
         "security/ir.model.access.csv",
         "data/cron.xml",
         "data/queue.xml",
@@ -29,6 +30,8 @@
         "views/website_exemption_tree.xml",
         "views/website_exemption_form.xml",
         "views/partner_view.xml",
+        "views/account_move_view.xml",
+        "views/sale_view.xml",
     ],
     "external_dependencies": {"python": ["Avalara"]},
     "installable": True,
