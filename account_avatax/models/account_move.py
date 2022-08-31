@@ -416,7 +416,7 @@ class AccountMove(models.Model):
 
     @api.model
     def create(self, vals):
-        record = super(AccountMove, self).create(vals)
+        record = super(AccountMove, self.with_context(skip_second_write=True)).create(vals)
         avatax_config = self.env.company.get_avatax_config_company()
         if (
             avatax_config.invoice_calculate_tax
