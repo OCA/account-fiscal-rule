@@ -38,9 +38,8 @@ class AccountFiscalPosition(models.Model):
                     self.env.context.get("product_id", False)
                 )
             for fp in self:
-                fiscal_product_rules = fp.fiscal_position_product_rule_ids.filtered(
-                    lambda r: product.product_tmpl_id in r.product_tmpl_ids
-                    or product.categ_id in r.product_category_ids
+                fiscal_product_rules = (
+                    product.product_tmpl_id.get_matching_product_fiscal_rule(fp)
                 )
                 if fiscal_product_rules:
                     res = self.env["account.tax"]

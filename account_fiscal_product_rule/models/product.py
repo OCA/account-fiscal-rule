@@ -11,6 +11,15 @@ class ProductCategory(models.Model):
         "account.fiscal.position.product.rule", string="Fiscal Rule"
     )
 
+    def get_matching_product_fiscal_rule(self, fiscal_pos):
+        self.ensure_one()
+        return self.fiscal_position_product_rule_ids.filtered(
+            lambda r: r.fiscal_position_id == fiscal_pos
+        ) or (
+            self.parent_id
+            and self.parent_id.get_matching_product_fiscal_rule(fiscal_pos)
+        )
+
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -19,18 +28,18 @@ class ProductTemplate(models.Model):
         "account.fiscal.position.product.rule", string="Fiscal Rule"
     )
 
+    def get_matching_product_fiscal_rule(self, fiscal_pos):
+        self.ensure_one()
+        return self.fiscal_position_product_rule_ids.filtered(
+            lambda r: r.fiscal_position_id == fiscal_pos
+        ) or self.categ_id.get_matching_product_fiscal_rule(fiscal_pos)
+
     def get_product_accounts(self, fiscal_pos=None):
-        for product in self:
-            if fiscal_pos:
-                fiscal_product_rules = (
-                    fiscal_pos.fiscal_position_product_rule_ids.filtered(
-                        lambda r: product in r.product_tmpl_ids
-                        or product.categ_id in r.product_category_ids
-                    )
-                )
-                if fiscal_product_rules:
-                    accounts = {}
-                    accounts["income"] = fiscal_product_rules[0].account_income_id
-                    accounts["expense"] = fiscal_product_rules[0].account_expense_id
-                    return accounts
+        if fiscal_pos:
+            rule = self.get_matching_product_fiscal_rule(fiscal_pos)
+            if rule:
+                return {
+                    "income": rule.account_income_id,
+                    "expense": rule.account_expense_id,
+                }
         return super().get_product_accounts(fiscal_pos=fiscal_pos)

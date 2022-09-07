@@ -36,8 +36,22 @@ class TestAccountFiscalProductRule(AccountTestInvoicingCommon):
         )
         line = invoice.line_ids.filtered(lambda r: r.product_id == self.product_a)
         # check the tax/account
+        self.assertEqual(len(line.tax_ids), 1)
         self.assertEqual(line.tax_ids[0].amount, 15.0)
         self.assertEqual(line.account_id.code, "400000 (1)")
+
+    def test_rule_on_parent_categ(self):
+        categ = self.env.ref("product.product_category_1")
+        categ.parent_id.fiscal_position_product_rule_ids = self.fiscal_product_rule
+        self.product_a.categ_id = categ
+        invoice = self.init_invoice(
+            "out_invoice", partner=self.partner_b, products=[self.product_a]
+        )
+        line = invoice.line_ids.filtered(lambda r: r.product_id == self.product_a)
+        # check the tax/account is the on define by the rule
+        self.assertEqual(len(line.tax_ids), 1)
+        self.assertEqual(line.tax_ids[0].amount, 30.0)
+        self.assertEqual(line.account_id.code, "123456")
 
     def test_rule_on_categ(self):
         self.product_a.categ_id.fiscal_position_product_rule_ids = (
@@ -48,6 +62,7 @@ class TestAccountFiscalProductRule(AccountTestInvoicingCommon):
         )
         line = invoice.line_ids.filtered(lambda r: r.product_id == self.product_a)
         # check the tax/account is the on define by the rule
+        self.assertEqual(len(line.tax_ids), 1)
         self.assertEqual(line.tax_ids[0].amount, 30.0)
         self.assertEqual(line.account_id.code, "123456")
 
@@ -58,5 +73,6 @@ class TestAccountFiscalProductRule(AccountTestInvoicingCommon):
         )
         line = invoice.line_ids.filtered(lambda r: r.product_id == self.product_a)
         # check the tax/account is the on define by the rule
+        self.assertEqual(len(line.tax_ids), 1)
         self.assertEqual(line.tax_ids[0].amount, 30.0)
         self.assertEqual(line.account_id.code, "123456")
