@@ -22,6 +22,14 @@ class AccountFiscalPositionProductRule(models.Model):
     )
     company_id = fields.Many2one(related="fiscal_position_id.company_id")
 
+    @api.constrains("product_tmpl_ids")
+    def _check_no_duplicate_fiscal_position_on_product(self):
+        self.product_tmpl_ids._check_no_duplicate_fiscal_position()
+
+    @api.constrains("product_category_ids")
+    def _check_no_duplicate_fiscal_position_on_category(self):
+        self.product_category_ids._check_no_duplicate_fiscal_position()
+
 
 class ProductRuleMixin(models.AbstractModel):
     _name = "product.rule.mixin"
@@ -35,7 +43,6 @@ class ProductRuleMixin(models.AbstractModel):
     def _check_no_duplicate_fiscal_position(self):
         for record in self:
             fps = []
-            # import pdb;pdb.set_trace()
             for rule in record.fiscal_position_product_rule_ids:
                 if rule.fiscal_position_id in fps:
                     raise ValidationError(
