@@ -4,7 +4,7 @@
         <field name="model">res.partner</field>
         <field
             name="inherit_id"
-            ref="account_avatax.view_partner_details_form_inherit1"
+            ref="account_avatax_oca.view_partner_details_form_inherit1"
         />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='customer_code']/.." position="after">
