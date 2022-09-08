@@ -1,6 +1,6 @@
 {
     "name": "Avatax Exemptions",
-    "version": "14.0.2.0.0",
+    "version": "14.0.3.0.0",
     "category": "Sales",
     "summary": """
         This application allows you to add exemptions to Avatax
@@ -12,8 +12,7 @@
         "website",
         "product",
         "queue_job",
-        "account_avatax",
-        "account_avatax_sale",
+        "account_avatax_sale_oca",
         "account_avatax_exemption_base",
     ],
     "data": [

@@ -5,7 +5,7 @@
         <field name="type">form</field>
         <field
             name="inherit_id"
-            ref="account_avatax.view_product_category_form_avatax_inherit"
+            ref="account_avatax_oca.view_product_category_form_avatax_inherit"
         />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='tax_code_id']" position="attributes">
@@ -27,7 +27,7 @@
     <record id="view_product_tax_code_form_inherit" model="ir.ui.view">
         <field name="name">product.tax.code.form.inherit</field>
         <field name="model">product.tax.code</field>
-        <field name="inherit_id" ref="account_avatax.view_product_tax_code_form" />
+        <field name="inherit_id" ref="account_avatax_oca.view_product_tax_code_form" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='taxcode']" position="after">
                 <group>
