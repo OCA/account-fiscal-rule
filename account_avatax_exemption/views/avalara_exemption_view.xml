@@ -191,7 +191,7 @@
     <menuitem
         id="menu_exemption_rule"
         action="exemption_rule_act_window"
-        parent="account_avatax.menu_avatax"
+        parent="account_avatax_oca.menu_avatax"
         sequence="31"
     />
 </odoo>
