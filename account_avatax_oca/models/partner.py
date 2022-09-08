@@ -178,7 +178,9 @@ class ResPartner(models.Model):
 
     def button_avatax_validate_address(self):
         """Method is used to verify of state and country"""
-        view_ref = self.env.ref("account_avatax.view_avalara_salestax_address_validate")
+        view_ref = self.env.ref(
+            "account_avatax_oca.view_avalara_salestax_address_validate"
+        )
         ctx = self.env.context.copy()
         ctx.update({"active_ids": self.ids, "active_id": self.id})
         return {
