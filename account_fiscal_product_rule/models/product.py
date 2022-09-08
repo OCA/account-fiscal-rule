@@ -1,15 +1,12 @@
 # Copyright 2022 Akretion France (http://www.akretion.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import models
 
 
 class ProductCategory(models.Model):
-    _inherit = "product.category"
-
-    fiscal_position_product_rule_ids = fields.Many2many(
-        "account.fiscal.position.product.rule", string="Fiscal Rule"
-    )
+    _name = "product.category"
+    _inherit = ["product.category", "product.rule.mixin"]
 
     def get_matching_product_fiscal_rule(self, fiscal_pos):
         self.ensure_one()
@@ -22,11 +19,8 @@ class ProductCategory(models.Model):
 
 
 class ProductTemplate(models.Model):
-    _inherit = "product.template"
-
-    fiscal_position_product_rule_ids = fields.Many2many(
-        "account.fiscal.position.product.rule", string="Fiscal Rule"
-    )
+    _name = "product.template"
+    _inherit = ["product.template", "product.rule.mixin"]
 
     def get_matching_product_fiscal_rule(self, fiscal_pos):
         self.ensure_one()

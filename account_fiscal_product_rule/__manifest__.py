@@ -12,7 +12,6 @@
         "security/ir.model.access.csv",
         "views/product.xml",
         "views/account_fiscal_position.xml",
-        "views/account_menuitem.xml",
     ],
     "installable": True,
 }

@@ -1,6 +1,7 @@
 # Copyright 2022 Akretion France (http://www.akretion.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo.exceptions import ValidationError
 from odoo.tests import tagged
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -23,11 +24,14 @@ class TestAccountFiscalProductRule(AccountTestInvoicingCommon):
             "account.fiscal.position.product.rule"
         ].create(
             {
-                "name": "Fiscal Product Template Rule",
+                "name": "Fiscal Product Rule",
                 "fiscal_position_id": cls.fiscal_pos_a.id,
                 "seller_tax_ids": [(6, 0, cls.tax_sale.ids)],
                 "account_income_id": cls.account_income.id,
             }
+        )
+        cls.copy_fiscal_product_rule = cls.fiscal_product_rule.copy(
+            default={"name": "Fiscal Product Rule (copy)"}
         )
 
     def test_no_rule(self):
@@ -76,3 +80,10 @@ class TestAccountFiscalProductRule(AccountTestInvoicingCommon):
         self.assertEqual(len(line.tax_ids), 1)
         self.assertEqual(line.tax_ids[0].amount, 30.0)
         self.assertEqual(line.account_id.code, "123456")
+
+    def test_no_duplicate_fiscal_position(self):
+        self.product_a.fiscal_position_product_rule_ids = self.fiscal_product_rule
+        with self.assertRaises(ValidationError):
+            self.product_a.fiscal_position_product_rule_ids += (
+                self.copy_fiscal_product_rule
+            )

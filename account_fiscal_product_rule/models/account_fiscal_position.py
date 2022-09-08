@@ -1,7 +1,8 @@
 # Copyright 2022 Akretion France (http://www.akretion.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class AccountFiscalPositionProductRule(models.Model):
@@ -22,6 +23,31 @@ class AccountFiscalPositionProductRule(models.Model):
     company_id = fields.Many2one(related="fiscal_position_id.company_id")
 
 
+class ProductRuleMixin(models.AbstractModel):
+    _name = "product.rule.mixin"
+    _description = "Product Rule Mixin"
+
+    fiscal_position_product_rule_ids = fields.Many2many(
+        "account.fiscal.position.product.rule", string="Product Fiscal Rules"
+    )
+
+    @api.constrains("fiscal_position_product_rule_ids")
+    def _check_no_duplicate_fiscal_position(self):
+        for record in self:
+            fps = []
+            # import pdb;pdb.set_trace()
+            for rule in record.fiscal_position_product_rule_ids:
+                if rule.fiscal_position_id in fps:
+                    raise ValidationError(
+                        _(
+                            "A Fiscal Position Product Rule already exists for this product "
+                            "or product category with this fiscal position !"
+                        )
+                    )
+                else:
+                    fps.append(rule.fiscal_position_id)
+
+
 class AccountFiscalPosition(models.Model):
     _inherit = "account.fiscal.position"
 
@@ -32,27 +58,13 @@ class AccountFiscalPosition(models.Model):
     )
 
     def map_tax(self, taxes, product=None, partner=None):
-        if product or self.env.context.get("product_id", False):
-            if not product:
-                product = self.env["product.product"].browse(
-                    self.env.context.get("product_id", False)
-                )
-            for fp in self:
-                fiscal_product_rules = (
-                    product.product_tmpl_id.get_matching_product_fiscal_rule(fp)
-                )
-                if fiscal_product_rules:
-                    res = self.env["account.tax"]
-                    if (
-                        taxes[0].type_tax_use == "sale"
-                        and fiscal_product_rules[0].seller_tax_ids
-                    ):
-                        res = fiscal_product_rules[0].seller_tax_ids[0]
-                    if (
-                        taxes[0].type_tax_use == "purchase"
-                        and fiscal_product_rules[0].supplier_tax_ids
-                    ):
-                        res = fiscal_product_rules[0].supplier_tax_ids[0]
-                    if res:
-                        return res
+        prod = product or self._context.get("product")
+        if prod:
+            rule = prod.product_tmpl_id.get_matching_product_fiscal_rule(self)
+            if rule and taxes:
+                tax_use = taxes[0].type_tax_use
+                if tax_use == "sale" and rule.seller_tax_ids:
+                    return rule.seller_tax_ids
+                elif tax_use == "purchase" and rule.supplier_tax_ids:
+                    return rule.supplier_tax_ids
         return super().map_tax(taxes=taxes, product=product, partner=partner)
