@@ -12,8 +12,7 @@
         "website",
         "product",
         "queue_job",
-        "account_avatax",
-        "account_avatax_sale",
+        "account_avatax_sale_oca",
         "account_avatax_exemption_base",
     ],
     "data": [

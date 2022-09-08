@@ -2,7 +2,7 @@
     <record id="view_avalara_salestax_form" model="ir.ui.view">
         <field name="name">avalara.salestax.inherit</field>
         <field name="model">avalara.salestax</field>
-        <field name="inherit_id" ref="account_avatax.view_avalara_salestax_form" />
+        <field name="inherit_id" ref="account_avatax_oca.view_avalara_salestax_form" />
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="before">
                 <header>
@@ -50,7 +50,7 @@
         <field name="name">exemption.code.tree.view</field>
         <field name="model">exemption.code</field>
         <field name="type">tree</field>
-        <field name="inherit_id" ref="account_avatax.exemption_code_tree_view" />
+        <field name="inherit_id" ref="account_avatax_oca.exemption_code_tree_view" />
         <field name="arch" type="xml">
             <xpath expr="//tree" position="attributes">
                 <attribute name="string">Entity Use Code</attribute>
@@ -58,12 +58,15 @@
         </field>
     </record>
     <record
-        id="account_avatax.action_exemption_code_details"
+        id="account_avatax_oca.action_exemption_code_details"
         model="ir.actions.act_window"
     >
         <field name="name">Entity Use Code</field>
     </record>
-    <record id="account_avatax.menu_action_exemption_code_details" model="ir.ui.menu">
+    <record
+        id="account_avatax_oca.menu_action_exemption_code_details"
+        model="ir.ui.menu"
+    >
         <field name="name">Entity Use Code</field>
     </record>
     <record id="exemption_code_form_view" model="ir.ui.view">
