@@ -43,8 +43,7 @@ All changes to the AvaTax settings must be performed by a user with
 administrative access rights.
 
 
-IMPORTANT - resolving name conflict with Odoo EE
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**IMPORTANT - resolving name conflict with Odoo EE**
 
 Avatax support was added to Odoo EE 14 and 15.
 Unfortunately the module names used are the same as the OCA ones,
