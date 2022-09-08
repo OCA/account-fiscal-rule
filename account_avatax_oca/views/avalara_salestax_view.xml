@@ -29,7 +29,7 @@
                                 <field name="license_key" password="True" />
                                 <field name="service_url" />
                                 <button
-                                    name="%(account_avatax.action_avalara_salestax_ping)d"
+                                    name="%(account_avatax_oca.action_avalara_salestax_ping)d"
                                     string="Test Connection"
                                     type="action"
                                     icon="fa-arrow-right"
@@ -37,7 +37,7 @@
                                 />
                                 <field name="company_code" />
                                 <button
-                                    name="%(account_avatax.action_avalara_salestax_getcompany)d"
+                                    name="%(account_avatax_oca.action_avalara_salestax_getcompany)d"
                                     string="Select Company"
                                     type="action"
                                     icon="fa-arrow-right"

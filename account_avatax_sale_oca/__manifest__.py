@@ -1,5 +1,5 @@
 {
-    "name": "Avalara Avatax Connector for Sales Orders",
+    "name": "Avalara Avatax Certified Connector for Sales Orders",
     "version": "15.0.1.1.0",
     "author": "Open Source Integrators, Fabrice Henrion,"
     "Sodexis, Odoo Community Association (OCA)",
@@ -7,7 +7,7 @@
     "license": "AGPL-3",
     "category": "Accounting",
     "website": "https://github.com/OCA/account-fiscal-rule",
-    "depends": ["account_avatax", "sale_stock"],
+    "depends": ["account_avatax_oca", "sale_stock"],
     "data": [
         "views/sale_order_view.xml",
         "views/partner_view.xml",

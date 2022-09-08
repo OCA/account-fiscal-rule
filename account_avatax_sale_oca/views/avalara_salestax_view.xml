@@ -3,7 +3,7 @@
     <record id="view_avalara_salestax_form" model="ir.ui.view">
         <field name="name">avalara.salestax.inherit</field>
         <field name="model">avalara.salestax</field>
-        <field name="inherit_id" ref="account_avatax.view_avalara_salestax_form" />
+        <field name="inherit_id" ref="account_avatax_oca.view_avalara_salestax_form" />
         <field name="arch" type="xml">
 
             <div position="inside" id="calculation_page_container">
