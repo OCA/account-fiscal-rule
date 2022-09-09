@@ -3,7 +3,7 @@ import requests
 from odoo import _, fields, models
 from odoo.exceptions import UserError
 
-from odoo.addons.account_avatax.models.avatax_rest_api import AvaTaxRESTService
+from odoo.addons.account_avatax_oca.models.avatax_rest_api import AvaTaxRESTService
 from odoo.addons.queue_job.exception import FailedJobError
 
 

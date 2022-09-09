@@ -14,7 +14,9 @@ class TestAvatax(SavepointCase):
                 "name": "Customer",
                 "property_tax_exempt": True,
                 "property_exemption_number": "12321",
-                "property_exemption_code_id": cls.env.ref("account_avatax.resale_type"),
+                "property_exemption_code_id": cls.env.ref(
+                    "account_avatax_oca.resale_type"
+                ),
             }
         )
         cls.invoice = cls.env["account.move"].create(
