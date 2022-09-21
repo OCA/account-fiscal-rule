@@ -269,7 +269,11 @@ class AccountMove(models.Model):
                     rate = tax_result_line.get("rate", 0.0)
                     tax = Tax.get_avalara_tax(rate, doc_type)
                     if tax and tax not in line.tax_ids:
-                        line_taxes = line.tax_ids.filtered(lambda x: not x.is_avatax)
+                        line_taxes = (
+                            tax
+                            if avatax_config.override_line_taxes
+                            else line.tax_ids.filtered(lambda x: not x.is_avatax)
+                        )
                         taxes_to_set.append((index, line_taxes | tax))
                     line.avatax_amt_line = tax_result_line["tax"]
                     line.avatax_tax_type = tax_result_line["details"][0]["taxSubTypeId"]
