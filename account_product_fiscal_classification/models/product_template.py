@@ -60,6 +60,17 @@ class ProductTemplate(models.Model):
                             template.categ_id.fiscal_classification_ids])))
 
     # View Section
+    @api.onchange('fiscal_classification_id')
+    def _onchange_fiscal_classification_id(self):
+        self.supplier_taxes_id = [(
+            6, 0,
+            self.fiscal_classification_id.sudo().purchase_tax_ids.ids
+        )]
+        self.taxes_id = [(
+            6, 0,
+            self.fiscal_classification_id.sudo().sale_tax_ids.ids
+        )]
+
     @api.onchange('categ_id', 'fiscal_classification_id')
     def _onchange_categ_fiscal_classification_id(self):
         if self.categ_id and self.categ_id.fiscal_restriction:
