@@ -306,6 +306,11 @@ msgid "Old Classification"
 msgstr "Alte Steuerklassifizierung"
 
 #. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_product_category
 msgid "Product Category"
 msgstr "Produktkategorie"
@@ -438,7 +443,7 @@ msgid ""
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:140
+#: code:addons/account_product_fiscal_classification/models/product_template.py:151
 #, fuzzy, python-format
 msgid ""
 "You can not use the fiscal classification '%s' because you're not member of "
@@ -449,7 +454,7 @@ msgstr ""
 "Steuerklassifizierung verschieben."
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:121
+#: code:addons/account_product_fiscal_classification/models/product_template.py:132
 #, python-format
 msgid "You cannot change Taxes for many Products."
 msgstr "Sie dürfen die Steuern von vielen Produkten nicht ändern."
