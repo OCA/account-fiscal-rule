@@ -9,7 +9,7 @@
 
 # account-fiscal-rule
 
-TODO: add repo description.
+Odoo Accounting Taxe and Fiscal Features
 
 <!-- /!\ do not modify below this line -->
 
