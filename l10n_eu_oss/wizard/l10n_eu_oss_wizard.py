@@ -1,8 +1,7 @@
 # Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, fields, models
-from odoo.exceptions import Warning
+from odoo import _, exceptions, fields, models
 
 
 class L10nEuOssWizard(models.TransientModel):
@@ -15,7 +14,7 @@ class L10nEuOssWizard(models.TransientModel):
     def _get_eu_res_country_group(self):
         eu_group = self.env.ref("base.europe", raise_if_not_found=False)
         if not eu_group:
-            raise Warning(
+            raise exceptions.ValidationError(
                 _(
                     "The Europe country group cannot be found. "
                     "Please update the base module."
