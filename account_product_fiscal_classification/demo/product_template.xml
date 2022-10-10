@@ -7,26 +7,22 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
-    <record model="product.template" id="product_template_1">
-        <field name="name">Demo Product With Fiscal Classification</field>
+    <!-- Product (Your Company) -->
+    <record id="product_template_A_company_1" model="product.template">
+        <field
+            name="name"
+        >Demo Product With Fiscal Classification (Your Company)</field>
         <field name="company_id" ref="base.main_company" />
         <field name="categ_id" ref="product.product_category_all" />
         <field name="type">service</field>
         <field name="standard_price">20.0</field>
         <field name="list_price">30.0</field>
-        <field name="fiscal_classification_id" ref="fiscal_classification_1" />
+        <field
+            name="fiscal_classification_id"
+            ref="fiscal_classification_A_company_1"
+        />
         <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
-    <record model="product.template" id="product_template_all_cpnies">
-        <field name="name">Demo Product Fiscal Classif all companies</field>
-        <field name="company_id" eval="0" />
-        <field name="categ_id" ref="product.product_category_all" />
-        <field name="type">service</field>
-        <field name="standard_price">27.0</field>
-        <field name="list_price">37.0</field>
-        <field name="fiscal_classification_id" ref="global_fiscal_classification_1" />
-        <field name="uom_id" ref="uom.product_uom_unit" />
-        <field name="uom_po_id" ref="uom.product_uom_unit" />
-    </record>
+
 </odoo>

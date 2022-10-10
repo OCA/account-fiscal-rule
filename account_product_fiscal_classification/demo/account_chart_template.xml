@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2022-Today GRAP (http://www.grap.coop)
+    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<!-- pylint: disable=duplicate-xml-record-id -->
+<odoo>
+
+    <record id="chart_template" model="account.chart.template">
+        <field name="name">Demo Chart Template</field>
+        <field name="bank_account_code_prefix">1014</field>
+        <field name="cash_account_code_prefix">1015</field>
+        <field name="transfer_account_code_prefix">1017</field>
+        <field name="currency_id" ref="base.USD" />
+    </record>
+
+    <record id="fake_account_001" model="account.account.template">
+        <field name="code">001</field>
+        <field name="name">Fake Account 001</field>
+        <field name="account_type">income_other</field>
+        <field name="chart_template_id" ref="chart_template" />
+    </record>
+
+    <record id="fake_account_002" model="account.account.template">
+        <field name="code">002</field>
+        <field name="name">Fake Account 002</field>
+        <field name="account_type">income_other</field>
+        <field name="chart_template_id" ref="chart_template" />
+    </record>
+
+    <record id="chart_template" model="account.chart.template">
+        <field name="property_account_income_categ_id" ref="fake_account_001" />
+        <field name="property_account_expense_categ_id" ref="fake_account_002" />
+    </record>
+
+</odoo>

@@ -7,51 +7,55 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
-    <record model="account.tax" id="account_tax_purchase_1">
-        <field name="name">Demo Purchase Tax 10%</field>
+    <!-- Your Company Taxes -->
+    <record id="account_tax_purchase_20_company_1" model="account.tax">
+        <field name="name">Demo Purchase Tax 20% (Your Company)</field>
         <field name="company_id" ref="base.main_company" />
         <field name="type_tax_use">purchase</field>
-        <field name="amount">0.1</field>
+        <field name="amount">20</field>
     </record>
-    <record model="account.tax" id="account_tax_sale_1">
-        <field name="name">Demo Sale Tax 10%</field>
+
+    <record id="account_tax_sale_20_company_1" model="account.tax">
+        <field name="name">Demo Sale Tax 20% (Your Company)</field>
         <field name="company_id" ref="base.main_company" />
         <field name="type_tax_use">sale</field>
-        <field name="amount">0.1</field>
+        <field name="amount">20</field>
     </record>
-    <record model="account.tax" id="account_tax_sale_2">
-        <field name="name">Demo Sale Tax 3%</field>
+
+    <record id="account_tax_sale_5_company_1" model="account.tax">
+        <field name="name">Demo Sale Tax 5%  (Your Company)</field>
         <field name="company_id" ref="base.main_company" />
         <field name="type_tax_use">sale</field>
-        <field name="amount">0.03</field>
+        <field name="amount">5</field>
     </record>
-    <!-- Alternate company -->
-    <record id="sale_tax_7_other" model="account.tax">
-        <field name="name">Demo 7 %</field>
+
+    <!-- Company 2 Taxes -->
+    <record id="account_tax_purchase_7_company_2" model="account.tax">
+        <field name="name">Demo Purchase Tax 7% (Company 2)</field>
+        <field name="company_id" ref="company_2" />
+        <field name="type_tax_use">purchase</field>
         <field name="amount">7</field>
-        <field name="type_tax_use">sale</field>
-        <field name="company_id" ref="cpny_onlyshare_classification" />
-        <field name="tax_group_id" ref="account.tax_group_taxes" />
     </record>
-    <record id="sale_tax_44_other" model="account.tax">
-        <field name="name">Demo 44 %</field>
-        <field name="amount">44</field>
-        <field name="type_tax_use">sale</field>
-        <field name="company_id" ref="cpny_onlyshare_classification" />
-        <field name="tax_group_id" ref="account.tax_group_taxes" />
+
+    <record id="account_tax_purchase_30_company_2" model="account.tax">
+        <field name="name">Demo Purchase Tax 30% (Company 2)</field>
+        <field name="company_id" ref="company_2" />
+        <field name="type_tax_use">purchase</field>
+        <field name="amount">30</field>
     </record>
-    <record id="purchase_tax_7_other" model="account.tax">
-        <field name="name">Demo 7 % purch</field>
+
+    <record id="account_tax_sale_7_company_2" model="account.tax">
+        <field name="name">Demo Sale Tax 7% (Company 2)</field>
+        <field name="company_id" ref="company_2" />
+        <field name="type_tax_use">sale</field>
         <field name="amount">7</field>
-        <field name="type_tax_use">purchase</field>
-        <field name="company_id" ref="cpny_onlyshare_classification" />
-        <field name="tax_group_id" ref="account.tax_group_taxes" />
     </record>
-    <record id="purchase_tax_44_other" model="account.tax">
-        <field name="name">Demo 44 % purch</field>
-        <field name="amount">44</field>
-        <field name="type_tax_use">purchase</field>
-        <field name="company_id" ref="cpny_onlyshare_classification" />
-        <field name="tax_group_id" ref="account.tax_group_taxes" />
+
+    <record id="account_tax_sale_30_company_2" model="account.tax">
+        <field name="name">Demo Sale Tax 30% (Company 2)</field>
+        <field name="company_id" ref="company_2" />
+        <field name="type_tax_use">sale</field>
+        <field name="amount">30</field>
     </record>
+
 </odoo>
