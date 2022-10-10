@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2022-Today GRAP (http://www.grap.coop)
+    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="account_tax_template_purchase" model="account.tax.template">
+        <field name="chart_template_id" ref="chart_template" />
+        <field name="name">Demo Purchase Tax Template 20%</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount">0.2</field>
+    </record>
+
+    <record id="account_tax_template_sale" model="account.tax.template">
+        <field name="chart_template_id" ref="chart_template" />
+        <field name="name">Demo Sale Tax Template 20%</field>
+        <field name="type_tax_use">sale</field>
+        <field name="amount">0.2</field>
+    </record>
+
+</odoo>
