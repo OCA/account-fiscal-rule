@@ -10,44 +10,49 @@ _logger = logging.getLogger(__name__)
 
 
 def create_fiscal_classification_from_product_template(cr, registry):
-    """Generate Fiscal Classification for each combinations of Taxes set
-    in product"""
     env = api.Environment(cr, SUPERUSER_ID, {})
-
-    template_obj = env["product.template"]
-    classification_obj = env["account.product.fiscal.classification"]
-
-    classifications_keys = {}
-
-    # Get all product template
-    templates = template_obj.search(
-        ["|", ("active", "=", False), ("active", "=", True)]
+    AccountTax = env["account.tax"]
+    AccountProductFiscalClassification = env["account.product.fiscal.classification"]
+    template_values = (
+        env["product.template"]
+        .with_context(active_test=False)
+        .search_read(
+            domain=[("fiscal_classification_id", "=", False)],
+            fields=["company_id", "taxes_id", "supplier_taxes_id"],
+        )
     )
-
-    counter = 0
-    total = len(templates)
-    # Associate product template to Fiscal Classifications
-    for template in templates:
-        counter += 1
-        arg_list = [
-            template.company_id and template.company_id.id or False,
-            sorted(x.id for x in template.taxes_id),
-            sorted(x.id for x in template.supplier_taxes_id),
-        ]
-        if arg_list not in classifications_keys.values():
-            _logger.info(
-                """create new Fiscal Classification. Product templates"""
-                """ managed %s/%s""" % (counter, total)
-            )
-            classification_id = classification_obj.find_or_create(*arg_list)
-            classifications_keys[classification_id] = arg_list
-            # associate product template to the new Fiscal Classification
-            template.fiscal_classification_id = classification_id
+    dict_key_template_ids = {}
+    for template_value in template_values:
+        key = (
+            frozenset(template_value["taxes_id"]),
+            frozenset(template_value["supplier_taxes_id"]),
+        )
+        if key in dict_key_template_ids.keys():
+            dict_key_template_ids[key].append(template_value["id"])
         else:
-            # associate product template to existing Fiscal Classification
-            fiscal_classification_id = False
-            for k, v in classifications_keys.items():
-                if v == arg_list:
-                    fiscal_classification_id = k
-                    break
-            template.fiscal_classification_id = fiscal_classification_id
+            dict_key_template_ids[key] = [template_value["id"]]
+
+    for (sale_tax_ids, purchase_tax_ids), template_ids in dict_key_template_ids.items():
+        sale_taxes = AccountTax.browse(sale_tax_ids)
+        purchase_taxes = AccountTax.browse(purchase_tax_ids)
+        vals = AccountProductFiscalClassification._prepare_vals_from_taxes(
+            purchase_taxes, sale_taxes
+        )
+        _logger.info(
+            f"Creating new Fiscal Classification '{vals['name']}'"
+            f" for {len(template_ids)} templates ..."
+        )
+
+        classification = AccountProductFiscalClassification.create(vals)
+        query = """
+            UPDATE product_template
+            SET fiscal_classification_id = %s
+            WHERE id in %s
+        """
+        params = (
+            classification.id,
+            tuple(
+                template_ids,
+            ),
+        )
+        env.cr.execute(query, params=params)
