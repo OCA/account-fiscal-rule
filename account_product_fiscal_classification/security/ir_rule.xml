@@ -5,12 +5,21 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
-    <record id="ir_rule_tax_group" model="ir.rule">
-        <field name="name">Fiscal Classification</field>
+    <record id="rule_account_product_fiscal_classification" model="ir.rule">
+        <field name="name">Rule: Fiscal Classification</field>
         <field name="model_id" ref="model_account_product_fiscal_classification" />
         <field name="global" eval="True" />
         <field
             name="domain_force"
-        >['|', ('company_id', '=', user.company_id.id), ('company_id', '=', False)]</field>
+        >['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_account_product_fiscal_rule" model="ir.rule">
+        <field name="name">Rule: Fiscal Classification Rule</field>
+        <field name="model_id" ref="model_account_product_fiscal_rule" />
+        <field name="global" eval="True" />
+        <field
+            name="domain_force"
+        >['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
     </record>
 </odoo>

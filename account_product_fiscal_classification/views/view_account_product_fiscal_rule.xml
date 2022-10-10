@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2022-Today GRAP (http://www.grap.coop)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="view_account_product_fiscal_rule_tree" model="ir.ui.view">
+        <field name="model">account.product.fiscal.rule</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle" />
+                <field name="category_ids" widget="many2many_tags" />
+                <field name="fiscal_classification_ids" widget="many2many_tags" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="action" />
+                <field
+                    name="message"
+                    attrs="{'invisible': [('action', '=', 'allow')]}"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_account_product_fiscal_rule" model="ir.actions.act_window">
+        <field name="name">Fiscal Classification Rules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.product.fiscal.rule</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_account_product_fiscal_rule"
+        parent="account.account_account_menu"
+        action="action_account_product_fiscal_rule"
+        sequence="3"
+    />
+</odoo>

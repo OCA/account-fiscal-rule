@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2022-Today GRAP (http://www.grap.coop)
+    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="rule_wine_1" model="account.product.fiscal.rule">
+        <field name="company_id" ref="base.main_company" />
+        <field name="category_ids" eval="[(6, 0, [ref('category_wine')])]" />
+        <field
+            name="fiscal_classification_ids"
+            eval="[(6, 0, [ref('fiscal_classification_A_company_1')])]"
+        />
+        <field name="action">allow</field>
+    </record>
+
+    <record id="rule_wine_2" model="account.product.fiscal.rule">
+        <field name="company_id" ref="base.main_company" />
+        <field name="category_ids" eval="[(6, 0, [ref('category_wine')])]" />
+        <field name="action">forbid</field>
+        <field name="message">the alcohol is sold at 20%.</field>
+    </record>
+
+</odoo>
