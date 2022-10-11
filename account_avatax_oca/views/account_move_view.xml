@@ -69,6 +69,18 @@
                     <field name="avatax_response_log" widget="ace" />
                 </page>
             </notebook>
+            <xpath
+                expr="//field[@name='invoice_line_ids']/tree//field[@name='price_unit']"
+                position="after"
+            >
+                <field name="avatax_amt_line" invisible="1" />
+            </xpath>
+            <xpath
+                expr="//field[@name='line_ids']/tree//field[@name='debit']"
+                position="before"
+            >
+                <field name="avatax_amt_line" invisible="1" />
+            </xpath>
         </field>
     </record>
     <record id="invoice_form_view_editable_field" model="ir.ui.view">

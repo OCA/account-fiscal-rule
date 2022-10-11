@@ -541,9 +541,18 @@ class AccountMoveLine(models.Model):
         The Odoo computed tax amount will then be shown, as a reference.
         The Avatax amount will be recomputed upon document validation.
         """
+        error_message = _(
+            "You cannot change Price, Quantity, Discount on CreditNote lines."
+            "\nIf you wish to make changes, please Go to "
+            "'Other Info' tab -> uncheck the 'Use Odoo Tax' field."
+            "\n Caution: Tax will be recomputed once this option is unchecked."
+        )
         for line in self:
-            line.avatax_amt_line = 0.0
-            line.move_id.avatax_amount = 0.0
+            if not line.move_id.avatax_amt_line_override:
+                line.avatax_amt_line = 0.0
+                line.move_id.avatax_amount = 0.0
+            else:
+                raise UserError(error_message)
 
     def _get_price_total_and_subtotal(
         self,
