@@ -2,7 +2,6 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
 
@@ -16,7 +15,7 @@ class Tests(TransactionCase):
         self.AccountFiscalPosition = self.env["account.fiscal.position"]
         self.company = self.env.ref("base.main_company")
         self.chart_template = self.env.ref(
-            "l10n_generic_coa.configurable_chart_template"
+            "account_fiscal_position_type.chart_template"
         )
         self.fiscal_position_template_purchase = self.env.ref(
             "account_fiscal_position_type.fiscal_position_template_purchase"
@@ -45,23 +44,15 @@ class Tests(TransactionCase):
             len(position), 1, "Correct Creation of 'purchase' Fiscal Position failed"
         )
 
-    def test_partner_check(self):
-        with self.assertRaises(ValidationError):
-            self.ResPartner.create(
-                {
-                    "name": "Customer Demo",
-                    "customer": True,
-                    "supplier": False,
-                    "property_account_position_id": self.fiscal_position_purchase,
-                }
-            )
+    def test_invoice_fiscal_position_domain(self):
+        customer_invoice = self.env.ref("account.1_demo_invoice_3").copy()
+        self.assertEqual(
+            customer_invoice.suitable_fiscal_position_ids.mapped("type_position_use"),
+            ["sale", "all"],
+        )
 
-        with self.assertRaises(ValidationError):
-            self.ResPartner.create(
-                {
-                    "name": "Supplier Demo",
-                    "customer": False,
-                    "supplier": True,
-                    "property_account_position_id": self.fiscal_position_sale,
-                }
-            )
+        supplier_invoice = self.env.ref("account.1_demo_invoice_5").copy()
+        self.assertEqual(
+            supplier_invoice.suitable_fiscal_position_ids.mapped("type_position_use"),
+            ["purchase", "all"],
+        )
