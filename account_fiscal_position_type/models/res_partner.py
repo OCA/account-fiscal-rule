@@ -8,20 +8,23 @@ from odoo.exceptions import ValidationError
 
 
 class ResPartner(models.Model):
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
-    @api.constrains(
-        'customer', 'supplier', 'property_account_position_id')
+    @api.constrains("customer", "supplier", "property_account_position_id")
     def _check_fiscal_position_type(self):
         for partner in self.filtered(lambda x: x.property_account_position_id):
             position = partner.property_account_position_id
-            if not partner.customer and\
-                    position.type_position_use == 'sale':
-                raise ValidationError(_(
-                    "You have selected a Sale fiscal position for a non"
-                    " customer partner."))
-            if not partner.supplier and\
-                    position.type_position_use == 'purchase':
-                raise ValidationError(_(
-                    "You have selected a Purchase fiscal position for a non"
-                    " supplier partner."))
+            if not partner.customer and position.type_position_use == "sale":
+                raise ValidationError(
+                    _(
+                        "You have selected a Sale fiscal position for a non"
+                        " customer partner."
+                    )
+                )
+            if not partner.supplier and position.type_position_use == "purchase":
+                raise ValidationError(
+                    _(
+                        "You have selected a Purchase fiscal position for a non"
+                        " supplier partner."
+                    )
+                )
