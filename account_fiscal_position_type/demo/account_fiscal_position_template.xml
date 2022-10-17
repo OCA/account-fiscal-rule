@@ -7,10 +7,7 @@
     >
             <field name="name">Fiscal Position Template (Purchase Use)</field>
             <field name="type_position_use">purchase</field>
-            <field
-            name="chart_template_id"
-            ref="l10n_generic_coa.configurable_chart_template"
-        />
+            <field name="chart_template_id" ref="chart_template" />
         </record>
 
         <record
@@ -19,10 +16,7 @@
     >
             <field name="name">Fiscal Position Template (Sale Use)</field>
             <field name="type_position_use">sale</field>
-            <field
-            name="chart_template_id"
-            ref="l10n_generic_coa.configurable_chart_template"
-        />
+            <field name="chart_template_id" ref="chart_template" />
         </record>
 
 </odoo>

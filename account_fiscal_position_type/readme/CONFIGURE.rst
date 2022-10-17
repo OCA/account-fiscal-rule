@@ -6,8 +6,7 @@ To configure this module, you need to:
 
 .. figure:: ../static/description/fiscal_position_form.png
 
-
-Note:
+**Note**
 
 It is possible to set the value on the fiscal position templates. In that
 case, installing a new chart of account will configure correctly the fiscal
