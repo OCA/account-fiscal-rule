@@ -7,14 +7,16 @@ from odoo import fields, models
 
 
 class AccountFiscalPosition(models.Model):
-    _inherit = 'account.fiscal.position'
+    _inherit = "account.fiscal.position"
 
     _TYPE_POSITION_USE_SELECTION = [
-        ('sale', 'Sale'),
-        ('purchase', 'Purchase'),
-        ('all', 'All'),
+        ("sale", "Sale"),
+        ("purchase", "Purchase"),
+        ("all", "All"),
     ]
 
     type_position_use = fields.Selection(
-        string='Position Application',
-        selection=_TYPE_POSITION_USE_SELECTION, default='all')
+        string="Position Application",
+        selection=_TYPE_POSITION_USE_SELECTION,
+        default="all",
+    )
