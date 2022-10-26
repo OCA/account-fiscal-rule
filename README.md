@@ -17,7 +17,11 @@ Odoo Accounting Taxe and Fiscal Features
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[account_fiscal_position_type](account_fiscal_position_type/) | 16.0.1.0.2 |  | Add sale / purchase type on fiscal position
 
 [//]: # (end addons)
 
