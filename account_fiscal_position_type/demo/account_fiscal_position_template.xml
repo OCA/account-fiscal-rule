@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+        <record
+        id="fiscal_position_template_purchase"
+        model="account.fiscal.position.template"
+    >
+            <field name="name">Fiscal Position Template (Purchase Use)</field>
+            <field name="type_position_use">purchase</field>
+            <field name="chart_template_id" ref="chart_template" />
+        </record>
+
+        <record
+        id="fiscal_position_template_sale"
+        model="account.fiscal.position.template"
+    >
+            <field name="name">Fiscal Position Template (Sale Use)</field>
+            <field name="type_position_use">sale</field>
+            <field name="chart_template_id" ref="chart_template" />
+        </record>
+
+</odoo>
