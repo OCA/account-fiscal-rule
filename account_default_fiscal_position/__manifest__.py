@@ -5,10 +5,10 @@
 
 {
     "name": "Default Partner Fiscal Position",
-    "version": "9.0.1.0.1",
-    "author": "Coop IT Easy SCRLfs",
+    "version": "14.0.1.0.0",
+    "author": "Odoo Community Association (OCA), Coop IT Easy SC",
     "category": "Accounting",
-    "website": "https://www.coopiteasy.be",
+    "website": "https://github.com/OCA/account-fiscal-rule",
     "depends": ["account"],
     "data": [
         "views/account_fiscal_position.xml",
