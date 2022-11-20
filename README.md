@@ -23,7 +23,7 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_avatax](account_avatax/) | 13.0.3.4.4 | [![dreispt](https://github.com/dreispt.png?size=30px)](https://github.com/dreispt) | Automatic Tax application using the Avalara Avatax Service
 [account_avatax_sale](account_avatax_sale/) | 13.0.2.4.4 |  | Sales Orders with automatic Tax application using Avatax
-[account_fiscal_position_autodetect_optional_vies](account_fiscal_position_autodetect_optional_vies/) | 13.0.1.0.1 | [![victoralmau](https://github.com/victoralmau.png?size=30px)](https://github.com/victoralmau) | Account Fiscal Position Autodetect optional VIES
+[account_fiscal_position_autodetect_optional_vies](account_fiscal_position_autodetect_optional_vies/) | 13.0.1.0.2 | [![victoralmau](https://github.com/victoralmau.png?size=30px)](https://github.com/victoralmau) | Account Fiscal Position Autodetect optional VIES
 [account_fiscal_position_partner_type](account_fiscal_position_partner_type/) | 13.0.1.1.0 |  | Account Fiscal Position Partner Type
 [account_fiscal_position_rule](account_fiscal_position_rule/) | 13.0.1.2.1 |  | Account Fiscal Position Rule
 [account_fiscal_position_rule_purchase](account_fiscal_position_rule_purchase/) | 13.0.1.0.0 |  | Account Fiscal Position Rule Purchase
