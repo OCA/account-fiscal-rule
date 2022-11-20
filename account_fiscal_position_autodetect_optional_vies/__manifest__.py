@@ -3,7 +3,7 @@
 
 {
     "name": "Account Fiscal Position Autodetect optional VIES",
-    "version": "13.0.1.0.1",
+    "version": "13.0.1.0.2",
     "category": "Accounting & Finance",
     "license": "AGPL-3",
     "author": "Tecnativa, Odoo Community Association (OCA)",
