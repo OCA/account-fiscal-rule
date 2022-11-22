@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright 2022 Simone Rubino - TAKOBI
+  ~ License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+  -->
+<odoo>
+    <record id="view_account_position_form" model="ir.ui.view">
+        <field name="name">Add Product to Fiscal Position form view</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tax_ids']/tree/field[@name='tax_dest_id']" position="after">
+                <field name="product_ids" widget="many2many_tags"/>
+                <field name="product_category_ids" widget="many2many_tags"/>
+            </xpath>
+            <xpath expr="//field[@name='tax_ids']/form//field[@name='tax_dest_id']" position="after">
+                <field name="product_ids" widget="many2many_tags"/>
+                <field name="product_category_ids" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
