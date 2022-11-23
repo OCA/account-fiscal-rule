@@ -7,8 +7,8 @@
     'version': '12.0.1.0.0',
     'category': 'Accounting',
     'author': 'TAKOBI, Odoo Community Association (OCA)',
-    'website': 'https://github.com/OCA/account-fiscal-rule/tree/'
-               '12.0/account_fiscal_position_product',
+    'website': 'https://github.com/OCA/account-fiscal-rule'
+               '/tree/12.0/account_fiscal_position_product',
     'license': 'AGPL-3',
     'development_status': 'Beta',
     'depends': [
