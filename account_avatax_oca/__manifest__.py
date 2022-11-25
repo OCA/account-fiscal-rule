@@ -29,6 +29,6 @@
     "installable": True,
     "application": True,
     "external_dependencies": {"python": ["Avalara"]},
-    "development_status": "Alpha",
+    "development_status": "Beta",
     "maintainers": ["dreispt"],
 }
