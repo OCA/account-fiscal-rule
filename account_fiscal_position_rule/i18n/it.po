@@ -11,14 +11,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-17 10:52+0000\n"
-"PO-Revision-Date: 2016-11-16 16:33+0000\n"
-"Last-Translator: Andrea Cometa <a.cometa@apuliasoftware.it>, 2016\n"
+"PO-Revision-Date: 2022-12-29 16:49+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #. module: account_fiscal_position_rule
 #: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule
@@ -248,7 +249,7 @@ msgstr "Data ultimo aggiornamento"
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__name
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__name
 msgid "Name"
-msgstr "Name"
+msgstr "Nome"
 
 #. module: account_fiscal_position_rule
 #: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_form
