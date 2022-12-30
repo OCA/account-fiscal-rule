@@ -15,11 +15,11 @@ class AccountFiscalPosition(models.Model):
     )
 
     @api.model
-    def search(self, args, offset=0, limit=None, order=None, count=False):
+    def search(self, domain, offset=0, limit=None, order=None, count=False):
         if self.env.context.get("fiscal_position_type"):
-            args = expression.AND(
+            domain = expression.AND(
                 (
-                    args,
+                    domain,
                     [
                         (
                             "fiscal_position_type",
@@ -30,21 +30,20 @@ class AccountFiscalPosition(models.Model):
                 )
             )
         return super().search(
-            args, offset=offset, limit=limit, order=order, count=count
+            domain, offset=offset, limit=limit, order=order, count=count
         )
 
     @api.model
-    def get_fiscal_position(self, partner_id, delivery_id=None):
+    def _get_fiscal_position(self, partner, delivery=None):
         fiscal_type = False
-        if partner_id:
-            delivery = self.env["res.partner"].browse(delivery_id or partner_id)
+        if partner:
+            delivery = delivery or partner
             # Only type has been configured
             if (
                 delivery.fiscal_position_type
                 and not delivery.property_account_position_id
             ):
                 fiscal_type = delivery.fiscal_position_type
-        fp_id = super(
+        return super(
             AccountFiscalPosition, self.with_context(fiscal_position_type=fiscal_type)
-        ).get_fiscal_position(partner_id=partner_id, delivery_id=delivery_id)
-        return fp_id
+        )._get_fiscal_position(partner=partner, delivery=delivery)
