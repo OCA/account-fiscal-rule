@@ -20,4 +20,4 @@ class ResPartner(models.Model):
 
     @api.model
     def _commercial_fields(self):
-        return super(ResPartner, self)._commercial_fields() + ["fiscal_position_type"]
+        return super()._commercial_fields() + ["fiscal_position_type"]
