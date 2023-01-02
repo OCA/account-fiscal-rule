@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-11-08 16:35+0000\n"
-"Last-Translator: Lorenzo Battistini <lb@takobi.online>\n"
+"PO-Revision-Date: 2023-01-02 11:48+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #. module: l10n_eu_oss
 #: model_terms:ir.ui.view,arch_db:l10n_eu_oss.res_config_settings_view_form_l10n_eu_oss
@@ -39,7 +39,7 @@ msgstr "Applicare imposte EU relative a OSS"
 #. module: l10n_eu_oss
 #: model_terms:ir.ui.view,arch_db:l10n_eu_oss.l10n_eu_oss_wizard_form_view
 msgid "Cancel"
-msgstr "Annullare"
+msgstr "Annulla"
 
 #. module: l10n_eu_oss
 #: model:ir.model.fields,field_description:l10n_eu_oss.field_l10n_eu_oss_wizard__company_id
