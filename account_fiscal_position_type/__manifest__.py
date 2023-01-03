@@ -8,7 +8,7 @@
     'version': '12.0.1.0.2',
     'category': 'Accounting',
     'author': 'GRAP,Odoo Community Association (OCA)',
-    'website': 'https://odoo-community.org/',
+    'website': 'https://github.com/OCA/account-fiscal-rule',
     'license': 'AGPL-3',
     'development_status': 'Beta',
     'depends': [
