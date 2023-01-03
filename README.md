@@ -17,7 +17,17 @@ Odoo Taxes & Fiscal Rules Management
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[account_fiscal_position_partner_type](account_fiscal_position_partner_type/) | 12.0.1.0.0 |  | Account Fiscal Position Partner Type
+[account_fiscal_position_type](account_fiscal_position_type/) | 12.0.1.0.2 |  | Add sale / purchase type on fiscal position
+[account_fiscal_position_usage_group](account_fiscal_position_usage_group/) | 12.0.1.0.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Limit the usage of fiscal positions to defined groups members
+[account_product_fiscal_classification](account_product_fiscal_classification/) | 12.0.1.3.3 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Simplify taxes management for products
+[account_product_fiscal_classification_test](account_product_fiscal_classification_test/) | 12.0.1.1.0 |  | tests account_product_fiscal_classification module
+[l10n_eu_oss](l10n_eu_oss/) | 12.0.1.0.1 |  | L10n EU OSS
+[product_refund_account](product_refund_account/) | 12.0.1.0.0 | [![cubells](https://github.com/cubells.png?size=30px)](https://github.com/cubells) | Adds account to product to manage debit and credit notes
 
 [//]: # (end addons)
 
