@@ -8,7 +8,7 @@
     "website": "https://github.com/OCA/account-fiscal-rule",
     "license": "AGPL-3",
     "category": "Accounting & Finance",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "depends": [
         "account",
     ],
