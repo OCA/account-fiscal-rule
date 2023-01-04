@@ -11,9 +11,14 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     @api.constrains(
-        'customer', 'supplier', 'property_account_position_id')
+        'customer', 'supplier', 'property_account_position_id', 'parent_id')
     def _check_fiscal_position_type(self):
-        for partner in self.filtered(lambda x: x.property_account_position_id):
+        # only apply constraint on parent partner
+        # Child partners inherit from the configuration
+        # of the parent, whatever their configuration
+        for partner in self.filtered(
+            lambda x: x.property_account_position_id and not x.parent_id
+        ):
             position = partner.property_account_position_id
             if not partner.customer and\
                     position.type_position_use == 'sale':
