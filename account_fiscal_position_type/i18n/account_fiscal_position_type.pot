@@ -64,13 +64,13 @@ msgid "Template for Fiscal Position"
 msgstr ""
 
 #. module: account_fiscal_position_type
-#: code:addons/account_fiscal_position_type/models/res_partner.py:25
+#: code:addons/account_fiscal_position_type/models/res_partner.py:30
 #, python-format
 msgid "You have selected a Purchase fiscal position for a non supplier partner."
 msgstr ""
 
 #. module: account_fiscal_position_type
-#: code:addons/account_fiscal_position_type/models/res_partner.py:20
+#: code:addons/account_fiscal_position_type/models/res_partner.py:25
 #, python-format
 msgid "You have selected a Sale fiscal position for a non customer partner."
 msgstr ""
