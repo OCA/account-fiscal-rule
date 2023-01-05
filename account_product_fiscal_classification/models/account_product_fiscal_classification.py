@@ -2,19 +2,22 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from collections import defaultdict
+
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
 class AccountProductFiscalClassification(models.Model):
     _name = "account.product.fiscal.classification"
+    _inherit = ["mail.thread"]
     _description = "Fiscal Classification"
 
     # Default Section
     def _default_company_id(self):
         return self.env.company
 
-    name = fields.Char(required=True, translate=True)
+    name = fields.Char(required=True, translate=True, tracking=True)
 
     description = fields.Text()
 
@@ -85,7 +88,20 @@ class AccountProductFiscalClassification(models.Model):
 
     # Overload Section
     def write(self, vals):
+        taxes = self._get_current_taxes(vals)
         res = super(AccountProductFiscalClassification, self).write(vals)
+        # Set Old and New taxes on chatter
+        for rec, values in taxes.items():
+            body = []
+            for tax in ("sale_tax_ids", "purchase_tax_ids"):
+                if tax in values:
+                    body.append(
+                        "%s -> <br/>%s"
+                        % (sorted(values[tax]), sorted(x.name for x in rec[tax]))
+                    )
+            body = "\n".join(body)
+            rec.message_post(body=body)
+        # Update product template
         pt_obj = self.env["product.template"]
         if "purchase_tax_ids" in vals or "sale_tax_ids" in vals:
             for fc in self:
@@ -105,6 +121,15 @@ class AccountProductFiscalClassification(models.Model):
                     % (fc.name, fc.product_tmpl_qty)
                 )
         return super(AccountProductFiscalClassification, self).unlink()
+
+    def _get_current_taxes(self, vals):
+        taxes = defaultdict(dict)
+        # Collect current taxes
+        for rec in self:
+            for tax in ("sale_tax_ids", "purchase_tax_ids"):
+                if tax in vals:
+                    taxes[rec][tax] = [x.name for x in rec[tax]]
+        return taxes
 
     # Custom Sections
     @api.model
