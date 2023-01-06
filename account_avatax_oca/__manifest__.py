@@ -1,13 +1,13 @@
 {
     "name": "Avalara Avatax Certified Connector",
-    "version": "15.0.2.0.1",
+    "version": "16.0.1.0.0",
     "author": "Open Source Integrators, Fabrice Henrion,"
     "Sodexis, Odoo Community Association (OCA)",
     "summary": "Compute Sales Tax using the Avalara Avatax Service",
     "license": "AGPL-3",
     "category": "Accounting",
     "website": "https://github.com/OCA/account-fiscal-rule",
-    "depends": ["account", "sale", "base_geolocalize"],
+    "depends": ["sale_stock", "base_geolocalize"],
     "pre_init_hook": "pre_init_hook",
     "data": [
         "security/avalara_salestax_security.xml",

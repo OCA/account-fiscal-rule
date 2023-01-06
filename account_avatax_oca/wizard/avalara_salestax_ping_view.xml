@@ -5,7 +5,7 @@
         <field name="model">avalara.salestax.ping</field>
         <field name="arch" type="xml">
             <form string="Test Connection">
-                <group>
+                <group col="1">
                     <field name="name" invisible="1" />
                     <h4>Connection test successful</h4>
                 </group>

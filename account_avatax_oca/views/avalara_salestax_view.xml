@@ -24,30 +24,38 @@
                     </group>
                     <notebook>
                         <page string="Connection" name="connection_page">
-                            <group col="3">
+                        <group>
+                            <group>
                                 <field name="account_number" />
                                 <field name="license_key" password="True" />
-                                <field name="service_url" />
-                                <button
-                                    name="%(account_avatax_oca.action_avalara_salestax_ping)d"
-                                    string="Test Connection"
-                                    type="action"
-                                    icon="fa-arrow-right"
-                                    class="btn-link"
-                                />
-                                <field name="company_code" />
-                                <button
-                                    name="%(account_avatax_oca.action_avalara_salestax_getcompany)d"
-                                    string="Select Company"
-                                    type="action"
-                                    icon="fa-arrow-right"
-                                    class="btn-link"
-                                />
+                                <label for="service_url" string="Service URL" />
+                                <div>
+                                    <field name="service_url" class="oe_inline" />
+                                    <button
+                                            name="%(account_avatax_oca.action_avalara_salestax_ping)d"
+                                            string="Test Connection"
+                                            type="action"
+                                            icon="fa-arrow-right"
+                                            class="btn-link"
+                                        />
+                                </div>
+                                <label for="company_code" string="Company Code" />
+                                <div>
+                                    <field name="company_code" class="oe_inline" />
+                                    <button
+                                            name="%(account_avatax_oca.action_avalara_salestax_getcompany)d"
+                                            string="Select Company"
+                                            type="action"
+                                            icon="fa-arrow-right"
+                                            class="btn-link"
+                                        />
+                                </div>
                                 <a
-                                    colspan="2"
-                                    href="https://admin.avalara.com/"
-                                    target="_blank"
-                                >Visit the AvaTax Admin webpage</a>
+                                        colspan="2"
+                                        href="https://admin.avalara.com/"
+                                        target="_blank"
+                                    >Visit the AvaTax Admin webpage</a>
+                            </group>
                             </group>
                         </page>
 
