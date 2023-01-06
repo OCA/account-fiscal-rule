@@ -38,16 +38,13 @@ class ResPartner(models.Model):
     customer_code = fields.Char(copy=False)
     tax_exempt = fields.Boolean(
         "Is Tax Exempt (Deprecated))",
-        deprecated=True,
     )
     exemption_number = fields.Char(
         "Exemption Number (Deprecated)",
-        deprecated=True,
     )
     exemption_code_id = fields.Many2one(
         "exemption.code",
         "Exemption Code (Deprecated)",
-        deprecated=True,
     )
     property_tax_exempt = fields.Boolean(
         "Is Tax Exempt",

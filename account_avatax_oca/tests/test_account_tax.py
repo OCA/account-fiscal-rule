@@ -12,7 +12,7 @@ class TestAvatax(common.TransactionCase):
         super().setUpClass()
         cls.Tax = cls.env["account.tax"]
         cls.company1 = cls.env.ref("base.main_company")
-        cls.company2 = cls.env["res.company"].create({"name": "Company 2"})
+        cls.company2 = cls.env["res.company"].create({"name": "Company Avatax 2"})
 
     def test_get_avatax_tax_rate(self):
         tax75 = self.Tax.get_avalara_tax(7.5, "out_invoice")

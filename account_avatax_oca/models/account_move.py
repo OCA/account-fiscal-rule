@@ -194,7 +194,7 @@ class AccountMove(models.Model):
         sign = 1 if self.move_type.startswith("out") else -1
         lines = [
             line._avatax_prepare_line(sign, doc_type)
-            for line in self.invoice_line_ids.filtered(lambda l: not l.display_type)
+            for line in self.invoice_line_ids
             if line.price_subtotal or line.quantity
         ]
         return [x for x in lines if x]
@@ -260,16 +260,14 @@ class AccountMove(models.Model):
                     if tax and tax not in line.tax_ids:
                         line_taxes = (
                             tax
-                            if avatax_config.override_line_taxes
+                            if avatax_config
                             else line.tax_ids.filtered(lambda x: not x.is_avatax)
                         )
                         taxes_to_set.append((index, line_taxes | tax))
                     line.avatax_amt_line = tax_result_line["tax"]
             self.avatax_amount = tax_result["totalTax"]
-            self.with_context(
-                avatax_invoice=self, check_move_validity=False
-            )._recompute_dynamic_lines(True, False)
-            self.line_ids.mapped("move_id")._check_balanced()
+            container = {"records": self}
+            self.line_ids.mapped("move_id")._check_balanced(container)
 
             # Set Taxes on lines in a way that properly triggers onchanges
             # This same approach is also used by the official account_taxcloud connector
