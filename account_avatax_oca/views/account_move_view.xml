@@ -7,6 +7,7 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <button name="preview_invoice" position="before">
+                <field name="is_avatax" invisible="1" />
                 <button
                     name="avatax_compute_taxes"
                     type="object"
@@ -74,6 +75,7 @@
             name="groups_id"
             eval="[(6, 0, [ref('account.group_account_manager') ])]"
         />
+        <field name="mode">primary</field>
         <field name="arch" type="xml">
             <field name='exemption_code' position="attributes">
                 <attribute name="readonly">0</attribute>

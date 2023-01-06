@@ -1,4 +1,5 @@
 from odoo import fields, models
+from odoo.exceptions import UserError
 
 from ..models.avatax_rest_api import AvaTaxRESTService
 
@@ -13,6 +14,8 @@ class AvalaraSalestaxGetCompany(models.TransientModel):
         avatax_api = AvaTaxRESTService(config=config)
         response = avatax_api.client.query_companies()
         response_data = response.json()
+        if response_data and response_data.get("error"):
+            raise UserError(response_data.get("error", {}).get("message", "Error"))
         return [
             (x["companyCode"], "{} ({})".format(x["name"], x["companyCode"]))
             for x in response_data["value"]
