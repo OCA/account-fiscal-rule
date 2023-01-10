@@ -86,13 +86,7 @@ class AccountTax(models.Model):
             digits = 6
             avatax_amount = None
             for line in avatax_invoice.invoice_line_ids:
-                price_unit = line.currency_id._convert(
-                    price_unit,
-                    avatax_invoice.company_id.currency_id,
-                    avatax_invoice.company_id,
-                    avatax_invoice.date,
-                )
-                price_unit_wo_discount = price_unit
+                price_unit = price_unit_wo_discount = price_unit
                 if avatax_invoice.is_invoice(include_receipts=True):
                     price_unit_wo_discount = line.price_unit * (
                         1 - (line.discount / 100.0)
