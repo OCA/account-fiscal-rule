@@ -3,7 +3,7 @@
 
 {
     "name": "L10n EU OSS OCA",
-    "version": "15.0.2.1.1",
+    "version": "16.0.1.0.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-fiscal-rule",
     "author": "Sygel Technology," "Odoo Community Association (OCA)",

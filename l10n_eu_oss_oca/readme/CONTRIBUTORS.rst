@@ -6,3 +6,7 @@
 * `Tecnativa <https://www.tecnativa.com>`_:
 
     * Pedro M. Baeza
+
+* `Factor Libre <https://factorlibre.com>`_:
+
+  * Luis J. Salvatierra

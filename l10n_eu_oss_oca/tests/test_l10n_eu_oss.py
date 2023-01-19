@@ -126,8 +126,8 @@ class TestL10nEuOss(TransactionCase):
         partner = self.env["res.partner"].create(
             {"name": "Customer", "country_id": self.country_fr.id}
         )
-        fiscal_position_id = self.env["account.fiscal.position"].get_fiscal_position(
-            partner.id
+        fiscal_position_id = self.env["account.fiscal.position"]._get_fiscal_position(
+            partner
         )
         move = self.env["account.move"].create(
             [
