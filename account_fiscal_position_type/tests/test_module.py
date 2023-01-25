@@ -47,12 +47,20 @@ class Tests(TransactionCase):
     def test_invoice_fiscal_position_domain(self):
         customer_invoice = self.env.ref("account.1_demo_invoice_3").copy()
         self.assertEqual(
-            customer_invoice.suitable_fiscal_position_ids.mapped("type_position_use"),
-            ["sale", "all"],
+            set(
+                customer_invoice.suitable_fiscal_position_ids.mapped(
+                    "type_position_use"
+                )
+            ),
+            {"sale", "all"},
         )
 
         supplier_invoice = self.env.ref("account.1_demo_invoice_5").copy()
         self.assertEqual(
-            supplier_invoice.suitable_fiscal_position_ids.mapped("type_position_use"),
-            ["purchase", "all"],
+            set(
+                supplier_invoice.suitable_fiscal_position_ids.mapped(
+                    "type_position_use"
+                )
+            ),
+            {"purchase", "all"},
         )

@@ -18,14 +18,14 @@
     <record id="fake_account_001" model="account.account.template">
         <field name="code">001</field>
         <field name="name">Fake Account 001</field>
-        <field name="account_type">income_other</field>
+        <field name="user_type_id" ref="account.data_account_type_other_income" />
         <field name="chart_template_id" ref="chart_template" />
     </record>
 
     <record id="fake_account_002" model="account.account.template">
         <field name="code">002</field>
         <field name="name">Fake Account 002</field>
-        <field name="account_type">income_other</field>
+        <field name="user_type_id" ref="account.data_account_type_other_income" />
         <field name="chart_template_id" ref="chart_template" />
     </record>
 
