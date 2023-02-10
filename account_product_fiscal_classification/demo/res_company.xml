@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="company_2" model="res.company">
+        <field name="name">Company 2</field>
+        <field name="currency_id" ref="base.USD" />
+    </record>
+
+</odoo>

@@ -1,0 +1,523 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_product_fiscal_classification
+#
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2018
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-17 00:24+0000\n"
+"PO-Revision-Date: 2020-08-07 09:59+0000\n"
+"Last-Translator: Matjaz Mozetic <matjaz@matmoz.si>\n"
+"Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 3.10\n"
+
+#. module: account_product_fiscal_classification
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:129
+#, python-format
+msgid " - Sale Taxes: "
+msgstr " - Prodajni davki: "
+
+#. module: account_product_fiscal_classification
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:122
+#, python-format
+msgid "- No Sale Taxes"
+msgstr "- Brez prodajnih davkov"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_account_chart_template
+msgid "Account Chart Template"
+msgstr "Predloga kontnega plana"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__active
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__active
+msgid "Active"
+msgstr "Aktivno"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category__fiscal_classification_ids
+msgid "Allowed Fiscal Classifications"
+msgstr "Dovoljene fiskalne klasifikacije"
+
+#. module: account_product_fiscal_classification
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_change_fiscal_classification
+msgid "Apply"
+msgstr "Uveljavi"
+
+#. module: account_product_fiscal_classification
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_form
+msgid "Apply to Child Categories"
+msgstr "Uveljavi za podrejene kategorije"
+
+#. module: account_product_fiscal_classification
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_change_fiscal_classification
+msgid "Cancel"
+msgstr "Preklic"
+
+#. module: account_product_fiscal_classification
+#: model:product.category,name:account_product_fiscal_classification.category_with_fiscal_restriction
+msgid "Category with Fiscal Restriction"
+msgstr "Kategorija s fiskalno restrikcijo"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__chart_template_id
+msgid "Chart Template"
+msgstr "Predloga plana"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_product_category__fiscal_restriction
+msgid ""
+"Check this box if you want to enable Restriction on Fiscal Classifications."
+msgstr "Označite, če želite omogočiti omejitve na fiskalnih klasifikacijah."
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__company_id
+msgid "Company"
+msgstr "Družba"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__create_uid
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__create_uid
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__create_uid
+msgid "Created by"
+msgstr "Ustvaril"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__create_date
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__create_date
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__create_date
+msgid "Created on"
+msgstr "Ustvarjeno"
+
+#. module: account_product_fiscal_classification
+#: model:res.company,overdue_msg:account_product_fiscal_classification.cpny_onlyshare_classification
+msgid ""
+"Dear Sir/Madam,\n"
+"\n"
+"Our records indicate that some payments on your account are still due. "
+"Please find details below.\n"
+"If the amount has already been paid, please disregard this notice. "
+"Otherwise, please forward us the total amount stated below.\n"
+"If you have any queries regarding your account, Please contact us.\n"
+"\n"
+"Thank you in advance for your cooperation.\n"
+"Best Regards,"
+msgstr ""
+"Spoštovani.\n"
+"\n"
+"Po naši evidenci nekatere zapadle terjatve na vaši kontni kartici še niso "
+"poravnane. Več podrobnosti je spodaj.\n"
+"Če je znesek medtem bil že poravnan, lahko smatrate ta opomin kot ničen. V "
+"nasprotnem primeru pa vas prosimo, da poravnate navedeni znesek.\n"
+"Za kakršnakoli dodatna pojasnila smo vam na voljo.\n"
+"\n"
+"Hvala za razumevanje in lep pozdrav."
+
+#. module: account_product_fiscal_classification
+#: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_1
+msgid "Demo Fiscal Classification 1"
+msgstr "Demonstracijska fiskalna klasifikacija 1"
+
+#. module: account_product_fiscal_classification
+#: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_2
+msgid "Demo Fiscal Classification 2"
+msgstr "Demonstracijska fiskalna klasifikacija 2"
+
+#. module: account_product_fiscal_classification
+#: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_3
+msgid "Demo Fiscal Classification 3"
+msgstr "Demonstracijska fiskalna klasifikacija 3"
+
+#. module: account_product_fiscal_classification
+#: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_1
+msgid "Demo Global Fiscal Classification 1"
+msgstr "Demonstracijska globalna fiskalna klasifikacija 1"
+
+#. module: account_product_fiscal_classification
+#: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_2
+msgid "Demo Global Fiscal Classification 2"
+msgstr "Demonstracijska globalna fiskalna klasifikacija 2"
+
+#. module: account_product_fiscal_classification
+#: model:account.product.fiscal.classification,name:account_product_fiscal_classification.global_fiscal_classification_3
+msgid "Demo Global Fiscal Classification 3"
+msgstr "Demonstracijska globalna fiskalna klasifikacija 3"
+
+#. module: account_product_fiscal_classification
+#: model:product.template,name:account_product_fiscal_classification.product_template_all_cpnies
+msgid "Demo Product Fiscal Classif all companies"
+msgstr "Demonstracijski proizvod s fiskalno klasifikacijo vse družbe"
+
+#. module: account_product_fiscal_classification
+#: model:product.template,name:account_product_fiscal_classification.product_template_1
+msgid "Demo Product With Fiscal Classification"
+msgstr "Demonstracijski proizvod s fiskalno klasifikacijo"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__description
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__description
+msgid "Description"
+msgstr "Opis"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__display_name
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__display_name
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__display_name
+msgid "Display Name"
+msgstr "Prikazni naziv"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__fiscal_classification_id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__fiscal_classification_id
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_tree
+msgid "Fiscal Classification"
+msgstr "Fiskalna klasifikacija"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification_template
+msgid "Fiscal Classification Template"
+msgstr "Osnutek fiskalne klasifikacije"
+
+#. module: account_product_fiscal_classification
+#: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification_template
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_chart_template__classification_template_ids
+#: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_classification_template
+msgid "Fiscal Classification Templates"
+msgstr "Osnutek fiskalne klasifikacije"
+
+#. module: account_product_fiscal_classification
+#: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
+#: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_classification
+msgid "Fiscal Classifications"
+msgstr "Fiskalne klasifikacije"
+
+#. module: account_product_fiscal_classification
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_form
+msgid "Fiscal Settings"
+msgstr "Fiskalne nastavitve"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__usage_group_id
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_template__usage_group_id
+msgid ""
+"If defined, the user should be member to this group, to use this fiscal "
+"classification when creating or updating products"
+msgstr ""
+"Če je določeno, mora uporabnik biti član te skupine, da bi lahko uporabljal "
+"to fiskalno klasifikacijo pri ustvarjanju in posodabljanju proizvodov"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_template__active
+msgid ""
+"If unchecked, it will allow you to hide the Fiscal Classification Template "
+"without removing it."
+msgstr ""
+"Če ni označeno, se osnutek fiskalne klasifikacije lahko skrije, ne da bi ga "
+"odstranili."
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__active
+msgid ""
+"If unchecked, it will allow you to hide the Fiscal Classification without "
+"removing it."
+msgstr ""
+"Če ni označeno, se fiskalne klasifikacije lahko skrije, ne da bi jih "
+"odstranili."
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification____last_update
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template____last_update
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification____last_update
+msgid "Last Modified on"
+msgstr "Zadnjič spremenjeno"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__write_uid
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__write_uid
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__write_uid
+msgid "Last Updated by"
+msgstr "Zadnjič posodobil"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__write_date
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__write_date
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__write_date
+msgid "Last Updated on"
+msgstr "Zadnjič posodobljeno"
+
+#. module: account_product_fiscal_classification
+#: model:ir.actions.act_window,name:account_product_fiscal_classification.action_wizard_change_fiscal_classification
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
+msgid "Move Products into another Fiscal Classification"
+msgstr "Premik proizvodov v drugo fiskalno klasifikacijo"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__name
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__name
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_template_form
+msgid "Name"
+msgstr "Naziv"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__new_fiscal_classification_id
+msgid "New Classification"
+msgstr "Nova klasifikacija"
+
+#. module: account_product_fiscal_classification
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:111
+#, python-format
+msgid "No Purchase Taxes - Sale Taxes: "
+msgstr "Brez nabavnih - prodajnih davkov: "
+
+#. module: account_product_fiscal_classification
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:109
+#, python-format
+msgid "No taxes"
+msgstr "Brez davkov"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__old_fiscal_classification_id
+msgid "Old Classification"
+msgstr "Stara klasifikacija"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_product_category
+msgid "Product Category"
+msgstr "Kategorija proizvoda"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_product_template
+msgid "Product Template"
+msgstr "Predloga proizvoda"
+
+#. module: account_product_fiscal_classification
+#: model:ir.actions.act_window,name:account_product_fiscal_classification.action_template_list_by_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__product_tmpl_ids
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
+msgid "Products"
+msgstr "Proizvodi"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__product_tmpl_qty
+msgid "Products Quantity"
+msgstr "Količina proizvodov"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category__forbidden_classification_template_ids
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_product_category_form
+msgid "Products with Forbidden Classification"
+msgstr "Proizvodi s prepovedano klasifikacijo"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__purchase_tax_ids
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__purchase_tax_ids
+msgid "Purchase Taxes"
+msgstr "Nabavni davki"
+
+#. module: account_product_fiscal_classification
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:117
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:124
+#, python-format
+msgid "Purchase Taxes: "
+msgstr "Nabavni davki: "
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category__forbidden_classification_template_qty
+msgid "Quantity of Products with Forbidden Classification"
+msgstr "Količina proizvodov s prepovedano klasifikacijo"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category__fiscal_restriction
+msgid "Restriction on Fiscal Classifications"
+msgstr "Restrikcija na fiskalnih klasifikacijah"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__sale_tax_ids
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__sale_tax_ids
+msgid "Sale Taxes"
+msgstr "Prodajni davki"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_product_category__fiscal_classification_ids
+msgid ""
+"Specify Fiscal Classifications that will be allowed for products that belong "
+"to this Product Category."
+msgstr ""
+"Določite fiskalne klasifikacije, ki bodo dovoljene za proizvode v tej "
+"kategoriji."
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__company_id
+msgid ""
+"Specify a company if you want to define this Fiscal Classification only for "
+"specific company. Otherwise, this Fiscal Classification will be available "
+"for all companies."
+msgstr ""
+"Določite družbo, če želite določiti to fiskalno klasifikacijo le za določeno "
+"družbo. V nasprotnem primeru bo za fiskalna klasifikacija veljala za vse "
+"družbe."
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product__fiscal_classification_id
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_product_template__fiscal_classification_id
+msgid ""
+"Specify the combination of taxes for this product. This field is required. "
+"If you dont find the correct Fiscal Classification, Please create a new one "
+"or ask to your account manager if you don't have the access right."
+msgstr ""
+"Določite kombinacijo davkov za ta proizvod. To polje je zahtevano. Če ne "
+"najdete pravilne fiskalne klasifikacije, ustvarite novo oziroma se obrnite "
+"na upravitelja kontov, v kolikor nimate pravic dostopa."
+
+#. module: account_product_fiscal_classification
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_template_form
+msgid "Taxes"
+msgstr "Davki"
+
+#. module: account_product_fiscal_classification
+#: code:addons/account_product_fiscal_classification/models/product_template.py:49
+#, python-format
+msgid ""
+"The category '%s' of the product '%s' doesn't not allow to set the "
+"classification '%s'.\n"
+" Please, change the classification of the product, or remove the constraint "
+"on the product category.\n"
+"\n"
+" Allowed Classifications for '%s': %s"
+msgstr ""
+"Kategorija '%s' za proizvod '%s' ne dovoljuje nastavitve klasifikacije "
+"'%s'.\n"
+" Prosimo, da spremenite klasifikacijo proizvoda ali odstranite omejitev na "
+"kategoriji proizvoda.\n"
+"\n"
+" Dovoljene klasifikacije za '%s': %s"
+
+#. module: account_product_fiscal_classification
+#: model:product.template,uom_name:account_product_fiscal_classification.product_template_1
+#: model:product.template,uom_name:account_product_fiscal_classification.product_template_all_cpnies
+msgid "Unit(s)"
+msgstr "Enot(a)"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__usage_group_id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__usage_group_id
+msgid "Usage Group"
+msgstr "Skupina uporabe"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_wizard_change_fiscal_classification
+msgid "Wizard : Change fiscal classification on product"
+msgstr "Čarovnik : spremeni fiskalno klasifikacijo na proizvodu"
+
+#. module: account_product_fiscal_classification
+#: code:addons/account_product_fiscal_classification/models/product_category.py:42
+#, python-format
+msgid ""
+"You can not set fiscal classifications on %s if Restriction on Fiscal "
+"Classifications is not enabled for the category."
+msgstr ""
+"Ne morete nastaviti fiskalnih klasifikacij na %s, če ni omogočena "
+"restrikcija na fiskalnih klasifikacijah za to kategorijo."
+
+#. module: account_product_fiscal_classification
+#: code:addons/account_product_fiscal_classification/models/product_template.py:140
+#, python-format
+msgid ""
+"You can not use the fiscal classification '%s' because you're not member of "
+"the group '%s'."
+msgstr ""
+"Fiskalne klasifikacije na '%s' ne morete uporabljati, ker niste član skupine "
+"'%s'."
+
+#. module: account_product_fiscal_classification
+#: code:addons/account_product_fiscal_classification/models/product_template.py:121
+#, python-format
+msgid "You cannot change Taxes for many Products."
+msgstr "Ne morete spreminjati davkov za več proizvodov."
+
+#. module: account_product_fiscal_classification
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:83
+#, python-format
+msgid ""
+"You cannot delete The Fiscal Classification '%s' because it contents %s "
+"products. Please move products to another Fiscal Classification first."
+msgstr ""
+"Ne morete brisati fiskalne klasifikacije '%s', ker vsebuje %s proizvodov. "
+"Najprej premaknite proizvode v drugo fiskalno klasifikacijo."
+
+#. module: account_product_fiscal_classification
+#: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_1
+#: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_all_cpnies
+msgid "kg"
+msgstr "kg"
+
+#~ msgid "0.03%"
+#~ msgstr "0.03%"
+
+#~ msgid "0.1%"
+#~ msgstr "0.1%"
+
+#~ msgid "Code"
+#~ msgstr "Koda"
+
+#~ msgid "Create"
+#~ msgstr "Ustvari"
+
+#~ msgid "Demo Fiscal Classification Template 1"
+#~ msgstr "Osnutek demonstracijske fiskalne klasifikacije 1"
+
+#~ msgid "Demo Purchase Tax 10%"
+#~ msgstr "Demonstracijski nabavni davek 10%"
+
+#~ msgid "Demo Sale Tax 10%"
+#~ msgstr "Demonstracijski prodajni davek 10%"
+
+#~ msgid "Demo Sale Tax 3%"
+#~ msgstr "Demonstracijski prodajni davek 3%"
+
+#~ msgid "Fiscal Classifications Template"
+#~ msgstr "Osnutek fiskalnih klasifikacij"
+
+#~ msgid "Generate Product Fiscal Classification from Templates"
+#~ msgstr "Ustvari fiskalne klasifikacije proizvoda iz osnutkov"
+
+#~ msgid "This will automatically configure all product fiscal classification"
+#~ msgstr "Samodejna nastavitev vseh fiskalnih klasifikacij proizvoda"
+
+#~ msgid "account.product.fiscal.classification"
+#~ msgstr "account.product.fiscal.classification"
+
+#~ msgid "account.product.fiscal.classification.model"
+#~ msgstr "account.product.fiscal.classification.model"
+
+#~ msgid "account.product.fiscal.classification.template"
+#~ msgstr "account.product.fiscal.classification.template"
+
+#~ msgid "or"
+#~ msgstr "ali"
+
+#~ msgid "ou"
+#~ msgstr "ou"
+
+#~ msgid "wizard.account.product.fiscal.classification"
+#~ msgstr "wizard.account.product.fiscal.classification"

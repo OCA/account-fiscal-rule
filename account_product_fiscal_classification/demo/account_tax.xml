@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2014 -Today GRAP (http://www.grap.coop)
+    @author Sylvain LE GAL (https://twitter.com/legalsylvain
+    Copyright (C) 2019-Today Akretion (http://www.akretion.com)
+    @author Pierrick Brun <pierrick.brun@akretion.com>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <!-- Your Company Taxes -->
+    <record id="account_tax_purchase_20_company_1" model="account.tax">
+        <field name="name">Demo Purchase Tax 20% (Your Company)</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="type_tax_use">purchase</field>
+        <field name="amount">20</field>
+    </record>
+
+    <record id="account_tax_sale_20_company_1" model="account.tax">
+        <field name="name">Demo Sale Tax 20% (Your Company)</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="type_tax_use">sale</field>
+        <field name="amount">20</field>
+    </record>
+
+    <record id="account_tax_sale_5_company_1" model="account.tax">
+        <field name="name">Demo Sale Tax 5%  (Your Company)</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="type_tax_use">sale</field>
+        <field name="amount">5</field>
+    </record>
+
+    <!-- Company 2 Taxes -->
+    <record id="account_tax_purchase_7_company_2" model="account.tax">
+        <field name="name">Demo Purchase Tax 7% (Company 2)</field>
+        <field name="company_id" ref="company_2" />
+        <field name="type_tax_use">purchase</field>
+        <field name="amount">7</field>
+    </record>
+
+    <record id="account_tax_purchase_30_company_2" model="account.tax">
+        <field name="name">Demo Purchase Tax 30% (Company 2)</field>
+        <field name="company_id" ref="company_2" />
+        <field name="type_tax_use">purchase</field>
+        <field name="amount">30</field>
+    </record>
+
+    <record id="account_tax_sale_7_company_2" model="account.tax">
+        <field name="name">Demo Sale Tax 7% (Company 2)</field>
+        <field name="company_id" ref="company_2" />
+        <field name="type_tax_use">sale</field>
+        <field name="amount">7</field>
+    </record>
+
+    <record id="account_tax_sale_30_company_2" model="account.tax">
+        <field name="name">Demo Sale Tax 30% (Company 2)</field>
+        <field name="company_id" ref="company_2" />
+        <field name="type_tax_use">sale</field>
+        <field name="amount">30</field>
+    </record>
+
+</odoo>
