@@ -22,7 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_fiscal_position_type](account_fiscal_position_type/) | 16.0.1.0.2 |  | Add sale / purchase type on fiscal position
-[account_product_fiscal_classification](account_product_fiscal_classification/) | 16.0.1.0.1 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Simplify taxes management for products
+[account_product_fiscal_classification](account_product_fiscal_classification/) | 16.0.1.0.2 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Simplify taxes management for products
 
 [//]: # (end addons)
 
