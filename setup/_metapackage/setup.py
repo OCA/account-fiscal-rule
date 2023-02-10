@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo-addon-account_fiscal_position_type>=16.0dev,<16.1dev',
+        'odoo-addon-account_product_fiscal_classification>=16.0dev,<16.1dev',
     ],
     classifiers=[
         'Programming Language :: Python',
