@@ -14,57 +14,79 @@ Account Product - Fiscal Classification
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-fiscal-rule/tree/14.0/account_product_fiscal_classification
+    :target: https://github.com/OCA/account-fiscal-rule/tree/16.0/account_product_fiscal_classification
     :alt: OCA/account-fiscal-rule
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-14-0/account-fiscal-rule-14-0-account_product_fiscal_classification
+    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-16-0/account-fiscal-rule-16-0-account_product_fiscal_classification
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/93/14.0
+    :target: https://runbot.odoo-community.org/runbot/93/16.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-* Add a new light concept 'fiscal_classification' to associate possible
-  purchase and sale taxes;
+This module extends the Odoo Account module to introduce Fiscal Classifications.
 
-.. image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/14.0/account_product_fiscal_classification/static/description/img/fiscal_classification_form.png
+A fiscal classification is an association of purchase and sale taxes that
+have to be set on your products.
 
-* Make more usable taxes selection in product view. The user has now the
-  possibility to select a fiscal classification, instead of select manually
-  all the taxes;
+.. figure:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_product_fiscal_classification/static/description/product_template_form.png
 
-.. image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/14.0/account_product_fiscal_classification/static/description/img/product_template_accounting_setting.png
+This new design provides the following improvments.
+
+* It is more simple (less clicks quantity) to configure correctly a product.
+  (You only have to set a fiscal classification, instead of setting one or many
+  sale taxes, then click on purchase tab and set one or many purchase taxes.)
 
 * Prevent users to select incompatible purchase and sale taxes.
   French Exemple: A product can not be configured with:
 
-  * Purchase Taxes: 5.5%;
-  * Sale Taxes: 20%;
+  * Purchase Taxes: 5.5%
+  * Sale Taxes: 20%
 
-* Provides the possibility to the account manager to change incorrect
-  parameters massively;
+* Optionaly, you can restrict the usage of some fiscal classifications to
+  some product categories.
+  French Exemple : A product set in the category "Beer and wine" can not
+  have a sale tax 5,5%. (20% is mandatory)
 
 **Table of contents**
 
 .. contents::
    :local:
 
-Usage
-=====
+Configuration
+=============
 
-* Add possibility to restrict fiscal settings on product, depending of its
-  category
+* Go to "Accounting > Configuration > Accounting > Fiscal Classifications".
 
-.. image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/14.0/account_product_fiscal_classification/static/description/img/category_with_fiscal_restriction.png
+* Create new classification, with correct purchase and sale taxes.
 
-If you do so, user will not have the possibility to set a fiscal classification
-if product category settings do not allow.
+.. figure:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_product_fiscal_classification/static/description/fiscal_classification_form.png
 
-Accounting people can see products that are bad set, in product category form
-view.
+**Note**
 
-.. image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/14.0/account_product_fiscal_classification/static/description/img/product_bad_settings.png
+When installing the module, it will create fiscal classifications for all
+the taxes combinations that exist in your database.
+If some are bad, you can massively move the products for a bad classification
+to the good one, using the button "Move products into another fiscal classification".
+
+**Optional settings**
+
+Once the fiscal classifications are created, you can create rules to avoid
+users to use some classifications that don't make sense for some categories.
+
+* Go to "Accounting > Configuration > Accounting > Fiscal Classification Rules"
+* Create new rules.
+
+.. figure:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_product_fiscal_classification/static/description/fiscal_classification_rule__wine.png
+
+Every time a new product is created, the rules that matches the product setting will
+be checked **in the displayed order**.
+
+* If one rule is set to 'Allow', the next rules are ignored.
+* If one rule is set to 'Forbid', an error is raised.
+
+.. figure:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_product_fiscal_classification/static/description/fiscal_classification_rule__wine_warning.png
 
 Bug Tracker
 ===========
@@ -72,7 +94,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-fiscal-rule/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_product_fiscal_classification%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_product_fiscal_classification%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -90,6 +112,7 @@ Contributors
 ~~~~~~~~~~~~
 
 * Sylvain LE GAL (https://twitter.com/legalsylvain)
+
 * Akretion
 
     * Sébastien BEAU <sebastien.beau@akretion.com>
@@ -119,6 +142,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-legalsylvain| 
 
-This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/14.0/account_product_fiscal_classification>`_ project on GitHub.
+This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/16.0/account_product_fiscal_classification>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
