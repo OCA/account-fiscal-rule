@@ -17,7 +17,6 @@ class AvalaraSalestax(models.Model):
     tax_item_export = fields.Boolean()
     exemption_export = fields.Boolean()
     exemption_rule_export = fields.Boolean()
-    use_commercial_entity = fields.Boolean(default=True)
 
     def create_transaction(
         self,

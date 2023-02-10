@@ -134,6 +134,7 @@ class AvalaraSalestax(models.Model):
         help="Allows ean13 to be reported in place of Item Reference"
         " as upc identifier.",
     )
+    use_commercial_entity = fields.Boolean()
     invoice_calculate_tax = fields.Boolean(
         "Auto Calculate Tax on Invoice Save",
         help="Automatically triggers API to calculate tax If changes made on"
