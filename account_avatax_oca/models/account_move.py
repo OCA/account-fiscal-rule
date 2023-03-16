@@ -345,7 +345,6 @@ class AccountMove(models.Model):
         move_vals.update(
             {
                 "invoice_doc_no": self.name,
-                "invoice_date": self.invoice_date,
                 "tax_on_shipping_address": self.tax_on_shipping_address,
                 "warehouse_id": self.warehouse_id.id,
                 "location_code": self.location_code,
