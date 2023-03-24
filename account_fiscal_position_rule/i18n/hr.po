@@ -170,6 +170,11 @@ msgid "Fiscal Position Rule"
 msgstr "Pravilo fiskalne pozicije"
 
 #. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position__fiscal_position_rule_count
+msgid "Fiscal Position Rule Count"
+msgstr ""
+
+#. module: account_fiscal_position_rule
 #: model:ir.actions.act_window,name:account_fiscal_position_rule.action_account_fiscal_position_rule_template_form
 #: model:ir.ui.menu,name:account_fiscal_position_rule.menu_action_account_fiscal_position_rule_template_form
 #: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
@@ -177,6 +182,11 @@ msgstr "Pravilo fiskalne pozicije"
 #: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_tree
 msgid "Fiscal Position Rule Template"
 msgstr "Predložak pravila fiskalne pozicije"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position__fiscal_position_rule_ids
+msgid "Fiscal Position Rules"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_form
@@ -265,6 +275,11 @@ msgid "Priority"
 msgstr "Prioritet"
 
 #. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_position_form
+msgid "Rules"
+msgstr ""
+
+#. module: account_fiscal_position_rule
 #: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_form
 #: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 msgid "Shipping"
@@ -345,8 +360,8 @@ msgstr "Koristi u prodaji"
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__use_sale
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__use_sale
-msgid "Use in sales order"
-msgstr "Koristi na prodajnim nalozima"
+msgid "Use in Sales"
+msgstr ""
 
 #. module: account_fiscal_position_rule
 #: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
@@ -408,6 +423,9 @@ msgstr "korišteno u računima"
 #: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 msgid "used in purchase"
 msgstr "korišteno u nabavi"
+
+#~ msgid "Use in sales order"
+#~ msgstr "Koristi na prodajnim nalozima"
 
 #, fuzzy
 #~ msgid "Company id"
