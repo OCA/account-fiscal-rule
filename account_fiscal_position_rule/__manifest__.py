@@ -19,6 +19,7 @@
         "security/account_fiscal_position_rule_security.xml",
         "views/account_fiscal_position_rule_view.xml",
         "views/account_fiscal_position_rule_template_view.xml",
+        "views/account_fiscal_position_view.xml",
         "wizard/wizard_account_fiscal_position_rule_view.xml",
     ],
     "installable": True,
