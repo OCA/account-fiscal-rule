@@ -165,12 +165,22 @@ msgid "Fiscal Position Rule"
 msgstr ""
 
 #. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position__fiscal_position_rule_count
+msgid "Fiscal Position Rule Count"
+msgstr ""
+
+#. module: account_fiscal_position_rule
 #: model:ir.actions.act_window,name:account_fiscal_position_rule.action_account_fiscal_position_rule_template_form
 #: model:ir.ui.menu,name:account_fiscal_position_rule.menu_action_account_fiscal_position_rule_template_form
 #: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 #: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
 #: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_tree
 msgid "Fiscal Position Rule Template"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position__fiscal_position_rule_ids
+msgid "Fiscal Position Rules"
 msgstr ""
 
 #. module: account_fiscal_position_rule
@@ -260,6 +270,11 @@ msgid "Priority"
 msgstr "Prioritet"
 
 #. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_position_form
+msgid "Rules"
+msgstr ""
+
+#. module: account_fiscal_position_rule
 #: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_form
 #: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
 msgid "Shipping"
@@ -340,7 +355,7 @@ msgstr ""
 #. module: account_fiscal_position_rule
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__use_sale
 #: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__use_sale
-msgid "Use in sales order"
+msgid "Use in Sales"
 msgstr ""
 
 #. module: account_fiscal_position_rule
