@@ -77,7 +77,7 @@ class AccountFiscalPositionRule(models.Model):
         index=True,
     )
 
-    use_sale = fields.Boolean(string="Use in sales order")
+    use_sale = fields.Boolean(string="Use in Sales")
 
     use_invoice = fields.Boolean(string="Use in Invoices")
 
