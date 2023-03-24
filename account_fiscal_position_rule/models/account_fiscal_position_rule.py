@@ -154,6 +154,10 @@ class AccountFiscalPositionRule(models.Model):
         self.from_country = self.company_id.country_id
         self.from_state = self.company_id.state_id
 
+    @api.model
+    def _get_fiscal_position_search_order(self):
+        return "sequence"
+
     def _map_domain(self, partner, addrs, company, **kwargs):
         from_country = company.partner_id.country_id
         from_state = company.partner_id.state_id
@@ -242,7 +246,8 @@ class AccountFiscalPositionRule(models.Model):
 
             # Case 3: Rule based determination
             domain = self._map_domain(obj_partner_id, addrs, obj_company_id, **kwargs)
-            fsc_pos = self.search(domain, limit=1)
+            order = self._get_fiscal_position_search_order()
+            fsc_pos = self.search(domain, limit=1, order=order)
             if fsc_pos:
                 result = fsc_pos[0].fiscal_position_id
 
