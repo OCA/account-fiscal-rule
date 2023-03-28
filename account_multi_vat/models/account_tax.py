@@ -18,7 +18,7 @@ class AccountTax(models.Model):
         comodel_name="res.country",
         related=False,
         compute="_compute_country_id",
-        store=False,
+        store=True,
         readonly=True,
     )
 
