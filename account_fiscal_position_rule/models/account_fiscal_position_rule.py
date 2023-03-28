@@ -7,7 +7,8 @@
 
 import time
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class AccountFiscalPositionRule(models.Model):
@@ -49,6 +50,10 @@ class AccountFiscalPositionRule(models.Model):
         domain="[('country_id','=',to_invoice_country)]",
     )
 
+    to_invoice_zip_from = fields.Char(string="Invoice Zip Range From")
+
+    to_invoice_zip_to = fields.Char(string="Invoice Zip Range To")
+
     to_shipping_country_group_id = fields.Many2one(
         string="Destination Country Group",
         comodel_name="res.country.group",
@@ -64,6 +69,10 @@ class AccountFiscalPositionRule(models.Model):
         string="Destination State",
         domain="[('country_id','=',to_shipping_country)]",
     )
+
+    to_shipping_zip_from = fields.Char(string="Destination Zip Range From")
+
+    to_shipping_zip_to = fields.Char(string="Destination Zip Range To")
 
     company_id = fields.Many2one(
         comodel_name="res.company", sting="Company", required=True, index=True
@@ -113,6 +122,27 @@ class AccountFiscalPositionRule(models.Model):
         ),
     )
 
+    @api.constrains(
+        "to_invoice_zip_from",
+        "to_invoice_zip_to",
+        "to_shipping_zip_from",
+        "to_shipping_zip_to",
+    )
+    def _check_zip(self):
+        for rule in self:
+            if (
+                rule.to_invoice_zip_from
+                and rule.to_invoice_zip_to
+                and rule.to_invoice_zip_from > rule.to_invoice_zip_to
+            ) or (
+                rule.to_shipping_zip_from
+                and rule.to_shipping_zip_to
+                and rule.to_shipping_zip_from > rule.to_shipping_zip_to
+            ):
+                raise ValidationError(
+                    _('Invalid "Zip Range", please configure it properly.')
+                )
+
     @api.onchange("from_country_group_id")
     def _onchange_from_country_group_id(self):
         self.ensure_one()
@@ -137,6 +167,11 @@ class AccountFiscalPositionRule(models.Model):
             ]
         return {"domain": {"to_invoice_country": to_invoice_country_domain}}
 
+    @api.onchange("to_invoice_country")
+    def _onchange_to_invoice_country(self):
+        self.ensure_one()
+        self.to_invoice_zip_from = self.to_invoice_zip_to = False
+
     @api.onchange("to_shipping_country_group_id")
     def _onchange_to_shipping_country_group_id(self):
         self.ensure_one()
@@ -148,6 +183,11 @@ class AccountFiscalPositionRule(models.Model):
                 ("country_group_ids", "in", self.to_shipping_country_group_id.id)
             ]
         return {"domain": {"to_shipping_country": to_shipping_country_domain}}
+
+    @api.onchange("to_shipping_country")
+    def _onchange_to_shipping_country(self):
+        self.ensure_one()
+        self.to_shipping_zip_from = self.to_shipping_zip_to = False
 
     @api.onchange("company_id")
     def onchange_company(self):
@@ -198,6 +238,8 @@ class AccountFiscalPositionRule(models.Model):
             key_country_group = "to_%s_country_group_id" % address_type
             key_country = "to_%s_country" % address_type
             key_state = "to_%s_state" % address_type
+            key_zip_from = "to_%s_zip_from" % address_type
+            key_zip_to = "to_%s_zip_to" % address_type
             to_country = address.country_id or self.env["res.country"].browse()
             domain += [
                 "|",
@@ -211,6 +253,16 @@ class AccountFiscalPositionRule(models.Model):
             ]
             to_state = address.state_id or self.env["res.country.state"].browse()
             domain += ["|", (key_state, "=", to_state.id), (key_state, "=", False)]
+            to_zip = address.zip
+            domain += [
+                "&",
+                (key_zip_from, "=", False),
+                "|",
+                (key_zip_to, "=", False),
+                "&",
+                (key_zip_from, "<=", to_zip),
+                (key_zip_to, ">=", to_zip),
+            ]
         return domain
 
     def fiscal_position_map(self, **kwargs):
@@ -255,3 +307,31 @@ class AccountFiscalPositionRule(models.Model):
 
     def apply_fiscal_mapping(self, **kwargs):
         return self.fiscal_position_map(**kwargs)
+
+    @api.model
+    def create(self, vals):
+        for address_type in ["invoice", "shipping"]:
+            key_zip_from = "to_%s_zip_from" % address_type
+            key_zip_to = "to_%s_zip_to" % address_type
+            zip_from = vals.get(key_zip_from)
+            zip_to = vals.get(key_zip_to)
+            if zip_from and zip_to:
+                vals[key_zip_from], vals[key_zip_to] = self.env[
+                    "account.fiscal.position"
+                ]._convert_zip_values(zip_from, zip_to)
+        return super().create(vals)
+
+    def write(self, vals):
+        for address_type in ["invoice", "shipping"]:
+            key_zip_from = "to_%s_zip_from" % address_type
+            key_zip_to = "to_%s_zip_to" % address_type
+            zip_from = vals.get(key_zip_from)
+            zip_to = vals.get(key_zip_to)
+            if zip_from or zip_to:
+                for rec in self:
+                    vals[key_zip_from], vals[key_zip_to] = self.env[
+                        "account.fiscal.position"
+                    ]._convert_zip_values(
+                        zip_from or rec[key_zip_from], zip_to or rec[key_zip_to]
+                    )
+        return super().write(vals)
