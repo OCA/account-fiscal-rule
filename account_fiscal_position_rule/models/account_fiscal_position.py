@@ -43,9 +43,9 @@ class AccountFiscalPosition(models.Model):
     def action_fiscal_position_rules(self):
         self.ensure_one()
         fpos_rules = self.fiscal_position_rule_ids
-        action = self.env.ref(
+        action = self.env["ir.actions.act_window"]._for_xml_id(
             "account_fiscal_position_rule.action_account_fiscal_position_rule_form"
-        ).read()[0]
+        )
         if len(fpos_rules) > 1:
             action["domain"] = [("id", "in", fpos_rules.ids)]
         elif len(fpos_rules) == 1:

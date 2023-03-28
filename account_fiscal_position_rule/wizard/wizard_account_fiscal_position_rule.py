@@ -16,9 +16,7 @@ class WizardAccountFiscalPositionRule(models.TransientModel):
         comodel_name="res.company",
         string="Company",
         required=True,
-        default=lambda self: self.env["res.company"]._company_default_get(
-            "wizard.account.fiscal.position.rule"
-        ),
+        default=lambda self: self.env.company,
     )
 
     def _template_vals(self, template, company_id, fiscal_position_id):
