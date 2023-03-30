@@ -255,13 +255,12 @@ class AccountFiscalPositionRule(models.Model):
             domain += ["|", (key_state, "=", to_state.id), (key_state, "=", False)]
             to_zip = address.zip
             domain += [
-                "&",
-                (key_zip_from, "=", False),
                 "|",
-                (key_zip_to, "=", False),
-                "&",
-                (key_zip_from, "<=", to_zip),
                 (key_zip_to, ">=", to_zip),
+                (key_zip_to, "=", False),
+                "|",
+                (key_zip_from, "<=", to_zip),
+                (key_zip_from, "=", False),
             ]
         return domain
 
@@ -322,16 +321,26 @@ class AccountFiscalPositionRule(models.Model):
         return super().create(vals)
 
     def write(self, vals):
-        for address_type in ["invoice", "shipping"]:
-            key_zip_from = "to_%s_zip_from" % address_type
-            key_zip_to = "to_%s_zip_to" % address_type
-            zip_from = vals.get(key_zip_from)
-            zip_to = vals.get(key_zip_to)
-            if zip_from or zip_to:
-                for rec in self:
-                    vals[key_zip_from], vals[key_zip_to] = self.env[
+        for rec in self:
+            new_vals = vals.copy()
+            for address_type in ["invoice", "shipping"]:
+                key_zip_from = "to_%s_zip_from" % address_type
+                key_zip_to = "to_%s_zip_to" % address_type
+                zip_from = (
+                    vals.get(key_zip_from)
+                    if key_zip_from in vals.keys()
+                    else rec[key_zip_from]
+                )
+                zip_to = (
+                    vals.get(key_zip_to)
+                    if key_zip_to in vals.keys()
+                    else rec[key_zip_to]
+                )
+                if zip_from and zip_to:
+                    new_vals[key_zip_from], new_vals[key_zip_to] = self.env[
                         "account.fiscal.position"
                     ]._convert_zip_values(
                         zip_from or rec[key_zip_from], zip_to or rec[key_zip_to]
                     )
-        return super().write(vals)
+            super(AccountFiscalPositionRule, rec).write(new_vals)
+        return True
