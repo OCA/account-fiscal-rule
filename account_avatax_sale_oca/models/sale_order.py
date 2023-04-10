@@ -7,11 +7,11 @@ class SaleOrder(models.Model):
     @api.depends(
         "order_line.tax_id", "order_line.price_unit", "amount_total", "amount_untaxed"
     )
-    def _compute_tax_totals_json(self):
+    def _compute_tax_totals(self):
         # Make the Sales Order data available to the AccountTax.compute_all() method
         # This is needed to take in consideration the additional Avatax fields
         enriched_self = self.with_context(for_avatax_object=self)
-        return super(SaleOrder, enriched_self)._compute_tax_totals_json()
+        return super(SaleOrder, enriched_self)._compute_tax_totals()
 
     @api.model
     @api.depends("company_id", "partner_id", "partner_invoice_id", "state")
@@ -22,7 +22,7 @@ class SaleOrder(models.Model):
 
     hide_exemption = fields.Boolean(
         "Hide Exemption & Tax Based on shipping address",
-        compute=_compute_hide_exemption,  # For past transactions visibility
+        compute="_compute_hide_exemption",  # For past transactions visibility
         default=lambda self: self.env.company.get_avatax_config_company,
         help="Uncheck the this field to show exemption fields on SO/Invoice form view. "
         "Also, it will show Tax based on shipping address button",
@@ -39,9 +39,7 @@ class SaleOrder(models.Model):
         The setup for this is to add contact/addresses for the Invoicing Partner,
         for each of the states we can claim exepmtion for.
         """
-        res = super(SaleOrder, self).onchange_partner_shipping_id()
         self.tax_on_shipping_address = bool(self.partner_shipping_id)
-        return res
 
     @api.depends("partner_invoice_id", "tax_address_id", "company_id")
     def _compute_onchange_exemption(self):
@@ -94,13 +92,13 @@ class SaleOrder(models.Model):
             order.order_line.write({"tax_amt": 0})
 
     @api.depends("order_line.price_total", "order_line.product_uom_qty", "tax_amount")
-    def _amount_all(self):
+    def _compute_amounts(self):
         """
         Compute fields amount_untaxed, amount_tax, amount_total
         Their computation needs to be overriden,
         to use the amounts returned by Avatax service, stored in specific fields.
         """
-        res = super()._amount_all()
+        res = super()._compute_amounts()
         for order in self:
             if order.tax_amount:
                 order.update(
@@ -236,8 +234,7 @@ class SaleOrder(models.Model):
                     return addr.button_avatax_validate_address()
         if avatax_config:
             self.avalara_compute_taxes()
-        res = super(SaleOrder, self).action_confirm()
-        return res
+        return super(SaleOrder, self).action_confirm()
 
     @api.onchange(
         "order_line",
