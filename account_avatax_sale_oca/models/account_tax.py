@@ -14,6 +14,7 @@ class AccountTax(models.Model):
         is_refund=False,
         handle_price_include=True,
         include_caba_tags=False,
+        fixed_multiplicator=1,
     ):
         res = super().compute_all(
             price_unit,
@@ -24,6 +25,7 @@ class AccountTax(models.Model):
             is_refund,
             handle_price_include,
             include_caba_tags=False,
+            fixed_multiplicator=fixed_multiplicator,
         )
         for_avatax_object = self.env.context.get("for_avatax_object")
         if for_avatax_object:

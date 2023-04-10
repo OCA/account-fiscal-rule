@@ -5,6 +5,9 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="is_avatax" invisible="1" />
+            </xpath>
             <button name="action_cancel" position="before">
                 <button
                     name="avalara_compute_taxes"
@@ -70,6 +73,7 @@
         <field name="name">sale.order.form.view.editable</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale_order_update_form_view" />
+        <field name="mode">primary</field>
         <field
             name="groups_id"
             eval="[(6, 0, [ref('account.group_account_manager') ])]"
