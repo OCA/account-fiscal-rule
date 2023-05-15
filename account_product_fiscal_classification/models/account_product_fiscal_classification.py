@@ -10,7 +10,7 @@ class AccountProductFiscalClassification(models.Model):
     _name = "account.product.fiscal.classification"
     _description = "Fiscal Classification"
 
-    name = fields.Char(required=True, translate=True)
+    name = fields.Char(required=True)
 
     description = fields.Text()
 
