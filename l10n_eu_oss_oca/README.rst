@@ -17,13 +17,13 @@ L10n EU OSS OCA
     :target: https://github.com/OCA/account-fiscal-rule/tree/16.0/l10n_eu_oss_oca
     :alt: OCA/account-fiscal-rule
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-15-0/account-fiscal-rule-15-0-l10n_eu_oss_oca
+    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-16-0/account-fiscal-rule-16-0-l10n_eu_oss_oca
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
     :target: https://runbot.odoo-community.org/runbot/93/16.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 This module has been created to help with the tax mapping according to the EU One-Stop-Shop law, that concerns many companies that carry out distance sales.
 
