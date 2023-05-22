@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2021 Manuel Regidor <manuel.regidor@sygel.es>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="view_account_position_form_l10n_eu_oss_oca" model="ir.ui.view">
+        <field name="name">view.account.position.form.l10n.eu.oss.oca</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form" />
+        <field name="arch" type="xml">
+            <field name="country_id" position="after">
+                <field name="oss_oca" />
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="l10n_eu_oss_oca_wizard_form_view" model="ir.ui.view">
+        <field name="name">l10n eu oss oca wizard form view</field>
+        <field name="model">l10n.eu.oss.wizard</field>
+        <field name="arch" type="xml">
+            <form string='Setup EU OSS OCA Taxes'>
+                <group>
+                    <field name="company_id" invisible="1" />
+                    <field name="company_id" groups="base.group_multi_company" />
+                    <field
+                        name="done_country_ids"
+                        widget="many2many_tags"
+                        readonly="1"
+                        attrs="{'invisible': [('done_country_ids', '=', [(6, False, [])])]}"
+                    />
+                    <field
+                        name="todo_country_ids"
+                        widget="many2many_tags"
+                        domain="[('country_group_ids', 'in', %(base.europe)d)]"
+                    />
+                    <field name="price_include_tax" />
+                </group>
+                <p>
+                You should only choose the taxes of the current accounting plan,
+                if you don't have the type of tax, do not configure it.
+                </p>
+                <group>
+                    <group>
+                        <field
+                            name="general_tax"
+                            domain="[('type_tax_use', '=', 'sale'),
+                                    ('amount_type', '=', 'percent'),
+                                    ('company_id','=', company_id)]"
+                            options="{'no_create': True}"
+                        />
+                    </group>
+                    <group>
+                        <field
+                            name="reduced_tax"
+                            domain="[('type_tax_use', '=', 'sale'),
+                                    ('amount_type', '=', 'percent'),
+                                    ('company_id','=', company_id)]"
+                            options="{'no_create': True}"
+                        />
+                    </group>
+                    <group>
+                        <field
+                            name="superreduced_tax"
+                            domain="[('type_tax_use', '=', 'sale'),
+                                    ('amount_type', '=', 'percent'),
+                                    ('company_id','=', company_id)]"
+                            options="{'no_create': True}"
+                        />
+                    </group>
+                    <group>
+                        <field
+                            name="second_superreduced_tax"
+                            domain="[('type_tax_use', '=', 'sale'),
+                                    ('amount_type', '=', 'percent'),
+                                    ('company_id','=', company_id)]"
+                            options="{'no_create': True}"
+                        />
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        string="Create Fiscal Positions and Taxes"
+                        name="generate_eu_oss_taxes"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="l10n_eu_oss_oca_wizard_action" model="ir.actions.act_window">
+        <field name="name">Setup EU OSS OCA Taxes</field>
+        <field name="res_model">l10n.eu.oss.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="l10n_eu_oss_oca_wizard_form_view" />
+        <field name="target">new</field>
+    </record>
+</odoo>
