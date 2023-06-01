@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-09 01:39+0000\n"
-"PO-Revision-Date: 2023-05-31 17:08+0000\n"
+"PO-Revision-Date: 2023-06-01 10:10+0000\n"
 "Last-Translator: \"Sandrine (ACSONE)\" <sandrine.ravet@acsone.eu>\n"
 "Language-Team: French (France) (https://www.transifex.com/oca/teams/23907/"
 "fr_FR/)\n"
@@ -387,12 +387,16 @@ msgid ""
 "If you dont find the correct Fiscal Classification, Please create a new one "
 "or ask to your account manager if you don't have the access right."
 msgstr ""
+"Indiquer la combinaison de taxes pour ce produit. Ce champ est obligatoire. "
+"Si vous ne trouvez pas la classification fiscale correcte, veuillez en créer "
+"une nouvelle ou demandez au gestionnaire du compte si vous n'avez pas les "
+"droits d'accès nécessaires."
 
 #. module: account_product_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_template_form
 msgid "Taxes"
-msgstr ""
+msgstr "Taxes"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/product_template.py:49
@@ -405,23 +409,29 @@ msgid ""
 "\n"
 " Allowed Classifications for '%s': %s"
 msgstr ""
+"La catégorie'%s' du produit '%s' n'autorise pas de mettre la classification "
+"'%s'.\n"
+"Veuillez changer la classification du produit ou enlever la contrainte sur "
+"la catégorie du produit.\n"
+"\n"
+"Classifications autorisées pour '%s' : %s"
 
 #. module: account_product_fiscal_classification
 #: model:product.template,uom_name:account_product_fiscal_classification.product_template_1
 #: model:product.template,uom_name:account_product_fiscal_classification.product_template_all_cpnies
 msgid "Unit(s)"
-msgstr ""
+msgstr "Unité(s)"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__usage_group_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__usage_group_id
 msgid "Usage Group"
-msgstr ""
+msgstr "Groupe"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_wizard_change_fiscal_classification
 msgid "Wizard : Change fiscal classification on product"
-msgstr ""
+msgstr "Changer la classification fiscale sur le produit"
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/product_category.py:42
@@ -430,6 +440,9 @@ msgid ""
 "You can not set fiscal classifications on %s if Restriction on Fiscal "
 "Classifications is not enabled for the category."
 msgstr ""
+"Vous ne pouvez pas mettre de classification fiscale sur %s si une "
+"restriction sur les classification fiscales n'est pas autorisée pour la "
+"catégorie."
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/product_template.py:140
@@ -438,12 +451,14 @@ msgid ""
 "You can not use the fiscal classification '%s' because you're not member of "
 "the group '%s'."
 msgstr ""
+"Vous ne pouvez pas utiliser la classification fiscale '%s' car vous ne "
+"faites pas partie du groupe '%s'."
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/product_template.py:121
 #, python-format
 msgid "You cannot change Taxes for many Products."
-msgstr ""
+msgstr "Vous ne pouvez pas changer les taxes pour plusieurs produits."
 
 #. module: account_product_fiscal_classification
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:83
@@ -452,9 +467,12 @@ msgid ""
 "You cannot delete The Fiscal Classification '%s' because it contents %s "
 "products. Please move products to another Fiscal Classification first."
 msgstr ""
+"Vous ne pouvez pas supprimer la classification fiscale '%s' car elle est "
+"liée aux produits %s. Veuillez d'abord lier les produits à une autre "
+"classification fiscale."
 
 #. module: account_product_fiscal_classification
 #: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_1
 #: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_all_cpnies
 msgid "kg"
-msgstr ""
+msgstr "kg"
