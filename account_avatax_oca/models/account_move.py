@@ -477,26 +477,7 @@ class AccountMoveLine(models.Model):
         adjusted to compute line amount instead of unit price.
         """
         self.ensure_one()
-        base_line = self
-        move = base_line.move_id
-        sign = -1 if move.is_inbound() else 1
-        quantity = qty or base_line.quantity
-        base_amount = base_line.price_unit * quantity
-        if base_line.currency_id:
-            price_unit_foreign_curr = (
-                sign * base_amount * (1 - (base_line.discount / 100.0))
-            )
-            price_unit_comp_curr = base_line.currency_id._convert(
-                price_unit_foreign_curr,
-                move.company_id.currency_id,
-                move.company_id,
-                move.date,
-            )
-        else:
-            price_unit_comp_curr = (
-                sign * base_amount * (1 - (base_line.discount / 100.0))
-            )
-        return -price_unit_comp_curr
+        return -self.amount_currency
 
     # Same in v12
     def _avatax_prepare_line(self, sign=1, doc_type=None):
