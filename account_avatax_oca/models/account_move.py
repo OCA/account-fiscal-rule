@@ -149,7 +149,12 @@ class AccountMove(models.Model):
     # Same as v12
     def get_origin_tax_date(self):
         if self.invoice_doc_no:
-            orig_invoice = self.search([("name", "=", self.invoice_doc_no)])
+            orig_invoice = self.search(
+                [
+                    ("name", "=", self.invoice_doc_no),
+                    ("partner_id", "=", self.partner_id.id),
+                ]
+            )
             return orig_invoice.invoice_date
         return False
 
