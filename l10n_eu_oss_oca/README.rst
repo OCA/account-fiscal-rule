@@ -111,6 +111,10 @@ Contributors
 
     * Pedro M. Baeza
 
+* `Planeta Huerto <https://www.planetahuerto.es>`_:
+
+  * Pere Albujer
+
 Maintainers
 ~~~~~~~~~~~
 
