@@ -2,9 +2,10 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 
-from odoo.tests import common
+from odoo.tests import common, tagged
 
 
+@tagged("post_install", "-at_install")
 class TestAvatax(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
