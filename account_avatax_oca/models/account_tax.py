@@ -77,7 +77,7 @@ class AccountTax(models.Model):
             partner,
             is_refund,
             handle_price_include,
-            include_caba_tags=False,
+            include_caba_tags,
         )
         avatax_invoice = self.env.context.get("avatax_invoice")
         if avatax_invoice:

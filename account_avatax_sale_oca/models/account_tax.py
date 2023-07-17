@@ -23,7 +23,7 @@ class AccountTax(models.Model):
             partner,
             is_refund,
             handle_price_include,
-            include_caba_tags=False,
+            include_caba_tags,
         )
         for_avatax_object = self.env.context.get("for_avatax_object")
         if for_avatax_object:
