@@ -82,8 +82,8 @@ class Repair(models.Model):
             repair.exemption_code = exemption_address.property_exemption_number
             repair.exemption_code_id = exemption_address.property_exemption_code_id
 
-    def _create_invoices(self):
-        res = super(Repair, self)._create_invoices()
+    def _create_invoices(self, group=False):
+        res = super(Repair, self)._create_invoices(group)
         for repair_id in res:
             if repair_id not in res:
                 continue
