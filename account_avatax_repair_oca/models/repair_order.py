@@ -13,7 +13,6 @@ class Repair(models.Model):
         help="Uncheck the this field to show exemption fields on SO/Invoice form view. "
         "Also, it will show Tax based on shipping address button",
     )
-    tax_amount = fields.Monetary(string="AvaTax")
 
     is_avatax = fields.Boolean(compute="_compute_is_avatax")
     exemption_code = fields.Char(
@@ -111,7 +110,7 @@ class Repair(models.Model):
         The Avatax amount will be recomputed upon document validation.
         """
         for repair in self:
-            repair.tax_amount = 0
+            repair.amount_tax_avatax = 0
             repair.operations.write({"tax_amt_avatax": 0})
             repair.fees_lines.write({"tax_amt_avatax": 0})
 

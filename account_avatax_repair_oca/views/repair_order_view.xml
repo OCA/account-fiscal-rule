@@ -34,7 +34,7 @@
                     options='{"always_reload": True}'
                 />
                 <field name="calculate_tax_on_save" invisible="1" />
-                <field name="tax_amount" invisible="1" />
+                <field name="amount_tax_avatax" invisible="1" />
             </field>
             <xpath expr="//field[@name='operations']//tree" position="inside">
                 <field name="tax_amt_avatax" invisible="1" />
