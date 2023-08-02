@@ -5,6 +5,9 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="repair.view_repair_order_form" />
         <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="is_avatax" invisible="1" />
+            </xpath>
             <button name="action_repair_cancel" position="before">
                 <button
                     name="avalara_compute_taxes"
@@ -43,7 +46,7 @@
                 expr="//field[@name='operations']//form//field[@name='product_id']"
                 position="after"
             >
-                <field name="tax_amt_avatax" invisible="1" />
+                <field name="tax_amt_avatax" groups="base.group_no_one" invisible="1" />
             </xpath>
             <field position="after" name="tax_address_id">
                 <field name="is_avatax" groups="base.group_no_one" />
