@@ -54,7 +54,7 @@ class RepairLine(models.Model):
         """
         for line in self:
             line.tax_amt_avatax = 0
-            line.repair_id.tax_amount = 0
+            line.repair_id.amount_tax_avatax = 0
 
     @api.depends(
         "product_uom_qty", "discount", "price_unit", "tax_id", "tax_amt_avatax"
