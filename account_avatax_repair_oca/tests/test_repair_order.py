@@ -1,4 +1,4 @@
-import mock
+from unittest import mock
 
 from odoo.tests import Form, tagged
 
@@ -321,7 +321,6 @@ class TestRepair(AccountTestInvoicingCommon):
             with Form(
                 self.env["repair.order"].with_context(lineNumber=999)
             ) as repair_form:
-                repair_form.name = "PC Assemble + Custom (PC on Demand)"
                 repair_form.product_id = product_to_repair
                 repair_form.partner_id = partner
                 repair_form.invoice_method = "b4repair"
@@ -332,7 +331,7 @@ class TestRepair(AccountTestInvoicingCommon):
                 repair = repair_form.save()
             repair.action_repair_confirm()
             tax = repair.operations.tax_id.filtered(lambda t: t.is_avatax)
-            self.assertEqual(tax.amount, 6.1)
+            self.assertEqual(round(tax.amount, 2), 6.1)
             repair.action_repair_invoice_create()
             self.assertEqual(
                 len(repair.invoice_id), 1, "No invoice exists for this repair order"

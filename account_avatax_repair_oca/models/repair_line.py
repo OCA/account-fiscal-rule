@@ -45,7 +45,7 @@ class RepairLine(models.Model):
         }
         return res
 
-    @api.onchange("product_uom_qty", "discount", "price_unit", "tax_id")
+    @api.onchange("product_uom_qty", "price_unit", "tax_id")
     def onchange_reset_avatax_amount(self):
         """
         When changing quantities or prices, reset the Avatax computed amount.
@@ -56,9 +56,7 @@ class RepairLine(models.Model):
             line.tax_amt_avatax = 0
             line.repair_id.amount_tax_avatax = 0
 
-    @api.depends(
-        "product_uom_qty", "discount", "price_unit", "tax_id", "tax_amt_avatax"
-    )
+    @api.depends("product_uom_qty", "price_unit", "tax_id", "tax_amt_avatax")
     def _compute_amount(self):
         """
         If we have a Avatax computed amount, use it instead of the Odoo computed one
@@ -71,3 +69,4 @@ class RepairLine(models.Model):
                     "price_total": line.price_subtotal + line.tax_amt_avatax,
                 }
                 line.update(vals)
+        return

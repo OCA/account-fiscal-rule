@@ -41,7 +41,7 @@ class Repair(models.Model):
         store=True,
         copy=False,
     )
-    location_code = fields.Char("Location Code", help="Origin address location code")
+    location_code = fields.Char(help="Origin address location code")
     calculate_tax_on_save = fields.Boolean()
     avatax_request_log = fields.Text(
         "Avatax API Request Log", readonly=True, copy=False
@@ -95,7 +95,7 @@ class Repair(models.Model):
                     "exemption_code_id": repair.exemption_code_id.id or False,
                     "exemption_locked": True,
                     "location_code": repair.location_code or "",
-                    "warehouse_id": repair.location_id.get_warehouse().id or "",
+                    "warehouse_id": repair.location_id.warehouse_id or "",
                     "tax_on_shipping_address": True,
                     "so_partner_id": repair.partner_id,
                 }
@@ -135,8 +135,8 @@ class Repair(models.Model):
     def _compute_is_avatax(self):
         repair = self.with_company(self.company_id)
         partner_invoice = repair.partner_invoice_id or repair.partner_id
-        fpos = self.env["account.fiscal.position"].get_fiscal_position(
-            partner_invoice.id, delivery_id=repair.address_id.id
+        fpos = self.env["account.fiscal.position"]._get_fiscal_position(
+            partner_invoice, delivery=repair.address_id
         )
         self.is_avatax = fpos
 
@@ -165,7 +165,7 @@ class Repair(models.Model):
         avatax_config = self.company_id.get_avatax_config_company()
         if not avatax_config:
             return False
-        warehouse = self.location_id.get_warehouse()
+        warehouse = self.location_id.warehouse_id
         partner = self.partner_id
         if avatax_config.use_partner_invoice_id:
             partner = self.partner_invoice_id

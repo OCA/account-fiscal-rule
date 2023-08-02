@@ -1,6 +1,6 @@
 {
     "name": "Avalara Avatax Certified Connector for Repair Orders",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "summary": "Repair Orders with automatic Tax application using Avatax",
     "license": "AGPL-3",
