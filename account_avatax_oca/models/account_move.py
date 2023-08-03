@@ -202,6 +202,7 @@ class AccountMove(models.Model):
     # Same as v12
     def _avatax_compute_tax(self, commit=False):
         """Contact REST API and recompute taxes for a Sale Order"""
+        # Override to handle lines with split taxes (e.g. TN)
         self and self.ensure_one()
         avatax_config = self.company_id.get_avatax_config_company()
         if not avatax_config:
@@ -255,18 +256,26 @@ class AccountMove(models.Model):
             for index, line in enumerate(lines):
                 tax_result_line = tax_result_lines.get(line.id)
                 if tax_result_line:
-                    rate = tax_result_line.get("rate", 0.0)
+                    # rate = tax_result_line.get("rate", 0.0)
+                    tax_calculation = 0.0
+                    if tax_result_line["taxableAmount"]:
+                        tax_calculation = (
+                            tax_result_line["taxCalculated"]
+                            / tax_result_line["taxableAmount"]
+                        )
+                    rate = round(tax_calculation * 100, 4)
                     tax = Tax.get_avalara_tax(rate, doc_type)
                     if tax and tax not in line.tax_ids:
-                        line_taxes = (
-                            tax
-                            if avatax_config
-                            else line.tax_ids.filtered(lambda x: not x.is_avatax)
-                        )
+                        line_taxes = line.tax_ids.filtered(lambda x: not x.is_avatax)
                         taxes_to_set.append((index, line_taxes | tax))
                     line.avatax_amt_line = tax_result_line["tax"]
-            self.avatax_amount = tax_result["totalTax"]
+            self.with_context(check_move_validity=False).avatax_amount = tax_result[
+                "totalTax"
+            ]
             container = {"records": self}
+            self.with_context(
+                avatax_invoice=self, check_move_validity=False
+            )._sync_dynamic_lines(container)
             self.line_ids.mapped("move_id")._check_balanced(container)
 
             # Set Taxes on lines in a way that properly triggers onchanges
