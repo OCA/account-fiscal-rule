@@ -20,12 +20,10 @@
                 <field name="hide_exemption" invisible="1" />
                 <field
                     name="exemption_code"
-                    readonly="1"
                     attrs="{'invisible': [('hide_exemption','=',True)]}"
                 />
                 <field
                     name="exemption_code_id"
-                    readonly="1"
                     attrs="{'invisible': [('hide_exemption','=',True)]}"
                 />
                 <field name="location_code" />
@@ -66,6 +64,7 @@
             </notebook>
         </field>
     </record>
+
     <record model="ir.actions.server" id="action_repair_order_compute_taxes">
         <field name="name">Update taxes with AvaTax</field>
         <field name="model_id" ref="repair.model_repair_order" />
