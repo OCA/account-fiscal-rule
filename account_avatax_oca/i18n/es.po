@@ -6,38 +6,40 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-08-07 18:11+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields.selection,name:account_avatax_oca.selection__res_partner__validation_method__avatax
 msgid "AVALARA"
-msgstr ""
+msgstr "AVALARA"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_address_validate
 msgid "Accept"
-msgstr ""
+msgstr "Aceptar"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__account_number
 msgid "Account Number"
-msgstr ""
+msgstr "Número de Cuenta"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__account_number
 msgid "Account Number provided by AvaTax"
-msgstr ""
+msgstr "Número de cuenta proporcionado por AvaTax"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__active
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #. module: account_avatax_oca
 #: model:ir.actions.act_window,name:account_avatax_oca.action_avalara_salestax_address_validate
@@ -45,51 +47,53 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_address_validate
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_form
 msgid "Address Validation"
-msgstr ""
+msgstr "Validación de direcciones"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__validation_method
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__validation_method
 msgid "Address Validation Method"
-msgstr ""
+msgstr "Método de validación de direcciones"
 
 #. module: account_avatax_oca
 #: model:ir.model,name:account_avatax_oca.model_avalara_salestax_address_validate
 msgid "Address Validation using AvaTax"
-msgstr ""
+msgstr "Validación de direcciones mediante AvaTax"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_form
 msgid "Advanced"
-msgstr ""
+msgstr "Avanzado"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__upc_enable
 msgid ""
 "Allows ean13 to be reported in place of Item Reference as upc identifier."
 msgstr ""
+"Permite indicar ean13 en lugar de Referencia de artículo como identificador "
+"upc."
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_category__applicable_tax_code_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_product__applicable_tax_code_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_template__applicable_tax_code_id
 msgid "Applicable AvaTax Code"
-msgstr ""
+msgstr "Código AvaTax aplicable"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__invoice_calculate_tax
 msgid "Auto Calculate Tax on Invoice Save"
-msgstr ""
+msgstr "Cálculo automático de impuestos en la factura Guardar"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__validation_on_save
 msgid "Automatic Address Validation"
-msgstr ""
+msgstr "Validación automática de direcciones"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__auto_generate_customer_code
 msgid "Automatically generate missing customer code"
-msgstr ""
+msgstr "Generar automáticamente el código de cliente que falta"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__invoice_calculate_tax
@@ -98,11 +102,14 @@ msgid ""
 "warehouse_id, tax_on_shipping_address, Invoice line's price_unit, discount, "
 "quantity"
 msgstr ""
+"Activa automáticamente la API para calcular los impuestos si se realizan "
+"cambios en los datos de la factura warehouse_id, tax_on_shipping_address, "
+"price_unit, discount, quantity de la línea de factura"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__validation_on_save
 msgid "Automatically validates addresses when they are created or modified"
-msgstr ""
+msgstr "Valida automáticamente las direcciones cuando se crean o modifican"
 
 #. module: account_avatax_oca
 #: model:account.tax.group,name:account_avatax_oca.avatax_tax_group
@@ -113,42 +120,42 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_partner_details_form_inherit1
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_product_normal_form_avatax_inherit
 msgid "AvaTax"
-msgstr ""
+msgstr "AvaTax"
 
 #. module: account_avatax_oca
 #: model:ir.actions.act_window,name:account_avatax_oca.action_avalara_salestax
 #: model:ir.ui.menu,name:account_avatax_oca.menu_avatax_api
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_form
 msgid "AvaTax API"
-msgstr ""
+msgstr "AvaTax API"
 
 #. module: account_avatax_oca
 #: model:ir.model,name:account_avatax_oca.model_product_tax_code
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_category__tax_code_id
 msgid "AvaTax Code"
-msgstr ""
+msgstr "Código AvaTax"
 
 #. module: account_avatax_oca
 #: model:ir.model,name:account_avatax_oca.model_avalara_salestax
 msgid "AvaTax Configuration"
-msgstr ""
+msgstr "Configuración de AvaTax"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move_line__avatax_amt_line
 msgid "AvaTax Line"
-msgstr ""
+msgstr "Línea de AvaTax"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_product_product__tax_code_id
 #: model:ir.model.fields,help:account_avatax_oca.field_product_template__tax_code_id
 msgid "AvaTax Product Tax Code"
-msgstr ""
+msgstr "Código fiscal del producto AvaTax"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_product_category_form_avatax_inherit
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_product_normal_form_avatax_inherit
 msgid "AvaTax Properties"
-msgstr ""
+msgstr "Propiedades AvaTax"
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
@@ -158,6 +165,10 @@ msgid ""
 "\n"
 " Address Validation for this country not supported. But, Avalara will still calculate global tax rules."
 msgstr ""
+"AvaTax: Aviso\n"
+"\n"
+" No se admite la validación de direcciones para este país. Sin embargo, "
+"Avalara seguirá calculando las reglas fiscales globales."
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
@@ -170,47 +181,61 @@ msgid ""
 "\n"
 " Also please ensure that the company address is set and Validated.  You can get there by going to Sales->Customers and removing \"Customers\" filter from the search at the top.  Then go to your company contact info and validate your address in the Avatax Tab"
 msgstr ""
+"AvaTax: Advertencia AvaTax no pudo validar la dirección:\n"
+"%s\n"
+"\n"
+"Puede guardar la dirección y AvaTax intentará calcular los impuestos "
+"basándose en el código postal si la opción \"Forzar validación de dirección\""
+" está desactivada en la configuración del conector de Avatax.  \n"
+"\n"
+" Asegúrese también de que la dirección de la empresa está configurada y "
+"validada.  Para ello, vaya a Ventas->Clientes y elimine el filtro \"Clientes"
+"\" de la búsqueda en la parte superior.  A continuación, vaya a la "
+"información de contacto de su empresa y valide su dirección en la pestaña "
+"Avatax"
 
 #. module: account_avatax_oca
 #: model:ir.model.constraint,message:account_avatax_oca.constraint_avalara_salestax_code_company_uniq
 msgid "Avalara setting is already available for this company code"
 msgstr ""
+"La configuración de Avalara ya está disponible para este código de empresa"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__avatax_request_log
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__avatax_request_log
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__avatax_request_log
 msgid "Avatax API Request Log"
-msgstr ""
+msgstr "Registro de solicitudes de la API de Avatax"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__avatax_response_log
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__avatax_response_log
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__avatax_response_log
 msgid "Avatax API Response Log"
-msgstr ""
+msgstr "Registro de respuestas de la API de Avatax"
 
 #. module: account_avatax_oca
 #: model:ir.model,name:account_avatax_oca.model_avalara_salestax_getcompany
 msgid "Avatax Get Company Code"
-msgstr ""
+msgstr "Avatax Obtener código de empresa"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_move_form_inherit_1
 msgid "Avatax Log"
-msgstr ""
+msgstr "Registro Avatax"
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/account_move.py:0
 #, python-format
 msgid "Avatax address is not validated!"
-msgstr ""
+msgstr "¡La dirección de Avatax no está validada!"
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/avalara_salestax.py:0
 #, python-format
 msgid "Avatax commiting document %s, but it tax reporting is disabled."
 msgstr ""
+"Avatax confirmando documento %s, pero el informe fiscal está desactivado."
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
@@ -219,113 +244,115 @@ msgid ""
 "AvataxClient is not available in your system. Please contact your system "
 "administrator to 'pip3 install Avalara'"
 msgstr ""
+"AvataxClient no está disponible en su sistema. Póngase en contacto con el "
+"administrador del sistema para 'pip3 install Avalara'"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__calculate_tax_on_save
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__calculate_tax_on_save
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__calculate_tax_on_save
 msgid "Calculate Tax On Save"
-msgstr ""
+msgstr "Calcular el impuesto sobre el ahorro"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_address_validate
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_getcompany
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__city
 msgid "City"
-msgstr ""
+msgstr "Ciudad"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_exemption_code__code
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_tax_code__name
 msgid "Code"
-msgstr ""
+msgstr "Código"
 
 #. module: account_avatax_oca
 #: model:product.product,name:account_avatax_oca.avatax_product_freight
 #: model:product.template,name:account_avatax_oca.avatax_product_freight_product_template
 msgid "Common Carrier FR020100"
-msgstr ""
+msgstr "Transportista común FR020100"
 
 #. module: account_avatax_oca
 #: model:ir.model,name:account_avatax_oca.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Compañías"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__company_id
 msgid "Company"
-msgstr ""
+msgstr "Companía"
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/res_company.py:0
 #, python-format
 msgid "Company %s has no Avatax configuration."
-msgstr ""
+msgstr "La empresa %s no tiene configuración Avatax."
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/res_company.py:0
 #, python-format
 msgid "Company %s has too many Avatax configurations!"
-msgstr ""
+msgstr "¡La empresa %s tiene demasiadas configuraciones de Avatax!"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__company_partner_id
 msgid "Company Address"
-msgstr ""
+msgstr "Dirección de la compañía"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__company_code
 msgid "Company Code"
-msgstr ""
+msgstr "Código de la Compañía"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__company_id
 msgid "Company which has subscribed to the AvaTax service"
-msgstr ""
+msgstr "Empresa que se ha suscrito al servicio AvaTax"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_move_form_inherit_1
 msgid "Compute Taxes"
-msgstr ""
+msgstr "Computar impuestos"
 
 #. module: account_avatax_oca
 #: model_terms:ir.actions.act_window,help:account_avatax_oca.action_avalara_salestax
 msgid "Configuration of AvaTax in odoo"
-msgstr ""
+msgstr "Configuración de AvaTax en odoo"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_form
 msgid "Connection"
-msgstr ""
+msgstr "Conexión"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_ping
 msgid "Connection test successful"
-msgstr ""
+msgstr "Prueba de conexión realizada correctamente"
 
 #. module: account_avatax_oca
 #: model:ir.model,name:account_avatax_oca.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__country_ids
 msgid "Countries"
-msgstr ""
+msgstr "Países"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__country_ids
 msgid "Countries where address validation will be used"
-msgstr ""
+msgstr "Países en los que se utilizará la validación de direcciones"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__country
 msgid "Country"
-msgstr ""
+msgstr "País"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__create_uid
@@ -335,7 +362,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_oca.field_exemption_code__create_uid
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_tax_code__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creado por"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__create_date
@@ -345,14 +372,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_oca.field_exemption_code__create_date
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_tax_code__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creado el"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__customer_code
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__customer_code
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_partner_details_form_inherit1
 msgid "Customer Code"
-msgstr ""
+msgstr "Código de cliente"
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/avalara_salestax.py:0
@@ -362,16 +389,21 @@ msgid ""
 "\n"
 "  You can edit the Customer Code in customer profile. You can fix by clicking \"Generate Customer Code\" button in the customer contact information"
 msgstr ""
+"Código de cliente para el cliente %(partner.name)s no definido.\n"
+"\n"
+"  Puede editar el Código de Cliente en el perfil del cliente. Puede "
+"corregirlo haciendo clic en el botón \"Generar código de cliente\" en la "
+"información de contacto del cliente"
 
 #. module: account_avatax_oca
 #: model:ir.model.constraint,message:account_avatax_oca.constraint_res_partner_name_uniq
 msgid "Customer Code must be unique!"
-msgstr ""
+msgstr "¡El código de cliente debe ser único!"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__date_validation
 msgid "Date Validation"
-msgstr ""
+msgstr "Validación de fecha"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__request_timeout
@@ -379,36 +411,38 @@ msgid ""
 "Defines AvaTax request time out length, AvaTax best practices prescribes "
 "default setting of 300 seconds"
 msgstr ""
+"Define el tiempo de espera de la solicitud de AvaTax, las mejores prácticas "
+"de AvaTax prescriben un valor por defecto de 300 segundos"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_tax_code__description
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields.selection,name:account_avatax_oca.selection__product_tax_code__type__digital
 msgid "Digital"
-msgstr ""
+msgstr "Digital"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__disable_address_validation
 msgid "Disable Address Validation"
-msgstr ""
+msgstr "Desactivar la validación de direcciones"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__disable_tax_calculation
 msgid "Disable AvaTax Calculation"
-msgstr ""
+msgstr "Desactivar el cálculo de AvaTax"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__disable_tax_reporting
 msgid "Disable Document Recording/Commiting"
-msgstr ""
+msgstr "Desactivar el registro/compromiso de documentos"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__disable_address_validation
 msgid "Disables the ability to perform address validation"
-msgstr ""
+msgstr "Desactiva la posibilidad de realizar la validación de direcciones"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__display_name
@@ -418,17 +452,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_oca.field_exemption_code__display_name
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_tax_code__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Mostrar Nombre"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__upc_enable
 msgid "Enable UPC Taxability"
-msgstr ""
+msgstr "Permitir la imposición de la UPC"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__logging
 msgid "Enables detailed AvaTax transaction logging within application"
 msgstr ""
+"Permite el registro detallado de transacciones de AvaTax dentro de la "
+"aplicación"
 
 #. module: account_avatax_oca
 #: model:ir.actions.act_window,name:account_avatax_oca.action_exemption_code_details
@@ -440,20 +476,20 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__property_exemption_code_id
 #: model:ir.ui.menu,name:account_avatax_oca.menu_action_exemption_code_details
 msgid "Exemption Code"
-msgstr ""
+msgstr "Código de exención"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__exemption_code_id
 msgid "Exemption Code (Deprecated)"
-msgstr ""
+msgstr "Código de exención (obsoleto)"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__exemption_locked
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__exemption_locked
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__exemption_locked
 msgid "Exemption Locked"
-msgstr ""
+msgstr "Exención bloqueada"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__exemption_code
@@ -462,13 +498,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__property_exemption_number
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__property_exemption_number
 msgid "Exemption Number"
-msgstr ""
+msgstr "Número de exención"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__exemption_number
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__exemption_number
 msgid "Exemption Number (Deprecated)"
-msgstr ""
+msgstr "Número de exención (obsoleto)"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_account_bank_statement_line__exemption_locked
@@ -478,21 +514,23 @@ msgid ""
 "Exemption code won't be automatically changed, for instance, when changing "
 "the Customer."
 msgstr ""
+"El código de exención no se cambiará automáticamente, por ejemplo, al "
+"cambiar el Cliente."
 
 #. module: account_avatax_oca
 #: model:ir.model,name:account_avatax_oca.model_account_fiscal_position
 msgid "Fiscal Position"
-msgstr ""
+msgstr "Posición fiscal"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields.selection,name:account_avatax_oca.selection__product_tax_code__type__freight
 msgid "Freight"
-msgstr ""
+msgstr "Carga"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_partner_details_form_inherit1
 msgid "Generate"
-msgstr ""
+msgstr "Generar"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__hide_exemption
@@ -500,7 +538,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__hide_exemption
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__hide_exemption
 msgid "Hide Exemption & Tax Based on shipping address"
-msgstr ""
+msgstr "Ocultar exención e impuestos según la dirección de envío"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__id
@@ -510,7 +548,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_oca.field_exemption_code__id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_tax_code__id
 msgid "ID"
-msgstr ""
+msgstr "ID (identificación)"
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/account_tax.py:0
@@ -520,6 +558,9 @@ msgid ""
 " %(product.display_name)s, price_unit %(-price_unit)f , quantity "
 "%(quantity)f"
 msgstr ""
+"Obtención incorrecta del importe Avatax para la factura %(avatax_invoice)s: "
+"producto %(product.display_name)s, precio_unidad %(-price_unit)f , cantidad "
+"%(quantity)f"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_res_partner__validated_on_save
@@ -528,53 +569,55 @@ msgid ""
 "Indicates if the address is already validated on save before calling the "
 "wizard"
 msgstr ""
+"Indica si la dirección ya está validada al guardar antes de llamar al "
+"asistente"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_tax__is_avatax
 msgid "Is Avatax"
-msgstr ""
+msgstr "Es Avatax"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__property_tax_exempt
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__property_tax_exempt
 msgid "Is Tax Exempt"
-msgstr ""
+msgstr "Está exento de impuestos"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__tax_exempt
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__tax_exempt
 msgid "Is Tax Exempt (Deprecated))"
-msgstr ""
+msgstr "Está exento de impuestos (obsoleto))"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_res_partner__validation_method
 #: model:ir.model.fields,help:account_avatax_oca.field_res_users__validation_method
 msgid "It gets populated when the address is validated by the method"
-msgstr ""
+msgstr "Se cumplimenta cuando la dirección es validada por el método"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_account_bank_statement_line__exemption_code_id
 #: model:ir.model.fields,help:account_avatax_oca.field_account_move__exemption_code_id
 #: model:ir.model.fields,help:account_avatax_oca.field_account_payment__exemption_code_id
 msgid "It show the customer exemption code"
-msgstr ""
+msgstr "Muestra el código de exención del cliente"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_account_bank_statement_line__exemption_code
 #: model:ir.model.fields,help:account_avatax_oca.field_account_move__exemption_code
 #: model:ir.model.fields,help:account_avatax_oca.field_account_payment__exemption_code
 msgid "It show the customer exemption number"
-msgstr ""
+msgstr "Muestra el número de exención del cliente"
 
 #. module: account_avatax_oca
 #: model:ir.model,name:account_avatax_oca.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Entrada diaria"
 
 #. module: account_avatax_oca
 #: model:ir.model,name:account_avatax_oca.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Artículo Diario"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax____last_update
@@ -584,7 +627,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_oca.field_exemption_code____last_update
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_tax_code____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última Modificación el"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__write_uid
@@ -594,7 +637,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_oca.field_exemption_code__write_uid
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_tax_code__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Actualizado por última vez por"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__write_date
@@ -604,123 +647,127 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_oca.field_exemption_code__write_date
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_tax_code__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Última Actualización el"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__date_validation
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__date_validation
 msgid "Last Validation Date"
-msgstr ""
+msgstr "Última fecha de validación"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__partner_latitude
 msgid "Latitude"
-msgstr ""
+msgstr "Latitud"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__license_key
 msgid "License Key"
-msgstr ""
+msgstr "Llave de licencia"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__license_key
 msgid "License Key provided by AvaTax"
-msgstr ""
+msgstr "Llave de licencia proporcionada por AvaTax"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__location_code
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__location_code
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__location_code
 msgid "Location Code"
-msgstr ""
+msgstr "Código de localización"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__logging
 msgid "Log API Requests"
-msgstr ""
+msgstr "Registro de solicitudes API"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__partner_longitude
 msgid "Longitude"
-msgstr ""
+msgstr "Longitud"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_ping__name
 #: model:ir.model.fields,field_description:account_avatax_oca.field_exemption_code__name
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__disable_tax_calculation
 msgid "No tax calculation requests will be sent to the AvaTax web service."
 msgstr ""
+"No se enviarán solicitudes de cálculo de impuestos al servicio web de AvaTax."
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__disable_tax_reporting
 msgid "No transactions will be recorded (commited) to the Avatax service."
 msgstr ""
+"No se registrará (comprometerá) ninguna transacción en el servicio Avatax."
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_ping
 msgid "OK"
-msgstr ""
+msgstr "Aceptar"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__force_address_validation
 msgid "Only compute taxes if addresses were validated by the Avatax service"
 msgstr ""
+"Calcular los impuestos sólo si las direcciones han sido validadas por el "
+"servicio Avatax"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_address_validate
 msgid "Original Address"
-msgstr ""
+msgstr "Dirección original"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__original_city
 msgid "Original City"
-msgstr ""
+msgstr "Ciudad original"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__original_country
 msgid "Original Country"
-msgstr ""
+msgstr "País de Orígen"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__original_state
 msgid "Original State"
-msgstr ""
+msgstr "Estado de origen"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__original_street
 msgid "Original Street"
-msgstr ""
+msgstr "Calle de origen"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__original_street2
 msgid "Original Street2"
-msgstr ""
+msgstr "Calle de origen2"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__original_zip
 msgid "Original Zip"
-msgstr ""
+msgstr "Código postal original"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields.selection,name:account_avatax_oca.selection__product_tax_code__type__other
 #: model:ir.model.fields.selection,name:account_avatax_oca.selection__res_partner__validation_method__other
 msgid "Other"
-msgstr ""
+msgstr "Otra/o"
 
 #. module: account_avatax_oca
 #: model:ir.model,name:account_avatax_oca.model_avalara_salestax_ping
 msgid "Ping Service"
-msgstr ""
+msgstr "Servicio Ping"
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/account_tax.py:0
 #, python-format
 msgid "Please configure Avatax Tax for Company %s:"
-msgstr ""
+msgstr "Por favor, configure Avatax Tax para la empresa %s:"
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/partner.py:0
@@ -729,6 +776,8 @@ msgid ""
 "Please enter either Exemption Number or Exemption Code for marking customer "
 "as Exempt."
 msgstr ""
+"Por favor, introduzca el Número de Exención o el Código de Exención para "
+"marcar al cliente como Exento."
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
@@ -738,194 +787,203 @@ msgid ""
 "\n"
 " Typically located in Sales->Customers, you have to clear \"Customers\" from search filter and type in your own company name.  Ensure the address is filled out and go to Avatax tab in the partner information and validate the address. Save partner update when done."
 msgstr ""
+"Por favor, introduzca la dirección de la empresa en la información del socio "
+"y valídela.  Estamos comprobando la primera línea de la dirección y está "
+"vacía.  \n"
+"\n"
+" Normalmente se encuentra en Ventas->Clientes, tiene que borrar \"Clientes\" "
+"del filtro de búsqueda y escribir el nombre de su propia empresa.  Asegúrese "
+"de que la dirección está rellenada y vaya a la pestaña Avatax en la "
+"información del socio y valide la dirección. Guarde la actualización del "
+"socio cuando haya terminado."
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/avalara_salestax.py:0
 #, python-format
 msgid "Please validate the origin warehouse address."
-msgstr ""
+msgstr "Por favor, valide la dirección del almacén de origen."
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/avalara_salestax.py:0
 #, python-format
 msgid "Please validate the shipping address for the partner %(partner.name)s."
-msgstr ""
+msgstr "Valide la dirección de envío para el socio %(partner.name)s."
 
 #. module: account_avatax_oca
 #: model:ir.model.fields.selection,name:account_avatax_oca.selection__product_tax_code__type__product
 msgid "Product"
-msgstr ""
+msgstr "Producto"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_product__tax_code_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_template__tax_code_id
 msgid "Product AvaTax Code"
-msgstr ""
+msgstr "Producto AvaTax Código"
 
 #. module: account_avatax_oca
 #: model:ir.model,name:account_avatax_oca.model_product_category
 msgid "Product Category"
-msgstr ""
+msgstr "Categoría de Producto"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_product_normal_form_avatax_inherit
 msgid "Product Description"
-msgstr ""
+msgstr "Descripción del producto"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_product_tax_code_form
 msgid "Product Tax Code"
-msgstr ""
+msgstr "Código fiscal del producto"
 
 #. module: account_avatax_oca
 #: model:ir.actions.act_window,name:account_avatax_oca.action_product_tax_code
 #: model:ir.ui.menu,name:account_avatax_oca.menu_product_tax_code
 msgid "Product Tax Codes"
-msgstr ""
+msgstr "Códigos fiscales del producto"
 
 #. module: account_avatax_oca
 #: model:ir.model,name:account_avatax_oca.model_product_template
 msgid "Product Template"
-msgstr ""
+msgstr "Plantilla del Producto"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields.selection,name:account_avatax_oca.selection__avalara_salestax__service_url__https://rest_avatax_com/api/v2
 msgid "Production (REST API)"
-msgstr ""
+msgstr "Producción (REST API)"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_account_bank_statement_line__invoice_doc_no
 #: model:ir.model.fields,help:account_avatax_oca.field_account_move__invoice_doc_no
 #: model:ir.model.fields,help:account_avatax_oca.field_account_payment__invoice_doc_no
 msgid "Reference of the invoice"
-msgstr ""
+msgstr "Referencia de la factura"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__request_timeout
 msgid "Request Timeout"
-msgstr ""
+msgstr "Tiempo de espera de la solicitud"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__force_address_validation
 msgid "Require Validated Addresses"
-msgstr ""
+msgstr "Requerir direcciones validadas"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__result_in_uppercase
 msgid "Return validation results in upper case"
-msgstr ""
+msgstr "Devuelve los resultados de la validación en mayúsculas"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__so_partner_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__so_partner_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__so_partner_id
 msgid "SO Partner"
-msgstr ""
+msgstr "Socio SO"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields.selection,name:account_avatax_oca.selection__avalara_salestax__service_url__https://sandbox-rest_avatax_com/api/v2
 msgid "Sandbox (REST API)"
-msgstr ""
+msgstr "Zona de pruebas (API REST)"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_getcompany
 msgid "Select"
-msgstr ""
+msgstr "Seleccione"
 
 #. module: account_avatax_oca
 #: model:ir.actions.act_window,name:account_avatax_oca.action_avalara_salestax_getcompany
 msgid "Select Avatax Company Code"
-msgstr ""
+msgstr "Seleccione el código de empresa de Avatax"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_form
 msgid "Select Company"
-msgstr ""
+msgstr "Seleccione Compañía"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_getcompany__company_code
 msgid "Select a Company"
-msgstr ""
+msgstr "Seleccione una Compañía"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields.selection,name:account_avatax_oca.selection__product_tax_code__type__service
 msgid "Service"
-msgstr ""
+msgstr "Servicio"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__service_url
 msgid "Service URL"
-msgstr ""
+msgstr "URL de servicio"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__invoice_doc_no
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__invoice_doc_no
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__invoice_doc_no
 msgid "Source/Ref Invoice No"
-msgstr ""
+msgstr "Origen/Ref Factura nº"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__state
 msgid "State"
-msgstr ""
+msgstr "Estado"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__street
 msgid "Street"
-msgstr ""
+msgstr "Calle"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__street2
 msgid "Street2"
-msgstr ""
+msgstr "Calle2"
 
 #. module: account_avatax_oca
 #: model:ir.model,name:account_avatax_oca.model_account_tax
 msgid "Tax"
-msgstr ""
+msgstr "Impuesto"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_form
 msgid "Tax Calculation"
-msgstr ""
+msgstr "Cálculo del impuesto"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_partner_details_form_inherit1
 msgid "Tax Exemption"
-msgstr ""
+msgstr "Exención de impuesto"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__tax_address_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__tax_address_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__tax_address_id
 msgid "Tax Shipping Address"
-msgstr ""
+msgstr "Impuesto Dirección de envío"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__tax_on_shipping_address
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__tax_on_shipping_address
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__tax_on_shipping_address
 msgid "Tax based on shipping address"
-msgstr ""
+msgstr "Impuesto en función de la dirección de envío"
 
 #. module: account_avatax_oca
 #: model:ir.actions.act_window,name:account_avatax_oca.action_avalara_salestax_ping
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_form
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_ping
 msgid "Test Connection"
-msgstr ""
+msgstr "Comprobar conexión"
 
 #. module: account_avatax_oca
 #: model:product.product,name:account_avatax_oca.avatax_product_sku2
 #: model:product.template,name:account_avatax_oca.avatax_product_sku2_product_template
 msgid "Test Item NT"
-msgstr ""
+msgstr "Elemento de ensayo NT"
 
 #. module: account_avatax_oca
 #: model:product.product,name:account_avatax_oca.avatax_product_sku1
 #: model:product.template,name:account_avatax_oca.avatax_product_sku1_product_template
 msgid "Test Item P0000000"
-msgstr ""
+msgstr "Elemento de prueba P0000000"
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
@@ -934,6 +992,8 @@ msgid ""
 "The AvaTax Address Validation Service does not support this country in the "
 "configuration, please continue with your normal process."
 msgstr ""
+"El Servicio de Validación de Direcciones de AvaTax no soporta este país en "
+"la configuración, por favor continúe con su proceso normal."
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
@@ -942,68 +1002,74 @@ msgid ""
 "The AvaTax Address Validation Service is disabled by the administrator. "
 "Please make sure it's enabled for the address validation"
 msgstr ""
+"El Servicio de Validación de Direcciones de AvaTax está deshabilitado por el "
+"administrador. Por favor, asegúrese de que está habilitado para la "
+"validación de direcciones"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_res_partner__property_exemption_number
 #: model:ir.model.fields,help:account_avatax_oca.field_res_users__property_exemption_number
 msgid "The State identification number relevant fot the exemption"
-msgstr ""
+msgstr "El número de identificación del Estado correspondiente a la exención"
 
 #. module: account_avatax_oca
 #: model:ir.model.constraint,message:account_avatax_oca.constraint_avalara_salestax_account_number_company_uniq
 msgid "The account number must be unique per company!"
-msgstr ""
+msgstr "¡El número de cuenta debe ser único por empresa!"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__result_in_uppercase
 msgid "The address validation results are returned in in upper case"
 msgstr ""
+"Los resultados de la validación de la dirección se devuelven en mayúsculas"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__company_code
 msgid "The company code as defined in the Admin Console of AvaTax"
 msgstr ""
+"El código de la empresa tal como se define en la Consola de administración "
+"de AvaTax"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_res_partner__date_validation
 #: model:ir.model.fields,help:account_avatax_oca.field_res_users__date_validation
 msgid "The date the address was last validated by AvaTax and accepted"
-msgstr ""
+msgstr "La fecha en que AvaTax validó y aceptó la dirección por última vez"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_res_partner__property_exemption_code_id
 #: model:ir.model.fields,help:account_avatax_oca.field_res_users__property_exemption_code_id
 msgid "The type of exemption granted"
-msgstr ""
+msgstr "El tipo de exención concedida"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__service_url
 msgid "The url to connect with"
-msgstr ""
+msgstr "La url para conectarse con"
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
 #, python-format
 msgid "The user or account could not be authenticated"
-msgstr ""
+msgstr "No se ha podido autenticar el usuario o la cuenta"
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/avalara_salestax.py:0
 #, python-format
 msgid "There is no Company address defined."
-msgstr ""
+msgstr "No hay ninguna dirección de empresa definida."
 
 #. module: account_avatax_oca
 #: code:addons/account_avatax_oca/models/avalara_salestax.py:0
 #, python-format
 msgid "There is no source shipping address defined for partner %s."
-msgstr ""
+msgstr "No hay ninguna dirección de envío de origen definida para el socio %s."
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_res_partner__property_tax_exempt
 #: model:ir.model.fields,help:account_avatax_oca.field_res_users__property_tax_exempt
 msgid "This company or address can claim for tax exemption"
-msgstr ""
+msgstr "Esta empresa o dirección puede solicitar la exención fiscal"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__auto_generate_customer_code
@@ -1014,26 +1080,31 @@ msgid ""
 "generate their customer code.  This is required for Avatax and is only "
 "generated one time."
 msgstr ""
+"Esto generará un código de cliente para el cliente utilizado en la "
+"transacción, si no tiene ya uno. Cada código es único por cliente.  Si esta "
+"opción está desactivada, tendrá que ir manualmente a cada cliente y generar "
+"manualmente su código de cliente.  Esto es necesario para Avatax y sólo se "
+"genera una vez."
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_tax_code__type
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_product_tax_code__type
 msgid "Type of tax code as defined in AvaTax"
-msgstr ""
+msgstr "Tipo de código fiscal definido en AvaTax"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields.selection,name:account_avatax_oca.selection__res_partner__validation_method__usps
 msgid "USPS"
-msgstr ""
+msgstr "USPS"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__active
 msgid "Uncheck the active field to hide the record"
-msgstr ""
+msgstr "Desmarque el campo activo para ocultar el registro"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_account_bank_statement_line__hide_exemption
@@ -1044,6 +1115,9 @@ msgid ""
 "Uncheck the this field to show exemption fields on SO/Invoice form view. "
 "Also, it will show Tax based on shipping address button"
 msgstr ""
+"Desmarque este campo para mostrar los campos de exención en la vista de "
+"formulario SO/Factura. Además, mostrará el impuesto basado en el botón de "
+"dirección de envío"
 
 #. module: account_avatax_oca
 #: model:product.product,uom_name:account_avatax_oca.avatax_product_freight
@@ -1053,12 +1127,12 @@ msgstr ""
 #: model:product.template,uom_name:account_avatax_oca.avatax_product_sku1_product_template
 #: model:product.template,uom_name:account_avatax_oca.avatax_product_sku2_product_template
 msgid "Units"
-msgstr ""
+msgstr "Unidades"
 
 #. module: account_avatax_oca
 #: model:ir.actions.server,name:account_avatax_oca.action_account_invoice_compute_taxes
 msgid "Update taxes with AvaTax"
-msgstr ""
+msgstr "Actualizar impuestos con AvaTax"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__is_avatax
@@ -1066,12 +1140,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__is_avatax
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__is_avatax
 msgid "Use Avatax API"
-msgstr ""
+msgstr "Utilizar la API de Avatax"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__use_so_partner_id
 msgid "Use Sale Customer Code on Invoice"
-msgstr ""
+msgstr "Utilizar el código de cliente de venta en la factura"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__use_so_partner_id
@@ -1080,61 +1154,64 @@ msgid ""
 " Invoice. If no Sales Order exists, Customer field on the invoice form view "
 "will be used instead"
 msgstr ""
+"Utilice el campo Cliente del Pedido de Ventas para determinar el Estado "
+"Imponible en la Factura del Cliente. Si no existe ningún Pedido de Ventas, "
+"se utilizará el campo Cliente en la vista del formulario de factura"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_partner_details_form_inherit1
 msgid "Validate"
-msgstr ""
+msgstr "Validar"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_partner_details_form_inherit1
 msgid "Validate Address"
-msgstr ""
+msgstr "Validar dirección"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_address_validate
 msgid "Validated Address"
-msgstr ""
+msgstr "Dirección validada"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__validated_on_save
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__validated_on_save
 msgid "Validated On Save"
-msgstr ""
+msgstr "Validado al guardar"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_partner_details_form_inherit1
 msgid "Validation"
-msgstr ""
+msgstr "Validación"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__validation_method
 msgid "Validation Method"
-msgstr ""
+msgstr "Método de validación"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_form
 msgid "Visit the AvaTax Admin webpage"
-msgstr ""
+msgstr "Visite la página web de AvaTax Admin"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__warehouse_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__warehouse_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__warehouse_id
 msgid "Warehouse"
-msgstr ""
+msgstr "Almacén"
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax_address_validate__zip
 msgid "Zip"
-msgstr ""
+msgstr "Código Postal"
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_product_normal_form_avatax_inherit
 msgid "describe the product characteristics..."
-msgstr ""
+msgstr "describir las características del producto..."
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_address_validate
 msgid "or"
-msgstr ""
+msgstr "o"
