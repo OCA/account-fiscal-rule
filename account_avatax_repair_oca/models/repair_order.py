@@ -317,6 +317,9 @@ class Repair(models.Model):
 
     def copy(self, default=None):
         repair = super().copy(default)
+        if self.partner_id.property_tax_exempt:
+            repair.exemption_code = self.partner_id.property_exemption_number
+            repair.exemption_code_id = self.partner_id.property_exemption_code_id
         avatax_config = self.env.company.get_avatax_config_company()
         if (
             avatax_config.repair_calculate_tax
