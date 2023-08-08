@@ -6,18 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-08-08 10:10+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_avalara_salestax__sale_calculate_tax
 msgid "Auto Calculate Tax on SO Save"
-msgstr ""
+msgstr "Cálculo automático de impuestos en el ahorro de SO"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,help:account_avatax_sale_oca.field_avalara_salestax__sale_calculate_tax
@@ -26,47 +28,50 @@ msgid ""
 "warehouse_id, tax_on_shipping_address, SO line's price_unit, discount, "
 "product_uom_qty"
 msgstr ""
+"Activación automática de la API para calcular los impuestos si se realizan "
+"cambios en: SO's warehouse_id, tax_on_shipping_address, SO line's "
+"price_unit, discount, product_uom_qty"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_sale_order__tax_amount
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_sale_order_line__tax_amt
 msgid "AvaTax"
-msgstr ""
+msgstr "AvaTax"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model,name:account_avatax_sale_oca.model_avalara_salestax
 msgid "AvaTax Configuration"
-msgstr ""
+msgstr "Configuración de AvaTax"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_sale_order__avatax_request_log
 msgid "Avatax API Request Log"
-msgstr ""
+msgstr "Registro de solicitudes de la API de Avatax"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_sale_order__avatax_response_log
 msgid "Avatax API Response Log"
-msgstr ""
+msgstr "Registro de respuestas de la API de Avatax"
 
 #. module: account_avatax_sale_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_sale_oca.sale_order_update_form_view
 msgid "Avatax Log"
-msgstr ""
+msgstr "Registro Avatax"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_sale_order__calculate_tax_on_save
 msgid "Calculate Tax On Save"
-msgstr ""
+msgstr "Calcular el impuesto sobre el ahorro"
 
 #. module: account_avatax_sale_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_sale_oca.sale_order_update_form_view
 msgid "Compute Taxes"
-msgstr ""
+msgstr "Computar impuestos"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model,name:account_avatax_sale_oca.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #. module: account_avatax_sale_oca
 #: code:addons/account_avatax_sale_oca/models/partner.py:0
@@ -76,88 +81,94 @@ msgid ""
 "\n"
 " Please ensure that your tax advisor was consulted and the necessary tax exemption documentation was obtained for every state this Partner may have transactions."
 msgstr ""
+"Habilitar el estado de exención para todos los estados puede tener riesgos "
+"de cumplimiento fiscal, y debe ser considerado cuidadosamente.\n"
+"\n"
+" Asegúrese de haber consultado a su asesor fiscal y de haber obtenido la "
+"documentación de exención fiscal necesaria para todos los estados en los que "
+"este socio pueda realizar transacciones."
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_res_partner__property_exemption_country_wide
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_res_users__property_exemption_country_wide
 msgid "Exemption Applies Country Wide"
-msgstr ""
+msgstr "La exención se aplica en todo el país"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_sale_order__exemption_code_id
 msgid "Exemption Code"
-msgstr ""
+msgstr "Código de exención"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_sale_order__exemption_code
 msgid "Exemption Number"
-msgstr ""
+msgstr "Número de exención"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_sale_order__hide_exemption
 msgid "Hide Exemption & Tax Based on shipping address"
-msgstr ""
+msgstr "Ocultar exención e impuestos según la dirección de envío"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,help:account_avatax_sale_oca.field_sale_order__exemption_code_id
 msgid "It show the customer exemption code"
-msgstr ""
+msgstr "Muestra el código de exención del cliente"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,help:account_avatax_sale_oca.field_sale_order__exemption_code
 msgid "It show the customer exemption number"
-msgstr ""
+msgstr "Muestra el número de exención del cliente"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model,name:account_avatax_sale_oca.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Entrada diaria"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_sale_order__location_code
 msgid "Location Code"
-msgstr ""
+msgstr "Código de localización"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,help:account_avatax_sale_oca.field_sale_order__location_code
 msgid "Origin address location code"
-msgstr ""
+msgstr "Dirección de origen Código de localización"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_avalara_salestax__override_line_taxes
 msgid "Override Line Taxes"
-msgstr ""
+msgstr "Anulación de la línea de impuestos"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model,name:account_avatax_sale_oca.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Órdenes de venta"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model,name:account_avatax_sale_oca.model_sale_order_line
 msgid "Sales Order Line"
-msgstr ""
+msgstr "Línea de Orden de Venta"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model,name:account_avatax_sale_oca.model_account_tax
 msgid "Tax"
-msgstr ""
+msgstr "Impuesto"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_sale_order__tax_address_id
 msgid "Tax Address"
-msgstr ""
+msgstr "Dirección fiscal"
 
 #. module: account_avatax_sale_oca
 #: code:addons/account_avatax_sale_oca/models/partner.py:0
 #, python-format
 msgid "Tax Compliance Risk"
-msgstr ""
+msgstr "Riesgo de cumplimiento fiscal"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_sale_order__tax_on_shipping_address
 msgid "Tax based on shipping address"
-msgstr ""
+msgstr "Impuesto en función de la dirección de envío"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,help:account_avatax_sale_oca.field_sale_order__hide_exemption
@@ -165,26 +176,31 @@ msgid ""
 "Uncheck the this field to show exemption fields on SO/Invoice form view. "
 "Also, it will show Tax based on shipping address button"
 msgstr ""
+"Desmarque este campo para mostrar los campos de exención en la vista de "
+"formulario SO/Factura. Además, mostrará el impuesto basado en el botón de "
+"dirección de envío"
 
 #. module: account_avatax_sale_oca
 #: model:ir.actions.server,name:account_avatax_sale_oca.action_sale_order_compute_taxes
 msgid "Update taxes with AvaTax"
-msgstr ""
+msgstr "Actualizar impuestos con AvaTax"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_sale_order__is_avatax
 msgid "Use Avatax API"
-msgstr ""
+msgstr "Utilizar la API de Avatax"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_avalara_salestax__use_partner_invoice_id
 msgid "Use Invoice partner's customer code in SO"
-msgstr ""
+msgstr "Usar el código de cliente del socio de facturación en SO"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,help:account_avatax_sale_oca.field_avalara_salestax__use_partner_invoice_id
 msgid "Use Sales Order's Invoice Address field to determine TaxableStatus"
 msgstr ""
+"Utilice el campo Dirección de factura de la orden de venta para determinar "
+"Estado Tributable"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,help:account_avatax_sale_oca.field_avalara_salestax__override_line_taxes
@@ -192,6 +208,8 @@ msgid ""
 "When checked, the Avatax computed tax will replace any other taxes that may "
 "exist in the document line."
 msgstr ""
+"Si está marcada, el impuesto calculado por Avatax sustituirá a cualquier "
+"otro impuesto que pueda existir en la línea del documento."
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,help:account_avatax_sale_oca.field_res_partner__property_exemption_country_wide
@@ -201,3 +219,6 @@ msgid ""
 "exemption status, meaning that the exemption is considered applicable for "
 "all states"
 msgstr ""
+"Cuando está activada, el Estado de la dirección de entrega es irrelevante a "
+"la hora de buscar el estado de la exención, lo que significa que la exención "
+"se considera aplicable para todos los estados"
