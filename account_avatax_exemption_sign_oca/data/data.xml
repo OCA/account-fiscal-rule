@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sign_field_text" model="sign.oca.field">
+        <field name="name">Tax Exemption Number</field>
+        <field name="field_type">text</field>
+        <field name="is_exemption_number">True</field>
+    </record>
+</odoo>
