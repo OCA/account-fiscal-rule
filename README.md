@@ -26,7 +26,7 @@ addon | version | maintainers | summary
 [account_avatax_website_sale](account_avatax_website_sale/) | 16.0.1.0.0 | [![cybernexus](https://github.com/cybernexus.png?size=30px)](https://github.com/cybernexus) | Ecommerce Sales Orders require tax recalculation prior to payment.
 [account_fiscal_position_partner_type](account_fiscal_position_partner_type/) | 16.0.1.0.1 |  | Account Fiscal Position Partner Type
 [account_fiscal_position_type](account_fiscal_position_type/) | 16.0.1.0.2 |  | Add sale / purchase type on fiscal position
-[account_product_fiscal_classification](account_product_fiscal_classification/) | 16.0.1.0.2 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Simplify taxes management for products
+[account_product_fiscal_classification](account_product_fiscal_classification/) | 16.0.1.0.3 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Simplify taxes management for products
 [l10n_eu_oss_oca](l10n_eu_oss_oca/) | 16.0.1.0.0 |  | L10n EU OSS OCA
 
 [//]: # (end addons)
