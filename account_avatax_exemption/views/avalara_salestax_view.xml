@@ -33,12 +33,29 @@
                     />
                 </header>
             </xpath>
-            <xpath expr="//field[@name='company_code']" position="after">
-                <field name="avatax_company_id" />
+
+            <xpath
+                expr="//page[@name='connection_page']/group/group/a"
+                position="before"
+            >
+                <label for="avatax_company_id" />
+                <div>
+                    <field name="avatax_company_id" class="oe_inline" />
+                </div>
             </xpath>
-            <xpath expr="//field[@name='disable_tax_reporting']" position="after">
-                <field name="use_commercial_entity" />
-            </xpath>
+
+
+            <div position="inside" id="calculation_page_container">
+                <div class="col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="use_commercial_entity" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="use_commercial_entity" />
+                    </div>
+                </div>
+            </div>
+
             <xpath expr="//field[@name='request_timeout']" position="after">
                 <field name="tax_item_export" />
                 <field name="exemption_export" />

@@ -15,7 +15,6 @@ class ExemptionRule(models.Model):
             ("cancel", "Cancelled"),
         ],
         default="draft",
-        string="State",
     )
     exemption_code_id = fields.Many2one(
         "exemption.code",
