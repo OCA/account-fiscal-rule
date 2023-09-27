@@ -6,7 +6,7 @@ import mock
 from odoo.tests import Form, common
 
 
-class TestAccountFiscalPostitionVies(common.SavepointCase):
+class TestAccountFiscalPostitionVies(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -36,7 +36,7 @@ class TestAccountFiscalPostitionVies(common.SavepointCase):
         cls.child_partner = cls.env["res.partner"].create(
             {"name": "Mr Odoo children", "parent_id": cls.partner.id}
         )
-        cls.vatnumber_path = "odoo.addons.base_vat.models.res_partner.vatnumber"
+        cls.vatnumber_path = "odoo.addons.base_vat.models.res_partner.check_vies"
 
     def _create_invoice(self, partner):
         move_form = Form(
