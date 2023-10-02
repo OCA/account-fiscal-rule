@@ -1,0 +1,33 @@
+<odoo noupdate="1">
+    <record id="reaching_limit_avatax_api_call_email" model="mail.template">
+        <field name="name">Avatax API Call Reaching Limit</field>
+        <field name="model_id" ref="base.model_res_company" />
+        <field name="email_to">{{ ctx.get('email_to', False) }}</field>
+        <field name="subject">Avatax API Call Reaching Limit</field>
+        <field name="auto_delete" eval="True" />
+        <field name="lang">{{ object.partner_id.lang }}</field>
+        <field name="body_html" type="html">
+            <p>Hello.</p>
+            <br />
+            <p>
+                The number of Avatax API calls was over the limit yesterday.
+            </p>
+            <p
+                style="font-family: arial, sans-serif; font-size: 12.8px;"
+            >Sale Transactions : <t t-out="ctx.get('sales_call_count')" /></p>
+            <p
+                style="font-family: arial, sans-serif; font-size: 12.8px;"
+            >Invoice Transactions : <t t-out="ctx.get('invoices_call_count')" /></p>
+            <br />
+            <p
+                style="font-family: arial, sans-serif; font-size: 12.8px;"
+            >Thank you for your cooperation.</p>
+            <p
+                style="font-family: arial, sans-serif; font-size: 12.8px;"
+            >Kind regards,</p>
+            <p
+                style="font-family: arial, sans-serif; font-size: 12.8px;"
+            >Support Team.</p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,12 @@
+<odoo noupdate="1">
+    <record id="ir_cron_avatax_api_call_counter" model="ir.cron">
+        <field name="name">Avatax API Call Counter</field>
+        <field name="model_id" ref="account_avatax_oca_log.model_avatax_log" />
+        <field name="state">code</field>
+        <field name="code">model.avatax_api_call_counter()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="False" />
+    </record>
+</odoo>
