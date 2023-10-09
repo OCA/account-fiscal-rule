@@ -22,13 +22,13 @@ msgstr ""
 "X-Generator: Weblate 3.10\n"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:129
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid " - Sale Taxes: "
 msgstr " - Prodajni davki: "
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:122
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "- No Sale Taxes"
 msgstr "- Brez prodajnih davkov"
@@ -65,11 +65,6 @@ msgid "Cancel"
 msgstr "Preklic"
 
 #. module: account_product_fiscal_classification
-#: model:product.category,name:account_product_fiscal_classification.category_with_fiscal_restriction
-msgid "Category with Fiscal Restriction"
-msgstr "Kategorija s fiskalno restrikcijo"
-
-#. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__chart_template_id
 msgid "Chart Template"
 msgstr "Predloga plana"
@@ -98,30 +93,6 @@ msgstr "Ustvaril"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__create_date
 msgid "Created on"
 msgstr "Ustvarjeno"
-
-#. module: account_product_fiscal_classification
-#: model:res.company,overdue_msg:account_product_fiscal_classification.cpny_onlyshare_classification
-msgid ""
-"Dear Sir/Madam,\n"
-"\n"
-"Our records indicate that some payments on your account are still due. "
-"Please find details below.\n"
-"If the amount has already been paid, please disregard this notice. "
-"Otherwise, please forward us the total amount stated below.\n"
-"If you have any queries regarding your account, Please contact us.\n"
-"\n"
-"Thank you in advance for your cooperation.\n"
-"Best Regards,"
-msgstr ""
-"Spoštovani.\n"
-"\n"
-"Po naši evidenci nekatere zapadle terjatve na vaši kontni kartici še niso "
-"poravnane. Več podrobnosti je spodaj.\n"
-"Če je znesek medtem bil že poravnan, lahko smatrate ta opomin kot ničen. V "
-"nasprotnem primeru pa vas prosimo, da poravnate navedeni znesek.\n"
-"Za kakršnakoli dodatna pojasnila smo vam na voljo.\n"
-"\n"
-"Hvala za razumevanje in lep pozdrav."
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_1
@@ -283,13 +254,13 @@ msgid "New Classification"
 msgstr "Nova klasifikacija"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:111
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "No Purchase Taxes - Sale Taxes: "
 msgstr "Brez nabavnih - prodajnih davkov: "
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:109
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "No taxes"
 msgstr "Brez davkov"
@@ -334,8 +305,7 @@ msgid "Purchase Taxes"
 msgstr "Nabavni davki"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:117
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:124
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "Purchase Taxes: "
 msgstr "Nabavni davki: "
@@ -395,7 +365,7 @@ msgid "Taxes"
 msgstr "Davki"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:49
+#: code:addons/account_product_fiscal_classification/models/product_template.py:0
 #, python-format
 msgid ""
 "The category '%s' of the product '%s' doesn't not allow to set the "
@@ -415,8 +385,8 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model:product.template,uom_name:account_product_fiscal_classification.product_template_1
 #: model:product.template,uom_name:account_product_fiscal_classification.product_template_all_cpnies
-msgid "Unit(s)"
-msgstr "Enot(a)"
+msgid "Units"
+msgstr ""
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__usage_group_id
@@ -430,7 +400,7 @@ msgid "Wizard : Change fiscal classification on product"
 msgstr "Čarovnik : spremeni fiskalno klasifikacijo na proizvodu"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_category.py:42
+#: code:addons/account_product_fiscal_classification/models/product_category.py:0
 #, python-format
 msgid ""
 "You can not set fiscal classifications on %s if Restriction on Fiscal "
@@ -440,7 +410,7 @@ msgstr ""
 "restrikcija na fiskalnih klasifikacijah za to kategorijo."
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:140
+#: code:addons/account_product_fiscal_classification/models/product_template.py:0
 #, python-format
 msgid ""
 "You can not use the fiscal classification '%s' because you're not member of "
@@ -450,13 +420,13 @@ msgstr ""
 "'%s'."
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:121
+#: code:addons/account_product_fiscal_classification/models/product_template.py:0
 #, python-format
 msgid "You cannot change Taxes for many Products."
 msgstr "Ne morete spreminjati davkov za več proizvodov."
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:83
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid ""
 "You cannot delete The Fiscal Classification '%s' because it contents %s "
@@ -465,11 +435,36 @@ msgstr ""
 "Ne morete brisati fiskalne klasifikacije '%s', ker vsebuje %s proizvodov. "
 "Najprej premaknite proizvode v drugo fiskalno klasifikacijo."
 
-#. module: account_product_fiscal_classification
-#: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_1
-#: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_all_cpnies
-msgid "kg"
-msgstr "kg"
+#~ msgid "Category with Fiscal Restriction"
+#~ msgstr "Kategorija s fiskalno restrikcijo"
+
+#~ msgid ""
+#~ "Dear Sir/Madam,\n"
+#~ "\n"
+#~ "Our records indicate that some payments on your account are still due. "
+#~ "Please find details below.\n"
+#~ "If the amount has already been paid, please disregard this notice. "
+#~ "Otherwise, please forward us the total amount stated below.\n"
+#~ "If you have any queries regarding your account, Please contact us.\n"
+#~ "\n"
+#~ "Thank you in advance for your cooperation.\n"
+#~ "Best Regards,"
+#~ msgstr ""
+#~ "Spoštovani.\n"
+#~ "\n"
+#~ "Po naši evidenci nekatere zapadle terjatve na vaši kontni kartici še niso "
+#~ "poravnane. Več podrobnosti je spodaj.\n"
+#~ "Če je znesek medtem bil že poravnan, lahko smatrate ta opomin kot ničen. "
+#~ "V nasprotnem primeru pa vas prosimo, da poravnate navedeni znesek.\n"
+#~ "Za kakršnakoli dodatna pojasnila smo vam na voljo.\n"
+#~ "\n"
+#~ "Hvala za razumevanje in lep pozdrav."
+
+#~ msgid "Unit(s)"
+#~ msgstr "Enot(a)"
+
+#~ msgid "kg"
+#~ msgstr "kg"
 
 #~ msgid "0.03%"
 #~ msgstr "0.03%"

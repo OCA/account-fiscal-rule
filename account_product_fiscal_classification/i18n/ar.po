@@ -20,13 +20,13 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:129
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid " - Sale Taxes: "
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:122
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "- No Sale Taxes"
 msgstr ""
@@ -63,11 +63,6 @@ msgid "Cancel"
 msgstr "إلغاء"
 
 #. module: account_product_fiscal_classification
-#: model:product.category,name:account_product_fiscal_classification.category_with_fiscal_restriction
-msgid "Category with Fiscal Restriction"
-msgstr ""
-
-#. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__chart_template_id
 msgid "Chart Template"
 msgstr ""
@@ -96,21 +91,6 @@ msgstr "أنشئ بواسطة"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__create_date
 msgid "Created on"
 msgstr "أنشئ في"
-
-#. module: account_product_fiscal_classification
-#: model:res.company,overdue_msg:account_product_fiscal_classification.cpny_onlyshare_classification
-msgid ""
-"Dear Sir/Madam,\n"
-"\n"
-"Our records indicate that some payments on your account are still due. "
-"Please find details below.\n"
-"If the amount has already been paid, please disregard this notice. "
-"Otherwise, please forward us the total amount stated below.\n"
-"If you have any queries regarding your account, Please contact us.\n"
-"\n"
-"Thank you in advance for your cooperation.\n"
-"Best Regards,"
-msgstr ""
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_1
@@ -266,13 +246,13 @@ msgid "New Classification"
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:111
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "No Purchase Taxes - Sale Taxes: "
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:109
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "No taxes"
 msgstr ""
@@ -317,8 +297,7 @@ msgid "Purchase Taxes"
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:117
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:124
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "Purchase Taxes: "
 msgstr ""
@@ -370,7 +349,7 @@ msgid "Taxes"
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:49
+#: code:addons/account_product_fiscal_classification/models/product_template.py:0
 #, python-format
 msgid ""
 "The category '%s' of the product '%s' doesn't not allow to set the "
@@ -384,7 +363,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model:product.template,uom_name:account_product_fiscal_classification.product_template_1
 #: model:product.template,uom_name:account_product_fiscal_classification.product_template_all_cpnies
-msgid "Unit(s)"
+msgid "Units"
 msgstr ""
 
 #. module: account_product_fiscal_classification
@@ -399,7 +378,7 @@ msgid "Wizard : Change fiscal classification on product"
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_category.py:42
+#: code:addons/account_product_fiscal_classification/models/product_category.py:0
 #, python-format
 msgid ""
 "You can not set fiscal classifications on %s if Restriction on Fiscal "
@@ -407,7 +386,7 @@ msgid ""
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:140
+#: code:addons/account_product_fiscal_classification/models/product_template.py:0
 #, python-format
 msgid ""
 "You can not use the fiscal classification '%s' because you're not member of "
@@ -415,23 +394,17 @@ msgid ""
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:121
+#: code:addons/account_product_fiscal_classification/models/product_template.py:0
 #, python-format
 msgid "You cannot change Taxes for many Products."
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:83
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid ""
 "You cannot delete The Fiscal Classification '%s' because it contents %s "
 "products. Please move products to another Fiscal Classification first."
-msgstr ""
-
-#. module: account_product_fiscal_classification
-#: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_1
-#: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_all_cpnies
-msgid "kg"
 msgstr ""
 
 #~ msgid "Create"
