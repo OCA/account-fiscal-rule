@@ -19,13 +19,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:129
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid " - Sale Taxes: "
 msgstr "- Verkaufssteuern:"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:122
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "- No Sale Taxes"
 msgstr "- Keine Verkaufssteuern"
@@ -63,11 +63,6 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #. module: account_product_fiscal_classification
-#: model:product.category,name:account_product_fiscal_classification.category_with_fiscal_restriction
-msgid "Category with Fiscal Restriction"
-msgstr ""
-
-#. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__chart_template_id
 #, fuzzy
 msgid "Chart Template"
@@ -97,32 +92,6 @@ msgstr "Angelegt durch"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__create_date
 msgid "Created on"
 msgstr "Angelegt am"
-
-#. module: account_product_fiscal_classification
-#: model:res.company,overdue_msg:account_product_fiscal_classification.cpny_onlyshare_classification
-msgid ""
-"Dear Sir/Madam,\n"
-"\n"
-"Our records indicate that some payments on your account are still due. "
-"Please find details below.\n"
-"If the amount has already been paid, please disregard this notice. "
-"Otherwise, please forward us the total amount stated below.\n"
-"If you have any queries regarding your account, Please contact us.\n"
-"\n"
-"Thank you in advance for your cooperation.\n"
-"Best Regards,"
-msgstr ""
-"Sehr geehrte Damen und Herren,\n"
-"\n"
-"Unsere Buchhaltung weist überfällige offene Rechnungen von Ihnen aus. "
-"Details dazu ersehen Sie unten.\n"
-"Sollte der Betrag zwischenzeitlich angewiesen worden sein, betrachten Sie "
-"dieses Schreiben bitte als gegenstandslos. Anderenfalls weisen Sie bitte die "
-"unten aufgeführte Gesamtsumme an.\n"
-"Sollten Sie Fragen zu Ihrem Konto bei uns haben, sprechen Sie uns bitte an.\n"
-"\n"
-"Vielen Dank im Voraus für Ihre Zusammenarbeit.\n"
-"Mit freundlichem Gruß,"
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification,name:account_product_fiscal_classification.fiscal_classification_1
@@ -174,8 +143,11 @@ msgid "Description"
 msgstr "Beschreibung"
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_chart_template__display_name
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__display_name
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__display_name
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category__display_name
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__display_name
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__display_name
 msgid "Display Name"
 msgstr "Anzeigebezeichnung"
@@ -213,8 +185,11 @@ msgid "Fiscal Settings"
 msgstr ""
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_chart_template__id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category__id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__id
 msgid "ID"
 msgstr "ID"
@@ -247,8 +222,11 @@ msgstr ""
 "zu löschen."
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_chart_template____last_update
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification____last_update
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template____last_update
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_category____last_update
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template____last_update
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification____last_update
 msgid "Last Modified on"
 msgstr "Zuletzt verändert am"
@@ -288,13 +266,13 @@ msgid "New Classification"
 msgstr "Neue Steuerklassifizierung"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:111
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "No Purchase Taxes - Sale Taxes: "
 msgstr "Keine  Erwerbssteuer - Verkaufssteuer:"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:109
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "No taxes"
 msgstr "Keine Steuern"
@@ -340,8 +318,7 @@ msgid "Purchase Taxes"
 msgstr "Erwerbssteuer"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:117
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:124
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "Purchase Taxes: "
 msgstr "Erwerbssteuern:"
@@ -400,7 +377,7 @@ msgid "Taxes"
 msgstr "Steuern"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:49
+#: code:addons/account_product_fiscal_classification/models/product_template.py:0
 #, python-format
 msgid ""
 "The category '%s' of the product '%s' doesn't not allow to set the "
@@ -414,7 +391,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model:product.template,uom_name:account_product_fiscal_classification.product_template_1
 #: model:product.template,uom_name:account_product_fiscal_classification.product_template_all_cpnies
-msgid "Unit(s)"
+msgid "Units"
 msgstr ""
 
 #. module: account_product_fiscal_classification
@@ -430,7 +407,7 @@ msgid "Wizard : Change fiscal classification on product"
 msgstr "wizard.change.fiscal.classification"
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_category.py:42
+#: code:addons/account_product_fiscal_classification/models/product_category.py:0
 #, python-format
 msgid ""
 "You can not set fiscal classifications on %s if Restriction on Fiscal "
@@ -438,7 +415,7 @@ msgid ""
 msgstr ""
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:140
+#: code:addons/account_product_fiscal_classification/models/product_template.py:0
 #, fuzzy, python-format
 msgid ""
 "You can not use the fiscal classification '%s' because you're not member of "
@@ -449,13 +426,13 @@ msgstr ""
 "Steuerklassifizierung verschieben."
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/product_template.py:121
+#: code:addons/account_product_fiscal_classification/models/product_template.py:0
 #, python-format
 msgid "You cannot change Taxes for many Products."
 msgstr "Sie dürfen die Steuern von vielen Produkten nicht ändern."
 
 #. module: account_product_fiscal_classification
-#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:83
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid ""
 "You cannot delete The Fiscal Classification '%s' because it contents %s "
@@ -465,11 +442,30 @@ msgstr ""
 "dieser noch zugehörig ist. Bitte das Produkt zuerst in andere "
 "Steuerklassifizierung verschieben."
 
-#. module: account_product_fiscal_classification
-#: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_1
-#: model:product.template,weight_uom_name:account_product_fiscal_classification.product_template_all_cpnies
-msgid "kg"
-msgstr ""
+#~ msgid ""
+#~ "Dear Sir/Madam,\n"
+#~ "\n"
+#~ "Our records indicate that some payments on your account are still due. "
+#~ "Please find details below.\n"
+#~ "If the amount has already been paid, please disregard this notice. "
+#~ "Otherwise, please forward us the total amount stated below.\n"
+#~ "If you have any queries regarding your account, Please contact us.\n"
+#~ "\n"
+#~ "Thank you in advance for your cooperation.\n"
+#~ "Best Regards,"
+#~ msgstr ""
+#~ "Sehr geehrte Damen und Herren,\n"
+#~ "\n"
+#~ "Unsere Buchhaltung weist überfällige offene Rechnungen von Ihnen aus. "
+#~ "Details dazu ersehen Sie unten.\n"
+#~ "Sollte der Betrag zwischenzeitlich angewiesen worden sein, betrachten Sie "
+#~ "dieses Schreiben bitte als gegenstandslos. Anderenfalls weisen Sie bitte "
+#~ "die unten aufgeführte Gesamtsumme an.\n"
+#~ "Sollten Sie Fragen zu Ihrem Konto bei uns haben, sprechen Sie uns bitte "
+#~ "an.\n"
+#~ "\n"
+#~ "Vielen Dank im Voraus für Ihre Zusammenarbeit.\n"
+#~ "Mit freundlichem Gruß,"
 
 #~ msgid "0.03%"
 #~ msgstr "0,03%"
