@@ -34,14 +34,30 @@ msgid "Country"
 msgstr ""
 
 #. module: account_multi_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_bank_statement_line__customer_vat
 #: model:ir.model.fields,field_description:account_multi_vat.field_account_move__customer_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_payment__customer_vat
 msgid "Customer VAT"
 msgstr "N° TVA du client"
 
 #. module: account_multi_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_bank_statement_line__customer_vat_partner_id
 #: model:ir.model.fields,field_description:account_multi_vat.field_account_move__customer_vat_partner_id
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_payment__customer_vat_partner_id
 msgid "Customer tax administration"
 msgstr "Administration fiscale du client"
+
+#. module: account_multi_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_fiscal_position__display_name
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_move_reversal__display_name
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_tax__display_name
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_tax_repartition_line__display_name
+#: model:ir.model.fields,field_description:account_multi_vat.field_res_partner__display_name
+#: model:ir.model.fields,field_description:account_multi_vat.field_res_partner_id_category__display_name
+#: model:ir.model.fields,field_description:account_multi_vat.field_res_partner_id_number__display_name
+msgid "Display Name"
+msgstr ""
 
 #. module: account_multi_vat
 #: model:ir.model,name:account_multi_vat.model_account_fiscal_position
@@ -55,8 +71,32 @@ msgid "Has Vat"
 msgstr "Possède un numéro de TVA"
 
 #. module: account_multi_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_fiscal_position__id
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_move__id
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_move_reversal__id
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_tax__id
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_tax_repartition_line__id
+#: model:ir.model.fields,field_description:account_multi_vat.field_res_partner__id
+#: model:ir.model.fields,field_description:account_multi_vat.field_res_partner_id_category__id
+#: model:ir.model.fields,field_description:account_multi_vat.field_res_partner_id_number__id
+msgid "ID"
+msgstr ""
+
+#. module: account_multi_vat
 #: model:ir.model,name:account_multi_vat.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_multi_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_fiscal_position____last_update
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_move_reversal____last_update
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_tax____last_update
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_tax_repartition_line____last_update
+#: model:ir.model.fields,field_description:account_multi_vat.field_res_partner____last_update
+#: model:ir.model.fields,field_description:account_multi_vat.field_res_partner_id_category____last_update
+#: model:ir.model.fields,field_description:account_multi_vat.field_res_partner_id_number____last_update
+msgid "Last Modified on"
 msgstr ""
 
 #. module: account_multi_vat
@@ -101,18 +141,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_multi_vat.account_tax_search_view
 msgid "Tax administration"
 msgstr "Administration fiscale"
-
-#. module: account_multi_vat
-#: model:ir.model.fields,help:account_multi_vat.field_account_tax_repartition_line__country_id
-msgid "Technical field used to restrict tags domain in form view."
-msgstr ""
-
-#. module: account_multi_vat
-#: model:ir.model.fields,help:account_multi_vat.field_account_tax__country_id
-msgid ""
-"Technical field used to restrict the domain of account tags for tax "
-"repartition lines created for this tax."
-msgstr ""
 
 #. module: account_multi_vat
 #: code:addons/account_multi_vat/models/res_partner_id_number.py:0
