@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_fiscal_position_usage_group
+# 	* account_fiscal_position_usage_group
 #
 msgid ""
 msgstr ""
@@ -34,7 +34,9 @@ msgstr "Posição Fiscal"
 #. module: account_fiscal_position_usage_group
 #: model:ir.model.fields,help:account_fiscal_position_usage_group.field_account_fiscal_position__usage_group_ids
 #: model:ir.model.fields,help:account_fiscal_position_usage_group.field_account_fiscal_position_template__usage_group_ids
-msgid "If defined, the user should be member to one of there groups, to use this fiscal position when creating or updating a supplier, or an invoice"
+msgid ""
+"If defined, the user should be member to one of there groups, to use this "
+"fiscal position when creating or updating a supplier, or an invoice"
 msgstr ""
 "Se definido, o utilizador deve ser membro de um dos seus grupos, para usar "
 "esta posição fiscal quando cria ou atualiza um fornecedor, ou uma fatura"
@@ -59,7 +61,9 @@ msgstr "Grupos de Utilizadores"
 #: code:addons/account_fiscal_position_usage_group/models/account_invoice.py:19
 #: code:addons/account_fiscal_position_usage_group/models/res_partner.py:19
 #, python-format
-msgid "You can not use the fiscal position '%s' because you're not a member of one of the following groups:\n"
+msgid ""
+"You can not use the fiscal position '%s' because you're not a member of one "
+"of the following groups:\n"
 "\n"
 " - %s\n"
 "\n"
