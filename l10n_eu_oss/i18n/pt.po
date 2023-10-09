@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* l10n_eu_oss
+# 	* l10n_eu_oss
 #
 msgid ""
 msgstr ""
@@ -184,14 +184,16 @@ msgstr "O País deve ser único!"
 #. module: l10n_eu_oss
 #: code:addons/l10n_eu_oss/wizard/l10n_eu_oss_wizard.py:19
 #, python-format
-msgid "The Europe country group cannot be found. Please update the base module."
+msgid ""
+"The Europe country group cannot be found. Please update the base module."
 msgstr ""
 "O grupo de países Europa não pode ser encontrado. Por favor, atualize o "
 "módulo base."
 
 #. module: l10n_eu_oss
 #: model_terms:ir.ui.view,arch_db:l10n_eu_oss.l10n_eu_oss_wizard_form_view
-msgid "You should only choose the taxes of the current accounting plan,\n"
+msgid ""
+"You should only choose the taxes of the current accounting plan,\n"
 "                if you don't have the type of tax, do not configure it."
 msgstr ""
 "Só deve escolher impostos do plano de impostos atual. Se não tem o tipo de "
