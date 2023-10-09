@@ -37,13 +37,6 @@ msgid "Default Partner Fiscal Position Type"
 msgstr "Posição Fiscal Predefinida para Parceiros"
 
 #. module: account_fiscal_position_partner_type
-#: model:ir.model.fields,field_description:account_fiscal_position_partner_type.field_account_fiscal_position__display_name
-#: model:ir.model.fields,field_description:account_fiscal_position_partner_type.field_res_company__display_name
-#: model:ir.model.fields,field_description:account_fiscal_position_partner_type.field_res_partner__display_name
-msgid "Display Name"
-msgstr "Nome Apresentado"
-
-#. module: account_fiscal_position_partner_type
 #: model:ir.model.fields.selection,name:account_fiscal_position_partner_type.selection__account_fiscal_position__fiscal_position_type__b2c
 msgid "End customer (B2C)"
 msgstr "Client Final (B2C)"
@@ -60,20 +53,15 @@ msgid "Fiscal Position Type"
 msgstr "Tipo de Posição Fiscal"
 
 #. module: account_fiscal_position_partner_type
-#: model:ir.model.fields,field_description:account_fiscal_position_partner_type.field_account_fiscal_position__id
-#: model:ir.model.fields,field_description:account_fiscal_position_partner_type.field_res_company__id
-#: model:ir.model.fields,field_description:account_fiscal_position_partner_type.field_res_partner__id
-msgid "ID"
-msgstr "ID"
-
-#. module: account_fiscal_position_partner_type
-#: model:ir.model.fields,field_description:account_fiscal_position_partner_type.field_account_fiscal_position____last_update
-#: model:ir.model.fields,field_description:account_fiscal_position_partner_type.field_res_company____last_update
-#: model:ir.model.fields,field_description:account_fiscal_position_partner_type.field_res_partner____last_update
-msgid "Last Modified on"
-msgstr "Última Modificação em"
-
-#. module: account_fiscal_position_partner_type
 #: model:ir.model.fields,field_description:account_fiscal_position_partner_type.field_account_fiscal_position__fiscal_position_type
 msgid "Type"
 msgstr "Tipo"
+
+#~ msgid "Display Name"
+#~ msgstr "Nome Apresentado"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Última Modificação em"
