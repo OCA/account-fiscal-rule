@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo14-addon-account_avatax_exemption',
         'odoo14-addon-account_avatax_exemption_base',
         'odoo14-addon-account_avatax_oca',
+        'odoo14-addon-account_avatax_repair_oca',
         'odoo14-addon-account_avatax_sale_oca',
         'odoo14-addon-account_avatax_website_sale',
         'odoo14-addon-account_fiscal_position_partner_type',
