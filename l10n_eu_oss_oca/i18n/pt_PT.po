@@ -81,6 +81,11 @@ msgid "EU Customers From"
 msgstr "Clientes UE de"
 
 #. module: l10n_eu_oss_oca
+#: model:ir.model,name:l10n_eu_oss_oca.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr ""
+
+#. module: l10n_eu_oss_oca
 #: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__general_rate
 msgid "General Rate"
 msgstr "Taxa Normal"
@@ -103,6 +108,11 @@ msgid "Intra-EU B2C in %(country_name)s"
 msgstr "Intra-UE B2C em %(country_name)s"
 
 #. module: l10n_eu_oss_oca
+#: model:ir.model,name:l10n_eu_oss_oca.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: l10n_eu_oss_oca
 #: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard____last_update
 #: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate____last_update
 msgid "Last Modified on"
@@ -119,6 +129,11 @@ msgstr "Última Atualização por"
 #: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__write_date
 msgid "Last Updated on"
 msgstr "Última Atualização em"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_account_fiscal_position__oss_oca
+msgid "OSS OCA"
+msgstr ""
 
 #. module: l10n_eu_oss_oca
 #: code:addons/l10n_eu_oss_oca/wizard/l10n_eu_oss_wizard.py:0
