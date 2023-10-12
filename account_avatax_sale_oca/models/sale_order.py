@@ -89,7 +89,7 @@ class SaleOrder(models.Model):
         """
         for order in self:
             order.tax_amount = 0
-            order.order_line.write({"tax_amt": 0})
+            order.order_line.tax_amt = 0
 
     @api.depends("order_line.price_total", "order_line.product_uom_qty", "tax_amount")
     def _compute_amounts(self):
