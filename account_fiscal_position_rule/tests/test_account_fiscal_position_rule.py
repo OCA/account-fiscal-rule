@@ -31,6 +31,8 @@ class TestAccountFiscalPositionRule(SavepointCase):
         cls.partner_01.country_id = cls.country_us
         cls.partner_02 = cls.env.ref("base.res_partner_2")
         cls.partner_03 = cls.env.ref("base.res_partner_address_34")
+        cls.partner_04 = cls.env.ref("base.res_partner_3")
+        cls.partner_04.write({"zip": "12345"})
         # Chart template
         cls.chart_template_01 = cls.env.ref(
             "l10n_generic_coa.configurable_chart_template"
@@ -75,6 +77,21 @@ class TestAccountFiscalPositionRule(SavepointCase):
                 "company_id": cls.company_main.id,
                 "fiscal_position_id": cls.fiscal_position_01.id,
                 "use_sale": True,
+            }
+        )
+        cls.fp_rule_02 = cls.fiscal_position_rule_model.create(
+            {
+                "name": "Fake rule with ZIP",
+                "company_id": cls.company_main.id,
+                "fiscal_position_id": cls.fiscal_position_02.id,
+                "use_sale": True,
+                "to_invoice_country": cls.country_us.id,
+                "to_invoice_zip_from": "00000",
+                "to_invoice_zip_to": "20000",
+                "to_shipping_country": cls.country_us.id,
+                "to_shipping_zip_from": "00000",
+                "to_shipping_zip_to": "20000",
+                "sequence": 9,
             }
         )
 
@@ -148,3 +165,20 @@ class TestAccountFiscalPositionRule(SavepointCase):
         kw = {"company_id": self.company_main, "partner_id": self.partner_02}
         res = self.fp_rule_01.fiscal_position_map(**kw)
         self.assertEqual(res, self.fiscal_position_01)
+
+    def test_05(self):
+        """
+        Data:
+            - /
+        Test case:
+            - Trigger the mapping of specific partner
+        Expected result:
+            - The right rule is returned
+        """
+        kw = {
+            "company_id": self.company_main,
+            "partner_id": self.partner_04,
+            "partner_shipping_id": self.partner_04,
+        }
+        res = self.fiscal_position_rule_model.fiscal_position_map(**kw)
+        self.assertEqual(res, self.fiscal_position_02)
