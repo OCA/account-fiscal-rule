@@ -13,6 +13,7 @@
         <field name="model">account.product.fiscal.classification.template</field>
         <field name="arch" type="xml">
             <tree decoration-muted="active == False">
+                <field name="sequence" widget="handle" />
                 <field name="name" />
                 <field name="purchase_tax_ids" widget="many2many_tags" />
                 <field name="sale_tax_ids" widget="many2many_tags" />

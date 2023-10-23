@@ -8,7 +8,7 @@ from odoo import fields, models
 class AccountProductFiscalClassificationTemplate(models.Model):
     _name = "account.product.fiscal.classification.template"
     _description = "Fiscal Classification Template"
-    _order = "name"
+    _order = "sequence, name"
 
     name = fields.Char(required=True, translate=True)
 
@@ -25,6 +25,8 @@ class AccountProductFiscalClassificationTemplate(models.Model):
         help="If unchecked, it will allow you to hide the Fiscal"
         " Classification Template without removing it.",
     )
+
+    sequence = fields.Integer(default=10)
 
     purchase_tax_ids = fields.Many2many(
         comodel_name="account.tax.template",
@@ -70,4 +72,5 @@ class AccountProductFiscalClassificationTemplate(models.Model):
             "description": self.description,
             "purchase_tax_ids": [(6, 0, purchase_tax_ids)],
             "sale_tax_ids": [(6, 0, sale_tax_ids)],
+            "sequence": self.sequence,
         }
