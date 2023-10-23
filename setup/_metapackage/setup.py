@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo-addon-account_fiscal_position_autodetect_optional_vies>=15.0dev,<15.1dev',
         'odoo-addon-account_fiscal_position_partner_type>=15.0dev,<15.1dev',
         'odoo-addon-account_fiscal_position_type>=15.0dev,<15.1dev',
+        'odoo-addon-account_multi_vat>=15.0dev,<15.1dev',
         'odoo-addon-l10n_eu_oss_oca>=15.0dev,<15.1dev',
     ],
     classifiers=[
