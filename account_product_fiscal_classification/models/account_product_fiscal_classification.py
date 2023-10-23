@@ -9,7 +9,7 @@ from odoo.exceptions import ValidationError
 class AccountProductFiscalClassification(models.Model):
     _name = "account.product.fiscal.classification"
     _description = "Fiscal Classification"
-    _order = "name"
+    _order = "sequence, name"
 
     name = fields.Char(required=True)
 
@@ -20,6 +20,8 @@ class AccountProductFiscalClassification(models.Model):
         help="If unchecked, it will allow you to hide the Fiscal"
         " Classification without removing it.",
     )
+
+    sequence = fields.Integer(default=10)
 
     company_id = fields.Many2one(
         comodel_name="res.company",
