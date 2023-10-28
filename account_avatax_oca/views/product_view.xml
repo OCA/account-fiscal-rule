@@ -7,7 +7,7 @@
         <field name="model">product.tax.code</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="Product Tax Code">
+            <tree>
                 <field name="name" />
                 <field name="description" />
                 <field name="type" />
