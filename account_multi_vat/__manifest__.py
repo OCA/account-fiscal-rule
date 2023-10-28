@@ -6,7 +6,7 @@
     "summary": """
         Allows setting multiple VAT numbers on any partner and select the right one
         depending on the fiscal position and delivery address of the invoice.""",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "development_status": "Beta",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV,Odoo Community Association (OCA)",
