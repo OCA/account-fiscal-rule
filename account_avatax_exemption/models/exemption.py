@@ -180,6 +180,17 @@ class ResPartnerExemption(models.Model):
         readonly=True,
     )
 
+    @api.onchange("partner_id")
+    def onchange_partner_id(self):
+        avalara_salestax = (
+            self.env["avalara.salestax"]
+            .sudo()
+            .search([("exemption_export", "=", True)], limit=1)
+        )
+        if avalara_salestax.use_commercial_entity:
+            self.partner_id = self.partner_id.commercial_partner_id.id
+            return {"domain": {"partner_id": [("parent_id", "=", False)]}}
+
     def search_exemption_line(self, avatax_id):
         exemption_line = (
             self.env["res.partner.exemption.line"]
