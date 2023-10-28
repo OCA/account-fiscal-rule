@@ -130,7 +130,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_avatax_oca.action_avalara_salestax
 #: model:ir.ui.menu,name:account_avatax_oca.menu_avatax_api
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_form
-#: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_tree
 msgid "AvaTax API"
 msgstr ""
 
@@ -475,7 +474,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__property_exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__property_exemption_code_id
-#: model_terms:ir.ui.view,arch_db:account_avatax_oca.exemption_code_tree_view
 msgid "Exemption Code"
 msgstr ""
 
@@ -829,7 +827,6 @@ msgstr ""
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_product_tax_code_form
-#: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_product_tax_code_tree
 msgid "Product Tax Code"
 msgstr ""
 
