@@ -5,6 +5,7 @@
     <template
         id="multi_vat_report_invoice_document"
         inherit_id="account.report_invoice_document"
+        priority="99"
     >
         <xpath expr="//div[@t-if='o.partner_id.vat']" position="replace">
             <div t-if="o.partner_id.has_vat" class="mt16">
@@ -17,7 +18,11 @@
             </div>
         </xpath>
     </template>
-    <template id="external_layout_multi_vat" inherit_id="web.external_layout_standard">
+    <template
+        id="external_layout_multi_vat"
+        inherit_id="web.external_layout_standard"
+        priority="99"
+    >
         <xpath
             expr="//li[@t-if='company.vat']/span[@t-field='company.vat']"
             position="replace"
@@ -37,6 +42,7 @@
     <template
         id="external_layout_multi_vat_clean"
         inherit_id="web.external_layout_clean"
+        priority="99"
     >
             <xpath
             expr="//li[@t-if='company.vat']/span[@t-field='company.vat']"
@@ -57,6 +63,7 @@
     <template
         id="external_layout_multi_vat_boxed"
         inherit_id="web.external_layout_boxed"
+        priority="99"
     >
             <xpath
             expr="//li[@t-if='company.vat']/span[@t-field='company.vat']"
@@ -77,6 +84,7 @@
     <template
         id="external_layout_multi_vat_background"
         inherit_id="web.external_layout_background"
+        priority="99"
     >
             <xpath
             expr="//li[@t-if='company.vat']/span[@t-field='company.vat']"
