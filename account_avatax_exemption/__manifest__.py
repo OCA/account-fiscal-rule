@@ -1,6 +1,6 @@
 {
     "name": "Avatax Exemptions",
-    "version": "14.0.3.0.0",
+    "version": "14.0.3.0.1",
     "category": "Sales",
     "summary": """
         This application allows you to add exemptions to Avatax
