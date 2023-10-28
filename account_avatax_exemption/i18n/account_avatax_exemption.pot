@@ -189,7 +189,6 @@ msgstr ""
 
 #. module: account_avatax_exemption
 #: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_rule_form_view
-#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_rule_tree_view
 msgid "Custom Rules"
 msgstr ""
 

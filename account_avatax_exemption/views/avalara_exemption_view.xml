@@ -123,7 +123,7 @@
         <field name="name">exemption.code.rule.tree.view</field>
         <field name="model">exemption.code.rule</field>
         <field name="arch" type="xml">
-            <tree string="Custom Rules">
+            <tree>
                 <field name="name" readonly="1" />
                 <field name="state" />
                 <field name="state_id" domain="[('avatax_nexus', '=', True)]" />
