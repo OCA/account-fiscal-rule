@@ -195,7 +195,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption_line__exemption_id
 #: model:ir.ui.menu,name:account_avatax_exemption_base.menu_avatax_exemption
 #: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.exemption_form_view
-#: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.exemption_tree_view
 msgid "Exemption"
 msgstr ""
 
@@ -203,7 +202,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_avatax_exemption_base.exemption_reason_type_act_window
 #: model:ir.model,name:account_avatax_exemption_base.model_res_partner_exemption_business_type
 #: model:ir.ui.menu,name:account_avatax_exemption_base.menu_exemption_reason_type
-#: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.exemption_reason_type_tree_view
 msgid "Exemption Activity Type"
 msgstr ""
 
@@ -243,7 +241,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__exemption_type
 #: model:ir.ui.menu,name:account_avatax_exemption_base.menu_exemption_type
 #: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.exemption_type_form_view
-#: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.exemption_type_tree_view
 msgid "Exemption Type"
 msgstr ""
 
@@ -294,7 +291,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption_type__group_of_state
 #: model:ir.ui.menu,name:account_avatax_exemption_base.menu_group_of_states
 #: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.group_of_states_form_view
-#: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.group_of_states_tree_view
 msgid "Group of States"
 msgstr ""
 
@@ -327,7 +323,6 @@ msgstr ""
 
 #. module: account_avatax_exemption_base
 #: model:ir.model.fields,help:account_avatax_exemption_base.field_res_partner_exemption__message_has_error
-#: model:ir.model.fields,help:account_avatax_exemption_base.field_res_partner_exemption__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -462,11 +457,6 @@ msgstr ""
 #. module: account_avatax_exemption_base
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__activity_user_id
 msgid "Responsible User"
-msgstr ""
-
-#. module: account_avatax_exemption_base
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__message_has_sms_error
-msgid "SMS Delivery error"
 msgstr ""
 
 #. module: account_avatax_exemption_base
