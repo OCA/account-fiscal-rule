@@ -34,12 +34,16 @@ msgid "Country"
 msgstr ""
 
 #. module: account_multi_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_bank_statement_line__customer_vat
 #: model:ir.model.fields,field_description:account_multi_vat.field_account_move__customer_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_payment__customer_vat
 msgid "Customer VAT"
 msgstr "N° TVA du client"
 
 #. module: account_multi_vat
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_bank_statement_line__customer_vat_partner_id
 #: model:ir.model.fields,field_description:account_multi_vat.field_account_move__customer_vat_partner_id
+#: model:ir.model.fields,field_description:account_multi_vat.field_account_payment__customer_vat_partner_id
 msgid "Customer tax administration"
 msgstr "Administration fiscale du client"
 
@@ -56,7 +60,7 @@ msgstr "Possède un numéro de TVA"
 
 #. module: account_multi_vat
 #: model:ir.model,name:account_multi_vat.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
 
 #. module: account_multi_vat
@@ -103,22 +107,16 @@ msgid "Tax administration"
 msgstr "Administration fiscale"
 
 #. module: account_multi_vat
-#: model:ir.model.fields,help:account_multi_vat.field_account_tax_repartition_line__country_id
-msgid "Technical field used to restrict tags domain in form view."
-msgstr ""
-
-#. module: account_multi_vat
-#: model:ir.model.fields,help:account_multi_vat.field_account_tax__country_id
-msgid ""
-"Technical field used to restrict the domain of account tags for tax "
-"repartition lines created for this tax."
-msgstr ""
-
-#. module: account_multi_vat
 #: code:addons/account_multi_vat/models/res_partner_id_number.py:0
 #, python-format
 msgid "The VAT number must be issued by a tax administration."
 msgstr "Le numéro de TVA doit être délivré par une administration fiscale."
+
+#. module: account_multi_vat
+#: model:ir.model.fields,help:account_multi_vat.field_account_tax__country_id
+#: model:ir.model.fields,help:account_multi_vat.field_account_tax_repartition_line__country_id
+msgid "The country for which this tax is applicable."
+msgstr ""
 
 #. module: account_multi_vat
 #: code:addons/account_multi_vat/models/res_partner.py:0
