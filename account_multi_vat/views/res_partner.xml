@@ -12,11 +12,18 @@
                     <field name="is_tax_administration" />
                 </group>
             </group>
-            <field name="country_id" position="attributes">
-                <attribute
-                    name="attrs"
-                >{'required': [('is_tax_administration', '=', True)]}</attribute>
-            </field>
+            <group>
+                <field
+                    name="is_tax_administration"
+                    groups="!account.group_account_invoice,!account.group_account_readonly"
+                    invisible="1"
+                />
+                <field name="country_id" position="attributes">
+                    <attribute
+                        name="attrs"
+                    >{'required': [('is_tax_administration', '=', True)]}</attribute>
+                </field>
+            </group>
         </field>
     </record>
 </odoo>
