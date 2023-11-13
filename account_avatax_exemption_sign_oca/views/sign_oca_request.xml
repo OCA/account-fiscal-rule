@@ -1,6 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2023 ForgeFlow S.L. (http://www.forgeflow.com)
+Copyright 2025 Kencove (https://www.kencove.com).
+License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html). -->
 <odoo>
     <record id="sign_oca_request_form_view" model="ir.ui.view">
-        <field name="name">sign.oca.request.form (in account_avatax_exemption_sign_oca)</field>
+        <field
+            name="name"
+        >sign.oca.request.form (in account_avatax_exemption_sign_oca)</field>
         <field name="model">sign.oca.request</field>
         <field name="inherit_id" ref="sign_oca.sign_oca_request_form_view" />
         <field name="arch" type="xml">
@@ -9,7 +15,7 @@
                     type="object"
                     name="open_exemptions"
                     string="Exemptions"
-                    class="oe_read_only oe_stat_button"
+                    class="oe_stat_button"
                     icon="fa-file-o"
                 />
             </xpath>
@@ -21,7 +27,9 @@
         </field>
     </record>
     <record id="sign_oca_request_search_view" model="ir.ui.view">
-        <field name="name">sign.oca.request.search (in account_avatax_exemption_sign_oca)</field>
+        <field
+            name="name"
+        >sign.oca.request.search (in account_avatax_exemption_sign_oca)</field>
         <field name="model">sign.oca.request</field>
         <field name="inherit_id" ref="sign_oca.sign_oca_request_search_view" />
         <field name="arch" type="xml">
@@ -29,7 +37,7 @@
                 <filter
                     name="request_to_review"
                     string="Exemptions to Review"
-                    domain="[('state', '=', 'signed'),('is_exemption','=',True),('is_exemption_synchronized','=',False)]"
+                    domain="[('state', '=', '2_signed'),('is_exemption','=',True),('is_exemption_synchronized','=',False)]"
                 />
             </xpath>
         </field>

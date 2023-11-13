@@ -1,4 +1,5 @@
 # Copyright 2023 ForgeFlow S.L. (http://www.forgeflow.com)
+# Copyright 2025 Kencove (https://www.kencove.com).
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import fields, models
@@ -9,19 +10,19 @@ class SignOcaRequest(models.Model):
 
     is_exemption = fields.Boolean(related="template_id.is_exemption")
     is_exemption_synchronized = fields.Boolean(
-        string="Exemption synchronized with AvaTax?",
-        readonly=True,
-        copy=False
+        string="Exemption synchronized with AvaTax?", readonly=True, copy=False
     )
     exemption_ids = fields.One2many(
         comodel_name="res.partner.exemption",
         inverse_name="sign_oca_request_id",
-        string="Exemptions"
+        string="Exemptions",
     )
 
     def _get_partner_id(self):
         role_customer = self.env.ref("sign_oca.sign_role_customer")
-        customer_signers = self.signer_ids.filtered(lambda x: x.role_id == role_customer).partner_id
+        customer_signers = self.signer_ids.filtered(
+            lambda x: x.role_id == role_customer
+        ).partner_id
         return customer_signers[0] if customer_signers else None
 
     def _prepare_exemption_data(self):
@@ -31,40 +32,52 @@ class SignOcaRequest(models.Model):
             .search([("exemption_export", "=", True)], limit=1)
         )
         use_commercial_entity = avalara_salestax.use_commercial_entity
-        partner_id = self._get_partner_id()
-
         data = {
-            "partner_id": partner_id.commercial_partner_id.id
-            if use_commercial_entity
-            else partner_id.id,
             "exemption_type": self.template_id.exemption_type.id,
-            "sign_request_id": self.id,
+            "sign_oca_request_id": self.id,
         }
-        exemption_number_field_id = self.template_id.item_ids.mapped("field_id").filtered(lambda x: x.is_exemption_number).ids
+        exemption_number_field_id = (
+            self.template_id.item_ids.mapped("field_id")
+            .filtered(lambda x: x.is_exemption_number)
+            .ids
+        )
+        # In case role is customer and not expression
+        partner_id = self._get_partner_id()
         if exemption_number_field_id:
             for item_id in self.signatory_data:
                 item = self.signatory_data[item_id]
                 if item["field_id"] == exemption_number_field_id[0]:
                     data["exemption_number"] = item["value"]
+                    if not partner_id:
+                        # In case role not customer and likely expression or any other
+                        exemption_signer = self.signer_ids.filtered(
+                            lambda signer: signer.role_id.id == item["role_id"]
+                        )
+                        partner_id = exemption_signer.partner_id
                     break
+        if partner_id:
+            data["partner_id"] = (
+                partner_id.commercial_partner_id.id
+                if use_commercial_entity
+                else partner_id.id
+            )
         return data
 
     def _check_signed(self):
         res = super()._check_signed()
-        if self.state == "signed":
-            if self.is_exemption:
-                exemption_data = self._prepare_exemption_data()
-                exemption = self.env["res.partner.exemption"].create(exemption_data)
-                exemption.onchange_exemption_type()
-                exemption.onchange_effective_date()
-                exemption.onchange_state_ids()
-                if exemption.exemption_number:
-                    exemption.exemption_line_ids.write(
-                        {
-                            "add_exemption_number": True,
-                            "exemption_number": exemption.exemption_number
-                        }
-                    )
+        if self.state == "2_signed" and self.is_exemption:
+            exemption_data = self._prepare_exemption_data()
+            exemption = self.env["res.partner.exemption"].create(exemption_data)
+            exemption._rebuild_state_ids()
+            exemption._rebuild_expiry_date()
+            exemption._rebuild_exemption_lines()
+            if exemption.exemption_number and exemption.exemption_line_ids:
+                exemption.exemption_line_ids.write(
+                    {
+                        "add_exemption_number": True,
+                        "exemption_number": exemption.exemption_number,
+                    }
+                )
         return res
 
     def open_exemptions(self):
@@ -74,5 +87,5 @@ class SignOcaRequest(models.Model):
             "type": "ir.actions.act_window",
             "res_model": "res.partner.exemption",
             "view_mode": "tree,form",
-            "domain": [("sign_request_id", "=", self.id)],
+            "domain": [("sign_oca_request_id", "=", self.id)],
         }
