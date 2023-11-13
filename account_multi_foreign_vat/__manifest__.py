@@ -9,5 +9,7 @@
     "website": "https://github.com/OCA/account-fiscal-rule",
     "license": "AGPL-3",
     "depends": ["account", "base_vat", "partner_identification"],
-    "data": [],
+    "data": [
+        "views/account_fiscal_position.xml",
+    ],
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="account_fiscal_position_form_view" model="ir.ui.view">
+        <field
+            name="name"
+        >account.fiscal.position.form (in account_multi_foreign_vat)</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='country_id']" position="attributes">
+                <attribute name="attrs">{}</attribute>
+                <attribute
+                    name="options"
+                >{'no_open': True, 'no_create': True}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
