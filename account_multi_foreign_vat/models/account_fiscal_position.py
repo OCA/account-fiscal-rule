@@ -1,5 +1,9 @@
+import logging
+
 from odoo import _, api, models
 from odoo.exceptions import ValidationError
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountFiscalPosition(models.Model):
@@ -36,4 +40,15 @@ class AccountFiscalPosition(models.Model):
                         record.country_id.code.lower(), record.foreign_vat, fp_label
                     )
                     raise ValidationError(error_message) from e
+        return True
+
+    @api.constrains("country_id", "state_ids", "foreign_vat")
+    def _validate_foreign_vat_country(self):
+        for _record in self:
+            try:
+                super()._validate_foreign_vat_country()
+            except ValidationError:
+                _logger.info("Ignored foreign vat country constrains")
+            except Exception as e:
+                raise e
         return True
