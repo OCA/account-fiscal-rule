@@ -1,1 +1,1 @@
-* Create different fiscal position with the same country and same Foreign VAT.
+* To use this module, users simply need to create two fiscal positions with the same country and foreign VAT.
