@@ -186,18 +186,19 @@ class ResPartner(models.Model):
             "context": ctx,
         }
 
-    @api.model
-    def create(self, vals):
-        partner = super(ResPartner, self).create(vals)
-        # Auto populate customer code, if not provided
-        if not partner.customer_code:
-            partner.generate_cust_code()
-        # Auto validate address, if enabled
+    @api.model_create_multi
+    def create(self, vals_list):
+        partners = super().create(vals_list)
         avatax_config = self.env.company.get_avatax_config_company()
-        if avatax_config.validation_on_save:
-            partner.multi_address_validation(validation_on_save=True)
-            partner.validated_on_save = True
-        return partner
+        for partner in partners:
+            # Auto populate customer code, if not provided
+            if not partner.customer_code:
+                partner.generate_cust_code()
+            # Auto validate address, if enabled
+            if avatax_config.validation_on_save:
+                partner.multi_address_validation(validation_on_save=True)
+                partner.validated_on_save = True
+        return partners
 
     def write(self, vals):
         res = super(ResPartner, self).write(vals)
