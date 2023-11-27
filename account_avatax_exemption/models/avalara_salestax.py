@@ -287,6 +287,78 @@ class AvalaraSalestax(models.Model):
                     description="Export Rule %s" % (rule.name),
                 )._export_base_rule_based_on_type(rule)
 
+    def map_rule_vals_to_fields(self, json_data):
+        avatax_rule_data = {
+            "avatax_id": json_data["id"],
+            "avatax_rate": json_data.get("value", ""),
+            "exemption_code_id": json_data.get("customerUsageType", ""),
+            "is_all_juris": json_data.get("isAllJuris", False),
+            "state": "done",
+        }
+        # Search for tax code and exemption code in Odoo models
+        tax_code_id = (
+            self.env["product.tax.code"].search(
+                [("name", "=", json_data.get("taxCode", "") or "")], limit=1
+            )
+            or None
+        )
+        if tax_code_id:
+            avatax_rule_data["avatax_tax_code"] = tax_code_id.id
+        exemption_code_id = (
+            self.env["exemption.code"].search(
+                [("code", "=", json_data.get("customerUsageType", "") or "")], limit=1
+            )
+            or None
+        )
+        if exemption_code_id:
+            avatax_rule_data["exemption_code_id"] = exemption_code_id.id
+        # Search for country and state in Odoo models
+        state_id = (
+            self.env["res.country.state"].search(
+                [
+                    ("country_id.code", "=", json_data.get("country", "") or ""),
+                    ("code", "=", json_data.get("region", "") or ""),
+                ],
+                limit=1,
+            )
+            or None
+        )
+        if state_id:
+            avatax_rule_data["state_id"] = state_id.id
+            avatax_rule_data["taxable"] = state_id.avatax_nexus
+        return avatax_rule_data
+
+    def import_tax_rules(self):
+        avatax_custom_rule_model = self.env["exemption.code.rule"]
+        avatax_restpoint = AvaTaxRESTService(config=self)
+        rules = avatax_custom_rule_model.search(
+            [("avatax_id", "!=", False), ("state", "=", "done")],
+        )
+        include_option = None
+        if rules:
+            filter_rules = "id not in ("
+            filter_rules += ", ".join(map(str, rules.mapped("avatax_id")))
+            filter_rules += ")"
+            include_option = "$filter=" + filter_rules
+        r = avatax_restpoint.client.list_tax_rules(
+            self.avatax_company_id, include_option
+        )
+        result = r.json()
+        if "error" in result:
+            error = result["error"]
+            error_message = "Code: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
+                error.get("code", False),
+                error.get("message", False),
+                error.get("target", False),
+                error.get("details", False),
+            )
+            raise UserError(error_message)
+        mapped_data = []
+        for rule_vals in result["value"]:
+            if rule_vals.get("customerUsageType", "") and rule_vals.get("region", ""):
+                mapped_data.append(self.map_rule_vals_to_fields(rule_vals))
+        avatax_custom_rule_model.create(mapped_data)
+
     def download_exemptions(self):
         if not self.ids:
             self = self.search([("exemption_export", "=", True)], limit=1)
