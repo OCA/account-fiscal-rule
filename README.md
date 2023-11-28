@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_fiscal_position_partner_type](account_fiscal_position_partner_type/) | 12.0.1.0.0 |  | Account Fiscal Position Partner Type
+[account_fiscal_position_product](account_fiscal_position_product/) | 12.0.1.0.0 |  | Apply fiscal position only for configured products
 [account_fiscal_position_type](account_fiscal_position_type/) | 12.0.1.0.4 |  | Add sale / purchase type on fiscal position
 [account_fiscal_position_usage_group](account_fiscal_position_usage_group/) | 12.0.1.0.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Limit the usage of fiscal positions to defined groups members
 [account_product_fiscal_classification](account_product_fiscal_classification/) | 12.0.1.3.3 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Simplify taxes management for products

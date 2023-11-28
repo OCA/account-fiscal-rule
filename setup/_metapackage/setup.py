@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo12-addon-account_fiscal_position_partner_type',
+        'odoo12-addon-account_fiscal_position_product',
         'odoo12-addon-account_fiscal_position_type',
         'odoo12-addon-account_fiscal_position_usage_group',
         'odoo12-addon-account_product_fiscal_classification',
