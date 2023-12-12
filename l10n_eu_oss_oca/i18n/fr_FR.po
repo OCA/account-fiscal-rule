@@ -108,11 +108,6 @@ msgid "Intra-EU B2C in %(country_name)s"
 msgstr "Intra-EU B2C en %(country_name)s"
 
 #. module: l10n_eu_oss_oca
-#: model:ir.model,name:l10n_eu_oss_oca.model_account_move
-msgid "Journal Entry"
-msgstr "Pièce comptable"
-
-#. module: l10n_eu_oss_oca
 #: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard____last_update
 #: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate____last_update
 msgid "Last Modified on"
@@ -234,3 +229,6 @@ msgstr "l10n.eu.oss.wizard"
 #: model:ir.model,name:l10n_eu_oss_oca.model_oss_tax_rate
 msgid "oss tax rate"
 msgstr "Taux de taxe oss"
+
+#~ msgid "Journal Entry"
+#~ msgstr "Pièce comptable"
