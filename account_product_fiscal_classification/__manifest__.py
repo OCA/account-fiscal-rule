@@ -13,6 +13,7 @@
     "website": "https://github.com/OCA/account-fiscal-rule",
     "license": "AGPL-3",
     "depends": ["account", "account_usability"],
+    "excludes": ["product_tax_multicompany_default"],
     "data": [
         "security/ir_rule.xml",
         "security/ir.model.access.csv",
