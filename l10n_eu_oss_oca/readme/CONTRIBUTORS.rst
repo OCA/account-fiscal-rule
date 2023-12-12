@@ -10,3 +10,4 @@
 * `Factor Libre <https://factorlibre.com>`_:
 
   * Luis J. Salvatierra
+  * Aritz Olea
