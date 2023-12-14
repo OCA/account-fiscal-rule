@@ -1,5 +1,5 @@
 <odoo>
-    <record id="repair_order_update_form_view" model="ir.ui.view">
+    <record id="view_repair_order_form" model="ir.ui.view">
         <field name="name">repair.order.update.form.view</field>
         <field name="model">repair.order</field>
         <field name="type">form</field>
