@@ -48,7 +48,7 @@ msgid "Avatax API Response Log"
 msgstr ""
 
 #. module: account_avatax_sale
-#: model_terms:ir.ui.view,arch_db:account_avatax_sale.view_sale_order_form
+#: model_terms:ir.ui.view,arch_db:account_avatax_sale.view_order_form
 msgid "Avatax Log"
 msgstr ""
 
@@ -58,7 +58,7 @@ msgid "Calculate Tax On Save"
 msgstr ""
 
 #. module: account_avatax_sale
-#: model_terms:ir.ui.view,arch_db:account_avatax_sale.view_sale_order_form
+#: model_terms:ir.ui.view,arch_db:account_avatax_sale.view_order_form
 msgid "Compute Taxes"
 msgstr ""
 
