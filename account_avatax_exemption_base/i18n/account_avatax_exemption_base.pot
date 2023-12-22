@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -160,8 +160,6 @@ msgid "Created on"
 msgstr ""
 
 #. module: account_avatax_exemption_base
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_country_state__display_name
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner__display_name
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__display_name
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption_business_type__display_name
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption_line__display_name
@@ -195,7 +193,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption_line__exemption_id
 #: model:ir.ui.menu,name:account_avatax_exemption_base.menu_avatax_exemption
 #: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.exemption_form_view
-#: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.exemption_tree_view
 msgid "Exemption"
 msgstr ""
 
@@ -203,7 +200,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_avatax_exemption_base.exemption_reason_type_act_window
 #: model:ir.model,name:account_avatax_exemption_base.model_res_partner_exemption_business_type
 #: model:ir.ui.menu,name:account_avatax_exemption_base.menu_exemption_reason_type
-#: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.exemption_reason_type_tree_view
 msgid "Exemption Activity Type"
 msgstr ""
 
@@ -243,7 +239,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__exemption_type
 #: model:ir.ui.menu,name:account_avatax_exemption_base.menu_exemption_type
 #: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.exemption_type_form_view
-#: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.exemption_type_tree_view
 msgid "Exemption Type"
 msgstr ""
 
@@ -269,11 +264,6 @@ msgid "Followers"
 msgstr ""
 
 #. module: account_avatax_exemption_base
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__message_channel_ids
-msgid "Followers (Channels)"
-msgstr ""
-
-#. module: account_avatax_exemption_base
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__message_partner_ids
 msgid "Followers (Partners)"
 msgstr ""
@@ -294,13 +284,15 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption_type__group_of_state
 #: model:ir.ui.menu,name:account_avatax_exemption_base.menu_group_of_states
 #: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.group_of_states_form_view
-#: model_terms:ir.ui.view,arch_db:account_avatax_exemption_base.group_of_states_tree_view
 msgid "Group of States"
 msgstr ""
 
 #. module: account_avatax_exemption_base
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_country_state__id
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner__id
+#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: account_avatax_exemption_base
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__id
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption_business_type__id
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption_line__id
@@ -321,13 +313,11 @@ msgstr ""
 
 #. module: account_avatax_exemption_base
 #: model:ir.model.fields,help:account_avatax_exemption_base.field_res_partner_exemption__message_needaction
-#: model:ir.model.fields,help:account_avatax_exemption_base.field_res_partner_exemption__message_unread
 msgid "If checked, new messages require your attention."
 msgstr ""
 
 #. module: account_avatax_exemption_base
 #: model:ir.model.fields,help:account_avatax_exemption_base.field_res_partner_exemption__message_has_error
-#: model:ir.model.fields,help:account_avatax_exemption_base.field_res_partner_exemption__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -342,8 +332,6 @@ msgid "Is Follower"
 msgstr ""
 
 #. module: account_avatax_exemption_base
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_country_state____last_update
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner____last_update
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption____last_update
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption_business_type____last_update
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption_line____last_update
@@ -405,6 +393,7 @@ msgid "Name"
 msgstr ""
 
 #. module: account_avatax_exemption_base
+#. odoo-python
 #: code:addons/account_avatax_exemption_base/models/exemption.py:0
 #: code:addons/account_avatax_exemption_base/models/exemption.py:0
 #: code:addons/account_avatax_exemption_base/models/exemption.py:0
@@ -440,17 +429,12 @@ msgstr ""
 
 #. module: account_avatax_exemption_base
 #: model:ir.model.fields,help:account_avatax_exemption_base.field_res_partner_exemption__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr ""
 
 #. module: account_avatax_exemption_base
 #: model:ir.model.fields,help:account_avatax_exemption_base.field_res_partner_exemption__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
-
-#. module: account_avatax_exemption_base
-#: model:ir.model.fields,help:account_avatax_exemption_base.field_res_partner_exemption__message_unread_counter
-msgid "Number of unread messages"
 msgstr ""
 
 #. module: account_avatax_exemption_base
@@ -462,11 +446,6 @@ msgstr ""
 #. module: account_avatax_exemption_base
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__activity_user_id
 msgid "Responsible User"
-msgstr ""
-
-#. module: account_avatax_exemption_base
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__message_has_sms_error
-msgid "SMS Delivery error"
 msgstr ""
 
 #. module: account_avatax_exemption_base
@@ -494,16 +473,6 @@ msgstr ""
 #. module: account_avatax_exemption_base
 #: model:ir.model.fields,help:account_avatax_exemption_base.field_res_partner_exemption__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr ""
-
-#. module: account_avatax_exemption_base
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__message_unread
-msgid "Unread Messages"
-msgstr ""
-
-#. module: account_avatax_exemption_base
-#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__message_unread_counter
-msgid "Unread Messages Counter"
 msgstr ""
 
 #. module: account_avatax_exemption_base
