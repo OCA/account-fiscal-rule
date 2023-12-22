@@ -138,4 +138,4 @@ class TestL10nEuOss(TransactionCase):
                 }
             ]
         )
-        self.assertEqual(move.tax_country_id, move.company_id.country_id)
+        self.assertEqual(move.tax_country_id, move.company_id.account_fiscal_country_id)
