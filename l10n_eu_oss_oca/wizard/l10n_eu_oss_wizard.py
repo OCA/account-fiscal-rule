@@ -116,7 +116,7 @@ class L10nEuOssWizard(models.TransientModel):
         return {
             "name": _("OSS for EU to %(country_name)s: %(rate)s")
             % {"country_name": country_id.name, "rate": rate},
-            "country_id": self.company_id.country_id.id,
+            "country_id": self.company_id.account_fiscal_country_id.id,
             "amount": rate,
             "invoice_repartition_line_ids": self._prepare_repartition_line_vals(
                 tax_id.invoice_repartition_line_ids
