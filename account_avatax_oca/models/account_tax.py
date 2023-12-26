@@ -82,6 +82,16 @@ class AccountTax(models.Model):
             fixed_multiplicator,
         )
         avatax_invoice = self.env.context.get("avatax_invoice")
+        current_aml = False
+        if "current_aml" in self.env.context:
+            current_aml = self.env["account.move.line"].browse(
+                self.env.context.get("current_aml")
+            )
+            if not (
+                current_aml.display_type == "product"
+                and current_aml.account_type != "asset_receivable"
+            ):
+                avatax_invoice = False
         if avatax_invoice:
             # Find the Avatax amount in the invoice Lines
             # Looks up the line for the current product, price_unit, and quantity
@@ -89,19 +99,22 @@ class AccountTax(models.Model):
             base = res["total_excluded"]
             digits = 6
             avatax_amount = None
-            for line in avatax_invoice.invoice_line_ids:
-                price_unit = line.currency_id._convert(
-                    price_unit,
-                    avatax_invoice.company_id.currency_id,
-                    avatax_invoice.company_id,
-                    avatax_invoice.date,
-                )
-                if (
-                    line.product_id == product
-                    and float_compare(line.quantity, quantity, digits) == 0
-                ):
-                    avatax_amount = copysign(line.avatax_amt_line, base)
-                    break
+            if current_aml:
+                avatax_amount = copysign(current_aml.avatax_amt_line, base)
+            else:
+                for line in avatax_invoice.invoice_line_ids:
+                    price_unit = line.currency_id._convert(
+                        price_unit,
+                        avatax_invoice.company_id.currency_id,
+                        avatax_invoice.company_id,
+                        avatax_invoice.date,
+                    )
+                    if (
+                        line.product_id == product
+                        and float_compare(line.quantity, quantity, digits) == 0
+                    ):
+                        avatax_amount = copysign(line.avatax_amt_line, base)
+                        break
             if avatax_amount is None:
                 avatax_amount = 0.0
                 raise exceptions.UserError(

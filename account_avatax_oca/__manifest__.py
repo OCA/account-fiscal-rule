@@ -9,6 +9,7 @@
     "website": "https://github.com/OCA/account-fiscal-rule",
     "depends": ["sale_stock", "base_geolocalize"],
     "pre_init_hook": "pre_init_hook",
+    "post_load": "post_load_hook",
     "data": [
         "security/avalara_salestax_security.xml",
         "security/ir.model.access.csv",
