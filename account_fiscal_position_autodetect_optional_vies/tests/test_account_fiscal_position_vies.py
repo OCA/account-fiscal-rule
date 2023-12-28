@@ -6,7 +6,7 @@ import mock
 from odoo.tests import Form, common
 
 
-class TestAccountFiscalPostitionVies(common.TransactionCase):
+class TestAccountFiscalPositionVies(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -40,10 +40,10 @@ class TestAccountFiscalPostitionVies(common.TransactionCase):
 
     def _create_invoice(self, partner):
         move_form = Form(
-            self.env["account.move"].with_context(default_type="out_invoice")
+            self.env["account.move"].with_context(default_move_type="out_invoice")
         )
         move_form.partner_id = partner
-        return move_form
+        return move_form.save()
 
     def test_invoice_fiscal_position_without_vies(self):
         invoice = self._create_invoice(self.partner)

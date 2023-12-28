@@ -3,7 +3,7 @@
 
 {
     "name": "Account Fiscal Position Autodetect optional VIES",
-    "version": "15.0.1.0.2",
+    "version": "16.0.1.0.0",
     "category": "Accounting & Finance",
     "license": "AGPL-3",
     "author": "Tecnativa, Odoo Community Association (OCA)",
@@ -11,5 +11,6 @@
     "website": "https://github.com/OCA/account-fiscal-rule",
     "depends": ["base_vat_optional_vies"],
     "data": ["views/account_fiscal_position_view.xml"],
+    "external_dependencies": {"python": ["mock"]},
     "application": True,
 }
