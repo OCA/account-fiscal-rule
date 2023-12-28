@@ -14,32 +14,32 @@ class AccountFiscalPosition(models.Model):
     )
 
     @api.model
-    def search(self, args, offset=0, limit=None, order=None, count=False):
+    def search(self, domain, offset=0, limit=None, order=None, count=False):
         if "vat_vies_required" in self.env.context:
-            args = expression.AND(
+            domain = expression.AND(
                 (
-                    args,
+                    domain,
                     [
                         (
                             "vat_vies_required",
                             "=",
-                            self.env.context.get("vat_vies_required"),
+                            self.env.context["vat_vies_required"],
                         )
                     ],
                 )
             )
         return super().search(
-            args, offset=offset, limit=limit, order=order, count=count
+            domain, offset=offset, limit=limit, order=order, count=count
         )
 
     @api.model
-    def get_fiscal_position(self, partner_id, delivery_id=None):
+    def _get_fiscal_position(self, partner, delivery=None):
         _self = self
-        if partner_id:
-            partner = self.env["res.partner"].browse(delivery_id or partner_id)
+        if delivery or partner:
+            partner_vat_vies = delivery or partner
             _self = self.with_context(
-                vat_vies_required=partner.commercial_partner_id.vies_passed
+                vat_vies_required=partner_vat_vies.commercial_partner_id.vies_passed
             )
-        return super(AccountFiscalPosition, _self).get_fiscal_position(
-            partner_id, delivery_id
+        return super(AccountFiscalPosition, _self)._get_fiscal_position(
+            partner, delivery=delivery
         )
