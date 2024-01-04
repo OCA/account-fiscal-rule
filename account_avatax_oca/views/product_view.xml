@@ -56,8 +56,9 @@
                 </page>
             </xpath>
             <xpath expr="//page[1]/group" position="after">
-                <group colspan="2" col="2" string="Product Description">
+                <group col="2" string="Product Description">
                     <field
+                        colspan="2"
                         name="description"
                         placeholder="describe the product characteristics..."
                         nolabel="1"
