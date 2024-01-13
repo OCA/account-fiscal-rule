@@ -11,5 +11,6 @@
     "depends": ["account", "base_vat", "partner_identification"],
     "data": [
         "views/account_fiscal_position.xml",
+        "views/account_move.xml",
     ],
 }
