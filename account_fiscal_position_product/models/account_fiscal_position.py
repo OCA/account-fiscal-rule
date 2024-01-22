@@ -4,15 +4,15 @@
 from odoo import api, models
 
 
-class AccountFiscalPosition (models.Model):
-    _inherit = 'account.fiscal.position'
+class AccountFiscalPosition(models.Model):
+    _inherit = "account.fiscal.position"
 
     def is_product_fiscal_position(self):
         """
         True if any tax mapping in `self.tax_ids`
         has a product or a product category.
         """
-        tax_mappings = self.mapped('tax_ids')
+        tax_mappings = self.mapped("tax_ids")
         return tax_mappings.is_product_tax_mapping()
 
     @api.model

@@ -4,15 +4,15 @@
 from odoo import api, fields, models
 
 
-class AccountFiscalPositionTax (models.Model):
-    _inherit = 'account.fiscal.position.tax'
+class AccountFiscalPositionTax(models.Model):
+    _inherit = "account.fiscal.position.tax"
 
     product_ids = fields.Many2many(
-        comodel_name='product.product',
+        comodel_name="product.product",
         string="Products",
     )
     product_category_ids = fields.Many2many(
-        comodel_name='product.category',
+        comodel_name="product.category",
         string="Product Categories",
     )
 
@@ -40,8 +40,10 @@ class AccountFiscalPositionTax (models.Model):
         or when its category is declared in the mapping.
         """
         for tax_line in self:
-            if product in tax_line.product_ids \
-               or product.categ_id in tax_line.product_category_ids:
+            if (
+                product in tax_line.product_ids
+                or product.categ_id in tax_line.product_category_ids
+            ):
                 break
         else:
             tax_line = self.browse()
@@ -55,7 +57,7 @@ class AccountFiscalPositionTax (models.Model):
         then `tax_dest_id` is its mapped tax,
         otherwise the tax is mapped to itself.
         """
-        result = self.env['account.tax'].browse()
+        result = self.env["account.tax"].browse()
         for tax in taxes:
             for tax_mapping in self:
                 tax_src = tax_mapping.tax_src_id
