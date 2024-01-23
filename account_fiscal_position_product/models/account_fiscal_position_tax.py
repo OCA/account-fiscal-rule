@@ -1,7 +1,9 @@
 #  Copyright 2022 Simone Rubino - TAKOBI
+#  Copyright 2024 Damien Carlier - TOODIGIT
 #  License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class AccountFiscalPositionTax(models.Model):
@@ -16,56 +18,38 @@ class AccountFiscalPositionTax(models.Model):
         string="Product Categories",
     )
 
-    @api.multi
-    def is_product_tax_mapping(self):
-        """
-        True if any tax mapping in `self`
-        has a product or a product category.
-        """
-        for tax_mapping in self:
-            if tax_mapping.product_ids or tax_mapping.product_category_ids:
-                is_product = True
-                break
-        else:
-            is_product = False
-        return is_product
-
-    @api.multi
-    def match_product(self, product):
-        """
-        Return the first mapping in `self` that matches `product`.
-
-        A mapping matches `product`
-        when `product` is declared in the mapping,
-        or when its category is declared in the mapping.
-        """
-        for tax_line in self:
-            if (
-                product in tax_line.product_ids
-                or product.categ_id in tax_line.product_category_ids
-            ):
-                break
-        else:
-            tax_line = self.browse()
-        return tax_line
-
-    def map_taxes(self, taxes):
-        """
-        Map each tax in `taxes` using mappings in `self`.
-
-        When a tax matches `tax_src_id`,
-        then `tax_dest_id` is its mapped tax,
-        otherwise the tax is mapped to itself.
-        """
-        result = self.env["account.tax"].browse()
-        for tax in taxes:
-            for tax_mapping in self:
-                tax_src = tax_mapping.tax_src_id
-                tax_dest = tax_mapping.tax_dest_id
-                if tax_src == tax and tax_dest:
-                    result |= tax_dest
-                    break
-            else:
-                # No mapping matching `tax`: return original tax
-                result |= tax
-        return result
+    @api.constrains("position_id", "tax_src_id", "product_ids", "product_category_ids")
+    def _check_product_category(self):
+        for mapping in self:
+            domain = [
+                ("id", "!=", mapping.id),
+                ("position_id", "=", mapping.position_id.id),
+                ("tax_src_id", "=", mapping.tax_src_id.id),
+            ]
+            mappings = self.search(domain)
+            if mappings.product_ids & mapping.product_ids:
+                raise UserError(
+                    _(
+                        "You cannot have many mappings for the same "
+                        "source tax and the same product(s)."
+                    )
+                )
+            if mappings.product_category_ids & mapping.product_category_ids:
+                raise UserError(
+                    _(
+                        "You cannot have many mappings for the same "
+                        "source tax and the same category(ies)."
+                    )
+                )
+            if mapping.product_category_ids:
+                new_categs = mapping.product_category_ids.mapped("parent_path")
+                other_categs = mappings.product_category_ids.mapped("parent_path")
+                for n_categ in new_categs:
+                    for o_categ in other_categs:
+                        if n_categ.startswith(o_categ) or o_categ.startswith(n_categ):
+                            raise UserError(
+                                _(
+                                    "You cannot have many mappings for "
+                                    "parent and child categories."
+                                )
+                            )
