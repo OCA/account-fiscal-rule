@@ -83,6 +83,10 @@ Contributors
 
    -  Alejandro Ji Cheung
 
+-  `Sygel <https://www.sygel.es/>`__:
+
+   -  Alberto Martínez
+
 Maintainers
 -----------
 

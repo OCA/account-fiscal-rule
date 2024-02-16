@@ -6,10 +6,7 @@
         <field name="inherit_id" ref="account.view_account_position_form" />
         <field name="arch" type="xml">
             <field name="vat_required" position="after">
-                <field
-                    name="vat_vies_required"
-                    attrs="{'invisible': [('vat_required', '=', False)]}"
-                />
+                <field name="vat_vies_required" invisible="not vat_required" />
             </field>
         </field>
     </record>
