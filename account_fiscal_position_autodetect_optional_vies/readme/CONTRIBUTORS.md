@@ -3,3 +3,5 @@
   - Víctor Martínez
 - [FactorLibre](https://factorlibre.com/):
   - Alejandro Ji Cheung
+- [Sygel](https://www.sygel.es/):
+  - Alberto Martínez
