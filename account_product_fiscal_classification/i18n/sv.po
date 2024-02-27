@@ -9,45 +9,46 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-09 01:39+0000\n"
-"PO-Revision-Date: 2018-03-09 01:39+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
+"PO-Revision-Date: 2024-02-27 13:36+0000\n"
+"Last-Translator: jakobkrabbe <jakob@syscare.se>\n"
 "Language-Team: Swedish (https://www.transifex.com/oca/teams/23907/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_chart_template
 msgid "Account Chart Template"
-msgstr ""
+msgstr "Mall för kontoplan"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__action
 msgid "Action"
-msgstr ""
+msgstr "Åtgärder"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__active
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__active
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields.selection,name:account_product_fiscal_classification.selection__account_product_fiscal_rule__action__allow
 msgid "Allow"
-msgstr ""
+msgstr "Tillåt"
 
 #. module: account_product_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_change_fiscal_classification
 msgid "Apply"
-msgstr ""
+msgstr "Tillämpa"
 
 #. module: account_product_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_search
 msgid "Archived"
-msgstr ""
+msgstr "Arkiverad"
 
 #. module: account_product_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_change_fiscal_classification
@@ -57,12 +58,12 @@ msgstr "Avbryt"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__category_ids
 msgid "Category"
-msgstr ""
+msgstr "Kategori"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__chart_template_id
 msgid "Chart Template"
-msgstr ""
+msgstr "Mall för diagram"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__company_id
@@ -89,12 +90,12 @@ msgstr "Skapad den"
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification.template,name:account_product_fiscal_classification.fiscal_classification_template
 msgid "Demo Fiscal Classification Template"
-msgstr ""
+msgstr "Demo mall för skattemässig klassificering"
 
 #. module: account_product_fiscal_classification
 #: model:product.template,name:account_product_fiscal_classification.product_template_A_company_1
 msgid "Demo Product With Fiscal Classification (Your Company)"
-msgstr ""
+msgstr "Demoprodukt med skattemässig klassificering (ditt företag)"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__description
@@ -117,46 +118,46 @@ msgstr "Visa namn"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__fiscal_classification_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__fiscal_classification_id
 msgid "Fiscal Classification"
-msgstr ""
+msgstr "Skatteklassificering"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_rule
 #: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_rule
 msgid "Fiscal Classification Rules"
-msgstr ""
+msgstr "Regler för skattemässig klassificering"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification_template
 msgid "Fiscal Classification Template"
-msgstr ""
+msgstr "Mall för skattemässig klassificering"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification_template
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_chart_template__classification_template_ids
 #: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_classification_template
 msgid "Fiscal Classification Templates"
-msgstr ""
+msgstr "Mallar för skattemässig klassificering"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
 #: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_classification
 msgid "Fiscal Classifications"
-msgstr ""
+msgstr "Skattemässiga klassificeringar"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_rule
 msgid "Fiscal Rule"
-msgstr ""
+msgstr "Skatteregler"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields.selection,name:account_product_fiscal_classification.selection__account_product_fiscal_rule__action__forbid
 msgid "Forbid"
-msgstr ""
+msgstr "Förbjuda"
 
 #. module: account_product_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 msgid "General Information"
-msgstr ""
+msgstr "Allmän information"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__id
@@ -172,6 +173,8 @@ msgid ""
 "If unchecked, it will allow you to hide the Fiscal Classification Template "
 "without removing it."
 msgstr ""
+"Om den är avmarkerad kan du dölja mallen för skatteklassificering utan att "
+"ta bort den."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__active
@@ -179,6 +182,8 @@ msgid ""
 "If unchecked, it will allow you to hide the Fiscal Classification without "
 "removing it."
 msgstr ""
+"Om den är avmarkerad kan du dölja den finanspolitiska klassificeringen utan "
+"att ta bort den."
 
 #. module: account_product_fiscal_classification
 #. odoo-python
@@ -191,6 +196,11 @@ msgid ""
 "\n"
 "%(extra_message)s"
 msgstr ""
+"Felaktig skattemässig inställning :\n"
+"- Kategori : %(categ_name)s\n"
+"- Skatteklassificering : %(fiscal_name)s\n"
+"\n"
+"%(extra_message)s"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification____last_update
@@ -219,13 +229,13 @@ msgstr "Senast uppdaterad"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__message
 msgid "Message"
-msgstr ""
+msgstr "Meddelande"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_wizard_change_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 msgid "Move Products into another Fiscal Classification"
-msgstr ""
+msgstr "Flytta produkter till en annan finanspolitisk klassificering"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__name
@@ -238,95 +248,95 @@ msgstr "Namn"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__new_fiscal_classification_id
 msgid "New Classification"
-msgstr ""
+msgstr "Ny klassificering"
 
 #. module: account_product_fiscal_classification
 #. odoo-python
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "No Purchase Taxes"
-msgstr ""
+msgstr "Inga köpeskillingsskatter"
 
 #. module: account_product_fiscal_classification
 #. odoo-python
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "No Sale Taxes"
-msgstr ""
+msgstr "Inga försäljningsskatter"
 
 #. module: account_product_fiscal_classification
 #. odoo-python
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "No taxes"
-msgstr ""
+msgstr "Inga skatter"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__old_fiscal_classification_id
 msgid "Old Classification"
-msgstr ""
+msgstr "Gammal klassificering"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_product_template
 msgid "Product"
-msgstr ""
+msgstr "Produkt"
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_template_list_by_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__product_tmpl_ids
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 msgid "Products"
-msgstr ""
+msgstr "Produkter"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__product_tmpl_qty
 msgid "Products Quantity"
-msgstr ""
+msgstr "Produkter Kvantitet"
 
 #. module: account_product_fiscal_classification
 #. odoo-python
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "Purchase Tax: "
-msgstr ""
+msgstr "Skatt på inköp: "
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__purchase_tax_ids
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__purchase_tax_ids
 msgid "Purchase Taxes"
-msgstr ""
+msgstr "Skatt på inköp"
 
 #. module: account_product_fiscal_classification
 #. odoo-python
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "Purchase Taxes: "
-msgstr ""
+msgstr "Skatt på inköp: "
 
 #. module: account_product_fiscal_classification
 #. odoo-python
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "Sale Tax: "
-msgstr ""
+msgstr "Försäljningsskatt: "
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__sale_tax_ids
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__sale_tax_ids
 msgid "Sale Taxes"
-msgstr ""
+msgstr "Skatt på försäljning"
 
 #. module: account_product_fiscal_classification
 #. odoo-python
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "Sale Taxes: "
-msgstr ""
+msgstr "Försäljningsskatter: "
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__sequence
 msgid "Sequence"
-msgstr ""
+msgstr "Sekvens"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__company_id
@@ -335,6 +345,9 @@ msgid ""
 "specific company. Otherwise, this Fiscal Classification will be available "
 "for all companies."
 msgstr ""
+"Ange ett företag om du vill definiera denna skatteklassificering endast för "
+"ett visst företag. I annat fall kommer denna skatteklassificering att vara "
+"tillgänglig för alla företag."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product__fiscal_classification_id
@@ -344,16 +357,19 @@ msgid ""
 "If you dont find the correct Fiscal Classification, Please create a new one "
 "or ask to your account manager if you don't have the access right."
 msgstr ""
+"Ange kombinationen av skatter för denna produkt. Detta fält är "
+"obligatoriskt. Om du inte hittar rätt skatteklassificering, skapa en ny "
+"eller fråga din kontoansvarige om du inte har åtkomsträttigheter."
 
 #. module: account_product_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_template_form
 msgid "Taxes"
-msgstr ""
+msgstr "Skatter"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_wizard_change_fiscal_classification
 msgid "Wizard : Change fiscal classification on product"
-msgstr ""
+msgstr "Wizard : Ändra skatteklassificering på produkt"
 
 #. module: account_product_fiscal_classification
 #. odoo-python
@@ -364,6 +380,9 @@ msgid ""
 "Taxes'\n"
 ".Please, use instead the 'Fiscal Classification' field."
 msgstr ""
+"Du kan inte skapa eller skriva produkter med 'Kundskatter' eller "
+"'Leverantörsskatter'\n"
+"Använd istället fältet 'Skatteklassificering'."
 
 #. module: account_product_fiscal_classification
 #. odoo-python
@@ -374,6 +393,9 @@ msgid ""
 "because it contents %(qty)s products. Please move products to another Fiscal "
 "Classification first."
 msgstr ""
+"Du kan inte ta bort den skattemässiga klassificeringen "
+"'%(classification_name)s' eftersom den innehåller %(qty)s produkter. "
+"Vänligen flytta produkterna till en annan skatteklassificering först."
 
 #~ msgid "or"
 #~ msgstr "eller"
