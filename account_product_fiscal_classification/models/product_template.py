@@ -14,6 +14,10 @@ from odoo.exceptions import ValidationError
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
+    taxes_id = fields.Many2many(default=False)
+
+    supplier_taxes_id = fields.Many2many(default=False)
+
     fiscal_classification_id = fields.Many2one(
         comodel_name="account.product.fiscal.classification",
         string="Fiscal Classification",
