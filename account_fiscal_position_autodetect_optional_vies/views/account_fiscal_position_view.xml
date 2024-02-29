@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="account_fiscal_position_form_view">
+        <field name="name">account.fiscal.position.form</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form" />
+        <field name="arch" type="xml">
+            <field name="vat_required" position="after">
+                <field name="vat_vies_required" invisible="not vat_required" />
+            </field>
+        </field>
+    </record>
+</odoo>
