@@ -18,7 +18,7 @@ class ExemptionCode(models.Model):
     @api.depends("name", "code")
     def name_get(self):
         def name(r):
-            return r.code and "({}) {}".format(r.code, r.name) or r.name
+            return r.code and f"({r.code}) {r.name}" or r.name
 
         return [(r.id, name(r)) for r in self]
 
