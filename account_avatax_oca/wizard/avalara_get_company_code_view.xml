@@ -27,7 +27,9 @@
         <field name="binding_view_types">form</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="view_avalara_salestax_getcompany" />
-        <field name="context">{'record_id': active_id}</field>
+        <field
+            name="context"
+        >{'record_id': active_id, 'active_id_view_ref': active_id}</field>
         <field name="target">new</field>
     </record>
 

@@ -12,7 +12,7 @@
                     name="avatax_compute_taxes"
                     type="object"
                     string="Compute Taxes"
-                    attrs="{'invisible': ['|', ('is_avatax', '=', False), ('state', 'not in', ['draft'])]}"
+                    invisible="is_avatax == False or state != 'draft'"
                 />
             </button>
             <group id="header_right_group" position="inside">
@@ -20,17 +20,17 @@
                 <field
                     name="exemption_code"
                     readonly="1"
-                    attrs="{'invisible': [('hide_exemption','=',True)]}"
+                    invisible="hide_exemption == True"
                 />
                 <field
                     name="exemption_code_id"
                     readonly="1"
-                    attrs="{'invisible': [('hide_exemption','=',True)]}"
+                    invisible="hide_exemption == True"
                 />
-                <field name="location_code" />
+                <field name="location_code" readonly="state != 'draft'" />
                 <field
                     name="tax_on_shipping_address"
-                    attrs="{'invisible': [('hide_exemption','=',True)]}"
+                    invisible="hide_exemption == True"
                 />
             </group>
             <field name="invoice_incoterm_id" position="before">
@@ -43,7 +43,8 @@
                 <field name="calculate_tax_on_save" invisible="1" />
                 <field
                     name="invoice_doc_no"
-                    attrs="{'invisible': [('move_type','!=','out_refund')]}"
+                    invisible="move_type != 'out_refund'"
+                    readonly="state != 'draft'"
                 />
             </field>
             <xpath expr="//field[@name='partner_shipping_id']" position="after">
@@ -57,7 +58,7 @@
                     name="avatax_page"
                     string="Avatax Log"
                     groups="base.group_no_one"
-                    attrs="{'invisible': [('is_avatax', '=', False)]}"
+                    invisible="is_avatax == False"
                 >
                     <label for="avatax_request_log" />
                     <field name="avatax_request_log" widget="ace" />

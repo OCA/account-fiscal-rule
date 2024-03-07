@@ -34,3 +34,10 @@ class TestAvatax(common.TransactionCase):
         self.assertEqual(
             self.invoice.exemption_code, self.customer.property_exemption_number
         )
+
+    def test_101_moves_onchange(self):
+        self.invoice.onchange_warehouse_id()
+        self.invoice.onchange_reset_avatax_amount()
+        self.invoice.onchange_avatax_calculation()
+        self.invoice.action_post()
+        self.invoice.button_draft()

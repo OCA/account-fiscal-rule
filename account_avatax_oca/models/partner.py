@@ -180,7 +180,7 @@ class ResPartner(models.Model):
             "view_mode": "form",
             "view_id": view_ref.id,
             "res_model": "avalara.salestax.address.validate",
-            "nodestroy": True,
+            # "nodestroy": True, TODO: not needed
             "res_id": False,
             "target": "new",
             "context": ctx,
@@ -201,7 +201,7 @@ class ResPartner(models.Model):
         return partners
 
     def write(self, vals):
-        res = super(ResPartner, self).write(vals)
+        res = super().write(vals)
         address_fields = ["street", "street2", "city", "zip", "state_id", "country_id"]
         if not self.env.context.get("avatax_writing") and any(
             x in vals for x in address_fields

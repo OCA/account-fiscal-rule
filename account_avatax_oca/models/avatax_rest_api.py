@@ -29,7 +29,7 @@ class AvaTaxRESTService:
         self.timeout = not config and timeout or config.request_timeout
         self.is_log_enabled = enable_log or config and config.logging
         # Set elements adapter defaults
-        self.appname = "Odoo 15 - Open Source Integrators/OCA"
+        self.appname = "Odoo 17 - Open Source Integrators/OCA"
         self.version = "a0o5a000007SPdsAAG"
         self.hostname = socket.gethostname()
         url = url or (config and config.service_url) or ""
@@ -259,7 +259,7 @@ class AvaTaxRESTService:
             for line in received_lines
         ]
 
-        if doc_date and type(doc_date) != str:
+        if doc_date and not isinstance(doc_date, str):
             doc_date = fields.Date.to_string(doc_date)
         create_transaction = {
             "addresses": {

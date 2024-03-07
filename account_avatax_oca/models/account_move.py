@@ -44,8 +44,12 @@ class AccountMove(models.Model):
             exemption_addresses = (
                 invoice_partner | invoice_partner.child_ids
             ).filtered("property_tax_exempt")
+
             exemption_address_naive = exemption_addresses.filtered(
-                lambda a: a.country_id == ship_to_address.country_id
+                lambda a,
+                ship_to_address=ship_to_address,
+                invoice_partner=invoice_partner: a.country_id
+                == ship_to_address.country_id
                 and (
                     a.state_id == ship_to_address.state_id
                     or invoice_partner.property_exemption_country_wide
@@ -70,7 +74,6 @@ class AccountMove(models.Model):
     invoice_doc_no = fields.Char(
         "Source/Ref Invoice No",
         readonly=True,
-        states={"draft": [("readonly", False)]},
         help="Reference of the invoice",
     )
     exemption_code = fields.Char(
@@ -98,7 +101,7 @@ class AccountMove(models.Model):
     tax_address_id = fields.Many2one(
         "res.partner", "Tax Shipping Address", compute="_compute_tax_address_id"
     )
-    location_code = fields.Char(readonly=True, states={"draft": [("readonly", False)]})
+    location_code = fields.Char()
     warehouse_id = fields.Many2one("stock.warehouse", "Warehouse")
     avatax_amount = fields.Float(string="AvaTax", copy=False)
     calculate_tax_on_save = fields.Boolean()
@@ -331,9 +334,7 @@ class AccountMove(models.Model):
     def _reverse_move_vals(self, default_values, cancel=True):
         # OVERRIDE
         # Don't keep anglo-saxon lines if not cancelling an existing invoice.
-        move_vals = super(AccountMove, self)._reverse_move_vals(
-            default_values, cancel=cancel
-        )
+        move_vals = super()._reverse_move_vals(default_values, cancel=cancel)
         move_vals.update(
             {
                 "invoice_doc_no": self.name,
@@ -360,7 +361,7 @@ class AccountMove(models.Model):
             and invoice.fiscal_position_id.is_avatax
             and invoice.state == "posted"
         )
-        res = super(AccountMove, self).button_draft()
+        res = super().button_draft()
         for invoice in posted_invoices:
             avatax_config = invoice.company_id.get_avatax_config_company()
             if avatax_config:
@@ -397,7 +398,7 @@ class AccountMove(models.Model):
                     break
 
     def write(self, vals):
-        result = super(AccountMove, self).write(vals)
+        result = super().write(vals)
         avatax_config = self.env.company.get_avatax_config_company()
         for record in self:
             if (
