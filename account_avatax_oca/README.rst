@@ -17,46 +17,35 @@ Avalara Avatax Certified Connector
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-fiscal-rule/tree/16.0/account_avatax_oca
+    :target: https://github.com/OCA/account-fiscal-rule/tree/17.0/account_avatax_oca
     :alt: OCA/account-fiscal-rule
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-16-0/account-fiscal-rule-16-0-account_avatax_oca
+    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-17-0/account-fiscal-rule-17-0-account_avatax_oca
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-.. |avataxbadge1| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_avatax_oca/static/description/SalesTax.png
-    :target: https://developer.avalara.com/certification/avatax/sales-tax-badge/
-    :alt: Sales Tax Certification
-    :width: 250
-.. |avataxbadge2| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_avatax_oca/static/description/Refunds.png
-    :target: https://developer.avalara.com/certification/avatax/refunds-credit-memos-badge/
-    :alt: Refunds Certification
-    :width: 250
-.. |avataxbadge3| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_avatax_oca/static/description/AddressValidation.png
-    :target: https://developer.avalara.com/certification/avatax/address-validation-badge/
-    :alt: Address Validation Certification
-    :width: 250
+|Sales Tax Certification| |Refunds Certification| |Address Validation
+Certification|
 
-|avataxbadge1| |avataxbadge2| |avataxbadge3|
+Odoo provides integration with AvaTax, a tax solution software by
+Avalara which includes sales tax calculation for all US states and
+territories and all Canadian provinces and territories (including GST,
+PST, and HST).
 
-Odoo provides integration with AvaTax, a tax solution software by Avalara
-which includes sales tax calculation for all US states and territories
-and all Canadian provinces and territories (including GST, PST, and HST).
+This module is capable of automatically detecting origin (Output
+Warehouse) and destination (Client Address), then calculating and
+reporting taxes to the user's Avalara account as well as a recording the
+correct sales taxes for the validated addresses within Odoo ERP.
 
-This module is capable of automatically detecting origin (Output Warehouse)
-and destination (Client Address), then calculating and reporting taxes
-to the user's Avalara account as well as a recording the correct sales taxes
-for the validated addresses within Odoo ERP.
+This module is compatible both with the Odoo Enterprise and Odoo
+Community editions.
 
-This module is compatible both with the Odoo Enterprise and Odoo Community
-editions.
-
-An Avatax account is needed. Account information to access
-the Avatax dashboard can be obtained through the Avalara website here:
+An Avatax account is needed. Account information to access the Avatax
+dashboard can be obtained through the Avalara website here:
 https://www.avalara.com/products/calculations.html
 
 Once configured, the module operates in the background and performs
@@ -64,33 +53,45 @@ calculations and reporting seamlessly to the AvaTax server.
 
 This guide includes instructions for the following elements:
 
-- Activating your organization's AvaTax account and downloading the product
-- Entering the AvaTax credentials into your Odoo database and configuring it
-  to use AvaTax services and features within Odoo
+-  Activating your organization's AvaTax account and downloading the
+   product
+-  Entering the AvaTax credentials into your Odoo database and
+   configuring it to use AvaTax services and features within Odoo
 
-Note: Test the module before deploying in live environment.
-All changes to the AvaTax settings must be performed by a user with
-administrative access rights.
-
+Note: Test the module before deploying in live environment. All changes
+to the AvaTax settings must be performed by a user with administrative
+access rights.
 
 **IMPORTANT - resolving name conflict with Odoo EE**
 
-Avatax support was added to Odoo EE 14 and 15.
-Unfortunately the module names used are the same as the OCA ones,
-and because of this name collision the OCA modules were forced to change name.
+Avatax support was added to Odoo EE 14 and 15. Unfortunately the module
+names used are the same as the OCA ones, and because of this name
+collision the OCA modules were forced to change name.
 
-The main module was renamed from ``account_avatax`` (now used by Odoo EE) to
-``account_avatax_oca``.
+The main module was renamed from ``account_avatax`` (now used by Odoo
+EE) to ``account_avatax_oca``.
 
-To apply this change in your odoo database and continue using the OCA Avalara certified
-connector:
+To apply this change in your odoo database and continue using the OCA
+Avalara certified connector:
 
-  1. Ensure you have the latest version from the OCA, and you see ``account_avatax_oca``
-       in your Apps list.
-  2. Install the new ``account_avatax_oca`` module
-  3. Unistall the ``account_avatax`` module
-  4. Confirm that your configurations were kept safe, in particular:
-       Avatax API, "Avatax" default Fiscal Position, and "Avatax" default Tax record.
+   1. | Ensure you have the latest version from the OCA, and you see
+        ``account_avatax_oca``
+      | in your Apps list.
+
+   2. Install the new ``account_avatax_oca`` module
+
+   3. Unistall the ``account_avatax`` module
+
+   4. | Confirm that your configurations were kept safe, in particular:
+      | Avatax API, "Avatax" default Fiscal Position, and "Avatax"
+        default Tax record.
+
+.. |Sales Tax Certification| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/17.0/account_avatax_oca/static/description/SalesTax.png
+   :target: https://developer.avalara.com/certification/avatax/sales-tax-badge/
+.. |Refunds Certification| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/17.0/account_avatax_oca/static/description/Refunds.png
+   :target: https://developer.avalara.com/certification/avatax/refunds-credit-memos-badge/
+.. |Address Validation Certification| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/17.0/account_avatax_oca/static/description/AddressValidation.png
+   :target: https://developer.avalara.com/certification/avatax/address-validation-badge/
 
 **Table of contents**
 
@@ -100,329 +101,349 @@ connector:
 Installation
 ============
 
-Before installing the Avatax app, the Avalara Python client
-must be installed in your system.
-It is available at https://pypi.org/project/Avalara.
+Before installing the Avatax app, the Avalara Python client must be
+installed in your system. It is available at
+https://pypi.org/project/Avalara.
 
-Typically it can be installed in your system usin ``pip``::
+Typically it can be installed in your system usin ``pip``:
 
-    pip3 install Avalara
+::
 
-The base app, ``account_Avatax``, adds Avatax support to Customer Invoices.
-Inthe official app store: https://apps.odoo.com/apps/modules/15.0/account_avatax/
+   pip3 install Avalara
 
-The ``account_avatax_sale`` extension adds support to Quotations / Sales Orders.
-Inthe official app store: https://apps.odoo.com/apps/modules/15.0/account_avatax_sale/
+The base app, ``account_Avatax``, adds Avatax support to Customer
+Invoices. Inthe official app store:
+https://apps.odoo.com/apps/modules/15.0/account_avatax/
+
+The ``account_avatax_sale`` extension adds support to Quotations / Sales
+Orders. Inthe official app store:
+https://apps.odoo.com/apps/modules/15.0/account_avatax_sale/
 
 In most cases you will want to download and install both modules.
 
 To install the Avatax app:
 
-- Download the AvaTax modules
-- Extract the downloaded files
-- Upload the extracted directories into your Odoo module/addons directory
-- Log into Odoo as an Administrator and enable the Developer Mode, in 'Settings'
-- Navigate to 'Apps', select the 'Update Apps List' menu, to have the new apps listed.
-- In the Apps list, search for 'AvaTax'
-- Click on the Install button. If available, the ``account_avatax_sale`` module will
-  also be installed automatically.
+-  Download the AvaTax modules
+-  Extract the downloaded files
+-  Upload the extracted directories into your Odoo module/addons
+   directory
+-  Log into Odoo as an Administrator and enable the Developer Mode, in
+   'Settings'
+-  Navigate to 'Apps', select the 'Update Apps List' menu, to have the
+   new apps listed.
+-  In the Apps list, search for 'AvaTax'
+-  Click on the Install button. If available, the
+   ``account_avatax_sale`` module will also be installed automatically.
 
 Configuration
 =============
 
-To configure an Odoo company to use Avatax, follow these steps.
-Note tha tsome of them might be configured out of the box
-for the Odoo default company.
+To configure an Odoo company to use Avatax, follow these steps. Note tha
+tsome of them might be configured out of the box for the Odoo default
+company.
 
 1. Configure AvaTax API Connection
 2. Configure Company Taxes
 3. Configure Customers
 4. Configure Products
 
-
 Configure Avatax API Connection
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------
 
-Before you can configure the Odoo Avatax connector,
-you will need some connection details ready:
+Before you can configure the Odoo Avatax connector, you will need some
+connection details ready:
 
-- Login to https://home.avalara.com/
-- Navigate to Settings >> All AvaTax Settings.
-  There you will see the company details.
-- Take note of the Account ID and Company Code
-- Navigate to Settings >> License and API Keys.
-  In the "Reset License Key" tab, click on the "Generate License Key" button,
-  and take note of it.
+-  Login to https://home.avalara.com/
+-  Navigate to Settings >> All AvaTax Settings. There you will see the
+   company details.
+-  Take note of the Account ID and Company Code
+-  Navigate to Settings >> License and API Keys. In the "Reset License
+   Key" tab, click on the "Generate License Key" button, and take note
+   of it.
 
 To configure AvaTax connector in Odoo:
 
-- Navigate to: Accounting/Invoicing App >> Configuration >> AvaTax >> AvaTax API
-- Click on the Create button
-- Fill out the form with the elements collected from the AvaTax website:
+-  Navigate to: Accounting/Invoicing App >> Configuration >> AvaTax >>
+   AvaTax API
+-  Click on the Create button
+-  Fill out the form with the elements collected from the AvaTax
+   website:
 
-  * Account ID
-  * License Key
-  * Service URL: usually Production, or Sandox if you have that available.
-  * Company Code
+   -  Account ID
+   -  License Key
+   -  Service URL: usually Production, or Sandox if you have that
+      available.
+   -  Company Code
 
-- Click the Test Connection button
-- Click the Save button
+-  Click the Test Connection button
+-  Click the Save button
 
 Other Avatax API advanced configurations:
 
-- Tax Calculation tab:
+-  Tax Calculation tab:
 
-  - Disable Document Recording/Commiting: invoices will not be stored in Avalara
-  - Enable UPC Taxability: this will transmit Odoo's product ean13 number
-    instead of its Internal Reference. If there is no ean13
-    then the Internal Reference will be sent automatically.
-  - Hide Exemption & Tax Based on shipping address -- this will give user ability
-    to hide or show Tax Exemption and Tax Based on shipping address fields
-    at the invoice level.
+   -  Disable Document Recording/Commiting: invoices will not be stored
+      in Avalara
+   -  Enable UPC Taxability: this will transmit Odoo's product ean13
+      number instead of its Internal Reference. If there is no ean13
+      then the Internal Reference will be sent automatically.
+   -  Hide Exemption & Tax Based on shipping address -- this will give
+      user ability to hide or show Tax Exemption and Tax Based on
+      shipping address fields at the invoice level.
 
-- Address Validation tab:
+-  Address Validation tab:
 
-  - Automatic Address Validation: automatically attempts
-    to validate on creation and update of customer record,
-    last validation date will be visible and stored
-  - Require Validated Addresses: if validation for customer is required but not valid,
-    the validation will be forced
-  - Return validation results in upper case: validation results
-    will return in upper case form
+   -  Automatic Address Validation: automatically attempts to validate
+      on creation and update of customer record, last validation date
+      will be visible and stored
+   -  Require Validated Addresses: if validation for customer is
+      required but not valid, the validation will be forced
+   -  Return validation results in upper case: validation results will
+      return in upper case form
 
-- Advanced tab:
+-  Advanced tab:
 
-  - Automatically generate missing customer code: generates a customer code
-    on creation and update of customer profile
-  - Log API requests: enables detailed AvaTax transaction logging within application
-  - Request Timeout: default is 300ms
-  - Countries: countries where AvaTax can be used.
-
+   -  Automatically generate missing customer code: generates a customer
+      code on creation and update of customer profile
+   -  Log API requests: enables detailed AvaTax transaction logging
+      within application
+   -  Request Timeout: default is 300ms
+   -  Countries: countries where AvaTax can be used.
 
 Configure Company Taxes
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 
-Each company linked to AvaTax and their associated warehouses
-should be configured to ensure the correct tax is calculated
-and applied for all transactions.
-
+Each company linked to AvaTax and their associated warehouses should be
+configured to ensure the correct tax is calculated and applied for all
+transactions.
 
 Validate Company Address:
 
-- On the AvTax API configuration form, click on the "Company Address" link
-- On the company address form, click on the "validate" button
-  in the "AvaTax" tab
+-  On the AvTax API configuration form, click on the "Company Address"
+   link
+-  On the company address form, click on the "validate" button in the
+   "AvaTax" tab
 
 Validate Warehouse Address:
 
-- Navigate to: Inventory >> Configuration >> Warehouse Management >> Warehouses
-- For each warehouse, open the correspoding from view
-- On the Warehouse form, click on the "Address" link
-- On the warehouse address form, click on the "validate" button
-  in the "AvaTax" tab
+-  Navigate to: Inventory >> Configuration >> Warehouse Management >>
+   Warehouses
+-  For each warehouse, open the correspoding from view
+-  On the Warehouse form, click on the "Address" link
+-  On the warehouse address form, click on the "validate" button in the
+   "AvaTax" tab
 
-Fiscal Positions is what tells the AvaTax connector if the AvaTax service
-should be used for a particular Sales Order or Invoice.
+Fiscal Positions is what tells the AvaTax connector if the AvaTax
+service should be used for a particular Sales Order or Invoice.
 
 Configure Fiscal Position:
 
-- Navigate to: Accounting/Invoicing App >> Configuration >> Accounting
-  >> Fiscal Positions
-- Ensure there is a Fiscal Position record for the Company,
-  with the "Use Avatax API" flag checked
+-  Navigate to: Accounting/Invoicing App >> Configuration >> Accounting
+   >> Fiscal Positions
+-  Ensure there is a Fiscal Position record for the Company, with the
+   "Use Avatax API" flag checked
 
-When the appropriate Fiscal Position is being used, and a tax rate is retrieved form
-AvaTax, then the corresponding Tax is automatically created in Odoo
-using a template tax record, that should have the appropriate accounting configurations.
+When the appropriate Fiscal Position is being used, and a tax rate is
+retrieved form AvaTax, then the corresponding Tax is automatically
+created in Odoo using a template tax record, that should have the
+appropriate accounting configurations.
 
 Configure Taxes:
 
-- Navigate to: Accounting/Invoicing App >> Configuration >> Accounting >> Taxes
-- Ensure there is a Tax record for the Company, with the "Is Avatax" flag checked
-  (visible in the "Advanced Options" tab). This Tax should have:
+-  Navigate to: Accounting/Invoicing App >> Configuration >> Accounting
+   >> Taxes
+-  Ensure there is a Tax record for the Company, with the "Is Avatax"
+   flag checked (visible in the "Advanced Options" tab). This Tax should
+   have:
 
-  * Tax Type: Sales
-  * Tax Computation: Percentage of Price
-  * Amount: 0.0%
-  * Distribution for Invoices: ensure correct account configuration
-  * Distribution for Credit Notes: ensure correct account configuration
-
+   -  Tax Type: Sales
+   -  Tax Computation: Percentage of Price
+   -  Amount: 0.0%
+   -  Distribution for Invoices: ensure correct account configuration
+   -  Distribution for Credit Notes: ensure correct account
+      configuration
 
 Configure Customers
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
-Exemption codes are allowed for users where they may apply (ex. Government entities).
- Navigate to: Accounting or Invoicing App >> Configuration >> AvaTax >> Exemption Code
+| Exemption codes are allowed for users where they may apply (ex.
+  Government entities).
+| Navigate to: Accounting or Invoicing App >> Configuration >> AvaTax >>
+  Exemption Code
 
-The module is installed with 16 predefined exemption codes.
- You can add, remove, and modify exemption codes.
+| The module is installed with 16 predefined exemption codes.
+| You can add, remove, and modify exemption codes.
 
 Properly configuring each customer ensures the correct tax is calculated
 and applied for all transactions.
 
 Create New Customer
 
-- Navigate to Contacts
-- Click Create button
+-  Navigate to Contacts
+-  Click Create button
 
 Configure and Validate Customer Address
 
-- Enter Customer Address
-- Under AvaTax >> Validation, click Validate button
-- AvaTax Module will attempt to match the address you entered
-  with a valid address in its database.
-  Click the Accept button if the address is valid.
+-  Enter Customer Address
+-  Under AvaTax >> Validation, click Validate button
+-  AvaTax Module will attempt to match the address you entered with a
+   valid address in its database. Click the Accept button if the address
+   is valid.
 
 Tax Exemption Status
 
-- If the customer is tax exempt, check the box under
-  AvaTax >> Tax Exemption >> Is Tax Exempt and
-- Select the desired Tax Exempt Code from the dropdown menu.
-
+-  If the customer is tax exempt, check the box under AvaTax >> Tax
+   Exemption >> Is Tax Exempt and
+-  Select the desired Tax Exempt Code from the dropdown menu.
 
 Configure Products
-~~~~~~~~~~~~~~~~~~
+------------------
 
-Create product tax codes to assign to products and/or product categories.
-Navigate to: Accounting or Invoicing App >> Configuration >> AvaTax >> Product Tax Codes.
+Create product tax codes to assign to products and/or product
+categories. Navigate to: Accounting or Invoicing App >> Configuration >>
+AvaTax >> Product Tax Codes.
 
 From here you can add, remove, and modify the product tax codes.
 
+Products in Odoo are typically assigned to product categories. AvaTax
+settings can also be assigned to the product category when a product
+category is created.
 
-Products in Odoo are typically assigned to product categories.
-AvaTax settings can also be assigned to the product category
-when a product category is created.
+-  Create New Product Category
 
-- Create New Product Category
+   -  Navigate to: Inventory >> Configuration >> Products >> Product
+      Categories
+   -  Click Create button
 
-  - Navigate to: Inventory >> Configuration >> Products >> Product Categories
-  - Click Create button
+-  Configure Product Category Tax Code
 
-- Configure Product Category Tax Code
-
-  - Under AvaTax Properties >> Tax Code
-  - Select the desired Tax Code
+   -  Under AvaTax Properties >> Tax Code
+   -  Select the desired Tax Code
 
 Usage
 =====
 
 Customer Invoices
-~~~~~~~~~~~~~~~~~
+-----------------
 
-The AvaTax module is integrated into Sales Invoices
-and is applied to each transaction.
-The transaction log in the AvaTax dashboard shows the invoice details
-and displays whether the transaction is in an uncommitted or committed status.
+The AvaTax module is integrated into Sales Invoices and is applied to
+each transaction. The transaction log in the AvaTax dashboard shows the
+invoice details and displays whether the transaction is in an
+uncommitted or committed status.
 
-A validated invoice will have a Committed status
-and a cancelled invoice will have a Voided status.
+A validated invoice will have a Committed status and a cancelled invoice
+will have a Voided status.
 
-The module will check if there is a selected warehouse
-and will automatically determine the address of the warehouse
-and the origin location.
-If no address is assigned to the warehouse, the company address is used.
+The module will check if there is a selected warehouse and will
+automatically determine the address of the warehouse and the origin
+location. If no address is assigned to the warehouse, the company
+address is used.
 
-Discounts are handled when they are enabled in Odoo's settings.
-They are calculated as a net deduction on the line item cost
-before the total is sent to AvaTax.
+Discounts are handled when they are enabled in Odoo's settings. They are
+calculated as a net deduction on the line item cost before the total is
+sent to AvaTax.
 
 Create New Customer Invoice
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Navigate to: Accounting or Invoicing >> Customers >> Invoices.
-- Click Create button.
+-  Navigate to: Accounting or Invoicing >> Customers >> Invoices.
+-  Click Create button.
 
 Validate Invoice
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~
 
-- Ensure that Tax based on shipping address is checked.
-- Line items should have AVATAX selected under Taxes for internal records.
-- To complete the invoice, click the Validate button.
-- The sale order will now appear in the AvaTax dashboard.
+-  Ensure that Tax based on shipping address is checked.
+-  Line items should have AVATAX selected under Taxes for internal
+   records.
+-  To complete the invoice, click the Validate button.
+-  The sale order will now appear in the AvaTax dashboard.
 
 Register Payment
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~
 
-- Click the Register Payment button to finalize the invoice.
-
+-  Click the Register Payment button to finalize the invoice.
 
 Customer Refunds
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~
 
-Odoo applies refunds as opposed to voids in its accounting module.
-As with customer invoices, the AvaTax module is integrated
-with customer refunds and is applied to each transaction.
+Odoo applies refunds as opposed to voids in its accounting module. As
+with customer invoices, the AvaTax module is integrated with customer
+refunds and is applied to each transaction.
 
-Refunded invoice transactions will be indicated
- with a negative total in the AvaTax interface.
+| Refunded invoice transactions will be indicated
+| with a negative total in the AvaTax interface.
 
 Initiate Customer Refund
 
-- Navigate to: Accounting or Invoicing >> Customers >> Invoices
-- Select the invoice you wish to refund
-- Click Add Credit Note button
+-  Navigate to: Accounting or Invoicing >> Customers >> Invoices
+-  Select the invoice you wish to refund
+-  Click Add Credit Note button
 
 Create Credit Note
 
-- Under Credit Method, select Create a draft credit note.
-- Enter a reason.
-- Click Add Credit Note button.
+-  Under Credit Method, select Create a draft credit note.
+-  Enter a reason.
+-  Click Add Credit Note button.
 
 Note: You will be taken to the Credit Notes list view
 
 Validate Refund
 
-- Select the Credit Note you wish to validate, review and then click Validate button.
+-  Select the Credit Note you wish to validate, review and then click
+   Validate button.
 
 Register Refund Payment
 
-- Click Register Payment button to complete a refund
-
+-  Click Register Payment button to complete a refund
 
 Sales Orders
-~~~~~~~~~~~~
+------------
 
-The AvaTax module is integrated into Sales Orders and allows computation of taxes.
-Sales order transactions do not appear in the in the AvaTax interface.
+The AvaTax module is integrated into Sales Orders and allows computation
+of taxes. Sales order transactions do not appear in the in the AvaTax
+interface.
 
-The information placed in the sales order will automatically pass to the invoice
- on the Avalara server and can be viewed in the AvaTax control panel.
+| The information placed in the sales order will automatically pass to
+  the invoice
+| on the Avalara server and can be viewed in the AvaTax control panel.
 
-Discounts are handled when they are enabled in Odoo's settings.
-They will be reported as a net deduction on the line item cost.
+Discounts are handled when they are enabled in Odoo's settings. They
+will be reported as a net deduction on the line item cost.
 
 Create New Sales Order
 
-- Navigate to: Sales >> Orders >> Orders
-- Click Create button
+-  Navigate to: Sales >> Orders >> Orders
+-  Click Create button
 
 Compute Taxes with AvaTax
 
-- The module will calculate tax when the sales order is confirmed,
-  or by navigating to Action >> Update taxes with Avatax.
-  At this step, the sales order will retrieve the tax amount from Avalara
-  but will not report the transaction to the AvaTax dashboard.
-  Only invoice, refund, and payment activity are reported to the dashboard.
-- The module will check if there is a selected warehouse
-  and will automatically determine the address of the warehouse
-  and the origin location. If no address is assigned to the warehouse
-  the module will automatically use the address of the company as its origin.
-  Location code will automatically populate with the warehouse code
-  but can be modified if needed.
+-  The module will calculate tax when the sales order is confirmed, or
+   by navigating to Action >> Update taxes with Avatax. At this step,
+   the sales order will retrieve the tax amount from Avalara but will
+   not report the transaction to the AvaTax dashboard. Only invoice,
+   refund, and payment activity are reported to the dashboard.
+-  The module will check if there is a selected warehouse and will
+   automatically determine the address of the warehouse and the origin
+   location. If no address is assigned to the warehouse the module will
+   automatically use the address of the company as its origin. Location
+   code will automatically populate with the warehouse code but can be
+   modified if needed.
 
 Known issues / Roadmap
 ======================
 
-The development of this module was driven by US companies to compute Sales Tax.
+The development of this module was driven by US companies to compute
+Sales Tax.
 
 However the Avatax service supports more use cases, that could be added:
 
-- Add support to EU VAT
-- Add support to US Use Tax on Purchases / vendor Bills
+-  Add support to EU VAT
+-  Add support to US Use Tax on Purchases / vendor Bills
 
 Other improvements that could be added:
 
-- Detect and warn if customers State is not a nexus available for the current account
+-  Detect and warn if customers State is not a nexus available for the
+   current account
 
 Bug Tracker
 ===========
@@ -430,7 +451,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-fiscal-rule/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_avatax_oca%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_avatax_oca%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -438,58 +459,58 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Open Source Integrators
 * Fabrice Henrion
 * Sodexis
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Odoo SA
+-  Odoo SA
 
-  * Fabrice Henrion
+   -  Fabrice Henrion
 
-* Open Source Integrators (https://opensourceintegrators.com)
+-  Open Source Integrators (https://opensourceintegrators.com)
 
-  * Daniel Reis <dreis@opensourceintegrators.com>
-  * Bhavesh Odedra <bodedra@opensourceintegrators.com>
-  * Sandip Mangukiya <smangukiya@opensourceintegrators.com>
-  * Nikul Chaudhary <nchaudhary@opensourceintegrators.com>
+   -  Daniel Reis <dreis@opensourceintegrators.com>
+   -  Bhavesh Odedra <bodedra@opensourceintegrators.com>
+   -  Sandip Mangukiya <smangukiya@opensourceintegrators.com>
+   -  Nikul Chaudhary <nchaudhary@opensourceintegrators.com>
 
-* Serpent CS
+-  Serpent CS
 
-  * Murtuza Saleh
+   -  Murtuza Saleh
 
-* Sodexis
+-  Sodexis
 
-  * Atchuthan Ubendran
+   -  Atchuthan Ubendran
 
 Other credits
-~~~~~~~~~~~~~
+-------------
 
-This module was originally developed by Fabrice Henrion at Odoo SA,
-and maintained up to version 11.
+This module was originally developed by Fabrice Henrion at Odoo SA, and
+maintained up to version 11.
 
 For version 12, Fabrice invited partners to migrate this modules to
 later version, and maintain it.
 
-Open Source Integrators performed the migration to Odoo 12
-, and later added support for the more up to date REST API
-, alongside with the legacy SOAP API.
+Open Source Integrators performed the migration to Odoo 12 , and later
+added support for the more up to date REST API , alongside with the
+legacy SOAP API.
 
 With the addition of the REST API, a deep refactor was introduced,
-changing the tax calculation approach, from just setting the total
-tax amount, to instead adding the tax rates to each document line
-and then having Odoo do all the other computations.
+changing the tax calculation approach, from just setting the total tax
+amount, to instead adding the tax rates to each document line and then
+having Odoo do all the other computations.
 
-For Odoo 13, the legacy SOAP support was supported, and
-additional refactoring was done to contribute the module
-to the Odoo Community Association.
+For Odoo 13, the legacy SOAP support was supported, and additional
+refactoring was done to contribute the module to the Odoo Community
+Association.
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -509,6 +530,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-dreispt| 
 
-This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/16.0/account_avatax_oca>`_ project on GitHub.
+This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/17.0/account_avatax_oca>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
