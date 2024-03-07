@@ -48,6 +48,7 @@
                                             type="action"
                                             icon="fa-arrow-right"
                                             class="btn-link"
+                                            context="{'active_id_view_ref': active_id}"
                                         />
                                 </div>
                                 <a
@@ -62,7 +63,7 @@
                         <page
                             string="Tax Calculation"
                             name="calculation_page"
-                            attrs="{'invisible': [('disable_tax_calculation', '=', True)]}"
+                            invisible="disable_tax_calculation == True"
                         >
                         <div
                                 class="row mt16 o_settings_container"
@@ -117,7 +118,7 @@
                         <page
                             string="Address Validation"
                             name="address_page"
-                            attrs="{'invisible': [('disable_address_validation', '=', True)]}"
+                            invisible="disable_address_validation == True"
                         >
                         <div
                                 class="row mt16 o_settings_container"

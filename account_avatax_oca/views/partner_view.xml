@@ -29,11 +29,11 @@
                             <field name="property_tax_exempt" />
                             <field
                                 name="property_exemption_code_id"
-                                attrs="{'invisible': [('property_tax_exempt','!=',True)]}"
+                                invisible="property_tax_exempt != True"
                             />
                             <field
                                 name="property_exemption_number"
-                                attrs="{'invisible': [('property_tax_exempt','!=',True)]}"
+                                invisible="property_tax_exempt != True"
                             />
                             <newline />
                             <separator string="Customer Code" />
@@ -42,7 +42,7 @@
                                 name="generate_cust_code"
                                 string="Generate"
                                 type="object"
-                                attrs="{'invisible': [('customer_code','!=',False)]}"
+                                invisible="customer_code != False"
                             />
                         </group>
                     </group>
@@ -54,7 +54,7 @@
             >
                 <group
                     name="avatax_validation"
-                    attrs="{'invisible': [('type', '!=', 'delivery')]}"
+                    invisible="type != 'delivery'"
                     colspan="5"
                 >
                     <button
@@ -70,17 +70,17 @@
                 </group>
                 <group
                     name="avatax_exemption"
-                    attrs="{'invisible': [('type', '!=', 'delivery')]}"
+                    invisible="type != 'delivery'"
                     colspan="7"
                 >
                     <field name="property_tax_exempt" />
                     <field
                         name="property_exemption_code_id"
-                        attrs="{'invisible': [('property_tax_exempt','!=',True)]}"
+                        invisible="property_tax_exempt != True"
                     />
                     <field
                         name="property_exemption_number"
-                        attrs="{'invisible': [('property_tax_exempt','!=',True)]}"
+                        invisible="property_tax_exempt != True"
                     />
                 </group>
             </xpath>

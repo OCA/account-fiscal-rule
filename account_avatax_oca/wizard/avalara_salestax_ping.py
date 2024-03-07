@@ -7,7 +7,7 @@ class AvalaraSalestaxPing(models.TransientModel):
 
     @api.model
     def default_get(self, fields):
-        res = super(AvalaraSalestaxPing, self).default_get(fields)
+        res = super().default_get(fields)
         self.ping()
         return res
 

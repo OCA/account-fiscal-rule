@@ -27,7 +27,7 @@ class AvalaraSalestaxAddressValidate(models.TransientModel):
     @api.model
     def default_get(self, fields):
         """Returns the default values for the fields."""
-        res = super(AvalaraSalestaxAddressValidate, self).default_get(fields)
+        res = super().default_get(fields)
         active_id = self.env.context.get("active_id")
         if active_id:
             Partner = self.env["res.partner"]

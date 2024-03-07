@@ -9,8 +9,12 @@ class AvalaraSalestaxGetCompany(models.TransientModel):
     _description = "Avatax Get Company Code"
 
     def _get_company_codes(self):
-        active_id = self.env.context.get("active_id")
+        active_id = self.env.context.get("active_id") or self.env.context.get(
+            "active_id_view_ref"
+        )
         config = self.env["avalara.salestax"].browse(active_id)
+        if not config:
+            config = self.env["avalara.salestax"].search([], limit=1)
         avatax_api = AvaTaxRESTService(config=config)
         response = avatax_api.client.query_companies()
         response_data = response.json()

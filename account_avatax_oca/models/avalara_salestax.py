@@ -16,11 +16,14 @@ class ExemptionCode(models.Model):
     code = fields.Char()
 
     @api.depends("name", "code")
-    def name_get(self):
-        def name(r):
-            return r.code and f"({r.code}) {r.name}" or r.name
-
-        return [(r.id, name(r)) for r in self]
+    def _compute_display_name(self):
+        super()._compute_display_name()
+        for exemption in self:
+            exemption.display_name = (
+                exemption.code
+                and f"({exemption.code}) {exemption.name}"
+                or exemption.name
+            )
 
 
 class AvalaraSalestax(models.Model):
