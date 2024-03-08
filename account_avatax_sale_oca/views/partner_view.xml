@@ -10,7 +10,7 @@
             <field name="property_exemption_number" position="after">
                 <field
                     name="property_exemption_country_wide"
-                    attrs="{'invisible': [('property_tax_exempt','!=',True)]}"
+                    invisible="property_tax_exempt != True"
                 />
             </field>
         </field>
