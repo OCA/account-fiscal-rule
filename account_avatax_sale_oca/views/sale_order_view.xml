@@ -13,7 +13,7 @@
                     name="avalara_compute_taxes"
                     type="object"
                     string="Compute Taxes"
-                    attrs="{'invisible': ['|', ('is_avatax', '=', False), ('state', 'in', ['done', 'cancel'])]}"
+                    invisible="is_avatax == False or state in ('done', 'cancel')"
                 />
             </button>
             <field name="payment_term_id" position="after">
@@ -21,30 +21,33 @@
                 <field
                     name="exemption_code"
                     readonly="1"
-                    attrs="{'invisible': [('hide_exemption','=',True)]}"
+                    invisible="hide_exemption == True"
                 />
                 <field
                     name="exemption_code_id"
                     readonly="1"
-                    attrs="{'invisible': [('hide_exemption','=',True)]}"
+                    invisible="hide_exemption == True"
                 />
                 <field name="location_code" />
                 <field
                     name="tax_on_shipping_address"
-                    attrs="{'invisible': [('hide_exemption','=',True)]}"
+                    invisible="hide_exemption == True"
                 />
             </field>
-            <field name="fiscal_position_id" position="after">
+            <xpath
+                expr="//group[@name='sale_info']//div[hasclass('o_row')][1]"
+                position="after"
+            >
                 <field name="is_avatax" groups="base.group_no_one" />
                 <field
                     name="tax_address_id"
                     context="{'show_address': 1}"
                     options='{"always_reload": True}'
-                    readonly="1"
+                    readonly="state != 'draft'"
                 />
                 <field name="calculate_tax_on_save" invisible="1" />
                 <field name="tax_amount" invisible="1" />
-            </field>
+            </xpath>
             <xpath expr="//field[@name='order_line']//tree" position="inside">
                 <field name="tax_amt" groups="base.group_no_one" optional="hide" />
             </xpath>
@@ -59,7 +62,7 @@
                     name="avatax_page"
                     string="Avatax Log"
                     groups="base.group_no_one"
-                    attrs="{'invisible': [('is_avatax', '=', False)]}"
+                    invisible="is_avatax == False"
                 >
                     <label for="avatax_request_log" />
                     <field name="avatax_request_log" widget="ace" />

@@ -17,7 +17,9 @@ class ResPartner(models.Model):
                     " for every state this Partner may have transactions."
                 ),
             )
-            return {"warning": {"title": _("Tax Compliance Risk"), "message": message}}
+            return {
+                "warning": {"title": _("Tax Compliance Risk"), "message": message[0]}
+            }
 
     property_exemption_country_wide = fields.Boolean(
         "Exemption Applies Country Wide",

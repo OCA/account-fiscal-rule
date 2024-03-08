@@ -52,7 +52,10 @@ class SaleOrder(models.Model):
                 invoice_partner | invoice_partner.child_ids
             ).filtered("property_tax_exempt")
             exemption_address_naive = exemption_addresses.filtered(
-                lambda a: a.country_id == ship_to_address.country_id
+                lambda a,
+                ship_to_address=ship_to_address,
+                invoice_partner=invoice_partner: a.country_id
+                == ship_to_address.country_id
                 and (
                     a.state_id == ship_to_address.state_id
                     or invoice_partner.property_exemption_country_wide
@@ -66,7 +69,7 @@ class SaleOrder(models.Model):
             order.exemption_code_id = exemption_address.property_exemption_code_id
 
     def _prepare_invoice(self):
-        invoice_vals = super(SaleOrder, self)._prepare_invoice()
+        invoice_vals = super()._prepare_invoice()
         invoice_vals.update(
             {
                 "exemption_code": self.exemption_code or "",
@@ -141,7 +144,6 @@ class SaleOrder(models.Model):
         "res.partner",
         "Tax Address",
         readonly=True,
-        states={"draft": [("readonly", False)]},
         compute="_compute_tax_address_id",
         store=True,
     )
@@ -242,7 +244,7 @@ class SaleOrder(models.Model):
                     return addr.button_avatax_validate_address()
         if avatax_config:
             self.avalara_compute_taxes()
-        return super(SaleOrder, self).action_confirm()
+        return super().action_confirm()
 
     @api.onchange(
         "order_line",
@@ -290,7 +292,7 @@ class SaleOrder(models.Model):
         return sales
 
     def write(self, vals):
-        result = super(SaleOrder, self).write(vals)
+        result = super().write(vals)
         avatax_config = self.env.company.get_avatax_config_company()
         for record in self:
             if (
