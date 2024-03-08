@@ -369,7 +369,7 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! source digest: sha256:6cbe395a5d4413ae63a00153a40cde4bf489cf20c51efe84a170586127457e8c
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Production/Stable" src="https://img.shields.io/badge/maturity-Production%2FStable-green.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/account-fiscal-rule/tree/16.0/account_avatax_sale_oca"><img alt="OCA/account-fiscal-rule" src="https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/account-fiscal-rule-16-0/account-fiscal-rule-16-0-account_avatax_sale_oca"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&amp;target_branch=16.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Production/Stable" src="https://img.shields.io/badge/maturity-Production%2FStable-green.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/account-fiscal-rule/tree/17.0/account_avatax_sale_oca"><img alt="OCA/account-fiscal-rule" src="https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/account-fiscal-rule-17-0/account-fiscal-rule-17-0-account_avatax_sale_oca"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&amp;target_branch=17.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
 <p>This module is a component of the Avatax Integration with odoo app.
 Please refer to the corresponding documentation.</p>
 <p><strong>Table of contents</strong></p>
@@ -387,12 +387,14 @@ Please refer to the corresponding documentation.</p>
 </div>
 <div class="section" id="usage">
 <h1><a class="toc-backref" href="#toc-entry-1">Usage</a></h1>
-<p>The AvaTax module is integrated into Sales Orders and allows computation of taxes.
-Sales order transactions do not appear in the in the AvaTax interface.</p>
-<p>The information placed in the sales order will automatically pass to the invoice
-on the Avalara server and can be viewed in the AvaTax control panel.</p>
-<p>Discounts are handled when they are enabled in Odoo’s settings.
-They will be reported as a net deduction on the line item cost.</p>
+<p>The AvaTax module is integrated into Sales Orders and allows computation
+of taxes. Sales order transactions do not appear in the in the AvaTax
+interface.</p>
+<p>The information placed in the sales order will automatically pass to the
+invoice on the Avalara server and can be viewed in the AvaTax control
+panel.</p>
+<p>Discounts are handled when they are enabled in Odoo’s settings. They
+will be reported as a net deduction on the line item cost.</p>
 <p>Create New Sales Order</p>
 <ul class="simple">
 <li>Navigate to: Sales &gt;&gt; Orders &gt;&gt; Orders</li>
@@ -400,40 +402,42 @@ They will be reported as a net deduction on the line item cost.</p>
 </ul>
 <p>Compute Taxes with AvaTax</p>
 <ul class="simple">
-<li>The module will calculate tax when the sales order is confirmed,
-or by navigating to Action &gt;&gt; Update taxes with Avatax.
-At this step, the sales order will retrieve the tax amount from Avalara
-but will not report the transaction to the AvaTax dashboard.
-Only invoice, refund, and payment activity are reported to the dashboard.</li>
-<li>The module will check if there is a selected warehouse
-and will automatically determine the address of the warehouse
-and the origin location. If no address is assigned to the warehouse
-the module will automatically use the address of the company as its origin.
-Location code will automatically populate with the warehouse code
-but can be modified if needed.</li>
-<li>Hide Exemption &amp; Tax Based on shipping address – this will provide this
-feature support at sale order level.</li>
+<li>The module will calculate tax when the sales order is confirmed, or
+by navigating to Action &gt;&gt; Update taxes with Avatax. At this step,
+the sales order will retrieve the tax amount from Avalara but will
+not report the transaction to the AvaTax dashboard. Only invoice,
+refund, and payment activity are reported to the dashboard.</li>
+<li>The module will check if there is a selected warehouse and will
+automatically determine the address of the warehouse and the origin
+location. If no address is assigned to the warehouse the module will
+automatically use the address of the company as its origin. Location
+code will automatically populate with the warehouse code but can be
+modified if needed.</li>
+<li>Hide Exemption &amp; Tax Based on shipping address – this will provide
+this feature support at sale order level.</li>
 </ul>
 <p>Tax Exemption Status</p>
 <ul class="simple">
 <li>Tax exemption status can be defined on Contacts.</li>
 <li>In a multi-company environment, the exemption status is defined per
 Company, since each individual company is required to secure the
-exemption certificates to claim for exemption application,
-and this may not be the case for all Companies.</li>
-<li>If the customer is tax exempt, in the “Avatax” tab, check the “Is Tax Exempt” checkbox.
-When checked, the exemption details can be provided.
-The Exemption Code is the type of exemption,
-and the Exemption Number is an identification number to use on the customer’s State.</li>
-<li>This exemption status will only be applied for delivery addresses
-in the State matching the State of the exemption address.
-The same customer can have exemptiions on several states.
-For this use additional Contact/Addresses for those states,
-and enter the exempention details there.</li>
-<li>To make this data management simpler, is it possible to set the customer as exempt
-country wide, using the corresponding checkbox. In this case the exemption status will
-be used for delivery addresses in any state. Using this option has compliance risks, so
-plase use it with care.</li>
+exemption certificates to claim for exemption application, and this
+may not be the case for all Companies.</li>
+<li>If the customer is tax exempt, in the “Avatax” tab, check the “Is Tax
+Exempt” checkbox. When checked, the exemption details can be
+provided. The Exemption Code is the type of exemption, and the
+Exemption Number is an identification number to use on the customer’s
+State.</li>
+<li>This exemption status will only be applied for delivery addresses in
+the State matching the State of the exemption address. The same
+customer can have exemptiions on several states. For this use
+additional Contact/Addresses for those states, and enter the
+exempention details there.</li>
+<li>To make this data management simpler, is it possible to set the
+customer as exempt country wide, using the corresponding checkbox. In
+this case the exemption status will be used for delivery addresses in
+any state. Using this option has compliance risks, so plase use it
+with care.</li>
 </ul>
 </div>
 <div class="section" id="bug-tracker">
@@ -441,7 +445,7 @@ plase use it with care.</li>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/account-fiscal-rule/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-<a class="reference external" href="https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_avatax_sale_oca%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<a class="reference external" href="https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_avatax_sale_oca%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
@@ -487,7 +491,7 @@ mission is to support the collaborative development of Odoo features and
 promote its widespread use.</p>
 <p>Current <a class="reference external" href="https://odoo-community.org/page/maintainer-role">maintainer</a>:</p>
 <p><a class="reference external image-reference" href="https://github.com/dreispt"><img alt="dreispt" src="https://github.com/dreispt.png?size=40px" /></a></p>
-<p>This module is part of the <a class="reference external" href="https://github.com/OCA/account-fiscal-rule/tree/16.0/account_avatax_sale_oca">OCA/account-fiscal-rule</a> project on GitHub.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/account-fiscal-rule/tree/17.0/account_avatax_sale_oca">OCA/account-fiscal-rule</a> project on GitHub.</p>
 <p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
 </div>
 </div>

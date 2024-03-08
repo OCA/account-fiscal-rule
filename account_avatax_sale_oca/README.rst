@@ -17,13 +17,13 @@ Avalara Avatax Certified Connector for Sales Orders
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-fiscal-rule/tree/16.0/account_avatax_sale_oca
+    :target: https://github.com/OCA/account-fiscal-rule/tree/17.0/account_avatax_sale_oca
     :alt: OCA/account-fiscal-rule
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-16-0/account-fiscal-rule-16-0-account_avatax_sale_oca
+    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-17-0/account-fiscal-rule-17-0-account_avatax_sale_oca
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -39,64 +39,60 @@ Please refer to the corresponding documentation.
 Usage
 =====
 
-The AvaTax module is integrated into Sales Orders and allows computation of taxes.
-Sales order transactions do not appear in the in the AvaTax interface.
+The AvaTax module is integrated into Sales Orders and allows computation
+of taxes. Sales order transactions do not appear in the in the AvaTax
+interface.
 
-The information placed in the sales order will automatically pass to the invoice
-on the Avalara server and can be viewed in the AvaTax control panel.
+The information placed in the sales order will automatically pass to the
+invoice on the Avalara server and can be viewed in the AvaTax control
+panel.
 
-Discounts are handled when they are enabled in Odoo's settings.
-They will be reported as a net deduction on the line item cost.
+Discounts are handled when they are enabled in Odoo's settings. They
+will be reported as a net deduction on the line item cost.
 
 Create New Sales Order
 
-- Navigate to: Sales >> Orders >> Orders
-
-- Click Create button
+-  Navigate to: Sales >> Orders >> Orders
+-  Click Create button
 
 Compute Taxes with AvaTax
 
-- The module will calculate tax when the sales order is confirmed,
-  or by navigating to Action >> Update taxes with Avatax.
-  At this step, the sales order will retrieve the tax amount from Avalara
-  but will not report the transaction to the AvaTax dashboard.
-  Only invoice, refund, and payment activity are reported to the dashboard.
-
-- The module will check if there is a selected warehouse
-  and will automatically determine the address of the warehouse
-  and the origin location. If no address is assigned to the warehouse
-  the module will automatically use the address of the company as its origin.
-  Location code will automatically populate with the warehouse code
-  but can be modified if needed.
-
-- Hide Exemption & Tax Based on shipping address -- this will provide this
-  feature support at sale order level.
-
+-  The module will calculate tax when the sales order is confirmed, or
+   by navigating to Action >> Update taxes with Avatax. At this step,
+   the sales order will retrieve the tax amount from Avalara but will
+   not report the transaction to the AvaTax dashboard. Only invoice,
+   refund, and payment activity are reported to the dashboard.
+-  The module will check if there is a selected warehouse and will
+   automatically determine the address of the warehouse and the origin
+   location. If no address is assigned to the warehouse the module will
+   automatically use the address of the company as its origin. Location
+   code will automatically populate with the warehouse code but can be
+   modified if needed.
+-  Hide Exemption & Tax Based on shipping address -- this will provide
+   this feature support at sale order level.
 
 Tax Exemption Status
 
-- Tax exemption status can be defined on Contacts.
-
-- In a multi-company environment, the exemption status is defined per
-  Company, since each individual company is required to secure the
-  exemption certificates to claim for exemption application,
-  and this may not be the case for all Companies.
-
-- If the customer is tax exempt, in the "Avatax" tab, check the "Is Tax Exempt" checkbox.
-  When checked, the exemption details can be provided.
-  The Exemption Code is the type of exemption,
-  and the Exemption Number is an identification number to use on the customer's State.
-
-- This exemption status will only be applied for delivery addresses
-  in the State matching the State of the exemption address.
-  The same customer can have exemptiions on several states.
-  For this use additional Contact/Addresses for those states,
-  and enter the exempention details there.
-
-- To make this data management simpler, is it possible to set the customer as exempt
-  country wide, using the corresponding checkbox. In this case the exemption status will
-  be used for delivery addresses in any state. Using this option has compliance risks, so
-  plase use it with care.
+-  Tax exemption status can be defined on Contacts.
+-  In a multi-company environment, the exemption status is defined per
+   Company, since each individual company is required to secure the
+   exemption certificates to claim for exemption application, and this
+   may not be the case for all Companies.
+-  If the customer is tax exempt, in the "Avatax" tab, check the "Is Tax
+   Exempt" checkbox. When checked, the exemption details can be
+   provided. The Exemption Code is the type of exemption, and the
+   Exemption Number is an identification number to use on the customer's
+   State.
+-  This exemption status will only be applied for delivery addresses in
+   the State matching the State of the exemption address. The same
+   customer can have exemptiions on several states. For this use
+   additional Contact/Addresses for those states, and enter the
+   exempention details there.
+-  To make this data management simpler, is it possible to set the
+   customer as exempt country wide, using the corresponding checkbox. In
+   this case the exemption status will be used for delivery addresses in
+   any state. Using this option has compliance risks, so plase use it
+   with care.
 
 Bug Tracker
 ===========
@@ -104,7 +100,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-fiscal-rule/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_avatax_sale_oca%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_avatax_sale_oca%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -112,37 +108,36 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Open Source Integrators
 * Fabrice Henrion
 * Sodexis
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Odoo SA
+-  Odoo SA
 
-  * Fabrice Henrion
+   -  Fabrice Henrion
 
-* Open Source Integrators (https://opensourceintegrators.com)
+-  Open Source Integrators (https://opensourceintegrators.com)
 
-  * Daniel Reis <dreis@opensourceintegrators.com>
-  * Bhavesh Odedra <bodedra@opensourceintegrators.com>
-  * Sandip Mangukiya <smangukiya@opensourceintegrators.com>
-  * Nikul Chaudhary <nchaudhary@opensourceintegrators.com>
+   -  Daniel Reis <dreis@opensourceintegrators.com>
+   -  Bhavesh Odedra <bodedra@opensourceintegrators.com>
+   -  Sandip Mangukiya <smangukiya@opensourceintegrators.com>
+   -  Nikul Chaudhary <nchaudhary@opensourceintegrators.com>
 
+-  Serpent CS
 
-* Serpent CS
+   -  Murtuza Saleh
 
-  * Murtuza Saleh
+-  Sodexis
 
-* Sodexis
-
-  * Atchuthan Ubendran
+   -  Atchuthan Ubendran
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -162,6 +157,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-dreispt| 
 
-This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/16.0/account_avatax_sale_oca>`_ project on GitHub.
+This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/17.0/account_avatax_sale_oca>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
