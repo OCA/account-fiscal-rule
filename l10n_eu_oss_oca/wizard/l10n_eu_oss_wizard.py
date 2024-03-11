@@ -125,7 +125,7 @@ class L10nEuOssWizard(models.TransientModel):
                 tax_id.refund_repartition_line_ids
             ),
             "type_tax_use": "sale",
-            "description": "EU-OSS-VAT-{}-{}".format(country_id.code, rate),
+            "description": f"EU-OSS-VAT-{country_id.code}-{rate}",
             "oss_country_id": country_id.id,
             "company_id": self.company_id.id,
             "price_include": self.price_include_tax,
