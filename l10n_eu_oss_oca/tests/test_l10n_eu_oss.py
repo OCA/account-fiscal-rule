@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase
 class TestL10nEuOss(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestL10nEuOss, cls).setUpClass()
+        super().setUpClass()
         # MODELS
         cls.oss_wizard = cls.env["l10n.eu.oss.wizard"]
         cls.res_country = cls.env["res.country"]
@@ -20,6 +20,14 @@ class TestL10nEuOss(TransactionCase):
         cls.oss_tax_rate_fr = cls.env.ref("l10n_eu_oss_oca.oss_eu_rate_fr")
         # Country
         cls.country_fr = cls.env.ref("base.fr")
+
+        tax_groups = cls.env["account.tax.group"].create(
+            {
+                "name": "TEST TAX",
+                "country_id": cls.country_fr.id,
+                "company_id": cls.company_main.id,
+            }
+        )
         # Sale Taxes
         tax_vals = {
             "name": "general tax",
@@ -28,6 +36,7 @@ class TestL10nEuOss(TransactionCase):
             "amount_type": "percent",
             "company_id": cls.company_main.id,
             "country_id": cls.country_fr.id,
+            "tax_group_id": tax_groups and tax_groups.id,
         }
         cls.general_tax = cls.account_tax.create(tax_vals)
         tax_vals.update({"name": "reduced tax", "amount": 10.0})
