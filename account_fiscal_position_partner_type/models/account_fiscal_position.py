@@ -15,7 +15,7 @@ class AccountFiscalPosition(models.Model):
     )
 
     @api.model
-    def search(self, domain, offset=0, limit=None, order=None, count=False):
+    def search(self, domain, offset=0, limit=None, order=None):
         if self.env.context.get("fiscal_position_type"):
             domain = expression.AND(
                 (
@@ -29,9 +29,7 @@ class AccountFiscalPosition(models.Model):
                     ],
                 )
             )
-        return super().search(
-            domain, offset=offset, limit=limit, order=order, count=count
-        )
+        return super().search(domain, offset=offset, limit=limit, order=order)
 
     @api.model
     def _get_fiscal_position(self, partner, delivery=None):
