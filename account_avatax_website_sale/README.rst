@@ -71,6 +71,7 @@ Contributors
 
    -  Daniel Reis <dreis@opensourceintegrators.com>
    -  Bhavesh Odedra <bodedra@opensourceintegrators.com>
+   -  Nikul Chaudhary <nchaudhary@opensourceintegrators.com>
 
 -  Serpent CS
 
