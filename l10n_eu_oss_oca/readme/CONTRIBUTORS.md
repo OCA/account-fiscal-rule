@@ -11,3 +11,6 @@
 
   - Luis J. Salvatierra
   - Aritz Olea
+
+- Open Source Integrators (<https://opensourceintegrators.com>)
+  - Nikul Chaudhary \<<nchaudhary@opensourceintegrators.com>\>

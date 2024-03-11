@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <!--
     Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
@@ -9,26 +8,23 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="account.res_config_settings_view_form" />
         <field name="arch" type="xml">
-            <div id="eu_service" position="after">
-                <div class="col-12 col-lg-6 o_setting_box" id="l10n_eu_oss_oca">
-                    <div class="o_setting_left_pane" />
-                    <div class="o_setting_right_pane">
-                        <span class="o_form_label">EU OSS OCA</span>
-                        <div class="text-muted">
-                            Apply EU taxes regarding OSS
-                        </div>
-                        <div class="mt8">
+            <setting id="eu_service" position="after">
+                <setting
+                    id="l10n_eu_oss_oca"
+                    string="EU OSS OCA"
+                    help="Apply EU taxes regarding OSS"
+                >
+                    <div class="mt8">
                             <button
-                                name="%(l10n_eu_oss_oca_wizard_action)d"
-                                icon="fa-arrow-right"
-                                type="action"
-                                string="Add new taxes"
-                                class="btn-link"
-                            />
+                            name="%(l10n_eu_oss_oca_wizard_action)d"
+                            icon="fa-arrow-right"
+                            type="action"
+                            string="Add new taxes"
+                            class="btn-link"
+                        />
                         </div>
-                    </div>
-                </div>
-            </div>
+                </setting>
+            </setting>
         </field>
     </record>
 </odoo>
