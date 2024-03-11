@@ -17,20 +17,23 @@ L10n EU OSS OCA
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-fiscal-rule/tree/16.0/l10n_eu_oss_oca
+    :target: https://github.com/OCA/account-fiscal-rule/tree/17.0/l10n_eu_oss_oca
     :alt: OCA/account-fiscal-rule
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-16-0/account-fiscal-rule-16-0-l10n_eu_oss_oca
+    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-17-0/account-fiscal-rule-17-0-l10n_eu_oss_oca
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module has been created to help with the tax mapping according to the EU One-Stop-Shop law, that concerns many companies that carry out distance sales.
+This module has been created to help with the tax mapping according to
+the EU One-Stop-Shop law, that concerns many companies that carry out
+distance sales.
 
-EU taxes have been checked in <https://ec.europa.eu/taxation_customs/tedb/vatSearchForm.html>
+EU taxes have been checked in
+<https://ec.europa.eu/taxation_customs/tedb/vatSearchForm.html>
 
 **Table of contents**
 
@@ -42,47 +45,56 @@ Configuration
 
 To configure this module, you need to:
 
-#. Go to *Invoicing > Configuration > Settings > Taxes*.
-#. You can see that user can choose *Add new taxes* for applying EU taxes regarding OSS.
-#. Select the company where you want to add these new taxes.
-#. Select the EU countries where you can send your goods.
-#. Select if you want these new taxes to be configured as included in price.
-#. Select the general, reduced, super reduced and second super reduced taxes according your accounting plan.
-#. Remember that you shouldn't configure unexisting taxes for your accounting plan.
-#. Click *Create Fiscal Positions and Taxes* button to continue.
-#. According your configuration, new taxes and fiscal positions will be created.
+1. Go to *Invoicing > Configuration > Settings > Taxes*.
+2. You can see that user can choose *Add new taxes* for applying EU
+   taxes regarding OSS.
+3. Select the company where you want to add these new taxes.
+4. Select the EU countries where you can send your goods.
+5. Select if you want these new taxes to be configured as included in
+   price.
+6. Select the general, reduced, super reduced and second super reduced
+   taxes according your accounting plan.
+7. Remember that you shouldn't configure unexisting taxes for your
+   accounting plan.
+8. Click *Create Fiscal Positions and Taxes* button to continue.
+9. According your configuration, new taxes and fiscal positions will be
+   created.
 
-**NOTE**: You should use account_fiscal_position_partner_type module configuration for making the workflow easier.
+**NOTE**: You should use account_fiscal_position_partner_type module
+configuration for making the workflow easier.
 
 Usage
 =====
 
 After the corresponding configuration of this module:
 
-#. Create a new partner and assign an EU country (different from the one set in your company).
-#. Check that this new partner has been configured as a *Customer* in *Fiscal Position Type* field.
-#. Create a new product and set its taxes.
-#. Create a new Quotation for the customer and add the new product in a sale order line.
-#. User will see that taxes will be set according the delivery address country taxation.
-#. You can create directly an invoice without starting from a SO and the pertinent taxes will be applied as well.
+1. Create a new partner and assign an EU country (different from the one
+   set in your company).
+2. Check that this new partner has been configured as a *Customer* in
+   *Fiscal Position Type* field.
+3. Create a new product and set its taxes.
+4. Create a new Quotation for the customer and add the new product in a
+   sale order line.
+5. User will see that taxes will be set according the delivery address
+   country taxation.
+6. You can create directly an invoice without starting from a SO and the
+   pertinent taxes will be applied as well.
 
 Known issues / Roadmap
 ======================
 
-#. This module doesn't take into account if one or more products
-   have different type of taxes in the destination contry.
-
-#. There are some countries (for example Spain) that have different taxes
-   depending on the region (Canary islands).
-   These use cases haven't been considered.
-
-#. There are some countries (for example Cyprus) that have
-   uncommon reduced taxes, depending on the typology of the sold product.
-   In Cyprus, it happens with *Supply of goods and services
-   of a kind normally intended for use in agricultural production
-   but excluding capital goods such as machinery or buildings*
-   where an 8% of VAT has to be applied instead of the common reduced type.
-   These use cases haven't been considered.
+1. This module doesn't take into account if one or more products have
+   different type of taxes in the destination contry.
+2. There are some countries (for example Spain) that have different
+   taxes depending on the region (Canary islands). These use cases
+   haven't been considered.
+3. There are some countries (for example Cyprus) that have uncommon
+   reduced taxes, depending on the typology of the sold product. In
+   Cyprus, it happens with *Supply of goods and services of a kind
+   normally intended for use in agricultural production but excluding
+   capital goods such as machinery or buildings* where an 8% of VAT has
+   to be applied instead of the common reduced type. These use cases
+   haven't been considered.
 
 Bug Tracker
 ===========
@@ -90,7 +102,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-fiscal-rule/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20l10n_eu_oss_oca%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20l10n_eu_oss_oca%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -98,29 +110,29 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Sygel Technology
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Sygel <https://www.sygel.es>`_:
+-  `Sygel <https://www.sygel.es>`__:
 
-    * Harald Panten
-    * Valentin Vinagre
+      -  Harald Panten
+      -  Valentin Vinagre
 
-* `Tecnativa <https://www.tecnativa.com>`_:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-    * Pedro M. Baeza
+      -  Pedro M. Baeza
 
-* `Factor Libre <https://factorlibre.com>`_:
+-  `Factor Libre <https://factorlibre.com>`__:
 
-  * Luis J. Salvatierra
-  * Aritz Olea
+   -  Luis J. Salvatierra
+   -  Aritz Olea
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -132,6 +144,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/16.0/l10n_eu_oss_oca>`_ project on GitHub.
+This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/17.0/l10n_eu_oss_oca>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
