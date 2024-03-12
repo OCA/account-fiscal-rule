@@ -14,9 +14,11 @@ class AccountProductFiscalClassificationTemplate(models.Model):
 
     description = fields.Text()
 
-    chart_template_id = fields.Many2one(
-        comodel_name="account.chart.template",
-        string="Chart Template",
+    chart_template_id = fields.Selection(
+        string="Chart of Accounts",
+        selection=lambda self: self.env[
+            "account.chart.template"
+        ]._select_chart_template(),
         required=True,
     )
 
@@ -27,27 +29,21 @@ class AccountProductFiscalClassificationTemplate(models.Model):
     )
 
     purchase_tax_ids = fields.Many2many(
-        comodel_name="account.tax.template",
+        comodel_name="account.tax",
         relation="fiscal_classification_template_purchase_tax_rel",
         column1="fiscal_classification_id",
         column2="tax_id",
         string="Purchase Taxes",
-        domain="["
-        "('type_tax_use', 'in', ['purchase', 'all']),"
-        "('chart_template_id', '=', chart_template_id),"
-        "]",
+        domain="[('type_tax_use', 'in', ['purchase', 'all'])]",
     )
 
     sale_tax_ids = fields.Many2many(
-        comodel_name="account.tax.template",
+        comodel_name="account.tax",
         relation="fiscal_classification_template_sale_tax_rel",
         column1="fiscal_classification_id",
         column2="tax_id",
         string="Sale Taxes",
-        domain="["
-        "('type_tax_use', 'in', ['sale', 'all']),"
-        "('chart_template_id', '=', chart_template_id),"
-        "]",
+        domain="[('type_tax_use', 'in', ['sale', 'all'])]",
     )
 
     def _prepare_fiscal_classification(self, company, taxes_ref):

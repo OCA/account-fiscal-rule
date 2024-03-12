@@ -10,7 +10,7 @@
         model="account.product.fiscal.classification.template"
     >
         <field name="name">Demo Fiscal Classification Template</field>
-        <field name="chart_template_id" ref="chart_template" />
+        <field name="chart_template_id">generic_coa</field>
         <field
             name="purchase_tax_ids"
             eval="[(6, 0, [ref('account_tax_template_purchase')])]"

@@ -130,6 +130,10 @@ Contributors
 
 -  Danimar RIBEIRO
 
+-  Open Source Integrators (https://opensourceintegrators.com)
+
+   -  Nikul Chaudhary <nchaudhary@opensourceintegrators.com>
+
 Maintainers
 -----------
 

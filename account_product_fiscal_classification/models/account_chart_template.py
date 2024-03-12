@@ -5,7 +5,7 @@
 from odoo import fields, models
 
 
-class AccountChartTemplate(models.Model):
+class AccountChartTemplate(models.AbstractModel):
     _inherit = "account.chart.template"
 
     classification_template_ids = fields.One2many(

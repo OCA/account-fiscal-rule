@@ -7,3 +7,7 @@
   > - Renato Lima \<<renato.lima@akretion.com>\>
 
 - Danimar RIBEIRO
+
+- Open Source Integrators (<https://opensourceintegrators.com>)
+  - Nikul Chaudhary \<<nchaudhary@opensourceintegrators.com>\>
+

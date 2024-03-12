@@ -4,13 +4,11 @@
 
 import logging
 
-from odoo import SUPERUSER_ID, api
-
 _logger = logging.getLogger(__name__)
 
 
-def create_fiscal_classification_from_product_template(cr, registry):
-    env = api.Environment(cr, SUPERUSER_ID, {})
+def create_fiscal_classification_from_product_template(env):
+    # env = api.Environment(cr, SUPERUSER_ID, {})
     AccountTax = env["account.tax"]
     AccountProductFiscalClassification = env["account.product.fiscal.classification"]
     template_values = (

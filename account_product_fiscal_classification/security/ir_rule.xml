@@ -4,7 +4,7 @@
     @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
-<odoo>
+<odoo noupdate="1">
     <record id="rule_account_product_fiscal_classification" model="ir.rule">
         <field name="name">Rule: Fiscal Classification</field>
         <field name="model_id" ref="model_account_product_fiscal_classification" />

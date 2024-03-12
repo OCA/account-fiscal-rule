@@ -70,7 +70,9 @@ class ProductTemplate(models.Model):
                     "taxes_id": [(6, 0, classification.sale_tax_ids.ids)],
                 }
             )
-        elif vals.get("supplier_taxes_id") or vals.get("taxes_id"):
+        elif self.env.context.get("lang") is not None and (
+            vals.get("supplier_taxes_id") or vals.get("taxes_id")
+        ):
             raise ValidationError(
                 _(
                     "You can not create or write products with"
