@@ -48,7 +48,7 @@ class WebsiteExemption(CustomerPortal):
         return domain
 
     def _prepare_portal_layout_values(self, exemption=None):
-        values = super(WebsiteExemption, self)._prepare_portal_layout_values()
+        values = super()._prepare_portal_layout_values()
         partner_counts = request.env["res.partner.exemption"].search_count(
             self._exemptions_domain()
         )

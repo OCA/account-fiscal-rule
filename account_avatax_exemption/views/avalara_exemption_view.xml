@@ -11,14 +11,14 @@
             <xpath expr="//field[@name='state']" position="before">
                 <button
                     string="Export Exemptions"
-                    states="draft"
+                    invisibl="state != 'draft'"
                     name="export_exemption"
                     type="object"
                     class="oe_highlight"
                 />
                 <button
                     name="cancel_exemption"
-                    states="progress,done"
+                    invisibl="state not in ['progress','done']"
                     string="Cancel"
                     class="oe_highlight"
                     type="object"
@@ -26,7 +26,7 @@
                 />
                 <button
                     name="enable_exemption"
-                    states="cancel"
+                    invisibl="state != 'cancel'"
                     string="Enable Exemptions"
                     class="oe_highlight"
                     type="object"
@@ -51,14 +51,14 @@
                 <header>
                     <button
                         string="Export Rules"
-                        states="draft"
+                        invisible="state != 'draft'"
                         name="export_exemption_rule"
                         type="object"
                         class="oe_highlight"
                     />
                     <button
                         name="cancel_exemption_rule"
-                        states="done"
+                        invisible="state != 'done'"
                         string="Cancel"
                         class="oe_highlight"
                         type="object"
@@ -66,7 +66,7 @@
                     />
                     <button
                         name="enable_exemption_rule"
-                        states="cancel"
+                        invisible="state != 'cancel'"
                         string="Enable Custom Rule"
                         class="oe_highlight"
                         type="object"
@@ -76,13 +76,13 @@
                         name="reset_to_draft"
                         string="Reset to Draft"
                         type="object"
-                        states="cancel"
+                        invisible="state != 'cancel'"
                     />
                     <button
                         name="cancel_exemption_rule_failed"
                         string="Cancel Failed Job"
                         type="object"
-                        states="progress"
+                        invisibl="state != 'progress'"
                         class="oe_highlight"
                         confirm="Are you sure you want to Cancel the Custom Rule?"
                     />
@@ -99,19 +99,22 @@
                             name="exemption_code_id"
                             options="{'no_create': True}"
                             domain="[('flag','=',True)]"
+                            readonly="state != 'draft'"
                         />
                         <field
                             name="state_id"
                             domain="[('avatax_nexus', '=', True)]"
                             required="1"
                             options="{'no_create': True}"
+                            readonly="state != 'draft'"
                         />
-                        <field name="avatax_tax_code" />
-                        <field name="is_all_juris" />
+                        <field name="avatax_tax_code" readonly="state != 'draft'" />
+                        <field name="is_all_juris" readonly="state != 'draft'" />
                         <field name="taxable" />
                         <field
                             name="avatax_rate"
-                            attrs="{'invisible': [('taxable','=',True)]}"
+                            invisible="taxable"
+                            readonly="state != 'draft'"
                         />
                         <field name="avatax_id" readonly="1" />
                     </group>
@@ -153,7 +156,7 @@
     <record id="exemption_reason_type_tree_view" model="ir.ui.view">
         <field name="name">res.partner.exemption.business.type.tree.view</field>
         <field name="model">res.partner.exemption.business.type</field>
-        <field name="type">form</field>
+        <field name="type">tree</field>
         <field
             name="inherit_id"
             ref="account_avatax_exemption_base.exemption_reason_type_tree_view"
