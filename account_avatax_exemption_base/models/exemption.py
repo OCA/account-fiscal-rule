@@ -77,30 +77,12 @@ class ResPartnerExemption(models.Model):
         "mail.activity.mixin",
     ]
 
-    partner_id = fields.Many2one(
-        "res.partner",
-        required=True,
-        index=True,
-        readonly=True,
-        states={"draft": [("readonly", False)]},
-    )
-    exemption_type = fields.Many2one(
-        "res.partner.exemption.type",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
-    )
-    # Fields already defined in Avatax Exemption Type, adding only readonly attrs
-    business_type = fields.Many2one(
-        string="Activity Type", readonly=True, states={"draft": [("readonly", False)]}
-    )
-    group_of_state = fields.Many2one(
-        readonly=True, states={"draft": [("readonly", False)]}
-    )
-    state_ids = fields.Many2many(readonly=True, states={"draft": [("readonly", False)]})
+    partner_id = fields.Many2one("res.partner", required=True, index=True)
+    exemption_type = fields.Many2one("res.partner.exemption.type")
+    group_of_state = fields.Many2one()
+    state_ids = fields.Many2many()
 
-    exemption_number = fields.Char(
-        readonly=True, states={"draft": [("readonly", False)]}
-    )
+    exemption_number = fields.Char()
     exemption_number_type = fields.Selection(
         [
             ("exemption_number/taxpayer_id", "Exemption Number/Taxpayer ID"),
@@ -109,21 +91,10 @@ class ResPartnerExemption(models.Model):
             ("fein", "FEIN"),
         ],
         default="exemption_number/taxpayer_id",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
-    effective_date = fields.Date(
-        default=lambda self: fields.Date.today(),
-        readonly=True,
-        states={"draft": [("readonly", False)]},
-    )
+    effective_date = fields.Date(default=lambda self: fields.Date.today())
     expiry_date = fields.Date()
-    exemption_line_ids = fields.One2many(
-        "res.partner.exemption.line",
-        "exemption_id",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
-    )
+    exemption_line_ids = fields.One2many("res.partner.exemption.line", "exemption_id")
     state = fields.Selection(
         [
             ("draft", "Draft"),
@@ -154,6 +125,18 @@ class ResPartnerExemption(models.Model):
                 name = f"{record.exemption_type.name} - {name}"
             res.append((record.id, name))
         return res
+
+    # TODO: Need to check, avalara.salestax not found and also field.
+    # @api.onchange("partner_id")
+    # def onchange_partner_id(self):
+    #     avalara_salestax = (
+    #         self.env["avalara.salestax"]
+    #         .sudo()
+    #         .search([("exemption_export", "=", True)], limit=1)
+    #     )
+    #     if avalara_salestax.use_commercial_entity:
+    #         self.partner_id = self.partner_id.commercial_partner_id.id
+    #         return {"domain": {"partner_id": [("parent_id", "=", False)]}}
 
     @api.onchange("exemption_type", "group_of_state")
     def onchange_exemption_type(self):

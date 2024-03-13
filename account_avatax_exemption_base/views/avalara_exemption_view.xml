@@ -24,7 +24,7 @@
         <field name="model">res.partner.group.state</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree name="Group of States">
+            <tree>
                 <field name="name" />
                 <field name="country_id" />
                 <field
@@ -69,7 +69,7 @@
         <field name="model">res.partner.exemption.type</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree name="Exemption Type">
+            <tree>
                 <field name="name" />
                 <field
                     name="state_ids"
@@ -105,7 +105,7 @@
         <field name="model">res.partner.exemption.business.type</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree name="Exemption Activity Type">
+            <tree>
                 <field name="name" />
                 <field name="avatax_id" />
             </tree>
@@ -138,34 +138,50 @@
                             name="partner_id"
                             options="{'always_reload': True}"
                             invisible="context.get('hide_partner', False)"
+                            readonly="state != 'draft'"
                         />
-                        <field name="exemption_type" />
+                        <field name="exemption_type" readonly="state != 'draft'" />
                         <field
                             name="business_type"
                             options="{'no_create': True, 'always_reload': True}"
                             required="1"
+                            readonly="state != 'draft'"
                         />
-                        <field name="group_of_state" />
+                        <field name="group_of_state" readonly="state != 'draft'" />
                         <field
                             name="state_ids"
                             widget="many2many_tags"
                             domain="[('avatax_nexus', '=', True)]"
                             options="{'no_create': True}"
+                            readonly="state != 'draft'"
                         />
-                        <field name="exemption_number" />
-                        <field name="exemption_number_type" required="1" />
-                        <field name="effective_date" required="1" />
+                        <field name="exemption_number" readonly="state != 'draft'" />
+                        <field
+                            name="exemption_number_type"
+                            required="1"
+                            readonly="state != 'draft'"
+                        />
+                        <field
+                            name="effective_date"
+                            required="1"
+                            readonly="state != 'draft'"
+                        />
+                        <!-- attrs="{'readonly': ['&amp;',('expiry_date','!=',False),('state','!=','draft'),'|',('expiry_date','!=',False)]}" -->
                         <field
                             name="expiry_date"
                             required="1"
-                            attrs="{'readonly': ['|','&amp;',('expiry_date','!=',False),('state','!=','draft'),('expiry_date','!=',False)]}"
+                            readonly="expiry_date != False and state != 'draft' or expiry_date != False"
                             force_save="1"
                         />
                     </group>
                     <notebook>
                         <page string="Exemption Lines">
-                            <field name="exemption_line_ids" nolabel="1">
-                                <tree name="Exemption Lines">
+                            <field
+                                name="exemption_line_ids"
+                                nolabel="1"
+                                readonly="state != 'draft'"
+                            >
+                                <tree>
                                     <field name="name" />
                                     <field
                                         name="state_id"
@@ -189,9 +205,10 @@
                                     </group>
                                     <group>
                                         <field name="add_exemption_number" />
+                                        <!-- attrs="{'invisible': [('add_exemption_number','=',False)]}" -->
                                         <field
                                             name="exemption_number"
-                                            attrs="{'invisible': [('add_exemption_number','=',False)]}"
+                                            invisible="not add_exemption_number"
                                         />
                                     </group>
                                 </form>
@@ -212,7 +229,7 @@
         <field name="model">res.partner.exemption</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree name="Exemption">
+            <tree>
                 <field
                     name="partner_id"
                     invisible="context.get('hide_partner', False)"
