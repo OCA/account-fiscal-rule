@@ -1,0 +1,39 @@
+<odoo>
+
+    <record id="view_account_position_form" model="ir.ui.view">
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='account_mapping']" position="after">
+                <page name="product_fiscal_rule" string="Product Fiscal Rules">
+                <group>
+                    <field
+                            name="fiscal_position_product_rule_ids"
+                            widget="one2many"
+                            nolabel="1"
+                        >
+                        <tree
+                                string="Product Fiscal Rules"
+                                editable="bottom"
+                                create="1"
+                                delete="1"
+                            >
+                            <field name="name" />
+                            <field name="product_tmpl_ids" widget="many2many_tags" />
+                            <field
+                                    name="product_category_ids"
+                                    widget="many2many_tags"
+                                />
+                            <field name="seller_tax_ids" widget="many2many_tags" />
+                            <field name="supplier_tax_ids" widget="many2many_tags" />
+                            <field name="account_income_id" />
+                            <field name="account_expense_id" />
+                        </tree>
+                    </field>
+                </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

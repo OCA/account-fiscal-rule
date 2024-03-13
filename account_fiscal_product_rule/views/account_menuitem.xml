@@ -1,0 +1,11 @@
+<odoo>
+
+    <menuitem
+        id="menu_action_account_product_fiscal_rule"
+        name="Product Fiscal Rules"
+        sequence="6"
+        parent="account.account_account_menu"
+        action="action_account_product_fiscal_rule"
+    />
+
+</odoo>
