@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_fiscal_position_rule_form" model="ir.ui.view">
+        <field name="name">account.fiscal.position.rule.form</field>
+        <field name="model">account.fiscal.position.rule</field>
+        <field name="arch" type="xml">
+            <form string="Fiscal Position Rule">
+                <sheet>
+                    <group>
+                        <group string="General" name="general" colspan="4">
+                            <field name="name" />
+                            <field name="description" />
+                        </group>
+                        <group string="Origin" name="origin" colspan="4">
+                            <field name="company_id" />
+                            <field name="from_country_group_id" />
+                            <field name="from_country" />
+                            <field name="from_state" />
+                        </group>
+                        <group string="Destination" name="destination">
+                            <group string="Invoice" name="invoice">
+                                <field name="to_invoice_country_group_id" />
+                                <field name="to_invoice_country" />
+                                <field name="to_invoice_state" />
+                            </group>
+                            <group string="Shipping" name="shipping">
+                                <field name="to_shipping_country_group_id" />
+                                <field name="to_shipping_country" />
+                                <field name="to_shipping_state" />
+                            </group>
+                        </group>
+                        <group string="Configuration" name="configuration" colspan="4">
+                            <field name="date_start" />
+                            <field name="date_end" />
+                            <field name="fiscal_position_id" />
+                            <field name="sequence" />
+                            <newline />
+                            <field name="use_sale" />
+                            <field name="use_invoice" />
+                            <field name="use_purchase" />
+                            <field name="use_picking" />
+                            <field name="vat_rule" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_account_fiscal_position_rule_tree" model="ir.ui.view">
+        <field name="name">account.fiscal.position.rule.tree</field>
+        <field name="model">account.fiscal.position.rule</field>
+        <field name="arch" type="xml">
+            <tree string="Fiscal Position Rule">
+                <field name="sequence" widget="handle" />
+                <field name="company_id" />
+                <field name="name" />
+                <field name="from_country_group_id" />
+                <field name="from_country" />
+                <field name="from_state" />
+                <field name="to_invoice_country_group_id" />
+                <field name="to_invoice_country" />
+                <field name="to_invoice_state" />
+                <field name="to_shipping_country_group_id" />
+                <field name="to_shipping_country" />
+                <field name="to_shipping_state" />
+                <field name="vat_rule" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_account_fiscal_position_rule_search" model="ir.ui.view">
+        <field name="name">account.fiscal.position.rule.search</field>
+        <field name="model">account.fiscal.position.rule</field>
+        <field eval="3" name="priority" />
+        <field name="arch" type="xml">
+            <search string="Fiscal Position Rule">
+                <group col="14" colspan="4">
+                    <filter
+                        icon="terp-gtk-jump-to-ltr"
+                        string="Use in Sale"
+                        name="use_sale"
+                        domain="[('use_sale','=',True)]"
+                        help="Used in Sales Orders"
+                    />
+                    <filter
+                        icon="terp-gtk-jump-to-ltr"
+                        string="Use in Invoice"
+                        name="use_invoice"
+                        domain="[('use_invoice','=',True)]"
+                        help="used in invoices"
+                    />
+                    <filter
+                        icon="terp-gtk-jump-to-ltr"
+                        string="Use in Picking"
+                        name="use_picking"
+                        domain="[('use_picking','=',True)]"
+                        help="used in Picking list"
+                    />
+                    <filter
+                        icon="terp-gtk-jump-to-rtl"
+                        string="Use in Purchase"
+                        name="use_purchase"
+                        domain="[('use_purchase','=',True)]"
+                        help="used in purchase"
+                    />
+                    <separator orientation="vertical" />
+                    <field name="name" />
+                    <field name="from_country" />
+                    <field name="from_state" />
+                    <field name="to_invoice_country" />
+                    <field name="to_invoice_state" />
+                </group>
+                <newline />
+            </search>
+        </field>
+    </record>
+    <record id="action_account_fiscal_position_rule_form" model="ir.actions.act_window">
+        <field name="name">Fiscal Position Rule</field>
+        <field name="res_model">account.fiscal.position.rule</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_action_account_fiscal_position_rule_form"
+        action="action_account_fiscal_position_rule_form"
+        parent="account.account_account_menu"
+        sequence="21"
+    />
+</odoo>

@@ -1,0 +1,426 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_fiscal_position_rule
+#
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-17 10:52+0000\n"
+"PO-Revision-Date: 2016-11-16 16:33+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
+"Language-Team: Russian (https://www.transifex.com/oca/teams/23907/ru/)\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule
+msgid "Account Fiscal Position Rule"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position_rule_template
+msgid "Account Fiscal Position Rule Template"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_wizard_account_fiscal_position_rule
+msgid "Account Fiscal Position Rule Wizard"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
+msgid "Cancel"
+msgstr "Отменена"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,help:account_fiscal_position_rule.field_account_fiscal_position_rule__vat_rule
+#: model:ir.model.fields,help:account_fiscal_position_rule.field_account_fiscal_position_rule_template__vat_rule
+msgid ""
+"Choose if the customer need to have the field VAT fill for using this fiscal "
+"position"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__company_id
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_wizard_account_fiscal_position_rule__company_id
+msgid "Company"
+msgstr "Компания"
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_form
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
+msgid "Configuration"
+msgstr "Настройка"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__from_country
+msgid "Country Form"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__from_country
+msgid "Country From"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__to_invoice_country
+msgid "Country To"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__from_country_group_id
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__from_country_group_id
+msgid "Country group from"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
+msgid "Create"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__create_uid
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__create_uid
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_wizard_account_fiscal_position_rule__create_uid
+msgid "Created by"
+msgstr "Создано"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__create_date
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__create_date
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_wizard_account_fiscal_position_rule__create_date
+msgid "Created on"
+msgstr "Создан"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__description
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__description
+msgid "Description"
+msgstr "Описание"
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_form
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
+msgid "Destination"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__to_shipping_country
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__to_shipping_country
+msgid "Destination Country"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__to_shipping_country_group_id
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__to_shipping_country_group_id
+msgid "Destination Country Group"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__to_shipping_state
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__to_shipping_state
+msgid "Destination State"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__display_name
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__display_name
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_wizard_account_fiscal_position_rule__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__date_end
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__date_end
+msgid "End Date"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,help:account_fiscal_position_rule.field_account_fiscal_position_rule__date_end
+#: model:ir.model.fields,help:account_fiscal_position_rule.field_account_fiscal_position_rule_template__date_end
+msgid "Ending date for this rule to be valid."
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_account_fiscal_position
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__fiscal_position_id
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__fiscal_position_id
+msgid "Fiscal Position"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.actions.act_window,name:account_fiscal_position_rule.action_account_fiscal_position_rule_form
+#: model:ir.ui.menu,name:account_fiscal_position_rule.menu_account_fiscal_position_rule_template
+#: model:ir.ui.menu,name:account_fiscal_position_rule.menu_action_account_fiscal_position_rule_form
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_form
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_tree
+msgid "Fiscal Position Rule"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position__fiscal_position_rule_count
+msgid "Fiscal Position Rule Count"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.actions.act_window,name:account_fiscal_position_rule.action_account_fiscal_position_rule_template_form
+#: model:ir.ui.menu,name:account_fiscal_position_rule.menu_action_account_fiscal_position_rule_template_form
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_tree
+msgid "Fiscal Position Rule Template"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position__fiscal_position_rule_ids
+msgid "Fiscal Position Rules"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_form
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
+msgid "General"
+msgstr "Общий"
+
+#. module: account_fiscal_position_rule
+#: model:ir.actions.act_window,name:account_fiscal_position_rule.action_wizard_account_fiscal_position_rule
+#: model:ir.ui.menu,name:account_fiscal_position_rule.menu_wizard_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
+msgid "Generate Fiscal Positions Rules from Templates"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__id
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__id
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_wizard_account_fiscal_position_rule__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_form
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
+msgid "Invoice"
+msgstr "Счет"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__to_invoice_country
+msgid "Invoice Country"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__to_invoice_country_group_id
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__to_invoice_country_group_id
+msgid "Invoice Country Group"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__to_invoice_state
+msgid "Invoice State"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model,name:account_fiscal_position_rule.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule____last_update
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template____last_update
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_wizard_account_fiscal_position_rule____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__write_uid
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__write_uid
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_wizard_account_fiscal_position_rule__write_uid
+msgid "Last Updated by"
+msgstr "Последний раз обновлено"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__write_date
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__write_date
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_wizard_account_fiscal_position_rule__write_date
+msgid "Last Updated on"
+msgstr "Последний раз обновлено"
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__name
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__name
+msgid "Name"
+msgstr "Название"
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_form
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
+msgid "Origin"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__sequence
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__sequence
+msgid "Priority"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_position_form
+msgid "Rules"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_form
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_form
+msgid "Shipping"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__date_start
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__date_start
+msgid "Start Date"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,help:account_fiscal_position_rule.field_account_fiscal_position_rule__date_start
+#: model:ir.model.fields,help:account_fiscal_position_rule.field_account_fiscal_position_rule_template__date_start
+msgid "Starting date for this rule to be valid."
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__from_state
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__from_state
+msgid "State From"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__to_invoice_state
+msgid "State To"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,help:account_fiscal_position_rule.field_account_fiscal_position_rule__sequence
+#: model:ir.model.fields,help:account_fiscal_position_rule.field_account_fiscal_position_rule_template__sequence
+msgid "The lowest number will be applied."
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
+msgid "This will automatically configure all fiscal position rules"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "Use in Invoice"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__use_invoice
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__use_invoice
+msgid "Use in Invoices"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__use_picking
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__use_picking
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "Use in Picking"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "Use in Purchase"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__use_purchase
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__use_purchase
+msgid "Use in Purchases"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "Use in Sale"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__use_sale
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__use_sale
+msgid "Use in Sales"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+msgid "Used in Sales Orders"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "Used in Sales orders"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule__vat_rule
+#: model:ir.model.fields,field_description:account_fiscal_position_rule.field_account_fiscal_position_rule_template__vat_rule
+msgid "VAT Rule"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields.selection,name:account_fiscal_position_rule.selection__account_fiscal_position_rule__vat_rule__with
+#: model:ir.model.fields.selection,name:account_fiscal_position_rule.selection__account_fiscal_position_rule_template__vat_rule__with
+msgid "With VAT number"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields.selection,name:account_fiscal_position_rule.selection__account_fiscal_position_rule__vat_rule__both
+#: model:ir.model.fields.selection,name:account_fiscal_position_rule.selection__account_fiscal_position_rule_template__vat_rule__both
+msgid "With or Without VAT number"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model:ir.model.fields.selection,name:account_fiscal_position_rule.selection__account_fiscal_position_rule__vat_rule__without
+#: model:ir.model.fields.selection,name:account_fiscal_position_rule.selection__account_fiscal_position_rule_template__vat_rule__without
+msgid "Without VAT number"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_wizard_account_fiscal_position_rule
+msgid "or"
+msgstr "или"
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+msgid "used in Picking list"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "used in Picking lists"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "used in invoices"
+msgstr ""
+
+#. module: account_fiscal_position_rule
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_search
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_rule.view_account_fiscal_position_rule_template_search
+msgid "used in purchase"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Company id"
+#~ msgstr "Компания"

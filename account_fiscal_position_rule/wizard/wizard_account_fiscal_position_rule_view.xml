@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_wizard_account_fiscal_position_rule" model="ir.ui.view">
+        <field name="name">Generate Fiscal Positions Rules from Templates</field>
+        <field name="model">wizard.account.fiscal.position.rule</field>
+        <field name="arch" type="xml">
+            <form string="Generate Fiscal Positions Rules from Templates">
+                <group
+                    string="This will automatically configure all fiscal position rules"
+                >
+                    <field name="company_id" />
+                </group>
+                <footer>
+                    <button
+                        name="action_create"
+                        string="Create"
+                        type="object"
+                        class="oe_highlight"
+                    /> or
+                    <button special="cancel" string="Cancel" class="oe_link" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record
+        id="action_wizard_account_fiscal_position_rule"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Generate Fiscal Positions Rules from Templates</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wizard.account.fiscal.position.rule</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        parent="menu_account_fiscal_position_rule_template"
+        action="action_wizard_account_fiscal_position_rule"
+        id="menu_wizard_fiscal_position_rule"
+    />
+</odoo>
