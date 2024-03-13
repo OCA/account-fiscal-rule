@@ -28,6 +28,11 @@
                     />
                     <button
                         type="object"
+                        name="import_tax_rules"
+                        string="Import Tax Rules"
+                    />
+                    <button
+                        type="object"
                         name="export_new_tax_items"
                         string="Export New TaxItems"
                     />
