@@ -147,14 +147,11 @@ class ResPartnerExemption(models.Model):
         res = []
         for record in self:
             if record.exemption_number:
-                name = "{} - {}".format(
-                    record.exemption_number,
-                    record.partner_id.display_name,
-                )
+                name = f"{record.exemption_number} - {record.partner_id.display_name}"
             else:
                 name = record.partner_id.display_name
             if record.exemption_type:
-                name = "{} - {}".format(record.exemption_type.name, name)
+                name = f"{record.exemption_type.name} - {name}"
             res.append((record.id, name))
         return res
 
