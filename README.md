@@ -31,7 +31,7 @@ addon | version | maintainers | summary
 [account_multi_vat](account_multi_vat/) | 14.0.1.0.1 | [![ThomasBinsfeld](https://github.com/ThomasBinsfeld.png?size=30px)](https://github.com/ThomasBinsfeld) | Allows setting multiple VAT numbers on any partner and select the right one depending on the fiscal position and delivery address of the invoice.
 [account_product_fiscal_classification](account_product_fiscal_classification/) | 14.0.1.0.1 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Simplify taxes management for products
 [account_product_fiscal_classification_test](account_product_fiscal_classification_test/) | 14.0.1.0.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | tests account_product_fiscal_classification module
-[l10n_eu_oss](l10n_eu_oss/) | 14.0.1.1.0 |  | L10n EU OSS
+[l10n_eu_oss](l10n_eu_oss/) | 14.0.1.2.0 |  | L10n EU OSS
 
 [//]: # (end addons)
 
