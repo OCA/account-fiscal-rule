@@ -1,18 +1,4 @@
 <odoo>
-    <record id="view_product_category_form_avatax_inherit" model="ir.ui.view">
-        <field name="name">product.category.form.avatax.inherit</field>
-        <field name="model">product.category</field>
-        <field name="type">form</field>
-        <field
-            name="inherit_id"
-            ref="account_avatax_oca.view_product_category_form_avatax_inherit"
-        />
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='tax_code_id']" position="attributes">
-                <attribute name="attrs">{}</attribute>
-            </xpath>
-        </field>
-    </record>
     <record id="product_product_normal_form_view_inherit" model="ir.ui.view">
         <field name="name">product.product.normal.form.view.inherit</field>
         <field name="model">product.product</field>

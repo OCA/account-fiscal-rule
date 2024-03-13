@@ -18,26 +18,16 @@ class ExemptionRule(models.Model):
         string="State",
     )
     exemption_code_id = fields.Many2one(
-        "exemption.code",
-        string="Entity Use Code",
-        required=True,
-        readonly=True,
-        states={"draft": [("readonly", False)]},
+        "exemption.code", string="Entity Use Code", required=True
     )
     state_id = fields.Many2one(
         "res.country.state",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         string="Region",
     )
     avatax_id = fields.Char("Avatax Rule ID", readonly=True, copy=False)
-    avatax_tax_code = fields.Many2one(
-        "product.tax.code", readonly=True, states={"draft": [("readonly", False)]}
-    )
-    is_all_juris = fields.Boolean(
-        default=True, readonly=True, states={"draft": [("readonly", False)]}
-    )
-    avatax_rate = fields.Float(readonly=True, states={"draft": [("readonly", False)]})
+    avatax_tax_code = fields.Many2one("product.tax.code")
+    is_all_juris = fields.Boolean(default=True)
+    avatax_rate = fields.Float()
     taxable = fields.Boolean()
 
     @api.constrains("avatax_rate")
@@ -172,6 +162,24 @@ class ExemptionCode(models.Model):
         return True
 
 
+class ResPartner(models.Model):
+    _inherit = "res.partner"
+
+    @api.model
+    def _search(self, domain, offset=0, limit=None, order=None, access_rights_uid=None):
+        context = dict(self._context)
+        if context.get("partner_exemption", False):
+            domain = domain or []
+            avalara_salestax = (
+                self.env["avalara.salestax"]
+                .sudo()
+                .search([("exemption_export", "=", True)], limit=1)
+            )
+            if avalara_salestax.use_commercial_entity:
+                domain += [("parent_id", "=", False)]
+        return super()._search(domain, offset, limit, order, access_rights_uid)
+
+
 class ResPartnerExemption(models.Model):
     _inherit = "res.partner.exemption"
 
@@ -180,6 +188,16 @@ class ResPartnerExemption(models.Model):
         string="Entity Use Code",
         readonly=True,
     )
+
+    @api.onchange("partner_id")
+    def onchange_partner_id(self):
+        avalara_salestax = (
+            self.env["avalara.salestax"]
+            .sudo()
+            .search([("exemption_export", "=", True)], limit=1)
+        )
+        if avalara_salestax.use_commercial_entity:
+            self.partner_id = self.partner_id.commercial_partner_id.id
 
     def search_exemption_line(self, avatax_id):
         exemption_line = (

@@ -35,7 +35,6 @@ class AvalaraSalestax(models.Model):
         invoice_date=None,
         reference_code=None,
         location_code=None,
-        avatax_line_override=None,
         is_override=None,
         currency_id=None,
         ignore_error=None,
@@ -58,7 +57,6 @@ class AvalaraSalestax(models.Model):
             invoice_date=invoice_date,
             reference_code=reference_code,
             location_code=location_code,
-            avatax_line_override=avatax_line_override,
             is_override=is_override,
             currency_id=currency_id,
             ignore_error=ignore_error,
@@ -363,8 +361,7 @@ class AvalaraSalestax(models.Model):
             "cap": 0,
             "threshold": 0,
             "effectiveDate": fields.Datetime.to_string(fields.Date.today()),
-            "description": "%s - %s - %s"
-            % (rule.state_id.avatax_name, rule.exemption_code_id.code, rule.name),
+            "description": f"{rule.state_id.avatax_name} - {rule.exemption_code_id.code} - {rule.name}",
             "country": rule.state_id.country_id.code,
             "region": rule.state_id.code,
             "stateFIPS": rule.state_id.avatax_code,
@@ -379,8 +376,7 @@ class AvalaraSalestax(models.Model):
         if "error" in result:
             error = result["error"]
             error_message = (
-                "Rule: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
-                % (
+                "Rule: {}\nCode: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
                     rule.name,
                     error.get("code", False),
                     error.get("message", False),
@@ -411,8 +407,7 @@ class AvalaraSalestax(models.Model):
         if "error" in result:
             error = result["error"]
             error_message = (
-                "Rule: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
-                % (
+                "Rule: {}\nCode: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
                     rule.name,
                     error.get("code", False),
                     error.get("message", False),
@@ -448,8 +443,7 @@ class AvalaraSalestax(models.Model):
         if "error" in result:
             error = result["error"]
             error_message = (
-                "Product: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
-                % (
+                "Product: {}\nCode: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
                     product.display_name,
                     error.get("code", False),
                     error.get("message", False),
@@ -481,8 +475,7 @@ class AvalaraSalestax(models.Model):
         if "error" in result:
             error = result["error"]
             error_message = (
-                "Product: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
-                % (
+                "Product: {}\nCode: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
                     product.display_name,
                     error.get("code", False),
                     error.get("message", False),
@@ -517,8 +510,7 @@ class AvalaraSalestax(models.Model):
         if "error" in result:
             error = result["error"]
             error_message = (
-                "Product: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
-                % (
+                "Product: {}\nCode: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
                     product.display_name,
                     error.get("code", False),
                     error.get("message", False),
@@ -562,8 +554,7 @@ class AvalaraSalestax(models.Model):
         if "error" in result:
             error = result["error"]
             error_message = (
-                "Partner: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
-                % (
+                "Partner: {}\nCode: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
                     partner.display_name,
                     error.get("code", False),
                     error.get("message", False),
@@ -623,8 +614,7 @@ class AvalaraSalestax(models.Model):
         if "error" in result:
             error = result["error"]
             error_message = (
-                "Exemption: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
-                % (
+                "Exemption: {}\nCode: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
                     exemption_line.display_name,
                     error.get("code", False),
                     error.get("message", False),
@@ -642,8 +632,7 @@ class AvalaraSalestax(models.Model):
         self.with_delay(
             priority=6,
             max_retries=2,
-            description="Link Customer %s with Exemption %s"
-            % (exemption_line.partner_id.display_name, exemption_line.name),
+            description=f"Link Customer {exemption_line.partner_id.display_name} with Exemption {exemption_line.name}",
         ).link_certificates_to_customer(exemption_line)
 
         return result
@@ -667,8 +656,7 @@ class AvalaraSalestax(models.Model):
         if "error" in result:
             error = result["error"]
             error_message = (
-                "Exemption: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
-                % (
+                "Exemption: {}\nCode: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
                     exemption_line.display_name,
                     error.get("code", False),
                     error.get("message", False),
@@ -710,8 +698,7 @@ class AvalaraSalestax(models.Model):
         if "error" in result1:
             error = result1["error"]
             error_message = (
-                "Exemption: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
-                % (
+                "Exemption: {}\nCode: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
                     exemption_line.display_name,
                     error.get("code", False),
                     error.get("message", False),
@@ -729,8 +716,7 @@ class AvalaraSalestax(models.Model):
         if "error" in result2:
             error = result2["error"]
             error_message = (
-                "Exemption: %s\nCode: %s\nMessage: %s\nTarget: %s\nDetails;%s"
-                % (
+                "Exemption: {}\nCode: {}\nMessage: {}\nTarget: {}\nDetails;{}".format(
                     exemption_line.display_name,
                     error.get("code", False),
                     error.get("message", False),
