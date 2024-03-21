@@ -1,9 +1,10 @@
 [project]
 name = "odoo-addons-oca-account-fiscal-rule"
-version = "17.0.20240321.0"
+version = "17.0.20240321.1"
 dependencies = [
     "odoo-addon-account_fiscal_position_autodetect_optional_vies>=17.0dev,<17.1dev",
     "odoo-addon-account_fiscal_position_partner_type>=17.0dev,<17.1dev",
+    "odoo-addon-l10n_eu_oss_oca>=17.0dev,<17.1dev",
 ]
 classifiers=[
     "Programming Language :: Python",
