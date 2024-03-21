@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_fiscal_position_autodetect_optional_vies](account_fiscal_position_autodetect_optional_vies/) | 17.0.1.0.0 | [![victoralmau](https://github.com/victoralmau.png?size=30px)](https://github.com/victoralmau) | Account Fiscal Position Autodetect optional VIES
+[account_fiscal_position_partner_type](account_fiscal_position_partner_type/) | 17.0.1.0.0 |  | Account Fiscal Position Partner Type
 
 [//]: # (end addons)
 
