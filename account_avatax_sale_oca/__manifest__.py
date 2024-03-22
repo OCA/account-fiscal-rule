@@ -10,7 +10,6 @@
     "depends": ["account_avatax_oca", "sale_stock"],
     "data": [
         "views/sale_order_view.xml",
-        "views/partner_view.xml",
         "views/avalara_salestax_view.xml",
     ],
     "auto_install": True,
