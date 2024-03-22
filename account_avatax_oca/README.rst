@@ -28,8 +28,7 @@ Avalara Avatax Certified Connector
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-|Sales Tax Certification| |Refunds Certification| |Address Validation
-Certification|
+**AVALARA CERTIFICATION PENDING!**
 
 Odoo provides integration with AvaTax, a tax solution software by
 Avalara which includes sales tax calculation for all US states and
@@ -85,13 +84,6 @@ Avalara certified connector:
    4. | Confirm that your configurations were kept safe, in particular:
       | Avatax API, "Avatax" default Fiscal Position, and "Avatax"
         default Tax record.
-
-.. |Sales Tax Certification| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/17.0/account_avatax_oca/static/description/SalesTax.png
-   :target: https://developer.avalara.com/certification/avatax/sales-tax-badge/
-.. |Refunds Certification| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/17.0/account_avatax_oca/static/description/Refunds.png
-   :target: https://developer.avalara.com/certification/avatax/refunds-credit-memos-badge/
-.. |Address Validation Certification| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/17.0/account_avatax_oca/static/description/AddressValidation.png
-   :target: https://developer.avalara.com/certification/avatax/address-validation-badge/
 
 **Table of contents**
 
