@@ -143,11 +143,13 @@ class L10nEuOssWizard(models.TransientModel):
             ]
         return dict_taxes
 
-    def _prepare_fiscal_position_vals(self, country, taxes_data):
+    def _prepare_fiscal_position_vals(self, country, taxes_data, oss_states):
         fiscal_pos_name = _("Intra-EU B2C in %(country_name)s") % {
             "country_name": country.name
         }
         fiscal_pos_name += " (EU-OSS-%s)" % country.code
+        if oss_states:
+            fiscal_pos_name += f" ({', '.join(oss_states.mapped('name'))})"
         return {
             "name": fiscal_pos_name,
             "company_id": self.company_id.id,
@@ -157,6 +159,7 @@ class L10nEuOssWizard(models.TransientModel):
             "fiscal_position_type": "b2c",
             "tax_ids": [(0, 0, tax_data) for tax_data in taxes_data],
             "oss_oca": True,
+            "state_ids": [(6, 0, oss_states.ids)],
         }
 
     def update_fpos(self, fpos_id, taxes_data):
@@ -181,43 +184,51 @@ class L10nEuOssWizard(models.TransientModel):
         if self.second_superreduced_tax:
             selected_taxes.append(self.second_superreduced_tax)
         for country in self.todo_country_ids:
-            oss_rate_id = oss_rate.search([("oss_country_id", "=", country.id)])
-            taxes_data = []
-            # Create taxes dict to create
-            dict_taxes = self.generate_dict_taxes(
-                selected_taxes, oss_rate_id.get_rates_list()
-            )
-            # Create and search taxes
-            last_rate = None
-            tax_dest_id = None
-            for tax, rate in dict_taxes.items():
-                if last_rate != rate:
-                    tax_dest_id = self.env["account.tax"].search(
-                        [
-                            ("amount", "=", rate),
-                            ("type_tax_use", "=", "sale"),
-                            ("oss_country_id", "=", country.id),
-                            ("company_id", "=", self.company_id.id),
-                        ],
-                        limit=1,
-                    )
-                    if not tax_dest_id:
-                        tax_group = account_tax_group.search(
-                            [("name", "=", self._prepare_tax_group_vals(rate)["name"])],
+            oss_rates = oss_rate.search([("oss_country_id", "=", country.id)])
+            for oss_rate in oss_rates:
+                taxes_data = []
+                # Create taxes dict to create
+                dict_taxes = self.generate_dict_taxes(
+                    selected_taxes, oss_rate.get_rates_list()
+                )
+                # Create and search taxes
+                last_rate = None
+                tax_dest_id = None
+                for tax, rate in dict_taxes.items():
+                    if last_rate != rate:
+                        tax_dest_id = self.env["account.tax"].search(
+                            [
+                                ("amount", "=", rate),
+                                ("type_tax_use", "=", "sale"),
+                                ("oss_country_id", "=", country.id),
+                                ("company_id", "=", self.company_id.id),
+                            ],
                             limit=1,
                         )
-                        if not tax_group:
-                            tax_group = account_tax_group.create(
-                                self._prepare_tax_group_vals(rate)
+                        if not tax_dest_id:
+                            tax_group = account_tax_group.search(
+                                [
+                                    (
+                                        "name",
+                                        "=",
+                                        self._prepare_tax_group_vals(rate)["name"],
+                                    )
+                                ],
+                                limit=1,
                             )
-                        tax_dest_id = account_tax.create(
-                            self._prepare_tax_vals(country, tax, rate, tax_group)
-                        )
-                taxes_data.append({"tax_src_id": tax.id, "tax_dest_id": tax_dest_id.id})
-                last_rate = rate
-            # Create a fiscal position for the country
-            fpos = self.env["account.fiscal.position"].search(
-                [
+                            if not tax_group:
+                                tax_group = account_tax_group.create(
+                                    self._prepare_tax_group_vals(rate)
+                                )
+                            tax_dest_id = account_tax.create(
+                                self._prepare_tax_vals(country, tax, rate, tax_group)
+                            )
+                    taxes_data.append(
+                        {"tax_src_id": tax.id, "tax_dest_id": tax_dest_id.id}
+                    )
+                    last_rate = rate
+                # Create a fiscal position for the country
+                domain = [
                     ("country_id", "=", country.id),
                     ("vat_required", "=", False),
                     ("auto_apply", "=", True),
@@ -225,10 +236,16 @@ class L10nEuOssWizard(models.TransientModel):
                     ("fiscal_position_type", "=", "b2c"),
                     ("oss_oca", "=", True),
                 ]
-            )
-            if not fpos:
-                data_fiscal = self._prepare_fiscal_position_vals(country, taxes_data)
-                fpos_obj.create(data_fiscal)
-            else:
-                self.update_fpos(fpos, taxes_data)
+                if oss_rate.oss_state_ids:
+                    domain.append(("state_ids", "in", oss_rate.oss_state_ids.ids))
+                else:
+                    domain.append(("state_ids", "=", False))
+                fpos = self.env["account.fiscal.position"].search(domain)
+                if not fpos:
+                    data_fiscal = self._prepare_fiscal_position_vals(
+                        country, taxes_data, oss_rate.oss_state_ids
+                    )
+                    fpos_obj.create(data_fiscal)
+                else:
+                    self.update_fpos(fpos, taxes_data)
         return {"type": "ir.actions.act_window_close"}
