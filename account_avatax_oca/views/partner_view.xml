@@ -35,6 +35,10 @@
                                 name="property_exemption_number"
                                 invisible="property_tax_exempt != True"
                             />
+                            <field
+                                name="property_exemption_country_wide"
+                                invisible="property_tax_exempt != True"
+                            />
                             <newline />
                             <separator string="Customer Code" />
                             <field name="customer_code" readonly="1" />
