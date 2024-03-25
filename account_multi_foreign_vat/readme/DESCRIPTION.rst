@@ -1,0 +1,1 @@
+* This module allows the user to have multiple fiscal positions for the same country with identical foreign VAT. With this feature, users can efficiently manage distinct fiscal positions within a country, even when they share the same foreign VAT.
