@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-12-24 18:34+0000\n"
+"PO-Revision-Date: 2024-03-26 14:34+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -187,7 +187,7 @@ msgstr "La nazione deve essere unica!"
 msgid ""
 "The Europe country group cannot be found. Please update the base module."
 msgstr ""
-"Il gruppo di nazione Europa non può essere trovate. Aggiornare il modulo "
+"Il gruppo di nazione Europa non può essere trovato. Aggiornare il modulo "
 "base."
 
 #. module: l10n_eu_oss
@@ -196,8 +196,8 @@ msgid ""
 "You should only choose the taxes of the current accounting plan,\n"
 "                if you don't have the type of tax, do not configure it."
 msgstr ""
-"Dovresti scegliere solamente le imposte del piano contabile corrente,\n"
-"                se non hai il tipo di imposta, non configurarla."
+"Si dovrebbe scegliere solamente le imposte del piano contabile corrente,\n"
+"                se non si ha il tipo di imposta, non configurarla."
 
 #. module: l10n_eu_oss
 #: model:ir.model,name:l10n_eu_oss.model_l10n_eu_oss_wizard
