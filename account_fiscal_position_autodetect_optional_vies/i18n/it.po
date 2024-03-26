@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_fiscal_position_autodetect_optional_vies
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-02-26 16:33+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: account_fiscal_position_autodetect_optional_vies
+#: model:ir.model.fields,help:account_fiscal_position_autodetect_optional_vies.field_account_fiscal_position__vat_vies_required
+msgid "Apply only if VAT passed VIES validation."
+msgstr "Applica solo se la P.IVA ha superato la validazione VIES."
+
+#. module: account_fiscal_position_autodetect_optional_vies
+#: model:ir.model,name:account_fiscal_position_autodetect_optional_vies.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Posizione fiscale"
+
+#. module: account_fiscal_position_autodetect_optional_vies
+#: model:ir.model.fields,field_description:account_fiscal_position_autodetect_optional_vies.field_account_fiscal_position__vat_vies_required
+msgid "Vat was VIES validated"
+msgstr "La P.IVA p stata validata con VIES"
