@@ -1,0 +1,380 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_product_fiscal_classification
+#
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-09 01:39+0000\n"
+"PO-Revision-Date: 2018-03-09 01:39+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
+"Language-Team: Norwegian Bokmål (https://www.transifex.com/oca/teams/23907/"
+"nb/)\n"
+"Language: nb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_account_chart_template
+msgid "Account Chart Template"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__action
+msgid "Action"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__active
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__active
+msgid "Active"
+msgstr "Aktiv"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields.selection,name:account_product_fiscal_classification.selection__account_product_fiscal_rule__action__allow
+msgid "Allow"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_change_fiscal_classification
+msgid "Apply"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_search
+msgid "Archived"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_wizard_change_fiscal_classification
+msgid "Cancel"
+msgstr "Avbryt"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__category_ids
+msgid "Category"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__chart_template_id
+msgid "Chart Template"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__company_id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__company_id
+msgid "Company"
+msgstr "Firma"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__create_uid
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__create_uid
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__create_uid
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__create_uid
+msgid "Created by"
+msgstr "Opprettet av"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__create_date
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__create_date
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__create_date
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__create_date
+msgid "Created on"
+msgstr "Opprettet den"
+
+#. module: account_product_fiscal_classification
+#: model:account.product.fiscal.classification.template,name:account_product_fiscal_classification.fiscal_classification_template
+msgid "Demo Fiscal Classification Template"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:product.template,name:account_product_fiscal_classification.product_template_A_company_1
+msgid "Demo Product With Fiscal Classification (Your Company)"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__description
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__description
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
+msgid "Description"
+msgstr "Beskrivelse"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__display_name
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__display_name
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__display_name
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__display_name
+msgid "Display Name"
+msgstr "Visnings navn"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__fiscal_classification_ids
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__fiscal_classification_id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__fiscal_classification_id
+msgid "Fiscal Classification"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_rule
+#: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_rule
+msgid "Fiscal Classification Rules"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_classification_template
+msgid "Fiscal Classification Template"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification_template
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_chart_template__classification_template_ids
+#: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_classification_template
+msgid "Fiscal Classification Templates"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.actions.act_window,name:account_product_fiscal_classification.action_account_product_fiscal_classification
+#: model:ir.ui.menu,name:account_product_fiscal_classification.menu_account_product_fiscal_classification
+msgid "Fiscal Classifications"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_account_product_fiscal_rule
+msgid "Fiscal Rule"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields.selection,name:account_product_fiscal_classification.selection__account_product_fiscal_rule__action__forbid
+msgid "Forbid"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
+msgid "General Information"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_template__active
+msgid ""
+"If unchecked, it will allow you to hide the Fiscal Classification Template "
+"without removing it."
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__active
+msgid ""
+"If unchecked, it will allow you to hide the Fiscal Classification without "
+"removing it."
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#. odoo-python
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_rule.py:0
+#, python-format
+msgid ""
+"Incorrect Fiscal Setting :\n"
+"- Category : %(categ_name)s\n"
+"- Fiscal Classification : %(fiscal_name)s\n"
+"\n"
+"%(extra_message)s"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification____last_update
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template____last_update
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule____last_update
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification____last_update
+msgid "Last Modified on"
+msgstr "Sist oppdatert "
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__write_uid
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__write_uid
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__write_uid
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__write_uid
+msgid "Last Updated by"
+msgstr "Sist oppdatert av"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__write_date
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__write_date
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__write_date
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__write_date
+msgid "Last Updated on"
+msgstr "Sist oppdatert"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__message
+msgid "Message"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.actions.act_window,name:account_product_fiscal_classification.action_wizard_change_fiscal_classification
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
+msgid "Move Products into another Fiscal Classification"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__name
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__name
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_template_form
+msgid "Name"
+msgstr "Navn"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__new_fiscal_classification_id
+msgid "New Classification"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#. odoo-python
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
+#, python-format
+msgid "No Purchase Taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#. odoo-python
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
+#, python-format
+msgid "No Sale Taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#. odoo-python
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
+#, python-format
+msgid "No taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__old_fiscal_classification_id
+msgid "Old Classification"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.actions.act_window,name:account_product_fiscal_classification.action_template_list_by_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__product_tmpl_ids
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
+msgid "Products"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__product_tmpl_qty
+msgid "Products Quantity"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#. odoo-python
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
+#, python-format
+msgid "Purchase Tax: "
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__purchase_tax_ids
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__purchase_tax_ids
+msgid "Purchase Taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#. odoo-python
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
+#, python-format
+msgid "Purchase Taxes: "
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#. odoo-python
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
+#, python-format
+msgid "Sale Tax: "
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__sale_tax_ids
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__sale_tax_ids
+msgid "Sale Taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#. odoo-python
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
+#, python-format
+msgid "Sale Taxes: "
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__company_id
+msgid ""
+"Specify a company if you want to define this Fiscal Classification only for "
+"specific company. Otherwise, this Fiscal Classification will be available "
+"for all companies."
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product__fiscal_classification_id
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_product_template__fiscal_classification_id
+msgid ""
+"Specify the combination of taxes for this product. This field is required. "
+"If you dont find the correct Fiscal Classification, Please create a new one "
+"or ask to your account manager if you don't have the access right."
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_template_form
+msgid "Taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_wizard_change_fiscal_classification
+msgid "Wizard : Change fiscal classification on product"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#. odoo-python
+#: code:addons/account_product_fiscal_classification/models/product_template.py:0
+#, python-format
+msgid ""
+"You can not create or write products with 'Customer Taxes' or 'Supplier "
+"Taxes'\n"
+".Please, use instead the 'Fiscal Classification' field."
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#. odoo-python
+#: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
+#, python-format
+msgid ""
+"You cannot delete The Fiscal Classification '%(classification_name)s' "
+"because it contents %(qty)s products. Please move products to another Fiscal "
+"Classification first."
+msgstr ""
+
+#~ msgid "or"
+#~ msgstr "eller"

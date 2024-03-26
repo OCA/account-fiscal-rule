@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2022-Today GRAP (http://www.grap.coop)
+    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <!-- Fiscal Classification (company 1) -->
+    <record
+        id="fiscal_classification_A_company_1"
+        model="account.product.fiscal.classification"
+    >
+        <field name="name">Demo Fiscal Classification A (20%) (Your Company)</field>
+        <field name="company_id" ref="base.main_company" />
+        <field
+            name="purchase_tax_ids"
+            eval="[(6, 0, [ref('account_tax_purchase_20_company_1')])]"
+        />
+        <field
+            name="sale_tax_ids"
+            eval="[(6, 0, [
+            ref('account_tax_sale_20_company_1'),
+            ])]"
+        />
+    </record>
+
+    <record
+        id="fiscal_classification_B_company_1"
+        model="account.product.fiscal.classification"
+    >
+        <field name="name">Demo Fiscal Classification B (Your Company)</field>
+        <field name="company_id" ref="base.main_company" />
+        <field
+            name="sale_tax_ids"
+            eval="[(6, 0, [
+                ref('account_tax_sale_5_company_1'),
+                ref('account_tax_sale_20_company_1'),
+            ])]"
+        />
+    </record>
+
+    <!-- Fiscal Classification (company 2) -->
+    <record
+        id="fiscal_classification_C_company_2"
+        model="account.product.fiscal.classification"
+    >
+        <field name="name">Demo Fiscal Classification C (Company 2)</field>
+        <field name="company_id" ref="company_2" />
+        <field
+            name="purchase_tax_ids"
+            eval="[(6, 0, [ref('account_tax_purchase_7_company_2'), ref('account_tax_purchase_30_company_2')])]"
+        />
+        <field
+            name="sale_tax_ids"
+            eval="[(6, 0, [
+            ref('account_tax_sale_7_company_2'),
+            ref('account_tax_sale_30_company_2')])]"
+        />
+    </record>
+
+    <!-- Fiscal Classification (Global) -->
+    <record
+        id="fiscal_classification_D_global"
+        model="account.product.fiscal.classification"
+    >
+        <field name="name">Demo Fiscal Classification D (Global)</field>
+        <field name="company_id" eval="False" />
+        <field
+            name="purchase_tax_ids"
+            eval="[(6, 0, [ref('account_tax_purchase_20_company_1'), ref('account_tax_purchase_30_company_2')])]"
+        />
+        <field
+            name="sale_tax_ids"
+            eval="[(6, 0, [ref('account_tax_sale_20_company_1'), ref('account_tax_sale_30_company_2')])]"
+        />
+    </record>
+
+</odoo>

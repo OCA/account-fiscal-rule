@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2014-Today GRAP (http://www.grap.coop)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="view_wizard_change_fiscal_classification" model="ir.ui.view">
+        <field name="model">wizard.change.fiscal.classification</field>
+        <field name="arch" type="xml">
+            <form>
+                <group name="fiscal_classification">
+                    <field name="old_fiscal_classification_id" />
+                    <field name="new_fiscal_classification_id" />
+                </group>
+                <footer>
+                    <button
+                        string="Apply"
+                        name="button_change_fiscal_classification"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record
+        id="action_wizard_change_fiscal_classification"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Move Products into another Fiscal Classification</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wizard.change.fiscal.classification</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
