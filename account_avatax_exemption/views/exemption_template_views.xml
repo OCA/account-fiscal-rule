@@ -1,0 +1,84 @@
+<odoo>
+    <template id="exemption_page" name=" Exemptions">
+        <t t-call="website.layout">
+            <div class="container">
+                <!-- <t t-if="exemption_line">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>
+                                CUSTOMER NAME
+                            </td>
+                            <td>
+                                <t t-esc="exemption_line.partner_id.display_name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                CUSTOMER CODE
+                            </td>
+                            <td>
+                                <t t-esc="exemption_line.partner_id.get_customer_code()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                EXEMPTION REASON
+                            </td>
+                            <td>
+                                <t t-esc="exemption_line.exemption_id.business_type.display_name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                AVATAX EXEMPTION ID
+                            </td>
+                            <td>
+                                <t t-esc="exemption_line.avatax_id"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                EXEMPTION NUMBER
+                            </td>
+                            <td>
+                                <t t-esc="exemption_line.exemption_id.exemption_number"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                EXEMPTION EFFECTIVE
+                            </td>
+                            <td>
+                                <t t-esc="exemption_line.exemption_id.effective_date"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                EXEMPTION EXPIRATION
+                            </td>
+                            <td>
+                                <t t-esc="exemption_line.exemption_id.expiry_date"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                EXEMPTION STATUS
+                            </td>
+                            <td>
+                                <t t-if="exemption_line.avatax_status">
+                                    <t t-esc="'ENABLED'" />
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="'DISABLED'" />
+                                </t>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+               </t> -->
+                <t t-esc="message" />
+            </div>
+        </t>
+    </template>
+</odoo>
