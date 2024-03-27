@@ -203,6 +203,10 @@ class AvaTaxRESTService:
             )
         return avatax_result
 
+    def _get_tax_post_process(self, data, result, doc_type):
+        """Inherit if needed"""
+        return True
+
     def get_tax(
         self,
         company_code,
@@ -321,6 +325,7 @@ class AvaTaxRESTService:
         if log_to_record:
             log_to_record.avatax_request_log = pprint.pformat(data, indent=1)
             log_to_record.avatax_response_log = pprint.pformat(result, indent=1)
+        self._get_tax_post_process(data, result, doc_type)
         return self._enrich_result_lines_with_tax_rate(result)
 
     def call(self, endpoint, company_code, doc_code, model=None, params=None):

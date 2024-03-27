@@ -1,0 +1,44 @@
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">Settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="40" />
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='invoicing_settings']" position="after">
+                <h2>Notification</h2>
+                <div class="row mt16 o_settings_container" id="notification_settings">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <label
+                                for="avatax_api_call_notification_ids"
+                                string="API Call Counter"
+                            />
+                            <div class="text-muted">
+                                 Avatax API call counter send notification email on this email.
+                            </div>
+                            <div class="content-group">
+                                <field
+                                    name="avatax_api_call_notification_ids"
+                                    class="oe_inline"
+                                    widget="many2many_tags"
+                                />
+                            </div>
+                            <label
+                                for="call_counter_limit"
+                                string="Call Counter Limit"
+                            />
+                            <div class="text-muted">
+                                 Avatax API call counter limit.
+                            </div>
+                            <div class="content-group">
+                                <field name="call_counter_limit" class="oe_inline" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
