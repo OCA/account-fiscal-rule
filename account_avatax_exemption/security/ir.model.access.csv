@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_exemption_code_rule,access_exemption_code_rule,model_exemption_code_rule,base.group_user,1,1,1,1
+access_portal_exemption_code,access_portal_exemption_code,account_avatax_oca.model_exemption_code,,1,0,0,0

@@ -1,0 +1,126 @@
+<odoo>
+    <record id="view_avalara_salestax_form" model="ir.ui.view">
+        <field name="name">avalara.salestax.inherit</field>
+        <field name="model">avalara.salestax</field>
+        <field name="inherit_id" ref="account_avatax_oca.view_avalara_salestax_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button
+                        type="object"
+                        name="import_tax_items"
+                        string="Import TaxItems"
+                    />
+                    <button
+                        type="object"
+                        name="import_exemption_activity_type"
+                        string="Import Exemption Activity Type"
+                    />
+                    <button
+                        type="object"
+                        name="import_exemption_country_state_code"
+                        string="Import Nexus Fed State Info"
+                    />
+                    <button
+                        type="object"
+                        name="download_exemptions"
+                        string="Import Exemptions"
+                    />
+                    <button
+                        type="object"
+                        name="import_tax_rules"
+                        string="Import Tax Rules"
+                    />
+                    <button
+                        type="object"
+                        name="export_new_tax_items"
+                        string="Export New TaxItems"
+                    />
+                </header>
+            </xpath>
+
+            <xpath
+                expr="//page[@name='connection_page']/group/group/a"
+                position="before"
+            >
+                <label for="avatax_company_id" />
+                <div>
+                    <field name="avatax_company_id" class="oe_inline" />
+                </div>
+            </xpath>
+
+
+            <div position="inside" id="calculation_page_container">
+                <div class="col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="use_commercial_entity" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="use_commercial_entity" />
+                    </div>
+                </div>
+            </div>
+
+            <xpath expr="//field[@name='request_timeout']" position="after">
+                <field name="tax_item_export" />
+                <field name="exemption_export" />
+                <field name="exemption_rule_export" />
+            </xpath>
+        </field>
+    </record>
+    <record id="exemption_code_tree_view" model="ir.ui.view">
+        <field name="name">exemption.code.tree.view</field>
+        <field name="model">exemption.code</field>
+        <field name="type">tree</field>
+        <field name="inherit_id" ref="account_avatax_oca.exemption_code_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="string">Entity Use Code</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record
+        id="account_avatax_oca.action_exemption_code_details"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Entity Use Code</field>
+    </record>
+    <record
+        id="account_avatax_oca.menu_action_exemption_code_details"
+        model="ir.ui.menu"
+    >
+        <field name="name">Entity Use Code</field>
+    </record>
+    <record id="exemption_code_form_view" model="ir.ui.view">
+        <field name="name">exemption.code.form.view</field>
+        <field name="model">exemption.code</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Entity Use Code">
+                <header>
+                    <button
+                        name="create_rules"
+                        string="Create Custom Rules"
+                        type="object"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="code" />
+                        <field name="flag" />
+                        <field name="id" invisible="1" />
+                    </group>
+                    <notebook>
+                        <page string="Exemption Rules" name="exemption_rules">
+                            <field
+                                name="rule_ids"
+                                context="{'default_exemption_code_id': id}"
+                            />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
