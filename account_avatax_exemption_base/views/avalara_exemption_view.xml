@@ -1,0 +1,281 @@
+<odoo>
+    <!-- Group of States -->
+    <record id="group_of_states_form_view" model="ir.ui.view">
+        <field name="name">group.of.states.form.view</field>
+        <field name="model">res.partner.group.state</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Group of States">
+                <group>
+                    <field name="name" />
+                    <field name="country_id" options="{'no_create': True}" />
+                    <field
+                        name="state_ids"
+                        widget="many2many_tags"
+                        domain="[('country_id','=',country_id),('avatax_nexus', '=', True)]"
+                        options="{'no_create': True}"
+                    />
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="group_of_states_tree_view" model="ir.ui.view">
+        <field name="name">group.of.states.tree.view</field>
+        <field name="model">res.partner.group.state</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="country_id" />
+                <field
+                    name="state_ids"
+                    widget="many2many_tags"
+                    domain="[('country_id','=',country_id),('avatax_nexus', '=', True)]"
+                />
+            </tree>
+        </field>
+    </record>
+    <record id="group_of_states_act_window" model="ir.actions.act_window">
+        <field name="name">Group of States</field>
+        <field name="res_model">res.partner.group.state</field>
+        <field name="binding_view_types">tree</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Exemption Type -->
+    <record id="exemption_type_form_view" model="ir.ui.view">
+        <field name="name">res.partner.exemption.type.form.view</field>
+        <field name="model">res.partner.exemption.type</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Exemption Type">
+                <group>
+                    <field name="name" />
+                    <field name="business_type" options="{'no_create': True}" />
+                    <field name="group_of_state" />
+                    <field
+                        name="state_ids"
+                        widget="many2many_tags"
+                        domain="[('avatax_nexus', '=', True)]"
+                        options="{'no_create': True}"
+                    />
+                    <field name="exemption_validity_duration" />
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="exemption_type_tree_view" model="ir.ui.view">
+        <field name="name">res.partner.exemption.type.tree.view</field>
+        <field name="model">res.partner.exemption.type</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field
+                    name="state_ids"
+                    widget="many2many_tags"
+                    domain="[('avatax_nexus', '=', True)]"
+                />
+            </tree>
+        </field>
+    </record>
+    <record id="exemption_type_act_window" model="ir.actions.act_window">
+        <field name="name">Exemption Type</field>
+        <field name="res_model">res.partner.exemption.type</field>
+        <field name="binding_view_types">tree</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Exemption Reason Type -->
+    <record id="exemption_reason_type_form_view" model="ir.ui.view">
+        <field name="name">res.partner.exemption.business.type.form.view</field>
+        <field name="model">res.partner.exemption.business.type</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Exemption Reason Type">
+                <group>
+                    <field name="name" />
+                    <field name="avatax_id" />
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="exemption_reason_type_tree_view" model="ir.ui.view">
+        <field name="name">res.partner.exemption.business.type.tree.view</field>
+        <field name="model">res.partner.exemption.business.type</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="avatax_id" />
+            </tree>
+        </field>
+    </record>
+    <record id="exemption_reason_type_act_window" model="ir.actions.act_window">
+        <field name="name">Exemption Activity Type</field>
+        <field name="res_model">res.partner.exemption.business.type</field>
+        <field name="binding_view_types">tree</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Exemption -->
+    <record id="exemption_form_view" model="ir.ui.view">
+        <field name="name">res.partner.exemption.form.view</field>
+        <field name="model">res.partner.exemption</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Exemption">
+                <header>
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,progress,done"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <field
+                            name="partner_id"
+                            options="{'always_reload': True}"
+                            invisible="context.get('hide_partner', False)"
+                            readonly="state != 'draft'"
+                        />
+                        <field name="exemption_type" readonly="state != 'draft'" />
+                        <field
+                            name="business_type"
+                            options="{'no_create': True, 'always_reload': True}"
+                            required="1"
+                            readonly="state != 'draft'"
+                        />
+                        <field name="group_of_state" readonly="state != 'draft'" />
+                        <field
+                            name="state_ids"
+                            widget="many2many_tags"
+                            domain="[('avatax_nexus', '=', True)]"
+                            options="{'no_create': True}"
+                            readonly="state != 'draft'"
+                        />
+                        <field name="exemption_number" readonly="state != 'draft'" />
+                        <field
+                            name="exemption_number_type"
+                            required="1"
+                            readonly="state != 'draft'"
+                        />
+                        <field
+                            name="effective_date"
+                            required="1"
+                            readonly="state != 'draft'"
+                        />
+                        <!-- attrs="{'readonly': ['&amp;',('expiry_date','!=',False),('state','!=','draft'),'|',('expiry_date','!=',False)]}" -->
+                        <field
+                            name="expiry_date"
+                            required="1"
+                            readonly="expiry_date != False and state != 'draft' or expiry_date != False"
+                            force_save="1"
+                        />
+                    </group>
+                    <notebook>
+                        <page string="Exemption Lines">
+                            <field
+                                name="exemption_line_ids"
+                                nolabel="1"
+                                readonly="state != 'draft'"
+                            >
+                                <tree>
+                                    <field name="name" />
+                                    <field
+                                        name="state_id"
+                                        domain="[('avatax_nexus', '=', True)]"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field name="avatax_id" />
+                                    <field name="avatax_status" />
+                                    <field name="exemption_number" />
+                                </tree>
+                                <form string="Exemption Lines">
+                                    <group>
+                                        <field name="name" />
+                                        <field
+                                            name="state_id"
+                                            domain="[('avatax_nexus', '=', True)]"
+                                            options="{'no_create': True}"
+                                        />
+                                        <field name="avatax_id" />
+                                        <field name="avatax_status" />
+                                    </group>
+                                    <group>
+                                        <field name="add_exemption_number" />
+                                        <!-- attrs="{'invisible': [('add_exemption_number','=',False)]}" -->
+                                        <field
+                                            name="exemption_number"
+                                            invisible="not add_exemption_number"
+                                        />
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="exemption_tree_view" model="ir.ui.view">
+        <field name="name">res.partner.exemption.tree.view</field>
+        <field name="model">res.partner.exemption</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field
+                    name="partner_id"
+                    invisible="context.get('hide_partner', False)"
+                />
+                <field name="exemption_type" />
+                <field name="state_ids" widget="many2many_tags" />
+                <field name="state" />
+                <field name="effective_date" />
+                <field name="expiry_date" />
+            </tree>
+        </field>
+    </record>
+    <record id="exemption_act_window" model="ir.actions.act_window">
+        <field name="name">Exemption</field>
+        <field name="res_model">res.partner.exemption</field>
+        <field name="binding_view_types">tree</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_exemption"
+        name="AvaTax Exemption"
+        parent="account.menu_finance_configuration"
+        sequence="2"
+    />
+    <menuitem
+        id="menu_group_of_states"
+        action="group_of_states_act_window"
+        parent="menu_exemption"
+        sequence="31"
+    />
+       <menuitem
+        id="menu_exemption_type"
+        action="exemption_type_act_window"
+        parent="menu_exemption"
+        sequence="31"
+    />
+     <menuitem
+        id="menu_exemption_reason_type"
+        action="exemption_reason_type_act_window"
+        parent="menu_exemption"
+        sequence="31"
+    />
+       <menuitem
+        id="menu_avatax_exemption"
+        action="exemption_act_window"
+        parent="menu_exemption"
+        sequence="31"
+    />
+</odoo>
