@@ -17,16 +17,31 @@
             </button>
             <group id="header_right_group" position="inside">
                 <field name="hide_exemption" invisible="1" />
+                <!-- Non editable Exemptions -->
                 <field
                     name="exemption_code"
                     readonly="1"
                     invisible="hide_exemption == True"
+                    groups="!account.group_account_manager"
                 />
                 <field
                     name="exemption_code_id"
                     readonly="1"
                     invisible="hide_exemption == True"
+                    groups="!account.group_account_manager"
                 />
+                <!-- Editable Exemptions -->
+                <field
+                    name="exemption_code"
+                    invisible="hide_exemption == True"
+                    groups="account.group_account_manager"
+                />
+                <field
+                    name="exemption_code_id"
+                    invisible="hide_exemption == True"
+                    groups="account.group_account_manager"
+                />
+
                 <field name="location_code" readonly="state != 'draft'" />
                 <field
                     name="tax_on_shipping_address"
@@ -66,24 +81,6 @@
                     <field name="avatax_response_log" widget="ace" />
                 </page>
             </notebook>
-        </field>
-    </record>
-    <record id="invoice_form_view_editable_field" model="ir.ui.view">
-        <field name="name">invoice.form.view.editable</field>
-        <field name="model">account.move</field>
-        <field name="inherit_id" ref="view_move_form_inherit_1" />
-        <field
-            name="groups_id"
-            eval="[(6, 0, [ref('account.group_account_manager') ])]"
-        />
-        <field name="mode">primary</field>
-        <field name="arch" type="xml">
-            <field name='exemption_code' position="attributes">
-                <attribute name="readonly">0</attribute>
-            </field>
-            <field name='exemption_code_id' position="attributes">
-                <attribute name="readonly">0</attribute>
-            </field>
         </field>
     </record>
 </odoo>
