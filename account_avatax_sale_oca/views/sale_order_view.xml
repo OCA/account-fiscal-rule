@@ -18,16 +18,31 @@
             </button>
             <field name="payment_term_id" position="after">
                 <field name="hide_exemption" invisible="1" />
+                <!-- Non editable Exemptions -->
                 <field
                     name="exemption_code"
                     readonly="1"
                     invisible="hide_exemption == True"
+                    groups="!account.group_account_manager"
                 />
                 <field
                     name="exemption_code_id"
                     readonly="1"
                     invisible="hide_exemption == True"
+                    groups="!account.group_account_manager"
                 />
+                <!-- Editable Exemptions -->
+                <field
+                    name="exemption_code"
+                    invisible="hide_exemption == True"
+                    groups="account.group_account_manager"
+                />
+                <field
+                    name="exemption_code_id"
+                    invisible="hide_exemption == True"
+                    groups="account.group_account_manager"
+                />
+
                 <field name="location_code" />
                 <field
                     name="tax_on_shipping_address"
