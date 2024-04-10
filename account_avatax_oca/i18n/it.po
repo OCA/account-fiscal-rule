@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-27 15:36+0000\n"
+"PO-Revision-Date: 2024-04-10 15:35+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -338,7 +338,7 @@ msgstr "Azienda che ha sottoscritto il servizio AvaTax"
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_move_form_inherit_1
 msgid "Compute Taxes"
-msgstr "Camcola imposte"
+msgstr "Calcola imposte"
 
 #. module: account_avatax_oca
 #: model_terms:ir.actions.act_window,help:account_avatax_oca.action_avalara_salestax
