@@ -106,9 +106,9 @@ class AccountTax(models.Model):
                 avatax_amount = 0.0
                 raise exceptions.UserError(
                     _(
-                        "Incorrect retrieval of Avatax amount for Invoice %(avatax_invoice)s:"
-                        " product %(product.display_name)s, price_unit %(-price_unit)f"
-                        " , quantity %(quantity)f"
+                        "Incorrect retrieval of Avatax amount for Invoice "
+                        "%(avatax_invoice)s: product %(product.display_name)s, "
+                        "price_unit %(-price_unit)f , quantity %(quantity)f"
                     )
                 )
             for tax_item in res["taxes"]:
