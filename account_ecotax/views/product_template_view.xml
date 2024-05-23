@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2023 Akretion (http://www.akretion.com/)
+    @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
+-->
+<odoo>
+
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">ecotax.base.product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="account.product_template_form_view" />
+        <field name="arch" type="xml">
+            <group name="properties" position="after">
+                <group name="ecotax" col="4">
+                    <label
+                        for="ecotax_line_product_ids"
+                        string="Product Template Ecotaxe classif"
+                    />
+                    <div>
+                        <field name="ecotax_line_product_ids" colspan="2" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="classification_id" />
+                                <field name="force_amount" />
+                                <field name="amount" />
+                            </tree>
+                        </field>
+                    </div>
+                    <field name="ecotax_amount" />
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>
