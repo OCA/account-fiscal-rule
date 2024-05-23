@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2023 Akretion (http://www.akretion.com/)
+    @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
+-->
+<odoo>
+    <!-- Variants view -->
+    <record id="product_variant_easy_edit_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view" />
+        <field name="arch" type="xml">
+            <group name="tags" position="after">
+                <group name="ecotax_classif" string="Ecotaxe classification">
+                    <label
+                        for="ecotax_line_product_ids"
+                        string=" Product Template Ecotaxe classif"
+                    />
+                    <div>
+                        <field
+                            name="ecotax_line_product_ids"
+                            colspan="2"
+                            nolabel="1"
+                            readonly="1"
+                        >
+                            <tree editable="bottom">
+                                <field name="classification_id" />
+                                <field name="force_amount" />
+                                <field name="amount" />
+                            </tree>
+                        </field>
+                    </div>
+                    <label
+                        for="additional_ecotax_line_product_ids"
+                        string="Additional Ecotaxe classif"
+                    />
+                    <div>
+                        <field
+                            name="additional_ecotax_line_product_ids"
+                            colspan="2"
+                            nolabel="1"
+                        >
+                            <tree editable="bottom">
+                                <field name="classification_id" />
+                                <field name="force_amount" />
+                                <field name="amount" />
+                            </tree>
+                        </field>
+                    </div>
+                    <field name="fixed_ecotax" />
+                    <field name="weight_based_ecotax" />
+                    <field name="ecotax_amount" />
+                </group>
+            </group>
+        </field>
+    </record>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="name">usability.product.product.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ecotax_line_product_ids']/.." position="after">
+                <label
+                    for="additional_ecotax_line_product_ids"
+                    string="Additional Ecotaxe classif"
+                />
+                    <div>
+                        <field
+                        name="additional_ecotax_line_product_ids"
+                        colspan="2"
+                        nolabel="1"
+                    >
+                            <tree editable="bottom">
+                                <field name="classification_id" />
+                                <field name="force_amount" />
+                                <field name="amount" />
+                            </tree>
+                        </field>
+                    </div>
+            </xpath>
+            <xpath expr="//label[@for='standard_price']" position="before">
+                <label for="all_ecotax_line_product_ids" string="Ecotaxe classif" />
+                    <div>
+                        <field
+                        name="all_ecotax_line_product_ids"
+                        colspan="2"
+                        nolabel="1"
+                        widget="many2many_tags"
+                    >
+                        </field>
+                    </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
