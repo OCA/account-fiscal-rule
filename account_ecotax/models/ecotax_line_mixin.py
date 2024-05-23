@@ -1,0 +1,59 @@
+# © 2014-2023 Akretion (http://www.akretion.com)
+#   @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
+from odoo import api, fields, models
+
+
+class EcotaxLineMixin(models.AbstractModel):
+    """Mixin class for objects which can be used to save
+     multi ecotax calssification  by account move line
+    or sale order line."""
+
+    _name = "ecotax.line.mixin"
+    _description = "Ecotax Line Mixin"
+
+    product_id = fields.Many2one("product.product", string="Product", readonly=True)
+    currency_id = fields.Many2one("res.currency", string="Currency")
+    classification_id = fields.Many2one(
+        "account.ecotax.classification",
+        string="Classification",
+    )
+    amount_unit = fields.Float(
+        digits="Ecotax",
+        compute="_compute_ecotax",
+        help="Ecotax Amount computed form Classification or Manuel ecotax",
+        store=True,
+    )
+    force_amount_unit = fields.Float(
+        digits="Ecotax",
+        help="Force ecotax.\n" "Allow to subtite default Ecotax Classification\n",
+    )
+    amount_total = fields.Float(
+        digits="Ecotax",
+        compute="_compute_ecotax",
+        help="Ecotax Amount total computed form Classification or forced ecotax amount",
+        store=True,
+    )
+    quantity = fields.Float(digits="Product Unit of Measure", readonly=True)
+
+    @api.depends(
+        "classification_id",
+        "force_amount_unit",
+        "product_id",
+        "quantity",
+    )
+    def _compute_ecotax(self):
+        for ecotaxline in self:
+            ecotax_cls = ecotaxline.classification_id
+
+            if ecotax_cls.ecotax_type == "weight_based":
+                amt = ecotax_cls.ecotax_coef * (ecotaxline.product_id.weight or 0.0)
+            else:
+                amt = ecotax_cls.default_fixed_ecotax
+            # force ecotax amount
+            if ecotaxline.force_amount_unit:
+                amt = ecotaxline.force_amount_unit
+
+            ecotaxline.amount_unit = amt
+            ecotaxline.amount_total = ecotaxline.amount_unit * ecotaxline.quantity
