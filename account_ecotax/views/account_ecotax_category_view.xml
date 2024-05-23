@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+   Copyright (C) 2023 Akretion (http://www.akretion.com/)
+   @author: Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
+-->
+<odoo>
+    <record id="ecotax_category_tree" model="ir.ui.view">
+        <field name="model">account.ecotax.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code" />
+                <field name="name" />
+                <field name="active" invisible="1" />
+            </tree>
+        </field>
+    </record>
+    <record id="ecotax_category_form" model="ir.ui.view">
+        <field name="model">account.ecotax.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <div class="oe_title oe_left">
+                        <div class="oe_edit_only">
+                            <label for="name" />
+                        </div>
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name" />
+                        </h1>
+                    </div>
+                    <group col="4">
+                        <field name="code" />
+                        <field name="active" invisible="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="ecotax_category_search" model="ir.ui.view">
+        <field name="model">account.ecotax.category</field>
+        <field name="arch" type="xml">
+            <search string="Search Ecotaxe category">
+                <field
+                    name="name"
+                    filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"
+                    string="category"
+                />
+            </search>
+        </field>
+    </record>
+    <record id="action_ecotax_category" model="ir.actions.act_window">
+        <field name="name">Ecotaxe category</field>
+        <field name="res_model">account.ecotax.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to start a new Ecotaxe category.
+              </p>
+        </field>
+    </record>
+    <menuitem
+        id="menu_ecotax_category"
+        parent="account.account_account_menu"
+        action="action_ecotax_category"
+        sequence="16"
+    />
+</odoo>
