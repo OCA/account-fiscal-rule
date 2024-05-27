@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ecotax_line_product_sale_readonly,ecotax.line.product readonly,account_ecotax.model_ecotax_line_product,sales_team.group_sale_salesman,1,0,0,0
+access_account_move_line_ecotax_readonly_sale_user,account.move.line.ecotax readonly sale user,account_ecotax.model_account_move_line_ecotax,sales_team.group_sale_salesman,1,0,0,0
+ir_model_access_sale_order_line_ecotax_group_sale_salesman,Read Full acess to model_sale_order_line_ecotax to group sale_salesman,model_sale_order_line_ecotax,sales_team.group_sale_salesman,1,1,1,1
