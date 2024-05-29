@@ -6,7 +6,7 @@ import mock
 from odoo.tests import Form, common
 
 
-class TestAccountFiscalPostitionVies(common.TransactionCase):
+class TestAccountFiscalPostitionVies(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
