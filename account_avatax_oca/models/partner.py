@@ -156,6 +156,25 @@ class ResPartner(models.Model):
         )
         return valid_address
 
+    def get_avatax_address(self):
+        # Format an address according to Avatax API for CreateTransaction
+        # https://developer.avalara.com
+        # /api-reference/avatax/rest/v2/models/AddressLocationInfo/
+        if self.partner_latitude or self.partner_longitude:
+            res = {
+                "latitude": self.partner_latitude,
+                "longitude": self.partner_longitude,
+            }
+        else:
+            res = {
+                "city": self.city,
+                "country": self.country_id.code or None,
+                "line1": self.street or None,
+                "postalCode": self.zip,
+                "region": self.state_id.code or None,
+            }
+        return res
+
     def multi_address_validation(self, validation_on_save=False):
         for partner in self:
             if not (partner.parent_id and partner.type == "contact"):
@@ -202,10 +221,8 @@ class ResPartner(models.Model):
 
     def write(self, vals):
         res = super(ResPartner, self).write(vals)
-        address_fields = ["street", "street2", "city", "zip", "state_id", "country_id"]
-        if not self.env.context.get("avatax_writing") and any(
-            x in vals for x in address_fields
-        ):
+        has_address = any(vals.get(x) for x in ["street", "street2", "city", "zip"])
+        if has_address and not self.env.context.get("avatax_writing"):
             partner = self.with_context(avatax_writing=True)
             avatax_config = self.env.company.get_avatax_config_company()
             if avatax_config.validation_on_save:
