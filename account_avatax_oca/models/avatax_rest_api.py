@@ -263,20 +263,8 @@ class AvaTaxRESTService:
             doc_date = fields.Date.to_string(doc_date)
         create_transaction = {
             "addresses": {
-                "shipFrom": {
-                    "city": origin.city,
-                    "country": origin.country_id.code or None,
-                    "line1": origin.street or None,
-                    "postalCode": origin.zip,
-                    "region": origin.state_id.code or None,
-                },
-                "shipTo": {
-                    "city": destination.city,
-                    "country": destination.country_id.code or None,
-                    "line1": destination.street or None,
-                    "postalCode": destination.zip,
-                    "region": destination.state_id.code or None,
-                },
+                "shipFrom": origin.get_avatax_address(),
+                "shipTo": destination.get_avatax_address(),
             },
             "lines": lineslist,
             # 'purchaseOrderNo": "2020-02-05-001"
@@ -295,6 +283,7 @@ class AvaTaxRESTService:
             "type": doc_type,
             "commit": commit,
         }
+
         if is_override and invoice_date:
             create_transaction.update(
                 {
