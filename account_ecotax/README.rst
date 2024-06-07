@@ -115,6 +115,14 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
+.. |maintainer-mourad-ehm| image:: https://github.com/mourad-ehm.png?size=40px
+    :target: https://github.com/mourad-ehm
+    :alt: mourad-ehm
+
+Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
+
+|maintainer-mourad-ehm| 
+
 This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/16.0/account_ecotax>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
