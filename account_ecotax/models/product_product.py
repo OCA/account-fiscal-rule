@@ -31,18 +31,18 @@ class ProductProduct(models.Model):
     ecotax_amount = fields.Float(
         digits="Ecotax",
         compute="_compute_product_ecotax",
-        help="Ecotax Amount computed form all ecotax line classification",
         store=True,
+        help="Ecotax Amount computed form all ecotax line classification",
     )
     fixed_ecotax = fields.Float(
         compute="_compute_product_ecotax",
+        store=True,
         help="Fixed ecotax of the Ecotax Classification",
     )
     weight_based_ecotax = fields.Float(
         compute="_compute_product_ecotax",
-        help="Ecotax value :\n"
-        "product weight * ecotax coef of "
-        "Ecotax Classification",
+        store=True,
+        help="Ecotax value :\n" "product weight * ecotax coef of Ecotax Classification",
     )
 
     @api.depends("ecotax_line_product_ids", "additional_ecotax_line_product_ids")
@@ -84,7 +84,6 @@ class ProductProduct(models.Model):
                     weight_based_ecotax += ecotaxline_prod.amount
                 else:
                     fixed_ecotax += ecotaxline_prod.amount
-
                 amount_ecotax += ecotaxline_prod.amount
             product.fixed_ecotax = fixed_ecotax
             product.weight_based_ecotax = weight_based_ecotax

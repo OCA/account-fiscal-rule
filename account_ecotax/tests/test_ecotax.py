@@ -14,7 +14,7 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 @tagged("-at_install", "post_install")
 class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref="l10n_fr.l10n_fr_pcg_chart_template"):
+    def setUpClass(cls, chart_template_ref=None):
         super().setUpClass(chart_template_ref)
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
 
