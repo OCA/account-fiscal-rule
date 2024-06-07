@@ -8,18 +8,14 @@
         />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='customer_code']/.." position="after">
-                <group
-                    col="2"
-                    colspan="4"
-                    invisible="not is_company and parent_id != False"
-                >
+                <group col="2" colspan="4" invisible="parent_id and not is_company">
                     <field name="avatax_id" />
                     <field name="id" invisible="1" />
                     <field name="is_company" invisible="1" />
                     <label for="exemption_ids" />
                 </group>
                 <field name="exemption_ids" context="{'hide_partner':id}" nolabel="1" />
-                <div invisibl="is_company or not parent_id">
+                <div invisible="is_company or not parent_id">
                     <p>
                         Avatax Exemption related settings are managed on
                         <button

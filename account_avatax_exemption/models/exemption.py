@@ -15,7 +15,6 @@ class ExemptionRule(models.Model):
             ("cancel", "Cancelled"),
         ],
         default="draft",
-        string="State",
     )
     exemption_code_id = fields.Many2one(
         "exemption.code", string="Entity Use Code", required=True
@@ -39,13 +38,14 @@ class ExemptionRule(models.Model):
             if record.avatax_rate < 0 or record.avatax_rate > 100:
                 raise ValidationError(_("Avatax rate range is from 0 to 100"))
 
-    @api.model
-    def create(self, vals):
-        if vals.get("name", _("New")) == _("New"):
-            vals["name"] = self.env["ir.sequence"].next_by_code(
-                "exemption.code.rule.sequence"
-            ) or _("New")
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("name", _("New")) == _("New"):
+                vals["name"] = self.env["ir.sequence"].next_by_code(
+                    "exemption.code.rule.sequence"
+                ) or _("New")
+        return super().create(vals_list)
 
     def export_exemption_rule(self):
         if self.filtered(lambda x: x.state != "draft"):

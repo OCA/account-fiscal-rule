@@ -361,7 +361,8 @@ class AvalaraSalestax(models.Model):
             "cap": 0,
             "threshold": 0,
             "effectiveDate": fields.Datetime.to_string(fields.Date.today()),
-            "description": f"{rule.state_id.avatax_name} - {rule.exemption_code_id.code} - {rule.name}",
+            "description": f"{rule.state_id.avatax_name} - \
+                {rule.exemption_code_id.code} - {rule.name}",
             "country": rule.state_id.country_id.code,
             "region": rule.state_id.code,
             "stateFIPS": rule.state_id.avatax_code,
@@ -632,7 +633,8 @@ class AvalaraSalestax(models.Model):
         self.with_delay(
             priority=6,
             max_retries=2,
-            description=f"Link Customer {exemption_line.partner_id.display_name} with Exemption {exemption_line.name}",
+            description=f"Link Customer {exemption_line.partner_id.display_name}\
+                 with Exemption {exemption_line.name}",
         ).link_certificates_to_customer(exemption_line)
 
         return result
