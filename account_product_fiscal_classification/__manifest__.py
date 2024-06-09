@@ -6,7 +6,7 @@
 {
     "name": "Account Product - Fiscal Classification",
     "summary": "Simplify taxes management for products",
-    "version": "16.0.1.0.6",
+    "version": "16.0.1.0.7",
     "category": "Accounting",
     "author": "Akretion,GRAP,La Louve,Odoo Community Association (OCA)",
     "maintainers": ["legalsylvain"],
