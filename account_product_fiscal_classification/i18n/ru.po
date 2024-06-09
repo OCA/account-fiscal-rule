@@ -89,6 +89,24 @@ msgid "Created on"
 msgstr "Создан"
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__taxes_id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__taxes_id
+msgid "Customer Taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product__supplier_taxes_id
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_product_template__supplier_taxes_id
+msgid "Default taxes used when buying the product."
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product__taxes_id
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_product_template__taxes_id
+msgid "Default taxes used when selling the product."
+msgstr ""
+
+#. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification.template,name:account_product_fiscal_classification.fiscal_classification_template
 msgid "Demo Fiscal Classification Template"
 msgstr ""
@@ -350,6 +368,12 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_template_form
 msgid "Taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__supplier_taxes_id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__supplier_taxes_id
+msgid "Vendor Taxes"
 msgstr ""
 
 #. module: account_product_fiscal_classification
