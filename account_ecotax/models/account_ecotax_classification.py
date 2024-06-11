@@ -9,7 +9,6 @@ class AccountEcotaxClassification(models.Model):
     _name = "account.ecotax.classification"
     _description = "Account Ecotax Classification"
 
-
     name = fields.Char(required=True)
     code = fields.Char()
     ecotax_type = fields.Selection(
