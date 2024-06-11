@@ -2,7 +2,7 @@
 #   @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import Command, api, fields, models
 
 
 class SaleOrderLine(models.Model):
@@ -52,9 +52,10 @@ class SaleOrderLine(models.Model):
 
     @api.depends("product_id", "company_id")
     def _compute_tax_id(self):
-        super()._compute_tax_id()
+        res = super()._compute_tax_id()
         for line in self:
             line.tax_id |= line._get_computed_ecotaxes()
+        return res
 
     def _get_computed_ecotaxes(self):
         self.ensure_one()
@@ -72,25 +73,17 @@ class SaleOrderLine(models.Model):
     @api.onchange("product_id")
     def _onchange_product_ecotax_line(self):
         """Unlink and recreate ecotax_lines when modifying the product_id."""
+        self.ecotax_line_ids.unlink()  # Remove all ecotax classification
         if self.product_id:
-            self.ecotax_line_ids = [(5,)]  # Remove all ecotax classification
-            ecotax_cls_vals = []
-            for ecotaxline_prod in self.product_id.all_ecotax_line_product_ids:
-                classif_id = ecotaxline_prod.classification_id.id
-                forced_amount = ecotaxline_prod.force_amount
-                ecotax_cls_vals.append(
-                    (
-                        0,
-                        0,
-                        {
-                            "classification_id": classif_id,
-                            "force_amount_unit": forced_amount,
-                        },
-                    )
+            self.ecotax_line_ids = [
+                Command.create(
+                    {
+                        "classification_id": ecotaxline_prod.classification_id.id,
+                        "force_amount_unit": ecotaxline_prod.force_amount,
+                    }
                 )
-            self.ecotax_line_ids = ecotax_cls_vals
-        else:
-            self.ecotax_line_ids = [(5,)]
+                for ecotaxline_prod in self.product_id.all_ecotax_line_product_ids
+            ]
 
     def edit_ecotax_lines(self):
         view = {
@@ -112,17 +105,14 @@ class SaleOrderLine(models.Model):
         from sale order line ecotax_line_ids .
         """
         res = super()._prepare_invoice_line(**optional_values)
-        ecotax_cls_vals = []
-        for ecotaxline in self.ecotax_line_ids:
-            ecotax_cls_vals.append(
-                (
-                    0,
-                    0,
+        if self.ecotax_line_ids:
+            res["ecotax_line_ids"] = [
+                Command.create(
                     {
                         "classification_id": ecotaxline.classification_id.id,
                         "force_amount_unit": ecotaxline.force_amount_unit,
-                    },
+                    }
                 )
-            )
-        res["ecotax_line_ids"] = ecotax_cls_vals
+                for ecotaxline in self.ecotax_line_ids
+            ]
         return res

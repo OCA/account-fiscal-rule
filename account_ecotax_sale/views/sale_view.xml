@@ -66,7 +66,7 @@
                     <field name="sequence" invisible="1" />
                     <field name="product_uom_category_id" invisible="1" />
                     <group>
-                        <group attrs="{'invisible': [('display_type', '!=', False)]}">
+                        <group invisible="display_type">
                             <field
                                 name="product_id"
                                 readonly="1"
@@ -114,20 +114,16 @@
                             <field name="sequence" invisible="1" />
                         </group>
                     </group>
-                    <label
-                        for="name"
-                        string="Description"
-                        attrs="{'invisible': [('display_type', '!=', False)]}"
-                    />
+                    <label for="name" string="Description" invisible="display_type" />
                     <label
                         for="name"
                         string="Section Name (eg. Products, Services)"
-                        attrs="{'invisible': [('display_type', '!=', 'line_section')]}"
+                        invisible="display_type != 'line_section'"
                     />
                     <label
                         for="name"
                         string="Note"
-                        attrs="{'invisible': [('display_type', '!=', 'line_note')]}"
+                        invisible="display_type != 'line_note'"
                     />
                     <field name="name" />
                     <div name="invoice_lines" groups="base.group_no_one" invisible="1">

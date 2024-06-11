@@ -18,7 +18,4 @@ class SaleOrder(models.Model):
     @api.depends("order_line.subtotal_ecotax")
     def _compute_ecotax(self):
         for order in self:
-            val_ecotax = 0.0
-            for line in order.order_line:
-                val_ecotax += line.subtotal_ecotax
-            order.amount_ecotax = val_ecotax
+            order.amount_ecotax = sum(order.order_line.mapped("subtotal_ecotax"))

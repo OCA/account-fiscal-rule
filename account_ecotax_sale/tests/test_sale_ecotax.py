@@ -10,9 +10,9 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 @tagged("-at_install", "post_install")
 class TestsaleEcotax(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref="l10n_fr.l10n_fr_pcg_chart_template"):
-        super(TestsaleEcotax, cls).setUpClass(chart_template_ref)
-
+    def setUpClass(cls, chart_template_ref=None):
+        super().setUpClass(chart_template_ref=chart_template_ref)
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.ecotax_classification = cls.env["account.ecotax.classification"]
         cls.ecotax_classification1 = cls.ecotax_classification.create(
             {

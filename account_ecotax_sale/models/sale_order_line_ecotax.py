@@ -14,15 +14,12 @@ class SaleOrderLineEcotaxe(models.Model):
         comodel_name="sale.order.line",
         string="Sale line",
         required=True,
-        readonly=True,
         index=True,
         auto_join=True,
         ondelete="cascade",
     )
     product_id = fields.Many2one(
-        "product.product", related="sale_order_line_id.product_id", readonly=True
+        "product.product", related="sale_order_line_id.product_id"
     )
-    quantity = fields.Float(related="sale_order_line_id.product_uom_qty", readonly=True)
-    currency_id = fields.Many2one(
-        related="sale_order_line_id.currency_id", readonly=True
-    )
+    quantity = fields.Float(related="sale_order_line_id.product_uom_qty")
+    currency_id = fields.Many2one(related="sale_order_line_id.currency_id")
