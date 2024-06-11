@@ -9,9 +9,6 @@ class AccountEcotaxClassification(models.Model):
     _name = "account.ecotax.classification"
     _description = "Account Ecotax Classification"
 
-    @api.model
-    def _default_company_id(self):
-        return self.env.company
 
     name = fields.Char(required=True)
     code = fields.Char()
@@ -47,7 +44,7 @@ class AccountEcotaxClassification(models.Model):
     active = fields.Boolean(default=True)
     company_id = fields.Many2one(
         comodel_name="res.company",
-        default=_default_company_id,
+        default=lambda self: self.env.company,
         help="Specify a company"
         " if you want to define this Ecotax Classification only for specific"
         " company. Otherwise, this Fiscal Classification will be available"
