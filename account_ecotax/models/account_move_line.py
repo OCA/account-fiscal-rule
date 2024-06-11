@@ -2,7 +2,7 @@
 #   @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import Command, api, fields, models
 
 
 class AcountMoveLine(models.Model):
@@ -65,17 +65,17 @@ class AcountMoveLine(models.Model):
     @api.onchange("product_id")
     def _onchange_product_ecotax_line(self):
         """Unlink and recreate ecotax_lines when modifying the product_id."""
-        self.ecotax_line_ids.unlink() # Remove all ecotax classification
-if self.product_id:
-    self.ecotax_line_ids = [
-        Command.create(
-            {
-                "classification_id":  ecotaxline_prod.classification_id.id
-                "force_amount_unit": ecotaxline_prod.force_amount,
-            }
-        )
-        for ecotaxline_prod in self.product_id.all_ecotax_line_product_ids
-    ]
+        self.ecotax_line_ids.unlink()  # Remove all ecotax classification
+        if self.product_id:
+            self.ecotax_line_ids = [
+                Command.create(
+                    {
+                        "classification_id": ecotaxline_prod.classification_id.id,
+                        "force_amount_unit": ecotaxline_prod.force_amount,
+                    }
+                )
+                for ecotaxline_prod in self.product_id.all_ecotax_line_product_ids
+            ]
 
     def edit_ecotax_lines(self):
         view = {
