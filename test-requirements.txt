@@ -1,0 +1,1 @@
+odoo-addon-account_ecotax @ git+https://github.com/OCA/account-fiscal-rule.git@refs/pull/433/head#subdirectory=account_ecotax
