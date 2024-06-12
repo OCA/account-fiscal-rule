@@ -4,11 +4,13 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import json
+import logging
 
 from lxml import etree
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo import api, fields, models
+
+_logger = logging.getLogger(__name__)
 
 
 class ProductTemplate(models.Model):
@@ -28,16 +30,32 @@ class ProductTemplate(models.Model):
         " manager if you don't have the access right.",
     )
 
+    @api.constrains("categ_id", "fiscal_classification_id")
+    def _check_rules_fiscal_classification(self):
+        self.env["account.product.fiscal.rule"].check_product_templates_integrity(self)
+
     # Overload Section
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            self._update_vals_fiscal_classification(vals)
-        return super().create(vals_list)
+            self._fiscal_classification_update_taxes(vals)
+        templates = super().create(vals_list)
+        for template in templates.filtered(lambda x: not x.fiscal_classification_id):
+            template.fiscal_classification_id = (
+                template._fiscal_classification_get_or_create()[0]
+            )
+        return templates
 
     def write(self, vals):
-        self._update_vals_fiscal_classification(vals)
+        self._fiscal_classification_update_taxes(vals)
         res = super().write(vals)
+        if ({"supplier_taxes_id", "taxes_id"} & vals.keys()) and (
+            "fiscal_classification_id" not in vals.keys()
+        ):
+            for template in self:
+                new_classification = template._fiscal_classification_get_or_create()[0]
+                if template.fiscal_classification_id != new_classification:
+                    template.fiscal_classification_id = new_classification
         return res
 
     # View Section
@@ -48,6 +66,9 @@ class ProductTemplate(models.Model):
 
     @api.model
     def get_view(self, view_id=None, view_type="form", **options):
+        """Set fiscal_classification_id required on all views.
+        We don't set the field required by field definition to avoid
+        incompatibility with other modules, errors on import, etc..."""
         result = super().get_view(view_id=view_id, view_type=view_type, **options)
         doc = etree.fromstring(result["arch"])
         nodes = doc.xpath("//field[@name='fiscal_classification_id']")
@@ -60,9 +81,11 @@ class ProductTemplate(models.Model):
         return result
 
     # Custom Section
-    def _update_vals_fiscal_classification(self, vals):
+    def _fiscal_classification_update_taxes(self, vals):
+        """if fiscal classification is in vals, update vals to set
+        according purchase and sale taxes"""
         FiscalClassification = self.env["account.product.fiscal.classification"]
-        if vals.get("fiscal_classification_id", False):
+        if vals.get("fiscal_classification_id"):
             # We use sudo to have access to all the taxes, even taxes that belong
             # to companies that the user can't access in the current context
             classification = FiscalClassification.sudo().browse(
@@ -74,16 +97,36 @@ class ProductTemplate(models.Model):
                     "taxes_id": [(6, 0, classification.sale_tax_ids.ids)],
                 }
             )
-        elif vals.get("supplier_taxes_id") or vals.get("taxes_id"):
-            raise ValidationError(
-                _(
-                    "You can not create or write products with"
-                    " 'Customer Taxes' or 'Supplier Taxes'\n."
-                    "Please, use instead the 'Fiscal Classification' field."
-                )
-            )
         return vals
 
-    @api.constrains("categ_id", "fiscal_classification_id")
-    def _check_rules_fiscal_classification(self):
-        self.env["account.product.fiscal.rule"].check_product_templates_integrity(self)
+    def _fiscal_classification_get_or_create(self):
+        """get the classification(s) that matches with the fiscal settings
+        of the current product.
+        If no configuration is found, create a new one.
+        This will raise an error, if current user doesn't have the access right
+        to create one classification."""
+
+        self.ensure_one()
+
+        FiscalClassification = self.env["account.product.fiscal.classification"]
+        FiscalClassificationSudo = found_classifications = self.env[
+            "account.product.fiscal.classification"
+        ].sudo()
+        all_classifications = FiscalClassificationSudo.search(
+            [("company_id", "in", [self.company_id.id, False])]
+        )
+
+        for classification in all_classifications:
+            if sorted(self.supplier_taxes_id.ids) == sorted(
+                classification.purchase_tax_ids.ids
+            ) and sorted(self.taxes_id.ids) == sorted(classification.sale_tax_ids.ids):
+                found_classifications |= classification
+
+        if len(found_classifications) == 0:
+            vals = FiscalClassification._prepare_vals_from_taxes(
+                self.supplier_taxes_id, self.taxes_id
+            )
+            _logger.info(f"Creating new Fiscal Classification '{vals['name']}' ...")
+            return FiscalClassification.create(vals)
+
+        return found_classifications
