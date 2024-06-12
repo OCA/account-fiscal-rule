@@ -34,7 +34,7 @@ class ProductTemplate(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            self._update_vals_fiscal_classification(vals)
+            self._update_vals_fiscal_classification(vals, create_mode=True)
         return super().create(vals_list)
 
     def write(self, vals):
@@ -62,7 +62,7 @@ class ProductTemplate(models.Model):
         return result
 
     # Custom Section
-    def _update_vals_fiscal_classification(self, vals):
+    def _update_vals_fiscal_classification(self, vals, create_mode=False):
         FiscalClassification = self.env["account.product.fiscal.classification"]
         if vals.get("fiscal_classification_id"):
             # We use sudo to have access to all the taxes, even taxes that belong
@@ -76,11 +76,7 @@ class ProductTemplate(models.Model):
                     "taxes_id": [(6, 0, classification.sale_tax_ids.ids)],
                 }
             )
-        elif (
-            vals.get("supplier_taxes_id")
-            or vals.get("taxes_id")
-            or "fiscal_classification_id" not in vals
-        ):
+        elif create_mode or {"supplier_taxes_id", "taxes_id"} & vals.keys():
             self._find_or_create_classification(vals)
         return vals
 
