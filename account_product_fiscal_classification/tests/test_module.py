@@ -1,7 +1,6 @@
 # Copyright (C) 2014-Today GRAP (http://www.grap.coop)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
 from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
@@ -166,6 +165,47 @@ class Tests(TransactionCase):
                 self.category_wine,
                 self.fiscal_classification_B_company_1,
             )
+
+    def test_no_classification_and_find_one(self):
+        classif = self.env.ref(
+            "account_product_fiscal_classification.fiscal_classification_A_company_1"
+        )
+        vals = {
+            "name": "Test Product",
+            "company_id": self.env.company.id,
+            "categ_id": self.category_all.id,
+            "taxes_id": classif.sale_tax_ids.ids,
+            "supplier_taxes_id": classif.purchase_tax_ids.ids,
+        }
+        product = self.ProductTemplate.with_user(self.env.user).create(vals)
+        self.assertEqual(product.fiscal_classification_id, classif)
+
+    def test_no_classification_and_create_one(self):
+        classif_co = self.env["account.product.fiscal.classification"].search_count([])
+        my_tax = self.env["account.tax"].create(
+            {"name": "my_tax", "type_tax_use": "sale", "amount": 9.99}
+        )
+        vals = {
+            "name": "Test Product",
+            "company_id": self.env.company.id,
+            "categ_id": self.category_all.id,
+            "taxes_id": my_tax.id,
+        }
+        product = self.ProductTemplate.with_user(self.env.user).create(vals)
+        self.assertNotEquals(product.fiscal_classification_id, False)
+        classif_co_after = self.env[
+            "account.product.fiscal.classification"
+        ].search_count([])
+        self.assertEqual(classif_co_after, classif_co + 1)
+
+    def test_no_tax_nor_classification_and_create_one(self):
+        vals = {
+            "name": "Test Product",
+            "company_id": self.env.company.id,
+            "categ_id": self.category_all.id,
+        }
+        product = self.ProductTemplate.with_user(self.env.user).create(vals)
+        self.assertNotEquals(product.fiscal_classification_id, False)
 
     def _create_product(self, user, category, classification):
         vals = {
