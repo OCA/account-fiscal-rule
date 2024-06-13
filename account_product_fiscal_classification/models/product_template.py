@@ -93,10 +93,10 @@ class ProductTemplate(models.Model):
         for elm in ("supplier_taxes_id", "taxes_id"):
             if elm in vals:
                 del vals[elm]
-        domain = [("sale_tax_ids", "=", [])]
-        if sale_tax_ids:
-            domain = [("sale_tax_ids", "in", sale_tax_ids)]
-        domain.append(("purchase_tax_ids", "in", purchase_tax_ids or []))
+        domain = [
+            ("sale_tax_ids", "in", sale_tax_ids),
+            ("purchase_tax_ids", "in", purchase_tax_ids),
+        ]
         classification = self.env["account.product.fiscal.classification"].search(
             domain, limit=1
         )
