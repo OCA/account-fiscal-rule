@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo14-addon-account_avatax_repair_oca',
         'odoo14-addon-account_avatax_sale_oca',
         'odoo14-addon-account_avatax_website_sale',
+        'odoo14-addon-account_fiscal_position_autodetect_optional_vies',
         'odoo14-addon-account_fiscal_position_partner_type',
         'odoo14-addon-account_multi_vat',
         'odoo14-addon-account_product_fiscal_classification',
