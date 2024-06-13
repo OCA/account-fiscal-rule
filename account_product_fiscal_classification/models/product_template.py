@@ -88,16 +88,15 @@ class ProductTemplate(models.Model):
         """Find the correct Fiscal classification,
         depending of the taxes, or create a new one, if no one are found."""
         # search for matching classication
-        domain = []
         purchase_tax_ids = vals.get("supplier_taxes_id", [])
         sale_tax_ids = vals.get("taxes_id", [])
         for elm in ("supplier_taxes_id", "taxes_id"):
             if elm in vals:
                 del vals[elm]
+        domain = [("sale_tax_ids", "=", [])]
         if sale_tax_ids:
-            domain.append(("sale_tax_ids", "in", sale_tax_ids))
-        if purchase_tax_ids:
-            domain.append(("purchase_tax_ids", "in", purchase_tax_ids))
+            domain = [("sale_tax_ids", "in", sale_tax_ids)]
+        domain.append(("purchase_tax_ids", "in", purchase_tax_ids or []))
         classification = self.env["account.product.fiscal.classification"].search(
             domain, limit=1
         )

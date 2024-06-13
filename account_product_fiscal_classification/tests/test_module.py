@@ -208,7 +208,9 @@ class Tests(TransactionCase):
             "supplier_taxes_id": [],
         }
         product = self.ProductTemplate.with_user(self.env.user).create(vals)
-        self.assertNotEqual(product.fiscal_classification_id, False)
+        classif = product.fiscal_classification_id
+        self.assertEqual(classif.purchase_tax_ids, self.env["account.tax"])
+        self.assertEqual(classif.sale_tax_ids, self.env["account.tax"])
 
     def _create_product(self, user, category, classification):
         vals = {
