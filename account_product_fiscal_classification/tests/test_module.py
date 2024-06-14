@@ -167,6 +167,9 @@ class Tests(TransactionCase):
             )
 
     def test_no_classification_and_find_one(self):
+        classif_count = self.env["account.product.fiscal.classification"].search_count(
+            []
+        )
         classif = self.env.ref(
             "account_product_fiscal_classification.fiscal_classification_A_company_1"
         )
@@ -178,26 +181,46 @@ class Tests(TransactionCase):
             "supplier_taxes_id": classif.purchase_tax_ids.ids,
         }
         product = self.ProductTemplate.with_user(self.env.user).create(vals)
+        # no other classification is created
+        self.assertEqual(
+            self.env["account.product.fiscal.classification"].search_count([]),
+            classif_count,
+        )
+        # product is linked to created classification
         self.assertEqual(product.fiscal_classification_id, classif)
 
     def test_no_classification_and_create_one(self):
-        classif_co = self.env["account.product.fiscal.classification"].search_count([])
         my_tax = self.env["account.tax"].create(
             {"name": "my_tax", "type_tax_use": "sale", "amount": 9.99}
         )
-        vals = {
-            "name": "Test Product",
-            "company_id": self.env.company.id,
-            "categ_id": self.category_all.id,
-            "taxes_id": my_tax.ids,
-            "supplier_taxes_id": [],
-        }
-        product = self.ProductTemplate.with_user(self.env.user).create(vals)
+        classif_co = self.env["account.product.fiscal.classification"].search_count([])
+
+        def create_product():
+            vals = {
+                "name": "Test Product",
+                "company_id": self.env.company.id,
+                "categ_id": self.category_all.id,
+                "taxes_id": my_tax.ids,
+                "supplier_taxes_id": [],
+            }
+            return self.ProductTemplate.with_user(self.env.user).create(vals)
+
+        product = create_product()
         self.assertNotEqual(product.fiscal_classification_id, False)
         classif_co_after = self.env[
             "account.product.fiscal.classification"
         ].search_count([])
         self.assertEqual(classif_co_after, classif_co + 1)
+        # check other products with same tax combination
+        # doesn't create other classification
+        product2 = create_product()
+        classif_co_final = self.env[
+            "account.product.fiscal.classification"
+        ].search_count([])
+        self.assertEqual(
+            product.fiscal_classification_id, product2.fiscal_classification_id
+        )
+        self.assertEqual(classif_co_final, classif_co_after)
 
     def test_no_tax_nor_classification_and_create_one(self):
         vals = {
