@@ -18,5 +18,6 @@
         "wizard/l10n_eu_oss_wizard.xml",
         "views/res_config_settings.xml",
         "views/account_fiscal_position_views.xml",
+        "views/account_tax_view.xml",
     ],
 }

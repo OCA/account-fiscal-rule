@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="account_tax_form_l10n_eu_oss_oca_view" model="ir.ui.view">
+        <field name="name">account.tax.form.l10n.eu.oss.oca.view</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//page[@name='advanced_options']//field[@name='country_id']"
+                position="after"
+            >
+                <field name="oss_country_id" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_tax_tree_l10n_eu_oss_oca_view" model="ir.ui.view">
+        <field name="name">account.tax.tree.l10n.eu.oss.oca.view</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='country_id']" position="after">
+                <field name="oss_country_id" optional="hide" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_tax_search_l10n_eu_oss_oca_view" model="ir.ui.view">
+        <field name="name">account.tax.search.l10n.eu.oss.oca.view</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_account_tax_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//group/filter[@name='company']" position="after">
+                <filter
+                    string="Oss Country"
+                    name="oss_country"
+                    domain="[]"
+                    context="{'group_by':'oss_country_id'}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
