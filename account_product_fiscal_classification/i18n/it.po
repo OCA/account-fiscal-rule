@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: account-fiscal-rule (9.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-16 16:33+0000\n"
-"PO-Revision-Date: 2024-04-10 15:35+0000\n"
+"PO-Revision-Date: 2024-06-15 19:37+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
-"Language-Team: Italian (http://www.transifex.com/oca/OCA-account-fiscal-"
-"rule-9-0/language/it/)\n"
+"Language-Team: Italian (http://www.transifex.com/oca/"
+"OCA-account-fiscal-rule-9-0/language/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,19 +91,19 @@ msgstr "Creato il"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__taxes_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__taxes_id
 msgid "Customer Taxes"
-msgstr ""
+msgstr "Tasse cliente"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product__supplier_taxes_id
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_template__supplier_taxes_id
 msgid "Default taxes used when buying the product."
-msgstr ""
+msgstr "Tasse predefinite quando si acquista il prodotto."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product__taxes_id
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_template__taxes_id
 msgid "Default taxes used when selling the product."
-msgstr ""
+msgstr "Tasse predefinite quando si vende il prodotto."
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification.template,name:account_product_fiscal_classification.fiscal_classification_template
@@ -388,7 +388,7 @@ msgstr "Imposte"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__supplier_taxes_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__supplier_taxes_id
 msgid "Vendor Taxes"
-msgstr ""
+msgstr "Imposte venditore"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_wizard_change_fiscal_classification
