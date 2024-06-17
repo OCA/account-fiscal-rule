@@ -34,6 +34,9 @@ class Tests(TransactionCase):
         self.account_tax_purchase_20_company_1 = self.env.ref(
             "account_product_fiscal_classification.account_tax_purchase_20_company_1"
         )
+        self.account_tax_sale_5_company_1 = self.env.ref(
+            "account_product_fiscal_classification.account_tax_sale_5_company_1"
+        )
         self.account_tax_sale_20_company_1 = self.env.ref(
             "account_product_fiscal_classification.account_tax_sale_20_company_1"
         )
@@ -177,7 +180,7 @@ class Tests(TransactionCase):
     def test_no_classification_and_find_one(self):
         product = self._create_product(
             {
-                "taxes_id": self.classification_A_company_1.sale_tax_ids.ids,
+                "taxes_id": self.classification_B_company_1.sale_tax_ids.ids,
                 "supplier_taxes_id": self.classification_A_company_1.purchase_tax_ids.ids,
             }
         )
@@ -189,13 +192,29 @@ class Tests(TransactionCase):
             product.fiscal_classification_id, self.classification_A_company_1
         )
 
-    def test_no_classification_and_create_one(self):
-        my_tax = self.env["account.tax"].create(
-            {"name": "my_tax", "type_tax_use": "sale", "amount": 9.99}
-        )
-
+    def test_no_classification_one_more_tax_and_create_one(self):
+        """Create a product with fiscal settings that looks like
+        classification_B_company_1 but with an additional supplier tax.
+        """
         product = self._create_product(
-            {"taxes_id": my_tax.ids, "supplier_taxes_id": []}
+            {
+                "taxes_id": self.classification_B_company_1.sale_tax_ids.ids,
+                "supplier_taxes_id": self.account_tax_purchase_20_company_1.ids,
+            }
+        )
+        self.assertNotEqual(product.fiscal_classification_id, False)
+        classif_count_after = self.FiscalClassification.search_count([])
+        self.assertEqual(classif_count_after, self.initial_classif_count + 1)
+
+    def test_no_classification_one_less_tax_and_create_one(self):
+        """Create a product with fiscal settings that looks like
+        classification_B_company_1 but with one less tax
+        """
+        product = self._create_product(
+            {
+                "taxes_id": self.account_tax_sale_5_company_1.ids,
+                "supplier_taxes_id": [],
+            }
         )
         self.assertNotEqual(product.fiscal_classification_id, False)
         classif_count_after = self.FiscalClassification.search_count([])
