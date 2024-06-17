@@ -19,13 +19,13 @@ class Tests(TransactionCase):
         self.company_2 = self.env.ref("account_product_fiscal_classification.company_2")
         self.user_demo = self.env.ref("base.user_demo")
 
-        self.fiscal_classification_A_company_1 = self.env.ref(
+        self.classification_A_company_1 = self.env.ref(
             "account_product_fiscal_classification.fiscal_classification_A_company_1"
         )
-        self.fiscal_classification_B_company_1 = self.env.ref(
+        self.classification_B_company_1 = self.env.ref(
             "account_product_fiscal_classification.fiscal_classification_B_company_1"
         )
-        self.fiscal_classification_D_global = self.env.ref(
+        self.classification_D_global = self.env.ref(
             "account_product_fiscal_classification.fiscal_classification_D_global"
         )
         self.product_template_A_company_1 = self.env.ref(
@@ -43,18 +43,23 @@ class Tests(TransactionCase):
         self.chart_template = self.env.ref(
             "account_product_fiscal_classification.chart_template"
         )
-        # self.sale_tax_2 = self.env.ref(
-        #     "account_product_fiscal_classification.account_tax_sale_5_company_1"
-        # )
-
         self.category_all = self.env.ref("product.product_category_all")
         self.category_wine = self.env.ref(
             "account_product_fiscal_classification.category_wine"
         )
 
-        # # Group to create product
-        # self.product_group = self.env.ref("account.group_account_manager")
-        # self.restricted_group = self.env.ref("base.group_system")
+        self.initial_classif_count = self.FiscalClassification.search_count([])
+
+    def _create_product(self, extra_vals, user=False):
+        if not user:
+            user = self.env.user
+        vals = {
+            "name": "Test Product",
+            "company_id": self.main_company.id,
+            "categ_id": self.category_all.id,
+        }
+        vals.update(extra_vals)
+        return self.ProductTemplate.with_user(user).create(vals)
 
     # Test Section
     def test_01_change_classification(self):
@@ -62,39 +67,36 @@ class Tests(TransactionCase):
         products."""
         wizard = self.WizardChange.create(
             {
-                "old_fiscal_classification_id": self.fiscal_classification_A_company_1.id,
-                "new_fiscal_classification_id": self.fiscal_classification_B_company_1.id,
+                "old_fiscal_classification_id": self.classification_A_company_1.id,
+                "new_fiscal_classification_id": self.classification_B_company_1.id,
             }
         )
         wizard.button_change_fiscal_classification()
         self.assertEqual(
             self.product_template_A_company_1.fiscal_classification_id,
-            self.fiscal_classification_B_company_1,
+            self.classification_B_company_1,
             "Fiscal Classification change has failed for products via Wizard.",
         )
 
     def test_02_create_product(self):
         """Test if creating a product with fiscal classification set correct taxes"""
-        vals = {
-            "name": "Product Product Name",
-            "company_id": self.main_company.id,
-            "fiscal_classification_id": self.fiscal_classification_D_global.id,
-        }
-        newTemplate = self.ProductTemplate.create(vals)
+        newTemplate = self._create_product(
+            {"fiscal_classification_id": self.classification_D_global.id}
+        )
         # Test that all taxes are set (in sudo mode)
         self.assertEqual(
             set(newTemplate.sudo().taxes_id.ids),
-            set(self.fiscal_classification_D_global.sudo().sale_tax_ids.ids),
+            set(self.classification_D_global.sudo().sale_tax_ids.ids),
         )
         self.assertEqual(
             set(newTemplate.sudo().supplier_taxes_id.ids),
-            set(self.fiscal_classification_D_global.sudo().purchase_tax_ids.ids),
+            set(self.classification_D_global.sudo().purchase_tax_ids.ids),
         )
 
     def test_03_update_fiscal_classification(self):
         """Test if changing a Configuration of a Fiscal Classification changes
         the product."""
-        self.fiscal_classification_A_company_1.write(
+        self.classification_A_company_1.write(
             {"sale_tax_ids": [(6, 0, [self.account_tax_sale_20_company_1.id])]}
         )
         self.assertEqual(
@@ -106,7 +108,7 @@ class Tests(TransactionCase):
     def test_05_unlink_fiscal_classification(self):
         """Test if unlinking a Fiscal Classification with products fails."""
         with self.assertRaises(ValidationError):
-            self.fiscal_classification_A_company_1.unlink()
+            self.classification_A_company_1.unlink()
 
     def test_10_chart_template(self):
         """Test if installing new CoA creates correct classification"""
@@ -147,98 +149,60 @@ class Tests(TransactionCase):
 
         # Create a product without rules should success
         self._create_product(
-            self.env.user, self.category_all, self.fiscal_classification_B_company_1
+            {"fiscal_classification_id": self.classification_B_company_1.id}
         )
         self._create_product(
-            self.user_demo, self.category_all, self.fiscal_classification_B_company_1
+            {"fiscal_classification_id": self.classification_B_company_1.id},
+            user=self.user_demo,
         )
 
         # create a product not respecting rules should succeed with accountant perfil
         self._create_product(
-            self.env.user, self.category_wine, self.fiscal_classification_B_company_1
+            {
+                "categ_id": self.category_wine.id,
+                "fiscal_classification_id": self.classification_B_company_1.id,
+            }
         )
 
         # create a product not respecting rules should fail without accountant perfil
         with self.assertRaises(ValidationError):
             self._create_product(
-                self.user_demo,
-                self.category_wine,
-                self.fiscal_classification_B_company_1,
+                {
+                    "categ_id": self.category_wine.id,
+                    "fiscal_classification_id": self.classification_B_company_1.id,
+                },
+                user=self.user_demo,
             )
 
     def test_no_classification_and_find_one(self):
-        classif_count = self.env["account.product.fiscal.classification"].search_count(
-            []
+        product = self._create_product(
+            {
+                "taxes_id": self.classification_A_company_1.sale_tax_ids.ids,
+                "supplier_taxes_id": self.classification_A_company_1.purchase_tax_ids.ids,
+            }
         )
-        classif = self.env.ref(
-            "account_product_fiscal_classification.fiscal_classification_A_company_1"
-        )
-        vals = {
-            "name": "Test Product",
-            "company_id": self.env.company.id,
-            "categ_id": self.category_all.id,
-            "taxes_id": classif.sale_tax_ids.ids,
-            "supplier_taxes_id": classif.purchase_tax_ids.ids,
-        }
-        product = self.ProductTemplate.with_user(self.env.user).create(vals)
         # no other classification is created
-        self.assertEqual(
-            self.env["account.product.fiscal.classification"].search_count([]),
-            classif_count,
-        )
+        classif_count_after = self.FiscalClassification.search_count([])
+        self.assertEqual(classif_count_after, self.initial_classif_count)
         # product is linked to created classification
-        self.assertEqual(product.fiscal_classification_id, classif)
+        self.assertEqual(
+            product.fiscal_classification_id, self.classification_A_company_1
+        )
 
     def test_no_classification_and_create_one(self):
         my_tax = self.env["account.tax"].create(
             {"name": "my_tax", "type_tax_use": "sale", "amount": 9.99}
         )
-        classif_co = self.env["account.product.fiscal.classification"].search_count([])
 
-        def create_product():
-            vals = {
-                "name": "Test Product",
-                "company_id": self.env.company.id,
-                "categ_id": self.category_all.id,
-                "taxes_id": my_tax.ids,
-                "supplier_taxes_id": [],
-            }
-            return self.ProductTemplate.with_user(self.env.user).create(vals)
-
-        product = create_product()
-        self.assertNotEqual(product.fiscal_classification_id, False)
-        classif_co_after = self.env[
-            "account.product.fiscal.classification"
-        ].search_count([])
-        self.assertEqual(classif_co_after, classif_co + 1)
-        # check other products with same tax combination
-        # doesn't create other classification
-        product2 = create_product()
-        classif_co_final = self.env[
-            "account.product.fiscal.classification"
-        ].search_count([])
-        self.assertEqual(
-            product.fiscal_classification_id, product2.fiscal_classification_id
+        product = self._create_product(
+            {"taxes_id": my_tax.ids, "supplier_taxes_id": []}
         )
-        self.assertEqual(classif_co_final, classif_co_after)
+        self.assertNotEqual(product.fiscal_classification_id, False)
+        classif_count_after = self.FiscalClassification.search_count([])
+        self.assertEqual(classif_count_after, self.initial_classif_count + 1)
 
     def test_no_tax_nor_classification_and_create_one(self):
-        vals = {
-            "name": "Test Product",
-            "company_id": self.env.company.id,
-            "categ_id": self.category_all.id,
-            "taxes_id": [],
-            "supplier_taxes_id": [],
-        }
-        product = self.ProductTemplate.with_user(self.env.user).create(vals)
+        product = self._create_product({"taxes_id": [], "supplier_taxes_id": []})
         classif = product.fiscal_classification_id
-        self.assertEqual(classif.purchase_tax_ids, self.env["account.tax"])
-        self.assertEqual(classif.sale_tax_ids, self.env["account.tax"])
-
-    def _create_product(self, user, category, classification):
-        vals = {
-            "name": "Test Product",
-            "categ_id": category.id,
-            "fiscal_classification_id": classification.id,
-        }
-        self.ProductTemplate.with_user(user).create(vals)
+        self.assertEqual(classif.purchase_tax_ids.ids, [])
+        self.assertEqual(classif.sale_tax_ids.ids, [])
