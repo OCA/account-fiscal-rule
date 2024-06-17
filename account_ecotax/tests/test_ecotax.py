@@ -18,28 +18,6 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
         super().setUpClass(chart_template_ref)
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
 
-        # ECOTAXES
-        # 1- Fixed ecotax
-        cls.ecotax_fixed = cls.env["account.ecotax.classification"].create(
-            {
-                "name": "Fixed Ecotax",
-                "ecotax_type": "fixed",
-                "default_fixed_ecotax": 5.0,
-                "product_status": "M",
-                "supplier_status": "FAB",
-            }
-        )
-        # 2- Weight-based ecotax
-        cls.ecotax_weight = cls.env["account.ecotax.classification"].create(
-            {
-                "name": "Weight Based Ecotax",
-                "ecotax_type": "weight_based",
-                "ecotax_coef": 0.04,
-                "product_status": "P",
-                "supplier_status": "FAB",
-            }
-        )
-
         # ACCOUNTING STUFF
         # 1- Tax account
         cls.invoice_tax_account = cls.env["account.account"].create(
@@ -47,6 +25,14 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 "code": "47590",
                 "name": "Invoice Tax Account",
                 "account_type": "liability_current",
+                "company_id": cls.env.user.company_id.id,
+            }
+        )
+        cls.invoice_ecotax_account = cls.env["account.account"].create(
+            {
+                "code": "707120",
+                "name": "Ecotax Account",
+                "account_type": "income",
                 "company_id": cls.env.user.company_id.id,
             }
         )
@@ -99,7 +85,128 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 ],
             }
         )
-
+        # 3 Ecotaxes tax
+        cls.invoice_fixed_ecotax = cls.env["account.tax"].create(
+            {
+                "name": "Fixed Ecotax",
+                "type_tax_use": "sale",
+                "company_id": cls.env.user.company_id.id,
+                "amount_type": "code",
+                "is_ecotax": True,
+                "python_compute": "result = product.fixed_ecotaxe or 0.0",
+                "tax_exigibility": "on_invoice",
+                "invoice_repartition_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "factor_percent": 100,
+                            "repartition_type": "base",
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "factor_percent": 100,
+                            "repartition_type": "tax",
+                            "account_id": cls.invoice_ecotax_account.id,
+                        },
+                    ),
+                ],
+                "refund_repartition_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "factor_percent": 100,
+                            "repartition_type": "base",
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "factor_percent": 100,
+                            "repartition_type": "tax",
+                            "account_id": cls.invoice_ecotax_account.id,
+                        },
+                    ),
+                ],
+            }
+        )
+        cls.invoice_weight_based_ecotax = cls.env["account.tax"].create(
+            {
+                "name": "Weight Based Ecotax",
+                "type_tax_use": "sale",
+                "company_id": cls.env.user.company_id.id,
+                "amount_type": "code",
+                "is_ecotax": True,
+                "python_compute": "result = product.weight_based_ecotaxe or 0.0",
+                "tax_exigibility": "on_invoice",
+                "invoice_repartition_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "factor_percent": 100,
+                            "repartition_type": "base",
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "factor_percent": 100,
+                            "repartition_type": "tax",
+                            "account_id": cls.invoice_ecotax_account.id,
+                        },
+                    ),
+                ],
+                "refund_repartition_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "factor_percent": 100,
+                            "repartition_type": "base",
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "factor_percent": 100,
+                            "repartition_type": "tax",
+                            "account_id": cls.invoice_ecotax_account.id,
+                        },
+                    ),
+                ],
+            }
+        )
+        # ECOTAXES
+        # 1- Fixed ecotax
+        cls.ecotax_fixed = cls.env["account.ecotax.classification"].create(
+            {
+                "name": "Fixed Ecotax",
+                "ecotax_type": "fixed",
+                "default_fixed_ecotax": 5.0,
+                "product_status": "M",
+                "supplier_status": "FAB",
+            }
+        )
+        cls.ecotax_fixed.sale_ecotax_ids = cls.invoice_fixed_ecotax
+        # 2- Weight-based ecotax
+        cls.ecotax_weight = cls.env["account.ecotax.classification"].create(
+            {
+                "name": "Weight Based Ecotax",
+                "ecotax_type": "weight_based",
+                "ecotax_coef": 0.04,
+                "product_status": "P",
+                "supplier_status": "FAB",
+            }
+        )
+        cls.ecotax_weight.sale_ecotax_ids = cls.invoice_weight_based_ecotax
         # MISC
         # 1- Invoice partner
         cls.invoice_partner = cls.env["res.partner"].create({"name": "Test"})

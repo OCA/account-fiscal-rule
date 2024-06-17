@@ -92,6 +92,7 @@ class AcountMoveLine(models.Model):
 
     def _get_computed_taxes(self):
         tax_ids = super()._get_computed_taxes()
+        ecotax_ids = self.env["account.tax"]
         if self.move_id.is_sale_document(include_receipts=True):
             # Out invoice.
             sale_ecotaxs = self.product_id.all_ecotax_line_product_ids.mapped(
