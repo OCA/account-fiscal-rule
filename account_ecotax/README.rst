@@ -17,48 +17,47 @@ Ecotax Management
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-fiscal-rule/tree/16.0/account_ecotax
+    :target: https://github.com/OCA/account-fiscal-rule/tree/17.0/account_ecotax
     :alt: OCA/account-fiscal-rule
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-16-0/account-fiscal-rule-16-0-account_ecotax
+    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-17-0/account-fiscal-rule-17-0-account_ecotax
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module applies to companies based in France mainland. It doesn't apply to
-companies based in the DOM-TOMs (Guadeloupe, Martinique, Guyane, Réunion,
-Mayotte).
+This module applies to companies based in France mainland. It doesn't
+apply to companies based in the DOM-TOMs (Guadeloupe, Martinique,
+Guyane, Réunion, Mayotte).
 
-It add Ecotaxe amount on invoice line.
-furthermore, a total ecotaxe are added at the footer of each document.
+It add Ecotaxe amount on invoice line. furthermore, a total ecotaxe are
+added at the footer of each document.
 
-To make easy ecotaxe management and to factor the data, ecotaxe are set on products via ECOTAXE classifications.
-ECOTAXE classification can either a fixed or weight based ecotaxe.
+To make easy ecotaxe management and to factor the data, ecotaxe are set
+on products via ECOTAXE classifications. ECOTAXE classification can
+either a fixed or weight based ecotaxe.
 
-A product can have one or serveral ecotaxe classifications. For exemple wooden window blinds equipped with electric motor can
-have ecotaxe for wood and ecotaxe for electric motor.
+A product can have one or serveral ecotaxe classifications. For exemple
+wooden window blinds equipped with electric motor can have ecotaxe for
+wood and ecotaxe for electric motor.
 
-This module version add the possibility to manage several ecotaxe classification by product.
-A migration script is necessary to update from previous versions.
+This module version add the possibility to manage several ecotaxe
+classification by product. A migration script is necessary to update
+from previous versions.
 
 There is the main change to manage in migration script:
 
-renamed field
-model 			old field   		new field
-account.move.line 	unit_ecotaxe_amount    ecotaxe_amount_unit
-product.template        manual_fixed_ecotaxe   force_ecotaxe_amount
+renamed field model old field new field account.move.line
+unit_ecotaxe_amount ecotaxe_amount_unit product.template
+manual_fixed_ecotaxe force_ecotaxe_amount
 
-changed fields
-model                 old field                    new field
-product.template      ecotaxe_classification_id    ecotaxe_classification_ids
+changed fields model old field new field product.template
+ecotaxe_classification_id ecotaxe_classification_ids
 
-added fields
-model 		    new field
-account.move.line  ecotaxe_line_ids
-product.template   ecotaxe_line_product_ids
+added fields model new field account.move.line ecotaxe_line_ids
+product.template ecotaxe_line_product_ids
 
 **Table of contents**
 
@@ -68,12 +67,14 @@ product.template   ecotaxe_line_product_ids
 Usage
 =====
 
-Add ecotaxe classification via the menu *Accounting > configuration > Taxes >  Ecotaxe Classification*.
-Ecotaxe classification is either a fixed ecotaxe or weight based ecotaxe.
-ecotaxe classification Infos can be used for legal declarations.
-For fixed ecotaxe, ecotaxe amount is used as default value. We can for ecotaxe amount on product.
+Add ecotaxe classification via the menu *Accounting > configuration >
+Taxes > Ecotaxe Classification*. Ecotaxe classification is either a
+fixed ecotaxe or weight based ecotaxe. ecotaxe classification Infos can
+be used for legal declarations. For fixed ecotaxe, ecotaxe amount is
+used as default value. We can for ecotaxe amount on product.
 
-For weight based ecotaxe, we should define one ecotaxe by coef applied for the weight (depending on product materials).
+For weight based ecotaxe, we should define one ecotaxe by coef applied
+for the weight (depending on product materials).
 
 Assign one or more ecotaxe classification to a product.
 
@@ -85,7 +86,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-fiscal-rule/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_ecotax%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_ecotax%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -93,17 +94,17 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Akretion
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
+-  Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -123,6 +124,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-mourad-ehm| 
 
-This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/16.0/account_ecotax>`_ project on GitHub.
+This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/17.0/account_ecotax>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
