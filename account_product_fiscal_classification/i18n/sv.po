@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-09 01:39+0000\n"
-"PO-Revision-Date: 2024-02-27 13:36+0000\n"
+"PO-Revision-Date: 2024-06-18 16:39+0000\n"
 "Last-Translator: jakobkrabbe <jakob@syscare.se>\n"
 "Language-Team: Swedish (https://www.transifex.com/oca/teams/23907/sv/)\n"
 "Language: sv\n"
@@ -91,19 +91,19 @@ msgstr "Skapad den"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__taxes_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__taxes_id
 msgid "Customer Taxes"
-msgstr ""
+msgstr "Kundskatter"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product__supplier_taxes_id
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_template__supplier_taxes_id
 msgid "Default taxes used when buying the product."
-msgstr ""
+msgstr "Standardskatter som används vid köp av produkten."
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product__taxes_id
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_template__taxes_id
 msgid "Default taxes used when selling the product."
-msgstr ""
+msgstr "Standardskatter som används vid försäljning av produkten."
 
 #. module: account_product_fiscal_classification
 #: model:account.product.fiscal.classification.template,name:account_product_fiscal_classification.fiscal_classification_template
@@ -388,7 +388,7 @@ msgstr "Skatter"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__supplier_taxes_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__supplier_taxes_id
 msgid "Vendor Taxes"
-msgstr ""
+msgstr "Försäljarskatter"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_wizard_change_fiscal_classification
