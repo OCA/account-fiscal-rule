@@ -10,10 +10,10 @@
         <field name="inherit_id" ref="product.product_variant_easy_edit_view" />
         <field name="arch" type="xml">
             <group name="tags" position="after">
-                <group name="ecotax_classif" string="Ecotaxe classification">
+                <group name="ecotax_classif" string="Ecotax classification">
                     <label
                         for="ecotax_line_product_ids"
-                        string=" Product Template Ecotaxe classif"
+                        string=" Product Template Ecotax classif"
                     />
                     <div>
                         <field
@@ -31,7 +31,7 @@
                     </div>
                     <label
                         for="additional_ecotax_line_product_ids"
-                        string="Additional Ecotaxe classif"
+                        string="Additional Ecotax classif"
                     />
                     <div>
                         <field
@@ -61,7 +61,7 @@
             <xpath expr="//field[@name='ecotax_line_product_ids']/.." position="after">
                 <label
                     for="additional_ecotax_line_product_ids"
-                    string="Additional Ecotaxe classif"
+                    string="Additional Ecotax classif"
                 />
                     <div>
                         <field
@@ -78,7 +78,7 @@
                     </div>
             </xpath>
             <xpath expr="//label[@for='standard_price']" position="before">
-                <label for="all_ecotax_line_product_ids" string="Ecotaxe classif" />
+                <label for="all_ecotax_line_product_ids" string="Ecotax classif" />
                     <div>
                         <field
                         name="all_ecotax_line_product_ids"

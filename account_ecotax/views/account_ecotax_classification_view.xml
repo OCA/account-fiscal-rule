@@ -8,18 +8,12 @@
         <field name="model">account.ecotax.classification</field>
         <field name="arch" type="xml">
             <tree decoration-muted="not active">
-                <field name="active" invisible="1" />
+                <field name="active" column_invisible="1" />
                 <field name="code" />
                 <field name="name" />
                 <field name="ecotax_type" />
-                <field
-                    name="ecotax_coef"
-                    attrs="{'invisible': [['ecotax_type', '!=', 'weight_based']]}"
-                />
-                <field
-                    name="default_fixed_ecotax"
-                    attrs="{'invisible': [['ecotax_type', '!=', 'fixed']]}"
-                />
+                <field name="ecotax_coef" invisible="ecotax_type != 'weight_based'" />
+                <field name="default_fixed_ecotax" invisible="ecotax_type != 'fixed'" />
                 <field name="categ_id" />
                 <field name="product_status" />
             </tree>
@@ -34,7 +28,7 @@
                         name="web_ribbon"
                         title="Archived"
                         bg_color="bg-danger"
-                        attrs="{'invisible': [('active', '=', True)]}"
+                        invisible="active"
                     />
                     <div class="oe_title oe_left">
                         <div class="oe_edit_only">
@@ -61,11 +55,11 @@
                         <field name="ecotax_type" />
                         <field
                             name="ecotax_coef"
-                            attrs="{'invisible': [['ecotax_type', '!=', 'weight_based']]}"
+                            invisible="ecotax_type != 'weight_based'"
                         />
                         <field
                             name="default_fixed_ecotax"
-                            attrs="{'invisible': [['ecotax_type', '!=', 'fixed']]}"
+                            invisible="ecotax_type != 'fixed'"
                         />
                     </group>
                     <separator string="Ecotaxes" />
@@ -90,7 +84,7 @@
     <record id="ecotax_classification_search" model="ir.ui.view">
         <field name="model">account.ecotax.classification</field>
         <field name="arch" type="xml">
-            <search string="Search Ecotaxe Classification">
+            <search string="Search Ecotax Classification">
                 <field
                     name="name"
                     filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"
@@ -120,12 +114,12 @@
         </field>
     </record>
     <record id="action_ecotax_classification" model="ir.actions.act_window">
-        <field name="name">Ecotaxe Classification</field>
+        <field name="name">Ecotax Classification</field>
         <field name="res_model">account.ecotax.classification</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
-                Click to start a new Ecotaxe Classification.
+                Click to start a new Ecotax Classification.
               </p>
         </field>
     </record>

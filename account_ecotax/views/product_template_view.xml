@@ -14,7 +14,7 @@
                 <group name="ecotax" col="4">
                     <label
                         for="ecotax_line_product_ids"
-                        string="Product Template Ecotaxe classif"
+                        string="Product Template Ecotax classif"
                     />
                     <div>
                         <field name="ecotax_line_product_ids" colspan="2" nolabel="1">

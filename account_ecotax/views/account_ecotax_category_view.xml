@@ -10,7 +10,7 @@
             <tree>
                 <field name="code" />
                 <field name="name" />
-                <field name="active" invisible="1" />
+                <field name="active" column_invisible="1" />
             </tree>
         </field>
     </record>
@@ -23,7 +23,7 @@
                         name="web_ribbon"
                         title="Archived"
                         bg_color="bg-danger"
-                        attrs="{'invisible': [('active', '=', True)]}"
+                        invisible="active"
                     />
                     <div class="oe_title oe_left">
                         <div class="oe_edit_only">
@@ -44,7 +44,7 @@
     <record id="ecotax_category_search" model="ir.ui.view">
         <field name="model">account.ecotax.category</field>
         <field name="arch" type="xml">
-            <search string="Search Ecotaxe category">
+            <search string="Search Ecotax category">
                 <field
                     name="name"
                     filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"
@@ -54,12 +54,12 @@
         </field>
     </record>
     <record id="action_ecotax_category" model="ir.actions.act_window">
-        <field name="name">Ecotaxe category</field>
+        <field name="name">Ecotax category</field>
         <field name="res_model">account.ecotax.category</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
-                Click to start a new Ecotaxe category.
+                Click to start a new Ecotax category.
               </p>
         </field>
     </record>

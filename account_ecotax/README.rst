@@ -32,32 +32,32 @@ This module applies to companies based in France mainland. It doesn't
 apply to companies based in the DOM-TOMs (Guadeloupe, Martinique,
 Guyane, Réunion, Mayotte).
 
-It add Ecotaxe amount on invoice line. furthermore, a total ecotaxe are
+It add Ecotax amount on invoice line. furthermore, a total ecotax are
 added at the footer of each document.
 
-To make easy ecotaxe management and to factor the data, ecotaxe are set
-on products via ECOTAXE classifications. ECOTAXE classification can
-either a fixed or weight based ecotaxe.
+To make easy ecotax management and to factor the data, ecotax are set on
+products via ECOTAXE classifications. ECOTAXE classification can either
+a fixed or weight based ecotax.
 
-A product can have one or serveral ecotaxe classifications. For exemple
-wooden window blinds equipped with electric motor can have ecotaxe for
-wood and ecotaxe for electric motor.
+A product can have one or serveral ecotax classifications. For exemple
+wooden window blinds equipped with electric motor can have ecotax for
+wood and ecotax for electric motor.
 
-This module version add the possibility to manage several ecotaxe
+This module version add the possibility to manage several ecotax
 classification by product. A migration script is necessary to update
 from previous versions.
 
 There is the main change to manage in migration script:
 
 renamed field model old field new field account.move.line
-unit_ecotaxe_amount ecotaxe_amount_unit product.template
-manual_fixed_ecotaxe force_ecotaxe_amount
+unit_ecotax_amount ecotax_amount_unit product.template
+manual_fixed_ecotax force_ecotax_amount
 
 changed fields model old field new field product.template
-ecotaxe_classification_id ecotaxe_classification_ids
+ecotax_classification_id ecotax_classification_ids
 
-added fields model new field account.move.line ecotaxe_line_ids
-product.template ecotaxe_line_product_ids
+added fields model new field account.move.line ecotax_line_ids
+product.template ecotax_line_product_ids
 
 **Table of contents**
 
@@ -67,18 +67,18 @@ product.template ecotaxe_line_product_ids
 Usage
 =====
 
-Add ecotaxe classification via the menu *Accounting > configuration >
-Taxes > Ecotaxe Classification*. Ecotaxe classification is either a
-fixed ecotaxe or weight based ecotaxe. ecotaxe classification Infos can
-be used for legal declarations. For fixed ecotaxe, ecotaxe amount is
-used as default value. We can for ecotaxe amount on product.
+Add ecotax classification via the menu *Accounting > configuration >
+Taxes > Ecotax Classification*. Ecotax classification is either a fixed
+ecotax or weight based ecotax. ecotax classification Infos can be used
+for legal declarations. For fixed ecotax, ecotax amount is used as
+default value. We can for ecotax amount on product.
 
-For weight based ecotaxe, we should define one ecotaxe by coef applied
-for the weight (depending on product materials).
+For weight based ecotax, we should define one ecotax by coef applied for
+the weight (depending on product materials).
 
-Assign one or more ecotaxe classification to a product.
+Assign one or more ecotax classification to a product.
 
-we can also force amount ecotaxe on account move line by classification.
+we can also force amount ecotax on account move line by classification.
 
 Bug Tracker
 ===========

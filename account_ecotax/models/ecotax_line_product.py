@@ -6,16 +6,15 @@ from odoo import api, fields, models
 
 
 class EcotaxLineProduct(models.Model):
-    """class for objects which can be used to save mutili ecotax calssification  by product."""
+    """Class for objects which can be used to save
+    mutili ecotax calssification by product."""
 
     _name = "ecotax.line.product"
     _description = "Ecotax Line product"
 
-    product_tmpl_id = fields.Many2one(
-        "product.template", string="Product Template", readonly=True
-    )
-    product_id = fields.Many2one("product.product", string="Product", readonly=True)
-    currency_id = fields.Many2one(related="product_tmpl_id.currency_id", readonly=True)
+    product_tmpl_id = fields.Many2one("product.template", string="Product Template")
+    product_id = fields.Many2one("product.product", string="Product")
+    currency_id = fields.Many2one(related="product_tmpl_id.currency_id")
     classification_id = fields.Many2one(
         "account.ecotax.classification",
         string="Classification",
@@ -28,7 +27,7 @@ class EcotaxLineProduct(models.Model):
     amount = fields.Float(
         digits="Ecotax",
         compute="_compute_ecotax",
-        help="Ecotax Amount computed form Classification or forced ecotax amount",
+        help="Ecotax Amount computed from Classification or forced ecotax amount",
         store=True,
     )
     display_name = fields.Char(compute="_compute_display_name")
@@ -36,10 +35,7 @@ class EcotaxLineProduct(models.Model):
     @api.depends("classification_id", "amount")
     def _compute_display_name(self):
         for rec in self:
-            rec.display_name = "%s (%s)" % (
-                rec.classification_id.name,
-                rec.amount,
-            )
+            rec.display_name = f"{rec.classification_id.name} ({rec.amount})"
 
     @api.depends(
         "classification_id",

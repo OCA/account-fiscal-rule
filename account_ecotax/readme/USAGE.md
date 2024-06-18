@@ -1,12 +1,12 @@
-Add ecotaxe classification via the menu *Accounting \> configuration \>
-Taxes \> Ecotaxe Classification*. Ecotaxe classification is either a
-fixed ecotaxe or weight based ecotaxe. ecotaxe classification Infos can
-be used for legal declarations. For fixed ecotaxe, ecotaxe amount is
-used as default value. We can for ecotaxe amount on product.
+Add ecotax classification via the menu *Accounting \> configuration \>
+Taxes \> Ecotax Classification*. Ecotax classification is either a
+fixed ecotax or weight based ecotax. ecotax classification Infos can
+be used for legal declarations. For fixed ecotax, ecotax amount is
+used as default value. We can for ecotax amount on product.
 
-For weight based ecotaxe, we should define one ecotaxe by coef applied
+For weight based ecotax, we should define one ecotax by coef applied
 for the weight (depending on product materials).
 
-Assign one or more ecotaxe classification to a product.
+Assign one or more ecotax classification to a product.
 
-we can also force amount ecotaxe on account move line by classification.
+we can also force amount ecotax on account move line by classification.

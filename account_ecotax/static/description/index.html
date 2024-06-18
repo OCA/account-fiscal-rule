@@ -373,25 +373,25 @@ ul.auto-toc {
 <p>This module applies to companies based in France mainland. It doesn’t
 apply to companies based in the DOM-TOMs (Guadeloupe, Martinique,
 Guyane, Réunion, Mayotte).</p>
-<p>It add Ecotaxe amount on invoice line. furthermore, a total ecotaxe are
+<p>It add Ecotax amount on invoice line. furthermore, a total ecotax are
 added at the footer of each document.</p>
-<p>To make easy ecotaxe management and to factor the data, ecotaxe are set
-on products via ECOTAXE classifications. ECOTAXE classification can
-either a fixed or weight based ecotaxe.</p>
-<p>A product can have one or serveral ecotaxe classifications. For exemple
-wooden window blinds equipped with electric motor can have ecotaxe for
-wood and ecotaxe for electric motor.</p>
-<p>This module version add the possibility to manage several ecotaxe
+<p>To make easy ecotax management and to factor the data, ecotax are set on
+products via ECOTAXE classifications. ECOTAXE classification can either
+a fixed or weight based ecotax.</p>
+<p>A product can have one or serveral ecotax classifications. For exemple
+wooden window blinds equipped with electric motor can have ecotax for
+wood and ecotax for electric motor.</p>
+<p>This module version add the possibility to manage several ecotax
 classification by product. A migration script is necessary to update
 from previous versions.</p>
 <p>There is the main change to manage in migration script:</p>
 <p>renamed field model old field new field account.move.line
-unit_ecotaxe_amount ecotaxe_amount_unit product.template
-manual_fixed_ecotaxe force_ecotaxe_amount</p>
+unit_ecotax_amount ecotax_amount_unit product.template
+manual_fixed_ecotax force_ecotax_amount</p>
 <p>changed fields model old field new field product.template
-ecotaxe_classification_id ecotaxe_classification_ids</p>
-<p>added fields model new field account.move.line ecotaxe_line_ids
-product.template ecotaxe_line_product_ids</p>
+ecotax_classification_id ecotax_classification_ids</p>
+<p>added fields model new field account.move.line ecotax_line_ids
+product.template ecotax_line_product_ids</p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -407,15 +407,15 @@ product.template ecotaxe_line_product_ids</p>
 </div>
 <div class="section" id="usage">
 <h1><a class="toc-backref" href="#toc-entry-1">Usage</a></h1>
-<p>Add ecotaxe classification via the menu <em>Accounting &gt; configuration &gt;
-Taxes &gt; Ecotaxe Classification</em>. Ecotaxe classification is either a
-fixed ecotaxe or weight based ecotaxe. ecotaxe classification Infos can
-be used for legal declarations. For fixed ecotaxe, ecotaxe amount is
-used as default value. We can for ecotaxe amount on product.</p>
-<p>For weight based ecotaxe, we should define one ecotaxe by coef applied
-for the weight (depending on product materials).</p>
-<p>Assign one or more ecotaxe classification to a product.</p>
-<p>we can also force amount ecotaxe on account move line by classification.</p>
+<p>Add ecotax classification via the menu <em>Accounting &gt; configuration &gt;
+Taxes &gt; Ecotax Classification</em>. Ecotax classification is either a fixed
+ecotax or weight based ecotax. ecotax classification Infos can be used
+for legal declarations. For fixed ecotax, ecotax amount is used as
+default value. We can for ecotax amount on product.</p>
+<p>For weight based ecotax, we should define one ecotax by coef applied for
+the weight (depending on product materials).</p>
+<p>Assign one or more ecotax classification to a product.</p>
+<p>we can also force amount ecotax on account move line by classification.</p>
 </div>
 <div class="section" id="bug-tracker">
 <h1><a class="toc-backref" href="#toc-entry-2">Bug Tracker</a></h1>

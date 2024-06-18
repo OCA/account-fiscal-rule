@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
-    <record id="ecotaxe_decimal" model="decimal.precision">
+    <record id="ecotax_decimal" model="decimal.precision">
         <field name="name">Ecotax</field>
         <field name="digits">4</field>
     </record>

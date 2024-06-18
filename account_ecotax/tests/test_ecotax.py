@@ -6,13 +6,14 @@
 
 from random import choice
 
+from odoo import Command
 from odoo.tests.common import Form, tagged
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 @tagged("-at_install", "post_install")
-class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
+class TestInvoiceEcotax(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref=None):
         super().setUpClass(chart_template_ref)
@@ -46,17 +47,13 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 "amount": 10,
                 "tax_exigibility": "on_invoice",
                 "invoice_repartition_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "factor_percent": 100,
                             "repartition_type": "base",
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "factor_percent": 100,
                             "repartition_type": "tax",
@@ -65,17 +62,13 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                     ),
                 ],
                 "refund_repartition_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "factor_percent": 100,
                             "repartition_type": "base",
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "factor_percent": 100,
                             "repartition_type": "tax",
@@ -93,20 +86,16 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 "company_id": cls.env.user.company_id.id,
                 "amount_type": "code",
                 "is_ecotax": True,
-                "python_compute": "result = product.fixed_ecotaxe or 0.0",
+                "python_compute": "result = product.fixed_ecotax or 0.0",
                 "tax_exigibility": "on_invoice",
                 "invoice_repartition_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "factor_percent": 100,
                             "repartition_type": "base",
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "factor_percent": 100,
                             "repartition_type": "tax",
@@ -115,17 +104,13 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                     ),
                 ],
                 "refund_repartition_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "factor_percent": 100,
                             "repartition_type": "base",
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "factor_percent": 100,
                             "repartition_type": "tax",
@@ -142,20 +127,16 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 "company_id": cls.env.user.company_id.id,
                 "amount_type": "code",
                 "is_ecotax": True,
-                "python_compute": "result = product.weight_based_ecotaxe or 0.0",
+                "python_compute": "result = product.weight_based_ecotax or 0.0",
                 "tax_exigibility": "on_invoice",
                 "invoice_repartition_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "factor_percent": 100,
                             "repartition_type": "base",
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "factor_percent": 100,
                             "repartition_type": "tax",
@@ -164,17 +145,13 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                     ),
                 ],
                 "refund_repartition_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "factor_percent": 100,
                             "repartition_type": "base",
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "factor_percent": 100,
                             "repartition_type": "tax",
@@ -219,7 +196,6 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
             partner=cls.invoice_partner,
             products=products,
             company=cls.env.user.company_id,
-            taxes=cls.invoice_tax,
         )
 
     @classmethod
@@ -232,9 +208,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
             {
                 "name": " - ".join(["Product", ecotax_classification.name]),
                 "ecotax_line_product_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "classification_id": ecotax_classification.id,
                         },
@@ -257,7 +231,10 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
             {
                 "name": "Size",
                 "create_variant": "always",
-                "value_ids": [(0, 0, {"name": "S"}), (0, 0, {"name": "M"})],
+                "value_ids": [
+                    Command.create({"name": "S"}),
+                    Command.create({"name": "M"}),
+                ],
             }
         )
 
@@ -265,9 +242,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
             {
                 "name": " - ".join(["Product", ecotax_classification.name]),
                 "ecotax_line_product_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "classification_id": ecotax_classification.id,
                         },
@@ -278,12 +253,10 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 "list_price": 100.00,
                 "weight": 100.00,
                 "attribute_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "attribute_id": size_attr.id,
-                            "value_ids": [(6, 0, size_attr.value_ids.ids)],
+                            "value_ids": [Command.set(size_attr.value_ids.ids)],
                         },
                     )
                 ],
@@ -313,7 +286,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
         self.assertEqual(inv.amount_total, inv_expected_amounts["amount_total"])
         self.assertEqual(len(inv.invoice_line_ids), len(inv_lines_expected_amounts))
         for inv_line, inv_line_expected_amounts in zip(
-            inv.invoice_line_ids, inv_lines_expected_amounts
+            inv.invoice_line_ids, inv_lines_expected_amounts, strict=True
         ):
             self.assertEqual(
                 inv_line.ecotax_amount_unit,
@@ -479,8 +452,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
             - line ecotax unit amount: 2.0
             - line ecotax total amount: 2.0
         """
-        product = self._make_product(self.ecotax_fixed)
-        invoice = self._make_invoice(products=product)
+        invoice = self._make_invoice(products=self._make_product(self.ecotax_fixed))
         invoice.invoice_line_ids[0].ecotax_line_ids.force_amount_unit = 2
         self._run_checks(
             invoice,
@@ -514,9 +486,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
             variant_2.all_ecotax_line_product_ids,
         )
         variant_1.additional_ecotax_line_product_ids = [
-            (
-                0,
-                0,
+            Command.create(
                 {
                     "classification_id": self.ecotax_weight.id,
                 },

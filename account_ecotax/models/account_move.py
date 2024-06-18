@@ -21,6 +21,7 @@ class AccountMove(models.Model):
         for move in self:
             move.amount_ecotax = sum(move.line_ids.mapped("subtotal_ecotax"))
 
+    # TODO: This method is not used anymore, rewrite it to use the new
     @api.model
     def _get_tax_totals(
         self, partner, tax_lines_data, amount_total, amount_untaxed, currency
