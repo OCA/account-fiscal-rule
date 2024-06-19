@@ -5,7 +5,6 @@
 -->
 <odoo>
     <record id="view_order_form" model="ir.ui.view">
-        <field name="name">l10n_fr_ecotax.sale.line.form</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
@@ -32,6 +31,8 @@
                 expr="//field[@name='order_line']/tree/field[last()]"
                 position="after"
             >
+                <field name="subtotal_ecotax" optional="show" />
+                <field name="ecotax_amount_unit" optional="hide" />
                 <button name="edit_ecotax_lines" type="object" string="Edit Ecotax" />
                 <field name="ecotax_line_ids" invisible="1">
                     <tree editable="bottom">
@@ -42,17 +43,10 @@
                     </tree>
                 </field>
             </xpath>
-            <xpath
-                expr="//field[@name='order_line']/tree/field[@name='tax_id']"
-                position="after"
-            >
-                <field name="subtotal_ecotax" optional="show" />
-                <field name="ecotax_amount_unit" optional="hide" />
-            </xpath>
         </field>
     </record>
 
-   <record id="view_sale_line_ecotax_form" model="ir.ui.view">
+    <record id="view_sale_line_ecotax_form" model="ir.ui.view">
         <field name="name">sale.order.line.ecotax.form</field>
         <field name="model">sale.order.line</field>
         <field name="arch" type="xml">
