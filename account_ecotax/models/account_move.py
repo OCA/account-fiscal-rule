@@ -2,8 +2,7 @@
 #   @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
-from odoo.tools.misc import formatLang
+from odoo import api, fields, models
 
 
 class AccountMove(models.Model):
@@ -21,42 +20,21 @@ class AccountMove(models.Model):
         for move in self:
             move.amount_ecotax = sum(move.line_ids.mapped("subtotal_ecotax"))
 
-    # TODO: This method is not used anymore, rewrite it to use the new
-    @api.model
-    def _get_tax_totals(
-        self, partner, tax_lines_data, amount_total, amount_untaxed, currency
-    ):
-        """Include Ecotax when this method is called upon a single invoice
-
-        NB: `_get_tax_totals()` is called when field `tax_totals_json` is
-        computed, which is used in invoice form view to display taxes and
-        totals.
-        """
-        res = super()._get_tax_totals(
-            partner, tax_lines_data, amount_total, amount_untaxed, currency
-        )
-        if len(self) != 1:
-            return res
-
-        base_amt = self.amount_total
-        ecotax_amt = self.amount_ecotax
-        if not ecotax_amt:
-            return res
-
-        env = self.with_context(lang=partner.lang).env
-        fmt_ecotax_amt = formatLang(env, ecotax_amt, currency_obj=currency)
-        fmt_base_amt = formatLang(env, base_amt, currency_obj=currency)
-        data = list(res["groups_by_subtotal"].get(_("Untaxed Amount")) or [])
-        data.append(
-            {
-                "tax_group_name": _("Included Ecotax"),
-                "tax_group_amount": ecotax_amt,
-                "formatted_tax_group_amount": fmt_ecotax_amt,
-                "tax_group_base_amount": base_amt,
-                "formatted_tax_group_base_amount": fmt_base_amt,
-                "tax_group_id": False,  # Not an actual tax
-                "group_key": "Included Ecotax",
-            }
-        )
-        res["groups_by_subtotal"][_("Untaxed Amount")] = data
-        return res
+    # copy dependencies of the original method
+    @api.depends_context("lang")
+    @api.depends(
+        "invoice_line_ids.currency_rate",
+        "invoice_line_ids.tax_base_amount",
+        "invoice_line_ids.tax_line_id",
+        "invoice_line_ids.price_total",
+        "invoice_line_ids.price_subtotal",
+        "invoice_payment_term_id",
+        "partner_id",
+        "currency_id",
+    )
+    def _compute_tax_totals(self):
+        """We will include ecotax in totals computation only
+        if this method is called upon a single invoice"""
+        if len(self) == 1:
+            self = self.with_context(move_id=self.id)
+        return super()._compute_tax_totals()
