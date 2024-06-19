@@ -6,3 +6,4 @@ from . import account_fiscal_position
 from . import account_tax
 from . import res_company
 from . import avatax_rest_api
+from . import res_config
