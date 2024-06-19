@@ -33,7 +33,7 @@
             >
                 <field name="subtotal_ecotax" optional="show" />
                 <field name="ecotax_amount_unit" optional="hide" />
-                <button name="edit_ecotax_lines" type="object" string="Edit Ecotax" />
+                <button name="edit_ecotax_lines" type="object" string="Ecotax" />
                 <field name="ecotax_line_ids" invisible="1">
                     <tree editable="bottom">
                         <field name="classification_id" />
