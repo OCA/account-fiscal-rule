@@ -16,11 +16,11 @@ class SaleOrderLine(models.Model):
         copy=True,
     )
     subtotal_ecotax = fields.Float(
-        digits="Ecotaxe", store=True, compute="_compute_ecotax"
+        string="Ecotax", digits="Ecotaxe", store=True, compute="_compute_ecotax"
     )
     ecotax_amount_unit = fields.Float(
         digits="Ecotaxe",
-        string="ecotax Unit.",
+        string="Ecotax Unit",
         store=True,
         compute="_compute_ecotax",
     )
