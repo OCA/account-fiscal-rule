@@ -15,20 +15,20 @@ class AcountMoveLine(models.Model):
         copy=True,
     )
     subtotal_ecotax = fields.Float(
-        digits="Ecotax", store=True, compute="_compute_ecotax"
+        string="Ecotax", digits="Ecotax", store=True, compute="_compute_ecotax"
     )
     ecotax_amount_unit = fields.Float(
         digits="Ecotax",
-        string="Ecotax Unit.",
+        string="Ecotax Unit",
         store=True,
         compute="_compute_ecotax",
     )
 
     @api.depends(
-        "move_id.currency_id",
-        "ecotax_line_ids",
-        "ecotax_line_ids.amount_unit",
-        "ecotax_line_ids.amount_total",
+        "currency_id",
+        "tax_ids",
+        "quantity",
+        "product_id",
     )
     def _compute_ecotax(self):
         for line in self:
