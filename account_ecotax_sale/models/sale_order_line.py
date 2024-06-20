@@ -28,6 +28,8 @@ class SaleOrderLine(models.Model):
     @api.depends(
         "order_id.currency_id",
         "tax_id",
+        "product_uom_qty",
+        "product_id",
     )
     def _compute_ecotax(self):
         for line in self:
@@ -43,11 +45,13 @@ class SaleOrderLine(models.Model):
                 product=line.product_id,
                 partner=line.order_id.partner_shipping_id,
             )
-            ecotax = 0.0
+            subtotal_ecotax = 0.0
             for tax in compute_all_currency["taxes"]:
-                ecotax += tax["amount"]
-            line.ecotax_amount_unit = ecotax
-            line.subtotal_ecotax = ecotax * line.product_uom_qty
+                subtotal_ecotax += tax["amount"]
+
+            unit = quantity and subtotal_ecotax / quantity or subtotal_ecotax
+            line.ecotax_amount_unit = unit
+            line.subtotal_ecotax = subtotal_ecotax
 
     @api.depends("product_id", "company_id")
     def _compute_tax_id(self):
