@@ -12,21 +12,21 @@ class SaleOrderLine(models.Model):
     ecotax_line_ids = fields.One2many(
         "sale.order.line.ecotax",
         "sale_order_line_id",
-        string="Ecotaxe lines",
+        string="Ecotax lines",
         copy=True,
     )
     subtotal_ecotax = fields.Float(
-        string="Ecotax", digits="Ecotaxe", store=True, compute="_compute_ecotax"
+        string="Ecotax", digits="Ecotax", store=True, compute="_compute_ecotax"
     )
     ecotax_amount_unit = fields.Float(
-        digits="Ecotaxe",
+        digits="Ecotax",
         string="Ecotax Unit",
         store=True,
         compute="_compute_ecotax",
     )
 
     @api.depends(
-        "order_id.currency_id",
+        "currency_id",
         "tax_id",
         "product_uom_qty",
         "product_id",
@@ -97,7 +97,7 @@ class SaleOrderLine(models.Model):
 
     def edit_ecotax_lines(self):
         view = {
-            "name": ("Ecotaxe classification"),
+            "name": ("Ecotax classification"),
             "view_type": "form",
             "view_mode": "form",
             "res_model": "sale.order.line",

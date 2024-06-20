@@ -132,10 +132,10 @@
                     <field name="company_id" invisible="1" />
                     <notebook>
                         <page string="Ecotax lines" name="ecotax_line">
-                                <field name="ecotax_line_ids" nolabel="1">
+                                <field name="ecotax_line_ids" nolabel="1" readonly="1">
                                    <tree editable="bottom">
                                         <field name="classification_id" />
-                                        <field name="force_amount_unit" />
+                                        <field name="force_amount_unit" readonly="1" />
                                         <field name="amount_unit" />
                                         <field name="amount_total" sum="Total Ecotax" />
                                    </tree>
