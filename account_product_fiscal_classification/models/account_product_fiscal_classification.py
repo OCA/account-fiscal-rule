@@ -18,6 +18,12 @@ class AccountProductFiscalClassification(models.Model):
 
     description = fields.Text()
 
+    tax_scope = fields.Selection(
+        [("service", "Services"), ("consu", "Goods")],
+        string="Tax Scope",
+        help="Restrict the use of taxes to a type of product.",
+    )
+
     active = fields.Boolean(
         default=True,
         help="If unchecked, it will allow you to hide the Fiscal"
@@ -51,7 +57,10 @@ class AccountProductFiscalClassification(models.Model):
         column2="tax_id",
         string="Purchase Taxes",
         domain="""[
-            ('type_tax_use', 'in', ['purchase', 'all'])]""",
+            ('type_tax_use', 'in', ['purchase', 'all']),
+            '|',
+            ('tax_scope', '=', False),
+            ('tax_scope', '=', tax_scope)]""",
     )
 
     sale_tax_ids = fields.Many2many(
@@ -61,7 +70,10 @@ class AccountProductFiscalClassification(models.Model):
         column2="tax_id",
         string="Sale Taxes",
         domain="""[
-            ('type_tax_use', 'in', ['sale', 'all'])]""",
+            ('type_tax_use', 'in', ['sale', 'all']),
+            '|',
+            ('tax_scope', '=', False),
+            ('tax_scope', '=', tax_scope)]""",
     )
 
     usage_group_id = fields.Many2one(

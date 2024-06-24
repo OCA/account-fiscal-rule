@@ -19,6 +19,7 @@
         <field name="inherit_id" ref="account.product_template_form_view" />
         <field name="arch" type="xml">
             <field name="taxes_id" position="before">
+                <field name="tax_scope_identification" invisible="1" />
                 <field
                     name="fiscal_classification_id"
                     colspan="2"

@@ -74,6 +74,8 @@
                     </group>
                     <separator string="Taxes" />
                     <group col="4" name="tax_ids">
+                        <field name="tax_scope" />
+                        <newline />
                         <field
                             name="purchase_tax_ids"
                             quick_create="false"
