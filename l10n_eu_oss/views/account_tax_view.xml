@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="account_tax_form_view_inherit_l10n_eu_oss" model="ir.ui.view">
+        <field name="name">account.tax.view.form.inherit.l10n.eu.oss</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form" />
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="oss_country_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="account_tax_tree_view_inherit_l10n_eu_oss" model="ir.ui.view">
+        <field name="name">account.tax.view.tree.inherit.l10n.eu.oss</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_tree" />
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="oss_country_id" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="account_tax_search_view_inherit_l10n_eu_oss" model="ir.ui.view">
+        <field name="name">account.tax.search.tree.inherit.l10n.eu.oss</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_account_tax_search" />
+        <field name="arch" type="xml">
+            <search>
+                <filter
+                    string="OSS Country"
+                    name="oss_country"
+                    domain="[]"
+                    context="{'group_by':'oss_country_id'}"
+                />
+            </search>
+        </field>
+    </record>
+
+</odoo>
