@@ -170,60 +170,61 @@ class Repair(models.Model):
         if avatax_config.use_partner_invoice_id:
             partner = self.partner_invoice_id
         taxable_lines = self._avatax_prepare_lines(self.operations, self.fees_lines)
-        tax_result = avatax_config.create_transaction(
-            fields.Date.today(),
-            self.name,
-            doc_type,
-            partner,
-            warehouse.partner_id or self.company_id.partner_id,
-            self.tax_address_id or self.partner_id,
-            taxable_lines,
-            self.user_id,
-            self.exemption_code or None,
-            self.exemption_code_id.code or None,
-            currency_id=self.currency_id,
-            log_to_record=self,
-        )
-        tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
-        for line in self.operations:
-            external_line_identifier = self.env.context.get(
-                "lineNumber", False
-            )  # Used in tests
-            line_id = external_line_identifier or line.id
-            tax_result_line = tax_result_lines.get(line_id)
-            if tax_result_line:
-                # Should we check the rate with the tax amount?
-                # tax_amount = tax_result_line["taxCalculated"]
-                # rate = round(tax_amount / line.price_subtotal * 100, 2)
-                rate = tax_result_line["rate"]
-                tax = Tax.get_avalara_tax(rate, doc_type)
-                if tax not in line.tax_id:
-                    line_taxes = (
-                        tax
-                        if avatax_config.override_line_taxes
-                        else tax | line.tax_id.filtered(lambda x: not x.is_avatax)
-                    )
-                    line.tax_id = line_taxes
-                line.tax_amt_avatax = tax_result_line["tax"]
+        if taxable_lines:
+            tax_result = avatax_config.create_transaction(
+                fields.Date.today(),
+                self.name,
+                doc_type,
+                partner,
+                warehouse.partner_id or self.company_id.partner_id,
+                self.tax_address_id or self.partner_id,
+                taxable_lines,
+                self.user_id,
+                self.exemption_code or None,
+                self.exemption_code_id.code or None,
+                currency_id=self.currency_id,
+                log_to_record=self,
+            )
+            tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
+            for line in self.operations:
+                external_line_identifier = self.env.context.get(
+                    "lineNumber", False
+                )  # Used in tests
+                line_id = external_line_identifier or line.id
+                tax_result_line = tax_result_lines.get(line_id)
+                if tax_result_line:
+                    # Should we check the rate with the tax amount?
+                    # tax_amount = tax_result_line["taxCalculated"]
+                    # rate = round(tax_amount / line.price_subtotal * 100, 2)
+                    rate = tax_result_line["rate"]
+                    tax = Tax.get_avalara_tax(rate, doc_type)
+                    if tax not in line.tax_id:
+                        line_taxes = (
+                            tax
+                            if avatax_config.override_line_taxes
+                            else tax | line.tax_id.filtered(lambda x: not x.is_avatax)
+                        )
+                        line.tax_id = line_taxes
+                    line.tax_amt_avatax = tax_result_line["tax"]
 
-        for line in self.fees_lines:
-            tax_result_line = tax_result_lines.get(line.id)
-            if tax_result_line:
-                # Should we check the rate with the tax amount?
-                # tax_amount = tax_result_line["taxCalculated"]
-                # rate = round(tax_amount / line.price_subtotal * 100, 2)
-                rate = tax_result_line["rate"]
-                tax = Tax.get_avalara_tax(rate, doc_type)
-                if tax not in line.tax_id:
-                    line_taxes = (
-                        tax
-                        if avatax_config.override_line_taxes
-                        else tax | line.tax_id.filtered(lambda x: not x.is_avatax)
-                    )
-                    line.tax_id = line_taxes
-                line.tax_amt_avatax = tax_result_line["tax"]
+            for line in self.fees_lines:
+                tax_result_line = tax_result_lines.get(line.id)
+                if tax_result_line:
+                    # Should we check the rate with the tax amount?
+                    # tax_amount = tax_result_line["taxCalculated"]
+                    # rate = round(tax_amount / line.price_subtotal * 100, 2)
+                    rate = tax_result_line["rate"]
+                    tax = Tax.get_avalara_tax(rate, doc_type)
+                    if tax not in line.tax_id:
+                        line_taxes = (
+                            tax
+                            if avatax_config.override_line_taxes
+                            else tax | line.tax_id.filtered(lambda x: not x.is_avatax)
+                        )
+                        line.tax_id = line_taxes
+                    line.tax_amt_avatax = tax_result_line["tax"]
 
-        self.amount_tax_avatax = tax_result.get("totalTax")
+            self.amount_tax_avatax = tax_result.get("totalTax")
         return True
 
     def avalara_compute_taxes(self):
