@@ -249,6 +249,11 @@ msgid "Code"
 msgstr ""
 
 #. module: account_avatax_oca
+#: model:product.template,name:account_avatax_oca.avatax_product_freight_product_template
+msgid "Common Carrier FR020100"
+msgstr ""
+
+#. module: account_avatax_oca
 #: model:ir.model,name:account_avatax_oca.model_res_company
 msgid "Companies"
 msgstr ""
@@ -918,6 +923,16 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_form
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_ping
 msgid "Test Connection"
+msgstr ""
+
+#. module: account_avatax_oca
+#: model:product.template,name:account_avatax_oca.avatax_product_sku2_product_template
+msgid "Test Item NT"
+msgstr ""
+
+#. module: account_avatax_oca
+#: model:product.template,name:account_avatax_oca.avatax_product_sku1_product_template
+msgid "Test Item P0000000"
 msgstr ""
 
 #. module: account_avatax_oca
