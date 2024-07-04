@@ -397,19 +397,6 @@ msgstr "Wizard : Ändra skatteklassificering på produkt"
 
 #. module: account_product_fiscal_classification
 #. odoo-python
-#: code:addons/account_product_fiscal_classification/models/product_template.py:0
-#, python-format
-msgid ""
-"You can not create or write products with 'Customer Taxes' or 'Supplier "
-"Taxes'\n"
-".Please, use instead the 'Fiscal Classification' field."
-msgstr ""
-"Du kan inte skapa eller skriva produkter med 'Kundskatter' eller "
-"'Leverantörsskatter'\n"
-"Använd istället fältet 'Skatteklassificering'."
-
-#. module: account_product_fiscal_classification
-#. odoo-python
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid ""
@@ -420,6 +407,16 @@ msgstr ""
 "Du kan inte ta bort den skattemässiga klassificeringen "
 "'%(classification_name)s' eftersom den innehåller %(qty)s produkter. "
 "Vänligen flytta produkterna till en annan skatteklassificering först."
+
+#, python-format
+#~ msgid ""
+#~ "You can not create or write products with 'Customer Taxes' or 'Supplier "
+#~ "Taxes'\n"
+#~ ".Please, use instead the 'Fiscal Classification' field."
+#~ msgstr ""
+#~ "Du kan inte skapa eller skriva produkter med 'Kundskatter' eller "
+#~ "'Leverantörsskatter'\n"
+#~ "Använd istället fältet 'Skatteklassificering'."
 
 #~ msgid "or"
 #~ msgstr "eller"
