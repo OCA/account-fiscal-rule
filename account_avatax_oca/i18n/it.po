@@ -157,7 +157,8 @@ msgstr ""
 msgid ""
 "AvaTax: Notice\n"
 "\n"
-" Address Validation for this country not supported. But, Avalara will still calculate global tax rules."
+" Address Validation for this country not supported. But, Avalara will still "
+"calculate global tax rules."
 msgstr ""
 
 #. module: account_avatax_oca
@@ -168,9 +169,14 @@ msgid ""
 "AvaTax: Warning AvaTax could not validate the address:\n"
 "%s\n"
 "\n"
-"You can save the address and AvaTax will make an attempt to compute taxes based on the zip code if \"Force Address Validation\" is disabled in the Avatax connector configuration.  \n"
+"You can save the address and AvaTax will make an attempt to compute taxes "
+"based on the zip code if \"Force Address Validation\" is disabled in the "
+"Avatax connector configuration.  \n"
 "\n"
-" Also please ensure that the company address is set and Validated.  You can get there by going to Sales->Customers and removing \"Customers\" filter from the search at the top.  Then go to your company contact info and validate your address in the Avatax Tab"
+" Also please ensure that the company address is set and Validated.  You can "
+"get there by going to Sales->Customers and removing \"Customers\" filter "
+"from the search at the top.  Then go to your company contact info and "
+"validate your address in the Avatax Tab"
 msgstr ""
 
 #. module: account_avatax_oca
@@ -247,6 +253,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_oca.field_exemption_code__code
 #: model:ir.model.fields,field_description:account_avatax_oca.field_product_tax_code__name
 msgid "Code"
+msgstr ""
+
+#. module: account_avatax_oca
+#: model:product.template,name:account_avatax_oca.avatax_product_freight_product_template
+msgid "Common Carrier FR020100"
 msgstr ""
 
 #. module: account_avatax_oca
@@ -363,7 +374,9 @@ msgstr ""
 msgid ""
 "Customer Code for customer %(partner.name)s not defined.\n"
 "\n"
-"  You can edit the Customer Code in customer profile. You can fix by clicking \"Generate Customer Code\" button in the customer contact information"
+"  You can edit the Customer Code in customer profile. You can fix by "
+"clicking \"Generate Customer Code\" button in the customer contact "
+"information"
 msgstr ""
 
 #. module: account_avatax_oca
@@ -520,9 +533,8 @@ msgstr ""
 #: code:addons/account_avatax_oca/models/account_tax.py:0
 #, python-format
 msgid ""
-"Incorrect retrieval of Avatax amount for Invoice %(avatax_invoice)s: product"
-" %(product.display_name)s, price_unit %(-price_unit)f , quantity "
-"%(quantity)f"
+"Incorrect retrieval of Avatax amount for Invoice %(avatax_invoice)s: product "
+"%(product.display_name)s, price_unit %(-price_unit)f , quantity %(quantity)f"
 msgstr ""
 
 #. module: account_avatax_oca
@@ -741,9 +753,13 @@ msgstr ""
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
 #, python-format
 msgid ""
-"Please set the Company Address in the partner information and validate.  We are checking against the first line of the address and it's empty.  \n"
+"Please set the Company Address in the partner information and validate.  We "
+"are checking against the first line of the address and it's empty.  \n"
 "\n"
-" Typically located in Sales->Customers, you have to clear \"Customers\" from search filter and type in your own company name.  Ensure the address is filled out and go to Avatax tab in the partner information and validate the address. Save partner update when done."
+" Typically located in Sales->Customers, you have to clear \"Customers\" from "
+"search filter and type in your own company name.  Ensure the address is "
+"filled out and go to Avatax tab in the partner information and validate the "
+"address. Save partner update when done."
 msgstr ""
 
 #. module: account_avatax_oca
@@ -922,6 +938,16 @@ msgid "Test Connection"
 msgstr ""
 
 #. module: account_avatax_oca
+#: model:product.template,name:account_avatax_oca.avatax_product_sku2_product_template
+msgid "Test Item NT"
+msgstr ""
+
+#. module: account_avatax_oca
+#: model:product.template,name:account_avatax_oca.avatax_product_sku1_product_template
+msgid "Test Item P0000000"
+msgstr ""
+
+#. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
 #, python-format
@@ -1008,8 +1034,8 @@ msgstr ""
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__auto_generate_customer_code
 msgid ""
 "This will generate customer code for the customer used in the transaction, "
-"if it doesn't have one already. Each code is unique per customer.  When this"
-" is disabled, you will have to manually go to each customer and manually "
+"if it doesn't have one already. Each code is unique per customer.  When this "
+"is disabled, you will have to manually go to each customer and manually "
 "generate their customer code.  This is required for Avatax and is only "
 "generated one time."
 msgstr ""
@@ -1065,8 +1091,8 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__use_so_partner_id
 msgid ""
-"Use Sales Order's Customer field to determine Taxable Status on the Customer"
-" Invoice. If no Sales Order exists, Customer field on the invoice form view "
+"Use Sales Order's Customer field to determine Taxable Status on the Customer "
+"Invoice. If no Sales Order exists, Customer field on the invoice form view "
 "will be used instead"
 msgstr ""
 
