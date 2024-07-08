@@ -12,6 +12,10 @@ class OssTaxRate(models.Model):
         comodel_name="res.country",
         string="Country",
     )
+    oss_state_ids = fields.Many2many(
+        comodel_name="res.country.state",
+        string="States",
+    )
     general_rate = fields.Float(digits=(16, 4))
     reduced_rate = fields.Float(digits=(16, 4))
     superreduced_rate = fields.Float(string="Super Reduced Rate", digits=(16, 4))
@@ -30,7 +34,7 @@ class OssTaxRate(models.Model):
     _sql_constraints = [
         (
             "oss_country_id_uniq",
-            "unique(oss_country_id)",
+            "unique(oss_country_id, general_rate)",
             "The Country must be unique !",
         ),
     ]

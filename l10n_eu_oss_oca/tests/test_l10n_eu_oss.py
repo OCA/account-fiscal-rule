@@ -20,6 +20,7 @@ class TestL10nEuOss(TransactionCase):
         cls.oss_tax_rate_fr = cls.env.ref("l10n_eu_oss_oca.oss_eu_rate_fr")
         # Country
         cls.country_fr = cls.env.ref("base.fr")
+        cls.country_pt = cls.env.ref("base.pt")
         # Sale Taxes
         tax_vals = {
             "name": "general tax",
@@ -139,3 +140,37 @@ class TestL10nEuOss(TransactionCase):
             ]
         )
         self.assertEqual(move.tax_country_id, move.company_id.account_fiscal_country_id)
+
+    def test_03_states(self):
+        wizard_vals = {
+            "company_id": self.company_main.id,
+            "general_tax": self.general_tax.id,
+        }
+        wizard = self._oss_wizard_create(wizard_vals)
+        wizard.todo_country_ids = [(6, 0, self.country_pt.ids)]
+        wizard.generate_eu_oss_taxes()
+        positions = self._fpos_search(self.country_pt.id)
+        self.assertEqual(len(positions), 3)
+        for fpos, data in zip(
+            positions,
+            [
+                {
+                    "src_rate": 20,
+                    "dest_rate": 23,
+                    "state_ids": self.env["res.country.state"],
+                },
+                {
+                    "src_rate": 20,
+                    "dest_rate": 16,
+                    "state_ids": self.env.ref("base.state_pt_pt-20"),
+                },
+                {
+                    "src_rate": 20,
+                    "dest_rate": 22,
+                    "state_ids": self.env.ref("base.state_pt_pt-30"),
+                },
+            ],
+        ):
+            self.assertEqual(fpos.tax_ids[0].tax_src_id.amount, data["src_rate"])
+            self.assertEqual(fpos.tax_ids[0].tax_dest_id.amount, data["dest_rate"])
+            self.assertEqual(fpos.state_ids, data["state_ids"])
