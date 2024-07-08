@@ -183,6 +183,11 @@ msgid "Setup EU OSS OCA Taxes"
 msgstr "Configurar Impostos OSS da UE"
 
 #. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__oss_state_ids
+msgid "States"
+msgstr ""
+
+#. module: l10n_eu_oss_oca
 #: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__superreduced_rate
 msgid "Super Reduced Rate"
 msgstr "Taxa Super Reduzida"
