@@ -1,7 +1,7 @@
 # Copyright 2021 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
-import mock
+from unittest import mock
 
 from odoo.tests import Form, common
 

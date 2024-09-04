@@ -11,6 +11,5 @@
     "website": "https://github.com/OCA/account-fiscal-rule",
     "depends": ["base_vat_optional_vies"],
     "data": ["views/account_fiscal_position_view.xml"],
-    "external_dependencies": {"python": ["mock"]},
     "application": True,
 }
