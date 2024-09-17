@@ -6,7 +6,7 @@ from odoo import api, fields, models
 
 
 class EcotaxLineProduct(models.Model):
-    """class for objects which can be used to save mutili ecotax calssification  by product."""
+    """class for objects which can be used to save mutiple ecotax classifications  by product."""
 
     _name = "ecotax.line.product"
     _description = "Ecotax Line product"
@@ -23,7 +23,7 @@ class EcotaxLineProduct(models.Model):
     force_amount = fields.Float(
         digits="Ecotax",
         help="Force ecotax amount.\n"
-        "Allow to substitute default Ecotax Classification\n",
+        "Allow to substitute default Ecotax Classification",
     )
     amount = fields.Float(
         digits="Ecotax",
