@@ -17,7 +17,7 @@ class ProductTemplate(models.Model):
     ecotax_amount = fields.Float(
         digits="Ecotax",
         compute="_compute_ecotax",
-        help="Ecotax Amount computed form Classification",
+        help="Ecotax Amount computed from Classification",
         store=True,
     )
     fixed_ecotax = fields.Float(

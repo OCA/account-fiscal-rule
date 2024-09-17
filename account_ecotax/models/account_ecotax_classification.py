@@ -62,29 +62,21 @@ class AccountEcotaxClassification(models.Model):
             ("REM", "Remote vendor"),
         ],
         required=True,
-        help="FAB ==> Fabricant : est établi en France et fabrique des EEE\n"
-        "sous son propre nom ou sa propre marque, ou fait concevoir ou\n"
-        " fabriquer des EEE et les commercialise sous\n"
-        " son propre nom et sa propre marque\n"
-        "REV ==> Revendeur sous sa marque : est établi en France et vend,\n"
-        " sous son propre nom ou sa propre marque des EEE produits\n"
-        " par d'autres fournisseurs"
-        "INT ==> Introducteur : est établi en France et met sur le marché\n"
-        "des EEE provenant d'un autre Etat membre"
-        "IMP ==> Importateur : est établi en France et met sur marché\n"
-        "des EEE provenant de pays hors Union Européenne"
-        "DIS ==> Vendeur à distance : est établie dans un autre Etat\n"
-        "membre ou dans un pays tiers et vend en France des EEE par\n"
-        "communication à distance",
+        help="MAN ==> Manufacturer: is locally established in the country, and manufactures goods which are subject to ecotaxes\n"
+        "under their own name and brand, or designs such goods, subcontracts the manufacturing and then sells them under their own name and brand\n"
+        "RES ==> Reseller, under their own brand: is locally established in the country, and sells under their own name or brand goods subject to ecotax manufactured by others\n"
+        "INT ==> Introducer: is locally established and sells on the local market goods subject to ecotax coming from other countries of the European Union\n"
+        "IMP ==> Importer: is established in France, and sells on the local market goods subject to ecotax coming from countries outside the European Union\n"
+        "REM ==> Remote vendor: is established in another country of the European Union or outside the EU, and remotely sells good subject to ecotaxes to customers in the country",
     )
-    emebi_code = fields.Char()
+    intrastat_code = fields.Char()
     scale_code = fields.Char()
     sale_ecotax_ids = fields.Many2many(
         "account.tax",
         "ecotax_classif_taxes_rel",
         "ecotax_classif_id",
         "tax_id",
-        string="Sale EcoTaxe",
+        string="Sale EcoTax",
         domain=[("is_ecotax", "=", True), ("type_tax_use", "=", "sale")],
     )
     purchase_ecotax_ids = fields.Many2many(
@@ -92,7 +84,7 @@ class AccountEcotaxClassification(models.Model):
         "ecotax_classif_purchase_taxes_rel",
         "ecotax_classif_id",
         "tax_id",
-        string="Purchase EcoTaxe",
+        string="Purchase EcoTax",
         domain=[("is_ecotax", "=", True), ("type_tax_use", "=", "purchase")],
     )
 
@@ -101,5 +93,5 @@ class AccountEcotaxClassification(models.Model):
         for classif in self:
             if classif.ecotax_type == "weight_based":
                 classif.default_fixed_ecotax = 0
-            if classif.ecotax_type == "fixed":
+            elif classif.ecotax_type == "fixed":
                 classif.ecotax_coef = 0

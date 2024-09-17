@@ -58,7 +58,7 @@ class AcountMoveLine(models.Model):
             for tax in compute_all_currency["taxes"]:
                 subtotal_ecotax += tax["amount"]
 
-            unit = quantity and subtotal_ecotax / quantity or subtotal_ecotax
+            unit = subtotal_ecotax / quantity if quantity else subtotal_ecotax
             line.ecotax_amount_unit = unit
             line.subtotal_ecotax = subtotal_ecotax
 
