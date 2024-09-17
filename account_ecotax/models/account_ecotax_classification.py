@@ -55,11 +55,11 @@ class AccountEcotaxClassification(models.Model):
     )
     supplier_status = fields.Selection(
         [
-            ("FAB", "Fabricant"),
-            ("REV", "Revendeur sous sa marque"),
-            ("INT", "Introducteur"),
-            ("IMP", "Importateur"),
-            ("DIS", "Vendeur à distance"),
+            ("MAN", "Manufacturer"),
+            ("RES", "Reseller, under their own brand"),
+            ("INT", "Introducer"),
+            ("IMP", "Importer"),
+            ("REM", "Remote vendor"),
         ],
         required=True,
         help="FAB ==> Fabricant : est établi en France et fabrique des EEE\n"
