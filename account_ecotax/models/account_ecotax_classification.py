@@ -62,12 +62,23 @@ class AccountEcotaxClassification(models.Model):
             ("REM", "Remote vendor"),
         ],
         required=True,
-        help="MAN ==> Manufacturer: is locally established in the country, and manufactures goods which are subject to ecotaxes\n"
-        "under their own name and brand, or designs such goods, subcontracts the manufacturing and then sells them under their own name and brand\n"
-        "RES ==> Reseller, under their own brand: is locally established in the country, and sells under their own name or brand goods subject to ecotax manufactured by others\n"
-        "INT ==> Introducer: is locally established and sells on the local market goods subject to ecotax coming from other countries of the European Union\n"
-        "IMP ==> Importer: is established in France, and sells on the local market goods subject to ecotax coming from countries outside the European Union\n"
-        "REM ==> Remote vendor: is established in another country of the European Union or outside the EU, and remotely sells good subject to ecotaxes to customers in the country",
+        help="MAN ==> Manufacturer: is locally established in the country, "
+        "and manufactures goods which are subject to ecotaxes\n"
+        "under their own name and brand, or designs such goods, "
+        "subcontracts the manufacturing and then sells them under "
+        "their own name and brand\n"
+        "RES ==> Reseller, under their own brand: is locally established "
+        "in the country, and sells under their own name or brand goods"
+        " subject to ecotax manufactured by others\n"
+        "INT ==> Introducer: is locally established and sells on the local "
+        "market goods subject to ecotax coming from other countries "
+        "of the European Union\n"
+        "IMP ==> Importer: is established in France, and sells on the local"
+        " market goods subject to ecotax coming from countries outside"
+        "the European Union\n"
+        "REM ==> Remote vendor: is established in another country of "
+        "the European Union or outside the EU, and remotely sells good "
+        "subject to ecotaxes to customers in the country",
     )
     intrastat_code = fields.Char()
     scale_code = fields.Char()

@@ -27,7 +27,8 @@ class EcotaxLineMixin(models.AbstractModel):
     )
     force_amount_unit = fields.Float(
         digits="Ecotax",
-        help="Force ecotax.\n" "Allow to add a subtitle to the default Ecotax Classification",
+        help="Force ecotax.\n"
+        "Allow to add a subtitle to the default Ecotax Classification",
     )
     amount_total = fields.Float(
         digits="Ecotax",
