@@ -51,7 +51,7 @@
                         <field name="collector_id" />
                         <field name="product_status" />
                         <field name="supplier_status" />
-                        <field name="emebi_code" />
+                        <field name="intrastat_code" />
                         <field name="scale_code" />
                         <field name="company_id" groups="base.group_multi_company" />
                         <field name="active" invisible="1" />
