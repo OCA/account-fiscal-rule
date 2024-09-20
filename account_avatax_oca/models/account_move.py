@@ -271,7 +271,10 @@ class AccountMove(models.Model):
                         line_form.tax_ids.clear()
                         for tax in taxes:
                             line_form.tax_ids.add(tax)
-
+                self = move_form.save()
+            # After taxes are changed is needed to force compute taxes again, in 16 version
+            # change of tax doesn't trigger compute of taxes on header
+            self._compute_amount()
         return tax_result
 
     # Same as v13
