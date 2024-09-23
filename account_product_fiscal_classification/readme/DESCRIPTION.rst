@@ -17,3 +17,5 @@
 
 * Provides the possibility to the account manager to change incorrect
   parameters massively;
+
+* Possibility to use tax_scope to filter taxes with the same tax_scope;
