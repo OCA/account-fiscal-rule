@@ -15,15 +15,31 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     # Field Section
+    tax_scope_identification = fields.Char(
+        "type",
+        store=True,
+        compute="_compute_type_identification",
+    )
+
     fiscal_classification_id = fields.Many2one(
         comodel_name="account.product.fiscal.classification",
         string="Fiscal Classification",
         tracking=True,
+        domain="['|', ('tax_scope','=',None), ('tax_scope', '=', tax_scope_identification)]",
         help="Specify the combination of taxes for this product."
         " This field is required. If you dont find the correct Fiscal"
         " Classification, Please create a new one or ask to your account"
         " manager if you don't have the access right.",
     )
+
+    # Depends Section
+    @api.depends("type")
+    def _compute_type_identification(self):
+        for product in self:
+            if product.type == "product":
+                product.tax_scope_identification = "consu"
+            else:
+                product.tax_scope_identification = product.type
 
     # Overload Section
     @api.model

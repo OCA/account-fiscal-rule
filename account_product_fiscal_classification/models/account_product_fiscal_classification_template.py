@@ -13,6 +13,12 @@ class AccountProductFiscalClassificationTemplate(models.Model):
 
     description = fields.Text()
 
+    tax_scope = fields.Selection(
+        [("service", "Services"), ("consu", "Goods")],
+        string="Tax Scope",
+        help="Restrict the use of taxes to a type of product.",
+    )
+
     chart_template_id = fields.Many2one(
         comodel_name="account.chart.template",
         string="Chart Template",
@@ -34,6 +40,9 @@ class AccountProductFiscalClassificationTemplate(models.Model):
         domain="["
         "('type_tax_use', 'in', ['purchase', 'all']),"
         "('chart_template_id', '=', chart_template_id),"
+        "'|',"
+        "('tax_scope', '=', False),"
+        "('tax_scope', '=', tax_scope),"
         "]",
     )
 
@@ -46,6 +55,9 @@ class AccountProductFiscalClassificationTemplate(models.Model):
         domain="["
         "('type_tax_use', 'in', ['sale', 'all']),"
         "('chart_template_id', '=', chart_template_id),"
+        "'|',"
+        "('tax_scope', '=', False),"
+        "('tax_scope', '=', tax_scope),"
         "]",
     )
 

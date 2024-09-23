@@ -48,6 +48,8 @@ Account Product - Fiscal Classification
 * Provides the possibility to the account manager to change incorrect
   parameters massively;
 
+* Possibility to use tax_scope to filter taxes with the same tax_scope
+
 **Table of contents**
 
 .. contents::
@@ -98,6 +100,7 @@ Contributors
     * Sébastien BEAU <sebastien.beau@akretion.com>
     * Pierrick Brun <pierrick.brun@akretion.com>
     * Renato Lima <renato.lima@akretion.com>
+    * Thomas BONNERUE <thomas.bonnerue@akretion.com>
 
 * Danimar RIBEIRO
 
