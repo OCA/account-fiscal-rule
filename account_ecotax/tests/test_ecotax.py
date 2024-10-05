@@ -93,7 +93,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 "company_id": cls.env.user.company_id.id,
                 "amount_type": "code",
                 "is_ecotax": True,
-                "python_compute": "result = product.fixed_ecotaxe or 0.0",
+                "python_compute": "result = product.fixed_ecotax or 0.0",
                 "tax_exigibility": "on_invoice",
                 "invoice_repartition_line_ids": [
                     (
@@ -142,7 +142,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 "company_id": cls.env.user.company_id.id,
                 "amount_type": "code",
                 "is_ecotax": True,
-                "python_compute": "result = product.weight_based_ecotaxe or 0.0",
+                "python_compute": "result = product.weight_based_ecotax or 0.0",
                 "tax_exigibility": "on_invoice",
                 "invoice_repartition_line_ids": [
                     (
@@ -192,7 +192,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 "ecotax_type": "fixed",
                 "default_fixed_ecotax": 5.0,
                 "product_status": "M",
-                "supplier_status": "FAB",
+                "supplier_status": "MAN",
             }
         )
         cls.ecotax_fixed.sale_ecotax_ids = cls.invoice_fixed_ecotax
@@ -203,7 +203,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 "ecotax_type": "weight_based",
                 "ecotax_coef": 0.04,
                 "product_status": "P",
-                "supplier_status": "FAB",
+                "supplier_status": "MAN",
             }
         )
         cls.ecotax_weight.sale_ecotax_ids = cls.invoice_weight_based_ecotax
