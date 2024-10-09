@@ -3,8 +3,7 @@
 
 
 import logging
-
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from odoo.tests import Form, common
 
@@ -53,11 +52,29 @@ class TestAvatax(common.TransactionCase):
         )
 
     def test_101_moves_onchange(self):
-        self.invoice.onchange_warehouse_id()
-        self.invoice.onchange_reset_avatax_amount()
-        self.invoice.onchange_avatax_calculation()
-        self.invoice.action_post()
-        self.invoice.button_draft()
+        mock_response = MagicMock()
+        mock_response.json.return_value = mock_response
+        void_response = MagicMock()
+        void_response.json.return_value = {
+            "status": "Success",
+            "message": "Transaction voided",
+        }
+
+        with (
+            patch(
+                "avalara.client_methods.Mixin.create_or_adjust_transaction",
+                return_value=mock_response,
+            ),
+            patch(
+                "avalara.client_methods.Mixin.void_transaction",
+                return_value=void_response,
+            ),
+        ):
+            self.invoice.onchange_warehouse_id()
+            self.invoice.onchange_reset_avatax_amount()
+            self.invoice.onchange_avatax_calculation()
+            self.invoice.action_post()
+            self.invoice.button_draft()
 
     @patch(
         "odoo.addons.account_avatax_oca.models.res_company.Company.get_avatax_config_company"
@@ -65,14 +82,20 @@ class TestAvatax(common.TransactionCase):
     @patch(
         "odoo.addons.account_avatax_oca.models.avalara_salestax.AvalaraSalestax.create_transaction"  # noqa: B950
     )
+    @patch(
+        "odoo.addons.account_avatax_oca.models.avalara_salestax.AvalaraSalestax.void_transaction"
+    )
     def test_avatax_compute_tax(
-        self, mock_create_transaction, mock_get_avatax_config_company
+        self,
+        mock_void_transaction,
+        mock_create_transaction,
+        mock_get_avatax_config_company,
     ):
         avatax_config = self.env["avalara.salestax"].create(
             {
                 "account_number": "123456",
                 "license_key": "123456",
-                "company_code": "DEFAULT",
+                "company_code": "DEFAULT2",
                 "disable_tax_calculation": False,
                 "invoice_calculate_tax": False,
             }
@@ -125,7 +148,7 @@ class TestAvatax(common.TransactionCase):
                     "line_id": line.id,
                 }
                 for line, line_data in zip(
-                    self.invoice.invoice_line_ids, invoice_line_data
+                    self.invoice.invoice_line_ids, invoice_line_data, strict=True
                 )
             ]
         )
@@ -145,7 +168,9 @@ class TestAvatax(common.TransactionCase):
         mock_get_avatax_config_company.assert_called()
         mock_create_transaction.assert_called()
 
+        mock_void_transaction.return_value = {"status": "success"}
         self.invoice.button_draft()
+        mock_void_transaction.assert_called()
 
         avatax_config.write(
             {
@@ -176,7 +201,7 @@ class TestAvatax(common.TransactionCase):
                     "line_id": line.id,
                 }
                 for line, line_data in zip(
-                    self.invoice.invoice_line_ids, invoice_line_data
+                    self.invoice.invoice_line_ids, invoice_line_data, strict=True
                 )
             ]
         )

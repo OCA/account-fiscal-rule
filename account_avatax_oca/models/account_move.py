@@ -263,28 +263,30 @@ class AccountMove(models.Model):
 
             # Set Taxes on lines in a way that properly triggers onchanges
             # This same approach is also used by the official account_taxcloud connector
-            
+
             # for index, taxes in taxes_to_set:
             #     # Access the invoice line by index
             #     line = self.invoice_line_ids[index]
             #     # Update the tax_ids field
             #     line.write({"tax_ids": [(6, 0, [tax.id for tax in taxes])]})
 
-            with self.with_context(
-                avatax_invoice=self, check_move_validity=False
-            )._sync_dynamic_lines(container), self.line_ids.mapped(
-                "move_id"
-            )._check_balanced(
-                container
+            with (
+                self.with_context(
+                    avatax_invoice=self, check_move_validity=False
+                )._sync_dynamic_lines(container),
+                self.line_ids.mapped("move_id")._check_balanced(container),
             ):
                 for line_id in taxes_to_set.keys():
-                    line = self.invoice_line_ids.filtered(lambda x: x.id == line_id)
-                    line.tax_ids.write({"tax_ids": [(6, 0, [])]})
+                    line = self.invoice_line_ids.filtered(
+                        lambda x, line_id=line_id: x.id == line_id
+                    )
+                    line.write({"tax_ids": [(6, 0, [])]})
                     line.with_context(
                         avatax_invoice=self, check_move_validity=False
                     ).write({"tax_ids": taxes_to_set.get(line_id).ids})
-            # After taxes are changed is needed to force compute taxes again, in 16 version
-            # change of tax doesn't trigger compute of taxes on header for unknown reason
+            # After taxes are changed is needed to force compute taxes again,
+            # in 16 version change of tax doesn't trigger compute of taxes
+            # on header for unknown reason
             self._compute_amount()
             if float_compare(
                 self.amount_untaxed + max(self.amount_tax, abs(self.avatax_amount)),
