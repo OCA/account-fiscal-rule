@@ -269,7 +269,7 @@ class AccountMove(models.Model):
             ):
                 for line_id in taxes_to_set.keys():
                     line = self.invoice_line_ids.filtered(lambda x: x.id == line_id)
-                    line.tax_ids.write({"tax_ids": [(6, 0, [])]})
+                    line.write({"tax_ids": [(6, 0, [])]})
                     line.with_context(
                         avatax_invoice=self, check_move_validity=False
                     ).write({"tax_ids": taxes_to_set.get(line_id).ids})
