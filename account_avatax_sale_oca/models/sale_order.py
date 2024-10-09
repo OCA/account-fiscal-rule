@@ -167,6 +167,10 @@ class SaleOrder(models.Model):
         ]
         return [x for x in lines if x]
 
+    def update_tax_details(self, tax, line, tax_result_line):
+        """Method to update details in tax"""
+        return tax, line
+
     def _avatax_compute_tax(self):
         """Contact REST API and recompute taxes for a Sale Order"""
         # Override to handle lines with split taxes (e.g. TN)
@@ -210,6 +214,7 @@ class SaleOrder(models.Model):
                     )
                 rate = round(tax_calculation * 100, 4)
                 tax = Tax.get_avalara_tax(rate, doc_type)
+                tax, line = self.update_tax_details(tax, line, tax_result_line)
                 if tax not in line.tax_id:
                     line_taxes = (
                         tax

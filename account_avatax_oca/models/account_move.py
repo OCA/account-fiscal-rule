@@ -184,6 +184,10 @@ class AccountMove(models.Model):
         ]
         return [x for x in lines if x]
 
+    def update_tax_details(self, tax, line, tax_result_line):
+        """Method to update details in tax"""
+        return tax, line
+
     # Same as v12
     def _avatax_compute_tax(self, commit=False):
         """Contact REST API and recompute taxes for a Sale Order"""
@@ -200,9 +204,11 @@ class AccountMove(models.Model):
             self.invoice_date or fields.Date.today(),
             self.name,
             doc_type,
-            self.so_partner_id
-            if self.so_partner_id and avatax_config.use_so_partner_id
-            else self.partner_id,
+            (
+                self.so_partner_id
+                if self.so_partner_id and avatax_config.use_so_partner_id
+                else self.partner_id
+            ),
             self.warehouse_id.partner_id or self.company_id.partner_id,
             self.tax_address_id or self.partner_id,
             taxable_lines,
@@ -250,6 +256,7 @@ class AccountMove(models.Model):
                         )
                     rate = round(tax_calculation * 100, 4)
                     tax = Tax.get_avalara_tax(rate, doc_type)
+                    tax, line = self.update_tax_details(tax, line, tax_result_line)
                     if tax and tax not in line.tax_ids:
                         line_taxes = line.tax_ids.filtered(lambda x: not x.is_avatax)
                         taxes_to_set.append((index, line_taxes | tax))
