@@ -90,15 +90,19 @@ class AccountTax(models.Model):
             digits = 6
             avatax_amount = None
             for line in avatax_invoice.invoice_line_ids:
-                price_unit = line.currency_id._convert(
-                    price_unit,
-                    avatax_invoice.company_id.currency_id,
-                    avatax_invoice.company_id,
-                    avatax_invoice.date,
-                )
+                if avatax_invoice.is_invoice(include_receipts=True):
+                    price_unit_wo_discount = line.price_unit * (
+                        1 - (line.discount / 100.0)
+                    )
+                else:
+                    price_unit_wo_discount = line.amount_currency
                 if (
                     line.product_id == product
                     and float_compare(line.quantity, quantity, digits) == 0
+                    and float_compare(
+                        abs(price_unit), abs(price_unit_wo_discount), digits
+                    )
+                    == 0
                 ):
                     avatax_amount = copysign(line.avatax_amt_line, base)
                     break
@@ -107,7 +111,7 @@ class AccountTax(models.Model):
                 raise exceptions.UserError(
                     _(
                         "Incorrect retrieval of Avatax amount for Invoice %(avatax_invoice)s:"
-                        " product %(product.display_name)s, price_unit %(-price_unit)f"
+                        " product %(product.display_name)s, price_unit %(price_unit)f"
                         " , quantity %(quantity)f"
                     )
                 )
