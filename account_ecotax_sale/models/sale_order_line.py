@@ -54,9 +54,10 @@ class SaleOrderLine(models.Model):
 
     @api.depends("product_id", "company_id")
     def _compute_tax_id(self):
-        super()._compute_tax_id()
+        res = super()._compute_tax_id()
         for line in self:
             line.tax_id |= line._get_computed_ecotaxes()
+        return res
 
     def _get_computed_ecotaxes(self):
         self.ensure_one()

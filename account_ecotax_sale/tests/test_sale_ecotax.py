@@ -11,7 +11,7 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 class TestsaleEcotax(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref="l10n_fr.l10n_fr_pcg_chart_template"):
-        super(TestsaleEcotax, cls).setUpClass(chart_template_ref)
+        super().setUpClass(chart_template_ref)
 
         cls.ecotax_classification = cls.env["account.ecotax.classification"]
         cls.ecotax_classification1 = cls.ecotax_classification.create(
