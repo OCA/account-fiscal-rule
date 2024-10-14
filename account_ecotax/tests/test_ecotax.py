@@ -313,7 +313,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
         self.assertEqual(inv.amount_total, inv_expected_amounts["amount_total"])
         self.assertEqual(len(inv.invoice_line_ids), len(inv_lines_expected_amounts))
         for inv_line, inv_line_expected_amounts in zip(
-            inv.invoice_line_ids, inv_lines_expected_amounts
+            inv.invoice_line_ids, inv_lines_expected_amounts, strict=True
         ):
             self.assertEqual(
                 inv_line.ecotax_amount_unit,

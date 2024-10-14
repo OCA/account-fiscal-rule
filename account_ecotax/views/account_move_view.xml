@@ -45,7 +45,7 @@
                     name="ecotax_line_ids"
                     colspan="2"
                     invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
-                    >
+                >
                     <tree editable="bottom">
                         <field name="classification_id" />
                         <field name="force_amount_unit" />
@@ -120,11 +120,7 @@
                             readonly="1"
                         />
                     </group>
-                    <label
-                        for="name"
-                        string="Description"
-                        invisible="display_type"
-                    />
+                    <label for="name" string="Description" invisible="display_type" />
                     <label
                         for="name"
                         string="Section"

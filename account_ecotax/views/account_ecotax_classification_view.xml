@@ -12,14 +12,8 @@
                 <field name="code" />
                 <field name="name" />
                 <field name="ecotax_type" />
-                <field
-                    name="ecotax_coef"
-                    invisible= "ecotax_type != 'weight_based'"
-                />
-                <field
-                    name="default_fixed_ecotax"
-                    invisible="ecotax_type != 'fixed'"
-                />
+                <field name="ecotax_coef" invisible="ecotax_type != 'weight_based'" />
+                <field name="default_fixed_ecotax" invisible="ecotax_type != 'fixed'" />
                 <field name="categ_id" />
                 <field name="product_status" />
             </tree>
