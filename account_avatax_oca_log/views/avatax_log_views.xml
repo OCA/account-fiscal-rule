@@ -1,0 +1,43 @@
+<odoo>
+    <record id="avatax_log_form_view" model="ir.ui.view">
+        <field name="name">avatax.log.form.view</field>
+        <field name="model">avatax.log</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Avatax Type" create="0" edit="0">
+                <group>
+                    <field name="avatax_request" groups="base.group_no_one" />
+                    <field name="avatax_response" groups="base.group_no_one" />
+                    <field name="create_date" />
+                    <field name="avatax_type" />
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="avatax_log_tree_view" model="ir.ui.view">
+        <field name="name">avatax.log.tree.view</field>
+        <field name="model">avatax.log</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0">
+                <field name="avatax_request" groups="base.group_no_one" />
+                <field name="avatax_response" groups="base.group_no_one" />
+                <field name="create_date" />
+                <field name="avatax_type" />
+            </tree>
+        </field>
+    </record>
+    <record id="avatax_log_act_window" model="ir.actions.act_window">
+        <field name="name">Avatax log</field>
+        <field name="res_model">avatax.log</field>
+        <field name="binding_view_types">tree</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        action="avatax_log_act_window"
+        id="menu_avatax_log"
+        parent="account_avatax_oca.menu_avatax"
+        sequence="25"
+    />
+</odoo>
