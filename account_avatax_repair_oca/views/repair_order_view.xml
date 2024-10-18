@@ -1,0 +1,75 @@
+<odoo>
+    <record id="repair_order_update_form_view" model="ir.ui.view">
+        <field name="name">repair.order.update.form.view</field>
+        <field name="model">repair.order</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="is_avatax" invisible="1" />
+            </xpath>
+            <button name="action_repair_cancel" position="before">
+                <button
+                    name="avalara_compute_taxes"
+                    type="object"
+                    string="Compute Taxes"
+                    attrs="{'invisible': ['|', ('is_avatax', '=', False), ('state', 'in', ['done', 'cancel'])]}"
+                />
+            </button>
+            <field name="location_id" position="after">
+                <field name="hide_exemption" invisible="1" />
+                <field
+                    name="exemption_code"
+                    attrs="{'invisible': [('hide_exemption','=',True)]}"
+                />
+                <field
+                    name="exemption_code_id"
+                    attrs="{'invisible': [('hide_exemption','=',True)]}"
+                />
+                <field name="location_code" />
+            </field>
+            <field name="repaired" position="after">
+                <field
+                    name="tax_address_id"
+                    context="{'show_address': 1}"
+                    options='{"always_reload": True}'
+                />
+                <field name="calculate_tax_on_save" invisible="1" />
+                <field name="amount_tax_avatax" invisible="1" />
+            </field>
+            <xpath expr="//field[@name='operations']//tree" position="inside">
+                <field name="tax_amt_avatax" invisible="1" />
+            </xpath>
+            <xpath
+                expr="//field[@name='operations']//form//field[@name='product_id']"
+                position="after"
+            >
+                <field name="tax_amt_avatax" groups="base.group_no_one" invisible="1" />
+            </xpath>
+            <field position="after" name="tax_address_id">
+                <field name="is_avatax" groups="base.group_no_one" />
+            </field>
+            <notebook position="inside">
+                <page
+                    name="avatax_page"
+                    string="Avatax Log"
+                    groups="base.group_no_one"
+                    attrs="{'invisible': [('is_avatax', '=', False)]}"
+                >
+                    <label for="avatax_request_log" />
+                    <field name="avatax_request_log" widget="ace" />
+                    <label for="avatax_response_log" />
+                    <field name="avatax_response_log" widget="ace" />
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record model="ir.actions.server" id="action_repair_order_compute_taxes">
+        <field name="name">Update taxes with AvaTax</field>
+        <field name="model_id" ref="repair.model_repair_order" />
+        <field name="binding_model_id" ref="repair.model_repair_order" />
+        <field name="state">code</field>
+        <field name="code">records.avalara_compute_taxes()</field>
+    </record>
+</odoo>
