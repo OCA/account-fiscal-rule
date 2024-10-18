@@ -1,0 +1,114 @@
+<odoo>
+    <record id="view_partner_details_form_inherit1" model="ir.ui.view">
+        <field name="name">res.partner.details.form.inherit1</field>
+        <field name="model">res.partner</field>
+        <field
+            name="inherit_id"
+            ref="account_avatax_oca.view_partner_details_form_inherit1"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='customer_code']/.." position="after">
+                <group
+                    col="2"
+                    colspan="4"
+                    attrs="{'invisible': [('is_company','=',False),('parent_id','!=',False)]}"
+                >
+                    <field name="avatax_id" />
+                    <field name="id" invisible="1" />
+                    <field name="is_company" invisible="1" />
+                    <label for="exemption_ids" />
+                </group>
+                <field name="exemption_ids" context="{'hide_partner':id}" nolabel="1" />
+                <div
+                    attrs="{'invisible': ['|',('is_company','=',True),('parent_id','=',False)]}"
+                >
+                    <p>
+                        Avatax Exemption related settings are managed on
+                        <button
+                            name="open_commercial_entity"
+                            type="object"
+                            string="the parent company"
+                            class="oe_link"
+                        />
+                    </p>
+                </div>
+            </xpath>
+            <xpath
+                expr="//field[@name='property_tax_exempt']/../separator[1]"
+                position="attributes"
+            >
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath
+                expr="//page[last()]//field[@name='property_tax_exempt']"
+                position="attributes"
+            >
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath
+                expr="//page[last()]//field[@name='property_exemption_code_id']"
+                position="attributes"
+            >
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath
+                expr="//page[last()]//field[@name='property_exemption_number']"
+                position="attributes"
+            >
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//group[@name='avatax_exemption']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_partner_exempt_form_inherit1">
+        <field name="name">res.partner.field.show.with.group.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field
+            name="inherit_id"
+            ref="account_avatax_exemption.view_partner_details_form_inherit1"
+        />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='property_tax_exempt']/../separator[1]"
+                position="attributes"
+            >
+                <attribute
+                    name="groups"
+                >account_avatax_exemption.group_show_tax_exempt_exempt_number_exempt_code</attribute>
+            </xpath>
+            <xpath
+                expr="//page[last()]//field[@name='property_tax_exempt']"
+                position="attributes"
+            >
+                <attribute
+                    name="groups"
+                >account_avatax_exemption.group_show_tax_exempt_exempt_number_exempt_code</attribute>
+            </xpath>
+            <xpath
+                expr="//page[last()]//field[@name='property_exemption_code_id']"
+                position="attributes"
+            >
+                <attribute
+                    name="groups"
+                >account_avatax_exemption.group_show_tax_exempt_exempt_number_exempt_code</attribute>
+            </xpath>
+            <xpath
+                expr="//page[last()]//field[@name='property_exemption_number']"
+                position="attributes"
+            >
+                <attribute
+                    name="groups"
+                >account_avatax_exemption.group_show_tax_exempt_exempt_number_exempt_code</attribute>
+            </xpath>
+            <xpath expr="//group[@name='avatax_exemption']" position="attributes">
+                <attribute
+                    name="groups"
+                >account_avatax_exemption.group_show_tax_exempt_exempt_number_exempt_code</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

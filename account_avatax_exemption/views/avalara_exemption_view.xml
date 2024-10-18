@@ -1,0 +1,197 @@
+<odoo>
+    <record id="exemption_form_view" model="ir.ui.view">
+        <field name="name">res.partner.exemption.form.view</field>
+        <field name="model">res.partner.exemption</field>
+        <field name="type">form</field>
+        <field
+            name="inherit_id"
+            ref="account_avatax_exemption_base.exemption_form_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="before">
+                <button
+                    string="Export Exemptions"
+                    states="draft"
+                    name="export_exemption"
+                    type="object"
+                    class="oe_highlight"
+                />
+                <button
+                    name="cancel_exemption"
+                    states="progress,done"
+                    string="Cancel"
+                    class="oe_highlight"
+                    type="object"
+                    confirm="Are you sure you want to cancel the Exemptions?"
+                />
+                <button
+                    name="enable_exemption"
+                    states="cancel"
+                    string="Enable Exemptions"
+                    class="oe_highlight"
+                    type="object"
+                    confirm="Are you sure you want to Enable the Exemptions?"
+                />
+            </xpath>
+            <xpath expr="//field[@name='business_type']" position="after">
+                <field
+                    name="exemption_code_id"
+                    options="{'no_create': True}"
+                    required="1"
+                />
+            </xpath>
+        </field>
+    </record>
+    <!-- Exemption Rules -->
+    <record id="exemption_rule_form_view" model="ir.ui.view">
+        <field name="name">exemption.code.rule.form.view</field>
+        <field name="model">exemption.code.rule</field>
+        <field name="arch" type="xml">
+            <form string="Custom Rules">
+                <header>
+                    <button
+                        string="Export Rules"
+                        states="draft"
+                        name="export_exemption_rule"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="cancel_exemption_rule"
+                        states="done"
+                        string="Cancel"
+                        class="oe_highlight"
+                        type="object"
+                        confirm="Are you sure you want to cancel the Custom Rules?"
+                    />
+                    <button
+                        name="enable_exemption_rule"
+                        states="cancel"
+                        string="Enable Custom Rule"
+                        class="oe_highlight"
+                        type="object"
+                        confirm="Are you sure you want to Enable the Custom Rule?"
+                    />
+                    <button
+                        name="reset_to_draft"
+                        string="Reset to Draft"
+                        type="object"
+                        states="cancel"
+                    />
+                    <button
+                        name="cancel_exemption_rule_failed"
+                        string="Cancel Failed Job"
+                        type="object"
+                        states="progress"
+                        class="oe_highlight"
+                        confirm="Are you sure you want to Cancel the Custom Rule?"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,progress,done,cancel"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1" />
+                        <field
+                            name="exemption_code_id"
+                            options="{'no_create': True}"
+                            domain="[('flag','=',True)]"
+                        />
+                        <field
+                            name="state_id"
+                            domain="[('avatax_nexus', '=', True)]"
+                            required="1"
+                            options="{'no_create': True}"
+                        />
+                        <field name="avatax_tax_code" />
+                        <field name="is_all_juris" />
+                        <field name="taxable" />
+                        <field
+                            name="avatax_rate"
+                            attrs="{'invisible': [('taxable','=',True)]}"
+                        />
+                        <field name="avatax_id" readonly="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="exemption_rule_tree_view" model="ir.ui.view">
+        <field name="name">exemption.code.rule.tree.view</field>
+        <field name="model">exemption.code.rule</field>
+        <field name="arch" type="xml">
+            <tree name="Custom Rules">
+                <field name="name" readonly="1" />
+                <field name="state" />
+                <field name="state_id" domain="[('avatax_nexus', '=', True)]" />
+                <field name="exemption_code_id" domain="[('flag','=',True)]" />
+                <field name="avatax_id" />
+            </tree>
+        </field>
+    </record>
+    <record id="exemption_reason_type_form_view" model="ir.ui.view">
+        <field name="name">res.partner.exemption.business.type.form.view</field>
+        <field name="model">res.partner.exemption.business.type</field>
+        <field name="type">form</field>
+        <field
+            name="inherit_id"
+            ref="account_avatax_exemption_base.exemption_reason_type_form_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field
+                    name="exemption_code_id"
+                    options="{'no_create': True}"
+                    required="1"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="exemption_reason_type_tree_view" model="ir.ui.view">
+        <field name="name">res.partner.exemption.business.type.tree.view</field>
+        <field name="model">res.partner.exemption.business.type</field>
+        <field name="type">form</field>
+        <field
+            name="inherit_id"
+            ref="account_avatax_exemption_base.exemption_reason_type_tree_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="exemption_code_id" />
+            </xpath>
+        </field>
+    </record>
+    <record id="exemption_type_form_view" model="ir.ui.view">
+        <field name="name">res.partner.exemption.type.form.view</field>
+        <field name="model">res.partner.exemption.type</field>
+        <field name="type">form</field>
+        <field
+            name="inherit_id"
+            ref="account_avatax_exemption_base.exemption_type_form_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='business_type']" position="after">
+                <field
+                    name="exemption_code_id"
+                    options="{'no_create': True}"
+                    required="1"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="exemption_rule_act_window" model="ir.actions.act_window">
+        <field name="name">Avatax Custom Rules</field>
+        <field name="res_model">exemption.code.rule</field>
+        <field name="binding_view_types">tree</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_exemption_rule"
+        action="exemption_rule_act_window"
+        parent="account_avatax_oca.menu_avatax"
+        sequence="31"
+    />
+</odoo>
