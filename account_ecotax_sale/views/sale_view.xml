@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+   Copyright (C) 2015-2023 Akretion (http://www.akretion.com/)
+   @author: Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
+-->
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <field name="tax_totals" position="after">
+                <field name="amount_ecotax" class="oe_subtotal_footer_separator" />
+            </field>
+            <xpath
+                expr="//field[@name='order_line']/form//field[@name='tax_id']"
+                position="after"
+            >
+                <field name="ecotax_line_ids" colspan="2">
+                    <tree editable="bottom">
+                        <field name="classification_id" />
+                        <field name="force_amount_unit" />
+                        <field name="amount_unit" />
+                        <field name="amount_total" />
+                    </tree>
+                </field>
+                <field name="subtotal_ecotax" />
+                <field name="ecotax_amount_unit" />
+            </xpath>
+
+            <xpath
+                expr="//field[@name='order_line']/tree/field[last()]"
+                position="after"
+            >
+                <field name="subtotal_ecotax" optional="show" />
+                <field name="ecotax_amount_unit" optional="hide" />
+                <button name="edit_ecotax_lines" type="object" string="Ecotax" />
+                <field name="ecotax_line_ids" invisible="1">
+                    <tree editable="bottom">
+                        <field name="classification_id" />
+                        <field name="force_amount_unit" />
+                        <field name="amount_unit" />
+                        <field name="amount_total" />
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_sale_line_ecotax_form" model="ir.ui.view">
+        <field name="name">sale.order.line.ecotax.form</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <sheet>
+                    <field name="display_type" invisible="1" />
+                    <!--
+                        We need the sequence field to be here for new lines to be added at the correct position.
+                        TODO: at some point we want to fix this in the framework so that an invisible field is not required.
+                    -->
+                    <field name="sequence" invisible="1" />
+                    <field name="product_uom_category_id" invisible="1" />
+                    <group>
+                        <group attrs="{'invisible': [('display_type', '!=', False)]}">
+                            <field
+                                name="product_id"
+                                readonly="1"
+                                widget="many2one_barcode"
+                            />
+                            <field name="product_type" invisible="1" />
+                            <field name="invoice_status" invisible="1" />
+                            <field name="qty_to_invoice" invisible="1" />
+                            <field name="product_uom_qty" readonly="1" />
+                            <label
+                                for="qty_delivered"
+                                string="Delivered"
+                                invisible="1"
+                            />
+                            <div name="delivered_qty" invisible="1">
+                                <field name="qty_delivered" invisible="1" />
+                            </div>
+                            <label for="qty_invoiced" string="Invoiced" invisible="1" />
+                            <div name="invoiced_qty" invisible="1">
+                                <field name="qty_invoiced" />
+                            </div>
+                            <field
+                                name="product_packaging_qty"
+                                invisible="1"
+                                groups="product.group_stock_packaging"
+                            />
+                            <field
+                                name="product_packaging_id"
+                                invisible="1"
+                                groups="product.group_stock_packaging"
+                            />
+                            <field name="price_unit" />
+                            <field
+                                name="tax_id"
+                                widget="many2many_tags"
+                                options="{'no_create': True}"
+                                readonly="1"
+                            />
+                            <t groups="product.group_discount_per_so_line">
+                                <label for="discount" />
+                                <div name="discount">
+                                    <field name="discount" class="oe_inline" /> %
+                                </div>
+                            </t>
+                            <field name="sequence" invisible="1" />
+                        </group>
+                    </group>
+                    <label
+                        for="name"
+                        string="Description"
+                        attrs="{'invisible': [('display_type', '!=', False)]}"
+                    />
+                    <label
+                        for="name"
+                        string="Section Name (eg. Products, Services)"
+                        attrs="{'invisible': [('display_type', '!=', 'line_section')]}"
+                    />
+                    <label
+                        for="name"
+                        string="Note"
+                        attrs="{'invisible': [('display_type', '!=', 'line_note')]}"
+                    />
+                    <field name="name" />
+                    <div name="invoice_lines" groups="base.group_no_one" invisible="1">
+                        <label for="invoice_lines" />
+                        <field name="invoice_lines" />
+                    </div>
+                    <field name="state" invisible="1" />
+                    <field name="company_id" invisible="1" />
+                    <notebook>
+                        <page string="Ecotax lines" name="ecotax_line">
+                                <field name="ecotax_line_ids" nolabel="1" readonly="1">
+                                   <tree editable="bottom">
+                                        <field name="classification_id" />
+                                        <field name="force_amount_unit" readonly="1" />
+                                        <field name="amount_unit" />
+                                        <field name="amount_total" sum="Total Ecotax" />
+                                   </tree>
+                                </field>
+                        </page>
+                    </notebook>
+                    <group>
+                        <field name="price_subtotal" string="Subtotal" />
+                        <field name="price_total" string="Total" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
