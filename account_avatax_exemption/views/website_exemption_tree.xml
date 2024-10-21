@@ -1,0 +1,80 @@
+<odoo>
+    <template id="portal_my_exemptions" name="My Exemptions">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+            <t name="placeholder1" />
+            <h3 class="page-header">
+                Your Exemptions
+                <t t-call="portal.portal_searchbar" />
+            </h3>
+            <t name="placeholder2" />
+            <t t-if="not exemptions">
+                <p>No exemptions found.</p>
+            </t>
+            <div class="row mt16 mb16">
+                <t t-if="exemptions">
+                    <div class="col-xs-12 table-responsive mt8">
+                        <t t-call="account_avatax_exemption.exemptions_table" />
+                    </div>
+                </t>
+            </div>
+            <t name="placeholder3" />
+        </t>
+    </template>
+    <template id="exemptions_table" name="Exemptions table">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr class="active">
+                    <th>Entity Use Code</th>
+                    <th>Effective Date</th>
+                    <th>Expiry Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="exemptions" t-as="exemption">
+                    <tr>
+                        <td>
+                            <span t-field="exemption.exemption_code_id" />
+                        </td>
+                        <td>
+                            <span t-field="exemption.effective_date" />
+                        </td>
+                        <td>
+                            <span t-field="exemption.expiry_date" />
+                        </td>
+                        <td>
+                            <span t-field="exemption.state" />
+                        </td>
+                        <td>
+                            <a
+                                t-attf-href="/my/exemptions/#{slug(exemption)}?#{keep_query()}"
+                            >
+                                <span t-esc="'View'" />
+                            </a>
+                        </td>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+        <div t-if="pager" class="o_portal_pager text-center">
+            <t t-call="website.pager" />
+        </div>
+    </template>
+    <!-- Store customizations in separate template to avoid breaking updates -->
+    <template
+        id="tree_custom"
+        inherit_id="portal_my_exemptions"
+        name="Portal Exemption List Customizations"
+    >
+        <xpath expr="//t[@name='placeholder1']">
+            <div class="oe_structure oe_empty" />
+        </xpath>
+        <xpath expr="//t[@name='placeholder2']">
+            <div class="oe_structure oe_empty" />
+        </xpath>
+        <xpath expr="//t[@name='placeholder3']">
+            <div class="oe_structure oe_empty" />
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,32 @@
+<odoo noupdate="1">
+    <record id="ir_cron_export_new_tax_item" model="ir.cron">
+        <field name="name">Avatax TaxItem: Export New Items</field>
+        <field name="model_id" ref="account_avatax_oca.model_avalara_salestax" />
+        <field name="state">code</field>
+        <field name="code">model.export_new_tax_items()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="False" />
+    </record>
+    <record id="ir_cron_export_exemption_rule" model="ir.cron">
+        <field name="name">Avatax Rules: Export New Rules</field>
+        <field name="model_id" ref="account_avatax_oca.model_avalara_salestax" />
+        <field name="state">code</field>
+        <field name="code">model.export_new_exemption_rules()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="False" />
+    </record>
+    <record id="ir_cron_download_exemption" model="ir.cron">
+        <field name="name">Avatax Exemption Download</field>
+        <field name="model_id" ref="account_avatax_oca.model_avalara_salestax" />
+        <field name="state">code</field>
+        <field name="code">model.download_exemptions()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="False" />
+    </record>
+</odoo>
