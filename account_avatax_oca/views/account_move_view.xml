@@ -60,6 +60,11 @@
                     name="invoice_doc_no"
                     attrs="{'invisible': [('move_type','!=','out_refund')]}"
                 />
+                <field
+                    name="avatax_amt_line_override"
+                    groups="account_avatax.access_avatax_override_group"
+                    attrs="{'invisible': [('move_type','!=','out_refund')]}"
+                />
             </field>
             <xpath expr="//field[@name='partner_shipping_id']" position="after">
                 <field name="so_partner_id" readonly="1" />
