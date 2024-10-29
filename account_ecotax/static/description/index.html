@@ -408,13 +408,49 @@ product.template   ecotaxe_line_product_ids</p>
 </div>
 <div class="section" id="usage">
 <h1><a class="toc-backref" href="#toc-entry-1">Usage</a></h1>
-<p>Add ecotaxe classification via the menu <em>Accounting &gt; configuration &gt; Taxes &gt;  Ecotaxe Classification</em>.
-Ecotaxe classification is either a fixed ecotaxe or weight based ecotaxe.
-ecotaxe classification Infos can be used for legal declarations.
-For fixed ecotaxe, ecotaxe amount is used as default value. We can for ecotaxe amount on product.</p>
-<p>For weight based ecotaxe, we should define one ecotaxe by coef applied for the weight (depending on product materials).</p>
-<p>Assign one or more ecotaxe classification to a product.</p>
-<p>we can also force amount ecotaxe on account move line by classification.</p>
+<ol class="arabic">
+<li><p class="first">Create a tax group named <strong>“Ecotaxes”</strong>. The sequence must be lower than other tax groups.
+- Set the <strong>Preceding Subtotal</strong> field to <strong>“Without Ecotax”</strong>.</p>
+</li>
+<li><p class="first">Create two taxes named <strong>“Fixed Ecotax”</strong> and <strong>“Weight-Based Ecotax”</strong>.
+- Check the <strong>Ecotax</strong> checkbox.
+- Set the correct Python code:</p>
+<blockquote>
+<ul>
+<li><p class="first">For the fixed ecotax:</p>
+<pre class="code python literal-block">
+<span class="n">result</span> <span class="o">=</span> <span class="n">quantity</span> <span class="ow">and</span> <span class="n">product</span><span class="o">.</span><span class="n">fixed_ecotax</span> <span class="o">*</span> <span class="n">quantity</span> <span class="ow">or</span> <span class="mf">0.0</span>
+</pre>
+</li>
+<li><p class="first">For the weight-based ecotax:</p>
+<pre class="code python literal-block">
+<span class="n">result</span> <span class="o">=</span> <span class="n">quantity</span> <span class="ow">and</span> <span class="n">product</span><span class="o">.</span><span class="n">weight_based_ecotax</span> <span class="o">*</span> <span class="n">quantity</span> <span class="ow">or</span> <span class="mf">0.0</span>
+</pre>
+</li>
+</ul>
+</blockquote>
+<ul class="simple">
+<li>Check the <strong>Included in Base Amount</strong> option.</li>
+<li>The sequence for Ecotax must be lower than the VAT tax.</li>
+</ul>
+</li>
+<li><p class="first">For VAT taxes, check the <strong>Base Affected by Previous Taxes?</strong> option.</p>
+</li>
+<li><p class="first">Add an ecotax classification via the menu <strong>Accounting &gt; Configuration &gt; Taxes &gt; Ecotax Classification</strong>.</p>
+<ul class="simple">
+<li>The ecotax classification can be either a fixed ecotax or a weight-based ecotax.</li>
+<li>Ecotax classification information can be used for legal declarations.</li>
+<li>For the fixed ecotax, the ecotax amount is used as a default value, which can be overridden on the product.</li>
+<li>For the weight-based ecotax, define one ecotax by a coefficient applied to the weight (depending on the product’s materials).</li>
+<li>Set the appropriate tax in the <strong>Sale Ecotax</strong> field.</li>
+</ul>
+</li>
+<li><p class="first">Assign one or more ecotax classifications to a product.</p>
+<ul class="simple">
+<li>The ecotax amount can also be manually overridden on the product.</li>
+</ul>
+</li>
+</ol>
 </div>
 <div class="section" id="bug-tracker">
 <h1><a class="toc-backref" href="#toc-entry-2">Bug Tracker</a></h1>

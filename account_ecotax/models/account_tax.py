@@ -27,6 +27,6 @@ class AccountTax(models.Model):
 # product: product.product object or None
 # partner: res.partner object or None
 # for weight based ecotax
-# result = product.weight_based_ecotax or 0.0
-result = product.fixed_ecotax or 0.0
+# result = quantity and  product.weight_based_ecotax * quantity or 0.0
+result = quantity and product.fixed_ecotax  * quantity or 0.0
             """
