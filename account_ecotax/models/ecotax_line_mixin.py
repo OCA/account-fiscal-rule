@@ -46,15 +46,15 @@ class EcotaxLineMixin(models.AbstractModel):
     )
     def _compute_ecotax(self):
         for ecotaxline in self:
-            ecotax_cls = ecotaxline.classification_id
+            ecotax_classif = ecotaxline.classification_id
 
             if ecotaxline.force_amount_unit:
                 # force ecotax amount
                 amt = ecotaxline.force_amount_unit
-            elif ecotax_cls.ecotax_type == "weight_based":
-                amt = ecotax_cls.ecotax_coef * (ecotaxline.product_id.weight or 0.0)
+            elif ecotax_classif.ecotax_type == "weight_based":
+                amt = ecotax_classif.ecotax_coef * (ecotaxline.product_id.weight or 0.0)
             else:
-                amt = ecotax_cls.default_fixed_ecotax
+                amt = ecotax_classif.default_fixed_ecotax
 
             ecotaxline.amount_unit = amt
             ecotaxline.amount_total = ecotaxline.amount_unit * ecotaxline.quantity
