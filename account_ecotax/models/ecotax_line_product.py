@@ -56,17 +56,17 @@ class EcotaxLineProduct(models.Model):
             ecotax_cls = ecotaxline.classification_id
 
             if ecotax_cls.ecotax_type == "weight_based":
-                amt = ecotax_cls.ecotax_coef * (
+                amount = ecotax_cls.ecotax_coef * (
                     ecotaxline.product_tmpl_id.weight
                     or ecotaxline.product_id.weight
                     or 0.0
                 )
             else:
-                amt = ecotax_cls.default_fixed_ecotax
+                amount = ecotax_cls.default_fixed_ecotax
             # force ecotax amount
             if ecotaxline.force_amount:
-                amt = ecotaxline.force_amount
-            ecotaxline.amount = amt
+                amount = ecotaxline.force_amount
+            ecotaxline.amount = amount
 
     _sql_constraints = [
         (

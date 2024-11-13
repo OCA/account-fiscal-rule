@@ -82,22 +82,6 @@ class AccountEcotaxClassification(models.Model):
     )
     intrastat_code = fields.Char()
     scale_code = fields.Char()
-    sale_ecotax_ids = fields.Many2many(
-        "account.tax",
-        "ecotax_classif_taxes_rel",
-        "ecotax_classif_id",
-        "tax_id",
-        string="Sale EcoTax",
-        domain=[("is_ecotax", "=", True), ("type_tax_use", "=", "sale")],
-    )
-    purchase_ecotax_ids = fields.Many2many(
-        "account.tax",
-        "ecotax_classif_purchase_taxes_rel",
-        "ecotax_classif_id",
-        "tax_id",
-        string="Purchase EcoTax",
-        domain=[("is_ecotax", "=", True), ("type_tax_use", "=", "purchase")],
-    )
 
     @api.depends("ecotax_type")
     def _compute_ecotax_vals(self):

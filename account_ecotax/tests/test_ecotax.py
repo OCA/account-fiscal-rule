@@ -12,8 +12,7 @@ from odoo.tests.common import Form, tagged
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
-@tagged("-at_install", "post_install")
-class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
+class TestInvoiceEcotaxCommon(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref=None):
         super().setUpClass(chart_template_ref)
@@ -26,14 +25,6 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 "code": "47590",
                 "name": "Invoice Tax Account",
                 "account_type": "liability_current",
-                "company_id": cls.env.user.company_id.id,
-            }
-        )
-        cls.invoice_ecotax_account = cls.env["account.account"].create(
-            {
-                "code": "707120",
-                "name": "Ecotax Account",
-                "account_type": "income",
                 "company_id": cls.env.user.company_id.id,
             }
         )
@@ -86,113 +77,6 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 ],
             }
         )
-        # 3 Ecotaxes tax
-        cls.invoice_fixed_ecotax = cls.env["account.tax"].create(
-            {
-                "name": "Fixed Ecotax",
-                "type_tax_use": "sale",
-                "company_id": cls.env.user.company_id.id,
-                "price_include": True,
-                "amount_type": "code",
-                "include_base_amount": True,
-                "sequence": 0,
-                "is_ecotax": True,
-                "python_compute": "result = (quantity and"
-                " product.fixed_ecotax * quantity  or 0.0)",
-                "tax_exigibility": "on_invoice",
-                "invoice_repartition_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "factor_percent": 100,
-                            "repartition_type": "base",
-                        },
-                    ),
-                    (
-                        0,
-                        0,
-                        {
-                            "factor_percent": 100,
-                            "repartition_type": "tax",
-                            "account_id": cls.invoice_ecotax_account.id,
-                        },
-                    ),
-                ],
-                "refund_repartition_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "factor_percent": 100,
-                            "repartition_type": "base",
-                        },
-                    ),
-                    (
-                        0,
-                        0,
-                        {
-                            "factor_percent": 100,
-                            "repartition_type": "tax",
-                            "account_id": cls.invoice_ecotax_account.id,
-                        },
-                    ),
-                ],
-            }
-        )
-        cls.invoice_weight_based_ecotax = cls.env["account.tax"].create(
-            {
-                "name": "Weight Based Ecotax",
-                "type_tax_use": "sale",
-                "company_id": cls.env.user.company_id.id,
-                "amount_type": "code",
-                "include_base_amount": True,
-                "price_include": True,
-                "sequence": 0,
-                "is_ecotax": True,
-                "python_compute": "result = (quantity and"
-                " product.weight_based_ecotax * quantity or 0.0)",
-                "tax_exigibility": "on_invoice",
-                "invoice_repartition_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "factor_percent": 100,
-                            "repartition_type": "base",
-                        },
-                    ),
-                    (
-                        0,
-                        0,
-                        {
-                            "factor_percent": 100,
-                            "repartition_type": "tax",
-                            "account_id": cls.invoice_ecotax_account.id,
-                        },
-                    ),
-                ],
-                "refund_repartition_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "factor_percent": 100,
-                            "repartition_type": "base",
-                        },
-                    ),
-                    (
-                        0,
-                        0,
-                        {
-                            "factor_percent": 100,
-                            "repartition_type": "tax",
-                            "account_id": cls.invoice_ecotax_account.id,
-                        },
-                    ),
-                ],
-            }
-        )
         # ECOTAXES
         # 1- Fixed ecotax
         cls.ecotax_fixed = cls.env["account.ecotax.classification"].create(
@@ -202,10 +86,8 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 "default_fixed_ecotax": 5.0,
                 "product_status": "M",
                 "supplier_status": "MAN",
-                "sale_ecotax_ids": [(4, cls.invoice_fixed_ecotax.id)],
             }
         )
-        cls.ecotax_fixed.sale_ecotax_ids = cls.invoice_fixed_ecotax
         # 2- Weight-based ecotax
         cls.ecotax_weight = cls.env["account.ecotax.classification"].create(
             {
@@ -214,10 +96,8 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 "ecotax_coef": 0.04,
                 "product_status": "P",
                 "supplier_status": "MAN",
-                "sale_ecotax_ids": [(4, cls.invoice_weight_based_ecotax.id)],
             }
         )
-        cls.ecotax_weight.sale_ecotax_ids = cls.invoice_weight_based_ecotax
         # MISC
         # 1- Invoice partner
         cls.invoice_partner = cls.env["res.partner"].create({"name": "Test"})
@@ -338,7 +218,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
                 inv_line.subtotal_ecotax, inv_line_expected_amounts["subtotal_ecotax"]
             )
 
-    def test_01_default_fixed_ecotax(self):
+    def _test_01_default_fixed_ecotax(self):
         """Test default fixed ecotax
 
         Ecotax classification data for this test:
@@ -368,7 +248,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
             [{"ecotax_amount_unit": 5.0, "subtotal_ecotax": 5.0 * new_qty}],
         )
 
-    def test_02_force_fixed_ecotax_on_product(self):
+    def _test_02_force_fixed_ecotax_on_product(self):
         """Test manual fixed ecotax
 
         Ecotax classification data for this test:
@@ -400,7 +280,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
             [{"ecotax_amount_unit": 10.0, "subtotal_ecotax": 10.0 * new_qty}],
         )
 
-    def test_03_weight_based_ecotax(self):
+    def _test_03_weight_based_ecotax(self):
         """Test weight based ecotax
 
         Ecotax classification data for this test:
@@ -430,7 +310,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
             [{"ecotax_amount_unit": 4.0, "subtotal_ecotax": 4.0 * new_qty}],
         )
 
-    def test_04_mixed_ecotax(self):
+    def _test_04_mixed_ecotax(self):
         """Test mixed ecotax within the same invoice
 
         Creating an invoice with 3 lines (one per type with types tested above)
@@ -477,7 +357,7 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
             ],
         )
 
-    def test_06_product_variants(self):
+    def _test_05_product_variants(self):
         """
         Data:
             A product template with two variants
@@ -525,3 +405,21 @@ class TestInvoiceEcotaxe(AccountTestInvoicingCommon):
             variant_2.all_ecotax_line_product_ids,
             variant_2.product_tmpl_id.ecotax_line_product_ids,
         )
+
+
+@tagged("-at_install", "post_install")
+class TestInvoiceEcotax(TestInvoiceEcotaxCommon):
+    def test_01_default_fixed_ecotax(self):
+        self._test_01_default_fixed_ecotax()
+
+    def test_02_force_fixed_ecotax_on_product(self):
+        self._test_02_force_fixed_ecotax_on_product()
+
+    def test_03_weight_based_ecotax(self):
+        self._test_03_weight_based_ecotax()
+
+    def test_04_mixed_ecotax(self):
+        self._test_04_mixed_ecotax()
+
+    def test_05_product_variants(self):
+        self._test_05_product_variants()

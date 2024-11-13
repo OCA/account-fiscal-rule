@@ -28,20 +28,24 @@ Ecotax Management
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module applies to companies based in France mainland. It doesn't apply to
-companies based in the DOM-TOMs (Guadeloupe, Martinique, Guyane, Réunion,
-Mayotte).
+This module adds ecotax amount on invoice line.
+furthermore, a total ecotax is added at the footer of each document.
 
-It add Ecotaxe amount on invoice line.
-furthermore, a total ecotaxe are added at the footer of each document.
+To make easy ecotaxe management and to factor the data, ecotaxes are set on products via ECOTAXE classifications.
+ECOTAXE classification can either be a fixed or weight based ecotax.
 
-To make easy ecotaxe management and to factor the data, ecotaxe are set on products via ECOTAXE classifications.
-ECOTAXE classification can either a fixed or weight based ecotaxe.
+A product can have one or serveral ecotax classifications. For example, wooden window blinds equipped with electric motor can
+have ecotax for wood and ecotax for electric motor.
 
-A product can have one or serveral ecotaxe classifications. For exemple wooden window blinds equipped with electric motor can
-have ecotaxe for wood and ecotaxe for electric motor.
+This module has some limits : 
+- The ecotax amount is always included in the price of the product.
+- The ecotax amount is not isolated in an specific accounting account but is included in the product income account.
 
-This module version add the possibility to manage several ecotaxe classification by product.
+If one of these limits is an issue, you could install the submodule account_ecotax_tax.
+This second module lets you manage the ecotax as a tax, so you can configure if you want it to be included or excluded of product price and also configuring an accounting account to isolate it.
+The main consequence of this approach is that the ecotax won't be considered in the turnover, since it is considered as a tax.
+
+This module version add the possibility to manage several ecotax classifications by product.
 A migration script is necessary to update from previous versions.
 
 There is the main change to manage in migration script:
@@ -68,41 +72,18 @@ product.template   ecotaxe_line_product_ids
 Usage
 =====
 
-1. Create a tax group named **"Ecotaxes"**. The sequence must be lower than other tax groups.
-   - Set the **Preceding Subtotal** field to **"Without Ecotax"**.
-
-2. Create two taxes named **"Fixed Ecotax"** and **"Weight-Based Ecotax"**.
-   - Check the **Ecotax** checkbox.
-   - Set the correct Python code:
-
-     - For the fixed ecotax:
-
-       .. code-block:: python
-
-          result = quantity and product.fixed_ecotax * quantity or 0.0
-
-     - For the weight-based ecotax:
-
-       .. code-block:: python
-
-          result = quantity and product.weight_based_ecotax * quantity or 0.0
-
-   - Check the **Included in Base Amount** option.
-   - The sequence for Ecotax must be lower than the VAT tax.
-
-3. For VAT taxes, check the **Base Affected by Previous Taxes?** option.
-
-4. Add an ecotax classification via the menu **Accounting > Configuration > Taxes > Ecotax Classification**.
+1. Add an ecotax classification via the menu **Accounting > Configuration > Taxes > Ecotax Classification**.
 
    - The ecotax classification can be either a fixed ecotax or a weight-based ecotax.
    - Ecotax classification information can be used for legal declarations.
    - For the fixed ecotax, the ecotax amount is used as a default value, which can be overridden on the product.
    - For the weight-based ecotax, define one ecotax by a coefficient applied to the weight (depending on the product's materials).
-   - Set the appropriate tax in the **Sale Ecotax** field.
 
-5. Assign one or more ecotax classifications to a product.
+2. Assign one or more ecotax classifications to a product.
 
    - The ecotax amount can also be manually overridden on the product.
+
+3. Create an invoice with this product
 
 Bug Tracker
 ===========
@@ -126,6 +107,7 @@ Contributors
 ~~~~~~~~~~~~
 
 * Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
+* Florian da Costa <florian.dacosta@akretion.com>
 
 Maintainers
 ~~~~~~~~~~~
@@ -143,10 +125,13 @@ promote its widespread use.
 .. |maintainer-mourad-ehm| image:: https://github.com/mourad-ehm.png?size=40px
     :target: https://github.com/mourad-ehm
     :alt: mourad-ehm
+.. |maintainer-florian-dacosta| image:: https://github.com/florian-dacosta.png?size=40px
+    :target: https://github.com/florian-dacosta
+    :alt: florian-dacosta
 
-Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
+Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-mourad-ehm| 
+|maintainer-mourad-ehm| |maintainer-florian-dacosta| 
 
 This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/16.0/account_ecotax>`_ project on GitHub.
 

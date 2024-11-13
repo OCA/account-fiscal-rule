@@ -10,10 +10,9 @@
     "website": "https://github.com/OCA/account-fiscal-rule",
     "category": "Localization/Account Taxes",
     "license": "AGPL-3",
-    "maintainers": ["mourad-ehm"],
+    "maintainers": ["mourad-ehm", "florian-dacosta"],
     "depends": [
         "account",
-        "account_tax_python",
     ],
     "data": [
         "data/decimal_precision.xml",
@@ -26,7 +25,6 @@
         "views/account_move_view.xml",
         "views/product_template_view.xml",
         "views/product_view.xml",
-        "views/account_tax_view.xml",
     ],
     "installable": True,
 }

@@ -9,4 +9,3 @@ from . import account_move_line_ecotax
 from . import product_product
 from . import ecotax_sector
 from . import ecotax_collector
-from . import account_tax
