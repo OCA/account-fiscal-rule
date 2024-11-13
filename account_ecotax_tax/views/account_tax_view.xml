@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2024 Akretion (http://www.akretion.com/)
+    @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
+-->
+<odoo>
+        <record id="tax_form" model="ir.ui.view">
+            <field name="name">l10n_fr_ecotax.account.tax.form</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form" />
+            <field name="priority">300</field>
+            <field name="arch" type="xml">
+                <field name="active" position="after">
+                    <field name="is_ecotax" />
+                </field>
+            </field>
+        </record>
+</odoo>
