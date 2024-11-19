@@ -28,7 +28,7 @@ sale Ecotax Management
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module is an extension of the module *l10n_fr_ecotax* for sale orders. Please refer to the README of the module *l10n_fr_ecotax* for more info about ecotax management.
+This module is an extension of the module *l10n_fr_ecotax* for sale orders. Please refer to the README of the module *account_ecotax* for more info about ecotax management.
 
 **Table of contents**
 
@@ -57,6 +57,8 @@ Contributors
 ~~~~~~~~~~~~
 
 * Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
+* Florian DA COSTA <florian.dacosta@akretion.com>
+
 
 Maintainers
 ~~~~~~~~~~~
@@ -70,6 +72,17 @@ This module is maintained by the OCA.
 OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
+
+.. |maintainer-mourad-ehm| image:: https://github.com/mourad-ehm.png?size=40px
+    :target: https://github.com/mourad-ehm
+    :alt: mourad-ehm
+.. |maintainer-florian-dacosta| image:: https://github.com/florian-dacosta.png?size=40px
+    :target: https://github.com/florian-dacosta
+    :alt: florian-dacosta
+
+Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
+
+|maintainer-mourad-ehm| |maintainer-florian-dacosta| 
 
 This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/16.0/account_ecotax_sale>`_ project on GitHub.
 
