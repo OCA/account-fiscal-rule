@@ -7,15 +7,13 @@
 from random import choice
 
 from odoo import Command
-from odoo.tests.common import Form, tagged
-
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from odoo.tests.common import Form, TransactionCase
 
 
-class TestInvoiceEcotaxCommon(AccountTestInvoicingCommon):
+class TestInvoiceEcotaxCommon(TransactionCase):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
 
         # ACCOUNTING STUFF
@@ -105,15 +103,16 @@ class TestInvoiceEcotaxCommon(AccountTestInvoicingCommon):
     @classmethod
     def _make_invoice(cls, products):
         """Creates a new customer invoice with given products and returns it"""
-        invoice = cls.init_invoice(
-            "out_invoice",
-            partner=cls.invoice_partner,
-            products=products,
-            company=cls.env.user.company_id,
-            taxes=cls.invoice_tax,
+        move_form = Form(
+            cls.env["account.move"].with_context(default_move_type="out_invoice")
         )
-        invoice.invoice_line_ids._compute_tax_ids()
-        invoice.invoice_line_ids._compute_ecotax()
+        move_form.partner_id = cls.invoice_partner
+
+        for product in products or []:
+            with move_form.invoice_line_ids.new() as line_form:
+                line_form.product_id = product
+
+        invoice = move_form.save()
         return invoice
 
     @classmethod
@@ -407,7 +406,6 @@ class TestInvoiceEcotaxCommon(AccountTestInvoicingCommon):
         )
 
 
-@tagged("-at_install", "post_install")
 class TestInvoiceEcotax(TestInvoiceEcotaxCommon):
     def test_01_default_fixed_ecotax(self):
         self._test_01_default_fixed_ecotax()
