@@ -1,16 +1,13 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 
-from odoo.tests.common import tagged
-
 from odoo.addons.account_ecotax.tests.test_ecotax import TestInvoiceEcotaxCommon
 
 
-@tagged("-at_install", "post_install")
-class TestInvoiceEcotaxTax(TestInvoiceEcotaxCommon):
+class TestInvoiceEcotaxTaxComon(TestInvoiceEcotaxCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
 
         # ACCOUNTING STUFF
@@ -134,6 +131,8 @@ class TestInvoiceEcotaxTax(TestInvoiceEcotaxCommon):
         # 2- Weight-based ecotax
         cls.ecotax_weight.sale_ecotax_ids = cls.invoice_weight_based_ecotax
 
+
+class TestInvoiceEcotaxTax(TestInvoiceEcotaxTaxComon):
     def test_01_default_fixed_ecotax(self):
         self._test_01_default_fixed_ecotax()
 
