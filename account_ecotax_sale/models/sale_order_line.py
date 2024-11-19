@@ -25,58 +25,28 @@ class SaleOrderLine(models.Model):
         compute="_compute_ecotax",
     )
 
+    def _get_ecotax_amounts(self):
+        self.ensure_one()
+        unit = sum(self.ecotax_line_ids.mapped("amount_unit"))
+        subtotal_ecotax = sum(self.ecotax_line_ids.mapped("amount_total"))
+        return unit, subtotal_ecotax
+
     @api.depends(
         "currency_id",
-        "tax_id",
-        "product_uom_qty",
-        "product_id",
+        "ecotax_line_ids.amount_unit",
+        "ecotax_line_ids.amount_total",
     )
     def _compute_ecotax(self):
         for line in self:
-            ecotax_ids = line.tax_id.filtered(lambda tax: tax.is_ecotax)
-            if (line.display_type and line.display_type != "product") or not ecotax_ids:
-                continue
-            amount_currency = line.price_unit * (1 - line.discount / 100)
-            quantity = line.product_uom_qty
-            compute_all_currency = ecotax_ids.compute_all(
-                amount_currency,
-                currency=line.currency_id,
-                quantity=quantity,
-                product=line.product_id,
-                partner=line.order_id.partner_shipping_id,
-            )
-            subtotal_ecotax = 0.0
-            for tax in compute_all_currency["taxes"]:
-                subtotal_ecotax += tax["amount"]
-
-            unit = quantity and subtotal_ecotax / quantity or subtotal_ecotax
-            line.ecotax_amount_unit = unit
-            line.subtotal_ecotax = subtotal_ecotax
-
-    @api.depends("product_id", "company_id")
-    def _compute_tax_id(self):
-        super()._compute_tax_id()
-        for line in self:
-            line.tax_id |= line._get_computed_ecotaxes()
-
-    def _get_computed_ecotaxes(self):
-        self.ensure_one()
-        sale_ecotaxes = self.product_id.all_ecotax_line_product_ids.mapped(
-            "classification_id"
-        ).mapped("sale_ecotax_ids")
-        ecotax_ids = sale_ecotaxes.filtered(
-            lambda tax: tax.company_id == self.order_id.company_id
-        )
-
-        if ecotax_ids and self.order_id.fiscal_position_id:
-            ecotax_ids = self.order_id.fiscal_position_id.map_tax(ecotax_ids)
-        return ecotax_ids
+            amount_unit, subtotal = line._get_ecotax_amounts()
+            line.subtotal_ecotax = subtotal
+            line.ecotax_amount_unit = amount_unit
 
     @api.onchange("product_id")
     def _onchange_product_ecotax_line(self):
         """Unlink and recreate ecotax_lines when modifying the product_id."""
+        self.ecotax_line_ids.unlink()
         if self.product_id:
-            self.ecotax_line_ids = [(5,)]  # Remove all ecotax classification
             ecotax_cls_vals = []
             for ecotaxline_prod in self.product_id.all_ecotax_line_product_ids:
                 classif_id = ecotaxline_prod.classification_id.id
@@ -92,8 +62,6 @@ class SaleOrderLine(models.Model):
                     )
                 )
             self.ecotax_line_ids = ecotax_cls_vals
-        else:
-            self.ecotax_line_ids = [(5,)]
 
     def edit_ecotax_lines(self):
         view = {

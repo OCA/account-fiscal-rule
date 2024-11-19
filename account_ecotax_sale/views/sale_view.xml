@@ -34,14 +34,7 @@
                 <field name="subtotal_ecotax" optional="show" />
                 <field name="ecotax_amount_unit" optional="hide" />
                 <button name="edit_ecotax_lines" type="object" string="Ecotax" />
-                <field name="ecotax_line_ids" invisible="1">
-                    <tree editable="bottom">
-                        <field name="classification_id" />
-                        <field name="force_amount_unit" />
-                        <field name="amount_unit" />
-                        <field name="amount_total" />
-                    </tree>
-                </field>
+                <field name="ecotax_line_ids" invisible="1" />
             </xpath>
         </field>
     </record>
@@ -49,6 +42,7 @@
     <record id="view_sale_line_ecotax_form" model="ir.ui.view">
         <field name="name">sale.order.line.ecotax.form</field>
         <field name="model">sale.order.line</field>
+        <field name="priority" eval="1000" />
         <field name="arch" type="xml">
             <form create="false">
                 <sheet>
@@ -132,10 +126,14 @@
                     <field name="company_id" invisible="1" />
                     <notebook>
                         <page string="Ecotax lines" name="ecotax_line">
-                                <field name="ecotax_line_ids" nolabel="1" readonly="1">
+                            <field
+                                name="ecotax_line_ids"
+                                nolabel="1"
+                                attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"
+                            >
                                    <tree editable="bottom">
                                         <field name="classification_id" />
-                                        <field name="force_amount_unit" readonly="1" />
+                                        <field name="force_amount_unit" />
                                         <field name="amount_unit" />
                                         <field name="amount_total" sum="Total Ecotax" />
                                    </tree>
