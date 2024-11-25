@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="report_invoice_document"
+        inherit_id="account.report_invoice_document"
+        priority="100"
+    >
+        <xpath expr="//th[@name='th_price_unit']" position="after">
+                    <th
+                name="th_ecotax"
+                t-if="o.amount_ecotax"
+                t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
+            >
+                        <span name="ecotax_line_label">Eco Part Unit</span>
+                    </th>
+        </xpath>
+        <xpath expr="//td[span[@t-field='line.discount']]" position="after">
+                            <td
+                t-if="o.amount_ecotax"
+                t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
+            >
+                                <span
+                    class="text-nowrap"
+                    t-field="line.ecotax_amount_unit"
+                />
+                            </td>
+        </xpath>
+    </template>
+
+    <template
+        id="document_tax_totals"
+        inherit_id="account.document_tax_totals"
+        priority="100"
+    >
+        <xpath expr="//t[@t-set='subtotal_to_show']" position="before">
+                                    <tr
+                t-if="o._name == 'account.move' and o.amount_ecotax"
+                name="ecotax_line"
+            >
+                                        <td name="ecotax_label">Including Eco Part</td>
+                                        <td class="text-end">
+                                            <span
+                        t-esc="o._get_formatted_ecotax_amount()"
+                    />
+                                        </td>
+                                    </tr>
+        </xpath>
+    </template>
+</odoo>

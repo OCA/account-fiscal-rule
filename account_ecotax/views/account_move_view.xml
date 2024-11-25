@@ -138,10 +138,14 @@
                     <field name="name" widget="text" readonly="1" />
                     <notebook>
                         <page string="Ecotaxe lines" name="ecotax_line">
-                                <field name="ecotax_line_ids" nolabel="1" readonly="1">
+                            <field
+                                name="ecotax_line_ids"
+                                nolabel="1"
+                                attrs="{'readonly': [('parent_state', '!=', 'draft')]}"
+                            >
                                    <tree editable="bottom">
                                         <field name="classification_id" />
-                                        <field name="force_amount_unit" readonly="1" />
+                                        <field name="force_amount_unit" />
                                         <field name="amount_unit" />
                                         <field
                                         name="amount_total"

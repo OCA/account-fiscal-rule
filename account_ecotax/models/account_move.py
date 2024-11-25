@@ -59,3 +59,7 @@ class AccountMove(models.Model):
         )
         res["groups_by_subtotal"][_("Untaxed Amount")] = data
         return res
+
+    def _get_formatted_ecotax_amount(self):
+        self.ensure_one()
+        return formatLang(self.env, self.amount_ecotax, currency_obj=self.currency_id)

@@ -25,6 +25,7 @@
         "views/account_move_view.xml",
         "views/product_template_view.xml",
         "views/product_view.xml",
+        "report/invoice.xml",
     ],
     "installable": True,
 }
