@@ -50,3 +50,8 @@ class AccountMoveLineEcotax(models.Model):
     )
     currency_id = fields.Many2one(store=True)
     product_id = fields.Many2one(store=True)
+    weight = fields.Float(
+        related="product_id.weight",
+        readonly=True,
+        store=True,
+    )
