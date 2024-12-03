@@ -27,7 +27,7 @@ class AccountMove(models.Model):
     def _compute_suitable_journal_ids(self):
         res = super()._compute_suitable_journal_ids()
         for m in self:
-            domain = [("company_id", "=", self.env.company.id)]
+            domain = [("company_id", "=", m.company_id.id or self.env.company.id)]
             if m.invoice_filter_type_domain in ["sale", "purchase"]:
                 domain = expression.AND(
                     [
