@@ -68,6 +68,4 @@ class AvataxLog(models.Model):
                 sales_call_count=sales_call_count,
                 invoices_call_count=invoices_call_count,
                 email=email,
-            ).send_mail(
-                self.env.company.id, force_send=True
-            )
+            ).send_mail(self.env.company.id, force_send=True)

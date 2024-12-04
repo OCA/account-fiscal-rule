@@ -5,12 +5,10 @@
         <field name="priority" eval="40" />
         <field name="inherit_id" ref="account.res_config_settings_view_form" />
         <field name="arch" type="xml">
-            <xpath expr="//div[@id='invoicing_settings']" position="after">
-                <h2>Notification</h2>
-                <div class="row mt16 o_settings_container" id="notification_settings">
-                    <div class="col-xs-12 col-md-6 o_setting_box">
-                        <div class="o_setting_left_pane" />
-                        <div class="o_setting_right_pane">
+            <xpath expr="//block[@id='invoicing_settings']" position="after">
+                <block title="Notification" id="notification_settings">
+                    <setting>
+                        <div class="col-xs-12 col-md-6 o_setting_box">
                             <label
                                 for="avatax_api_call_notification_ids"
                                 string="API Call Counter"
@@ -36,8 +34,8 @@
                                 <field name="call_counter_limit" class="oe_inline" />
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </setting>
+                </block>
             </xpath>
         </field>
     </record>

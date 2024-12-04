@@ -20,7 +20,7 @@ class Settings(models.TransientModel):
 
     @api.model
     def get_values(self):
-        res = super(Settings, self).get_values()
+        res = super().get_values()
         ICPSudo = self.env["ir.config_parameter"].sudo()
         get_param = "account_avatax_oca.avatax_api_call_notification_ids"
         calls = ICPSudo.get_param(get_param)
@@ -32,7 +32,7 @@ class Settings(models.TransientModel):
         return res
 
     def set_values(self):
-        res = super(Settings, self).set_values()
+        res = super().set_values()
         ICPSudo = self.env["ir.config_parameter"].sudo()
         set_param = "account_avatax_oca.avatax_api_call_notification_ids"
         ICPSudo.set_param(set_param, self.avatax_api_call_notification_ids.ids)
