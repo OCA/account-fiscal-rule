@@ -5,13 +5,13 @@
     <record id="view_product_tax_code_tree" model="ir.ui.view">
         <field name="name">product.tax.code.tree</field>
         <field name="model">product.tax.code</field>
-        <field name="type">tree</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" />
                 <field name="description" />
                 <field name="type" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="view_product_tax_code_form" model="ir.ui.view">
@@ -31,8 +31,8 @@
         <field name="name">Product Tax Codes</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.tax.code</field>
-        <field name="binding_view_types">tree</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">list</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         action="action_product_tax_code"

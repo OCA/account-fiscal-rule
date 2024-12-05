@@ -1,6 +1,6 @@
 import logging
 
-from odoo import _, models
+from odoo import models
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -18,11 +18,12 @@ class Company(models.Model):
             )
             if len(res) > 1:
                 _LOGGER.warning(
-                    _("Company %s has too many Avatax configurations!"),
+                    self.env._("Company %s has too many Avatax configurations!"),
                     self.display_name,
                 )
             if len(res) < 1:
                 _LOGGER.warning(
-                    _("Company %s has no Avatax configuration."), self.display_name
+                    self.env._("Company %s has no Avatax configuration."),
+                    self.display_name,
                 )
             return res and res[0]

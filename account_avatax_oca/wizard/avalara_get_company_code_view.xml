@@ -1,5 +1,4 @@
 <odoo>
-
     <record id="view_avalara_salestax_getcompany" model="ir.ui.view">
         <field name="model">avalara.salestax.getcompany</field>
         <field name="arch" type="xml">
@@ -32,5 +31,4 @@
         >{'record_id': active_id, 'active_id_view_ref': active_id}</field>
         <field name="target">new</field>
     </record>
-
 </odoo>

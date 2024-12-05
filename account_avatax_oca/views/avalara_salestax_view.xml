@@ -24,39 +24,39 @@
                     </group>
                     <notebook>
                         <page string="Connection" name="connection_page">
-                        <group>
                             <group>
-                                <field name="account_number" />
-                                <field name="license_key" password="True" />
-                                <label for="service_url" string="Service URL" />
-                                <div>
-                                    <field name="service_url" class="oe_inline" />
-                                    <button
+                                <group>
+                                    <field name="account_number" />
+                                    <field name="license_key" password="True" />
+                                    <label for="service_url" string="Service URL" />
+                                    <div>
+                                        <field name="service_url" class="oe_inline" />
+                                        <button
                                             name="%(account_avatax_oca.action_avalara_salestax_ping)d"
                                             string="Test Connection"
                                             type="action"
                                             icon="fa-arrow-right"
                                             class="btn-link"
                                         />
-                                </div>
-                                <label for="company_code" string="Company Code" />
-                                <div>
-                                    <field name="company_code" class="oe_inline" />
-                                    <button
+                                    </div>
+                                    <label for="company_code" string="Company Code" />
+                                    <div>
+                                        <field name="company_code" class="oe_inline" />
+                                        <button
                                             name="%(account_avatax_oca.action_avalara_salestax_getcompany)d"
                                             string="Select Company"
                                             type="action"
                                             icon="fa-arrow-right"
                                             class="btn-link"
-                                            context="{'active_id_view_ref': active_id}"
+                                            context="{'active_id_view_ref': id}"
                                         />
-                                </div>
-                                <a
+                                    </div>
+                                    <a
                                         colspan="2"
                                         href="https://admin.avalara.com/"
                                         target="_blank"
                                     >Visit the AvaTax Admin webpage</a>
-                            </group>
+                                </group>
                             </group>
                         </page>
 
@@ -65,54 +65,51 @@
                             name="calculation_page"
                             invisible="disable_tax_calculation == True"
                         >
-                        <div
+                            <div
                                 class="row mt16 o_settings_container"
                                 id="calculation_page_container"
                             >
-                            <div class="col-lg-6 o_setting_box">
-                                <div class="o_setting_left_pane">
-                                    <field name="disable_tax_reporting" />
+                                <div class="col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="disable_tax_reporting" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="disable_tax_reporting" />
+                                    </div>
                                 </div>
-                                <div class="o_setting_right_pane">
-                                    <label for="disable_tax_reporting" />
+                                <div class="col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="upc_enable" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="upc_enable" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 o_setting_box">
-                                <div class="o_setting_left_pane">
-                                    <field name="upc_enable" />
+                                <div class="col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="invoice_calculate_tax" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="invoice_calculate_tax" />
+                                    </div>
                                 </div>
-                                <div class="o_setting_right_pane">
-                                    <label for="upc_enable" />
+                                <div class="col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="use_so_partner_id" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="use_so_partner_id" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 o_setting_box">
-
-                                <div class="o_setting_left_pane">
-                                    <field name="invoice_calculate_tax" />
-                                </div>
-                                <div class="o_setting_right_pane">
-                                    <label for="invoice_calculate_tax" />
-                                </div>
-                            </div>
-                            <div class="col-lg-6 o_setting_box">
-
-                                <div class="o_setting_left_pane">
-                                    <field name="use_so_partner_id" />
-                                </div>
-                                <div class="o_setting_right_pane">
-                                    <label for="use_so_partner_id" />
-                                </div>
-                            </div>
-                            <div class="col-lg-6 o_setting_box">
-
-                                <div class="o_setting_left_pane">
-                                    <field name="hide_exemption" />
-                                </div>
-                                <div class="o_setting_right_pane">
-                                    <label for="hide_exemption" />
+                                <div class="col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="hide_exemption" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="hide_exemption" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         </page>
 
                         <page
@@ -120,35 +117,35 @@
                             name="address_page"
                             invisible="disable_address_validation == True"
                         >
-                        <div
+                            <div
                                 class="row mt16 o_settings_container"
                                 id="address_page_container"
                             >
-                            <div class="col-lg-6 o_setting_box">
-                                <div class="o_setting_left_pane">
-                                    <field name="validation_on_save" />
+                                <div class="col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="validation_on_save" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="validation_on_save" />
+                                    </div>
                                 </div>
-                                <div class="o_setting_right_pane">
-                                    <label for="validation_on_save" />
+                                <div class="col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="force_address_validation" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="force_address_validation" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="result_in_uppercase" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="result_in_uppercase" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 o_setting_box">
-                                <div class="o_setting_left_pane">
-                                    <field name="force_address_validation" />
-                                </div>
-                                <div class="o_setting_right_pane">
-                                    <label for="force_address_validation" />
-                                </div>
-                            </div>
-                            <div class="col-lg-6 o_setting_box">
-                                <div class="o_setting_left_pane">
-                                    <field name="result_in_uppercase" />
-                                </div>
-                                <div class="o_setting_right_pane">
-                                    <label for="result_in_uppercase" />
-                                </div>
-                            </div>
-                        </div>
                         </page>
                         <page string="Advanced" name="advanced_page">
                             <div
@@ -185,21 +182,21 @@
     <record id="view_avalara_salestax_tree" model="ir.ui.view">
         <field name="name">avalara.salestax.tree</field>
         <field name="model">avalara.salestax</field>
-        <field name="type">tree</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
-            <tree>
+            <list string="Avalara">
                 <field name="company_id" groups="base.group_multi_company" />
                 <field name="company_code" />
                 <field name="account_number" />
                 <field name="service_url" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="action_avalara_salestax" model="ir.actions.act_window">
         <field name="name">AvaTax API</field>
         <field name="res_model">avalara.salestax</field>
-        <field name="binding_view_types">tree</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">list</field>
+        <field name="view_mode">list,form</field>
         <field name="help">Configuration of AvaTax in odoo</field>
     </record>
     <menuitem
@@ -218,19 +215,19 @@
     <record id="exemption_code_tree_view" model="ir.ui.view">
         <field name="name">exemption.code.tree.view</field>
         <field name="model">exemption.code</field>
-        <field name="type">tree</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" />
                 <field name="code" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="action_exemption_code_details" model="ir.actions.act_window">
         <field name="name">Exemption Code</field>
         <field name="res_model">exemption.code</field>
-        <field name="binding_view_types">tree</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">list</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         action="action_exemption_code_details"

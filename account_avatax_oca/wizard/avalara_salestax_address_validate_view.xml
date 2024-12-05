@@ -26,11 +26,11 @@
                 </group>
                 <footer>
                     <button
-                        name="accept_valid_address"
-                        type="object"
-                        string="Accept"
-                        class="oe_highlight"
-                    />
+                    name="accept_valid_address"
+                    type="object"
+                    string="Accept"
+                    class="oe_highlight"
+                />
                     or
                     <button string="Cancel" class="oe_link" special="cancel" />
                 </footer>

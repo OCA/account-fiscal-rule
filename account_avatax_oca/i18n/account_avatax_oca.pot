@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -107,7 +107,6 @@ msgstr ""
 #: model:account.tax.group,name:account_avatax_oca.avatax_tax_group
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__avatax_amount
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__avatax_amount
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__avatax_amount
 #: model:ir.ui.menu,name:account_avatax_oca.menu_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_partner_details_form_inherit1
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_product_normal_form_avatax_inherit
@@ -152,7 +151,6 @@ msgstr ""
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
-#, python-format
 msgid ""
 "AvaTax: Notice\n"
 "\n"
@@ -162,7 +160,6 @@ msgstr ""
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
-#, python-format
 msgid ""
 "AvaTax: Warning AvaTax could not validate the address:\n"
 "%s\n"
@@ -174,6 +171,7 @@ msgstr ""
 
 #. module: account_avatax_oca
 #: model:ir.model.fields.selection,name:account_avatax_oca.selection__res_partner__validation_method__avatax
+#: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_tree
 msgid "Avalara"
 msgstr ""
 
@@ -185,14 +183,12 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__avatax_request_log
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__avatax_request_log
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__avatax_request_log
 msgid "Avatax API Request Log"
 msgstr ""
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__avatax_response_log
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__avatax_response_log
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__avatax_response_log
 msgid "Avatax API Response Log"
 msgstr ""
 
@@ -214,21 +210,25 @@ msgstr ""
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/account_move.py:0
-#, python-format
 msgid "Avatax address is not validated!"
 msgstr ""
 
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/avalara_salestax.py:0
-#, python-format
 msgid "Avatax commiting document %s, but it tax reporting is disabled."
 msgstr ""
 
 #. module: account_avatax_oca
 #. odoo-python
+#: code:addons/account_avatax_oca/models/avalara_salestax.py:0
+msgid "Avatax tax calculation is disabled. Skipping %s %s."
+msgstr ""
+
+#. module: account_avatax_oca
+#. odoo-python
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
-#, python-format
+#: code:addons/account_avatax_oca/tests/common.py:0
 msgid ""
 "AvataxClient is not available in your system. Please contact your system "
 "administrator to 'pip3 install Avalara'"
@@ -237,7 +237,6 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__calculate_tax_on_save
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__calculate_tax_on_save
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__calculate_tax_on_save
 msgid "Calculate Tax On Save"
 msgstr ""
 
@@ -276,14 +275,12 @@ msgstr ""
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/res_company.py:0
-#, python-format
 msgid "Company %s has no Avatax configuration."
 msgstr ""
 
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/res_company.py:0
-#, python-format
 msgid "Company %s has too many Avatax configurations!"
 msgstr ""
 
@@ -373,7 +370,6 @@ msgstr ""
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/avalara_salestax.py:0
-#, python-format
 msgid ""
 "Customer Code for customer %(partner.name)s not defined.\n"
 "\n"
@@ -450,7 +446,6 @@ msgstr ""
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/partner.py:0
-#, python-format
 msgid ""
 "Enabling the exemption status for all states may have tax compliance risks, and should be carefully considered.\n"
 "\n"
@@ -468,7 +463,6 @@ msgstr ""
 #: model:ir.model,name:account_avatax_oca.model_exemption_code
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__exemption_code_id
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__property_exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__property_exemption_code_id
 #: model:ir.ui.menu,name:account_avatax_oca.menu_action_exemption_code_details
@@ -484,14 +478,12 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__exemption_locked
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__exemption_locked
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__exemption_locked
 msgid "Exemption Locked"
 msgstr ""
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__exemption_code
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__exemption_code
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__exemption_code
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__property_exemption_number
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__property_exemption_number
 msgid "Exemption Number"
@@ -506,7 +498,6 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_account_bank_statement_line__exemption_locked
 #: model:ir.model.fields,help:account_avatax_oca.field_account_move__exemption_locked
-#: model:ir.model.fields,help:account_avatax_oca.field_account_payment__exemption_locked
 msgid ""
 "Exemption code won't be automatically changed, for instance, when changing "
 "the Customer."
@@ -530,7 +521,6 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__hide_exemption
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__hide_exemption
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__hide_exemption
 #: model:ir.model.fields,field_description:account_avatax_oca.field_avalara_salestax__hide_exemption
 msgid "Hide Exemption & Tax Based on shipping address"
 msgstr ""
@@ -548,7 +538,6 @@ msgstr ""
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/account_tax.py:0
-#, python-format
 msgid ""
 "Incorrect retrieval of Avatax amount for Invoice %(avatax_invoice)s: product"
 " %(product.display_name)s, price_unit %(-price_unit)f , quantity "
@@ -589,14 +578,12 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_account_bank_statement_line__exemption_code_id
 #: model:ir.model.fields,help:account_avatax_oca.field_account_move__exemption_code_id
-#: model:ir.model.fields,help:account_avatax_oca.field_account_payment__exemption_code_id
 msgid "It show the customer exemption code"
 msgstr ""
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_account_bank_statement_line__exemption_code
 #: model:ir.model.fields,help:account_avatax_oca.field_account_move__exemption_code
-#: model:ir.model.fields,help:account_avatax_oca.field_account_payment__exemption_code
 msgid "It show the customer exemption number"
 msgstr ""
 
@@ -654,7 +641,6 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__location_code
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__location_code
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__location_code
 msgid "Location Code"
 msgstr ""
 
@@ -743,14 +729,12 @@ msgstr ""
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/account_tax.py:0
-#, python-format
 msgid "Please configure Avatax Tax for Company %s:"
 msgstr ""
 
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/partner.py:0
-#, python-format
 msgid ""
 "Please enter either Exemption Number or Exemption Code for marking customer "
 "as Exempt."
@@ -759,7 +743,6 @@ msgstr ""
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
-#, python-format
 msgid ""
 "Please set the Company Address in the partner information and validate.  We are checking against the first line of the address and it's empty.  \n"
 "\n"
@@ -769,14 +752,12 @@ msgstr ""
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/avalara_salestax.py:0
-#, python-format
 msgid "Please validate the origin warehouse address."
 msgstr ""
 
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/avalara_salestax.py:0
-#, python-format
 msgid "Please validate the shipping address for the partner %(partner.name)s."
 msgstr ""
 
@@ -821,7 +802,6 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_account_bank_statement_line__invoice_doc_no
 #: model:ir.model.fields,help:account_avatax_oca.field_account_move__invoice_doc_no
-#: model:ir.model.fields,help:account_avatax_oca.field_account_payment__invoice_doc_no
 msgid "Reference of the invoice"
 msgstr ""
 
@@ -843,12 +823,11 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__so_partner_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__so_partner_id
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__so_partner_id
 msgid "SO Partner"
 msgstr ""
 
 #. module: account_avatax_oca
-#: model:account.tax,description:account_avatax_oca.avatax
+#: model_terms:account.tax,description:account_avatax_oca.avatax
 msgid "Sales Tax"
 msgstr ""
 
@@ -891,7 +870,6 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__invoice_doc_no
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__invoice_doc_no
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__invoice_doc_no
 msgid "Source/Ref Invoice No"
 msgstr ""
 
@@ -923,7 +901,6 @@ msgstr ""
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/partner.py:0
-#, python-format
 msgid "Tax Compliance Risk"
 msgstr ""
 
@@ -935,14 +912,12 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__tax_address_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__tax_address_id
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__tax_address_id
 msgid "Tax Shipping Address"
 msgstr ""
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__tax_on_shipping_address
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__tax_on_shipping_address
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__tax_on_shipping_address
 msgid "Tax based on shipping address"
 msgstr ""
 
@@ -966,7 +941,6 @@ msgstr ""
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
-#, python-format
 msgid ""
 "The AvaTax Address Validation Service does not support this country in the "
 "configuration, please continue with your normal process."
@@ -975,7 +949,6 @@ msgstr ""
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
-#, python-format
 msgid ""
 "The AvaTax Address Validation Service is disabled by the administrator. "
 "Please make sure it's enabled for the address validation"
@@ -1022,21 +995,18 @@ msgstr ""
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/avatax_rest_api.py:0
-#, python-format
 msgid "The user or account could not be authenticated"
 msgstr ""
 
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/avalara_salestax.py:0
-#, python-format
 msgid "There is no Company address defined."
 msgstr ""
 
 #. module: account_avatax_oca
 #. odoo-python
 #: code:addons/account_avatax_oca/models/avalara_salestax.py:0
-#, python-format
 msgid "There is no source shipping address defined for partner %s."
 msgstr ""
 
@@ -1074,7 +1044,6 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_account_bank_statement_line__hide_exemption
 #: model:ir.model.fields,help:account_avatax_oca.field_account_move__hide_exemption
-#: model:ir.model.fields,help:account_avatax_oca.field_account_payment__hide_exemption
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__hide_exemption
 msgid ""
 "Uncheck the this field to show exemption fields on SO/Invoice form view. "
@@ -1090,7 +1059,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__is_avatax
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_fiscal_position__is_avatax
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__is_avatax
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__is_avatax
 msgid "Use Avatax API"
 msgstr ""
 
@@ -1146,7 +1114,6 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__warehouse_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__warehouse_id
-#: model:ir.model.fields,field_description:account_avatax_oca.field_account_payment__warehouse_id
 msgid "Warehouse"
 msgstr ""
 

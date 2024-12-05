@@ -1,8 +1,7 @@
 import logging
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
-from odoo.tests.common import Form
 
 _logger = logging.getLogger(__name__)
 
@@ -268,12 +267,11 @@ class AccountMove(models.Model):
 
             # Set Taxes on lines in a way that properly triggers onchanges
             # This same approach is also used by the official account_taxcloud connector
-            with Form(self) as move_form:
-                for index, taxes in taxes_to_set:
-                    with move_form.invoice_line_ids.edit(index) as line_form:
-                        line_form.tax_ids.clear()
-                        for tax in taxes:
-                            line_form.tax_ids.add(tax)
+            for index, taxes in taxes_to_set:
+                # Access the invoice line by index
+                line = self.invoice_line_ids[index]
+                # Update the tax_ids field
+                line.write({"tax_ids": [(6, 0, [tax.id for tax in taxes])]})
 
         return tax_result
 
@@ -316,7 +314,9 @@ class AccountMove(models.Model):
                         if not addr.date_validation:
                             # The Validate action will be interrupted
                             # if the address is not validated
-                            raise UserError(_("Avatax address is not validated!"))
+                            raise UserError(
+                                self.env._("Avatax address is not validated!")
+                            )
                 # We should compute taxes before validating the invoice
                 # to ensure correct account moves
                 # However, we can't save the invoice because it wasn't assigned a

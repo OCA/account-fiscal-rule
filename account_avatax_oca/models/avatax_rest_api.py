@@ -4,7 +4,7 @@ import logging
 import pprint
 import socket
 
-from odoo import _, fields, tools
+from odoo import _, fields
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -26,6 +26,7 @@ class AvaTaxRESTService:
         config=None,
     ):
         self.config = config
+        self.env = config and config.env or None
         self.timeout = not config and timeout or config.request_timeout
         self.is_log_enabled = enable_log or config and config.logging
         # Set elements adapter defaults
@@ -250,7 +251,7 @@ class AvaTaxRESTService:
         lineslist = [
             {
                 "number": line["id"].id,
-                "description": tools.ustr(line.get("description", ""))[:255],
+                "description": str(line.get("description", ""))[:255],
                 "itemCode": line.get("itemcode"),
                 "quantity": line.get("qty", 1),
                 "amount": line.get("amount", 0.0),

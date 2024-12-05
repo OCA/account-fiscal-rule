@@ -2,7 +2,7 @@ import logging
 import time
 from random import random
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 from .avatax_rest_api import AvaTaxRESTService
@@ -22,7 +22,7 @@ class ResPartner(models.Model):
     def _onchange_property_exemption_contry_wide(self):
         if self.property_exemption_country_wide:
             message = (
-                _(
+                self.env._(
                     "Enabling the exemption status for all states"
                     " may have tax compliance risks,"
                     " and should be carefully considered.\n\n"
@@ -31,7 +31,12 @@ class ResPartner(models.Model):
                     " for every state this Partner may have transactions."
                 ),
             )
-            return {"warning": {"title": _("Tax Compliance Risk"), "message": message}}
+            return {
+                "warning": {
+                    "title": self.env._("Tax Compliance Risk"),
+                    "message": message,
+                }
+            }
 
     date_validation = fields.Date(
         "Last Validation Date",
@@ -101,7 +106,7 @@ class ResPartner(models.Model):
                 partner.property_exemption_code_id or partner.property_exemption_number
             ):
                 raise UserError(
-                    _(
+                    self.env._(
                         "Please enter either Exemption Number or Exemption Code"
                         " for marking customer as Exempt."
                     )

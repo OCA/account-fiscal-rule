@@ -1,6 +1,6 @@
 from math import copysign
 
-from odoo import _, api, exceptions, fields, models
+from odoo import api, exceptions, fields, models
 from odoo.tools.float_utils import float_compare
 
 
@@ -25,7 +25,7 @@ class AccountTax(models.Model):
 
     @api.model
     def _get_avalara_tax_name(self, tax_rate, doc_type=None):
-        return _("{}%*").format(str(tax_rate))
+        return self.env._("{}%*").format(str(tax_rate))
 
     @api.model
     def get_avalara_tax(self, tax_rate, doc_type):
@@ -38,7 +38,7 @@ class AccountTax(models.Model):
             tax_template = self.search(domain, limit=1)
             if not tax_template:
                 raise exceptions.UserError(
-                    _("Please configure Avatax Tax for Company %s:")
+                    self.env._("Please configure Avatax Tax for Company %s:")
                     % self.env.company.name
                 )
             # If you get a unique constraint error here,
@@ -105,7 +105,7 @@ class AccountTax(models.Model):
             if avatax_amount is None:
                 avatax_amount = 0.0
                 raise exceptions.UserError(
-                    _(
+                    self.env._(
                         "Incorrect retrieval of Avatax amount for Invoice "
                         "%(avatax_invoice)s: product %(product.display_name)s, "
                         "price_unit %(-price_unit)f , quantity %(quantity)f"
