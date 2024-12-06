@@ -287,14 +287,20 @@ class AvaTaxRESTService:
             "referenceCode": reference_code,
             "salespersonCode": salesman_code and salesman_code[:25] or None,
             "reportingLocationCode": location_code,
-            "entityUseCode": customer_usage_type,
-            "exemptionNo": exemption_no,
             "description": doc_code or "Draft",
             "date": doc_date,
             "code": doc_code,
             "type": doc_type,
             "commit": commit,
         }
+        # Only override exemption if provided from Odoo
+        if customer_usage_type or exemption_no:
+            create_transaction.update(
+                {
+                    "entityUseCode": customer_usage_type,
+                    "exemptionNo": exemption_no,
+                }
+            )
         if is_override and invoice_date:
             create_transaction.update(
                 {
