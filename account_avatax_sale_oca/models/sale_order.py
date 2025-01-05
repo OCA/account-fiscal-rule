@@ -24,7 +24,7 @@ class SaleOrder(models.Model):
         "Hide Exemption & Tax Based on shipping address",
         compute="_compute_hide_exemption",  # For past transactions visibility
         default=lambda self: self.env.company.get_avatax_config_company,
-        help="Uncheck the this field to show exemption fields on SO/Invoice form view. "
+        help="Uncheck this field to show exemption fields on SO/Invoice form view. "
         "Also, it will show Tax based on shipping address button",
     )
     tax_amount = fields.Monetary(string="AvaTax")

@@ -43,7 +43,7 @@ Tax Exemption Status
   is an identification number to use on the customer's State.
 - This exemption status will only be applied for delivery addresses in
   the State matching the State of the exemption address. The same
-  customer can have exemptiions on several states. For this use
+  customer can have exemptions on several states. For this use
   additional Contact/Addresses for those states, and enter the
   exempention details there.
 - To make this data management simpler, is it possible to set the

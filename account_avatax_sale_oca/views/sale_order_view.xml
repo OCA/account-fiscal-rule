@@ -63,7 +63,7 @@
                 <field name="calculate_tax_on_save" invisible="1" />
                 <field name="tax_amount" invisible="1" />
             </xpath>
-            <xpath expr="//field[@name='order_line']//tree" position="inside">
+            <xpath expr="//field[@name='order_line']//list" position="inside">
                 <field name="tax_amt" groups="base.group_no_one" optional="hide" />
             </xpath>
             <xpath

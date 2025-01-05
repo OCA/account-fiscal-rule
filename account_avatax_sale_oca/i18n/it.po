@@ -141,12 +141,9 @@ msgstr "Imposta in base all'indirizzo di spedizione"
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,help:account_avatax_sale_oca.field_sale_order__hide_exemption
 msgid ""
-"Uncheck the this field to show exemption fields on SO/Invoice form view. "
-"Also, it will show Tax based on shipping address button"
+"Uncheck this field to show exemption fields on SO/Invoice form view. Also, "
+"it will show Tax based on shipping address button"
 msgstr ""
-"Deselezionare questo campo per visualizzare i campi esenzione in OV/fattura "
-"dalla vista. Inoltre, verrà visualizzato il pulsante 'Imposta in base "
-"all'indirizzo di spedizione'"
 
 #. module: account_avatax_sale_oca
 #: model:ir.actions.server,name:account_avatax_sale_oca.action_sale_order_compute_taxes
@@ -178,3 +175,11 @@ msgid ""
 msgstr ""
 "Quando selezionata, l'imposta calcolata da AvaTax sostituirà ogni altra "
 "imposta presente nella riga documento."
+
+#~ msgid ""
+#~ "Uncheck the this field to show exemption fields on SO/Invoice form view. "
+#~ "Also, it will show Tax based on shipping address button"
+#~ msgstr ""
+#~ "Deselezionare questo campo per visualizzare i campi esenzione in OV/"
+#~ "fattura dalla vista. Inoltre, verrà visualizzato il pulsante 'Imposta in "
+#~ "base all'indirizzo di spedizione'"
