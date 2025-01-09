@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-10-17 16:06+0000\n"
+"PO-Revision-Date: 2025-01-09 11:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -254,7 +254,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_avatax_oca/models/avalara_salestax.py:0
 msgid "Avatax tax calculation is disabled. Skipping %s %s."
-msgstr ""
+msgstr "Il calcolo dell'imposta Avatax è disabilitato. Saltato %s %s."
 
 #. module: account_avatax_oca
 #. odoo-python
