@@ -260,19 +260,19 @@
         parent="menu_exemption"
         sequence="31"
     />
-       <menuitem
+    <menuitem
         id="menu_exemption_type"
         action="exemption_type_act_window"
         parent="menu_exemption"
         sequence="31"
     />
-     <menuitem
+    <menuitem
         id="menu_exemption_reason_type"
         action="exemption_reason_type_act_window"
         parent="menu_exemption"
         sequence="31"
     />
-       <menuitem
+    <menuitem
         id="menu_avatax_exemption"
         action="exemption_act_window"
         parent="menu_exemption"
