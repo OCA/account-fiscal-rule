@@ -68,7 +68,7 @@ class ProductProduct(models.Model):
                     )
                     if not job:
                         avalara_salestax.with_delay(
-                            description="Update Tax Item %s" % (product.display_name)
+                            description=f"Update Tax Item {product.display_name}"
                         )._update_tax_item(product.avatax_item_id, product)
                 else:
                     job = queue_job_sudo.search(
@@ -81,7 +81,7 @@ class ProductProduct(models.Model):
                     )
                     if not job:
                         avalara_salestax.with_delay(
-                            description="Export Tax Item %s" % (product.display_name)
+                            description=f"Export Tax Item {product.display_name}"
                         )._export_tax_item(product)
             elif (
                 product.avatax_item_id
@@ -98,7 +98,7 @@ class ProductProduct(models.Model):
                 )
                 if not job:
                     avalara_salestax.with_delay(
-                        description="Delete Tax Item %s" % (product.display_name)
+                        description=f"Delete Tax Item {product.display_name}"
                     )._delete_tax_item(product)
 
     def write(self, vals):

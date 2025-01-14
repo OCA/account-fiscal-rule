@@ -23,11 +23,11 @@
                     <p>
                         Avatax Exemption related settings are managed on
                         <button
-                            name="open_commercial_entity"
-                            type="object"
-                            string="the parent company"
-                            class="oe_link"
-                        />
+                        name="open_commercial_entity"
+                        type="object"
+                        string="the parent company"
+                        class="oe_link"
+                    />
                     </p>
                 </div>
             </xpath>

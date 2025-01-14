@@ -204,8 +204,8 @@ class AvalaraSalestax(models.Model):
         client = avatax_restpoint.client
 
         result_vals = []
-        main_url = url = "{}/api/v2/companies/{}/items".format(
-            client.base_url, self.avatax_company_id
+        main_url = url = (
+            f"{client.base_url}/api/v2/companies/{self.avatax_company_id}/items"
         )
         count = 0
         while True:
@@ -255,7 +255,7 @@ class AvalaraSalestax(models.Model):
 
         for product in products:
             self.with_delay(
-                description="Export Tax Item %s" % (product.display_name)
+                description=f"Export Tax Item {product.display_name}"
             )._export_tax_item(product)
 
     def export_new_exemption_rules(self, rules=None):
@@ -282,7 +282,7 @@ class AvalaraSalestax(models.Model):
                 self.with_delay(
                     priority=5,
                     max_retries=2,
-                    description="Export Rule %s" % (rule.name),
+                    description=f"Export Rule {rule.name}",
                 )._export_base_rule_based_on_type(rule)
 
     def download_exemptions(self):
@@ -327,7 +327,7 @@ class AvalaraSalestax(models.Model):
             avatax_id = exemption["id"]
             if avatax_id not in exemptions.mapped("avatax_id"):
                 self.with_delay(
-                    description="Download Exemption: %s" % (avatax_id)
+                    description=f"Download Exemption: {avatax_id}"
                 )._search_create_exemption_line(avatax_id)
 
     def _export_base_rule_based_on_type(self, rule):
@@ -361,7 +361,11 @@ class AvalaraSalestax(models.Model):
             "cap": 0,
             "threshold": 0,
             "effectiveDate": fields.Datetime.to_string(fields.Date.today()),
-            "description": f"{rule.state_id.avatax_name} - {rule.exemption_code_id.code} - {rule.name}",
+            "description": (
+                f"{rule.state_id.avatax_name} - "
+                f"{rule.exemption_code_id.code} - "
+                f"{rule.name}"
+            ),
             "country": rule.state_id.country_id.code,
             "region": rule.state_id.code,
             "stateFIPS": rule.state_id.avatax_code,
@@ -430,7 +434,7 @@ class AvalaraSalestax(models.Model):
         if not self.tax_item_export:
             raise FailedJobError("Tax Item Export is disabled in Avatax configuration")
         if product.avatax_item_id:
-            return "Product exported with Avatax ID: %s" % (product.avatax_item_id)
+            return f"Product exported with Avatax ID: {product.avatax_item_id}"
         avatax_restpoint = AvaTaxRESTService(config=self)
 
         item_info = {
@@ -465,7 +469,7 @@ class AvalaraSalestax(models.Model):
         if not self.tax_item_export:
             raise FailedJobError("Tax Item Export is disabled in Avatax configuration")
         if not product.avatax_item_id:
-            return "Avatax ID not available in Product: %s" % (product.display_name)
+            return f"Avatax ID not available in Product: {product.display_name}"
         avatax_restpoint = AvaTaxRESTService(config=self)
 
         r = avatax_restpoint.client.delete_item(
@@ -531,7 +535,7 @@ class AvalaraSalestax(models.Model):
 
         avatax_restpoint = AvaTaxRESTService(config=self)
         if partner.avatax_id:
-            return "Avatax Customer ID: %s" % (partner.avatax_id)
+            return f"Avatax Customer ID: {partner.avatax_id}"
         customer_info = [
             {
                 "customerCode": partner.customer_code,
@@ -580,7 +584,7 @@ class AvalaraSalestax(models.Model):
 
         avatax_restpoint = AvaTaxRESTService(config=self)
         if exemption_line.avatax_id:
-            return "Avatax Customer ID: %s" % (exemption_line.avatax_id)
+            return f"Avatax Customer ID: {exemption_line.avatax_id}"
         exemption_line_info = [
             {
                 "signedDate": fields.Datetime.to_string(
@@ -632,7 +636,10 @@ class AvalaraSalestax(models.Model):
         self.with_delay(
             priority=6,
             max_retries=2,
-            description=f"Link Customer {exemption_line.partner_id.display_name} with Exemption {exemption_line.name}",
+            description=(
+                f"Link Customer {exemption_line.partner_id.display_name} "
+                f"with Exemption {exemption_line.name}"
+            ),
         ).link_certificates_to_customer(exemption_line)
 
         return result
@@ -774,7 +781,13 @@ class AvalaraSalestax(models.Model):
                 )
             if not partner:
                 partner = partner_sudo.search(
-                    [("customer_code", "=", "%s:0" % (customer_info["customerCode"]))],
+                    [
+                        (
+                            "customer_code",
+                            "=",
+                            "{}:0".format(customer_info["customerCode"]),
+                        )
+                    ],
                     limit=1,
                 )
             if not partner:
@@ -812,7 +825,7 @@ class AvalaraSalestax(models.Model):
                 .search([("avatax_id", "=", result["id"])], limit=1)
             )
             if exemption_line:
-                return "Exemption Already Downloaded\nSearch Response: %s" % (result)
+                return f"Exemption Already Downloaded\nSearch Response: {result}"
             exposure_zone_info = result["exposureZone"]
             exposure_state = (
                 self.env["res.country.state"]

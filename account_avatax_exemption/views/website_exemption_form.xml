@@ -153,16 +153,16 @@
         name="Portal Exemption Form Customizations"
     >
         <xpath expr="//t[@name='placeholder1']">
-            <div class="oe_structure oe_empty" />
+            <div class="oe_empty" />
         </xpath>
         <xpath expr="//t[@name='placeholder2']">
-            <div class="oe_structure oe_empty" />
+            <div class="oe_empty" />
         </xpath>
         <xpath expr="//t[@name='placeholder3']">
-            <div class="oe_structure oe_empty" />
+            <div class="oe_empty" />
         </xpath>
         <xpath expr="//t[@name='placeholder4']">
-            <div class="oe_structure oe_empty" />
+            <div class="oe_empty" />
         </xpath>
     </template>
 </odoo>

@@ -15,7 +15,6 @@ class ExemptionRule(models.Model):
             ("cancel", "Cancelled"),
         ],
         default="draft",
-        string="State",
     )
     exemption_code_id = fields.Many2one(
         "exemption.code", string="Entity Use Code", required=True
@@ -80,7 +79,7 @@ class ExemptionRule(models.Model):
                 _("Avatax Exemption Rule export is disabled in Avatax configuration")
             )
         avalara_salestax.with_delay(
-            priority=5, max_retries=2, description="Cancel Custom Rule %s" % (self.name)
+            priority=5, max_retries=2, description=f"Cancel Custom Rule {self.name}"
         )._cancel_custom_rule(self)
         return True
 
@@ -214,7 +213,7 @@ class ResPartnerExemption(models.Model):
         )
         if avalara_salestax:
             job = avalara_salestax.with_delay(
-                description="Download Exemption: %s" % (avatax_id)
+                description=f"Download Exemption: {avatax_id}"
             )._search_create_exemption_line(avatax_id)
             return "Success" if job else "Failed"
         else:
@@ -239,14 +238,14 @@ class ResPartnerExemption(models.Model):
             avalara_salestax.with_delay(
                 priority=0,
                 max_retries=2,
-                description="Export Customer %s" % (self.partner_id.display_name),
+                description=f"Export Customer {self.partner_id.display_name}",
             )._export_avatax_customer(self.partner_id)
         for exemption_line in self.exemption_line_ids:
             if not exemption_line.avatax_id:
                 avalara_salestax.with_delay(
                     priority=5,
                     max_retries=2,
-                    description="Export Exemption Line %s" % (exemption_line.name),
+                    description=f"Export Exemption Line {exemption_line.name}",
                 )._export_avatax_exemption_line(exemption_line)
         self.write({"state": "progress"})
         return True
@@ -266,7 +265,7 @@ class ResPartnerExemption(models.Model):
                 avalara_salestax.with_delay(
                     priority=5,
                     max_retries=2,
-                    description="Disable Exemption Line %s" % (exemption_line.name),
+                    description=f"Disable Exemption Line {exemption_line.name}",
                 )._update_avatax_exemption_line_status(exemption_line, False)
             self.write({"state": "progress"})
         elif self.state == "progress":
@@ -290,9 +289,10 @@ class ResPartnerExemption(models.Model):
                 avalara_salestax.with_delay(
                     priority=5,
                     max_retries=2,
-                    description="Enable Exemption Line %s" % (exemption_line.name),
+                    description=f"Enable Exemption Line {exemption_line.name}",
                 )._update_avatax_exemption_line_status(exemption_line, True)
             self.write({"state": "progress"})
+
         else:
             raise UserError(
                 _("Exemption status needs to be in Cancel status to enable")
