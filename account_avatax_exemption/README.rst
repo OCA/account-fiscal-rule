@@ -31,10 +31,10 @@ Avatax Exemptions
 This module is a component of the Avatax Exemption Integration with odoo
 app.
 
-   -  Export Exemption customer in Avatax
-   -  Export Exemptions for customer based on nexus region
-   -  Export Custom rules based on avatax nexus regions
-   -  Export Product Taxcodes to Avatax
+   - Export Exemption customer in Avatax
+   - Export Exemptions for customer based on nexus region
+   - Export Custom rules based on avatax nexus regions
+   - Export Product Taxcodes to Avatax
 
 **Table of contents**
 
@@ -67,15 +67,15 @@ Authors
 Contributors
 ------------
 
--  Sodexis
+- Sodexis
 
-   -  Atchuthan Ubendran <atchuthan@sodexis.com>
-   -  Stephan Keller <skeller@sodexis.com>
-   -  SodexisTeam <dev@sodexis.com>
+  - Atchuthan Ubendran <atchuthan@sodexis.com>
+  - Stephan Keller <skeller@sodexis.com>
+  - SodexisTeam <dev@sodexis.com>
 
--  Open Source Integrators (https://opensourceintegrators.com)
+- Open Source Integrators (https://opensourceintegrators.com)
 
-   -  Nikul Chaudhary <nchaudhary@opensourceintegrators.com>
+  - Nikul Chaudhary <nchaudhary@opensourceintegrators.com>
 
 Maintainers
 -----------
