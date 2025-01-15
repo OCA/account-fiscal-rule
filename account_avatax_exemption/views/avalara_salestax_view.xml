@@ -55,10 +55,10 @@
     <record id="exemption_code_tree_view" model="ir.ui.view">
         <field name="name">exemption.code.tree.view</field>
         <field name="model">exemption.code</field>
-        <field name="type">tree</field>
+        <field name="type">list</field>
         <field name="inherit_id" ref="account_avatax_oca.exemption_code_tree_view" />
         <field name="arch" type="xml">
-            <xpath expr="//tree" position="attributes">
+            <xpath expr="//list" position="attributes">
                 <attribute name="string">Entity Use Code</attribute>
             </xpath>
         </field>

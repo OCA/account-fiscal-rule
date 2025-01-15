@@ -166,7 +166,7 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     @api.model
-    def _search(self, domain, offset=0, limit=None, order=None, access_rights_uid=None):
+    def _search(self, domain, offset=0, limit=None, order=None):
         context = dict(self._context)
         if context.get("partner_exemption", False):
             domain = domain or []
@@ -177,7 +177,7 @@ class ResPartner(models.Model):
             )
             if avalara_salestax.use_commercial_entity:
                 domain += [("parent_id", "=", False)]
-        return super()._search(domain, offset, limit, order, access_rights_uid)
+        return super()._search(domain, offset, limit, order)
 
 
 class ResPartnerExemption(models.Model):
