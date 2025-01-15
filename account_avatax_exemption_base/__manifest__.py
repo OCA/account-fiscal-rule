@@ -18,6 +18,7 @@
         "views/res_country_state_view.xml",
         "views/avalara_exemption_view.xml",
     ],
+    "images": ["static/description/avatax_icon.png"],
     "installable": True,
     "application": False,
 }

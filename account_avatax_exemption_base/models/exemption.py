@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from odoo import _, api, fields, models
+from odoo import Command, _, api, fields, models
 
 
 class ResPartnerGroupState(models.Model):
@@ -28,13 +28,14 @@ class ResPartnerExemptionLine(models.Model):
     add_exemption_number = fields.Boolean()
     exemption_number = fields.Char()
 
-    @api.model
-    def create(self, vals):
-        if vals.get("name", _("New")) == _("New"):
-            vals["name"] = self.env["ir.sequence"].next_by_code(
-                "exemption.line.sequence"
-            ) or _("New")
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("name", _("New")) == _("New"):
+                vals["name"] = self.env["ir.sequence"].next_by_code(
+                    "exemption.line.sequence"
+                ) or _("New")
+        return super().create(vals_list)
 
 
 class ResPartnerExemptionBusinessType(models.Model):
@@ -114,8 +115,8 @@ class ResPartnerExemption(models.Model):
             and super()._check_create_documents()
         )
 
-    def name_get(self):
-        res = []
+    @api.depends("exemption_number", "partner_id", "exemption_type")
+    def _compute_display_name(self):
         for record in self:
             if record.exemption_number:
                 name = f"{record.exemption_number} - {record.partner_id.display_name}"
@@ -123,20 +124,7 @@ class ResPartnerExemption(models.Model):
                 name = record.partner_id.display_name
             if record.exemption_type:
                 name = f"{record.exemption_type.name} - {name}"
-            res.append((record.id, name))
-        return res
-
-    # TODO: Need to check, avalara.salestax not found and also field.
-    # @api.onchange("partner_id")
-    # def onchange_partner_id(self):
-    #     avalara_salestax = (
-    #         self.env["avalara.salestax"]
-    #         .sudo()
-    #         .search([("exemption_export", "=", True)], limit=1)
-    #     )
-    #     if avalara_salestax.use_commercial_entity:
-    #         self.partner_id = self.partner_id.commercial_partner_id.id
-    #         return {"domain": {"partner_id": [("parent_id", "=", False)]}}
+            record.display_name = name
 
     @api.onchange("exemption_type", "group_of_state")
     def onchange_exemption_type(self):
@@ -151,7 +139,7 @@ class ResPartnerExemption(models.Model):
                 state_ids += self.exemption_type.state_ids.ids
             if self.group_of_state.state_ids:
                 state_ids += self.group_of_state.state_ids.ids
-            self.state_ids = [(6, 0, list(set(state_ids)))]
+            self.state_ids = [Command.set(self.group_of_state.state_ids.ids)]
 
     @api.onchange("exemption_type", "effective_date")
     def onchange_effective_date(self):
