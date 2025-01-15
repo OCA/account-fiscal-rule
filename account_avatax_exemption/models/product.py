@@ -42,7 +42,6 @@ class ProductProduct(models.Model):
     avatax_item_id = fields.Char(
         "Avatax TaxItem",
         copy=False,
-        readonly=True,
     )
 
     def create_job_taxitem(self):

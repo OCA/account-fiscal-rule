@@ -10,7 +10,7 @@
                                 CUSTOMER NAME
                             </td>
                             <td>
-                                <t t-esc="exemption_line.partner_id.display_name"/>
+                                <t t-out="exemption_line.partner_id.display_name"/>
                             </td>
                         </tr>
                         <tr>
@@ -18,7 +18,7 @@
                                 CUSTOMER CODE
                             </td>
                             <td>
-                                <t t-esc="exemption_line.partner_id.get_customer_code()"/>
+                                <t t-out="exemption_line.partner_id.get_customer_code()"/>
                             </td>
                         </tr>
                         <tr>
@@ -26,7 +26,7 @@
                                 EXEMPTION REASON
                             </td>
                             <td>
-                                <t t-esc="exemption_line.exemption_id.business_type.display_name"/>
+                                <t t-out="exemption_line.exemption_id.business_type.display_name"/>
                             </td>
                         </tr>
                         <tr>
@@ -34,7 +34,7 @@
                                 AVATAX EXEMPTION ID
                             </td>
                             <td>
-                                <t t-esc="exemption_line.avatax_id"/>
+                                <t t-out="exemption_line.avatax_id"/>
                             </td>
                         </tr>
                         <tr>
@@ -42,7 +42,7 @@
                                 EXEMPTION NUMBER
                             </td>
                             <td>
-                                <t t-esc="exemption_line.exemption_id.exemption_number"/>
+                                <t t-out="exemption_line.exemption_id.exemption_number"/>
                             </td>
                         </tr>
                         <tr>
@@ -50,7 +50,7 @@
                                 EXEMPTION EFFECTIVE
                             </td>
                             <td>
-                                <t t-esc="exemption_line.exemption_id.effective_date"/>
+                                <t t-out="exemption_line.exemption_id.effective_date"/>
                             </td>
                         </tr>
                         <tr>
@@ -58,7 +58,7 @@
                                 EXEMPTION EXPIRATION
                             </td>
                             <td>
-                                <t t-esc="exemption_line.exemption_id.expiry_date"/>
+                                <t t-out="exemption_line.exemption_id.expiry_date"/>
                             </td>
                         </tr>
                         <tr>
@@ -67,17 +67,17 @@
                             </td>
                             <td>
                                 <t t-if="exemption_line.avatax_status">
-                                    <t t-esc="'ENABLED'" />
+                                    <t t-out="'ENABLED'" />
                                 </t>
                                 <t t-else="">
-                                    <t t-esc="'DISABLED'" />
+                                    <t t-out="'DISABLED'" />
                                 </t>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                </t> -->
-                <t t-esc="message" />
+                <t t-out="message" />
             </div>
         </t>
     </template>

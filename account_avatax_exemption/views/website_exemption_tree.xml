@@ -50,14 +50,14 @@
                             <a
                                 t-attf-href="/my/exemptions/#{slug(exemption)}?#{keep_query()}"
                             >
-                                <span t-esc="'View'" />
+                                <span t-out="'View'" />
                             </a>
                         </td>
                     </tr>
                 </t>
             </tbody>
         </table>
-        <div t-if="pager" class="o_portal_pager text-center">
+        <div t-if="pager" class="o_portal_pager d-flex justify-content-center">
             <t t-call="website.pager" />
         </div>
     </template>

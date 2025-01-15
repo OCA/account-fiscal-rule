@@ -1,6 +1,6 @@
 import logging
 
-from odoo import _, http
+from odoo import http
 from odoo.http import request, route
 from odoo.tools import exception_to_unicode
 
@@ -64,8 +64,11 @@ class WebsiteExemption(CustomerPortal):
         base_url = "/my/exemptions"
 
         searchbar_sortings = {
-            "date": {"label": _("Newest"), "order": "create_date desc"},
-            "expiry_date": {"label": _("Expiry Date"), "order": "expiry_date desc"},
+            "date": {"label": self.env._("Newest"), "order": "create_date desc"},
+            "expiry_date": {
+                "label": self.env._("Expiry Date"),
+                "order": "expiry_date desc",
+            },
         }
         if not sortby:
             sortby = "date"

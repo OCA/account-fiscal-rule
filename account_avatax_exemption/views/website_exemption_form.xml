@@ -10,7 +10,7 @@
                         <div class="col-12">
                             <h1>
                                 View Exemption:
-                                <span t-esc="exemption.display_name" />
+                                <span t-out="exemption.display_name" />
                             </h1>
                         </div>
                     </section>
@@ -39,10 +39,10 @@
                                 t-as="exemption_line"
                             >
                                 <td>
-                                    <t t-esc="exemption_line.name" />
+                                    <t t-out="exemption_line.name" />
                                 </td>
                                 <td>
-                                    <t t-esc="exemption_line.state_id.display_name" />
+                                    <t t-out="exemption_line.state_id.display_name" />
                                 </td>
                                 <td>
                                     <t
@@ -86,7 +86,7 @@
                         <li>
                             <t t-if="exemption.id">
                                 /
-                                <t t-esc="exemption.display_name" />
+                                <t t-out="exemption.display_name" />
                             </t>
                         </li>
                     </ol>
@@ -98,49 +98,49 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-3">
-                    <span class="font-weight-bold" t-esc="'Business Type:'" />
+                    <span class="fw-bold" t-out="'Business Type:'" />
                 </div>
-                <div class="col-9 text-left">
+                <div class="col-9 text-start">
                     <span t-field="exemption.business_type" />
                 </div>
             </div>
             <div class="row mt16">
                 <div class="col-3">
-                    <span class="font-weight-bold" t-esc="'Entity Use Code:'" />
+                    <span class="fw-bold" t-out="'Entity Use Code:'" />
                 </div>
-                <div class="col-9 text-left">
+                <div class="col-9 text-start">
                     <span t-field="exemption.exemption_code_id" />
                 </div>
             </div>
             <div class="row mt16">
                 <div class="col-3">
-                    <span class="font-weight-bold" t-esc="'Exemption Number:'" />
+                    <span class="fw-bold" t-out="'Exemption Number:'" />
                 </div>
-                <div class="col-9 text-left">
+                <div class="col-9 text-start">
                     <span t-field="exemption.exemption_number" />
                 </div>
             </div>
             <div class="row mt16">
                 <div class="col-3">
-                    <span class="font-weight-bold" t-esc="'Exemption Number Type:'" />
+                    <span class="fw-bold" t-out="'Exemption Number Type:'" />
                 </div>
-                <div class="col-9 text-left">
+                <div class="col-9 text-start">
                     <span t-field="exemption.exemption_number_type" />
                 </div>
             </div>
             <div class="row mt16">
                 <div class="col-3">
-                    <span class="font-weight-bold" t-esc="'Effective Date:'" />
+                    <span class="fw-bold" t-out="'Effective Date:'" />
                 </div>
-                <div class="col-9 text-left">
+                <div class="col-9 text-start">
                     <span t-field="exemption.effective_date" />
                 </div>
             </div>
             <div class="row mt16">
                 <div class="col-3">
-                    <span class="font-weight-bold" t-esc="'Expiry Date:'" />
+                    <span class="fw-bold" t-out="'Expiry Date:'" />
                 </div>
-                <div class="col-9 text-left">
+                <div class="col-9 text-start">
                     <span t-field="exemption.expiry_date" />
                 </div>
             </div>

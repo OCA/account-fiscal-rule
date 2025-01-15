@@ -16,7 +16,7 @@
                 <t t-else="">Exemptions</t>
             </li>
             <li t-if="exemption" class="breadcrumb-item active">
-                <t t-esc="exemption.display_name" />
+                <t t-out="exemption.display_name" />
             </li>
         </xpath>
     </template>

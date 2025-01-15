@@ -6,7 +6,7 @@ class ExemptionRule(models.Model):
     _name = "exemption.code.rule"
     _description = "Avatax Custom Rules"
 
-    name = fields.Char(index=True, default=lambda self: _("New"))
+    name = fields.Char(index="trigram", default=lambda self: _("New"))
     state = fields.Selection(
         [
             ("draft", "Draft"),
@@ -23,7 +23,7 @@ class ExemptionRule(models.Model):
         "res.country.state",
         string="Region",
     )
-    avatax_id = fields.Char("Avatax Rule ID", readonly=True, copy=False)
+    avatax_id = fields.Char("Avatax Rule ID", copy=False)
     avatax_tax_code = fields.Many2one("product.tax.code")
     is_all_juris = fields.Boolean(default=True)
     avatax_rate = fields.Float()
@@ -36,19 +36,22 @@ class ExemptionRule(models.Model):
         """
         for record in self:
             if record.avatax_rate < 0 or record.avatax_rate > 100:
-                raise ValidationError(_("Avatax rate range is from 0 to 100"))
+                raise ValidationError(self.env._("Avatax rate range is from 0 to 100"))
 
-    @api.model
-    def create(self, vals):
-        if vals.get("name", _("New")) == _("New"):
-            vals["name"] = self.env["ir.sequence"].next_by_code(
-                "exemption.code.rule.sequence"
-            ) or _("New")
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("name", _("New")) == _("New"):
+                vals["name"] = self.env["ir.sequence"].next_by_code(
+                    "exemption.line.sequence"
+                ) or _("New")
+        return super().create(vals_list)
 
     def export_exemption_rule(self):
         if self.filtered(lambda x: x.state != "draft"):
-            raise UserError(_("Rule is not in Draft state to Export Custom Rule"))
+            raise UserError(
+                self.env._("Rule is not in Draft state to Export Custom Rule")
+            )
         self.write({"state": "progress"})
         avalara_salestax = (
             self.env["avalara.salestax"]
@@ -57,7 +60,9 @@ class ExemptionRule(models.Model):
         )
         if not avalara_salestax:
             raise UserError(
-                _("Avatax Exemption Rule export is disabled in Avatax configuration")
+                self.env._(
+                    "Avatax Exemption Rule export is disabled in Avatax configuration"
+                )
             )
         avalara_salestax.export_new_exemption_rules(
             rules=self.filtered(lambda x: not x.avatax_id)
@@ -76,7 +81,9 @@ class ExemptionRule(models.Model):
         )
         if not avalara_salestax:
             raise UserError(
-                _("Avatax Exemption Rule export is disabled in Avatax configuration")
+                self.env._(
+                    "Avatax Exemption Rule export is disabled in Avatax configuration"
+                )
             )
         avalara_salestax.with_delay(
             priority=5, max_retries=2, description=f"Cancel Custom Rule {self.name}"
@@ -86,7 +93,7 @@ class ExemptionRule(models.Model):
     def enable_exemption_rule(self):
         if self.filtered(lambda x: x.state != "cancel"):
             raise UserError(
-                _("Rule is not in Cancelled state to Re-Export Custom Rule")
+                self.env._("Rule is not in Cancelled state to Re-Export Custom Rule")
             )
         self.write({"state": "progress"})
         avalara_salestax = (
@@ -96,7 +103,9 @@ class ExemptionRule(models.Model):
         )
         if not avalara_salestax:
             raise UserError(
-                _("Avatax Exemption Rule export is disabled in Avatax configuration")
+                self.env._(
+                    "Avatax Exemption Rule export is disabled in Avatax configuration"
+                )
             )
         avalara_salestax.export_new_exemption_rules(
             rules=self.filtered(lambda x: not x.avatax_id)
@@ -154,7 +163,9 @@ class ExemptionCode(models.Model):
         )
         if not avalara_salestax:
             raise UserError(
-                _("Avatax Exemption Rule export is disabled in Avatax configuration")
+                self.env._(
+                    "Avatax Exemption Rule export is disabled in Avatax configuration"
+                )
             )
         for rule in self.rule_ids.filtered(lambda x: x.state == "draft"):
             rule.export_exemption_rule()
@@ -165,9 +176,8 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     @api.model
-    def _search(self, domain, offset=0, limit=None, order=None, access_rights_uid=None):
-        context = dict(self._context)
-        if context.get("partner_exemption", False):
+    def _search(self, domain, offset=0, limit=None, order=None):
+        if self._context.get("partner_exemption", False):
             domain = domain or []
             avalara_salestax = (
                 self.env["avalara.salestax"]
@@ -176,7 +186,7 @@ class ResPartner(models.Model):
             )
             if avalara_salestax.use_commercial_entity:
                 domain += [("parent_id", "=", False)]
-        return super()._search(domain, offset, limit, order, access_rights_uid)
+        return super()._search(domain, offset, limit, order)
 
 
 class ResPartnerExemption(models.Model):
@@ -185,7 +195,6 @@ class ResPartnerExemption(models.Model):
     exemption_code_id = fields.Many2one(
         related="business_type.exemption_code_id",
         string="Entity Use Code",
-        readonly=True,
     )
 
     @api.onchange("partner_id")
@@ -228,12 +237,14 @@ class ResPartnerExemption(models.Model):
         )
         if not avalara_salestax:
             raise UserError(
-                _("Avatax Exemption export is disabled in Avatax configuration")
+                self.env._(
+                    "Avatax Exemption export is disabled in Avatax configuration"
+                )
             )
         if not self.partner_id.customer_code:
-            raise UserError(_("No Customer code added in Partner"))
+            raise UserError(self.env._("No Customer code added in Partner"))
         if not self.exemption_line_ids:
-            raise UserError(_("No Exemption Lines added"))
+            raise UserError(self.env._("No Exemption Lines added"))
         if self.partner_id and not self.partner_id.avatax_id:
             avalara_salestax.with_delay(
                 priority=0,
@@ -258,7 +269,9 @@ class ResPartnerExemption(models.Model):
         )
         if not avalara_salestax:
             raise UserError(
-                _("Avatax Exemption export is disabled in Avatax configuration")
+                self.env._(
+                    "Avatax Exemption export is disabled in Avatax configuration"
+                )
             )
         if self.state == "done":
             for exemption_line in self.exemption_line_ids:
@@ -271,7 +284,9 @@ class ResPartnerExemption(models.Model):
         elif self.state == "progress":
             self.write({"state": "cancel"})
         else:
-            raise UserError(_("Exemption status needs to be in Done status to cancel"))
+            raise UserError(
+                self.env._("Exemption status needs to be in Done status to cancel")
+            )
         return True
 
     def enable_exemption(self):
@@ -282,7 +297,9 @@ class ResPartnerExemption(models.Model):
         )
         if not avalara_salestax:
             raise UserError(
-                _("Avatax Exemption export is disabled in Avatax configuration")
+                self.env._(
+                    "Avatax Exemption export is disabled in Avatax configuration"
+                )
             )
         if self.state == "cancel":
             for exemption_line in self.exemption_line_ids:
@@ -295,7 +312,7 @@ class ResPartnerExemption(models.Model):
 
         else:
             raise UserError(
-                _("Exemption status needs to be in Cancel status to enable")
+                self.env._("Exemption status needs to be in Cancel status to enable")
             )
         return True
 
@@ -312,5 +329,4 @@ class ResPartnerExemptionType(models.Model):
     exemption_code_id = fields.Many2one(
         related="business_type.exemption_code_id",
         string="Entity Use Code",
-        readonly=True,
     )

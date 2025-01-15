@@ -6,7 +6,7 @@
         <field name="priority">99</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='tax_code_id']" position="after">
-                <field name="avatax_item_id" />
+                <field name="avatax_item_id" readonly="1" />
             </xpath>
         </field>
     </record>

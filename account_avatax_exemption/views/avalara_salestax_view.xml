@@ -52,17 +52,6 @@
             </xpath>
         </field>
     </record>
-    <record id="exemption_code_tree_view" model="ir.ui.view">
-        <field name="name">exemption.code.tree.view</field>
-        <field name="model">exemption.code</field>
-        <field name="type">tree</field>
-        <field name="inherit_id" ref="account_avatax_oca.exemption_code_tree_view" />
-        <field name="arch" type="xml">
-            <xpath expr="//tree" position="attributes">
-                <attribute name="string">Entity Use Code</attribute>
-            </xpath>
-        </field>
-    </record>
     <record
         id="account_avatax_oca.action_exemption_code_details"
         model="ir.actions.act_window"
