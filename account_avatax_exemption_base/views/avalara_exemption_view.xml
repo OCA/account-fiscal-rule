@@ -22,24 +22,20 @@
     <record id="group_of_states_tree_view" model="ir.ui.view">
         <field name="name">group.of.states.tree.view</field>
         <field name="model">res.partner.group.state</field>
-        <field name="type">tree</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" />
                 <field name="country_id" />
-                <field
-                    name="state_ids"
-                    widget="many2many_tags"
-                    domain="[('country_id','=',country_id),('avatax_nexus', '=', True)]"
-                />
-            </tree>
+                <field name="state_ids" widget="many2many_tags" />
+            </list>
         </field>
     </record>
     <record id="group_of_states_act_window" model="ir.actions.act_window">
         <field name="name">Group of States</field>
         <field name="res_model">res.partner.group.state</field>
-        <field name="binding_view_types">tree</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">list</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <!-- Exemption Type -->
@@ -67,23 +63,19 @@
     <record id="exemption_type_tree_view" model="ir.ui.view">
         <field name="name">res.partner.exemption.type.tree.view</field>
         <field name="model">res.partner.exemption.type</field>
-        <field name="type">tree</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" />
-                <field
-                    name="state_ids"
-                    widget="many2many_tags"
-                    domain="[('avatax_nexus', '=', True)]"
-                />
-            </tree>
+                <field name="state_ids" widget="many2many_tags" />
+            </list>
         </field>
     </record>
     <record id="exemption_type_act_window" model="ir.actions.act_window">
         <field name="name">Exemption Type</field>
         <field name="res_model">res.partner.exemption.type</field>
-        <field name="binding_view_types">tree</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">list</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <!-- Exemption Reason Type -->
@@ -103,19 +95,19 @@
     <record id="exemption_reason_type_tree_view" model="ir.ui.view">
         <field name="name">res.partner.exemption.business.type.tree.view</field>
         <field name="model">res.partner.exemption.business.type</field>
-        <field name="type">tree</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" />
                 <field name="avatax_id" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="exemption_reason_type_act_window" model="ir.actions.act_window">
         <field name="name">Exemption Activity Type</field>
         <field name="res_model">res.partner.exemption.business.type</field>
-        <field name="binding_view_types">tree</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">list</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <!-- Exemption -->
@@ -136,14 +128,13 @@
                     <group>
                         <field
                             name="partner_id"
-                            options="{'always_reload': True}"
                             invisible="context.get('hide_partner', False)"
                             readonly="state != 'draft'"
                         />
                         <field name="exemption_type" readonly="state != 'draft'" />
                         <field
                             name="business_type"
-                            options="{'no_create': True, 'always_reload': True}"
+                            options="{'no_create': True"
                             required="1"
                             readonly="state != 'draft'"
                         />
@@ -166,11 +157,10 @@
                             required="1"
                             readonly="state != 'draft'"
                         />
-                        <!-- attrs="{'readonly': ['&amp;',('expiry_date','!=',False),('state','!=','draft'),'|',('expiry_date','!=',False)]}" -->
                         <field
                             name="expiry_date"
                             required="1"
-                            readonly="expiry_date != False and state != 'draft' or expiry_date != False"
+                            readonly="expiry_date or state != 'draft'"
                             force_save="1"
                         />
                     </group>
@@ -181,7 +171,7 @@
                                 nolabel="1"
                                 readonly="state != 'draft'"
                             >
-                                <tree>
+                                <list>
                                     <field name="name" />
                                     <field
                                         name="state_id"
@@ -191,7 +181,7 @@
                                     <field name="avatax_id" />
                                     <field name="avatax_status" />
                                     <field name="exemption_number" />
-                                </tree>
+                                </list>
                                 <form string="Exemption Lines">
                                     <group>
                                         <field name="name" />
@@ -205,7 +195,6 @@
                                     </group>
                                     <group>
                                         <field name="add_exemption_number" />
-                                        <!-- attrs="{'invisible': [('add_exemption_number','=',False)]}" -->
                                         <field
                                             name="exemption_number"
                                             invisible="not add_exemption_number"
@@ -216,37 +205,33 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" />
-                    <field name="activity_ids" widget="mail_activity" />
-                    <field name="message_ids" widget="mail_thread" />
-                </div>
+                <chatter />
             </form>
         </field>
     </record>
     <record id="exemption_tree_view" model="ir.ui.view">
         <field name="name">res.partner.exemption.tree.view</field>
         <field name="model">res.partner.exemption</field>
-        <field name="type">tree</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field
                     name="partner_id"
-                    invisible="context.get('hide_partner', False)"
+                    column_invisible="context.get('hide_partner')"
                 />
                 <field name="exemption_type" />
                 <field name="state_ids" widget="many2many_tags" />
                 <field name="state" />
                 <field name="effective_date" />
                 <field name="expiry_date" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="exemption_act_window" model="ir.actions.act_window">
         <field name="name">Exemption</field>
         <field name="res_model">res.partner.exemption</field>
-        <field name="binding_view_types">tree</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">list</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         id="menu_exemption"
