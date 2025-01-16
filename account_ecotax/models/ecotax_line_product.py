@@ -49,6 +49,7 @@ class EcotaxLineProduct(models.Model):
         "product_tmpl_id",
         "product_tmpl_id.weight",
         "product_id",
+        "product_id.weight",
         "force_amount",
     )
     def _compute_ecotax(self):

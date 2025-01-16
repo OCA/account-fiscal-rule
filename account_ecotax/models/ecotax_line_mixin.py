@@ -59,4 +59,7 @@ class EcotaxLineMixin(models.AbstractModel):
                 amount = ecotax_classif.default_fixed_ecotax
 
             ecotaxline.amount_unit = amount
-            ecotaxline.amount_total = ecotaxline.amount_unit * ecotaxline.quantity
+            total = ecotaxline.amount_unit * ecotaxline.quantity
+            if ecotaxline.currency_id:
+                total = ecotaxline.currency_id.round(total)
+            ecotaxline.amount_total = total
