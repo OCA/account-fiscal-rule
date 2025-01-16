@@ -2,11 +2,19 @@
 #   @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class AcountMoveLine(models.Model):
     _inherit = "account.move.line"
+
+    # replace compute method because we want to change the invalidation fields
+    # (api.depends) and not add some. (we want to remove the ones on ecotax_line_ids)
+    # because ecotax_line_ids now depends on the 2 next fields.
+    subtotal_ecotax = fields.Float(compute="_compute_ecotax_tax")
+    ecotax_amount_unit = fields.Float(
+        compute="_compute_ecotax_tax",
+    )
 
     def _get_ecotax_amounts(self):
         self.ensure_one()
@@ -45,8 +53,19 @@ class AcountMoveLine(models.Model):
         "quantity",
         "product_id",
     )
-    def _compute_ecotax(self):
-        return super()._compute_ecotax()
+    def _compute_ecotax_tax(self):
+        return self._compute_ecotax()
+
+    def _get_new_vals_list(self):
+        if not self.subtotal_ecotax:
+            return []
+        return super()._get_new_vals_list()
+
+    # ensure lines are re-generated in case ecotax_amount_unit of invoice line change
+    # without changing the product
+    @api.depends("ecotax_amount_unit", "subtotal_ecotax")
+    def _compute_ecotax_line_ids(self):
+        return super()._compute_ecotax_line_ids()
 
     def _get_computed_taxes(self):
         tax_ids = super()._get_computed_taxes()
