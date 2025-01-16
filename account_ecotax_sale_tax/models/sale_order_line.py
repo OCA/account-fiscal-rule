@@ -2,11 +2,16 @@
 #   @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
+
+    subtotal_ecotax = fields.Float(compute="_compute_ecotax_tax")
+    ecotax_amount_unit = fields.Float(
+        compute="_compute_ecotax_tax",
+    )
 
     def _get_ecotax_amounts(self):
         self.ensure_one()
@@ -35,8 +40,19 @@ class SaleOrderLine(models.Model):
         "product_uom_qty",
         "product_id",
     )
-    def _compute_ecotax(self):
-        return super()._compute_ecotax()
+    def _compute_ecotax_tax(self):
+        return self._compute_ecotax()
+
+    def _get_new_vals_list(self):
+        if not self.subtotal_ecotax:
+            return []
+        return super()._get_new_vals_list()
+
+    # ensure lines are re-generated in case ecotax_amount_unit of invoice line change
+    # without changing the product
+    @api.depends("ecotax_amount_unit", "subtotal_ecotax")
+    def _compute_ecotax_line_ids(self):
+        return super()._compute_ecotax_line_ids()
 
     @api.depends("product_id", "company_id")
     def _compute_tax_id(self):
@@ -57,3 +73,13 @@ class SaleOrderLine(models.Model):
         if ecotax_ids and self.order_id.fiscal_position_id:
             ecotax_ids = self.order_id.fiscal_position_id.map_tax(ecotax_ids)
         return ecotax_ids
+
+    def _prepare_invoice_line(self, **optional_values):
+        res = super()._prepare_invoice_line(**optional_values)
+        # remove ecoltax_line_ids value if empty in vals so it is recomputed during
+        # invoice line creation. Example of use case : Ship a product not present in
+        # SO. So line is created with qty 0 (so with no ecotax) but in invoice it is
+        # added with a qty, with ecotax, so we want to recompute the ecotax report lines
+        if "ecotax_line_ids" in res and not res["ecotax_line_ids"]:
+            res.pop("ecotax_line_ids")
+        return res
