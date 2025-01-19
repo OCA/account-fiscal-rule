@@ -34,7 +34,16 @@
                 <field name="subtotal_ecotax" optional="show" />
                 <field name="ecotax_amount_unit" optional="hide" />
                 <button name="edit_ecotax_lines" type="object" string="Ecotax" />
-                <field name="ecotax_line_ids" invisible="1" />
+                <field name="ecotax_line_ids" invisible="1">
+                    <!-- This is important to have these fields in view for the computed readonly False ecotax_line_ids field compute well
+                    as it acts as an onchange. -->
+                    <tree>
+                        <field name="classification_id" />
+                        <field name="force_amount_unit" />
+                        <field name="amount_unit" />
+                        <field name="amount_total" />
+                    </tree>
+                </field>
             </xpath>
         </field>
     </record>
