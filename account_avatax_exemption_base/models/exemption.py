@@ -28,13 +28,14 @@ class ResPartnerExemptionLine(models.Model):
     add_exemption_number = fields.Boolean()
     exemption_number = fields.Char()
 
-    @api.model
-    def create(self, vals):
-        if vals.get("name", _("New")) == _("New"):
-            vals["name"] = self.env["ir.sequence"].next_by_code(
-                "exemption.line.sequence"
-            ) or _("New")
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("name", _("New")) == _("New"):
+                vals["name"] = self.env["ir.sequence"].next_by_code(
+                    "exemption.line.sequence"
+                ) or _("New")
+        return super().create(vals_list)
 
 
 class ResPartnerExemptionBusinessType(models.Model):
@@ -77,30 +78,12 @@ class ResPartnerExemption(models.Model):
         "mail.activity.mixin",
     ]
 
-    partner_id = fields.Many2one(
-        "res.partner",
-        required=True,
-        index=True,
-        readonly=True,
-        states={"draft": [("readonly", False)]},
-    )
-    exemption_type = fields.Many2one(
-        "res.partner.exemption.type",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
-    )
-    # Fields already defined in Avatax Exemption Type, adding only readonly attrs
-    business_type = fields.Many2one(
-        string="Activity Type", readonly=True, states={"draft": [("readonly", False)]}
-    )
-    group_of_state = fields.Many2one(
-        readonly=True, states={"draft": [("readonly", False)]}
-    )
-    state_ids = fields.Many2many(readonly=True, states={"draft": [("readonly", False)]})
+    partner_id = fields.Many2one("res.partner", required=True, index=True)
+    exemption_type = fields.Many2one("res.partner.exemption.type")
+    group_of_state = fields.Many2one()
+    state_ids = fields.Many2many()
 
-    exemption_number = fields.Char(
-        readonly=True, states={"draft": [("readonly", False)]}
-    )
+    exemption_number = fields.Char()
     exemption_number_type = fields.Selection(
         [
             ("exemption_number/taxpayer_id", "Exemption Number/Taxpayer ID"),
@@ -109,21 +92,10 @@ class ResPartnerExemption(models.Model):
             ("fein", "FEIN"),
         ],
         default="exemption_number/taxpayer_id",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
-    effective_date = fields.Date(
-        default=lambda self: fields.Date.today(),
-        readonly=True,
-        states={"draft": [("readonly", False)]},
-    )
+    effective_date = fields.Date(default=lambda self: fields.Date.today())
     expiry_date = fields.Date()
-    exemption_line_ids = fields.One2many(
-        "res.partner.exemption.line",
-        "exemption_id",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
-    )
+    exemption_line_ids = fields.One2many("res.partner.exemption.line", "exemption_id")
     state = fields.Selection(
         [
             ("draft", "Draft"),
@@ -147,14 +119,11 @@ class ResPartnerExemption(models.Model):
         res = []
         for record in self:
             if record.exemption_number:
-                name = "{} - {}".format(
-                    record.exemption_number,
-                    record.partner_id.display_name,
-                )
+                name = f"{record.exemption_number} - {record.partner_id.display_name}"
             else:
                 name = record.partner_id.display_name
             if record.exemption_type:
-                name = "{} - {}".format(record.exemption_type.name, name)
+                name = f"{record.exemption_type.name} - {name}"
             res.append((record.id, name))
         return res
 
