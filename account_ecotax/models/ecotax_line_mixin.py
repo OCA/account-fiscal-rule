@@ -18,6 +18,7 @@ class EcotaxLineMixin(models.AbstractModel):
     classification_id = fields.Many2one(
         "account.ecotax.classification",
         string="Classification",
+        ondelete="restrict",
     )
     amount_unit = fields.Float(
         digits="Ecotax",
