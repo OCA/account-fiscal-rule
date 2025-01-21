@@ -33,8 +33,14 @@
                     />
                 </header>
             </xpath>
-            <xpath expr="//field[@name='company_code']" position="after">
-                <field name="avatax_company_id" />
+            <xpath
+                expr="//page[@name='connection_page']/group/group/a"
+                position="before"
+            >
+                <label for="avatax_company_id" />
+                <div>
+                    <field name="avatax_company_id" class="oe_inline" />
+                </div>
             </xpath>
             <xpath expr="//field[@name='disable_tax_reporting']" position="after">
                 <field name="use_commercial_entity" />
