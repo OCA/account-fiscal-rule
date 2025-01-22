@@ -12,29 +12,38 @@ class AccountTax(models.Model):
     is_avatax = fields.Boolean()
 
     @api.model
-    def _get_avalara_tax_domain(self, tax_rate, doc_type):
+    def _get_avalara_tax_domain(self, tax_rate):
         return [
             ("amount", "=", tax_rate),
             ("is_avatax", "=", True),
-            (
-                "company_id",
-                "=",
-                self.env.company.id,
-            ),
+            ("company_id", "=", self.env.company.id),
         ]
 
     @api.model
-    def _get_avalara_tax_name(self, tax_rate, doc_type=None):
-        return self.env._("{}%*").format(str(tax_rate))
+    def _prepare_avalara_tax(self, real_rate, theoretical_rate=None):
+        # We now use the advertised tax rate
+        # plus the details of the real rate needed for Odoo
+        # to calculate the exact same tax amount without rounding differences
+        rate = round(theoretical_rate or real_rate, 2)
+        label = name = f"{rate}%"
+        if str(real_rate) != str(rate):
+            name += f" ({real_rate})"
+        return {
+            "amount": real_rate,
+            "name": name,
+            "invoice_label": label,
+            "active": True,
+        }
 
     @api.model
-    def get_avalara_tax(self, tax_rate, doc_type):
-        domain = self._get_avalara_tax_domain(tax_rate, doc_type)
-        tax = self.with_context(active_test=False).search(domain, limit=1)
-        if tax and not tax.active:
-            tax.active = True
+    def get_avalara_tax(self, tax_rate, display_rate=None):
+        vals = self._prepare_avalara_tax(tax_rate, display_rate)
+        domain = self._get_avalara_tax_domain(tax_rate)
+        # Better UX to not present 0% tax as AVATAX
+        domain += [("name", "not ilike", "AVATAX")]
+        tax = self.search(domain, limit=1)
         if not tax:
-            domain = self._get_avalara_tax_domain(0, doc_type)
+            domain = self._get_avalara_tax_domain(0)
             tax_template = self.search(domain, limit=1)
             if not tax_template:
                 raise exceptions.UserError(
@@ -43,10 +52,6 @@ class AccountTax(models.Model):
                 )
             # If you get a unique constraint error here,
             # check the data for your existing Avatax taxes.
-            vals = {
-                "amount": tax_rate,
-                "name": self._get_avalara_tax_name(tax_rate, doc_type),
-            }
             tax = tax_template.sudo().copy(default=vals)
             # Odoo core does not use the name set in default dict
             tax.name = vals.get("name")

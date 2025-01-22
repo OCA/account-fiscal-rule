@@ -15,13 +15,13 @@ class TestAvatax(common.TransactionCase):
         cls.company2 = cls.env["res.company"].create({"name": "Company Avatax 2"})
 
     def test_get_avatax_tax_rate(self):
-        tax75 = self.Tax.get_avalara_tax(7.5, "out_invoice")
+        tax75 = self.Tax.get_avalara_tax(7.5)
         self.assertEqual(tax75.amount, 7.5)
 
     def test_get_avatax_template(self):
-        tax = self.Tax.get_avalara_tax(0, "out_invoice")
-        self.assertEqual(tax.name, "AVATAX")
+        tax = self.Tax.get_avalara_tax(0)
+        self.assertEqual(tax.name, "0%")
 
     def test_get_avatax_template_missing(self):
         with self.assertRaises(exceptions.UserError):
-            self.Tax.with_company(self.company2).get_avalara_tax(0, "out_invoice")
+            self.Tax.with_company(self.company2).get_avalara_tax(0)
