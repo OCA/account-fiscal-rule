@@ -175,7 +175,6 @@ class SaleOrder(models.Model):
         # Override to handle lines with split taxes (e.g. TN)
         self and self.ensure_one()
         doc_type = self._get_avatax_doc_type()
-        Tax = self.env["account.tax"]
         avatax_config = self.company_id.get_avatax_config_company()
         if not avatax_config:
             return False
@@ -197,31 +196,15 @@ class SaleOrder(models.Model):
             currency_id=self.currency_id,
             log_to_record=self,
         )
-        tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
-        for line in self.order_line:
-            tax_result_line = tax_result_lines.get(line.id)
-            if tax_result_line:
-                # Should we check the rate with the tax amount?
-                # tax_amount = tax_result_line["taxCalculated"]
-                # rate = round(tax_amount / line.price_subtotal * 100, 2)
-                # rate = tax_result_line["rate"]
-                tax_calculation = 0.0
-                if tax_result_line["taxableAmount"]:
-                    tax_calculation = (
-                        tax_result_line["taxCalculated"]
-                        / tax_result_line["taxableAmount"]
-                    )
-                rate = round(tax_calculation * 100, 4)
-                tax = Tax.get_avalara_tax(rate, doc_type)
-                if tax not in line.tax_id:
-                    line_taxes = (
-                        tax
-                        if avatax_config.override_line_taxes
-                        else tax | line.tax_id.filtered(lambda x: not x.is_avatax)
-                    )
-                    line.tax_id = line_taxes
-                line.tax_amt = tax_result_line["tax"]
-        self.tax_amount = tax_result.get("totalTax")
+        if not (self.state == "cancel" or self.locked):
+            tax_result_lines = avatax_config.get_avatax_line_tax(tax_result)
+            for line in self.order_line:
+                line_tax = tax_result_lines.get(line.id, {})
+                tax = line_tax.get("tax_id")
+                if tax and tax not in line.tax_id:
+                    line.tax_id = line.tax_id.filtered(lambda x: not x.is_avatax) | tax
+                line.tax_amt = line_tax.get("tax_amount", 0.0)
+            self.tax_amount = tax_result.get("totalTax")
         return True
 
     def avalara_compute_taxes(self):
