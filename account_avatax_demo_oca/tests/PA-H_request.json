@@ -1,0 +1,153 @@
+{
+  "createTransactionModel": {
+    "addresses": {
+      "shipFrom": {
+        "city": "Blairsville",
+        "country": "US",
+        "line1": "344 Kendall \"Rd",
+        "postalCode": "15717-8707",
+        "region": "PA"
+      },
+      "shipTo": {
+        "city": "HARRISBURG",
+        "country": "US",
+        "line1": "1009 N \"FAIRVILLE AVE",
+        "postalCode": "17112-9424",
+        "region": "PA"
+      }
+    },
+    "businessIdentificationNo": "None",
+    "code": "ST-PA-H - PA",
+    "commit": false,
+    "companyCode": "PA",
+    "currencyCode": "USD",
+    "customerCode": "ST-PA-H:0",
+    "date": "2022-09-09",
+    "description": "ST-PA-H - PA",
+    "entityUseCode": "None",
+    "exemptionNo": "None",
+    "lines": [
+      {
+        "amount": 1.0,
+        "description": "[/ST-PF232402] \"/ST-PF232402 Fixtures",
+        "itemCode": "/ST-PF232402",
+        "number": 1593821,
+        "quantity": 1.0,
+        "taxCode": "PF232402",
+        "taxOverride": "None"
+      },
+      {
+        "amount": 1.0,
+        "description": "[/ST-PA020228] \"/ST-PA020228 \"Agricultural \"livestock-commercial \"use - livestock \"identification",
+        "itemCode": "/ST-PA020228",
+        "number": 1593822,
+        "quantity": 1.0,
+        "taxCode": "PA020228",
+        "taxOverride": "None"
+      },
+      {
+        "amount": 1.0,
+        "description": "[/ST-PA020122] \"/ST-PA020122 \"Agricultural \"livestock-commercial \"use - livestock \"equipment",
+        "itemCode": "/ST-PA020122",
+        "number": 1593825,
+        "quantity": 1.0,
+        "taxCode": "PA020122",
+        "taxOverride": "None"
+      },
+      {
+        "amount": 1.0,
+        "description": "[/ST-S0000000] \"/ST-S0000000 Services",
+        "itemCode": "/ST-S0000000",
+        "number": 1593826,
+        "quantity": 1.0,
+        "taxCode": "S0000000",
+        "taxOverride": "None"
+      },
+      {
+        "amount": 1.0,
+        "description": "[/ST-SS050200] \"/ST-SS050200 Service \"contract (optional) - \"associated with the \"sale of tpp",
+        "itemCode": "/ST-SS050200",
+        "number": 1593827,
+        "quantity": 1.0,
+        "taxCode": "SS050200",
+        "taxOverride": "None"
+      },
+      {
+        "amount": 1.0,
+        "description": "[/ST-FR000000] \"/ST-FR000000  Taxable \"Freight",
+        "itemCode": "/ST-FR000000",
+        "number": 1593829,
+        "quantity": 1.0,
+        "taxCode": "FR000000",
+        "taxOverride": "None"
+      },
+      {
+        "amount": 1.0,
+        "description": "[/ST-OR040000] \"/ST-OR040000 Restock \"Fee",
+        "itemCode": "/ST-OR040000",
+        "number": 1593830,
+        "quantity": 1.0,
+        "taxCode": "OR040000",
+        "taxOverride": "None"
+      },
+      {
+        "amount": 1.0,
+        "description": "[/ST-PA3000400] \"/ST-PA3000400 Lumber - \"solid wood product",
+        "itemCode": "/ST-PA3000400",
+        "number": 1593831,
+        "quantity": 1.0,
+        "taxCode": "PA3000400",
+        "taxOverride": "None"
+      },
+      {
+        "amount": 1.0,
+        "description": "[/ST-P0000000] \"/ST-P0000000 Taxable",
+        "itemCode": "/ST-P0000000",
+        "number": 1593832,
+        "quantity": 1.0,
+        "taxCode": "P0000000",
+        "taxOverride": "None"
+      },
+      {
+        "amount": 1.0,
+        "description": "[/ST-OF400000] \"/ST-OF400000 CO Retail \"Delivery Fee",
+        "itemCode": "/ST-OF400000",
+        "number": 1593833,
+        "quantity": 1.0,
+        "taxCode": "OF400000",
+        "taxOverride": "None"
+      },
+      {
+        "amount": 1.0,
+        "description": "[/ST-PA020100] \"/ST-PA020100 \"Agricultural-commercial \"use-machinery and \"equipment",
+        "itemCode": "/ST-PA020100",
+        "number": 1593834,
+        "quantity": 1.0,
+        "taxCode": "PA020100",
+        "taxOverride": "None"
+      },
+      {
+        "amount": 1.0,
+        "description": "[/ST-OF040005] \"/ST-OF040005 Finance \"Charge",
+        "itemCode": "/ST-OF040005",
+        "number": 1593835,
+        "quantity": 1.0,
+        "taxCode": "OF040005",
+        "taxOverride": "None"
+      },
+      {
+        "amount": 1.0,
+        "description": "[/ST-PT118800] \"/ST-PT118800 Hand Tools",
+        "itemCode": "/ST-PT118800",
+        "number": 1593837,
+        "quantity": 1.0,
+        "taxCode": "PT118800",
+        "taxOverride": "None"
+      }
+    ],
+    "referenceCode": "None",
+    "reportingLocationCode": "None",
+    "salespersonCode": "Ben Stannard",
+    "type": "SalesOrder"
+  }
+}

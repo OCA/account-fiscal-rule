@@ -1,0 +1,100 @@
+{
+  "createTransactionModel": {
+    "addresses": {
+      "shipFrom": {
+        "city": "BLAIRSVILLE",
+        "country": "US",
+        "line1": "344 KENDALL \"RD",
+        "postalCode": "15717-8707",
+        "region": "PA"
+      },
+      "shipTo": {
+        "city": "CLINTON",
+        "country": "US",
+        "line1": "999 MOSELEY AVE",
+        "postalCode": "28328-6301",
+        "region": "NC"
+      }
+    },
+    "businessIdentificationNo": "None",
+    "code": "7349497 - PA",
+    "commit": false,
+    "companyCode": "PA",
+    "currencyCode": "USD",
+    "customerCode": "CC-820100:0",
+    "date": "2024-07-09",
+    "description": "7349497 - PA",
+    "entityUseCode": "None",
+    "exemptionNo": "None",
+    "lines": [
+      {
+        "amount": 1349.25,
+        "description": "[WSR4BL] HorseRail \"2-wire 4\" 660\\' -Black",
+        "itemCode": "WSR4BL",
+        "number": 1938321,
+        "quantity": 3.0,
+        "taxCode": false
+      },
+      {
+        "amount": 395.0,
+        "description": "[WSBL4BL] Rail 4\" Flat \"Line Bracket -Black",
+        "itemCode": "WSBL4BL",
+        "number": 1938322,
+        "quantity": 100.0,
+        "taxCode": "P0000000"
+      },
+      {
+        "amount": 90.0,
+        "description": "[WEB4BL] Rail 4\" Bent \"End Buckle -Black",
+        "itemCode": "WEB4BL",
+        "number": 1938323,
+        "quantity": 8.0,
+        "taxCode": false
+      },
+      {
+        "amount": 70.5,
+        "description": "[WSB4BL] Rail 4\" \"Splicer Buckle -Black",
+        "itemCode": "WSB4BL",
+        "number": 1938324,
+        "quantity": 6.0,
+        "taxCode": false
+      },
+      {
+        "amount": 134.0,
+        "description": "[WSSS4BL] Split Spooler \"4\" Rail -Black",
+        "itemCode": "WSSS4BL",
+        "number": 1938325,
+        "quantity": 8.0,
+        "taxCode": false
+      },
+      {
+        "amount": 14.75,
+        "description": "[WBT4] Rail Bending \"Tool 4\"",
+        "itemCode": "WBT4",
+        "number": 1938326,
+        "quantity": 1.0,
+        "taxCode": false
+      },
+      {
+        "amount": 132.0,
+        "description": "[WSB94BL] Rail 4\" \"Bracket 90 -Black",
+        "itemCode": "WSB94BL",
+        "number": 1938327,
+        "quantity": 16.0,
+        "taxCode": false
+      },
+      {
+        "amount": 236.55,
+        "description": "Freight",
+        "itemCode": "FQ-Shipping",
+        "number": 1938329,
+        "quantity": 1.0,
+        "taxCode": "FR"
+      }
+    ],
+    "referenceCode": "None",
+    "reportingLocationCode": "None",
+    "salespersonCode": "Kerry Heath",
+    "type": "SalesOrder"
+  }
+}
