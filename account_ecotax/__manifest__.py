@@ -4,8 +4,9 @@
 {
     "name": "Ecotax Management",
     "summary": "Ecotax Management:  in French context is a 'cost' "
-    "added to the sale price of electrical or electronic appliances or furnishing items",
-    "version": "16.0.1.0.0",
+    "added to the sale price of electrical or electronic appliances "
+    "or furnishing items",
+    "version": "17.0.1.0.0",
     "author": "Akretion, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-fiscal-rule",
     "category": "Localization/Account Taxes",

@@ -8,6 +8,7 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
+
             <xpath
                 expr="//field[@name='invoice_line_ids']/tree/field[last()]"
                 position="after"
@@ -15,18 +16,18 @@
                 <field
                     name="subtotal_ecotax"
                     optional="show"
-                    attrs="{'invisible': [('parent.move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}"
+                    invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
                 />
                 <field
                     name="ecotax_amount_unit"
                     optional="hide"
-                    attrs="{'invisible': [('parent.move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}"
+                    invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
                 />
                 <button
                     name="edit_ecotax_lines"
                     type="object"
                     string="Ecotax"
-                    attrs="{'invisible': [('parent.move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}"
+                    invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
                 />
                 <field name="ecotax_line_ids" invisible="1">
                     <tree editable="bottom">
@@ -44,7 +45,7 @@
                 <field
                     name="ecotax_line_ids"
                     colspan="2"
-                    attrs="{'invisible': [('parent.move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}"
+                    invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
                 >
                     <tree editable="bottom">
                         <field name="classification_id" />
@@ -55,18 +56,18 @@
                 </field>
                 <field
                     name="subtotal_ecotax"
-                    attrs="{'invisible': [('parent.move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}"
+                    invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
                 />
                 <field
                     name="ecotax_amount_unit"
-                    attrs="{'invisible': [('parent.move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}"
+                    invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
                 />
             </xpath>
             <xpath expr="//field[@name='tax_totals']" position="after">
                     <field
                     name="amount_ecotax"
                     class="oe_subtotal_footer_separator"
-                    attrs="{'invisible': [ '|', ('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt')), ('amount_ecotax', '=', 0)]}"
+                    invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt') or amount_ecotax == 0"
                 />
             </xpath>
         </field>
@@ -123,17 +124,17 @@
                     <label
                         for="name"
                         string="Description"
-                        attrs="{'invisible': [('display_type', '!=', False)]}"
+                        invisible="display_type != False"
                     />
                     <label
                         for="name"
                         string="Section"
-                        attrs="{'invisible': [('display_type', '!=', 'line_section')]}"
+                        invisible="display_type != 'line_section'"
                     />
                     <label
                         for="name"
                         string="Note"
-                        attrs="{'invisible': [('display_type', '!=', 'line_note')]}"
+                        invisible="display_type != 'line_note'"
                     />
                     <field name="name" widget="text" readonly="1" />
                     <notebook>
@@ -141,7 +142,7 @@
                             <field
                                 name="ecotax_line_ids"
                                 nolabel="1"
-                                attrs="{'readonly': [('parent_state', '!=', 'draft')]}"
+                                invisible="parent_state != 'draft'"
                             >
                                    <tree editable="bottom">
                                         <field name="classification_id" />
@@ -156,16 +157,8 @@
                         </page>
                     </notebook>
                     <group>
-                        <field
-                            name="price_subtotal"
-                            string="Subtotal"
-                            groups="account.group_show_line_subtotals_tax_excluded"
-                        />
-                        <field
-                            name="price_total"
-                            string="Total"
-                            groups="account.group_show_line_subtotals_tax_included"
-                        />
+                        <field name="price_subtotal" string="Subtotal" />
+                        <field name="price_total" string="Total" />
                     </group>
                 </sheet>
             </form>

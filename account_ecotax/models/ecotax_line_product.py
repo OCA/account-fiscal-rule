@@ -37,10 +37,7 @@ class EcotaxLineProduct(models.Model):
     @api.depends("classification_id", "amount")
     def _compute_display_name(self):
         for rec in self:
-            rec.display_name = "%s (%s)" % (
-                rec.classification_id.name,
-                rec.amount,
-            )
+            rec.display_name = f"{rec.classification_id.name} ({rec.amount})"
 
     @api.depends(
         "classification_id",
