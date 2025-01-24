@@ -369,33 +369,36 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! source digest: sha256:23479e79cea1c7653013329021c55bf27b1d6fa0d64734b13f53ca3209feaffa
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/account-fiscal-rule/tree/16.0/account_ecotax"><img alt="OCA/account-fiscal-rule" src="https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/account-fiscal-rule-16-0/account-fiscal-rule-16-0-account_ecotax"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&amp;target_branch=16.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
-<p>This module adds ecotax amount on invoice line.
-furthermore, a total ecotax is added at the footer of each document.</p>
-<p>To make easy ecotaxe management and to factor the data, ecotaxes are set on products via ECOTAXE classifications.
-ECOTAXE classification can either be a fixed or weight based ecotax.</p>
-<p>A product can have one or serveral ecotax classifications. For example, wooden window blinds equipped with electric motor can
-have ecotax for wood and ecotax for electric motor.</p>
-<p>This module has some limits :
-- The ecotax amount is always included in the price of the product.
-- The ecotax amount is not isolated in an specific accounting account but is included in the product income account.</p>
-<p>If one of these limits is an issue, you could install the submodule account_ecotax_tax.
-This second module lets you manage the ecotax as a tax, so you can configure if you want it to be included or excluded of product price and also configuring an accounting account to isolate it.
-The main consequence of this approach is that the ecotax won’t be considered in the turnover, since it is considered as a tax.</p>
-<p>This module version add the possibility to manage several ecotax classifications by product.
-A migration script is necessary to update from previous versions.</p>
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/account-fiscal-rule/tree/17.0/account_ecotax"><img alt="OCA/account-fiscal-rule" src="https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/account-fiscal-rule-17-0/account-fiscal-rule-17-0-account_ecotax"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&amp;target_branch=17.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>This module adds ecotax amount on invoice line. furthermore, a total
+ecotax is added at the footer of each document.</p>
+<p>To make easy ecotaxe management and to factor the data, ecotaxes are set
+on products via ECOTAXE classifications. ECOTAXE classification can
+either be a fixed or weight based ecotax.</p>
+<p>A product can have one or serveral ecotax classifications. For example,
+wooden window blinds equipped with electric motor can have ecotax for
+wood and ecotax for electric motor.</p>
+<p>This module has some limits : - The ecotax amount is always included in
+the price of the product. - The ecotax amount is not isolated in an
+specific accounting account but is included in the product income
+account.</p>
+<p>If one of these limits is an issue, you could install the submodule
+account_ecotax_tax. This second module lets you manage the ecotax as a
+tax, so you can configure if you want it to be included or excluded of
+product price and also configuring an accounting account to isolate it.
+The main consequence of this approach is that the ecotax won’t be
+considered in the turnover, since it is considered as a tax.</p>
+<p>This module version add the possibility to manage several ecotax
+classifications by product. A migration script is necessary to update
+from previous versions.</p>
 <p>There is the main change to manage in migration script:</p>
-<p>renamed field
-model                   old field               new field
-account.move.line       unit_ecotaxe_amount    ecotaxe_amount_unit
-product.template        manual_fixed_ecotaxe   force_ecotaxe_amount</p>
-<p>changed fields
-model                 old field                    new field
-product.template      ecotaxe_classification_id    ecotaxe_classification_ids</p>
-<p>added fields
-model               new field
-account.move.line  ecotaxe_line_ids
-product.template   ecotaxe_line_product_ids</p>
+<p>renamed field model old field new field account.move.line
+unit_ecotaxe_amount ecotaxe_amount_unit product.template
+manual_fixed_ecotaxe force_ecotaxe_amount</p>
+<p>changed fields model old field new field product.template
+ecotaxe_classification_id ecotaxe_classification_ids</p>
+<p>added fields model new field account.move.line ecotaxe_line_ids
+product.template ecotaxe_line_product_ids</p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -412,11 +415,16 @@ product.template   ecotaxe_line_product_ids</p>
 <div class="section" id="usage">
 <h1><a class="toc-backref" href="#toc-entry-1">Usage</a></h1>
 <ol class="arabic simple">
-<li>Add an ecotax classification via the menu <strong>Accounting &gt; Configuration &gt; Taxes &gt; Ecotax Classification</strong>.<ul>
-<li>The ecotax classification can be either a fixed ecotax or a weight-based ecotax.</li>
-<li>Ecotax classification information can be used for legal declarations.</li>
-<li>For the fixed ecotax, the ecotax amount is used as a default value, which can be overridden on the product.</li>
-<li>For the weight-based ecotax, define one ecotax by a coefficient applied to the weight (depending on the product’s materials).</li>
+<li>Add an ecotax classification via the menu <strong>Accounting &gt;
+Configuration &gt; Taxes &gt; Ecotax Classification</strong>.<ul>
+<li>The ecotax classification can be either a fixed ecotax or a
+weight-based ecotax.</li>
+<li>Ecotax classification information can be used for legal
+declarations.</li>
+<li>For the fixed ecotax, the ecotax amount is used as a default value,
+which can be overridden on the product.</li>
+<li>For the weight-based ecotax, define one ecotax by a coefficient
+applied to the weight (depending on the product’s materials).</li>
 </ul>
 </li>
 <li>Assign one or more ecotax classifications to a product.<ul>
@@ -431,7 +439,7 @@ product.template   ecotaxe_line_product_ids</p>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/account-fiscal-rule/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-<a class="reference external" href="https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_ecotax%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<a class="reference external" href="https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_ecotax%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
@@ -460,7 +468,7 @@ mission is to support the collaborative development of Odoo features and
 promote its widespread use.</p>
 <p>Current <a class="reference external" href="https://odoo-community.org/page/maintainer-role">maintainers</a>:</p>
 <p><a class="reference external image-reference" href="https://github.com/mourad-ehm"><img alt="mourad-ehm" src="https://github.com/mourad-ehm.png?size=40px" /></a> <a class="reference external image-reference" href="https://github.com/florian-dacosta"><img alt="florian-dacosta" src="https://github.com/florian-dacosta.png?size=40px" /></a></p>
-<p>This module is part of the <a class="reference external" href="https://github.com/OCA/account-fiscal-rule/tree/16.0/account_ecotax">OCA/account-fiscal-rule</a> project on GitHub.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/account-fiscal-rule/tree/17.0/account_ecotax">OCA/account-fiscal-rule</a> project on GitHub.</p>
 <p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
 </div>
 </div>
