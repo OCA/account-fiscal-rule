@@ -34,7 +34,7 @@
     >
         <xpath expr="//t[@t-set='subtotal_to_show']" position="before">
                                     <tr
-                t-if="o._name == 'account.move' and o.amount_ecotax"
+                t-if="o and o._name == 'account.move' and o.amount_ecotax"
                 name="ecotax_line"
             >
                                         <td name="ecotax_label">Including Eco Part</td>
