@@ -10,5 +10,5 @@ class EcotaxCollector(models.Model):
     _description = "Ecotax collector"
 
     name = fields.Char(required=True)
-    partner_id = fields.Many2one("res.partner", string="Partner", required=False)
+    partner_id = fields.Many2one("res.partner", required=False)
     active = fields.Boolean(default=True)

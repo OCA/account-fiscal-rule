@@ -13,11 +13,10 @@ class EcotaxLineMixin(models.AbstractModel):
     _name = "ecotax.line.mixin"
     _description = "Ecotax Line Mixin"
 
-    product_id = fields.Many2one("product.product", string="Product", readonly=True)
-    currency_id = fields.Many2one("res.currency", string="Currency")
+    product_id = fields.Many2one("product.product", readonly=True)
+    currency_id = fields.Many2one("res.currency")
     classification_id = fields.Many2one(
         "account.ecotax.classification",
-        string="Classification",
         ondelete="restrict",
     )
     amount_unit = fields.Float(

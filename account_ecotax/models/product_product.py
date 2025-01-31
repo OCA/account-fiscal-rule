@@ -14,7 +14,7 @@ class ProductProduct(models.Model):
     additional_ecotax_line_product_ids = fields.One2many(
         "ecotax.line.product",
         "product_id",
-        string="Additional ecotax lines",
+        string="Additional Ecotax Lines",
         copy=True,
         domain="[('id', 'not in', ecotax_line_product_ids)]",
     )
@@ -22,7 +22,7 @@ class ProductProduct(models.Model):
         "ecotax.line.product",
         compute="_compute_all_ecotax_line_product_ids",
         search="_search_all_ecotax_line_product_ids",
-        string="All ecotax lines",
+        string="All Ecotax Lines",
         help="Contain all ecotaxs classification defined in product template"
         "and the additionnal.\n"
         "ecotaxs defined in product variant. For more details"

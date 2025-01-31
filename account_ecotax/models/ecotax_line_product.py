@@ -15,11 +15,10 @@ class EcotaxLineProduct(models.Model):
     product_tmpl_id = fields.Many2one(
         "product.template", string="Product Template", readonly=True
     )
-    product_id = fields.Many2one("product.product", string="Product", readonly=True)
+    product_id = fields.Many2one("product.product", readonly=True)
     currency_id = fields.Many2one(related="product_tmpl_id.currency_id", readonly=True)
     classification_id = fields.Many2one(
         "account.ecotax.classification",
-        string="Classification",
     )
     force_amount = fields.Float(
         digits="Ecotax",

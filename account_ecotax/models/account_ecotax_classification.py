@@ -50,7 +50,7 @@ class AccountEcotaxClassification(models.Model):
         " for all companies.",
     )
     product_status = fields.Selection(
-        [("M", "Menager"), ("P", "Professionnel")],
+        [("M", "Domestic"), ("P", "Professional")],
         required=True,
     )
     supplier_status = fields.Selection(

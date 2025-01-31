@@ -11,7 +11,7 @@ class ProductTemplate(models.Model):
     ecotax_line_product_ids = fields.One2many(
         "ecotax.line.product",
         "product_tmpl_id",
-        string="Ecotax lines",
+        string="Ecotax Lines",
         copy=True,
     )
     ecotax_amount = fields.Float(

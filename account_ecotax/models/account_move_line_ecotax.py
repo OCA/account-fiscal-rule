@@ -12,7 +12,7 @@ class AccountMoveLineEcotax(models.Model):
 
     account_move_line_id = fields.Many2one(
         comodel_name="account.move.line",
-        string="Account move line",
+        string="Journal Item",
         required=True,
         readonly=True,
         index=True,
