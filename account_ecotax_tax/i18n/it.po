@@ -6,54 +6,56 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2025-02-07 00:06+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: account_ecotax_tax
 #: model:ir.model,name:account_ecotax_tax.model_account_ecotax_classification
 msgid "Account Ecotax Classification"
-msgstr ""
+msgstr "Classificazione conto imposta ecologica"
 
 #. module: account_ecotax_tax
 #: model:ir.model.fields,field_description:account_ecotax_tax.field_account_move_line__subtotal_ecotax
 #: model:ir.model.fields,field_description:account_ecotax_tax.field_account_tax__is_ecotax
 msgid "Ecotax"
-msgstr ""
+msgstr "Imposta ecologica"
 
 #. module: account_ecotax_tax
 #: model:ir.model.fields,field_description:account_ecotax_tax.field_account_move_line__ecotax_amount_unit
 msgid "Ecotax Unit"
-msgstr ""
+msgstr "Unità imposta ecologica"
 
 #. module: account_ecotax_tax
 #: model_terms:ir.ui.view,arch_db:account_ecotax_tax.ecotax_classification_form
 msgid "Ecotaxes"
-msgstr ""
+msgstr "Imposte ecologiche"
 
 #. module: account_ecotax_tax
 #: model:ir.model,name:account_ecotax_tax.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Movimento contabile"
 
 #. module: account_ecotax_tax
 #: model:ir.model.fields,field_description:account_ecotax_tax.field_account_ecotax_classification__purchase_ecotax_ids
 msgid "Purchase EcoTax"
-msgstr ""
+msgstr "Imposta ecologica acquisti"
 
 #. module: account_ecotax_tax
 #: model:ir.model.fields,field_description:account_ecotax_tax.field_account_ecotax_classification__sale_ecotax_ids
 msgid "Sale EcoTax"
-msgstr ""
+msgstr "Imposta ecologica vendite"
 
 #. module: account_ecotax_tax
 #: model:ir.model,name:account_ecotax_tax.model_account_tax
 msgid "Tax"
-msgstr ""
+msgstr "Imposta"
 
 #. module: account_ecotax_tax
 #: model:ir.model.fields,help:account_ecotax_tax.field_account_tax__is_ecotax
@@ -62,3 +64,8 @@ msgid ""
 "1: check  \"included in base amount \"\n"
 "2: The Ecotax sequence must be less then VAT tax (in sale and purchase)"
 msgstr ""
+"Attenzione: per includere l'imposta ecologica nell'imposta IVA, controllare "
+"quanto segue:\n"
+"1: seleziona \"incluso nell'importo base\"\n"
+"2: la sequenza dell'imposta ecologica deve essere inferiore all'imposta IVA ("
+"in vendita e acquisto)"
