@@ -64,10 +64,10 @@
                 />
             </xpath>
             <xpath expr="//field[@name='tax_totals']" position="after">
-                    <field
+                <field
                     name="amount_ecotax"
                     class="oe_subtotal_footer_separator"
-                    invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt') or amount_ecotax == 0"
+                    invisible="move_type not in ('out_invoice', 'out_refund', 'out_receipt') or amount_ecotax == 0"
                 />
             </xpath>
         </field>
