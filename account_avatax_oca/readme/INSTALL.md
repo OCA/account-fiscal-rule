@@ -6,13 +6,14 @@ Typically it can be installed in your system usin `pip`:
 
     pip3 install Avalara
 
-The base app, `account_Avatax`, adds Avatax support to Customer
-Invoices. Inthe official app store:
-<https://apps.odoo.com/apps/modules/15.0/account_avatax/>
+The base app, `account_avatax_oca`, adds Avatax support to Customer
+Invoices. In the official app store:
+<https://apps.odoo.com/apps/modules/18.0/account_avatax_oca>
 
 The `account_avatax_sale` extension adds support to Quotations / Sales
-Orders. Inthe official app store:
-<https://apps.odoo.com/apps/modules/15.0/account_avatax_sale/>
+Orders. In the official app store:
+<https://apps.odoo.com/apps/modules/16.0/account_avatax_sale_oca/>
+
 
 In most cases you will want to download and install both modules.
 
@@ -27,5 +28,5 @@ To install the Avatax app:
 - Navigate to 'Apps', select the 'Update Apps List' menu, to have the
   new apps listed.
 - In the Apps list, search for 'AvaTax'
-- Click on the Install button. If available, the `account_avatax_sale`
+- Click on the Install button. If available, the `account_avatax_sale_oca`
   module will also be installed automatically.

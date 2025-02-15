@@ -1,6 +1,6 @@
 {
     "name": "Avalara Avatax Certified Connector",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "author": "Open Source Integrators, Fabrice Henrion,"
     "Sodexis, Odoo Community Association (OCA)",
     "summary": "Compute Sales Tax using the Avalara Avatax Service",
