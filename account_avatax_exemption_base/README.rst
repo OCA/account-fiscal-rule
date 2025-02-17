@@ -64,15 +64,15 @@ Authors
 Contributors
 ------------
 
--  Sodexis
+- Sodexis
 
-   -  Atchuthan Ubendran <atchuthan@sodexis.com>
-   -  Stephan Keller <skeller@sodexis.com>
-   -  SodexisTeam <dev@sodexis.com>
+  - Atchuthan Ubendran <atchuthan@sodexis.com>
+  - Stephan Keller <skeller@sodexis.com>
+  - SodexisTeam <dev@sodexis.com>
 
--  Open Source Integrators (https://opensourceintegrators.com)
+- Open Source Integrators (https://opensourceintegrators.com)
 
-   -  Nikul Chaudhary <nchaudhary@opensourceintegrators.com>
+  - Nikul Chaudhary <nchaudhary@opensourceintegrators.com>
 
 Maintainers
 -----------
