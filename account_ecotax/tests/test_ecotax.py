@@ -7,10 +7,12 @@
 from random import choice
 
 from odoo import Command
-from odoo.tests.common import Form, TransactionCase
+from odoo.tests.common import Form
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestInvoiceEcotaxCommon(TransactionCase):
+class TestInvoiceEcotaxCommon(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
