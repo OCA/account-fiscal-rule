@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-26 14:35+0000\n"
+"PO-Revision-Date: 2025-02-17 10:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_avalara_salestax__sale_calculate_tax
@@ -111,7 +111,7 @@ msgstr "Codice ubicazione origine indirizzo"
 #. module: account_avatax_sale_oca
 #: model:ir.model.fields,field_description:account_avatax_sale_oca.field_avalara_salestax__override_line_taxes
 msgid "Override Line Taxes"
-msgstr "Sovrascrivi righa imposte"
+msgstr "Sovrascrivi riga imposte"
 
 #. module: account_avatax_sale_oca
 #: model:ir.model,name:account_avatax_sale_oca.model_sale_order
@@ -144,6 +144,9 @@ msgid ""
 "Uncheck this field to show exemption fields on SO/Invoice form view. Also, "
 "it will show Tax based on shipping address button"
 msgstr ""
+"Deselezionare questo campo per visualizzare i campi esenzione in OV/fattura "
+"dalla vista. Inoltre, verrà visualizzato il pulsante 'Imposta in base "
+"all'indirizzo di spedizione'"
 
 #. module: account_avatax_sale_oca
 #: model:ir.actions.server,name:account_avatax_sale_oca.action_sale_order_compute_taxes
