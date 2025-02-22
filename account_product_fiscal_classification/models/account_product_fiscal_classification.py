@@ -2,7 +2,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import Command, _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -10,13 +10,15 @@ class AccountProductFiscalClassification(models.Model):
     _name = "account.product.fiscal.classification"
     _description = "Fiscal Classification"
     _order = "name"
+    _inherit = ["mail.activity.mixin", "mail.thread"]
 
-    name = fields.Char(required=True)
+    name = fields.Char(required=True, tracking=True)
 
     description = fields.Text()
 
     active = fields.Boolean(
         default=True,
+        tracking=True,
         help="If unchecked, it will allow you to hide the Fiscal"
         " Classification without removing it.",
     )
@@ -24,6 +26,7 @@ class AccountProductFiscalClassification(models.Model):
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
+        tracking=True,
         help="Specify a company"
         " if you want to define this Fiscal Classification only for specific"
         " company. Otherwise, this Fiscal Classification will be available"
@@ -46,6 +49,7 @@ class AccountProductFiscalClassification(models.Model):
         column1="fiscal_classification_id",
         column2="tax_id",
         string="Purchase Taxes",
+        tracking=True,
         domain="""[
             ('type_tax_use', 'in', ['purchase', 'all'])]""",
     )
@@ -56,6 +60,7 @@ class AccountProductFiscalClassification(models.Model):
         column1="fiscal_classification_id",
         column2="tax_id",
         string="Sale Taxes",
+        tracking=True,
         domain="""[
             ('type_tax_use', 'in', ['sale', 'all'])]""",
     )
@@ -106,6 +111,28 @@ class AccountProductFiscalClassification(models.Model):
                     )
                 )
         return super().unlink()
+
+    def _mail_track(self, tracked_fields, initial_values):
+        changes, tracking_value_ids = super()._mail_track(
+            tracked_fields, initial_values
+        )
+        # Many2many tracking
+        if len(changes) > len(tracking_value_ids):
+            for changed_field in changes:
+                if tracked_fields[changed_field]["type"] in ["one2many", "many2many"]:
+                    field = self.env["ir.model.fields"]._get(self._name, changed_field)
+                    vals = {
+                        "field": field.id,
+                        "field_desc": field.field_description,
+                        "field_type": field.ttype,
+                        "tracking_sequence": field.tracking,
+                        "old_value_char": ", ".join(
+                            initial_values[changed_field].mapped("name")
+                        ),
+                        "new_value_char": ", ".join(self[changed_field].mapped("name")),
+                    }
+                    tracking_value_ids.append(Command.create(vals))
+        return changes, tracking_value_ids
 
     # Custom Sections
     @api.model
