@@ -14,7 +14,7 @@ class SaleOrderLine(models.Model):
         compute="_compute_ecotax_line_ids",
         store=True,
         readonly=False,
-        string="Ecotax lines",
+        string="Ecotax Lines",
         copy=True,
     )
     subtotal_ecotax = fields.Float(
