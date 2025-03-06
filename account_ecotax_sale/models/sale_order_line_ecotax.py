@@ -12,7 +12,7 @@ class SaleOrderLineEcotaxe(models.Model):
 
     sale_order_line_id = fields.Many2one(
         comodel_name="sale.order.line",
-        string="Sale line",
+        string="Sale Line",
         required=True,
         readonly=True,
         index=True,
