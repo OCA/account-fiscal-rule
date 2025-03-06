@@ -74,9 +74,10 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
         with so_form.order_line.edit(0) as line:
             line.product_uom_qty = 3.0
         so_form.save()
+        self.sale.order_line._compute_ecotax_line_ids()
         self.assertEqual(self.sale.order_line.ecotax_amount_unit, 16)
         self.assertEqual(self.sale.order_line.subtotal_ecotax, 48)
-        self.assertEqual(self.sale.amount_total, 600)
+        self.assertEqual(self.sale.amount_untaxed, 600)
         self.assertEqual(self.sale.amount_ecotax, 48)
 
     def _test_02_classification_ecotax(self):
@@ -98,12 +99,12 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
         with so_form.order_line.edit(0) as line:
             line.product_uom_qty = 3.0
         so_form.save()
-
+        self.sale.order_line._compute_ecotax_line_ids()
         self.assertEqual(sale_line1.ecotax_amount_unit, 5.0)
         self.assertAlmostEqual(sale_line1.subtotal_ecotax, 15.0)
         self.assertEqual(sale_line2.ecotax_amount_unit, 16)
         self.assertEqual(sale_line2.subtotal_ecotax, 32)
-        self.assertEqual(self.sale.amount_total, 1000.0)
+        self.assertEqual(self.sale.amount_untaxed, 1000.0)
         self.assertEqual(self.sale.amount_ecotax, 47.0)
 
 

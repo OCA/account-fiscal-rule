@@ -35,6 +35,8 @@ class SaleOrderLine(models.Model):
 
     @api.depends(
         "currency_id",
+        "product_uom_qty",
+        "ecotax_line_ids",
         "ecotax_line_ids.amount_unit",
         "ecotax_line_ids.amount_total",
     )
