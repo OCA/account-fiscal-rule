@@ -21,15 +21,13 @@ class ResPartner(models.Model):
     @api.onchange("property_exemption_country_wide")
     def _onchange_property_exemption_contry_wide(self):
         if self.property_exemption_country_wide:
-            message = (
-                self.env._(
-                    "Enabling the exemption status for all states"
-                    " may have tax compliance risks,"
-                    " and should be carefully considered.\n\n"
-                    " Please ensure that your tax advisor was consulted and the"
-                    " necessary tax exemption documentation was obtained"
-                    " for every state this Partner may have transactions."
-                ),
+            message = self.env._(
+                "Enabling the exemption status for all states"
+                " may have tax compliance risks,"
+                " and should be carefully considered.\n\n"
+                " Please ensure that your tax advisor was consulted and the"
+                " necessary tax exemption documentation was obtained"
+                " for every state this Partner may have transactions."
             )
             return {
                 "warning": {
@@ -98,7 +96,7 @@ class ResPartner(models.Model):
     )
     def check_exemption_number(self):
         """
-        When tax exempt check then atleast exemption number
+        When tax exempt check then at least exemption number
         or exemption code should be filled
         """
         for partner in self:
