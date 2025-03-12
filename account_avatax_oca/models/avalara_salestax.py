@@ -1,6 +1,6 @@
 import logging
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 from .avatax_rest_api import AvaTaxRESTService
@@ -157,13 +157,13 @@ class AvalaraSalestax(models.Model):
     _sql_constraints = [
         (
             "code_company_uniq",
-            "unique (company_code)",
-            "Avalara setting is already available for this company code",
+            "unique (company_id)",
+            _("Only one Avatax configuration per company allowed."),
         ),
         (
             "account_number_company_uniq",
             "unique (account_number, company_id)",
-            "The account number must be unique per company!",
+            _("The account number must be unique per company!"),
         ),
     ]
 
@@ -337,3 +337,25 @@ class AvalaraSalestax(models.Model):
         client = AvaTaxRESTService(config=self)
         client.ping()
         return True
+
+    #
+    # AVATAX RESPONSE PARSING HELPERS
+    #
+
+    def get_avatax_line_tax(self, avatax_response):
+        """
+        Receives an Avatax API response JSON-like object
+        Returns a dict mapping line database IDs to the tax amount and ID:
+        {123: {"taxable": 200.0, "tax_amount": 20.0, "tax_id": account.tax(12)}, ...}
+        """
+        res = {}
+        for line in avatax_response.get("lines", []):
+            taxable = line.get("taxableAmount", 0.0)
+            tax_amount = line.get("tax", 0.0)
+            rate = round(sum(x["rate"] for x in line.get("details", [])) * 100, 4)
+            real_rate = round(tax_amount * 100 / taxable if taxable else 0.0, 4)
+            Tax = self.env["account.tax"].sudo().with_company(self.company_id)
+            tax = Tax.get_avalara_tax(real_rate, display_rate=rate)
+            line_id = int(line["lineNumber"])
+            res[line_id] = {"taxable": taxable, "tax_amount": tax_amount, "tax_id": tax}
+        return res

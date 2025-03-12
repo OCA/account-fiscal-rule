@@ -77,9 +77,6 @@ class TestAvatax(common.TransactionCase):
             self.invoice.button_draft()
 
     @patch(
-        "odoo.addons.account_avatax_oca.models.res_company.Company.get_avatax_config_company"
-    )
-    @patch(
         "odoo.addons.account_avatax_oca.models.avalara_salestax.AvalaraSalestax.create_transaction"  # noqa: B950
     )
     @patch(
@@ -89,7 +86,6 @@ class TestAvatax(common.TransactionCase):
         self,
         mock_void_transaction,
         mock_create_transaction,
-        mock_get_avatax_config_company,
     ):
         avatax_config = self.env["avalara.salestax"].create(
             {
@@ -98,9 +94,9 @@ class TestAvatax(common.TransactionCase):
                 "company_code": "DEFAULT2",
                 "disable_tax_calculation": False,
                 "invoice_calculate_tax": False,
+                "company_id": self.env.company.id,
             }
         )
-        mock_get_avatax_config_company.return_value = avatax_config
 
         # Force empty taxes to check only avatax taxes
         self.invoice.invoice_line_ids.write(
@@ -165,7 +161,6 @@ class TestAvatax(common.TransactionCase):
             self.invoice.amount_tax + self.invoice.amount_untaxed,
             self.invoice.amount_residual,
         )
-        mock_get_avatax_config_company.assert_called()
         mock_create_transaction.assert_called()
 
         mock_void_transaction.return_value = {"status": "success"}
