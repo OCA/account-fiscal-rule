@@ -24,7 +24,7 @@ class TestInvoiceEcotaxTaxComon(TestInvoiceEcotaxCommon):
                 "company_id": cls.env.user.company_id.id,
             }
         )
-        cls.invoice_fixed_ecotax = cls.env["account.tax"].create(
+        cls.invoice_ecotax = cls.env["account.tax"].create(
             {
                 "name": "Fixed Ecotax",
                 "type_tax_use": "sale",
@@ -35,60 +35,7 @@ class TestInvoiceEcotaxTaxComon(TestInvoiceEcotaxCommon):
                 "sequence": 0,
                 "is_ecotax": True,
                 "python_compute": "result = (quantity and"
-                " product.fixed_ecotax * quantity  or 0.0)",
-                "tax_exigibility": "on_invoice",
-                "invoice_repartition_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "factor_percent": 100,
-                            "repartition_type": "base",
-                        },
-                    ),
-                    (
-                        0,
-                        0,
-                        {
-                            "factor_percent": 100,
-                            "repartition_type": "tax",
-                            "account_id": cls.invoice_ecotax_account.id,
-                        },
-                    ),
-                ],
-                "refund_repartition_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "factor_percent": 100,
-                            "repartition_type": "base",
-                        },
-                    ),
-                    (
-                        0,
-                        0,
-                        {
-                            "factor_percent": 100,
-                            "repartition_type": "tax",
-                            "account_id": cls.invoice_ecotax_account.id,
-                        },
-                    ),
-                ],
-            }
-        )
-        cls.invoice_weight_based_ecotax = cls.env["account.tax"].create(
-            {
-                "name": "Weight Based Ecotax",
-                "type_tax_use": "sale",
-                "company_id": cls.env.user.company_id.id,
-                "amount_type": "code",
-                "include_base_amount": True,
-                "price_include": False,
-                "sequence": 0,
-                "is_ecotax": True,
-                "python_compute": "result = (quantity and"
-                " product.weight_based_ecotax * quantity or 0.0)",
+                " product.ecotax_amount_context * quantity  or 0.0)",
                 "tax_exigibility": "on_invoice",
                 "invoice_repartition_line_ids": [
                     (
@@ -132,9 +79,9 @@ class TestInvoiceEcotaxTaxComon(TestInvoiceEcotaxCommon):
         )
         # ECOTAXES
         # 1- Fixed ecotax
-        cls.ecotax_fixed.sale_ecotax_ids = cls.invoice_fixed_ecotax
+        cls.ecotax_fixed.sale_ecotax_ids = cls.invoice_ecotax
         # 2- Weight-based ecotax
-        cls.ecotax_weight.sale_ecotax_ids = cls.invoice_weight_based_ecotax
+        cls.ecotax_weight.sale_ecotax_ids = cls.invoice_ecotax
 
 
 class TestInvoiceEcotaxTax(TestInvoiceEcotaxTaxComon):
@@ -327,3 +274,6 @@ class TestInvoiceEcotaxTax(TestInvoiceEcotaxTaxComon):
             variant_2.all_ecotax_line_product_ids,
             variant_2.product_tmpl_id.ecotax_line_product_ids,
         )
+
+    def test_06_ecotax_by_country(self):
+        self._test_06_ecotax_by_country()

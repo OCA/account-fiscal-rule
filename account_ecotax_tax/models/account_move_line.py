@@ -18,6 +18,11 @@ class AcountMoveLine(models.Model):
 
     def _get_ecotax_amounts(self):
         self.ensure_one()
+        country = (
+            self.move_id.partner_shipping_id.country_id
+            or self.move_id.partner_id.country_id
+        )
+        self = self.with_context(country=country)
         ecotax_ids = self.tax_ids.filtered(lambda tax: tax.is_ecotax)
 
         if self.display_type == "tax" or not ecotax_ids:
@@ -52,6 +57,8 @@ class AcountMoveLine(models.Model):
         "tax_ids",
         "quantity",
         "product_id",
+        "move_id.partner_id",
+        "move_id.partner_shipping_id",
     )
     def _compute_ecotax_tax(self):
         return self._compute_ecotax()

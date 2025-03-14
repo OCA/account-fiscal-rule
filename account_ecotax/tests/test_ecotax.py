@@ -405,6 +405,33 @@ class TestInvoiceEcotaxCommon(TransactionCase):
             variant_2.product_tmpl_id.ecotax_line_product_ids,
         )
 
+    def _test_06_ecotax_by_country(self):
+        """
+        Test default ecotax by country
+        """
+        self.invoice_partner.write({"country_id": self.env.ref("base.fr").id})
+        invoice = self._make_invoice(products=self._make_product(self.ecotax_fixed))
+        # no country ecotax classification is set
+        self.assertEqual(
+            invoice.invoice_line_ids.ecotax_line_ids.classification_id,
+            self.ecotax_fixed,
+        )
+        # in case of wrong country, the ecotax is not set
+        self.ecotax_fixed.write(
+            {"country_ids": [Command.link(self.env.ref("base.de").id)]}
+        )
+        invoice.write({"partner_id": self.invoice_partner.id})
+        self.assertFalse(invoice.invoice_line_ids.ecotax_line_ids.classification_id)
+        # in case the same country is set, the ecotax is set as well
+        self.ecotax_fixed.write(
+            {"country_ids": [Command.link(self.env.ref("base.fr").id)]}
+        )
+        invoice.write({"partner_id": self.invoice_partner.id})
+        self.assertEqual(
+            invoice.invoice_line_ids.ecotax_line_ids.classification_id,
+            self.ecotax_fixed,
+        )
+
 
 class TestInvoiceEcotax(TestInvoiceEcotaxCommon):
     def test_01_default_fixed_ecotax(self):
@@ -421,3 +448,6 @@ class TestInvoiceEcotax(TestInvoiceEcotaxCommon):
 
     def test_05_product_variants(self):
         self._test_05_product_variants()
+
+    def test_06_ecotax_by_country(self):
+        self._test_06_ecotax_by_country()

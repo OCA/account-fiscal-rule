@@ -15,6 +15,11 @@ class SaleOrderLine(models.Model):
 
     def _get_ecotax_amounts(self):
         self.ensure_one()
+        country = (
+            self.order_id.partner_shipping_id.country_id
+            or self.order_id.partner_id.country_id
+        )
+        self = self.with_context(country=country)
         # do not call super as we completly change the way to compute it
         ecotax_ids = self.tax_id.filtered(lambda tax: tax.is_ecotax)
         if (self.display_type and self.display_type != "product") or not ecotax_ids:
@@ -39,6 +44,8 @@ class SaleOrderLine(models.Model):
         "tax_id",
         "product_uom_qty",
         "product_id",
+        "order_id.partner_id",
+        "order_id.partner_shipping_id",
     )
     def _compute_ecotax_tax(self):
         return self._compute_ecotax()
