@@ -31,6 +31,13 @@ class EcotaxLineProduct(models.Model):
         help="Ecotax Amount computed form Classification or forced ecotax amount",
         store=True,
     )
+    country_ids = fields.Many2many(
+        "res.country",
+        string="Countries",
+        related="classification_id.country_ids",
+        help="Ecotax will be applied when delivered in the listed countries (or all "
+        "countries if empty)",
+    )
     display_name = fields.Char(compute="_compute_display_name")
 
     @api.depends("classification_id", "amount")
