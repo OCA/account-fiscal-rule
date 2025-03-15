@@ -1,4 +1,8 @@
+import logging
+
 from odoo import api, fields, models
+
+_logger = logging.getLogger(__name__)
 
 
 class SaleOrder(models.Model):
@@ -16,15 +20,14 @@ class SaleOrder(models.Model):
     @api.model
     @api.depends("company_id", "partner_id", "partner_invoice_id", "state")
     def _compute_hide_exemption(self):
-        avatax_config = self.env.company.get_avatax_config_company()
         for order in self:
+            avatax_config = order.company_id.avatax_configuration_id
             order.hide_exemption = avatax_config.hide_exemption
 
     hide_exemption = fields.Boolean(
         "Hide Exemption & Tax Based on shipping address",
         compute="_compute_hide_exemption",  # For past transactions visibility
-        default=lambda self: self.env.company.get_avatax_config_company,
-        help="Uncheck this field to show exemption fields on SO/Invoice form view. "
+        help="Uncheck the this field to show exemption fields on SO/Invoice form view. "
         "Also, it will show Tax based on shipping address button",
     )
     tax_amount = fields.Monetary(string="AvaTax")
@@ -172,16 +175,21 @@ class SaleOrder(models.Model):
 
     def _avatax_compute_tax(self):
         """Contact REST API and recompute taxes for a Sale Order"""
-        # Override to handle lines with split taxes (e.g. TN)
         self and self.ensure_one()
-        doc_type = self._get_avatax_doc_type()
-        Tax = self.env["account.tax"]
-        avatax_config = self.company_id.get_avatax_config_company()
+        if self.state == "cancel" or self.locked:
+            # Exit early if no tax is to be recalculated
+            _logger.warning(
+                "Order %s is locked or cancelled, can't recompute tax", self.name
+            )
+            return False
+
+        avatax_config = self.company_id.avatax_configuration_id
         if not avatax_config:
             return False
         partner = self.partner_id
         if avatax_config.use_partner_invoice_id:
             partner = self.partner_invoice_id
+        doc_type = self._get_avatax_doc_type()
         taxable_lines = self._avatax_prepare_lines(self.order_line)
         tax_result = avatax_config.create_transaction(
             self.date_order,
@@ -197,30 +205,13 @@ class SaleOrder(models.Model):
             currency_id=self.currency_id,
             log_to_record=self,
         )
-        tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
+        tax_result_lines = avatax_config.get_avatax_line_tax(tax_result)
         for line in self.order_line:
-            tax_result_line = tax_result_lines.get(line.id)
-            if tax_result_line:
-                # Should we check the rate with the tax amount?
-                # tax_amount = tax_result_line["taxCalculated"]
-                # rate = round(tax_amount / line.price_subtotal * 100, 2)
-                # rate = tax_result_line["rate"]
-                tax_calculation = 0.0
-                if tax_result_line["taxableAmount"]:
-                    tax_calculation = (
-                        tax_result_line["taxCalculated"]
-                        / tax_result_line["taxableAmount"]
-                    )
-                rate = round(tax_calculation * 100, 4)
-                tax = Tax.get_avalara_tax(rate, doc_type)
-                if tax not in line.tax_id:
-                    line_taxes = (
-                        tax
-                        if avatax_config.override_line_taxes
-                        else tax | line.tax_id.filtered(lambda x: not x.is_avatax)
-                    )
-                    line.tax_id = line_taxes
-                line.tax_amt = tax_result_line["tax"]
+            line_tax = tax_result_lines.get(line.id, {})
+            tax = line_tax.get("tax_id")
+            if tax and tax not in line.tax_id:
+                line.tax_id = line.tax_id.filtered(lambda x: not x.is_avatax) | tax
+            line.tax_amt = line_tax.get("tax_amount", 0.0)
         self.tax_amount = tax_result.get("totalTax")
         return True
 
@@ -235,15 +226,16 @@ class SaleOrder(models.Model):
         return True
 
     def action_confirm(self):
-        avatax_config = self.company_id.get_avatax_config_company()
-        if avatax_config and avatax_config.force_address_validation:
-            for addr in [self.partner_id, self.partner_shipping_id]:
-                if not addr.date_validation:
-                    # The Confirm action will be interrupted
-                    # if the address is not validated
-                    return addr.button_avatax_validate_address()
-        if avatax_config:
-            self.avalara_compute_taxes()
+        for order in self:
+            avatax_config = order.company_id.avatax_configuration_id
+            if avatax_config and avatax_config.force_address_validation:
+                for addr in [order.partner_id, order.partner_shipping_id]:
+                    if not addr.date_validation:
+                        # The Confirm action will be interrupted
+                        # if the address is not validated
+                        return addr.button_avatax_validate_address()
+            if avatax_config:
+                order.avalara_compute_taxes()
         return super().action_confirm()
 
     @api.onchange(
@@ -253,7 +245,7 @@ class SaleOrder(models.Model):
         "partner_id",
     )
     def onchange_avatax_calculation(self):
-        avatax_config = self.env.company.get_avatax_config_company()
+        avatax_config = self.company_id.avatax_configuration_id
         self.calculate_tax_on_save = False
         if avatax_config.sale_calculate_tax:
             if (
@@ -276,37 +268,33 @@ class SaleOrder(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         sales = super().create(vals_list)
-        avatax_config = self.env.company.get_avatax_config_company()
         for sale in sales:
+            avatax_config = sale.company_id.avatax_configuration_id
             if (
                 avatax_config.sale_calculate_tax
                 and sale.calculate_tax_on_save
-                and not self._context.get("skip_second_write", False)
+                and not self.env.context.get("skip_second_write", False)
             ):
                 sale.with_context(skip_second_write=True).write(
-                    {
-                        "calculate_tax_on_save": False,
-                    }
+                    {"calculate_tax_on_save": False}
                 )
                 sale.avalara_compute_taxes()
         return sales
 
     def write(self, vals):
         result = super().write(vals)
-        avatax_config = self.env.company.get_avatax_config_company()
-        for record in self:
+        for sale in self:
+            avatax_config = sale.company_id.avatax_configuration_id
             if (
                 avatax_config.sale_calculate_tax
-                and record.calculate_tax_on_save
-                and record.state != "done"
-                and not self._context.get("skip_second_write", False)
+                and sale.calculate_tax_on_save
+                and sale.state != "done"
+                and not self.env.context.get("skip_second_write", False)
             ):
-                record.with_context(skip_second_write=True).write(
-                    {
-                        "calculate_tax_on_save": False,
-                    }
+                sale.with_context(skip_second_write=True).write(
+                    {"calculate_tax_on_save": False}
                 )
-                record.avalara_compute_taxes()
+                sale.avalara_compute_taxes()
         return result
 
 
@@ -323,7 +311,7 @@ class SaleOrderLine(models.Model):
         line = self
         res = {}
         # Add UPC to product item code
-        avatax_config = line.company_id.get_avatax_config_company()
+        avatax_config = line.company_id.avatax_configuration_id
         product = line.product_id
         if product.barcode and avatax_config.upc_enable:
             item_code = "UPC:%d" % product.barcode

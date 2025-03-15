@@ -13,7 +13,7 @@
                     name="avalara_compute_taxes"
                     type="object"
                     string="Compute Taxes"
-                    invisible="is_avatax == False or state in ('done', 'cancel')"
+                    invisible="is_avatax == False or state in ('done', 'cancel') or locked"
                 />
             </button>
             <field name="payment_term_id" position="after">
