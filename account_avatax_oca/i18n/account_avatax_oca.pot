@@ -453,19 +453,23 @@ msgid ""
 msgstr ""
 
 #. module: account_avatax_oca
+#: model:ir.actions.act_window,name:account_avatax_oca.action_exemption_code_details
+#: model:ir.ui.menu,name:account_avatax_oca.menu_action_exemption_code_details
+msgid "Entity Use Code"
+msgstr ""
+
+#. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__property_exemption_country_wide
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__property_exemption_country_wide
 msgid "Exemption Applies Country Wide"
 msgstr ""
 
 #. module: account_avatax_oca
-#: model:ir.actions.act_window,name:account_avatax_oca.action_exemption_code_details
 #: model:ir.model,name:account_avatax_oca.model_exemption_code
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_bank_statement_line__exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_account_move__exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__property_exemption_code_id
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_users__property_exemption_code_id
-#: model:ir.ui.menu,name:account_avatax_oca.menu_action_exemption_code_details
 msgid "Exemption Code"
 msgstr ""
 
