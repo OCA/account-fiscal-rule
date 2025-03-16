@@ -134,7 +134,7 @@
                         <field name="exemption_type" readonly="state != 'draft'" />
                         <field
                             name="business_type"
-                            options="{'no_create': True"
+                            options="{'no_create': True}"
                             required="1"
                             readonly="state != 'draft'"
                         />
