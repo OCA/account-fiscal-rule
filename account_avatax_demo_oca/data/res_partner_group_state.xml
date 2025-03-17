@@ -1,0 +1,228 @@
+<data noupdate="1">
+    <!-- US -->
+    <record id="group_us" model="res.partner.group.state">
+        <field name="name">US</field>
+        <field name="country_id" ref="base.us" />
+        <field
+            name="state_ids"
+            eval="[
+            (4, ref('base.state_us_1')),
+            (4, ref('base.state_us_2')),
+            (4, ref('base.state_us_3')),
+            (4, ref('base.state_us_4')),
+            (4, ref('base.state_us_5')),
+            (4, ref('base.state_us_6')),
+            (4, ref('base.state_us_7')),
+            (4, ref('base.state_us_8')),
+            (4, ref('base.state_us_9')),
+            (4, ref('base.state_us_10')),
+            (4, ref('base.state_us_11')),
+            (4, ref('base.state_us_12')),
+            (4, ref('base.state_us_13')),
+            (4, ref('base.state_us_14')),
+            (4, ref('base.state_us_15')),
+            (4, ref('base.state_us_16')),
+            (4, ref('base.state_us_17')),
+            (4, ref('base.state_us_18')),
+            (4, ref('base.state_us_19')),
+            (4, ref('base.state_us_20')),
+            (4, ref('base.state_us_21')),
+            (4, ref('base.state_us_22')),
+            (4, ref('base.state_us_23')),
+            (4, ref('base.state_us_24')),
+            (4, ref('base.state_us_25')),
+            (4, ref('base.state_us_26')),
+            (4, ref('base.state_us_27')),
+            (4, ref('base.state_us_28')),
+            (4, ref('base.state_us_29')),
+            (4, ref('base.state_us_30')),
+            (4, ref('base.state_us_31')),
+            (4, ref('base.state_us_32')),
+            (4, ref('base.state_us_33')),
+            (4, ref('base.state_us_34')),
+            (4, ref('base.state_us_35')),
+            (4, ref('base.state_us_36')),
+            (4, ref('base.state_us_37')),
+            (4, ref('base.state_us_38')),
+            (4, ref('base.state_us_39')),
+            (4, ref('base.state_us_40')),
+            (4, ref('base.state_us_41')),
+            (4, ref('base.state_us_42')),
+            (4, ref('base.state_us_43')),
+            (4, ref('base.state_us_44')),
+            (4, ref('base.state_us_45')),
+            (4, ref('base.state_us_46')),
+            (4, ref('base.state_us_47')),
+            (4, ref('base.state_us_48')),
+            (4, ref('base.state_us_49')),
+            (4, ref('base.state_us_50')),
+            (4, ref('base.state_us_51')),
+            (4, ref('base.state_us_as')),
+            (4, ref('base.state_us_fm')),
+            (4, ref('base.state_us_gu')),
+            (4, ref('base.state_us_mh')),
+            (4, ref('base.state_us_mp')),
+            (4, ref('base.state_us_pw')),
+            (4, ref('base.state_us_pr')),
+            (4, ref('base.state_us_vi')),
+            (4, ref('base.state_us_aa')),
+            (4, ref('base.state_us_ae')),
+            (4, ref('base.state_us_ap'))
+        ]"
+        />
+    </record>
+
+    <!-- US West Coast -->
+    <record id="group_us_west_coast" model="res.partner.group.state">
+        <field name="name">US West Coast</field>
+        <field name="country_id" ref="base.us" />
+        <field
+            name="state_ids"
+            eval="[
+            (4, ref('base.state_us_5')),
+            (4, ref('base.state_us_32')),
+            (4, ref('base.state_us_48'))
+        ]"
+        />
+    </record>
+
+    <!-- US Midwest -->
+    <record id="group_us_midwest" model="res.partner.group.state">
+        <field name="name">US Midwest</field>
+        <field name="country_id" ref="base.us" />
+        <field
+            name="state_ids"
+            eval="[
+            (4, ref('base.state_us_22')),
+            (4, ref('base.state_us_15')),
+            (4, ref('base.state_us_14')),
+            (4, ref('base.state_us_16')),
+            (4, ref('base.state_us_17')),
+            (4, ref('base.state_us_38')),
+            (4, ref('base.state_us_15')),
+            (4, ref('base.state_us_19')),
+            (4, ref('base.state_us_30')),
+            (4, ref('base.state_us_42')),
+            (4, ref('base.state_us_50')),
+        ]"
+        />
+    </record>
+
+    <!-- US Northeast -->
+    <record id="group_us_northeast" model="res.partner.group.state">
+        <field name="name">US Northeast</field>
+        <field name="country_id" ref="base.us" />
+        <field
+            name="state_ids"
+            eval="[
+            (4, ref('base.state_us_20')),
+            (4, ref('base.state_us_27')),
+            (4, ref('base.state_us_25')),
+            (4, ref('base.state_us_46')),
+            (4, ref('base.state_us_34')),
+            (4, ref('base.state_us_40')),
+            (4, ref('base.state_us_7')),
+            (4, ref('base.state_us_24')),
+            (4, ref('base.state_us_39')),
+        ]"
+        />
+    </record>
+
+    <!-- US Southeast -->
+    <record id="group_us_southeast" model="res.partner.group.state">
+        <field name="name">US Southeast</field>
+        <field name="country_id" ref="base.us" />
+        <field
+            name="state_ids"
+            eval="[
+            (4, ref('base.state_us_1')),
+            (4, ref('base.state_us_4')),
+            (4, ref('base.state_us_10')),
+            (4, ref('base.state_us_11')),
+            (4, ref('base.state_us_18')),
+            (4, ref('base.state_us_19')),
+            (4, ref('base.state_us_37')),
+            (4, ref('base.state_us_28')),
+            (4, ref('base.state_us_41')),
+            (4, ref('base.state_us_43')),
+            (4, ref('base.state_us_pr')),
+            (4, ref('base.state_us_vi')),
+            (4, ref('base.state_us_47')),
+        ]"
+        />
+    </record>
+
+    <!-- US Southwest -->
+    <record id="group_us_southwest" model="res.partner.group.state">
+        <field name="name">US Southwest</field>
+        <field name="country_id" ref="base.us" />
+        <field
+            name="state_ids"
+            eval="[
+            (4, ref('base.state_us_3')),
+            (4, ref('base.state_us_26')),
+            (4, ref('base.state_us_6')),
+            (4, ref('base.state_us_23')),
+            (4, ref('base.state_us_31')),
+            (4, ref('base.state_us_44')),
+            (4, ref('base.state_us_45')),
+        ]"
+        />
+    </record>
+
+    <!-- Canada -->
+    <record id="group_canada" model="res.partner.group.state">
+        <field name="name">Canada</field>
+        <field name="country_id" ref="base.ca" />
+        <field
+            name="state_ids"
+            eval="[
+            (4, ref('base.state_ca_ab')),
+            (4, ref('base.state_ca_bc')),
+            (4, ref('base.state_ca_mb')),
+            (4, ref('base.state_ca_nb')),
+            (4, ref('base.state_ca_nl')),
+            (4, ref('base.state_ca_ns')),
+            (4, ref('base.state_ca_nt')),
+            (4, ref('base.state_ca_nu')),
+            (4, ref('base.state_ca_on')),
+            (4, ref('base.state_ca_pe')),
+            (4, ref('base.state_ca_qc')),
+            (4, ref('base.state_ca_sk')),
+            (4, ref('base.state_ca_yt')),
+        ]"
+        />
+    </record>
+
+    <!-- Canada East -->
+    <record id="group_canada_east" model="res.partner.group.state">
+        <field name="name">Canada East</field>
+        <field name="country_id" ref="base.ca" />
+        <field
+            name="state_ids"
+            eval="[
+            (4, ref('base.state_ca_nb')),
+            (4, ref('base.state_ca_nl')),
+            (4, ref('base.state_ca_ns')),
+            (4, ref('base.state_ca_pe')),
+            (4, ref('base.state_ca_qc')),
+            (4, ref('base.state_ca_on')),
+        ]"
+        />
+    </record>
+
+    <!-- Canada West -->
+    <record id="group_canada_west" model="res.partner.group.state">
+        <field name="name">Canada West</field>
+        <field name="country_id" ref="base.ca" />
+        <field
+            name="state_ids"
+            eval="[
+            (4, ref('base.state_ca_bc')),
+            (4, ref('base.state_ca_ab')),
+            (4, ref('base.state_ca_sk')),
+            (4, ref('base.state_ca_mb')),
+        ]"
+        />
+    </record>
+</data>

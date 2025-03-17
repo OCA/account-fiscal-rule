@@ -21,7 +21,9 @@
     ],
     "data": [
         "data/res_partner_exemption_business_type.xml",
+        "data/res_partner_group_state.xml",
     ],
     "external_dependencies": {"python": ["Avalara"]},
     "installable": True,
+    "development_status": "Alpha",
 }
