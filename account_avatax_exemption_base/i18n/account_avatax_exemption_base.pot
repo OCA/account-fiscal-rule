@@ -427,6 +427,11 @@ msgid "Partner"
 msgstr ""
 
 #. module: account_avatax_exemption_base
+#: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: account_avatax_exemption_base
 #: model:ir.model.fields,field_description:account_avatax_exemption_base.field_res_partner_exemption__activity_user_id
 msgid "Responsible User"
 msgstr ""
