@@ -16,38 +16,6 @@
         </field>
     </record>
 
-    <record id="view_product_template_tree_account" model="ir.ui.view">
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="account.product_template_view_tree" />
-        <field name="arch" type="xml">
-            <field name="taxes_id" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </field>
-            <field name="supplier_taxes_id" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </field>
-            <field name="supplier_taxes_id" position="after">
-                <field name="fiscal_classification_id" />
-            </field>
-        </field>
-    </record>
-
-    <record id="view_product_template_form_account" model="ir.ui.view">
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="account.product_template_form_view" />
-        <field name="arch" type="xml">
-            <field name="taxes_id" position="before">
-                <field name="fiscal_classification_id" quick_create="false" />
-            </field>
-            <field name="taxes_id" position="attributes">
-                <attribute name="readonly">True</attribute>
-            </field>
-            <field name="supplier_taxes_id" position="attributes">
-                <attribute name="readonly">True</attribute>
-            </field>
-        </field>
-    </record>
-
     <record
         id="action_template_list_by_fiscal_classification"
         model="ir.actions.act_window"

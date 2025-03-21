@@ -3,10 +3,9 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-import json
 import logging
 
-from lxml import etree
+from lxml import builder
 
 from odoo import api, fields, models
 
@@ -16,9 +15,9 @@ _logger = logging.getLogger(__name__)
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    taxes_id = fields.Many2many(default=False)
+    taxes_id = fields.Many2many(readonly=True, default=False)
 
-    supplier_taxes_id = fields.Many2many(default=False)
+    supplier_taxes_id = fields.Many2many(readonly=True, default=False)
 
     fiscal_classification_id = fields.Many2one(
         comodel_name="account.product.fiscal.classification",
@@ -65,20 +64,33 @@ class ProductTemplate(models.Model):
         self.taxes_id = self.fiscal_classification_id.sale_tax_ids.ids
 
     @api.model
-    def get_view(self, view_id=None, view_type="form", **options):
-        """Set fiscal_classification_id required on all views.
-        We don't set the field required by field definition to avoid
-        incompatibility with other modules, errors on import, etc..."""
-        result = super().get_view(view_id=view_id, view_type=view_type, **options)
-        doc = etree.fromstring(result["arch"])
-        nodes = doc.xpath("//field[@name='fiscal_classification_id']")
-        if nodes:
-            for node in nodes:
-                modifiers = json.loads(node.get("modifiers", "{}"))
-                modifiers["required"] = True
-                node.set("modifiers", json.dumps(modifiers))
-            result["arch"] = etree.tostring(doc, encoding="unicode").replace("\t", "")
-        return result
+    def _get_view(self, view_id=None, view_type="form", **options):
+        arch, view = super()._get_view(view_id=view_id, view_type=view_type, **options)
+        self._alter_view_fiscal_classification(arch, view_type)
+        return arch, view
+
+    @api.model
+    def _alter_view_fiscal_classification(self, arch, view_type):
+        if view_type in ("form", "tree"):
+            node_taxes_id = arch.xpath("//field[@name='taxes_id']")
+            node_supplier_taxes_id = arch.xpath("//field[@name='supplier_taxes_id']")
+            node_tax_field = node_taxes_id or node_supplier_taxes_id
+            if node_tax_field:
+                # append fiscal_classification_id just before taxes fields
+                node_tax_field = node_tax_field[0]
+                classification_node = builder.E.field(
+                    name="fiscal_classification_id", required="1"
+                )
+                node_tax_field.getparent().insert(
+                    node_tax_field.getparent().index(node_tax_field),
+                    classification_node,
+                )
+
+            if view_type == "tree":
+                if node_taxes_id:
+                    node_taxes_id[0].set("optional", "hide")
+                if node_supplier_taxes_id:
+                    node_supplier_taxes_id[0].set("optional", "hide")
 
     # Custom Section
     def _fiscal_classification_update_taxes(self, vals):
