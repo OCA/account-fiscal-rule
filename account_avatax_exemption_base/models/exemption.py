@@ -76,6 +76,7 @@ class ResPartnerExemption(models.Model):
         "mail.thread",
         "mail.activity.mixin",
     ]
+    _rec_name = "partner_id"
 
     partner_id = fields.Many2one(
         "res.partner",
