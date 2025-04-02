@@ -66,6 +66,7 @@
             </xpath>
             <field position="after" name="fiscal_position_id">
                 <field name="is_avatax" groups="base.group_no_one" />
+                <field name="committed_to_avatax" groups="base.group_no_one" />
             </field>
             <notebook position="inside">
                 <page
@@ -80,6 +81,21 @@
                     <field name="avatax_response_log" widget="ace" />
                 </page>
             </notebook>
+        </field>
+    </record>
+    <!-- Search View  -->
+    <record id="view_account_invoice_filter_inherit_account_avatax_oca" model="ir.ui.view">
+        <field name="name">account.invoice.select</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <field name="journal_id" position="after">
+                <field name="committed_to_avatax"/>
+            </field>
+            <filter name="activities_upcoming_all" position="after">
+                <filter string="Not Committed to Avatax" name="committed_to_avatax" domain="[('committed_to_avatax', '=', False)]"/>
+            </filter>
         </field>
     </record>
 </odoo>

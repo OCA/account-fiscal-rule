@@ -146,6 +146,16 @@ class AvalaraSalestax(models.Model):
         help="Uncheck the this field to show exemption fields on SO/Invoice form view. "
         "Also, it will show Tax based on shipping address button",
     )
+    commit_to_avatax = fields.Selection(
+        [
+            ("invoice_posting", "Invoice Posting"),
+            ("prior_managment_close", "Prior to Management Closing"),
+            ("prior_account_close", "Prior to Account Closing"),
+        ],
+        default="invoice_posting",
+        help="Invoice posting - commits to Avatax immediately on invoice posting.,Prior to Management Closing - prevents setting Management closing lock if there are posted invoices not committed to Avatax.,Prior to Accounting Closing - prevents setting All Users Lock Date lock if there are posted invoices not committed to Avatax., Prior to Accounting Closing - prevents setting All Users Lock Date lock if there are posted invoices not committed to Avatax.",
+        required=True
+    )
     # TODO: add option to Display Prices with Tax Included
     # Enabled the tax inclusive flag in the GetTax Request.
 

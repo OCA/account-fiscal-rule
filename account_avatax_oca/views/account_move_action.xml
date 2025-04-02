@@ -6,4 +6,12 @@
         <field name="state">code</field>
         <field name="code">records.avatax_compute_taxes()</field>
     </record>
+
+    <record model="ir.actions.server" id="action_account_invoice_compute_taxes_with_committ_true">
+        <field name="name">Commit to Avatax</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="binding_model_id" ref="account.model_account_move" />
+        <field name="state">code</field>
+        <field name="code">records.avatax_compute_taxes(commit=True)</field>
+    </record>
 </odoo>

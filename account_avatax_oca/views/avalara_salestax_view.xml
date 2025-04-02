@@ -50,6 +50,10 @@
                                             class="btn-link"
                                         />
                                 </div>
+                                <label for="commit_to_avatax" string="Commit to AvaTax"/>
+                                 <div>
+                                    <field name="commit_to_avatax" class="oe_inline" />
+                                </div>
                                 <a
                                         colspan="2"
                                         href="https://admin.avalara.com/"

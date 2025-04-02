@@ -109,6 +109,7 @@ class AccountMove(models.Model):
     avatax_response_log = fields.Text(
         "Avatax API Response Log", readonly=True, copy=False
     )
+    committed_to_avatax = fields.Datetime("Committed to Avatax")
 
     @api.model
     @api.depends("company_id")
@@ -280,6 +281,7 @@ class AccountMove(models.Model):
         Called from Invoice's Action menu.
         Forces computation of the Invoice taxes
         """
+        avatax_config = self.company_id.get_avatax_config_company()
         for invoice in self:
             if (
                 invoice.move_type in ["out_invoice", "out_refund"]
@@ -287,6 +289,8 @@ class AccountMove(models.Model):
                 and (invoice.state == "draft" or commit)
             ):
                 invoice._avatax_compute_tax(commit=commit)
+                if commit and avatax_config.commit_to_avatax:
+                    invoice.committed_to_avatax = fields.Datetime.now()
         return True
 
     def avatax_commit_taxes(self):
@@ -305,9 +309,9 @@ class AccountMove(models.Model):
         return self.is_sale_document()
 
     def _post(self, soft=True):
+        avatax_config = self.company_id.get_avatax_config_company()
         for invoice in self:
             if invoice.is_avatax_calculated():
-                avatax_config = self.company_id.get_avatax_config_company()
                 if avatax_config and avatax_config.force_address_validation:
                     for addr in [invoice.partner_id, invoice.partner_shipping_id]:
                         if not addr.date_validation:
@@ -321,10 +325,11 @@ class AccountMove(models.Model):
                 invoice.avatax_compute_taxes(commit=False)
         res = super()._post(soft=soft)
         for invoice in res:
-            if invoice.is_avatax_calculated():
+            if invoice.is_avatax_calculated() and avatax_config.commit_to_avatax == "invoice_posting":
                 # We can only commit to Avatax after validating the invoice
                 # because we need the generated Invoice number
                 invoice.avatax_compute_taxes(commit=True)
+                invoice.committed_to_avatax = fields.Datetime.now()
         return res
 
     # prepare_return in v12
