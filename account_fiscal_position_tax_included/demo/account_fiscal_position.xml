@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2019 - Today: GRAP (http://www.grap.coop)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="fiscal_position_20_excl_to_20_incl" model="account.fiscal.position">
+        <field name="name">20% Tax Excl. -> 20% Tax Incl.</field>
+    </record>
+
+    <record id="fiscal_position_20_excl_to_20_incl_line" model="account.fiscal.position.tax">
+        <field name="position_id" ref="fiscal_position_20_excl_to_20_incl"/>
+        <field name="tax_src_id" ref="tax_20_tax_excl" />
+        <field name="tax_dest_id" ref="tax_20_tax_incl" />
+    </record>
+
+    <record id="fiscal_position_20_incl_to_20_excl" model="account.fiscal.position">
+        <field name="name">20% Tax Incl. -> 20% Tax Excl.</field>
+    </record>
+
+    <record id="fiscal_position_20_incl_to_20_excl_line" model="account.fiscal.position.tax">
+        <field name="position_id" ref="fiscal_position_20_incl_to_20_excl"/>
+        <field name="tax_src_id" ref="tax_20_tax_incl" />
+        <field name="tax_dest_id" ref="tax_20_tax_excl" />
+    </record>
+
+</odoo>

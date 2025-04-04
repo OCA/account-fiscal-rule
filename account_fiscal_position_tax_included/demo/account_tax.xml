@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2019 - Today: GRAP (http://www.grap.coop)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="tax_20_tax_excl" model="account.tax">
+        <field name="name">20% Tax Excl</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">20</field>
+        <field name="price_include" eval="False"/>
+    </record>
+
+    <record id="tax_20_tax_incl" model="account.tax">
+        <field name="name">20% Tax Incl</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">20</field>
+        <field name="price_include" eval="True"/>
+    </record>
+
+</odoo>

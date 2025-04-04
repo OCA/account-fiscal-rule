@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2019 - Today: GRAP (http://www.grap.coop)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="product_20_tax_excl" model="product.product">
+        <field name="name">Product 20% Tax Excl.</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="taxes_id" eval="[(4, ref('tax_20_tax_excl'))]"/>
+    </record>
+
+    <record id="product_20_tax_incl" model="product.product">
+        <field name="name">Product 20% Tax Incl.</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="taxes_id" eval="[(4, ref('tax_20_tax_incl'))]"/>
+    </record>
+
+</odoo>
