@@ -1,85 +1,195 @@
-# Copyright (C) 2019 - Today: GRAP (http://www.grap.coop)
-# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+# Copyright (C) 2019 - Today: Sylvain LE GAL (http://www.grap.coop)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from odoo.tests import Form
 from odoo.tests.common import TransactionCase
 
 
 class TestModule(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.AccountInvoiceLine = self.env["account.invoice.line"]
-
-        self.fiscal_position_20_excl_to_20_incl = self.env.ref(
-            "account_fiscal_position_tax_included." "fiscal_position_20_excl_to_20_incl"
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.fiscal_position_20_excl_to_20_incl = cls.env.ref(
+            "account_fiscal_position_tax_included.fiscal_position_20_excl_to_20_incl"
         )
 
-        self.fiscal_position_20_incl_to_20_excl = self.env.ref(
-            "account_fiscal_position_tax_included." "fiscal_position_20_incl_to_20_excl"
+        cls.fiscal_position_20_excl_to_5_excl = cls.env.ref(
+            "account_fiscal_position_tax_included.fiscal_position_20_excl_to_5_excl"
         )
 
-        self.product_20_tax_incl = self.env.ref(
+        cls.fiscal_position_20_incl_to_20_excl = cls.env.ref(
+            "account_fiscal_position_tax_included.fiscal_position_20_incl_to_20_excl"
+        )
+        cls.fiscal_position_20_incl_to_5_incl = cls.env.ref(
+            "account_fiscal_position_tax_included.fiscal_position_20_incl_to_5_incl"
+        )
+
+        cls.product_20_tax_incl = cls.env.ref(
             "account_fiscal_position_tax_included.product_20_tax_incl"
         )
 
-        self.product_20_tax_excl = self.env.ref(
+        cls.product_20_tax_excl = cls.env.ref(
             "account_fiscal_position_tax_included.product_20_tax_excl"
         )
 
-        self.uom = self.env.ref("uom.product_uom_unit")
-        self.partner = self.env.ref("base.res_partner_2")
-        self.account = self.env.ref("l10n_generic_coa.1_conf_a_sale")
-        self.invoice = self.env.ref("l10n_generic_coa.demo_invoice_3").copy()
-        self.invoice_line = self.AccountInvoiceLine.create(
+        cls.tax_20_tax_excl = cls.env.ref(
+            "account_fiscal_position_tax_included.tax_20_tax_excl"
+        )
+        cls.tax_5_tax_excl = cls.env.ref(
+            "account_fiscal_position_tax_included.tax_5_tax_excl"
+        )
+        cls.tax_20_tax_incl = cls.env.ref(
+            "account_fiscal_position_tax_included.tax_20_tax_incl"
+        )
+        cls.tax_5_tax_incl = cls.env.ref(
+            "account_fiscal_position_tax_included.tax_5_tax_incl"
+        )
+
+        cls.customer = cls.env["res.partner"].create({"name": "Customer"})
+
+        cls.invoice = cls.env["account.move"].create(
             {
-                "invoice_id": self.invoice.id,
-                "name": "Description",
-                "account_id": self.account.id,
-                "quantity": 1.0,
-                "price_unit": 0,
+                "move_type": "out_invoice",
+                "partner_id": cls.customer.id,
+                "fiscal_position_id": False,
+                "invoice_line_ids": [],
             }
         )
 
-    # Test Section
-    def test_01_mapping_20_incl_to_20_excl(self):
-        self.invoice.fiscal_position_id = self.fiscal_position_20_incl_to_20_excl
-        # 120 Tax Incl --> 100 Tax Excl
-        self.product_20_tax_incl.lst_price = 120
-        self.invoice_line.product_id = self.product_20_tax_incl
-        self.invoice_line._onchange_product_id()
+    # ################################
+    # Test Section "No Regression" (A)
+    # ################################
 
-        self.assertEqual(self.invoice_line.price_unit, 100)
+    def test_00_no_fp_product_tax_excl(self):
+        invoice_form = Form(self.invoice)
+        with invoice_form.invoice_line_ids.new() as line:
+            line.product_id = self.product_20_tax_excl
+        invoice_form.save()
 
-        # 100 Tax Excl --> 100 Tax Excl
-        self.product_20_tax_excl.lst_price = 100
-        self.invoice_line.product_id = self.product_20_tax_excl
-        self.invoice_line._onchange_product_id()
+        self.assertEqual(self.invoice.invoice_line_ids[0].price_unit, 100)
+        self.assertEqual(self.invoice.invoice_line_ids[0].tax_ids, self.tax_20_tax_excl)
 
-        self.assertEqual(self.invoice_line.price_unit, 100)
+        self.assertEqual(self.invoice.amount_untaxed_signed, 100)
+        self.assertEqual(self.invoice.amount_total_signed, 120)
 
-    def test_02_mapping_20_excl_to_20_incl(self):
-        self.invoice.fiscal_position_id = self.fiscal_position_20_excl_to_20_incl
+    def test_01_no_fp_product_tax_incl(self):
+        invoice_form = Form(self.invoice)
+        with invoice_form.invoice_line_ids.new() as line:
+            line.product_id = self.product_20_tax_incl
+        invoice_form.save()
 
-        # 100 Tax Excl -> 120 Tax Incl
-        self.product_20_tax_excl.lst_price = 100
-        self.invoice_line.product_id = self.product_20_tax_excl
-        self.invoice_line._onchange_product_id()
+        self.assertEqual(self.invoice.invoice_line_ids[0].price_unit, 120)
+        self.assertEqual(self.invoice.invoice_line_ids[0].tax_ids, self.tax_20_tax_incl)
 
-        self.assertEqual(self.invoice_line.price_unit, 120)
+        self.assertEqual(self.invoice.amount_untaxed_signed, 100)
+        self.assertEqual(self.invoice.amount_total_signed, 120)
 
-        # 100 Tax Incl -> 100 Tax Incl
-        self.product_20_tax_incl.lst_price = 100
-        self.invoice_line.product_id = self.product_20_tax_incl
-        self.invoice_line._onchange_product_id()
+    def test_10_ftp_incl_2_excl_product_tax_excl(self):
+        invoice_form = Form(self.invoice)
+        invoice_form.fiscal_position_id = self.fiscal_position_20_incl_to_20_excl
+        with invoice_form.invoice_line_ids.new() as line:
+            line.product_id = self.product_20_tax_excl
+        invoice_form.save()
 
-        self.assertEqual(self.invoice_line.price_unit, 100)
+        self.assertEqual(self.invoice.invoice_line_ids[0].price_unit, 100)
+        self.assertEqual(self.invoice.invoice_line_ids[0].tax_ids, self.tax_20_tax_excl)
 
-        # res = self.AccountInvoiceLine.product_id_change(
-        #     self.product_20_tax_incl.id,
-        #     self.uom.id,
-        #     qty=1,
-        #     partner_id=self.partner.id,
-        #     fposition_id=self.fiscal_position_20_excl_to_20_incl.id,
-        # )
+        self.assertEqual(self.invoice.amount_untaxed_signed, 100)
+        self.assertEqual(self.invoice.amount_total_signed, 120)
 
-        # self.assertEqual(res["value"]["price_unit"], 100)
+    def test_11_ftp_incl_2_excl_product_tax_incl(self):
+        invoice_form = Form(self.invoice)
+        invoice_form.fiscal_position_id = self.fiscal_position_20_incl_to_20_excl
+        with invoice_form.invoice_line_ids.new() as line:
+            line.product_id = self.product_20_tax_incl
+        invoice_form.save()
+
+        self.assertEqual(self.invoice.invoice_line_ids[0].price_unit, 100)
+        self.assertEqual(self.invoice.invoice_line_ids[0].tax_ids, self.tax_20_tax_excl)
+
+        self.assertEqual(self.invoice.amount_untaxed_signed, 100)
+        self.assertEqual(self.invoice.amount_total_signed, 120)
+
+    def test_21_ftp_excl_2_incl_product_tax_incl(self):
+        invoice_form = Form(self.invoice)
+        invoice_form.fiscal_position_id = self.fiscal_position_20_excl_to_20_incl
+        with invoice_form.invoice_line_ids.new() as line:
+            line.product_id = self.product_20_tax_incl
+        invoice_form.save()
+
+        self.assertEqual(self.invoice.invoice_line_ids[0].price_unit, 120)
+        self.assertEqual(self.invoice.invoice_line_ids[0].tax_ids, self.tax_20_tax_incl)
+
+        self.assertEqual(self.invoice.amount_untaxed_signed, 100)
+        self.assertEqual(self.invoice.amount_total_signed, 120)
+
+    def test_30_ftp_excl_2_excl_product_tax_excl(self):
+        invoice_form = Form(self.invoice)
+        invoice_form.fiscal_position_id = self.fiscal_position_20_excl_to_5_excl
+        with invoice_form.invoice_line_ids.new() as line:
+            line.product_id = self.product_20_tax_excl
+        invoice_form.save()
+
+        self.assertEqual(self.invoice.invoice_line_ids[0].price_unit, 100)
+        self.assertEqual(self.invoice.invoice_line_ids[0].tax_ids, self.tax_5_tax_excl)
+
+        self.assertEqual(self.invoice.amount_untaxed_signed, 100)
+        self.assertEqual(self.invoice.amount_total_signed, 105)
+
+    def test_31_ftp_excl_2_excl_product_tax_incl(self):
+        invoice_form = Form(self.invoice)
+        invoice_form.fiscal_position_id = self.fiscal_position_20_excl_to_5_excl
+        with invoice_form.invoice_line_ids.new() as line:
+            line.product_id = self.product_20_tax_incl
+        invoice_form.save()
+
+        # Mapping should not be executed
+        self.assertEqual(self.invoice.invoice_line_ids[0].price_unit, 120)
+        self.assertEqual(self.invoice.invoice_line_ids[0].tax_ids, self.tax_20_tax_incl)
+
+        self.assertEqual(self.invoice.amount_untaxed_signed, 100)
+        self.assertEqual(self.invoice.amount_total_signed, 120)
+
+    def test_40_ftp_incl_2_incl_product_tax_excl(self):
+        invoice_form = Form(self.invoice)
+        invoice_form.fiscal_position_id = self.fiscal_position_20_incl_to_5_incl
+        with invoice_form.invoice_line_ids.new() as line:
+            line.product_id = self.product_20_tax_excl
+        invoice_form.save()
+
+        # Mapping should not be executed
+        self.assertEqual(self.invoice.invoice_line_ids[0].price_unit, 100)
+        self.assertEqual(self.invoice.invoice_line_ids[0].tax_ids, self.tax_20_tax_excl)
+
+        self.assertEqual(self.invoice.amount_untaxed_signed, 100)
+        self.assertEqual(self.invoice.amount_total_signed, 120)
+
+    def test_41_ftp_incl_2_incl_product_tax_incl(self):
+        invoice_form = Form(self.invoice)
+        invoice_form.fiscal_position_id = self.fiscal_position_20_incl_to_5_incl
+        with invoice_form.invoice_line_ids.new() as line:
+            line.product_id = self.product_20_tax_incl
+        invoice_form.save()
+
+        self.assertEqual(self.invoice.invoice_line_ids[0].price_unit, 105)
+        self.assertEqual(self.invoice.invoice_line_ids[0].tax_ids, self.tax_5_tax_incl)
+
+        self.assertEqual(self.invoice.amount_untaxed_signed, 100)
+        self.assertEqual(self.invoice.amount_total_signed, 105)
+
+    # ##############################
+    # Test Section "New Feature" (B)
+    # ##############################
+
+    def test_20_FIX_ftp_excl_2_incl_product_tax_excl(self):
+        invoice_form = Form(self.invoice)
+        invoice_form.fiscal_position_id = self.fiscal_position_20_excl_to_20_incl
+        with invoice_form.invoice_line_ids.new() as line:
+            line.product_id = self.product_20_tax_excl
+        invoice_form.save()
+
+        self.assertEqual(self.invoice.invoice_line_ids[0].price_unit, 120)
+        self.assertEqual(self.invoice.invoice_line_ids[0].tax_ids, self.tax_20_tax_incl)
+
+        self.assertEqual(self.invoice.amount_untaxed_signed, 100)
+        self.assertEqual(self.invoice.amount_total_signed, 120)

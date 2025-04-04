@@ -10,17 +10,23 @@ Account Fiscal Position - Tax Excluded to Included
    !! source digest: sha256:72f4c03f47c69856c81e1cdd6f1043f489bb8e0d322edf5ceb1054e37364e26e
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-.. |badge1| image:: https://img.shields.io/badge/maturity-Alpha-red.png
+.. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
-    :alt: Alpha
+    :alt: Beta
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
-.. |badge3| image:: https://img.shields.io/badge/github-grap%2Fgrap--odoo--incubator-lightgray.png?logo=github
-    :target: https://github.com/grap/grap-odoo-incubator/tree/12.0/account_fiscal_position_tax_included
-    :alt: grap/grap-odoo-incubator
+.. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github
+    :target: https://github.com/OCA/account-fiscal-rule/tree/16.0/account_fiscal_position_tax_included
+    :alt: OCA/account-fiscal-rule
+.. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
+    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-16-0/account-fiscal-rule-16-0-account_fiscal_position_tax_included
+    :alt: Translate me on Weblate
+.. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=16.0
+    :alt: Try me on Runboat
 
-|badge1| |badge2| |badge3|
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module extend the Odoo account module, regarding fiscal position.
 
@@ -28,39 +34,29 @@ By default, it is only possible to realize such tax mapping :
 
 * Tax Excl --> Tax Excl / No tax
 * Tax Incl --> Tax Excl / No tax
+* Tax Incl --> Tax Incl / No tax
 
 This module allows to realize such mapping and fixes incorrect computation.
 
 * Tax Excl --> Tax Incl
-* Tax Incl --> Tax Incl
-
-.. IMPORTANT::
-   This is an alpha version, the data model and design can change at any time without warning.
-   Only for development or testing purpose, do not use in production.
-   `More details on development status <https://odoo-community.org/page/development-status>`_
 
 **Table of contents**
 
 .. contents::
    :local:
 
-Known issues / Roadmap
-======================
+Development
+===========
 
-legalsylvain 2021-12-06:
-
-I'm not very confortable to have such patch in an external module.
-
-* When migrating to V16, check if this module is still necessary, or
-  open an issue.
+This module fully overwrite the function ``_get_tax_included_unit_price_from_price`` of the model ``product.product``.
 
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/grap/grap-odoo-incubator/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-fiscal-rule/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/grap/grap-odoo-incubator/issues/new?body=module:%20account_fiscal_position_tax_included%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_fiscal_position_tax_included%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -80,14 +76,24 @@ Contributors
 Maintainers
 ~~~~~~~~~~~
 
+This module is maintained by the OCA.
+
+.. image:: https://odoo-community.org/logo.png
+   :alt: Odoo Community Association
+   :target: https://odoo-community.org
+
+OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.
+
 .. |maintainer-legalsylvain| image:: https://github.com/legalsylvain.png?size=40px
     :target: https://github.com/legalsylvain
     :alt: legalsylvain
 
-Current maintainer:
+Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-legalsylvain| 
 
-This module is part of the `grap/grap-odoo-incubator <https://github.com/grap/grap-odoo-incubator/tree/12.0/account_fiscal_position_tax_included>`_ project on GitHub.
+This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/16.0/account_fiscal_position_tax_included>`_ project on GitHub.
 
-You are welcome to contribute.
+You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

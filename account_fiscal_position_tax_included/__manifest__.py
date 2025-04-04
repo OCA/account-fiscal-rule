@@ -1,16 +1,14 @@
-# Copyright (C) 2015-Today GRAP (http://www.grap.coop)
-# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+# Copyright (C) 2019-Today Sylvain LE GAL (http://www.grap.coop)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
     "name": "Account Fiscal Position - Tax Excluded to Included",
     "summary": "Allow to map from tax excluded to tax included",
-    "version": "12.0.1.1.3",
+    "version": "16.0.1.0.0",
     "category": "Accounting",
-    "author": "GRAP",
+    "author": "GRAP, Odoo Community Association (OCA)",
     "maintainers": ["legalsylvain"],
-    "development_status": "Alpha",
-    "website": "https://github.com/grap/grap-odoo-incubator",
+    "website": "https://github.com/OCA/account-fiscal-rule",
     "license": "AGPL-3",
     "depends": ["account"],
     "demo": [
