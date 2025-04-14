@@ -150,7 +150,7 @@ class L10nEuOssWizard(models.TransientModel):
         fiscal_pos_name = _("Intra-EU B2C in %(country_name)s") % {
             "country_name": country.name
         }
-        fiscal_pos_name += " (EU-OSS-%s)" % country.code
+        fiscal_pos_name += f" (EU-OSS-{country.code})"
         return {
             "name": fiscal_pos_name,
             "company_id": self.company_id.id,
