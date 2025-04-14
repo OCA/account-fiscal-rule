@@ -1,7 +1,7 @@
 # Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, fields, models
+from odoo import Command, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -16,7 +16,7 @@ class L10nEuOssWizard(models.TransientModel):
         eu_group = self.env.ref("base.europe", raise_if_not_found=False)
         if not eu_group:
             raise ValidationError(
-                _(
+                self.env._(
                     "The Europe country group cannot be found. "
                     "Please update the base module."
                 )
@@ -93,15 +93,13 @@ class L10nEuOssWizard(models.TransientModel):
 
     def _prepare_tax_group_vals(self, rate):
         return {
-            "name": _("OSS VAT %s%%") % rate,
+            "name": self.env._("OSS VAT %s%%") % rate,
             "country_id": self.company_id.account_fiscal_country_id.id,
         }
 
     def _prepare_repartition_line_vals(self, original_rep_lines):
         return [
-            (
-                0,
-                0,
+            Command.create(
                 {
                     "factor_percent": line.factor_percent,
                     "repartition_type": line.repartition_type,
@@ -117,7 +115,7 @@ class L10nEuOssWizard(models.TransientModel):
 
     def _prepare_tax_vals(self, country_id, tax_id, rate, tax_group):
         return {
-            "name": _("OSS for EU to %(country_name)s: %(rate)s")
+            "name": self.env._("OSS for EU to %(country_name)s: %(rate)s")
             % {"country_name": country_id.name, "rate": rate},
             "country_id": self.company_id.account_fiscal_country_id.id,
             "amount": rate,
@@ -147,7 +145,7 @@ class L10nEuOssWizard(models.TransientModel):
         return dict_taxes
 
     def _prepare_fiscal_position_vals(self, country, taxes_data):
-        fiscal_pos_name = _("Intra-EU B2C in %(country_name)s") % {
+        fiscal_pos_name = self.env._("Intra-EU B2C in %(country_name)s") % {
             "country_name": country.name
         }
         fiscal_pos_name += f" (EU-OSS-{country.code})"
