@@ -1,10 +1,10 @@
 # Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import TransactionCase
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestL10nEuOss(TransactionCase):
+class TestL10nEuOss(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
