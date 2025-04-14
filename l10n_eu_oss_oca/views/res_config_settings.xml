@@ -15,14 +15,14 @@
                     help="Apply EU taxes regarding OSS"
                 >
                     <div class="mt8">
-                            <button
+                        <button
                             name="%(l10n_eu_oss_oca_wizard_action)d"
                             icon="fa-arrow-right"
                             type="action"
                             string="Add new taxes"
                             class="btn-link"
                         />
-                        </div>
+                    </div>
                 </setting>
             </setting>
         </field>
