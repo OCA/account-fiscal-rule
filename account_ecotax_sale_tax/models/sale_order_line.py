@@ -90,3 +90,12 @@ class SaleOrderLine(models.Model):
         if "ecotax_line_ids" in res and not res["ecotax_line_ids"]:
             res.pop("ecotax_line_ids")
         return res
+
+    def _convert_to_tax_base_line_dict(self):
+        self.ensure_one()
+        country = (
+            self.order_id.partner_shipping_id.country_id
+            or self.order_id.partner_id.country_id
+        )
+        self = self.with_context(country=country)
+        return super()._convert_to_tax_base_line_dict()

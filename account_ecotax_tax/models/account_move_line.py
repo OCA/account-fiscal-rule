@@ -101,3 +101,12 @@ class AcountMoveLine(models.Model):
             tax_ids |= ecotax_ids
 
         return tax_ids
+
+    def _convert_to_tax_base_line_dict(self):
+        self.ensure_one()
+        country = (
+            self.move_id.partner_shipping_id.country_id
+            or self.move_id.partner_id.country_id
+        )
+        self = self.with_context(country=country)
+        return super()._convert_to_tax_base_line_dict()
