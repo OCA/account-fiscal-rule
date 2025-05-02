@@ -1,0 +1,56 @@
+<odoo>
+    <record id="avatax_retail_delivery_fee_tree_view" model="ir.ui.view">
+        <field name="name">avatax.retail.delivery.fee.tree</field>
+        <field name="model">avatax.retail.delivery.fee</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="enabled" widget="boolean_toggle" />
+                <field name="country_id" />
+                <field name="state_id" />
+                <field name="product_id" />
+                <field name="amount" />
+                <field name="tax_ids" widget="many2many_tags" />
+            </tree>
+        </field>
+    </record>
+    <record id="avatax_retail_delivery_fee_form_view" model="ir.ui.view">
+        <field name="name">avatax.retail.delivery.fee.form</field>
+        <field name="model">avatax.retail.delivery.fee</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="country_id" />
+                    <field name="state_id" />
+                    <field name="product_id" />
+                    <field name="amount" />
+                    <field
+                        name="tax_ids"
+                        widget="many2many_tags"
+                        context="{'default_amount_type': 'fixed'}"
+                    />
+                    <field name="enabled" widget="boolean_toggle" />
+                    <field
+                        name="condition_expression"
+                        attrs="{'invisible': [('enabled', '!=', True)]}"
+                        widget="ace"
+                        options="{'mode': 'python'}"
+                    />
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="action_avatax_retail_delivery_fee" model="ir.actions.act_window">
+        <field name="name">Retail Delivery Fees</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">avatax.retail.delivery.fee</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_avatax_retail_delivery_fee"
+        action="action_avatax_retail_delivery_fee"
+        parent="menu_avatax"
+        sequence="26"
+    />
+</odoo>

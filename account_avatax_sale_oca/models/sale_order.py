@@ -1,4 +1,8 @@
+import logging
+
 from odoo import api, fields, models
+
+_logger = logging.getLogger(__name__)
 
 
 class SaleOrder(models.Model):
@@ -202,11 +206,6 @@ class SaleOrder(models.Model):
         for line in self.order_line:
             tax_result_line = tax_result_lines.get(line.id)
             if tax_result_line:
-                fixed_tax_amount = tax_result_line["tax"]
-                retail_delivery_fee_tax = line.retail_delivery_fee_id.tax_ids
-                retail_delivery_fee_tax_match = retail_delivery_fee_tax.filtered(
-                    lambda t: t.amount == fixed_tax_amount
-                )
                 # Should we check the rate with the tax amount?
                 # tax_amount = tax_result_line["taxCalculated"]
                 # rate = round(tax_amount / line.price_subtotal * 100, 2)
@@ -220,21 +219,22 @@ class SaleOrder(models.Model):
                 rate = round(tax_calculation * 100, 4)
                 tax = Tax.get_avalara_tax(rate, doc_type)
                 tax, line = self.update_tax_details(tax, line, tax_result_line)
-                fixed_tax_amount = tax_result_line["tax"]
-                retail_delivery_fee_tax = line.retail_delivery_fee_id.tax_ids
-                retail_delivery_fee_tax_match = retail_delivery_fee_tax.filtered(
-                    lambda t: t.amount == fixed_tax_amount
+                is_fee = any(
+                    detail.get("isFee", False)
+                    for detail in tax_result_line.get("details", [])
                 )
-                if retail_delivery_fee_tax_match:
-                    tax = retail_delivery_fee_tax_match
-                    # tax amount doesn't match means creating copy record with new amount
-                elif retail_delivery_fee_tax:
-                    retail_delivery_fee_tax = retail_delivery_fee_tax[0]
-                    vals = {
-                        "amount": fixed_tax_amount,
-                        "name": f"{retail_delivery_fee_tax.name} - {fixed_tax_amount}",
-                    }
-                    tax = retail_delivery_fee_tax.sudo().copy(default=vals)
+                if is_fee:
+                    fixed_tax_amount = tax_result_line["tax"]
+                    retail_delivery_fee_tax = line.retail_delivery_fee_id.tax_ids
+                    retail_delivery_fee_tax_match = retail_delivery_fee_tax.filtered(
+                        lambda t: t.amount == fixed_tax_amount
+                    )
+                    if retail_delivery_fee_tax_match:
+                        tax = retail_delivery_fee_tax_match
+                    elif retail_delivery_fee_tax:
+                        _logger.debug(
+                            "Tax amount doesn't match with any configured RDF tax: did you create it?"  # noqa: B950
+                        )
                 if tax not in line.tax_id:
                     line_taxes = (
                         tax
@@ -246,27 +246,32 @@ class SaleOrder(models.Model):
         self.tax_amount = tax_result.get("totalTax")
         return True
 
-    def add_retail_product(self):
+    def add_retail_delivery_fee_product(self):
         order_line = self.env["sale.order.line"].sudo()
         avatax_config = self.company_id.get_avatax_config_company()
         if avatax_config:
-            retail_group = avatax_config.retail_group_ids.filtered(
+            retail_delivery_fees = avatax_config.retail_delivery_fee_ids.filtered(
                 lambda r: r.country_id.code == self.tax_address_id.country_id.code
                 and r.state_id.code == self.tax_address_id.state_id.code
             )
-            if retail_group:
-                retail_group = retail_group[0]
+            retail_delivery_fee = next(
+                (
+                    rdf
+                    for rdf in retail_delivery_fees
+                    if rdf.enabled and rdf.should_apply_to(self)
+                ),
+                None,
+            )
+            if retail_delivery_fee:
                 order_line = self.order_line.filtered(
-                    lambda l: l.retail_delivery_fee
-                    and l.product_id == retail_group.product_id
+                    lambda l: l.retail_delivery_fee_id
+                    and l.product_id == retail_delivery_fee.product_id
                 )
                 if not order_line:
                     temp_order_line = order_line.new(
                         {
-                            "product_id": retail_group.product_id.id,
-                            "price_unit": retail_group.amount,
-                            "retail_delivery_fee": True,
-                            "retail_delivery_fee_id": retail_group.id,
+                            "product_id": retail_delivery_fee.product_id.id,
+                            "retail_delivery_fee_id": retail_delivery_fee.id,
                             "order_id": self.id,
                         }
                     )
@@ -275,12 +280,11 @@ class SaleOrder(models.Model):
                     ):
                         method(temp_order_line)
                     vals = temp_order_line._convert_to_write(temp_order_line._cache)
-                    vals["price_unit"] = retail_group.amount
+                    vals["price_unit"] = 0
                     order_line = order_line.create(vals)
                 else:
                     order_line_to_edit = order_line.filtered(
-                        lambda o: o.retail_delivery_fee_id
-                        and o.price_unit != retail_group.amount
+                        lambda o: o.price_unit != 0
                     )
                     if order_line_to_edit:
                         self.write(
@@ -289,14 +293,16 @@ class SaleOrder(models.Model):
                                     (
                                         1,
                                         order_line_to_edit.id,
-                                        {"price_unit": retail_group.amount},
+                                        {
+                                            "price_unit": 0,
+                                        },
                                     )
                                 ]
                             }
                         )
             order_to_unlink = self.order_line.filtered(
-                lambda o: o.retail_delivery_fee
-                and o.retail_delivery_fee_id != retail_group
+                lambda o: o.retail_delivery_fee_id
+                and o.retail_delivery_fee_id != retail_delivery_fee
             )
             if order_to_unlink:
                 self.write({"order_line": [(2, x.id) for x in order_to_unlink]})
@@ -308,7 +314,7 @@ class SaleOrder(models.Model):
         """
         for order in self:
             if order.fiscal_position_id.is_avatax:
-                order.add_retail_product()
+                order.add_retail_delivery_fee_product()
                 order._avatax_compute_tax()
         return True
 
@@ -350,6 +356,17 @@ class SaleOrder(models.Model):
                 ):
                     self.calculate_tax_on_save = True
                     break
+
+    def has_existing_rdf_invoice(self, current_invoice, retail_delivery_fee):
+        self.ensure_one()
+        return bool(
+            self.invoice_ids.line_ids.filtered(
+                lambda line: line.move_id != current_invoice
+                and line.move_id.state != "cancel"
+                and line.product_id == retail_delivery_fee.product_id
+                and line.retail_delivery_fee_id
+            )
+        )
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -394,11 +411,8 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     tax_amt = fields.Monetary(string="AvaTax")
-    retail_delivery_fee = fields.Boolean(
-        compute="_compute_retail_delivery_fee", store=True, readonly=False
-    )
     retail_delivery_fee_id = fields.Many2one(
-        "retail.group",
+        "avatax.retail.delivery.fee",
         compute="_compute_retail_delivery_fee",
         store=True,
         readonly=False,
@@ -449,8 +463,7 @@ class SaleOrderLine(models.Model):
         )
         invoice_line_vals.update(
             {
-                "retail_delivery_fee": self.retail_delivery_fee,
-                "retail_delivery_fee_id": self.retail_delivery_fee_id,
+                "retail_delivery_fee_id": self.retail_delivery_fee_id.id,
             }
         )
         return invoice_line_vals
@@ -469,26 +482,23 @@ class SaleOrderLine(models.Model):
     @api.depends("product_id")
     def _compute_retail_delivery_fee(self):
         for rec in self:
-            retail_delivery_fee = False
             retail_delivery_fee_id = False
             avatax_config = rec.company_id.get_avatax_config_company()
             if avatax_config:
                 order = rec.order_id
-                retail_group = avatax_config.retail_group_ids.filtered(
+                retail_delivery_fee = avatax_config.retail_delivery_fee_ids.filtered(
                     lambda r: r.country_id.code == order.tax_address_id.country_id.code
                     and r.state_id.code == order.tax_address_id.state_id.code
                 )
-                if retail_group and rec.product_id == retail_group.product_id:
-                    retail_delivery_fee = True
+                if (
+                    retail_delivery_fee
+                    and rec.product_id == retail_delivery_fee.product_id
+                ):
                     retail_line = (
-                        order.order_line.filtered(
-                            lambda l: l.retail_delivery_fee and l.retail_delivery_fee_id
-                        )
-                        - rec
+                        order.order_line.filtered("retail_delivery_fee_id") - rec
                     )
                     if not retail_line:
-                        retail_delivery_fee_id = retail_group.id
-            rec.retail_delivery_fee = retail_delivery_fee
+                        retail_delivery_fee_id = retail_delivery_fee.id
             rec.retail_delivery_fee_id = retail_delivery_fee_id
 
     @api.depends("product_uom_qty", "discount", "price_unit", "tax_id", "tax_amt")
