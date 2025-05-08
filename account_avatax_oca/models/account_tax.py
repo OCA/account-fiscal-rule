@@ -1,7 +1,8 @@
+import ast
 from math import copysign
 
 from odoo import _, api, exceptions, fields, models
-from odoo.tools.float_utils import float_compare
+from odoo.tools.float_utils import float_compare, float_round
 
 
 class AccountTax(models.Model):
@@ -12,8 +13,8 @@ class AccountTax(models.Model):
     is_avatax = fields.Boolean()
 
     @api.model
-    def _get_avalara_tax_domain(self, tax_rate, doc_type):
-        return [
+    def _get_avalara_tax_domain(self, tax_rate, doc_type, tax_name=None):
+        domain = [
             ("amount", "=", tax_rate),
             ("is_avatax", "=", True),
             (
@@ -22,19 +23,22 @@ class AccountTax(models.Model):
                 self.env.company.id,
             ),
         ]
+        if tax_name:
+            domain.append(("name", "=", tax_name))
+        return domain
 
     @api.model
     def _get_avalara_tax_name(self, tax_rate, doc_type=None):
         return _("{}%*").format(str(tax_rate))
 
     @api.model
-    def get_avalara_tax(self, tax_rate, doc_type):
-        domain = self._get_avalara_tax_domain(tax_rate, doc_type)
+    def get_avalara_tax(self, tax_rate, doc_type, tax_name=None):
+        domain = self._get_avalara_tax_domain(tax_rate, doc_type, tax_name)
         tax = self.with_context(active_test=False).search(domain, limit=1)
         if tax and not tax.active:
             tax.active = True
         if not tax:
-            domain = self._get_avalara_tax_domain(0, doc_type)
+            domain = self._get_avalara_tax_domain(0, doc_type, "")
             tax_template = self.search(domain, limit=1)
             if not tax_template:
                 raise exceptions.UserError(
@@ -45,13 +49,16 @@ class AccountTax(models.Model):
             # check the data for your existing Avatax taxes.
             vals = {
                 "amount": tax_rate,
-                "name": self._get_avalara_tax_name(tax_rate, doc_type),
+                "name": tax_name
+                if tax_name
+                else self._get_avalara_tax_name(tax_rate, doc_type),
             }
             tax = tax_template.sudo().copy(default=vals)
             # Odoo core does not use the name set in default dict
             tax.name = vals.get("name")
         return tax
 
+    # flake8: noqa: C901
     def compute_all(
         self,
         price_unit,
@@ -78,11 +85,11 @@ class AccountTax(models.Model):
             partner,
             is_refund,
             handle_price_include,
-            include_caba_tags,
-            fixed_multiplicator,
+            include_caba_tags=include_caba_tags,
+            fixed_multiplicator=fixed_multiplicator,
         )
         avatax_invoice = self.env.context.get("avatax_invoice")
-        current_aml = False
+        current_aml = self.env["account.move.line"]
         if "current_aml" in self.env.context:
             current_aml = self.env["account.move.line"].browse(
                 self.env.context.get("current_aml")
@@ -92,15 +99,17 @@ class AccountTax(models.Model):
                 and current_aml.account_type != "asset_receivable"
             ):
                 avatax_invoice = False
+        if not avatax_invoice and current_aml:
+            avatax_invoice = current_aml.move_id
         if avatax_invoice:
             # Find the Avatax amount in the invoice Lines
             # Looks up the line for the current product, price_unit, and quantity
             # Note that the price_unit used must consider discount
-            base = res["total_excluded"]
+            total_excluded = res["total_excluded"]
             digits = 6
             avatax_amount = None
             if current_aml:
-                avatax_amount = copysign(current_aml.avatax_amt_line, base)
+                avatax_amount = copysign(current_aml.avatax_amt_line, total_excluded)
             else:
                 for line in avatax_invoice.invoice_line_ids:
                     price_unit = line.currency_id._convert(
@@ -113,7 +122,8 @@ class AccountTax(models.Model):
                         line.product_id == product
                         and float_compare(line.quantity, quantity, digits) == 0
                     ):
-                        avatax_amount = copysign(line.avatax_amt_line, base)
+                        avatax_amount = copysign(line.avatax_amt_line, total_excluded)
+                        current_aml = line
                         break
             if avatax_amount is None:
                 avatax_amount = 0.0
@@ -124,8 +134,66 @@ class AccountTax(models.Model):
                         " , quantity %(quantity)f"
                     )
                 )
-            for tax_item in res["taxes"]:
-                if tax_item["amount"] != 0:
-                    tax_item["amount"] = avatax_amount
-            res["total_included"] = base + avatax_amount
+            response = ast.literal_eval(avatax_invoice.avatax_response_log or "{}")
+            response_lines = {
+                int(l["lineNumber"]): l for l in response.get("lines", [])
+            }
+            doc_type = avatax_invoice._get_avatax_doc_type()
+            avatax_ids = self.search([("is_avatax", "=", True)]).ids
+            line = current_aml
+            line_result = response_lines.get(line.id)
+            if not line_result:
+                return res
+            relevant_tax_ids = [
+                x
+                for x in res["taxes"]
+                if x["id"] in line.tax_ids.ids and x["id"] in avatax_ids
+            ]
+            if not relevant_tax_ids:
+                return res
+            if not self:
+                company = self.env.company
+            else:
+                company = self[0].company_id
+            if not currency:
+                currency = company.currency_id
+            prec = currency.rounding
+            round_tax = (
+                False
+                if company.tax_calculation_rounding_method == "round_globally"
+                else True
+            )
+            if "round" in self.env.context:
+                round_tax = bool(self.env.context["round"])
+
+            if not round_tax:
+                prec *= 1e-5
+            base = price_unit * quantity
+            if self._context.get("round_base", True):
+                base = currency.round(base)
+            sign = 1
+            if currency.is_zero(base):
+                sign = -1 if fixed_multiplicator < 0 else 1
+            elif base < 0:
+                sign = -1
+            for detail in line_result.get("details", []):
+                fixed = detail.get("unitOfBasis") == "FlatAmount"
+                rate = detail["rate"] if fixed else detail["rate"] * 100
+                tax_group_name = detail.get("taxName", "").removesuffix(" TAX")
+                tax_name_display = "%s %s" % (
+                    tax_group_name,
+                    ("$ %.4g" if fixed else "%.4g%%") % round(rate, 4),
+                )
+                tax = self.get_avalara_tax(rate, doc_type, tax_name=tax_name_display)
+                for tax_item in relevant_tax_ids:
+                    if tax_item["id"] == tax.id:
+                        tax_item["amount"] = (
+                            float_round(detail["tax"], precision_rounding=prec) * sign
+                        )
+                        tax_item["base"] = float_round(
+                            sign * detail["taxableAmount"], precision_rounding=prec
+                        )
+            res["total_included"] = total_excluded + sum(
+                t["amount"] for t in res["taxes"]
+            )
         return res

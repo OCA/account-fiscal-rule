@@ -245,21 +245,24 @@ class AccountMove(models.Model):
             taxes_to_set = {}
             for line in self.invoice_line_ids:
                 tax_result_line = tax_result_lines.get(line.id)
-                if tax_result_line:
-                    # rate = tax_result_line.get("rate", 0.0)
-                    tax_calculation = 0.0
-                    if tax_result_line["taxableAmount"]:
-                        tax_calculation = (
-                            tax_result_line["taxCalculated"]
-                            / tax_result_line["taxableAmount"]
-                        )
-                    rate = round(tax_calculation * 100, 4)
-                    tax = Tax.get_avalara_tax(rate, doc_type)
+                if not tax_result_line:
+                    continue
+                details = tax_result_line["details"]
+                new_taxes = Tax
+                for detail in details:
+                    fixed = detail.get("unitOfBasis") == "FlatAmount"
+                    rate = detail["rate"] if fixed else detail["rate"] * 100
+                    tax_group_name = detail["taxName"].removesuffix(" TAX")
+                    tax_name_display = "%s %s" % (
+                        tax_group_name,
+                        ("$ %.4g" if fixed else "%.4g%%") % round(rate, 4),
+                    )
+                    tax = Tax.get_avalara_tax(rate, doc_type, tax_name=tax_name_display)
                     tax, line = self.update_tax_details(tax, line, tax_result_line)
-                    if tax and tax not in line.tax_ids:
-                        line_taxes = line.tax_ids.filtered(lambda x: not x.is_avatax)
-                        taxes_to_set[line.id] = line_taxes | tax
-                    line.avatax_amt_line = tax_result_line["tax"]
+                    new_taxes |= tax
+                if new_taxes and new_taxes not in line.tax_ids:
+                    line_taxes = line.tax_ids.filtered(lambda x: not x.is_avatax)
+                    taxes_to_set[line.id] = line_taxes | new_taxes
             self.with_context(check_move_validity=False).avatax_amount = tax_result[
                 "totalTax"
             ]

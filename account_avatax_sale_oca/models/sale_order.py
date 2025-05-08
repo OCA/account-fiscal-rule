@@ -90,6 +90,7 @@ class SaleOrder(models.Model):
         for order in self:
             order.tax_amount = 0
 
+    # pylint: disable=W8110
     @api.depends("order_line.price_total", "order_line.product_uom_qty", "tax_amount")
     def _compute_amounts(self):
         """
@@ -97,16 +98,13 @@ class SaleOrder(models.Model):
         Their computation needs to be overriden,
         to use the amounts returned by Avatax service, stored in specific fields.
         """
-        res = super()._compute_amounts()
-        for order in self:
-            if order.tax_amount:
-                order.update(
-                    {
-                        "amount_tax": order.tax_amount,
-                        "amount_total": order.amount_untaxed + order.tax_amount,
-                    }
-                )
-        return res
+        avatax_orders = self.filtered(
+            lambda so: so.fiscal_position_id.is_avatax and so.tax_amount
+        )
+        for order in avatax_orders:
+            order.amount_tax = order.tax_amount
+            order.amount_total = order.amount_untaxed + order.amount_tax
+        super(SaleOrder, self - avatax_orders)._compute_amounts()
 
     @api.depends("tax_on_shipping_address", "partner_id", "partner_shipping_id")
     def _compute_tax_address_id(self):
@@ -201,28 +199,33 @@ class SaleOrder(models.Model):
         tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
         for line in self.order_line:
             tax_result_line = tax_result_lines.get(line.id)
-            if tax_result_line:
-                # Should we check the rate with the tax amount?
-                # tax_amount = tax_result_line["taxCalculated"]
-                # rate = round(tax_amount / line.price_subtotal * 100, 2)
-                # rate = tax_result_line["rate"]
-                tax_calculation = 0.0
-                if tax_result_line["taxableAmount"]:
-                    tax_calculation = (
-                        tax_result_line["taxCalculated"]
-                        / tax_result_line["taxableAmount"]
-                    )
-                rate = round(tax_calculation * 100, 4)
-                tax = Tax.get_avalara_tax(rate, doc_type)
+            if not tax_result_line:
+                continue
+            # Should we check the rate with the tax amount?
+            # tax_amount = tax_result_line["taxCalculated"]
+            # rate = round(tax_amount / line.price_subtotal * 100, 2)
+            # rate = tax_result_line["rate"]
+            new_taxes = Tax
+            details = tax_result_line["details"]
+            for detail in details:
+                fixed = detail.get("unitOfBasis") == "FlatAmount"
+                rate = detail["rate"] if fixed else detail["rate"] * 100
+                tax_group_name = detail["taxName"].removesuffix(" TAX")
+                tax_name_display = "%s %s" % (
+                    tax_group_name,
+                    ("$ %.4g" if fixed else "%.4g%%") % round(rate, 4),
+                )
+                tax = Tax.get_avalara_tax(rate, doc_type, tax_name=tax_name_display)
                 tax, line = self.update_tax_details(tax, line, tax_result_line)
-                if tax not in line.tax_id:
-                    line_taxes = (
-                        tax
-                        if avatax_config.override_line_taxes
-                        else tax | line.tax_id.filtered(lambda x: not x.is_avatax)
-                    )
-                    line.tax_id = line_taxes
-                line.tax_amt = tax_result_line["tax"]
+                new_taxes |= tax
+            if new_taxes not in line.tax_id:
+                line_taxes = (
+                    new_taxes
+                    if avatax_config.override_line_taxes
+                    else new_taxes | line.tax_id.filtered(lambda x: not x.is_avatax)
+                )
+                line.tax_id |= line_taxes
+            line.tax_amt = tax_result_line["tax"]
         self.tax_amount = tax_result.get("totalTax")
         return True
 

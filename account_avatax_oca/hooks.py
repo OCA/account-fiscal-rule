@@ -100,3 +100,31 @@ def post_load_hook():  # noqa: C901
     if not hasattr(AccountMoveLine, "_compute_all_tax_origin"):
         AccountMoveLine._compute_all_tax_origin = AccountMoveLine._compute_all_tax
     AccountMoveLine._compute_all_tax = _compute_all_tax_new
+
+    @api.depends("quantity", "discount", "price_unit", "tax_ids", "currency_id")
+    def _compute_totals_new(self):
+        for line in self:
+            if line.display_type != "product":
+                line.price_total = line.price_subtotal = False
+            # Compute 'price_subtotal'.
+            line_discount_price_unit = line.price_unit * (1 - (line.discount / 100.0))
+            subtotal = line.quantity * line_discount_price_unit
+
+            # Compute 'price_total'.
+            if line.tax_ids:
+                taxes_res = line.tax_ids.with_context(current_aml=line.id).compute_all(
+                    line_discount_price_unit,
+                    quantity=line.quantity,
+                    currency=line.currency_id,
+                    product=line.product_id,
+                    partner=line.partner_id,
+                    is_refund=line.is_refund,
+                )
+                line.price_subtotal = taxes_res["total_excluded"]
+                line.price_total = taxes_res["total_included"]
+            else:
+                line.price_total = line.price_subtotal = subtotal
+
+    if not hasattr(AccountMoveLine, "_compute_totals_origin"):
+        AccountMoveLine._compute_totals_origin = AccountMoveLine._compute_totals
+    AccountMoveLine._compute_totals = _compute_totals_new
