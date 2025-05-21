@@ -146,6 +146,11 @@ class AvalaraSalestax(models.Model):
         help="Uncheck the this field to show exemption fields on SO/Invoice form view. "
         "Also, it will show Tax based on shipping address button",
     )
+    breakdown_all_taxes = fields.Boolean(
+        default=False,  # option to avoid disturbing current users who do not want to change
+        help="If checked, taxes will be shown as separate detailed lines instead of "
+        "one aggregated line.",
+    )
     # TODO: add option to Display Prices with Tax Included
     # Enabled the tax inclusive flag in the GetTax Request.
 

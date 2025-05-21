@@ -20,6 +20,7 @@
                             <field name="company_partner_id" />
                             <field name="disable_tax_calculation" />
                             <field name="disable_address_validation" />
+                            <field name="breakdown_all_taxes" />
                         </group>
                     </group>
                     <notebook>

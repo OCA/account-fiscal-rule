@@ -238,17 +238,18 @@ class AccountMove(models.Model):
             avatax_config.unvoid_transaction(self.name, doc_type)
             avatax_config.commit_transaction(self.name, doc_type)
             return tax_result
-
-        if self.state == "draft":
-            Tax = self.env["account.tax"]
-            tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
-            taxes_to_set = {}
-            for line in self.invoice_line_ids:
-                tax_result_line = tax_result_lines.get(line.id)
-                if not tax_result_line:
-                    continue
+        if self.state != "draft":
+            return tax_result
+        Tax = self.env["account.tax"]
+        tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
+        taxes_to_set = {}
+        for line in self.invoice_line_ids:
+            tax_result_line = tax_result_lines.get(line.id)
+            if not tax_result_line:
+                continue
+            new_taxes = Tax
+            if avatax_config.breakdown_all_taxes:
                 details = tax_result_line["details"]
-                new_taxes = Tax
                 for detail in details:
                     fixed = detail.get("unitOfBasis") == "FlatAmount"
                     rate = detail["rate"] if fixed else detail["rate"] * 100
@@ -260,43 +261,47 @@ class AccountMove(models.Model):
                     tax = Tax.get_avalara_tax(rate, doc_type, tax_name=tax_name_display)
                     tax, line = self.update_tax_details(tax, line, tax_result_line)
                     new_taxes |= tax
-                if new_taxes and new_taxes not in line.tax_ids:
-                    line_taxes = line.tax_ids.filtered(lambda x: not x.is_avatax)
-                    taxes_to_set[line.id] = line_taxes | new_taxes
-            self.with_context(check_move_validity=False).avatax_amount = tax_result[
-                "totalTax"
-            ]
-            container = {"records": self}
-
-            # Set Taxes on lines in a way that properly triggers onchanges
-            # This same approach is also used by the official account_taxcloud connector
-            with self.with_context(
-                avatax_invoice=self, check_move_validity=False
-            )._sync_dynamic_lines(container), self.line_ids.mapped(
-                "move_id"
-            )._check_balanced(
-                container
-            ):
-                for line_id in taxes_to_set.keys():
-                    line = self.invoice_line_ids.filtered(lambda x: x.id == line_id)
-                    line.write({"tax_ids": [(6, 0, [])]})
-                    line.with_context(
-                        avatax_invoice=self, check_move_validity=False
-                    ).write({"tax_ids": taxes_to_set.get(line_id).ids})
-            # After taxes are changed is needed to force compute taxes again, in 16 version
-            # change of tax doesn't trigger compute of taxes on header for unknown reason
-            self._compute_amount()
-            if float_compare(
-                self.amount_untaxed + max(self.amount_tax, abs(self.avatax_amount)),
-                self.amount_residual,
-                precision_rounding=self.currency_id.rounding or 0.001,
-            ):
-                taxes_data = {
-                    iline.id: iline.tax_ids for iline in self.invoice_line_ids
-                }
-                self.invoice_line_ids.write({"tax_ids": [(6, 0, [])]})
-                for line in self.invoice_line_ids:
-                    line.write({"tax_ids": taxes_data[line.id].ids})
+            else:
+                taxable_amt = tax_result_line.get("taxableAmount", 0.0)
+                tax_calc_amt = tax_result_line.get("taxCalculated") or 0.0
+                if taxable_amt:
+                    rate = round((tax_calc_amt / taxable_amt) * 100, 4)
+                    tax = Tax.get_avalara_tax(rate, doc_type)
+                    new_taxes |= tax
+            if new_taxes and new_taxes not in line.tax_ids:
+                line_taxes = line.tax_ids.filtered(lambda x: not x.is_avatax)
+                taxes_to_set[line.id] = line_taxes | new_taxes
+        self.with_context(check_move_validity=False).avatax_amount = tax_result[
+            "totalTax"
+        ]
+        container = {"records": self}
+        # Set Taxes on lines in a way that properly triggers onchanges
+        # This same approach is also used by the official account_taxcloud connector
+        with self.with_context(
+            avatax_invoice=self, check_move_validity=False
+        )._sync_dynamic_lines(container), self.line_ids.mapped(
+            "move_id"
+        )._check_balanced(
+            container
+        ):
+            for line_id, taxes in taxes_to_set.items():
+                line = self.invoice_line_ids.filtered(lambda l: l.id == line_id)
+                line.write({"tax_ids": [(6, 0, [])]})
+                line.with_context(avatax_invoice=self, check_move_validity=False).write(
+                    {"tax_ids": taxes.ids}
+                )
+        # After taxes are changed is needed to force compute taxes again, in 16 version
+        # change of tax doesn't trigger compute of taxes on header for unknown reason
+        self._compute_amount()
+        if float_compare(
+            self.amount_untaxed + max(self.amount_tax, abs(self.avatax_amount)),
+            self.amount_residual,
+            precision_rounding=self.currency_id.rounding or 0.001,
+        ):
+            taxes_data = {iline.id: iline.tax_ids for iline in self.invoice_line_ids}
+            self.invoice_line_ids.write({"tax_ids": [(6, 0, [])]})
+            for line in self.invoice_line_ids:
+                line.write({"tax_ids": taxes_data[line.id].ids})
         return tax_result
 
     # Same as v13

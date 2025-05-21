@@ -201,23 +201,27 @@ class SaleOrder(models.Model):
             tax_result_line = tax_result_lines.get(line.id)
             if not tax_result_line:
                 continue
-            # Should we check the rate with the tax amount?
-            # tax_amount = tax_result_line["taxCalculated"]
-            # rate = round(tax_amount / line.price_subtotal * 100, 2)
-            # rate = tax_result_line["rate"]
             new_taxes = Tax
-            details = tax_result_line["details"]
-            for detail in details:
-                fixed = detail.get("unitOfBasis") == "FlatAmount"
-                rate = detail["rate"] if fixed else detail["rate"] * 100
-                tax_group_name = detail["taxName"].removesuffix(" TAX")
-                tax_name_display = "%s %s" % (
-                    tax_group_name,
-                    ("$ %.4g" if fixed else "%.4g%%") % round(rate, 4),
-                )
-                tax = Tax.get_avalara_tax(rate, doc_type, tax_name=tax_name_display)
-                tax, line = self.update_tax_details(tax, line, tax_result_line)
-                new_taxes |= tax
+            if avatax_config.breakdown_all_taxes:
+                details = tax_result_line["details"]
+                for detail in details:
+                    fixed = detail.get("unitOfBasis") == "FlatAmount"
+                    rate = detail["rate"] if fixed else detail["rate"] * 100
+                    tax_group_name = detail["taxName"].removesuffix(" TAX")
+                    tax_name_display = "%s %s" % (
+                        tax_group_name,
+                        ("$ %.4g" if fixed else "%.4g%%") % round(rate, 4),
+                    )
+                    tax = Tax.get_avalara_tax(rate, doc_type, tax_name=tax_name_display)
+                    tax, line = self.update_tax_details(tax, line, tax_result_line)
+                    new_taxes |= tax
+            else:
+                taxable_amt = tax_result_line.get("taxableAmount", 0.0)
+                tax_calc_amt = tax_result_line.get("taxCalculated") or 0.0
+                if taxable_amt:
+                    rate = round((tax_calc_amt / taxable_amt) * 100, 4)
+                    tax = Tax.get_avalara_tax(rate, doc_type)
+                    new_taxes |= tax
             if new_taxes not in line.tax_id:
                 line_taxes = (
                     new_taxes

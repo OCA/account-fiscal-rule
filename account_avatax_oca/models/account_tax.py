@@ -126,7 +126,6 @@ class AccountTax(models.Model):
                         current_aml = line
                         break
             if avatax_amount is None:
-                avatax_amount = 0.0
                 raise exceptions.UserError(
                     _(
                         "Incorrect retrieval of Avatax amount for Invoice %(avatax_invoice)s:"
@@ -151,23 +150,14 @@ class AccountTax(models.Model):
             ]
             if not relevant_tax_ids:
                 return res
-            if not self:
-                company = self.env.company
-            else:
-                company = self[0].company_id
-            if not currency:
-                currency = company.currency_id
-            prec = currency.rounding
-            round_tax = (
-                False
-                if company.tax_calculation_rounding_method == "round_globally"
-                else True
-            )
+            company = self.env.company if not self else self[0].company_id
+            currency = currency or company.currency_id
+            precision = currency.rounding
+            round_tax = company.tax_calculation_rounding_method != "round_globally"
             if "round" in self.env.context:
                 round_tax = bool(self.env.context["round"])
-
             if not round_tax:
-                prec *= 1e-5
+                precision *= 1e-5
             base = price_unit * quantity
             if self._context.get("round_base", True):
                 base = currency.round(base)
@@ -176,24 +166,34 @@ class AccountTax(models.Model):
                 sign = -1 if fixed_multiplicator < 0 else 1
             elif base < 0:
                 sign = -1
-            for detail in line_result.get("details", []):
-                fixed = detail.get("unitOfBasis") == "FlatAmount"
-                rate = detail["rate"] if fixed else detail["rate"] * 100
-                tax_group_name = detail.get("taxName", "").removesuffix(" TAX")
-                tax_name_display = "%s %s" % (
-                    tax_group_name,
-                    ("$ %.4g" if fixed else "%.4g%%") % round(rate, 4),
-                )
-                tax = self.get_avalara_tax(rate, doc_type, tax_name=tax_name_display)
-                for tax_item in relevant_tax_ids:
-                    if tax_item["id"] == tax.id:
-                        tax_item["amount"] = (
-                            float_round(detail["tax"], precision_rounding=prec) * sign
-                        )
-                        tax_item["base"] = float_round(
-                            sign * detail["taxableAmount"], precision_rounding=prec
-                        )
-            res["total_included"] = total_excluded + sum(
-                t["amount"] for t in res["taxes"]
-            )
+            avatax_config = avatax_invoice.company_id.get_avatax_config_company()
+            if not avatax_config:
+                return res
+            if not avatax_config.breakdown_all_taxes:
+                for tax_item in res["taxes"]:
+                    if tax_item["amount"] != 0:
+                        tax_item["amount"] = avatax_amount
+            else:
+                for detail in line_result.get("details", []):
+                    fixed = detail.get("unitOfBasis") == "FlatAmount"
+                    rate = detail["rate"] if fixed else detail["rate"] * 100
+                    tax_group_name = detail.get("taxName", "").removesuffix(" TAX")
+                    tax_name_display = "%s %s" % (
+                        tax_group_name,
+                        ("$ %.4g" if fixed else "%.4g%%") % round(rate, 4),
+                    )
+                    tax = self.get_avalara_tax(
+                        rate, doc_type, tax_name=tax_name_display
+                    )
+                    for tax_item in relevant_tax_ids:
+                        if tax_item["id"] == tax.id:
+                            tax_item["amount"] = (
+                                float_round(detail["tax"], precision_rounding=precision)
+                                * sign
+                            )
+                            tax_item["base"] = float_round(
+                                sign * detail["taxableAmount"],
+                                precision_rounding=precision,
+                            )
+            res["total_included"] = total_excluded + avatax_amount
         return res
