@@ -5,7 +5,7 @@
 from odoo import fields, models
 
 
-class AccountEcotaxCategory(models.Model):
+class AccountEcotaxCategory1(models.Model):
     _name = "account.ecotax.category"
     _description = "Account Ecotax Category"
 
