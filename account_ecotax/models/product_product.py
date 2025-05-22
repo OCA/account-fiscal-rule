@@ -101,7 +101,7 @@ class ProductProduct(models.Model):
         return fixed_ecotax, weight_based_ecotax, amount_ecotax
 
     def _get_country_eligible_classification(self, country):
-        self.ensure_one()
+        self and self.ensure_one()
         return self.all_ecotax_line_product_ids.filtered(
             lambda line: not line.country_ids
             or (country and country in line.country_ids)

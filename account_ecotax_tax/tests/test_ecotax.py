@@ -35,7 +35,7 @@ class TestInvoiceEcotaxTaxComon(TestInvoiceEcotaxCommon):
                 "sequence": 0,
                 "is_ecotax": True,
                 "python_compute": "result = (quantity and"
-                " product.ecotax_amount_context * quantity  or 0.0)",
+                " product.ecotax_amount * quantity  or 0.0)",
                 "tax_exigibility": "on_invoice",
                 "invoice_repartition_line_ids": [
                     (

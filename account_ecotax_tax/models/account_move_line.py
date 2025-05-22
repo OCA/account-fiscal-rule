@@ -18,11 +18,6 @@ class AcountMoveLine(models.Model):
 
     def _get_ecotax_amounts(self):
         self.ensure_one()
-        country = (
-            self.move_id.partner_shipping_id.country_id
-            or self.move_id.partner_id.country_id
-        )
-        self = self.with_context(country=country)
         ecotax_ids = self.tax_ids.filtered(lambda tax: tax.is_ecotax)
 
         if self.display_type == "tax" or not ecotax_ids:
@@ -57,8 +52,6 @@ class AcountMoveLine(models.Model):
         "tax_ids",
         "quantity",
         "product_id",
-        "move_id.partner_id",
-        "move_id.partner_shipping_id",
     )
     def _compute_ecotax_tax(self):
         return self._compute_ecotax()
@@ -74,23 +67,40 @@ class AcountMoveLine(models.Model):
     def _compute_ecotax_line_ids(self):
         return super()._compute_ecotax_line_ids()
 
+    @api.depends(
+        "product_id",
+        "product_uom_id",
+        "move_id.partner_id",
+        "move_id.partner_shipping_id",
+    )
+    def _compute_tax_ids(self):
+        return super()._compute_tax_ids()
+
     def _get_computed_taxes(self):
         tax_ids = super()._get_computed_taxes()
         ecotax_ids = self.env["account.tax"]
+        country = (
+            self.move_id.partner_shipping_id.country_id
+            or self.move_id.partner_id.country_id
+        )
         if self.move_id.is_sale_document(include_receipts=True):
             # Out invoice.
-            sale_ecotaxs = self.product_id.all_ecotax_line_product_ids.mapped(
-                "classification_id"
-            ).mapped("sale_ecotax_ids")
+            eligible_classifications = (
+                self.product_id._get_country_eligible_classification(country)
+            )
+            sale_ecotaxs = eligible_classifications.classification_id.sale_ecotax_ids
             ecotax_ids = sale_ecotaxs.filtered(
                 lambda tax: tax.company_id == self.move_id.company_id
             )
 
         elif self.move_id.is_purchase_document(include_receipts=True):
             # In invoice.
-            purchase_ecotaxs = self.product_id.all_ecotax_line_product_ids.mapped(
-                "classification_id"
-            ).mapped("purchase_ecotax_ids")
+            eligible_classifications = (
+                self.product_id._get_country_eligible_classification(country)
+            )
+            purchase_ecotaxs = (
+                eligible_classifications.classification_id.purchase_ecotax_ids
+            )
             ecotax_ids = purchase_ecotaxs.filtered(
                 lambda tax: tax.company_id == self.move_id.company_id
             )
@@ -101,12 +111,3 @@ class AcountMoveLine(models.Model):
             tax_ids |= ecotax_ids
 
         return tax_ids
-
-    def _convert_to_tax_base_line_dict(self):
-        self.ensure_one()
-        country = (
-            self.move_id.partner_shipping_id.country_id
-            or self.move_id.partner_id.country_id
-        )
-        self = self.with_context(country=country)
-        return super()._convert_to_tax_base_line_dict()

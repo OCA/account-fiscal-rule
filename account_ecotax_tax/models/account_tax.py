@@ -26,12 +26,10 @@ class AccountTax(models.Model):
 # price_unit
 # product: product.product object or None
 # partner: res.partner object or None
-
-# Previously we needed to have 1 tax for weight ecotax configured this way
+# for weight based ecotax
 # result = quantity and  product.weight_based_ecotax * quantity or 0.0
-# and 1 tax for fixed ecotax configured this way
+# for fix ecotax
 # result = quantity and product.fixed_ecotax  * quantity or 0.0
-# we now are able to have one generic tax. You have to use ecotax_amount_context
-# to have ecotax working depending on the delivery addresses
-result = quantity and product.ecotax_amount_context  * quantity or 0.0
+# to manage both weight and fix with only one ecotax tax
+result = quantity and product.ecotax_amount  * quantity or 0.0
             """
