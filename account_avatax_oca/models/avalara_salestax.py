@@ -211,10 +211,11 @@ class AvalaraSalestax(models.Model):
             if not avatax_config.auto_generate_customer_code:
                 raise UserError(
                     _(
-                        "Customer Code for customer %(partner.name)s not defined.\n\n  "
+                        "Customer Code for customer %s not defined.\n\n  "
                         "You can edit the Customer Code in customer profile. "
                         'You can fix by clicking "Generate Customer Code" '
-                        "button in the customer contact information"
+                        "button in the customer contact information",
+                        partner.name,
                     )
                 )
             else:
@@ -243,7 +244,8 @@ class AvalaraSalestax(models.Model):
             if not shipping_address.date_validation:
                 raise UserError(
                     _(
-                        "Please validate the shipping address for the partner %(partner.name)s."
+                        "Please validate the shipping address for the partner %s.",
+                        partner.name,
                     )
                 )
 

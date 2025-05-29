@@ -116,13 +116,21 @@ class AccountTax(models.Model):
                         avatax_amount = copysign(line.avatax_amt_line, base)
                         break
             if avatax_amount is None:
-                avatax_amount = 0.0
                 raise exceptions.UserError(
                     _(
-                        "Incorrect retrieval of Avatax amount for Invoice %(avatax_invoice)s:"
-                        " product %(product.display_name)s, price_unit %(-price_unit)f"
-                        " , quantity %(quantity)f"
+                        "Incorrect retrieval of Avatax amount for invoice '%(invoice)s':\n"
+                        "- Product: %(product)s\n"
+                        "- Quantity: %(quantity)s"
+                        "- Price Unit: %(price_unit)s"
                     )
+                    % {
+                        "invoice": avatax_invoice.display_name
+                        if avatax_invoice
+                        else "/",
+                        "product": product.display_name if product else "",
+                        "quantity": quantity,
+                        "price_unit": price_unit,
+                    }
                 )
             for tax_item in res["taxes"]:
                 if tax_item["amount"] != 0:
