@@ -8,7 +8,6 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
-
             <xpath
                 expr="//field[@name='invoice_line_ids']/tree/field[last()]"
                 position="after"
@@ -144,16 +143,13 @@
                                 nolabel="1"
                                 invisible="parent_state != 'draft'"
                             >
-                                   <tree editable="bottom">
-                                        <field name="classification_id" />
-                                        <field name="force_amount_unit" />
-                                        <field name="amount_unit" />
-                                        <field
-                                        name="amount_total"
-                                        sum="Total Ecotaxe"
-                                    />
-                                   </tree>
-                                </field>
+                                <tree editable="bottom">
+                                    <field name="classification_id" />
+                                    <field name="force_amount_unit" />
+                                    <field name="amount_unit" />
+                                    <field name="amount_total" sum="Total Ecotaxe" />
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                     <group>
