@@ -29,7 +29,7 @@
         inherit_id="account.document_tax_totals"
         priority="100"
     >
-        <xpath expr="//t[@t-set='subtotal_to_show']" position="before">
+        <xpath expr="//span[1]/../.." position="after">
             <tr
                 t-if="o and o._name == 'account.move' and o.amount_ecotax"
                 name="ecotax_line"

@@ -17,11 +17,11 @@
                     />
                     <div>
                         <field name="ecotax_line_product_ids" colspan="2" nolabel="1">
-                            <tree editable="bottom">
+                            <list editable="bottom">
                                 <field name="classification_id" />
                                 <field name="force_amount" />
                                 <field name="amount" />
-                            </tree>
+                            </list>
                         </field>
                     </div>
                     <field name="ecotax_amount" />

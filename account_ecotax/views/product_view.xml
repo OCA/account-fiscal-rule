@@ -9,7 +9,7 @@
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_variant_easy_edit_view" />
         <field name="arch" type="xml">
-            <group name="tags" position="after">
+            <group name="pricing" position="after">
                 <group name="ecotax_classif" string="Ecotaxe classification">
                     <label
                         for="ecotax_line_product_ids"
@@ -22,11 +22,11 @@
                             nolabel="1"
                             readonly="1"
                         >
-                            <tree editable="bottom">
+                            <list editable="bottom">
                                 <field name="classification_id" />
                                 <field name="force_amount" />
                                 <field name="amount" />
-                            </tree>
+                            </list>
                         </field>
                     </div>
                     <label
@@ -39,11 +39,11 @@
                             colspan="2"
                             nolabel="1"
                         >
-                            <tree editable="bottom">
+                            <list editable="bottom">
                                 <field name="classification_id" />
                                 <field name="force_amount" />
                                 <field name="amount" />
-                            </tree>
+                            </list>
                         </field>
                     </div>
                     <field name="fixed_ecotax" />
@@ -53,8 +53,8 @@
             </group>
         </field>
     </record>
+
     <record id="product_normal_form_view" model="ir.ui.view">
-        <field name="name">usability.product.product.form</field>
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view" />
         <field name="arch" type="xml">
@@ -69,11 +69,11 @@
                         colspan="2"
                         nolabel="1"
                     >
-                        <tree editable="bottom">
+                        <list editable="bottom">
                             <field name="classification_id" />
                             <field name="force_amount" />
                             <field name="amount" />
-                        </tree>
+                        </list>
                     </field>
                 </div>
             </xpath>

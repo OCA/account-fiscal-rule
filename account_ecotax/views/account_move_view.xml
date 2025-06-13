@@ -9,7 +9,7 @@
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
             <xpath
-                expr="//field[@name='invoice_line_ids']/tree/field[last()]"
+                expr="//field[@name='invoice_line_ids']/list/field[last()]"
                 position="after"
             >
                 <field
@@ -29,15 +29,16 @@
                     invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
                 />
                 <field name="ecotax_line_ids" invisible="1">
-                    <tree editable="bottom">
+                    <list editable="bottom">
                         <field name="classification_id" />
                         <field name="force_amount_unit" />
                         <field name="amount_unit" />
                         <field name="amount_total" />
-                    </tree>
+                    </list>
                 </field>
             </xpath>
-            <xpath
+            <!--
+                         <xpath
                 expr="//field[@name='invoice_line_ids']/form/sheet/field[@name='name']"
                 position="after"
             >
@@ -46,12 +47,12 @@
                     colspan="2"
                     invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
                 >
-                    <tree editable="bottom">
+                    <list editable="bottom">
                         <field name="classification_id" />
                         <field name="force_amount_unit" />
                         <field name="amount_unit" />
                         <field name="amount_total" />
-                    </tree>
+                    </list>
                 </field>
                 <field
                     name="subtotal_ecotax"
@@ -61,7 +62,7 @@
                     name="ecotax_amount_unit"
                     invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
                 />
-            </xpath>
+            </xpath> -->
             <xpath expr="//field[@name='tax_totals']" position="after">
                 <field
                     name="amount_ecotax"
@@ -107,10 +108,11 @@
                             widget="many2many_tags"
                             readonly="1"
                         />
+                        <field name="move_id" invisible="1" />
                         <field
                             name="account_id"
                             options="{'no_create': True}"
-                            domain="[('company_id', '=', company_id)]"
+                            domain="[('company_ids', 'in', company_id)]"
                             readonly="1"
                         />
                         <field name="tax_ids" widget="many2many_tags" readonly="1" />
@@ -143,12 +145,12 @@
                                 nolabel="1"
                                 invisible="parent_state != 'draft'"
                             >
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="classification_id" />
                                     <field name="force_amount_unit" />
                                     <field name="amount_unit" />
                                     <field name="amount_total" sum="Total Ecotaxe" />
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
