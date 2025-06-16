@@ -37,9 +37,8 @@
                     </list>
                 </field>
             </xpath>
-            <!--
-                         <xpath
-                expr="//field[@name='invoice_line_ids']/form/sheet/field[@name='name']"
+            <xpath
+                expr="//field[@name='invoice_line_ids']/form/sheet/group/field[@name='analytic_distribution']"
                 position="after"
             >
                 <field
@@ -62,7 +61,7 @@
                     name="ecotax_amount_unit"
                     invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
                 />
-            </xpath> -->
+            </xpath>
             <xpath expr="//field[@name='tax_totals']" position="after">
                 <field
                     name="amount_ecotax"

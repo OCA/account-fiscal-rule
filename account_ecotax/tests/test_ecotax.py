@@ -32,7 +32,7 @@ class TestInvoiceEcotaxCommon(BaseCommon):
         cls.invoice_tax = cls.env["account.tax"].create(
             {
                 "name": "Tax 10%",
-                "price_include": True,
+                "price_include_override": "tax_included",
                 "type_tax_use": "sale",
                 "company_id": cls.env.user.company_id.id,
                 "amount": 10,
