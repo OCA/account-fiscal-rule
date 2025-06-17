@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-   Copyright (C) 2015-2023 Akretion (http://www.akretion.com/)
+   Copyright (C) FROM 2015 Akretion (http://www.akretion.com/)
    @author: Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 -->
 <odoo>
@@ -16,19 +16,19 @@
                 position="after"
             >
                 <field name="ecotax_line_ids" colspan="2">
-                    <tree editable="bottom">
+                    <list editable="bottom">
                         <field name="classification_id" />
                         <field name="force_amount_unit" />
                         <field name="amount_unit" />
                         <field name="amount_total" />
-                    </tree>
+                    </list>
                 </field>
                 <field name="subtotal_ecotax" />
                 <field name="ecotax_amount_unit" />
             </xpath>
 
             <xpath
-                expr="//field[@name='order_line']/tree/field[last()]"
+                expr="//field[@name='order_line']/list/field[last()]"
                 position="after"
             >
                 <field name="subtotal_ecotax" optional="show" />
@@ -37,12 +37,12 @@
                 <field name="ecotax_line_ids" invisible="1">
                     <!-- This is important to have these fields in view for the computed readonly False ecotax_line_ids field compute well
                     as it acts as an onchange. -->
-                    <tree>
+                    <list>
                         <field name="classification_id" />
                         <field name="force_amount_unit" />
                         <field name="amount_unit" />
                         <field name="amount_total" />
-                    </tree>
+                    </list>
                 </field>
             </xpath>
         </field>
@@ -102,7 +102,7 @@
                                 options="{'no_create': True}"
                                 readonly="1"
                             />
-                            <t groups="product.group_discount_per_so_line">
+                            <t groups="sale.group_discount_per_so_line">
                                 <label for="discount" />
                                 <div name="discount">
                                     <field name="discount" class="oe_inline" /> %
@@ -136,12 +136,12 @@
                                 nolabel="1"
                                 readonly="state in ('done', 'cancel')"
                             >
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="classification_id" />
                                     <field name="force_amount_unit" />
                                     <field name="amount_unit" />
                                     <field name="amount_total" sum="Total Ecotax" />
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
