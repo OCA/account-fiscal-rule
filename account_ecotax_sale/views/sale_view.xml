@@ -136,13 +136,13 @@
                                 nolabel="1"
                                 readonly="state in ('done', 'cancel')"
                             >
-                                   <tree editable="bottom">
-                                        <field name="classification_id" />
-                                        <field name="force_amount_unit" />
-                                        <field name="amount_unit" />
-                                        <field name="amount_total" sum="Total Ecotax" />
-                                   </tree>
-                                </field>
+                                <tree editable="bottom">
+                                    <field name="classification_id" />
+                                    <field name="force_amount_unit" />
+                                    <field name="amount_unit" />
+                                    <field name="amount_total" sum="Total Ecotax" />
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                     <group>
@@ -153,5 +153,4 @@
             </form>
         </field>
     </record>
-
 </odoo>
