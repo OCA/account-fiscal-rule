@@ -22,11 +22,48 @@
                                 <field name="to_invoice_country_group_id" />
                                 <field name="to_invoice_country" />
                                 <field name="to_invoice_state" />
+                                <label
+                                    for="to_invoice_zip_from"
+                                    string="Zip Range"
+                                    attrs="{'invisible': [('to_invoice_country', '=', False)]}"
+                                />
+                                <div
+                                    attrs="{'invisible': [('to_invoice_country', '=', False)]}"
+                                >
+                                    <span> From </span>
+                                    <field
+                                        name="to_invoice_zip_from"
+                                        class="oe_inline"
+                                    />
+                                    <div class="oe_edit_only" />
+                                    <span> To </span>
+                                    <field name="to_invoice_zip_to" class="oe_inline" />
+                                </div>
                             </group>
                             <group string="Shipping" name="shipping">
                                 <field name="to_shipping_country_group_id" />
                                 <field name="to_shipping_country" />
                                 <field name="to_shipping_state" />
+                                <label
+                                    for="to_shipping_zip_from"
+                                    string="Zip Range"
+                                    attrs="{'invisible': [('to_shipping_country', '=', False)]}"
+                                />
+                                <div
+                                    attrs="{'invisible': [('to_shipping_country', '=', False)]}"
+                                >
+                                    <span> From </span>
+                                    <field
+                                        name="to_shipping_zip_from"
+                                        class="oe_inline"
+                                    />
+                                    <div class="oe_edit_only" />
+                                    <span> To </span>
+                                    <field
+                                        name="to_shipping_zip_to"
+                                        class="oe_inline"
+                                    />
+                                </div>
                             </group>
                         </group>
                         <group string="Configuration" name="configuration" colspan="4">
