@@ -2,7 +2,7 @@
 #   @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 
 class EcotaxLineMixin(models.AbstractModel):
@@ -63,3 +63,27 @@ class EcotaxLineMixin(models.AbstractModel):
             if ecotaxline.currency_id:
                 total = ecotaxline.currency_id.round(total)
             ecotaxline.amount_total = total
+
+    @api.depends("classification_id.name", "currency_id", "amount_total")
+    def _compute_display_name(self):
+        """Define ``display_name`` for ecotax lines
+
+        Records are displayed as "<classification name> (<total amount formatted>)".
+
+        If the line has no classification, "Undefined" is used as classification name.
+        The total amount is formatted according to the currency; if a line has no
+        currency, the "Ecotax" decimal precision is used to format the amount.
+        """
+
+        def _default_amt_format(amt: float):
+            # ``precision_get()`` calls are cached
+            dp = self.env["decimal.precision"].precision_get("Ecotax")
+            return f"%.{dp}f" % amt
+
+        groups = self.grouped(lambda x: (x.classification_id, x.currency_id))
+        for (ecotax, currency), lines in groups.items():
+            ecotax_name = ecotax.name if ecotax else _("Undefined")
+            amt_format = currency.format if currency else _default_amt_format
+            for line in lines:
+                amount = line.amount_total or 0.00
+                line.display_name = f"{ecotax_name} ({amt_format(amount)})"
