@@ -51,7 +51,6 @@ class EcotaxLineProduct(models.Model):
     def _compute_ecotax(self):
         for ecotaxline in self:
             ecotax_cls = ecotaxline.classification_id
-
             if ecotax_cls.ecotax_type == "weight_based":
                 amount = ecotax_cls.ecotax_coef * (
                     ecotaxline.product_tmpl_id.weight

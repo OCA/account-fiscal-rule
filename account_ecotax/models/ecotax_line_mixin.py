@@ -52,8 +52,12 @@ class EcotaxLineMixin(models.AbstractModel):
                 # force ecotax amount
                 amount = ecotaxline.force_amount_unit
             elif ecotax_classif.ecotax_type == "weight_based":
+                # product weight can be different by variant
+                # or can be defined in template for all variants
                 amount = ecotax_classif.ecotax_coef * (
-                    ecotaxline.product_id.weight or 0.0
+                    ecotaxline.product_id.weight
+                    or ecotaxline.product_id.product_tmpl_id.weight
+                    or 0.0
                 )
             else:
                 amount = ecotax_classif.default_fixed_ecotax
