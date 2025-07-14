@@ -9,7 +9,13 @@
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
             <field name="tax_totals" position="after">
-                <field name="amount_ecotax" class="oe_subtotal_footer_separator" />
+                <field
+                    name="amount_ecotax"
+                    class="oe_subtotal_footer_separator"
+                    invisible="not amount_ecotax"
+                    widget="monetary"
+                    options="{'currency_field': 'currency_id'}"
+                />
             </field>
             <xpath
                 expr="//field[@name='order_line']/form//field[@name='tax_id']"
