@@ -54,7 +54,7 @@
         </field>
     </record>
     <record id="action_ecotax_category" model="ir.actions.act_window">
-        <field name="name">Ecotaxe category</field>
+        <field name="name">Ecotax category</field>
         <field name="res_model">account.ecotax.category</field>
         <field name="view_mode">list,form</field>
         <field name="help" type="html">
@@ -63,10 +63,4 @@
               </p>
         </field>
     </record>
-    <menuitem
-        id="menu_ecotax_category"
-        parent="account.account_account_menu"
-        action="action_ecotax_category"
-        sequence="16"
-    />
 </odoo>

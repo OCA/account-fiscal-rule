@@ -97,7 +97,7 @@
         </field>
     </record>
     <record id="action_ecotax_classification" model="ir.actions.act_window">
-        <field name="name">Ecotaxe Classification</field>
+        <field name="name">Ecotax Classification</field>
         <field name="res_model">account.ecotax.classification</field>
         <field name="view_mode">list,form</field>
         <field name="help" type="html">
@@ -106,10 +106,4 @@
               </p>
         </field>
     </record>
-    <menuitem
-        id="menu_ecotax_classification"
-        parent="account.account_account_menu"
-        action="action_ecotax_classification"
-        sequence="15"
-    />
 </odoo>

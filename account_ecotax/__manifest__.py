@@ -23,6 +23,7 @@
         "views/ecotax_sector_view.xml",
         "views/ecotax_collector_view.xml",
         "views/account_ecotax_classification_view.xml",
+        "views/account_ecotax_menu.xml",
         "views/account_move_view.xml",
         "views/product_template_view.xml",
         "views/product_view.xml",
