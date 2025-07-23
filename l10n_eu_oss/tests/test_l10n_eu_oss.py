@@ -35,6 +35,7 @@ class TestL10nEuOss(SavepointCase):
         cls.oss_tax_rate_fr = cls.env.ref("l10n_eu_oss.oss_eu_rate_fr")
         # Country
         cls.country_fr = cls.env.ref("base.fr")
+        cls.country_pt = cls.env.ref("base.pt")
 
     def _default_todo_country_ids(self):
         eu_country_group = self.env.ref("base.europe", raise_if_not_found=False)
@@ -111,3 +112,42 @@ class TestL10nEuOss(SavepointCase):
         self.assertEqual(fpos_id.tax_ids[0].tax_dest_id.amount, 19.9)
         original_tax = self._tax_search(self.country_fr.id, original_amount)
         self.assertTrue(original_tax)
+
+    def test_02_states(self):
+        wizard_vals = {
+            "company_id" : self.company_main.id,
+            "general_tax" : self.general_tax.id,
+        }
+
+        wizard = self._oss_wizard_create(wizard_vals)
+        wizard.todo_country_ids = [(6,0, self.country_pt.ids)]
+        wizard.generate_eu_oss_taxes()
+        
+        pos = self._fpos_search(self.country_pt.id)
+        self.assertEqual(len(pos), 3)
+
+        for fpos, data in zip(
+            positions,
+            [
+                {
+                    "src_rate" : 20,
+                    "dst_rate" : 23,
+                    "state_ids" : self.env["res.country.state"],
+                },
+                {
+                    "src_rate" : 20,
+                    "dst_rate" : 16,
+                    "state_ids" : self.env["base.state_pt_pt-20"],
+                },
+                {
+                    "src_rate" : 20,
+                    "dst_rate" : 22,
+                    "state_ids" : self.env["base.state_pt_pt-30"],
+                },                                
+            ],
+        ):
+
+            self.assertEqual(fpos.tax_ids[0].tax_src_id.amount, data["src_rate"])
+            self.assertEqual(fpos.tax_ids[1].tax_dest_id.amount, data["dst_rate"])
+            self.assertEqual(fpos.state_ids, data["state_ids"])
+
