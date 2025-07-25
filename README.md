@@ -28,7 +28,7 @@ addon | version | maintainers | summary
 [account_ecotax_sale](account_ecotax_sale/) | 17.0.1.0.1 | <a href='https://github.com/mourad-ehm'><img src='https://github.com/mourad-ehm.png' width='32' height='32' style='border-radius:50%;' alt='mourad-ehm'/></a> <a href='https://github.com/florian-dacosta'><img src='https://github.com/florian-dacosta.png' width='32' height='32' style='border-radius:50%;' alt='florian-dacosta'/></a> | Sale Ecotaxe
 [account_fiscal_position_autodetect_optional_vies](account_fiscal_position_autodetect_optional_vies/) | 17.0.1.0.0 | <a href='https://github.com/victoralmau'><img src='https://github.com/victoralmau.png' width='32' height='32' style='border-radius:50%;' alt='victoralmau'/></a> | Account Fiscal Position Autodetect optional VIES
 [account_fiscal_position_partner_type](account_fiscal_position_partner_type/) | 17.0.1.1.0 |  | Account Fiscal Position Partner Type
-[l10n_eu_oss_oca](l10n_eu_oss_oca/) | 17.0.1.1.0 |  | L10n EU OSS OCA
+[l10n_eu_oss_oca](l10n_eu_oss_oca/) | 17.0.1.1.1 |  | L10n EU OSS OCA
 
 [//]: # (end addons)
 
