@@ -92,7 +92,10 @@ class L10nEuOssWizard(models.TransientModel):
     )
 
     def _prepare_tax_group_vals(self, rate):
-        return {"name": _("OSS VAT %s%%") % rate}
+        return {
+            "name": _("OSS VAT %s%%") % rate,
+            "country_id": self.company_id.account_fiscal_country_id.id,
+        }
 
     def _prepare_repartition_line_vals(self, original_rep_lines):
         return [
