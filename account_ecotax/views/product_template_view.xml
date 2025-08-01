@@ -36,7 +36,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[last()]" position="after">
                 <filter
-                    name="Ecotax"
+                    name="Has ecotax"
                     domain="[('ecotax_line_product_ids', '!=', False)]"
                 />
             </xpath>
