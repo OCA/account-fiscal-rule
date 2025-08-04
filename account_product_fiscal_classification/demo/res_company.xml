@@ -4,5 +4,4 @@
         <field name="name">Company 2</field>
         <field name="currency_id" ref="base.USD" />
     </record>
-
 </odoo>

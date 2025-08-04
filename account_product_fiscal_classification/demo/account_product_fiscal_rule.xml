@@ -21,5 +21,4 @@
         <field name="action">forbid</field>
         <field name="message">the alcohol is sold at 20%.</field>
     </record>
-
 </odoo>

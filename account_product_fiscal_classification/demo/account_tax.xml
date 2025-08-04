@@ -57,5 +57,4 @@
         <field name="type_tax_use">sale</field>
         <field name="amount">30</field>
     </record>
-
 </odoo>

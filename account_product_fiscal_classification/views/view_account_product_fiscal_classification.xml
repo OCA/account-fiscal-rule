@@ -5,7 +5,6 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
-
     <record id="view_account_product_fiscal_classification_tree" model="ir.ui.view">
         <field name="model">account.product.fiscal.classification</field>
         <field name="arch" type="xml">
@@ -35,8 +34,6 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-
-
                         <button
                             type="action"
                             class="oe_stat_button"
@@ -108,18 +105,18 @@
         <field name="model">account.product.fiscal.classification</field>
         <field name="arch" type="xml">
             <search>
-                    <field
+                <field
                     name="name"
                     filter_domain="['|', ('name', 'ilike', self), ('description', 'ilike', self)]"
                 />
-                    <separator />
-                    <filter
+                <separator />
+                <filter
                     string="Archived"
                     name="inactive"
                     domain="[('active', '=', False)]"
                 />
             </search>
-    </field>
+        </field>
     </record>
 
     <record
