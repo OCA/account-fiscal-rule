@@ -74,5 +74,4 @@
             eval="[(6, 0, [ref('account_tax_sale_20_company_1'), ref('account_tax_sale_30_company_2')])]"
         />
     </record>
-
 </odoo>

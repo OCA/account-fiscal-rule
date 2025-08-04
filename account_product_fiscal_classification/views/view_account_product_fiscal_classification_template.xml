@@ -5,7 +5,6 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
-
     <record
         id="view_account_product_fiscal_classification_template_tree"
         model="ir.ui.view"

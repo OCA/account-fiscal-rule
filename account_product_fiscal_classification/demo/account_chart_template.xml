@@ -6,7 +6,6 @@
 -->
 <!-- oca-hooks: disable=xml-duplicate-record-id -->
 <odoo>
-
     <record id="chart_template" model="account.chart.template">
         <field name="name">Demo Chart Template</field>
         <field name="bank_account_code_prefix">1014</field>
@@ -33,5 +32,4 @@
         <field name="property_account_income_categ_id" ref="fake_account_001" />
         <field name="property_account_expense_categ_id" ref="fake_account_002" />
     </record>
-
 </odoo>
