@@ -44,9 +44,6 @@ class Tests(TransactionCase):
         cls.account_tax_purchase_7_company_2 = cls.env.ref(
             "account_product_fiscal_classification.account_tax_purchase_7_company_2"
         )
-        cls.chart_template = cls.env.ref(
-            "account_product_fiscal_classification.chart_template"
-        )
         cls.category_all = cls.env.ref("product.product_category_all")
         cls.category_wine = cls.env.ref(
             "account_product_fiscal_classification.category_wine"
@@ -122,20 +119,6 @@ class Tests(TransactionCase):
         """Test if unlinking a Fiscal Classification with products fails."""
         with self.assertRaises(ValidationError):
             self.classification_A_company_1.unlink()
-
-    def test_10_chart_template(self):
-        """Test if installing new CoA creates correct classification"""
-        new_company = self.ResCompany.create({"name": "New Company"})
-        self.chart_template.try_loading(company=new_company, install_demo=False)
-        new_classifications = self.FiscalClassification.search(
-            [("company_id", "=", new_company.id)]
-        )
-        self.assertEqual(len(new_classifications), 1)
-        self.assertEqual(len(new_classifications[0].purchase_tax_ids), 1)
-        self.assertEqual(
-            new_classifications[0].purchase_tax_ids[0].name,
-            "Demo Purchase Tax Template 20%",
-        )
 
     def test_20_hook(self):
         vals = self.FiscalClassification._prepare_vals_from_taxes(
