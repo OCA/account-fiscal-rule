@@ -7,12 +7,17 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
+    <record id="demo_account_tax_group" model="account.tax.group">
+        <field name="name">Demo Tax Group A</field>
+    </record>
     <!-- Your Company Taxes -->
     <record id="account_tax_purchase_20_company_1" model="account.tax">
         <field name="name">Demo Purchase Tax 20% (Your Company)</field>
         <field name="company_id" ref="base.main_company" />
         <field name="type_tax_use">purchase</field>
         <field name="amount">20</field>
+        <field name="tax_group_id" ref="demo_account_tax_group" />
+        <field name="country_id" ref="base.us" />
     </record>
 
     <record id="account_tax_sale_20_company_1" model="account.tax">
@@ -20,41 +25,65 @@
         <field name="company_id" ref="base.main_company" />
         <field name="type_tax_use">sale</field>
         <field name="amount">20</field>
+        <field name="tax_group_id" ref="demo_account_tax_group" />
+        <field name="country_id" ref="base.us" />
     </record>
 
     <record id="account_tax_sale_5_company_1" model="account.tax">
-        <field name="name">Demo Sale Tax 5%  (Your Company)</field>
+        <field name="name">Demo Sale Tax 5% (Your Company)</field>
         <field name="company_id" ref="base.main_company" />
         <field name="type_tax_use">sale</field>
         <field name="amount">5</field>
+        <field name="tax_group_id" ref="demo_account_tax_group" />
+        <field name="country_id" ref="base.us" />
     </record>
 
     <!-- Company 2 Taxes -->
     <record id="account_tax_purchase_7_company_2" model="account.tax">
         <field name="name">Demo Purchase Tax 7% (Company 2)</field>
-        <field name="company_id" ref="company_2" />
+        <field
+            name="company_id"
+            ref="account_product_fiscal_classification.company_2"
+        />
         <field name="type_tax_use">purchase</field>
         <field name="amount">7</field>
+        <field name="tax_group_id" ref="demo_account_tax_group" />
+        <field name="country_id" ref="base.us" />
     </record>
 
     <record id="account_tax_purchase_30_company_2" model="account.tax">
         <field name="name">Demo Purchase Tax 30% (Company 2)</field>
-        <field name="company_id" ref="company_2" />
+        <field
+            name="company_id"
+            ref="account_product_fiscal_classification.company_2"
+        />
         <field name="type_tax_use">purchase</field>
         <field name="amount">30</field>
+        <field name="tax_group_id" ref="demo_account_tax_group" />
+        <field name="country_id" ref="base.us" />
     </record>
 
     <record id="account_tax_sale_7_company_2" model="account.tax">
         <field name="name">Demo Sale Tax 7% (Company 2)</field>
-        <field name="company_id" ref="company_2" />
+        <field
+            name="company_id"
+            ref="account_product_fiscal_classification.company_2"
+        />
         <field name="type_tax_use">sale</field>
         <field name="amount">7</field>
+        <field name="tax_group_id" ref="demo_account_tax_group" />
+        <field name="country_id" ref="base.us" />
     </record>
 
     <record id="account_tax_sale_30_company_2" model="account.tax">
         <field name="name">Demo Sale Tax 30% (Company 2)</field>
-        <field name="company_id" ref="company_2" />
+        <field
+            name="company_id"
+            ref="account_product_fiscal_classification.company_2"
+        />
         <field name="type_tax_use">sale</field>
         <field name="amount">30</field>
+        <field name="tax_group_id" ref="demo_account_tax_group" />
+        <field name="country_id" ref="base.us" />
     </record>
 </odoo>

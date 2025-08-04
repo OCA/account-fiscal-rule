@@ -134,6 +134,8 @@ Contributors
 
 - Danimar RIBEIRO
 
+- Phan Hong Phuc <phucph@trobz.com>
+
 Maintainers
 -----------
 

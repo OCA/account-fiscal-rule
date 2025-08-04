@@ -2,7 +2,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import Command, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -46,8 +46,7 @@ class AccountProductFiscalClassification(models.Model):
         column1="fiscal_classification_id",
         column2="tax_id",
         string="Purchase Taxes",
-        domain="""[
-            ('type_tax_use', 'in', ['purchase', 'all'])]""",
+        domain="[('type_tax_use', 'in', ['purchase', 'none'])]",
     )
 
     sale_tax_ids = fields.Many2many(
@@ -56,8 +55,7 @@ class AccountProductFiscalClassification(models.Model):
         column1="fiscal_classification_id",
         column2="tax_id",
         string="Sale Taxes",
-        domain="""[
-            ('type_tax_use', 'in', ['sale', 'all'])]""",
+        domain="[('type_tax_use', 'in', ['sale', 'none'])]",
     )
 
     # Compute Section
@@ -95,7 +93,7 @@ class AccountProductFiscalClassification(models.Model):
             )
             if len(templates) != 0:
                 raise ValidationError(
-                    _(
+                    self.env._(
                         "You cannot delete The Fiscal Classification"
                         " '%(classification_name)s' because"
                         " it contents %(qty)s products."
@@ -112,15 +110,15 @@ class AccountProductFiscalClassification(models.Model):
     def _prepare_vals_from_taxes(self, purchase_taxes, sale_taxes):
         # Guess name
         if not sale_taxes and not purchase_taxes:
-            name = _("No taxes")
+            name = self.env._("No taxes")
         else:
             if not purchase_taxes:
-                purchase_part = _("No Purchase Taxes")
+                purchase_part = self.env._("No Purchase Taxes")
             else:
                 if len(purchase_taxes) == 1:
-                    purchase_part = _("Purchase Tax: ")
+                    purchase_part = self.env._("Purchase Tax: ")
                 else:
-                    purchase_part = _("Purchase Taxes: ")
+                    purchase_part = self.env._("Purchase Taxes: ")
                 purchase_part += " + ".join(
                     [
                         tax.description and tax.description or tax.name
@@ -128,12 +126,12 @@ class AccountProductFiscalClassification(models.Model):
                     ]
                 )
             if not sale_taxes:
-                sale_part = _("No Sale Taxes")
+                sale_part = self.env._("No Sale Taxes")
             else:
                 if len(sale_taxes) == 1:
-                    sale_part = _("Sale Tax: ")
+                    sale_part = self.env._("Sale Tax: ")
                 else:
-                    sale_part = _("Sale Taxes: ")
+                    sale_part = self.env._("Sale Taxes: ")
                 sale_part += " + ".join(
                     [
                         tax.description and tax.description or tax.name
@@ -148,8 +146,8 @@ class AccountProductFiscalClassification(models.Model):
         company_id = len(companies) == 1 and companies[0].id or False
         vals = {
             "name": name,
-            "sale_tax_ids": [(6, 0, sale_taxes.ids)],
-            "purchase_tax_ids": [(6, 0, purchase_taxes.ids)],
+            "sale_tax_ids": [Command.set(sale_taxes.ids)],
+            "purchase_tax_ids": [Command.set(purchase_taxes.ids)],
             "company_id": company_id,
         }
         return vals

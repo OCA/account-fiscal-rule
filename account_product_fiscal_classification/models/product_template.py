@@ -8,7 +8,7 @@ import logging
 
 from lxml import etree
 
-from odoo import api, fields, models
+from odoo import Command, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -93,8 +93,10 @@ class ProductTemplate(models.Model):
             )
             vals.update(
                 {
-                    "supplier_taxes_id": [(6, 0, classification.purchase_tax_ids.ids)],
-                    "taxes_id": [(6, 0, classification.sale_tax_ids.ids)],
+                    "supplier_taxes_id": [
+                        Command.set(classification.purchase_tax_ids.ids)
+                    ],
+                    "taxes_id": [Command.set(classification.sale_tax_ids.ids)],
                 }
             )
         return vals

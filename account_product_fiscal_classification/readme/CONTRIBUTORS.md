@@ -7,3 +7,4 @@
   > - Renato Lima \<renato.lima@akretion.com\>
 
 - Danimar RIBEIRO
+- Phan Hong Phuc \<phucph@trobz.com\>

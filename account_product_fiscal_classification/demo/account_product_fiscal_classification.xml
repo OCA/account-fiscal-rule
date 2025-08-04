@@ -14,13 +14,11 @@
         <field name="company_id" ref="base.main_company" />
         <field
             name="purchase_tax_ids"
-            eval="[(6, 0, [ref('account_tax_purchase_20_company_1')])]"
+            eval="[Command.set([ref('account_tax_purchase_20_company_1')])]"
         />
         <field
             name="sale_tax_ids"
-            eval="[(6, 0, [
-            ref('account_tax_sale_20_company_1'),
-            ])]"
+            eval="[Command.set([ref('account_tax_sale_20_company_1')])]"
         />
     </record>
 
@@ -32,7 +30,7 @@
         <field name="company_id" ref="base.main_company" />
         <field
             name="sale_tax_ids"
-            eval="[(6, 0, [
+            eval="[Command.set([
                 ref('account_tax_sale_5_company_1'),
                 ref('account_tax_sale_20_company_1'),
             ])]"
@@ -45,16 +43,17 @@
         model="account.product.fiscal.classification"
     >
         <field name="name">Demo Fiscal Classification C (Company 2)</field>
-        <field name="company_id" ref="company_2" />
+        <field
+            name="company_id"
+            ref="account_product_fiscal_classification.company_2"
+        />
         <field
             name="purchase_tax_ids"
-            eval="[(6, 0, [ref('account_tax_purchase_7_company_2'), ref('account_tax_purchase_30_company_2')])]"
+            eval="[Command.set([ref('account_tax_purchase_7_company_2'), ref('account_tax_purchase_30_company_2')])]"
         />
         <field
             name="sale_tax_ids"
-            eval="[(6, 0, [
-            ref('account_tax_sale_7_company_2'),
-            ref('account_tax_sale_30_company_2')])]"
+            eval="[Command.set([ref('account_tax_sale_7_company_2'), ref('account_tax_sale_30_company_2')])]"
         />
     </record>
 
@@ -67,11 +66,11 @@
         <field name="company_id" eval="False" />
         <field
             name="purchase_tax_ids"
-            eval="[(6, 0, [ref('account_tax_purchase_20_company_1'), ref('account_tax_purchase_30_company_2')])]"
+            eval="[Command.set([ref('account_tax_purchase_20_company_1'), ref('account_tax_purchase_30_company_2')])]"
         />
         <field
             name="sale_tax_ids"
-            eval="[(6, 0, [ref('account_tax_sale_20_company_1'), ref('account_tax_sale_30_company_2')])]"
+            eval="[Command.set([ref('account_tax_sale_20_company_1'), ref('account_tax_sale_30_company_2')])]"
         />
     </record>
 </odoo>

@@ -8,17 +8,14 @@
     <record id="view_account_product_fiscal_rule_tree" model="ir.ui.view">
         <field name="model">account.product.fiscal.rule</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <list editable="bottom">
                 <field name="sequence" widget="handle" />
                 <field name="category_ids" widget="many2many_tags" />
                 <field name="fiscal_classification_ids" widget="many2many_tags" />
                 <field name="company_id" groups="base.group_multi_company" />
                 <field name="action" />
-                <field
-                    name="message"
-                    attrs="{'invisible': [('action', '=', 'allow')]}"
-                />
-            </tree>
+                <field name="message" invisible="action == 'allow'" />
+            </list>
         </field>
     </record>
 
@@ -26,7 +23,7 @@
         <field name="name">Fiscal Classification Rules</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">account.product.fiscal.rule</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem

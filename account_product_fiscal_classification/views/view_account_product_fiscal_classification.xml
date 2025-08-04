@@ -8,14 +8,13 @@
     <record id="view_account_product_fiscal_classification_tree" model="ir.ui.view">
         <field name="model">account.product.fiscal.classification</field>
         <field name="arch" type="xml">
-            <tree decoration-muted="active == False">
+            <list decoration-muted="not active">
                 <field name="name" />
                 <field name="purchase_tax_ids" widget="many2many_tags" />
                 <field name="sale_tax_ids" widget="many2many_tags" />
                 <field name="product_tmpl_qty" />
                 <field name="company_id" groups="base.group_multi_company" />
-                <field name="active" invisible="1" />
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -29,7 +28,7 @@
                         string="Move Products into another Fiscal Classification"
                         type="action"
                         groups="account.group_account_manager"
-                        attrs="{'invisible':[('product_tmpl_qty','=',0)]}"
+                        invisible="product_tmpl_qty == 0"
                     />
                 </header>
                 <sheet>
@@ -39,8 +38,7 @@
                             class="oe_stat_button"
                             icon="fa-bars"
                             name="%(action_template_list_by_fiscal_classification)d"
-                            context="{'search_default_fiscal_classification_id': active_id}"
-                            attrs="{'invisible': [('product_tmpl_qty', '=', 0)]}"
+                            invisible="product_tmpl_qty == 0"
                         >
                             <field
                                 string="Products"
@@ -53,9 +51,8 @@
                         name="web_ribbon"
                         text="Archived"
                         bg_color="bg-danger"
-                        attrs="{'invisible': [('active', '=', True)]}"
+                        invisible="active"
                     />
-                    <field name="active" invisible="1" />
                     <div class="oe_title">
                         <div class="oe_edit_only">
                             <label for="name" />
@@ -126,7 +123,7 @@
         <field name="name">Fiscal Classifications</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">account.product.fiscal.classification</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem
