@@ -16,7 +16,9 @@ odoo_test_flavor: Both
 odoo_version: 16.0
 org_name: Odoo Community Association (OCA)
 org_slug: OCA
-rebel_module_groups: []
+rebel_module_groups:
+- account_product_fiscal_classification
+- account_ecotax_accounting
 repo_description: Odoo Accounting Taxe and Fiscal Features
 repo_name: account-fiscal-rule
 repo_slug: account-fiscal-rule
