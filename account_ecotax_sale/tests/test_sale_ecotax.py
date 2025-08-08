@@ -2,6 +2,7 @@
 #   @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from odoo import Command
 from odoo.tests.common import Form
 
 from odoo.addons.account_ecotax.tests.test_ecotax import TestInvoiceEcotaxCommon
@@ -16,6 +17,7 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
                 "name": "product_a",
                 "uom_id": cls.env.ref("uom.product_uom_unit").id,
                 "weight": 100,
+                "taxes_id": [Command.set(cls.invoice_tax.ids)],
                 "list_price": 200,
             }
         )
@@ -24,6 +26,7 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
                 "name": "product_b",
                 "uom_id": cls.env.ref("uom.product_uom_unit").id,
                 "list_price": 200,
+                "taxes_id": [Command.set(cls.invoice_tax.ids)],
                 "weight": 400,
             }
         )
