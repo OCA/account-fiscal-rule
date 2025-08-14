@@ -36,7 +36,7 @@ addon | version | maintainers | summary
 [account_fiscal_position_partner_type](account_fiscal_position_partner_type/) | 16.0.1.0.2 |  | Account Fiscal Position Partner Type
 [account_fiscal_position_type](account_fiscal_position_type/) | 16.0.1.0.4 |  | Add sale / purchase type on fiscal position
 [account_product_fiscal_classification](account_product_fiscal_classification/) | 16.0.1.1.0 | <a href='https://github.com/legalsylvain'><img src='https://github.com/legalsylvain.png' width='32' height='32' style='border-radius:50%;' alt='legalsylvain'/></a> | Simplify taxes management for products
-[l10n_eu_oss_oca](l10n_eu_oss_oca/) | 16.0.1.1.1 |  | L10n EU OSS OCA
+[l10n_eu_oss_oca](l10n_eu_oss_oca/) | 16.0.1.1.2 |  | L10n EU OSS OCA
 
 [//]: # (end addons)
 
