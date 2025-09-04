@@ -116,7 +116,7 @@ class AccountProductFiscalClassification(models.Model):
 
         for fc in fcs:
             if (
-                fc.company_id.id == company_id
+                (not fc.company_id or fc.company_id.id == company_id)
                 and sorted(fc.sale_tax_ids.ids) == sorted(sale_tax_ids)
                 and sorted(fc.purchase_tax_ids.ids) == sorted(purchase_tax_ids)
             ):
