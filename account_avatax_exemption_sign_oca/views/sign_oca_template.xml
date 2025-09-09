@@ -1,0 +1,21 @@
+<odoo>
+    <record id="sign_oca_template_form_view" model="ir.ui.view">
+        <field
+            name="name"
+        >sign.oca.template.form (in account_avatax_exemption_sign_oca)</field>
+        <field name="model">sign.oca.template</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="sign_oca.sign_oca_template_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="after">
+                <group name="exemption">
+                    <field name="is_exemption" />
+                    <field
+                        name="exemption_type"
+                        attrs="{'invisible': [('is_exemption', '=', False)], 'required': [('is_exemption', '=', True)]}"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
