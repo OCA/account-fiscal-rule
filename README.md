@@ -22,7 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_avatax_exemption](account_avatax_exemption/) | 16.0.1.0.0 |  | This application allows you to add exemptions to Avatax
-[account_avatax_exemption_base](account_avatax_exemption_base/) | 16.0.1.1.0 |  | This application allows you to add exemptions base to Avatax
+[account_avatax_exemption_base](account_avatax_exemption_base/) | 16.0.1.1.1 |  | This application allows you to add exemptions base to Avatax
 [account_avatax_oca](account_avatax_oca/) | 16.0.1.7.0 | <a href='https://github.com/dreispt'><img src='https://github.com/dreispt.png' width='32' height='32' style='border-radius:50%;' alt='dreispt'/></a> | Compute Sales Tax using the Avalara Avatax Service
 [account_avatax_oca_log](account_avatax_oca_log/) | 16.0.1.0.0 |  | Add Logs to Avatax calls
 [account_avatax_repair_oca](account_avatax_repair_oca/) | 16.0.1.0.0 |  | Repair Orders with automatic Tax application using Avatax
