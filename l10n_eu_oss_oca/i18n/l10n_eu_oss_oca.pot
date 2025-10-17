@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -100,7 +100,6 @@ msgstr ""
 #. module: l10n_eu_oss_oca
 #. odoo-python
 #: code:addons/l10n_eu_oss_oca/wizard/l10n_eu_oss_wizard.py:0
-#, python-format
 msgid "Intra-EU B2C in %(country_name)s"
 msgstr ""
 
@@ -124,14 +123,12 @@ msgstr ""
 #. module: l10n_eu_oss_oca
 #. odoo-python
 #: code:addons/l10n_eu_oss_oca/wizard/l10n_eu_oss_wizard.py:0
-#, python-format
 msgid "OSS VAT %s%%"
 msgstr ""
 
 #. module: l10n_eu_oss_oca
 #. odoo-python
 #: code:addons/l10n_eu_oss_oca/wizard/l10n_eu_oss_wizard.py:0
-#, python-format
 msgid "OSS for EU to %(country_name)s: %(rate)s"
 msgstr ""
 
@@ -194,7 +191,6 @@ msgstr ""
 #. module: l10n_eu_oss_oca
 #. odoo-python
 #: code:addons/l10n_eu_oss_oca/wizard/l10n_eu_oss_wizard.py:0
-#, python-format
 msgid ""
 "The Europe country group cannot be found. Please update the base module."
 msgstr ""
