@@ -10,7 +10,7 @@ class SignOcaRequest(models.Model):
 
     is_exemption = fields.Boolean(related="template_id.is_exemption")
     is_exemption_synchronized = fields.Boolean(
-        string="Exemption synchronized with AvaTax?", readonly=True, copy=False
+        string="Exemption synchronized with AvaTax?", copy=False
     )
     exemption_ids = fields.One2many(
         comodel_name="res.partner.exemption",
@@ -38,7 +38,7 @@ class SignOcaRequest(models.Model):
         }
         exemption_number_field_id = (
             self.template_id.item_ids.mapped("field_id")
-            .filtered(lambda x: x.is_exemption_number)
+            .filtered("is_exemption_number")
             .ids
         )
         # In case role is customer and not expression
@@ -51,7 +51,7 @@ class SignOcaRequest(models.Model):
                     if not partner_id:
                         # In case role not customer and likely expression or any other
                         exemption_signer = self.signer_ids.filtered(
-                            lambda signer: signer.role_id.id == item["role_id"]
+                            lambda signer, item: signer.role_id.id == item["role_id"]
                         )
                         partner_id = exemption_signer.partner_id
                     break
@@ -86,6 +86,6 @@ class SignOcaRequest(models.Model):
             "name": "Exemptions",
             "type": "ir.actions.act_window",
             "res_model": "res.partner.exemption",
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "domain": [("sign_oca_request_id", "=", self.id)],
         }

@@ -21,7 +21,7 @@ License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html). -->
             </xpath>
             <xpath expr="//group" position="after">
                 <group>
-                    <field name="is_exemption_synchronized" />
+                    <field name="is_exemption_synchronized" readonly="1" />
                 </group>
             </xpath>
         </field>

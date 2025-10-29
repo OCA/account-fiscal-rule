@@ -86,6 +86,7 @@ class TestACcountAvataxExemptionSignOca(TransactionCase):
                 "exemption_export": True,
                 "exemption_rule_export": True,
                 "use_commercial_entity": True,
+                "company_code": "TEST",
             }
         )
 
@@ -139,7 +140,7 @@ class TestACcountAvataxExemptionSignOca(TransactionCase):
     def test_06_open_exemptions(self):
         action = self.sign_oca_request.open_exemptions()
         self.assertEqual(action["res_model"], "res.partner.exemption")
-        self.assertEqual(action["view_mode"], "tree,form")
+        self.assertEqual(action["view_mode"], "list,form")
         self.assertIn(
             ("sign_oca_request_id", "=", self.sign_oca_request.id), action["domain"]
         )

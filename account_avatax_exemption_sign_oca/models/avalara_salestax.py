@@ -9,7 +9,7 @@ class AvalaraSalestax(models.Model):
     _inherit = "avalara.salestax"
 
     def link_certificates_to_customer(self, exemption_line):
-        res = super().link_certificates_to_customer(exemption_line)
+        res = super().link_certificates_to_customer(exemption_line=exemption_line)
         if all(
             exemption_line.exemption_id.exemption_line_ids.mapped("linked_to_customer")
         ):
