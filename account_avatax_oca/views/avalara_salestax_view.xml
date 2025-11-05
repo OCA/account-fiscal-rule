@@ -15,6 +15,8 @@
                                 name="company_id"
                                 options="{'no_create_edit': True}"
                             />
+                            <field name="appname" />
+                            <field name="version" />
                         </group>
                         <group>
                             <field name="company_partner_id" />

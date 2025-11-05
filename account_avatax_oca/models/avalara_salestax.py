@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
@@ -118,6 +119,16 @@ class AvalaraSalestax(models.Model):
         required=True,
         default=lambda self: self.env.company,
         help="Company which has subscribed to the AvaTax service",
+    )
+    appname = fields.Char(
+        string="AvaTax Application Name",
+        default=lambda self: self.env.company.name,
+        help="Name reported to Avalara when connecting through the API.",
+    )
+    version = fields.Char(
+        string="AvaTax Application Version",
+        default=lambda self: datetime.today().strftime("%Y%m%d"),
+        help="Version reported to Avalara when connecting through the API.",
     )
     company_partner_id = fields.Many2one(
         string="Company Address",
