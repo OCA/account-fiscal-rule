@@ -5,7 +5,7 @@
         inherit_id="account.report_invoice_document"
         priority="100"
     >
-        <xpath expr="//th[@name='th_priceunit']" position="after">
+        <th name="th_priceunit" position="after">
             <th
                 name="th_ecotax"
                 t-if="o.amount_ecotax"
@@ -13,15 +13,15 @@
             >
                 <span name="ecotax_line_label">Eco Part Unit</span>
             </th>
-        </xpath>
-        <xpath expr="//td[span[@t-field='line.discount']]" position="after">
+        </th>
+        <td name="td_price_unit" position="after">
             <td
                 t-if="o.amount_ecotax"
                 t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
             >
                 <span class="text-nowrap" t-field="line.ecotax_amount_unit" />
             </td>
-        </xpath>
+        </td>
     </template>
 
     <template
