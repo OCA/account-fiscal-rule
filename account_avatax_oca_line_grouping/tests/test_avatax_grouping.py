@@ -1,10 +1,10 @@
 # Copyright 2025
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0.html).
 
-from odoo.tests import SavepointCase
+from odoo.tests import common
 
 
-class TestAvataxLineGrouping(SavepointCase):
+class TestAvataxLineGrouping(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -15,8 +15,9 @@ class TestAvataxLineGrouping(SavepointCase):
                 "company_id": cls.company.id,
                 "account_number": "123456789",
                 "license_key": "dummy-key",
-                "service_url": "https://sandbox-rest.avatax.com",
                 "company_code": "DEFAULT",
+                "disable_tax_calculation": False,
+                "invoice_calculate_tax": False,
             }
         )
 
