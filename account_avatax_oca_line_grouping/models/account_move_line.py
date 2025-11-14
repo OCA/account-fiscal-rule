@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from odoo import models
 
 
@@ -54,12 +52,12 @@ class AccountMoveLine(models.Model):
             description = line.name or move.name or "Combined Items"
 
             return {
-                "qty": 1, 
+                "qty": 1,
                 "itemcode": item_code,
                 "description": description,
                 "amount": total_amount,
                 "tax_code": tax_code,
-                "id": line, 
+                "id": line,
                 "account_id": line.account_id.id,
                 "tax_id": line.tax_ids,
             }

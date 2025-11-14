@@ -6,8 +6,7 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     def _avatax_compute_tax(self):
-        """Contact REST API and recompute taxes for a Sale Order.
-        """
+        """Contact REST API and recompute taxes for a Sale Order."""
         self and self.ensure_one()
         doc_type = self._get_avatax_doc_type()
         Tax = self.env["account.tax"]
@@ -37,11 +36,14 @@ class SaleOrder(models.Model):
 
         tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
 
-        
         if avatax_config.avatax_group_lines and len(tax_result_lines) == 1:
             single_result_line = list(tax_result_lines.values())[0]
 
-            total_tax = single_result_line.get("taxCalculated") or single_result_line.get("tax") or 0.0
+            total_tax = (
+                single_result_line.get("taxCalculated")
+                or single_result_line.get("tax")
+                or 0.0
+            )
 
             order_lines = self.order_line.filtered(lambda l: not l.display_type)
             if not order_lines or not total_tax:
@@ -55,7 +57,7 @@ class SaleOrder(models.Model):
                     * (1 - (line.discount or 0.0) / 100.0)
                 )
 
-            total_base = sum(_line_base(l) for l in order_lines)
+            total_base = sum(_line_base(line) for line in order_lines)
             if not total_base:
                 self.tax_amount = tax_result.get("totalTax")
                 return True
@@ -94,8 +96,7 @@ class SaleOrder(models.Model):
                     line_taxes = (
                         tax_line
                         if avatax_config.override_line_taxes
-                        else tax_line
-                        | line.tax_id.filtered(lambda x: not x.is_avatax)
+                        else tax_line | line.tax_id.filtered(lambda x: not x.is_avatax)
                     )
                     line.tax_id = line_taxes
 
@@ -103,7 +104,7 @@ class SaleOrder(models.Model):
 
             self.tax_amount = tax_result.get("totalTax")
             return True
-      
+
         for line in self.order_line:
             tax_result_line = tax_result_lines.get(line.id)
             if tax_result_line:

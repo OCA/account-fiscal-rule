@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="view_avalara_salestax_form_avatax_group_lines" model="ir.ui.view">
         <field name="name">avalara.salestax.form.avatax.group.lines</field>
         <field name="model">avalara.salestax</field>
-        <field name="inherit_id" ref="account_avatax_oca.view_avalara_salestax_form"/>
+        <field name="inherit_id" ref="account_avatax_oca.view_avalara_salestax_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='disable_tax_calculation']" position="after">
-                <field name="avatax_group_lines"/>
+                <field name="avatax_group_lines" />
             </xpath>
         </field>
     </record>

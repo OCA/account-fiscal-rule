@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    def _avatax_compute_tax(self, commit=False):
+    def _avatax_compute_tax(self, commit=False):  # noqa: C901
         """Contact REST API and recompute taxes for an Invoice."""
         self and self.ensure_one()
         avatax_config = self.company_id.get_avatax_config_company()
@@ -66,7 +66,6 @@ class AccountMove(models.Model):
             tax_result_lines = {int(x["lineNumber"]): x for x in tax_result["lines"]}
             taxes_to_set = {}
 
-           
             if avatax_config.avatax_group_lines and len(tax_result_lines) == 1:
                 single_result_line = list(tax_result_lines.values())[0]
 
@@ -76,17 +75,16 @@ class AccountMove(models.Model):
                     or 0.0
                 )
 
-                inv_lines = self.invoice_line_ids.filtered(
-                    lambda l: not l.display_type
-                )
+                inv_lines = self.invoice_line_ids.filtered(lambda l: not l.display_type)
                 if inv_lines and total_tax:
+
                     def _line_base(line):
                         amount = line._get_avatax_amount()
                         if line.quantity < 0:
                             amount = -amount
                         return amount
 
-                    total_base = sum(_line_base(l) for l in inv_lines)
+                    total_base = sum(_line_base(line) for line in inv_lines)
 
                     if total_base:
                         tax_calculation = 0.0
@@ -128,7 +126,7 @@ class AccountMove(models.Model):
                                 else:
                                     taxes_to_set[line.id] = base_taxes | tax_line
 
-                            line.avatax_amt_line = line_tax            
+                            line.avatax_amt_line = line_tax
             else:
                 for line in self.invoice_line_ids:
                     tax_result_line = tax_result_lines.get(line.id)
@@ -141,9 +139,7 @@ class AccountMove(models.Model):
                             )
                         rate = round(tax_calculation * 100, 4)
                         tax = Tax.get_avalara_tax(rate, doc_type)
-                        tax, line = self.update_tax_details(
-                            tax, line, tax_result_line
-                        )
+                        tax, line = self.update_tax_details(tax, line, tax_result_line)
                         if tax and tax not in line.tax_ids:
                             line_taxes = line.tax_ids.filtered(
                                 lambda x: not x.is_avatax
@@ -155,7 +151,7 @@ class AccountMove(models.Model):
                 "totalTax"
             ]
             container = {"records": self}
-            
+
             with self.with_context(
                 avatax_invoice=self, check_move_validity=False
             )._sync_dynamic_lines(container), self.line_ids.mapped(

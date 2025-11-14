@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from odoo import models
 
 
@@ -26,9 +24,7 @@ class SaleOrderLine(models.Model):
 
             for line in order.order_line:
                 line_net = (
-                    line.price_unit
-                    * line.product_uom_qty
-                    * (1 - line.discount / 100.0)
+                    line.price_unit * line.product_uom_qty * (1 - line.discount / 100.0)
                 )
                 total_amount += sign * line_net
 
