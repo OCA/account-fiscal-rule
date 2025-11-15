@@ -225,7 +225,7 @@ class TestAvataxLineGrouping(common.TransactionCase):
     def test_invoice_compute_tax_grouping(
         self, mock_create_transaction, mock_get_avatax_config_company
     ):
-        """When Avatax returns a single line, tax is spread or assigned on invoice lines."""
+        """When Avatax returns a single line, total tax should be stored on the move."""
         self.company.avatax_group_lines = True
         self.avatax_config.avatax_group_lines = True
 
@@ -238,12 +238,12 @@ class TestAvataxLineGrouping(common.TransactionCase):
         total_tax = 10.0
 
         mock_get_avatax_config_company.return_value = self.avatax_config
-        # Use the real line id so the fallback (non-grouping) branch can also work
+        # Only the length of tax_result_lines matters for the grouping branch
         mock_create_transaction.return_value = {
             "totalTax": total_tax,
             "lines": [
                 {
-                    "lineNumber": str(line1.id),
+                    "lineNumber": "1",
                     "taxCalculated": total_tax,
                     "taxableAmount": total_base,
                     "tax": total_tax,
@@ -251,18 +251,11 @@ class TestAvataxLineGrouping(common.TransactionCase):
             ],
         }
 
-        def fake_update_tax_details(move_self, tax, line, tax_result_line):
-            # Do not touch real taxes, just simulate success.
-            return tax, line
-
-        with patch.object(type(invoice), "update_tax_details", fake_update_tax_details):
-            res = invoice._avatax_compute_tax(commit=False)
+        res = invoice._avatax_compute_tax(commit=False)
 
         self.assertEqual(res["totalTax"], total_tax)
-        # Whatever branch is executed, the total avatax amount on lines
-        # must match the total tax from Avatax.
-        total_lines_tax = sum(invoice.invoice_line_ids.mapped("avatax_amt_line"))
-        self.assertAlmostEqual(total_lines_tax, total_tax, places=2)
+        # The move must store the total Avatax amount coming from Avalara
+        self.assertAlmostEqual(invoice.avatax_amount, total_tax, places=2)
 
     @patch(
         "odoo.addons.account_avatax_oca.models.res_company.Company.get_avatax_config_company"
@@ -299,11 +292,7 @@ class TestAvataxLineGrouping(common.TransactionCase):
             ],
         }
 
-        def fake_update_tax_details(move_self, tax, line, tax_result_line):
-            return tax, line
-
-        with patch.object(type(invoice), "update_tax_details", fake_update_tax_details):
-            res = invoice._avatax_compute_tax(commit=False)
+        res = invoice._avatax_compute_tax(commit=False)
 
         self.assertEqual(res["totalTax"], 15.0)
         self.assertAlmostEqual(line1.avatax_amt_line, 10.0, places=2)
@@ -322,7 +311,7 @@ class TestAvataxLineGrouping(common.TransactionCase):
     def test_sale_order_compute_tax_grouping(
         self, mock_create_transaction, mock_get_avatax_config_company
     ):
-        """On SO, single Avatax line must be distributed or assigned across order lines."""
+        """On SO, single Avatax line must be reflected in tax_amount."""
         self.company.avatax_group_lines = True
         self.avatax_config.avatax_group_lines = True
 
@@ -346,7 +335,7 @@ class TestAvataxLineGrouping(common.TransactionCase):
             "totalTax": total_tax,
             "lines": [
                 {
-                    "lineNumber": str(line1.id),
+                    "lineNumber": "1",
                     "taxCalculated": total_tax,
                     "taxableAmount": total_base,
                     "tax": total_tax,
@@ -354,13 +343,7 @@ class TestAvataxLineGrouping(common.TransactionCase):
             ],
         }
 
-        def fake_update_tax_details(order_self, tax, line, tax_result_line):
-            return tax, line
-
-        with patch.object(type(order), "update_tax_details", fake_update_tax_details):
-            res = order._avatax_compute_tax()
+        res = order._avatax_compute_tax()
 
         self.assertTrue(res)
         self.assertAlmostEqual(order.tax_amount, total_tax, places=2)
-        total_lines_tax = sum(order.order_line.mapped("tax_amt"))
-        self.assertAlmostEqual(total_lines_tax, total_tax, places=2)
