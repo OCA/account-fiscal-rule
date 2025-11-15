@@ -24,17 +24,10 @@ class TestAvataxLineGrouping(common.TransactionCase):
             }
         )
 
-        cls.partner = cls.env["res.partner"].create(
-            {
-                "name": "Test Customer",
-            }
-        )
+        cls.partner = cls.env["res.partner"].create({"name": "Test Customer"})
 
         cls.fiscal_position = cls.env["account.fiscal.position"].create(
-            {
-                "name": "Avatax FP",
-                "is_avatax": True,
-            }
+            {"name": "Avatax FP", "is_avatax": True}
         )
         cls.partner.property_account_position_id = cls.fiscal_position
 
@@ -45,6 +38,7 @@ class TestAvataxLineGrouping(common.TransactionCase):
             {"name": "Prod 2", "list_price": 50.0}
         )
 
+        # Simple income account for invoice lines
         cls.income_account = cls.env["account.account"].search(
             [
                 ("account_type", "=", "income"),
@@ -63,6 +57,7 @@ class TestAvataxLineGrouping(common.TransactionCase):
                 }
             )
 
+        # Basic pricelist for sale orders
         cls.pricelist = cls.env["product.pricelist"].create(
             {
                 "name": "Avatax Test Pricelist",
@@ -74,7 +69,7 @@ class TestAvataxLineGrouping(common.TransactionCase):
     # Helpers
     # ------------------------------------------------------------------
     def _create_invoice_two_lines(self):
-        """Crear una factura de prueba con 2 líneas de producto."""
+        """Create a test customer invoice with two lines."""
         move = self.env["account.move"].create(
             {
                 "move_type": "out_invoice",
@@ -105,11 +100,10 @@ class TestAvataxLineGrouping(common.TransactionCase):
                 ],
             }
         )
-        move.refresh()
         return move
 
     def _create_sale_order_two_lines(self):
-        """Crear una SO de prueba con 2 líneas de producto."""
+        """Create a test sale order with two lines."""
         order = self.env["sale.order"].create(
             {
                 "partner_id": self.partner.id,
@@ -138,11 +132,13 @@ class TestAvataxLineGrouping(common.TransactionCase):
                 ],
             }
         )
-        order.refresh()
         return order
 
+    # ------------------------------------------------------------------
+    # Tests for account.move.line._avatax_prepare_line
+    # ------------------------------------------------------------------
     def test_no_grouping_behaviour(self):
-        """Con avatax_group_lines = False, cada línea prepara su propio dict."""
+        """With avatax_group_lines = False, each line prepares its own dict."""
         self.company.avatax_group_lines = False
         self.avatax_config.avatax_group_lines = False
 
@@ -167,7 +163,7 @@ class TestAvataxLineGrouping(common.TransactionCase):
         )
 
     def test_grouping_behaviour(self):
-        """Con avatax_group_lines = True solo la primera línea devuelve el agregado."""
+        """With avatax_group_lines = True only the first line returns aggregate."""
         self.company.avatax_group_lines = True
         self.avatax_config.avatax_group_lines = True
 
@@ -191,7 +187,6 @@ class TestAvataxLineGrouping(common.TransactionCase):
             places=2,
             msg="Aggregated amount should be the sum of all lines' Avatax base",
         )
-
         self.assertEqual(
             res2,
             {},
@@ -199,7 +194,7 @@ class TestAvataxLineGrouping(common.TransactionCase):
         )
 
     def test_grouping_with_negative_quantity(self):
-        """La lógica de agrupación debe considerar cantidades negativas."""
+        """Grouping logic must handle negative quantities."""
         self.company.avatax_group_lines = True
         self.avatax_config.avatax_group_lines = True
 
@@ -216,8 +211,19 @@ class TestAvataxLineGrouping(common.TransactionCase):
         self.assertAlmostEqual(res1["amount"], expected_amount, places=2)
         self.assertEqual(res2, {})
 
-    def test_invoice_compute_tax_grouping(self):
-        """_avatax_compute_tax reparte el impuesto de una sola línea de Avatax."""
+    # ------------------------------------------------------------------
+    # Tests for account.move._avatax_compute_tax
+    # ------------------------------------------------------------------
+    @patch(
+        "odoo.addons.account_avatax_oca.models.res_company.Company.get_avatax_config_company"
+    )
+    @patch(
+        "odoo.addons.account_avatax_oca.models.avalara_salestax.AvalaraSalestax.create_transaction"  # noqa: B950
+    )
+    def test_invoice_compute_tax_grouping(
+        self, mock_create_transaction, mock_get_avatax_config_company
+    ):
+        """When Avatax returns a single line, tax is spread across invoice lines."""
         self.company.avatax_group_lines = True
         self.avatax_config.avatax_group_lines = True
 
@@ -229,29 +235,29 @@ class TestAvataxLineGrouping(common.TransactionCase):
         total_base = base1 + base2
         total_tax = 10.0
 
-        def fake_create_transaction(config, *args, **kwargs):
-            return {
-                "totalTax": total_tax,
-                "lines": [
-                    {
-                        "lineNumber": "1",
-                        "taxCalculated": total_tax,
-                        "taxableAmount": total_base,
-                        "tax": total_tax,
-                    }
-                ],
-            }
+        mock_get_avatax_config_company.return_value = self.avatax_config
+        mock_create_transaction.return_value = {
+            "totalTax": total_tax,
+            "lines": [
+                {
+                    "lineNumber": "1",
+                    "taxCalculated": total_tax,
+                    "taxableAmount": total_base,
+                    "tax": total_tax,
+                }
+            ],
+        }
 
         def fake_update_tax_details(move_self, tax, line, tax_result_line):
+            # Do not touch real taxes, just simulate success.
             return tax, line
 
-        with patch.object(
-            type(self.avatax_config), "create_transaction", fake_create_transaction
-        ), patch.object(type(invoice), "update_tax_details", fake_update_tax_details):
+        with patch.object(type(invoice), "update_tax_details", fake_update_tax_details):
             res = invoice._avatax_compute_tax(commit=False)
 
         self.assertEqual(res["totalTax"], total_tax)
 
+        # Lines' Avatax amounts must sum the total tax.
         self.assertAlmostEqual(
             line1.avatax_amt_line + line2.avatax_amt_line,
             total_tax,
@@ -268,39 +274,45 @@ class TestAvataxLineGrouping(common.TransactionCase):
         self.assertAlmostEqual(line1.avatax_amt_line, expected_line1, places=2)
         self.assertAlmostEqual(line2.avatax_amt_line, expected_line2, places=2)
 
-    def test_invoice_compute_tax_no_grouping(self):
-        """Cuando no hay agrupación, cada línea usa su propio resultado de Avatax."""
+    @patch(
+        "odoo.addons.account_avatax_oca.models.res_company.Company.get_avatax_config_company"
+    )
+    @patch(
+        "odoo.addons.account_avatax_oca.models.avalara_salestax.AvalaraSalestax.create_transaction"  # noqa: B950
+    )
+    def test_invoice_compute_tax_no_grouping(
+        self, mock_create_transaction, mock_get_avatax_config_company
+    ):
+        """Without grouping, each line uses its own Avatax result."""
         self.company.avatax_group_lines = False
         self.avatax_config.avatax_group_lines = False
 
         invoice = self._create_invoice_two_lines()
         line1, line2 = invoice.invoice_line_ids
 
-        def fake_create_transaction(config, *args, **kwargs):
-            return {
-                "totalTax": 15.0,
-                "lines": [
-                    {
-                        "lineNumber": str(line1.id),
-                        "taxCalculated": 10.0,
-                        "taxableAmount": line1._get_avatax_amount(),
-                        "tax": 10.0,
-                    },
-                    {
-                        "lineNumber": str(line2.id),
-                        "taxCalculated": 5.0,
-                        "taxableAmount": line2._get_avatax_amount(),
-                        "tax": 5.0,
-                    },
-                ],
-            }
+        mock_get_avatax_config_company.return_value = self.avatax_config
+        mock_create_transaction.return_value = {
+            "totalTax": 15.0,
+            "lines": [
+                {
+                    "lineNumber": str(line1.id),
+                    "taxCalculated": 10.0,
+                    "taxableAmount": line1._get_avatax_amount(),
+                    "tax": 10.0,
+                },
+                {
+                    "lineNumber": str(line2.id),
+                    "taxCalculated": 5.0,
+                    "taxableAmount": line2._get_avatax_amount(),
+                    "tax": 5.0,
+                },
+            ],
+        }
 
         def fake_update_tax_details(move_self, tax, line, tax_result_line):
             return tax, line
 
-        with patch.object(
-            type(self.avatax_config), "create_transaction", fake_create_transaction
-        ), patch.object(type(invoice), "update_tax_details", fake_update_tax_details):
+        with patch.object(type(invoice), "update_tax_details", fake_update_tax_details):
             res = invoice._avatax_compute_tax(commit=False)
 
         self.assertEqual(res["totalTax"], 15.0)
@@ -308,8 +320,19 @@ class TestAvataxLineGrouping(common.TransactionCase):
         self.assertAlmostEqual(line2.avatax_amt_line, 5.0, places=2)
         self.assertAlmostEqual(invoice.avatax_amount, 15.0, places=2)
 
-    def test_sale_order_compute_tax_grouping(self):
-        """En SO, el impuesto se reparte entre las líneas cuando Avatax devuelve 1 línea."""
+    # ------------------------------------------------------------------
+    # Tests for sale.order._avatax_compute_tax
+    # ------------------------------------------------------------------
+    @patch(
+        "odoo.addons.account_avatax_oca.models.res_company.Company.get_avatax_config_company"
+    )
+    @patch(
+        "odoo.addons.account_avatax_oca.models.avalara_salestax.AvalaraSalestax.create_transaction"  # noqa: B950
+    )
+    def test_sale_order_compute_tax_grouping(
+        self, mock_create_transaction, mock_get_avatax_config_company
+    ):
+        """On SO, single Avatax line must be distributed across order lines."""
         self.company.avatax_group_lines = True
         self.avatax_config.avatax_group_lines = True
 
@@ -328,25 +351,23 @@ class TestAvataxLineGrouping(common.TransactionCase):
         total_base = base1 + base2
         total_tax = 7.0
 
-        def fake_create_transaction(config, *args, **kwargs):
-            return {
-                "totalTax": total_tax,
-                "lines": [
-                    {
-                        "lineNumber": "1",
-                        "taxCalculated": total_tax,
-                        "taxableAmount": total_base,
-                        "tax": total_tax,
-                    }
-                ],
-            }
+        mock_get_avatax_config_company.return_value = self.avatax_config
+        mock_create_transaction.return_value = {
+            "totalTax": total_tax,
+            "lines": [
+                {
+                    "lineNumber": "1",
+                    "taxCalculated": total_tax,
+                    "taxableAmount": total_base,
+                    "tax": total_tax,
+                }
+            ],
+        }
 
         def fake_update_tax_details(order_self, tax, line, tax_result_line):
             return tax, line
 
-        with patch.object(
-            type(self.avatax_config), "create_transaction", fake_create_transaction
-        ), patch.object(type(order), "update_tax_details", fake_update_tax_details):
+        with patch.object(type(order), "update_tax_details", fake_update_tax_details):
             res = order._avatax_compute_tax()
 
         self.assertTrue(res)
