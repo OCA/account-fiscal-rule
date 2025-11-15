@@ -47,7 +47,7 @@ class TestAvataxLineGrouping(common.TransactionCase):
 
         cls.income_account = cls.env["account.account"].search(
             [
-                ("user_type_id.type", "=", "other"),
+                ("account_type", "=", "income"),
                 ("company_id", "=", cls.company.id),
                 ("deprecated", "=", False),
             ],
@@ -58,7 +58,7 @@ class TestAvataxLineGrouping(common.TransactionCase):
                 {
                     "name": "Avatax Income",
                     "code": "AVA999",
-                    "user_type_id": cls.env.ref("account.data_account_type_revenue").id,
+                    "account_type": "income",
                     "company_id": cls.company.id,
                 }
             )
