@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
+from odoo import Command
 from odoo.tests.common import Form
 
 from odoo.addons.account_ecotax_sale.tests.test_sale_ecotax import TestsaleEcotaxCommon
@@ -13,6 +14,9 @@ class TestsaleEcotaxTax(TestInvoiceEcotaxTaxComon, TestsaleEcotaxCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # Remove default taxes to match test expectations (which expect no VAT)
+        cls.product_a.taxes_id = [Command.clear()]
+        cls.product_b.taxes_id = [Command.clear()]
 
     def test_01_classification_weight_based_ecotax(self):
         """Tests  with weight based ecotaxs"""
