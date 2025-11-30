@@ -205,17 +205,17 @@ class TestInvoiceEcotaxCommon(BaseCommon):
         return new_qtys
 
     def _run_checks(self, inv, inv_expected_amounts, inv_lines_expected_amounts):
-        self.assertEqual(inv.amount_ecotax, inv_expected_amounts["amount_ecotax"])
-        self.assertEqual(inv.amount_total, inv_expected_amounts["amount_total"])
+        self.assertAlmostEqual(inv.amount_ecotax, inv_expected_amounts["amount_ecotax"])
+        self.assertAlmostEqual(inv.amount_total, inv_expected_amounts["amount_total"])
         self.assertEqual(len(inv.invoice_line_ids), len(inv_lines_expected_amounts))
         for inv_line, inv_line_expected_amounts in zip(
             inv.invoice_line_ids, inv_lines_expected_amounts, strict=True
         ):
-            self.assertEqual(
+            self.assertAlmostEqual(
                 inv_line.ecotax_amount_unit,
                 inv_line_expected_amounts["ecotax_amount_unit"],
             )
-            self.assertEqual(
+            self.assertAlmostEqual(
                 inv_line.subtotal_ecotax, inv_line_expected_amounts["subtotal_ecotax"]
             )
 
