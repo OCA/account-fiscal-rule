@@ -4,9 +4,9 @@
         <field name="model">account.move.line</field>
         <field name="inherit_id" ref="account_ecotax.view_move_line_ecotax_form" />
         <field name="arch" type="xml">
-                            <field name="ecotax_line_ids" position="attributes">
-                                <attribute name="readonly">1</attribute>
-                            </field>
+            <field name="ecotax_line_ids" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
         </field>
     </record>
 </odoo>
