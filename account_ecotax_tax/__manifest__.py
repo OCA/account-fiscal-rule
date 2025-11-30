@@ -4,7 +4,7 @@
 {
     "name": "Ecotax Management (with Odoo tax)",
     "summary": "Use Odoo tax mechanism to compute the ecotaxes ",
-    "version": "17.0.1.0.1",
+    "version": "18.0.1.0.1",
     "author": "Akretion, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-fiscal-rule",
     "category": "Localization/Account Taxes",
@@ -15,6 +15,7 @@
         "account_tax_python",
     ],
     "data": [
+        "data/account_tax_data.xml",
         "views/account_ecotax_classification_view.xml",
         "views/account_tax_view.xml",
         "views/account_move_view.xml",

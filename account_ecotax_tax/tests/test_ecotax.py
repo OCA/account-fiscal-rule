@@ -15,13 +15,12 @@ class TestInvoiceEcotaxTaxComon(TestInvoiceEcotaxCommon):
         # included with tax not included (B2B case)
         # Also for this version, the included use case using tax is broken because
         # of a bug in Odoo core (check readme)
-        cls.invoice_tax.price_include = False
+        cls.invoice_tax.price_include_override = "tax_excluded"
         cls.invoice_ecotax_account = cls.env["account.account"].create(
             {
                 "code": "707120",
                 "name": "Ecotax Account",
                 "account_type": "income",
-                "company_id": cls.env.user.company_id.id,
             }
         )
         cls.invoice_fixed_ecotax = cls.env["account.tax"].create(
@@ -29,13 +28,12 @@ class TestInvoiceEcotaxTaxComon(TestInvoiceEcotaxCommon):
                 "name": "Fixed Ecotax",
                 "type_tax_use": "sale",
                 "company_id": cls.env.user.company_id.id,
-                "price_include": False,
+                "price_include_override": "tax_excluded",
                 "amount_type": "code",
                 "include_base_amount": True,
                 "sequence": 0,
                 "is_ecotax": True,
-                "python_compute": "result = (quantity and"
-                " product.fixed_ecotax * quantity  or 0.0)",
+                "formula": "quantity and product.fixed_ecotax * quantity or 0.0",
                 "tax_exigibility": "on_invoice",
                 "invoice_repartition_line_ids": [
                     (
@@ -84,11 +82,10 @@ class TestInvoiceEcotaxTaxComon(TestInvoiceEcotaxCommon):
                 "company_id": cls.env.user.company_id.id,
                 "amount_type": "code",
                 "include_base_amount": True,
-                "price_include": False,
+                "price_include_override": "tax_excluded",
                 "sequence": 0,
                 "is_ecotax": True,
-                "python_compute": "result = (quantity and"
-                " product.weight_based_ecotax * quantity or 0.0)",
+                "formula": "quantity and product.weight_based_ecotax * quantity or 0.0",
                 "tax_exigibility": "on_invoice",
                 "invoice_repartition_line_ids": [
                     (
