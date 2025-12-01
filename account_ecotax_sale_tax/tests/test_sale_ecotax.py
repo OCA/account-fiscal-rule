@@ -4,7 +4,7 @@
 
 
 from odoo import Command
-from odoo.tests.common import Form
+from odoo.tests import Form
 
 from odoo.addons.account_ecotax_sale.tests.test_sale_ecotax import TestsaleEcotaxCommon
 from odoo.addons.account_ecotax_tax.tests.test_ecotax import TestInvoiceEcotaxTaxComon
