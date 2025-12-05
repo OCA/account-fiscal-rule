@@ -1,0 +1,48 @@
+<odoo>
+    <record id="account_tax_product_amount_view_tree" model="ir.ui.view">
+        <field name="name">account.tax.product.amount.view.list</field>
+        <field name="model">account.tax.product.amount</field>
+        <field name="arch" type="xml">
+            <list editable="top">
+                <field name="company_id" optional="hide" />
+                <field name="product_id" />
+                <field name="tax_id" />
+                <field name="type_tax_use" optional="show" />
+                <field name="amount" />
+            </list>
+        </field>
+    </record>
+
+    <record id="account_tax_product_amount_view_search" model="ir.ui.view">
+        <field name="name">account.tax.product.amount.view.search</field>
+        <field name="model">account.tax.product.amount</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_id" />
+                <field name="company_id" />
+                <field name="tax_id" />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_tax_product_amount" model="ir.actions.act_window">
+        <field name="name">Tax Product Amount</field>
+        <field name="res_model">account.tax.product.amount</field>
+        <field name="view_mode">list</field>
+        <field name="domain">[]</field>
+        <field name="view_id" ref="account_tax_product_amount_view_tree" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Create a new tax amount for a product variant
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        name="Tax Product Amount"
+        id="menu_tax_product_amount"
+        action="action_tax_product_amount"
+        parent="account.account_account_menu"
+        sequence="2"
+    />
+</odoo>

@@ -1,0 +1,2 @@
+*   Allow setting the tax amount directly from the **Product Template** view when the product has only one variant.
+*   Support for **Point of Sale (POS)** via a dedicated bridge module (e.g., `pos_account_tax_product_amount`).
