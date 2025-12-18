@@ -25,7 +25,6 @@ msgstr "Contacto"
 #. module: account_fiscal_position_vies_warning
 #: model:ir.model,name:account_fiscal_position_vies_warning.model_account_fiscal_position
 #, fuzzy
-#| msgid "Check Vies Fiscal Position"
 msgid "Fiscal Position"
 msgstr "Validar posición fiscal con NIF verificados"
 
@@ -51,6 +50,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_fiscal_position_vies_warning.field_account_fiscal_position__is_show_vies_warning
 msgid "Show Vies Warning"
 msgstr "Mostrar advertencia de VIES"
+
+#. module: account_fiscal_position_vies_warning
+#: model:ir.model.fields,field_description:account_fiscal_position_vies_warning.field_account_fiscal_position__is_visible_show_vies_warning
+msgid "Visible Show Vies Warning"
+msgstr ""
 
 #. module: account_fiscal_position_vies_warning
 #. odoo-python

@@ -1,7 +1,7 @@
 # Copyright 2025 Moduon Team S.L. <info@moduon.team>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -20,6 +20,10 @@ class AccountFiscalPosition(models.Model):
         "on an Invoice",
     )
 
+    is_visible_show_vies_warning = fields.Boolean(
+        "Visible Show Vies Warning", compute="_compute_visible_vies_warning"
+    )
+
     def raise_vies_warning(self, partner_name):
         raise ValidationError(
             _(
@@ -31,3 +35,12 @@ class AccountFiscalPosition(models.Model):
                 "partner_name": partner_name,
             }
         )
+
+    @api.depends("auto_apply", "vat_required", "company_id.vat_check_vies")
+    def _compute_visible_vies_warning(self):
+        for record in self:
+            record.is_visible_show_vies_warning = bool(
+                record.auto_apply
+                and record.vat_required
+                and record.company_id.vat_check_vies
+            )
