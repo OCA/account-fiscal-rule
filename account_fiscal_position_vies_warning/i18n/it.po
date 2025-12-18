@@ -50,6 +50,11 @@ msgid "Show Vies Warning"
 msgstr "Visualizza avvisi VIES"
 
 #. module: account_fiscal_position_vies_warning
+#: model:ir.model.fields,field_description:account_fiscal_position_vies_warning.field_account_fiscal_position__is_visible_show_vies_warning
+msgid "Visible Show Vies Warning"
+msgstr ""
+
+#. module: account_fiscal_position_vies_warning
 #. odoo-python
 #: code:addons/account_fiscal_position_vies_warning/models/account_fiscal_position.py:0
 msgid ""

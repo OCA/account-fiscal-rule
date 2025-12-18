@@ -111,3 +111,25 @@ class TestFiscalPositionViesWarning(BaseCommon):
         invoice = self._create_invoice(self.partner_vies, self.fp_other)
         invoice.action_post()
         self.assertEqual(invoice.fiscal_position_id.id, self.fp_other.id)
+
+    def test_vies_warning_visibility(self):
+        self.fp_other.auto_apply = True
+        self.fp_other.vat_required = True
+        self.env.company.vat_check_vies = False
+        self.fp_other._compute_visible_vies_warning()
+        self.assertFalse(self.fp_other.is_visible_show_vies_warning)
+
+        self.fp_other.auto_apply = True
+        self.fp_other.vat_required = True
+        self.env.company.vat_check_vies = True
+        self.fp_other._compute_visible_vies_warning()
+        self.assertTrue(self.fp_other.is_visible_show_vies_warning)
+
+        self.fp_other.auto_apply = True
+        self.fp_other.vat_required = False
+        self.fp_other._compute_visible_vies_warning()
+        self.assertFalse(self.fp_other.is_visible_show_vies_warning)
+
+        self.env.company.vat_check_vies = False
+        self.fp_intra_community._compute_visible_vies_warning()
+        self.assertFalse(self.fp_intra_community.is_visible_show_vies_warning)

@@ -3,7 +3,7 @@
 
 {
     "name": "Account Fiscal Position Vies Warning",
-    "version": "18.0.1.0.1",
+    "version": "18.0.1.0.2",
     "website": "https://github.com/OCA/account-fiscal-rule",
     "author": "Moduon, Odoo Community Association (OCA)",
     "license": "LGPL-3",
