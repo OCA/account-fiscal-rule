@@ -28,13 +28,14 @@ class ResPartnerExemptionLine(models.Model):
     add_exemption_number = fields.Boolean()
     exemption_number = fields.Char()
 
-    @api.model
-    def create(self, vals):
-        if vals.get("name", _("New")) == _("New"):
-            vals["name"] = self.env["ir.sequence"].next_by_code(
-                "exemption.line.sequence"
-            ) or _("New")
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("name", _("New")) == _("New"):
+                vals["name"] = self.env["ir.sequence"].next_by_code(
+                    "exemption.line.sequence"
+                ) or _("New")
+        return super().create(vals_list)
 
 
 class ResPartnerExemptionBusinessType(models.Model):

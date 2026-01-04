@@ -281,22 +281,23 @@ class Repair(models.Model):
                     self.calculate_tax_on_save = True
                     break
 
-    @api.model
-    def create(self, vals):
-        record = super(Repair, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super(Repair, self).create(vals_list)
         avatax_config = self.env.company.get_avatax_config_company()
-        if (
-            avatax_config.repair_calculate_tax
-            and record.calculate_tax_on_save
-            and not self._context.get("skip_second_write", False)
-        ):
-            record.with_context(skip_second_write=True).write(
-                {
-                    "calculate_tax_on_save": False,
-                }
-            )
-            record.avalara_compute_taxes()
-        return record
+        for record in records:
+            if (
+                avatax_config.repair_calculate_tax
+                and record.calculate_tax_on_save
+                and not self._context.get("skip_second_write", False)
+            ):
+                record.with_context(skip_second_write=True).write(
+                    {
+                        "calculate_tax_on_save": False,
+                    }
+                )
+                record.avalara_compute_taxes()
+        return records
 
     def write(self, vals):
         result = super(Repair, self).write(vals)
