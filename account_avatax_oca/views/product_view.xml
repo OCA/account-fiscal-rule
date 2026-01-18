@@ -55,16 +55,6 @@
                     </group>
                 </page>
             </xpath>
-            <xpath expr="//page[1]/group" position="after">
-                <group col="2" string="Product Description">
-                    <field
-                        colspan="2"
-                        name="description"
-                        placeholder="describe the product characteristics..."
-                        nolabel="1"
-                    />
-                </group>
-            </xpath>
         </field>
     </record>
     <!--
