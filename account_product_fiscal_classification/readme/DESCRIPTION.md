@@ -4,8 +4,6 @@ Classifications.
 A fiscal classification is an association of purchase and sale taxes
 that have to be set on your products.
 
-![](../static/description/product_template_form.png)
-
 This new design provides the following improvments.
 
 - It is more simple (less clicks quantity) to configure correctly a

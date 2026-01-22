@@ -8,10 +8,11 @@
 
 /*
 :Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 8954 2022-01-20 10:10:25Z milde $
+:Id: $Id: html4css1.css 9511 2024-01-13 09:50:07Z milde $
 :Copyright: This stylesheet has been placed in the public domain.
 
 Default cascading style sheet for the HTML output of Docutils.
+Despite the name, some widely supported CSS2 features are used.
 
 See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
 customize this style sheet.
@@ -274,7 +275,7 @@ pre.literal-block, pre.doctest-block, pre.math, pre.code {
   margin-left: 2em ;
   margin-right: 2em }
 
-pre.code .ln { color: grey; } /* line numbers */
+pre.code .ln { color: gray; } /* line numbers */
 pre.code, code { background-color: #eeeeee }
 pre.code .comment, code .comment { color: #5C6576 }
 pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
@@ -300,7 +301,7 @@ span.option {
 span.pre {
   white-space: pre }
 
-span.problematic {
+span.problematic, pre.problematic {
   color: red }
 
 span.section-subtitle {
@@ -368,28 +369,27 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! source digest: sha256:08076904e90934415207442bbba35885b10e376fa6e6b14ed2788e7f2df97bff
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/account-fiscal-rule/tree/16.0/account_product_fiscal_classification"><img alt="OCA/account-fiscal-rule" src="https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/account-fiscal-rule-16-0/account-fiscal-rule-16-0-account_product_fiscal_classification"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&amp;target_branch=16.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
-<p>This module extends the Odoo Account module to introduce Fiscal Classifications.</p>
-<p>A fiscal classification is an association of purchase and sale taxes that
-have to be set on your products.</p>
-<div class="figure">
-<img alt="https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_product_fiscal_classification/static/description/product_template_form.png" src="https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_product_fiscal_classification/static/description/product_template_form.png" />
-</div>
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/account-fiscal-rule/tree/18.0/account_product_fiscal_classification"><img alt="OCA/account-fiscal-rule" src="https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/account-fiscal-rule-18-0/account-fiscal-rule-18-0-account_product_fiscal_classification"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&amp;target_branch=18.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>This module extends the Odoo Account module to introduce Fiscal
+Classifications.</p>
+<p>A fiscal classification is an association of purchase and sale taxes
+that have to be set on your products.</p>
 <p>This new design provides the following improvments.</p>
 <ul class="simple">
-<li>It is more simple (less clicks quantity) to configure correctly a product.
-(You only have to set a fiscal classification, instead of setting one or many
-sale taxes, then click on purchase tab and set one or many purchase taxes.)</li>
-<li>Prevent users to select incompatible purchase and sale taxes.
-French Exemple: A product can not be configured with:<ul>
+<li>It is more simple (less clicks quantity) to configure correctly a
+product. (You only have to set a fiscal classification, instead of
+setting one or many sale taxes, then click on purchase tab and set one
+or many purchase taxes.)</li>
+<li>Prevent users to select incompatible purchase and sale taxes. French
+Exemple: A product can not be configured with:<ul>
 <li>Purchase Taxes: 5.5%</li>
 <li>Sale Taxes: 20%</li>
 </ul>
 </li>
-<li>Optionaly, you can restrict the usage of some fiscal classifications to
-some product categories.
-French Exemple : A product set in the category “Beer and wine” can not
-have a sale tax 5,5%. (20% is mandatory)</li>
+<li>Optionaly, you can restrict the usage of some fiscal classifications
+to some product categories. French Exemple : A product set in the
+category “Beer and wine” can not have a sale tax 5,5%. (20% is
+mandatory)</li>
 </ul>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
@@ -406,44 +406,43 @@ have a sale tax 5,5%. (20% is mandatory)</li>
 </div>
 <div class="section" id="configuration">
 <h1><a class="toc-backref" href="#toc-entry-1">Configuration</a></h1>
+<p><img alt="image1" src="https://raw.githubusercontent.com/OCA/account-fiscal-rule/18.0/account_product_fiscal_classification/static/description/product_template_form.png" /></p>
 <ul class="simple">
-<li>Go to “Accounting &gt; Configuration &gt; Accounting &gt; Fiscal Classifications”.</li>
+<li>Go to “Accounting &gt; Configuration &gt; Accounting &gt; Fiscal
+Classifications”.</li>
 <li>Create new classification, with correct purchase and sale taxes.</li>
 </ul>
-<div class="figure">
-<img alt="https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_product_fiscal_classification/static/description/fiscal_classification_form.png" src="https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_product_fiscal_classification/static/description/fiscal_classification_form.png" />
-</div>
+<p><img alt="image2" src="https://raw.githubusercontent.com/OCA/account-fiscal-rule/18.0/account_product_fiscal_classification/static/description/fiscal_classification_form.png" /></p>
 <p><strong>Note</strong></p>
-<p>When installing the module, it will create fiscal classifications for all
-the taxes combinations that exist in your database.
-If some are bad, you can massively move the products for a bad classification
-to the good one, using the button “Move products into another fiscal classification”.</p>
+<p>When installing the module, it will create fiscal classifications for
+all the taxes combinations that exist in your database. If some are bad,
+you can massively move the products for a bad classification to the good
+one, using the button “Move products into another fiscal
+classification”.</p>
 <p><strong>Optional settings</strong></p>
-<p>Once the fiscal classifications are created, you can create rules to avoid
-users to use some classifications that don’t make sense for some categories.</p>
+<p>Once the fiscal classifications are created, you can create rules to
+avoid users to use some classifications that don’t make sense for some
+categories.</p>
 <ul class="simple">
-<li>Go to “Accounting &gt; Configuration &gt; Accounting &gt; Fiscal Classification Rules”</li>
+<li>Go to “Accounting &gt; Configuration &gt; Accounting &gt; Fiscal Classification
+Rules”</li>
 <li>Create new rules.</li>
 </ul>
-<div class="figure">
-<img alt="https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_product_fiscal_classification/static/description/fiscal_classification_rule__wine.png" src="https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_product_fiscal_classification/static/description/fiscal_classification_rule__wine.png" />
-</div>
-<p>Every time a new product is created, the rules that matches the product setting will
-be checked <strong>in the displayed order</strong>.</p>
+<p><img alt="image3" src="https://raw.githubusercontent.com/OCA/account-fiscal-rule/18.0/account_product_fiscal_classification/static/description/fiscal_classification_rule__wine.png" /></p>
+<p>Every time a new product is created, the rules that matches the product
+setting will be checked <strong>in the displayed order</strong>.</p>
 <ul class="simple">
 <li>If one rule is set to ‘Allow’, the next rules are ignored.</li>
 <li>If one rule is set to ‘Forbid’, an error is raised.</li>
 </ul>
-<div class="figure">
-<img alt="https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_product_fiscal_classification/static/description/fiscal_classification_rule__wine_warning.png" src="https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_product_fiscal_classification/static/description/fiscal_classification_rule__wine_warning.png" />
-</div>
+<p><img alt="image4" src="https://raw.githubusercontent.com/OCA/account-fiscal-rule/18.0/account_product_fiscal_classification/static/description/fiscal_classification_rule__wine_warning.png" /></p>
 </div>
 <div class="section" id="bug-tracker">
 <h1><a class="toc-backref" href="#toc-entry-2">Bug Tracker</a></h1>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/account-fiscal-rule/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-<a class="reference external" href="https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_product_fiscal_classification%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<a class="reference external" href="https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_product_fiscal_classification%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
@@ -472,18 +471,22 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 </li>
 <li><p class="first">Danimar RIBEIRO</p>
 </li>
+<li><p class="first">Phan Hong Phuc &lt;<a class="reference external" href="mailto:phucph&#64;trobz.com">phucph&#64;trobz.com</a>&gt;</p>
+</li>
 </ul>
 </div>
 <div class="section" id="maintainers">
 <h2><a class="toc-backref" href="#toc-entry-6">Maintainers</a></h2>
 <p>This module is maintained by the OCA.</p>
-<a class="reference external image-reference" href="https://odoo-community.org"><img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" /></a>
+<a class="reference external image-reference" href="https://odoo-community.org">
+<img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />
+</a>
 <p>OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.</p>
 <p>Current <a class="reference external" href="https://odoo-community.org/page/maintainer-role">maintainer</a>:</p>
 <p><a class="reference external image-reference" href="https://github.com/legalsylvain"><img alt="legalsylvain" src="https://github.com/legalsylvain.png?size=40px" /></a></p>
-<p>This module is part of the <a class="reference external" href="https://github.com/OCA/account-fiscal-rule/tree/16.0/account_product_fiscal_classification">OCA/account-fiscal-rule</a> project on GitHub.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/account-fiscal-rule/tree/18.0/account_product_fiscal_classification">OCA/account-fiscal-rule</a> project on GitHub.</p>
 <p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
 </div>
 </div>

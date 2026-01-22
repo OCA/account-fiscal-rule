@@ -34,8 +34,6 @@ Classifications.
 A fiscal classification is an association of purchase and sale taxes
 that have to be set on your products.
 
-|image1|
-
 This new design provides the following improvments.
 
 - It is more simple (less clicks quantity) to configure correctly a
@@ -53,8 +51,6 @@ This new design provides the following improvments.
   category "Beer and wine" can not have a sale tax 5,5%. (20% is
   mandatory)
 
-.. |image1| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/18.0/account_product_fiscal_classification/static/description/product_template_form.png
-
 **Table of contents**
 
 .. contents::
@@ -63,11 +59,13 @@ This new design provides the following improvments.
 Configuration
 =============
 
+|image1|
+
 - Go to "Accounting > Configuration > Accounting > Fiscal
   Classifications".
 - Create new classification, with correct purchase and sale taxes.
 
-|image1|
+|image2|
 
 **Note**
 
@@ -87,7 +85,7 @@ categories.
   Rules"
 - Create new rules.
 
-|image2|
+|image3|
 
 Every time a new product is created, the rules that matches the product
 setting will be checked **in the displayed order**.
@@ -95,11 +93,12 @@ setting will be checked **in the displayed order**.
 - If one rule is set to 'Allow', the next rules are ignored.
 - If one rule is set to 'Forbid', an error is raised.
 
-|image3|
+|image4|
 
-.. |image1| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/18.0/account_product_fiscal_classification/static/description/fiscal_classification_form.png
-.. |image2| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/18.0/account_product_fiscal_classification/static/description/fiscal_classification_rule__wine.png
-.. |image3| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/18.0/account_product_fiscal_classification/static/description/fiscal_classification_rule__wine_warning.png
+.. |image1| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/18.0/account_product_fiscal_classification/static/description/product_template_form.png
+.. |image2| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/18.0/account_product_fiscal_classification/static/description/fiscal_classification_form.png
+.. |image3| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/18.0/account_product_fiscal_classification/static/description/fiscal_classification_rule__wine.png
+.. |image4| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/18.0/account_product_fiscal_classification/static/description/fiscal_classification_rule__wine_warning.png
 
 Bug Tracker
 ===========

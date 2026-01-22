@@ -1,3 +1,5 @@
+![](../static/description/product_template_form.png)
+
 - Go to "Accounting \> Configuration \> Accounting \> Fiscal
   Classifications".
 - Create new classification, with correct purchase and sale taxes.
