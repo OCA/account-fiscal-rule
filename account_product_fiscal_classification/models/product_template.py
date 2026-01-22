@@ -24,6 +24,7 @@ class ProductTemplate(models.Model):
         comodel_name="account.product.fiscal.classification",
         string="Fiscal Classification",
         tracking=True,
+        domain="['|', ('tax_scope','=',None), ('tax_scope', '=', type)]",
         help="Specify the combination of taxes for this product."
         " This field is required. If you dont find the correct Fiscal"
         " Classification, Please create a new one or ask to your account"

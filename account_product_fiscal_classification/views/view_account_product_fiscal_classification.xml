@@ -66,6 +66,9 @@
                         <page string="General Information" name="general_information">
                             <group>
                                 <group>
+                                    <field name="tax_scope" />
+                                </group>
+                                <group>
                                     <field
                                         name="company_id"
                                         groups="base.group_multi_company"
