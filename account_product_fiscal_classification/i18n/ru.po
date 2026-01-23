@@ -422,6 +422,11 @@ msgid "Product"
 msgstr ""
 
 #. module: account_product_fiscal_classification
+#: model:ir.model,name:account_product_fiscal_classification.model_product_product
+msgid "Product Variant"
+msgstr ""
+
+#. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_template_list_by_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__product_tmpl_ids
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
