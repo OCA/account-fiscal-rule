@@ -30,9 +30,34 @@ msgid "Action"
 msgstr ""
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__active
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__active
 msgid "Active"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__activity_type_icon
+msgid "Activity Type Icon"
 msgstr ""
 
 #. module: account_product_fiscal_classification
@@ -48,6 +73,11 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_search
 msgid "Archived"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__message_attachment_count
+msgid "Attachment Count"
 msgstr ""
 
 #. module: account_product_fiscal_classification
@@ -168,6 +198,21 @@ msgid "Fiscal Rule"
 msgstr ""
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: account_product_fiscal_classification
 #: model:ir.model.fields.selection,name:account_product_fiscal_classification.selection__account_product_fiscal_rule__action__forbid
 msgid "Forbid"
 msgstr ""
@@ -178,12 +223,37 @@ msgid "General Information"
 msgstr ""
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__id
 msgid "ID"
 msgstr "المعرف"
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_template__active
@@ -212,6 +282,11 @@ msgid ""
 msgstr ""
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification____last_update
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template____last_update
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule____last_update
@@ -236,14 +311,34 @@ msgid "Last Updated on"
 msgstr "آخر تحديث في"
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__message
 msgid "Message"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__message_ids
+msgid "Messages"
 msgstr ""
 
 #. module: account_product_fiscal_classification
 #: model:ir.actions.act_window,name:account_product_fiscal_classification.action_wizard_change_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_form
 msgid "Move Products into another Fiscal Classification"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__my_activity_date_deadline
+msgid "My Activity Deadline"
 msgstr ""
 
 #. module: account_product_fiscal_classification
@@ -257,6 +352,21 @@ msgstr "الاسم"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_wizard_change_fiscal_classification__new_fiscal_classification_id
 msgid "New Classification"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__activity_type_id
+msgid "Next Activity Type"
 msgstr ""
 
 #. module: account_product_fiscal_classification
@@ -278,6 +388,26 @@ msgstr ""
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
 msgid "No taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__message_has_error_counter
+msgid "Number of messages with delivery error"
 msgstr ""
 
 #. module: account_product_fiscal_classification
@@ -323,6 +453,11 @@ msgid "Purchase Taxes: "
 msgstr ""
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: account_product_fiscal_classification
 #. odoo-python
 #: code:addons/account_product_fiscal_classification/models/account_product_fiscal_classification.py:0
 #, python-format
@@ -365,14 +500,38 @@ msgid ""
 msgstr ""
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: account_product_fiscal_classification
 #: model_terms:ir.ui.view,arch_db:account_product_fiscal_classification.view_account_product_fiscal_classification_template_form
 msgid "Taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__activity_exception_decoration
+msgid "Type of the exception activity on record."
 msgstr ""
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__supplier_taxes_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__supplier_taxes_id
 msgid "Vendor Taxes"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__website_message_ids
+msgid "Website communication history"
 msgstr ""
 
 #. module: account_product_fiscal_classification
