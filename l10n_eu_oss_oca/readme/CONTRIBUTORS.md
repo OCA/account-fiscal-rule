@@ -6,6 +6,8 @@
 - [Tecnativa](https://www.tecnativa.com):
 
   > - Pedro M. Baeza
+  > - Carlos Dauden
+  > - Sergio Teruel
 
 - [Factor Libre](https://factorlibre.com):
 

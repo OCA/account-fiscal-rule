@@ -11,7 +11,7 @@
     "application": False,
     "installable": True,
     "development_status": "Production/Stable",
-    "depends": ["account", "account_fiscal_position_partner_type"],
+    "depends": ["account"],
     "data": [
         "security/ir.model.access.csv",
         "data/oss.tax.rate.csv",

@@ -45,21 +45,20 @@ class L10nEuOssWizard(models.TransientModel):
         )
 
     def _default_todo_country_ids(self):
-        user = self.env.user
+        company = self.env.company
         eu_country_group = self._get_eu_res_country_group()
         eu_fiscal = self.env["account.fiscal.position"].search(
             [
                 ("country_id", "in", eu_country_group.country_ids.ids),
                 ("vat_required", "=", False),
                 ("auto_apply", "=", True),
-                ("company_id", "=", user.company_id.id),
-                ("fiscal_position_type", "=", "b2c"),
+                ("company_id", "=", company.id),
             ]
         )
         return (
             eu_country_group.country_ids
             - eu_fiscal.mapped("country_id")
-            - user.company_id.country_id
+            - company.country_id
         )
 
     company_id = fields.Many2one(
@@ -155,7 +154,6 @@ class L10nEuOssWizard(models.TransientModel):
             "vat_required": False,
             "auto_apply": True,
             "country_id": country.id,
-            "fiscal_position_type": "b2c",
             "tax_ids": [(0, 0, tax_data) for tax_data in taxes_data],
             "oss_oca": True,
         }
@@ -223,7 +221,6 @@ class L10nEuOssWizard(models.TransientModel):
                     ("vat_required", "=", False),
                     ("auto_apply", "=", True),
                     ("company_id", "=", self.company_id.id),
-                    ("fiscal_position_type", "=", "b2c"),
                     ("oss_oca", "=", True),
                 ]
             )
