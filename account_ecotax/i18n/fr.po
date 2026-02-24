@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-02-24 18:09+0000\n"
+"Last-Translator: epanisset <emeric.panisset@camptocamp.com>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.report_invoice_document
@@ -22,7 +24,7 @@ msgstr ""
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_account_ecotax_category
 msgid "Account Ecotax Category"
-msgstr ""
+msgstr "Categorie du compte ecotaxe"
 
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_account_ecotax_classification
