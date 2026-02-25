@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+   Copyright (C) 2024 Akretion (http://www.akretion.com/)
+   @author: Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
+-->
+<odoo>
+    <record id="account_move_line_ecotax_tree" model="ir.ui.view">
+        <field name="model">account.move.line.ecotax</field>
+        <field name="arch" type="xml">
+             <tree create="false" delete="false" edit="false">
+                <field name="classification_id" />
+                <field name="invoice_date" optional="show" />
+                <field name="invoice_state" optional="hide" />
+                <field name="classif_categ_id" optional="hide" />
+                <field name="collector_id" optional="show" />
+                <field name="sector_id" optional="show" />
+                <field name="ecotax_type" optional="hide" />
+                <field name="supplier_status" optional="hide" />
+                <field name="product_id" optional="hide" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="amount_total" optional="show" sum="Total" />
+                <field name="quantity" optional="hide" sum="Total" />
+                <field name="weight" optional="hide" sum="Total" />
+                <field name="currency_id" optional="hide" />
+             </tree>
+        </field>
+    </record>
+    <record id="account_move_line_ecotax_pivot" model="ir.ui.view">
+         <field name="name">account.move.line.ecotax.pivot</field>
+         <field name="model">account.move.line.ecotax</field>
+         <field name="arch" type="xml">
+             <pivot string="Ecotax line Analysis" sample="1">
+                 <field name="collector_id" type="col" />
+                 <field name="invoice_date" type="row" />
+                 <field name="amount_total" type="measure" />
+             </pivot>
+         </field>
+    </record>
+    <record id="account_move_line_ecotax_search" model="ir.ui.view">
+        <field name="model">account.move.line.ecotax</field>
+        <field name="arch" type="xml">
+            <search string="Search Ecotaxe line">
+                <field name="collector_id" string="Collector" />
+                <field name="invoice_date" />
+                <separator />
+                <filter
+                    string="Invoiced"
+                    name="invoiced"
+                    domain="[('invoice_state','not in', ('draft','cancel'))]"
+                />
+                <filter
+                    string="Draft Invoices"
+                    name="notinvoice"
+                    domain="[('invoice_state','=','draft')]"
+                />
+                <separator />
+                <filter name="filter_invoice_date" date="invoice_date" />
+                <group expand="1" string="Group By">
+                    <filter
+                        string="Collector"
+                        name='collector_id'
+                        context="{'group_by':'collector_id'}"
+                    />
+                    <filter
+                        string="Date"
+                        name="invoice_date"
+                        context="{'group_by':'invoice_date:month'}"
+                    />
+                    <filter
+                        string="Product"
+                        name="product_id"
+                        context="{'group_by':'product_id'}"
+                    />
+                    <filter
+                        string="Ecotax Category"
+                        name="classif_categ_id"
+                        context="{'group_by':'classif_categ_id'}"
+                    />
+                    <filter
+                        string="Invoice Status"
+                        name="status"
+                        context="{'group_by':'invoice_state'}"
+                    />
+                    <filter
+                        string="Company"
+                        name="company"
+                        context="{'group_by':'company_id'}"
+                        groups="base.group_multi_company"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_account_move_line_ecotax" model="ir.actions.act_window">
+        <field name="name">Ecotax line Analysis</field>
+        <field name="res_model">account.move.line.ecotax</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create ecotax line via invoice.
+              </p>
+        </field>
+    </record>
+    <menuitem
+        id="menu_account_move_line_ecotax"
+        parent="account.account_reports_management_menu"
+        action="action_account_move_line_ecotax"
+        sequence="17"
+    />
+</odoo>
