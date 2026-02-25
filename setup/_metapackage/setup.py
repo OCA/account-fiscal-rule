@@ -16,6 +16,7 @@ setuptools.setup(
         'odoo-addon-account_avatax_sale_oca>=16.0dev,<16.1dev',
         'odoo-addon-account_avatax_website_sale>=16.0dev,<16.1dev',
         'odoo-addon-account_ecotax>=16.0dev,<16.1dev',
+        'odoo-addon-account_ecotax_report>=16.0dev,<16.1dev',
         'odoo-addon-account_ecotax_sale>=16.0dev,<16.1dev',
         'odoo-addon-account_ecotax_sale_tax>=16.0dev,<16.1dev',
         'odoo-addon-account_ecotax_tax>=16.0dev,<16.1dev',
