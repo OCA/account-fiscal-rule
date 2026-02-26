@@ -1,0 +1,148 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_ecotax_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: account_ecotax_report
+#: model:ir.model,name:account_ecotax_report.model_account_move_line_ecotax
+msgid "Account move line ecotax"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model:ir.model.fields,field_description:account_ecotax_report.field_account_move_line_ecotax__classif_categ_id
+msgid "Classification category"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model_terms:ir.ui.view,arch_db:account_ecotax_report.account_move_line_ecotax_search
+msgid "Collector"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model:ir.model.fields,field_description:account_ecotax_report.field_account_move_line_ecotax__company_id
+#: model_terms:ir.ui.view,arch_db:account_ecotax_report.account_move_line_ecotax_search
+msgid "Company"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model_terms:ir.actions.act_window,help:account_ecotax_report.action_account_move_line_ecotax
+msgid "Create ecotax line via invoice."
+msgstr ""
+
+#. module: account_ecotax_report
+#: model:ir.model.fields,field_description:account_ecotax_report.field_account_move_line_ecotax__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model:ir.model.fields,field_description:account_ecotax_report.field_account_move_line_ecotax__invoice_date
+#: model_terms:ir.ui.view,arch_db:account_ecotax_report.account_move_line_ecotax_search
+msgid "Date"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model_terms:ir.ui.view,arch_db:account_ecotax_report.account_move_line_ecotax_search
+msgid "Draft Invoices"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model_terms:ir.ui.view,arch_db:account_ecotax_report.account_move_line_ecotax_search
+msgid "Ecotax Category"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model:ir.model.fields,field_description:account_ecotax_report.field_account_move_line_ecotax__ecotax_type
+msgid "Ecotax Type"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model:ir.model.fields,field_description:account_ecotax_report.field_account_move_line_ecotax__collector_id
+msgid "Ecotax collector"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model:ir.actions.act_window,name:account_ecotax_report.action_account_move_line_ecotax
+#: model:ir.ui.menu,name:account_ecotax_report.menu_account_move_line_ecotax
+#: model_terms:ir.ui.view,arch_db:account_ecotax_report.account_move_line_ecotax_pivot
+msgid "Ecotax line Analysis"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model:ir.model.fields,field_description:account_ecotax_report.field_account_move_line_ecotax__sector_id
+msgid "Ecotax sector"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model_terms:ir.ui.view,arch_db:account_ecotax_report.account_move_line_ecotax_search
+msgid "Group By"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model:ir.model.fields,help:account_ecotax_report.field_account_move_line_ecotax__ecotax_type
+msgid ""
+"If ecotax is weight based,the ecotax coef must take into account\n"
+"the weight unit of measure (kg by default)"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model_terms:ir.ui.view,arch_db:account_ecotax_report.account_move_line_ecotax_search
+msgid "Invoice Status"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model_terms:ir.ui.view,arch_db:account_ecotax_report.account_move_line_ecotax_search
+msgid "Invoiced"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model:ir.model.fields,help:account_ecotax_report.field_account_move_line_ecotax__supplier_status
+msgid ""
+"MAN ==> Manufacturer: is locally established in the country, and manufactures goods which are subject to ecotaxes\n"
+"under their own name and brand, or designs such goods, subcontracts the manufacturing and then sells them under their own name and brand\n"
+"RES ==> Reseller, under their own brand: is locally established in the country, and sells under their own name or brand goods subject to ecotax manufactured by others\n"
+"INT ==> Introducer: is locally established and sells on the local market goods subject to ecotax coming from other countries of the European Union\n"
+"IMP ==> Importer: is established in France, and sells on the local market goods subject to ecotax coming from countries outsidethe European Union\n"
+"REM ==> Remote vendor: is established in another country of the European Union or outside the EU, and remotely sells good subject to ecotaxes to customers in the country"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model:ir.model.fields,field_description:account_ecotax_report.field_account_move_line_ecotax__product_id
+#: model_terms:ir.ui.view,arch_db:account_ecotax_report.account_move_line_ecotax_search
+msgid "Product"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model_terms:ir.ui.view,arch_db:account_ecotax_report.account_move_line_ecotax_search
+msgid "Search Ecotaxe line"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model:ir.model.fields,field_description:account_ecotax_report.field_account_move_line_ecotax__invoice_state
+msgid "Status"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model:ir.model.fields,field_description:account_ecotax_report.field_account_move_line_ecotax__supplier_status
+msgid "Supplier Status"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model_terms:ir.ui.view,arch_db:account_ecotax_report.account_move_line_ecotax_tree
+msgid "Total"
+msgstr ""
+
+#. module: account_ecotax_report
+#: model:ir.model.fields,field_description:account_ecotax_report.field_account_move_line_ecotax__weight
+msgid "Weight"
+msgstr ""
