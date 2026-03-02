@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 ======================
 Product Refund Account
 ======================
@@ -13,17 +17,17 @@ Product Refund Account
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-fiscal-rule/tree/12.0/product_refund_account
+    :target: https://github.com/OCA/account-fiscal-rule/tree/19.0/product_refund_account
     :alt: OCA/account-fiscal-rule
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-12-0/account-fiscal-rule-12-0-product_refund_account
+    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-19-0/account-fiscal-rule-19-0-product_refund_account
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=12.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=19.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -31,9 +35,9 @@ Product Refund Account
 In products and categories forms, you can now set a different account in
 receivables or payables section.
 
-These accounts will be propagated to the account move when you create a debit
-or credit note. And also when you create a credit or debit note from an
-customer or supplier invoice.
+These accounts will be propagated to the account move when you create a
+debit or credit note. And also when you create a credit or debit note
+from an customer or supplier invoice.
 
 **Table of contents**
 
@@ -43,7 +47,7 @@ customer or supplier invoice.
 Usage
 =====
 
-Once the modules is installed, you can set an account in `Accounting` tab,
+Once the modules is installed, you can set an account in Accounting tab,
 both for credit and for debit notes.
 
 Bug Tracker
@@ -52,7 +56,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-fiscal-rule/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20product_refund_account%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20product_refund_account%0Aversion:%2019.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -60,19 +64,19 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Trey (www.trey.es)
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Trey <https://www.trey.es>`_:
+-  `Trey <https://www.trey.es>`__:
 
-    * Vicent Cubells
+      -  Vicent Cubells
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -92,6 +96,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-cubells| 
 
-This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/12.0/product_refund_account>`_ project on GitHub.
+This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/19.0/product_refund_account>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

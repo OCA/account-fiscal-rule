@@ -12,7 +12,7 @@ class ProductTemplate(models.Model):
         string="Refund In Account",
         domain=[("deprecated", "=", False)],
         help="Keep this field empty to use the default value from the product "
-             "category.",
+        "category.",
     )
     property_account_refund_out_id = fields.Many2one(
         comodel_name="account.account",
@@ -20,5 +20,5 @@ class ProductTemplate(models.Model):
         string="Refund Out Account",
         domain=[("deprecated", "=", False)],
         help="Keep this field empty to use the default value from the product "
-             "category.",
+        "category.",
     )
