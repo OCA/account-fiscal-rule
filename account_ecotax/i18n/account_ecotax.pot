@@ -139,6 +139,12 @@ msgid ""
 msgstr ""
 
 #. module: account_ecotax
+#: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__country_ids
+#: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__country_ids
+msgid "Countries"
+msgstr ""
+
+#. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__create_uid
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__create_uid
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__create_uid
@@ -291,6 +297,14 @@ msgstr ""
 msgid ""
 "Ecotax value :\n"
 "product weight * ecotax coef of Ecotax Classification"
+msgstr ""
+
+#. module: account_ecotax
+#: model:ir.model.fields,help:account_ecotax.field_account_ecotax_classification__country_ids
+#: model:ir.model.fields,help:account_ecotax.field_ecotax_line_product__country_ids
+msgid ""
+"Ecotax will be applied when delivered in the listed countries (or all "
+"countries if empty)"
 msgstr ""
 
 #. module: account_ecotax
