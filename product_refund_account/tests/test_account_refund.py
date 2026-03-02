@@ -1,159 +1,202 @@
 # Copyright 2022 Trey, Kilobytes de Soluciones - Vicent Cubells
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import SavepointCase
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
-class TestRefundAccount(SavepointCase):
+class TestRefundAccount(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         Account = cls.env["account.account"]
-        cls.user_type = cls.env["account.account.type"].create(
-            {
-                "name": "Test User Type",
-            }
-        )
-        cls.dummy_account = Account.create(
-            {
-                "name": "Dummy Account",
-                "code": "700",
-                "user_type_id": cls.user_type.id,
-            }
-        )
         cls.refund_in_account = Account.create(
             {
                 "name": "Account Refund In",
-                "code": "608",
-                "user_type_id": cls.user_type.id,
+                "code": "608TEST",
+                "account_type": "expense",
             }
         )
         cls.refund_out_account = Account.create(
             {
                 "name": "Account Refund Out",
-                "code": "708",
-                "user_type_id": cls.user_type.id,
+                "code": "708TEST",
+                "account_type": "income",
             }
         )
-        cls.product_category = cls.env["product.category"].create(
+        cls.test_category = cls.env["product.category"].create(
             {
-                "name": "Test Category",
+                "name": "Test Refund Category",
+                "property_account_income_categ_id": cls.company_data[
+                    "default_account_revenue"
+                ].id,
+                "property_account_expense_categ_id": cls.company_data[
+                    "default_account_expense"
+                ].id,
                 "property_account_refund_in_categ_id": cls.refund_in_account.id,
                 "property_account_refund_out_categ_id": cls.refund_out_account.id,
             }
         )
-        cls.product = cls.env["product.product"].create(
+        cls.test_product = cls.env["product.product"].create(
             {
-                "name": "Test Product",
+                "name": "Test Refund Product",
+                "categ_id": cls.test_category.id,
+            }
+        )
+        cls.test_product_direct = cls.env["product.product"].create(
+            {
+                "name": "Test Refund Product (Direct Accounts)",
+                "categ_id": cls.test_category.id,
                 "property_account_refund_in_id": cls.refund_in_account.id,
                 "property_account_refund_out_id": cls.refund_out_account.id,
-                "categ_id": cls.product_category.id,
-            }
-        )
-        cls.partner = cls.env["res.partner"].create(
-            {
-                "name": "Test Partner",
             }
         )
 
-    def test_direct_invoice(self):
-        """Test account is propagated when a direct invoice is created"""
-        Invoice = self.env["account.invoice"]
-        invoice_in = Invoice.create(
+    def test_direct_vendor_credit_note_from_category(self):
+        """
+        Account from category is used when creating a vendor credit note directly.
+        """
+        move = self.env["account.move"].create(
             {
-                "partner_id": self.partner.id,
-                "type": "in_refund",
+                "move_type": "in_refund",
+                "partner_id": self.partner_a.id,
+                "journal_id": self.company_data["default_journal_purchase"].id,
                 "invoice_line_ids": [
                     (
                         0,
                         0,
                         {
+                            "product_id": self.test_product.id,
                             "quantity": 1.0,
-                            "name": "Great Product",
                             "price_unit": 10.0,
-                            "account_id": self.dummy_account.id,
                         },
                     )
                 ],
             }
         )
-        invoice_line = invoice_in.mapped("invoice_line_ids")
-        invoice_line.product_id = self.product.id
-        invoice_line._onchange_product_id()
-        self.assertEqual(invoice_line.account_id.code, self.refund_in_account.code)
-        self.product.property_account_refund_in_id = False
-        self.product.property_account_refund_out_id = False
-        invoice_out = Invoice.create(
-            {
-                "partner_id": self.partner.id,
-                "type": "out_refund",
-                "invoice_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "quantity": 1.0,
-                            "name": "Great Product",
-                            "price_unit": 10.0,
-                            "account_id": self.dummy_account.id,
-                        },
-                    )
-                ],
-            }
-        )
-        invoice_line = invoice_out.mapped("invoice_line_ids")
-        invoice_line.product_id = self.product.id
-        invoice_line._onchange_product_id()
-        self.assertEqual(invoice_line.account_id.code, self.refund_out_account.code)
+        self.assertEqual(move.invoice_line_ids.account_id, self.refund_in_account)
 
-    def test_refund_invoice(self):
-        """Test account is propagated when a refund invoice is created"""
-        Invoice = self.env["account.invoice"]
-        invoice_in = Invoice.create(
+    def test_direct_customer_credit_note_from_category(self):
+        """
+        Account from category is used when creating a customer credit note directly.
+        """
+        move = self.env["account.move"].create(
             {
-                "partner_id": self.partner.id,
-                "type": "in_invoice",
+                "move_type": "out_refund",
+                "partner_id": self.partner_a.id,
+                "journal_id": self.company_data["default_journal_sale"].id,
                 "invoice_line_ids": [
                     (
                         0,
                         0,
                         {
+                            "product_id": self.test_product.id,
                             "quantity": 1.0,
-                            "name": "Great Product",
                             "price_unit": 10.0,
-                            "account_id": self.dummy_account.id,
-                            "product_id": self.product.id,
                         },
                     )
                 ],
             }
         )
-        refund_invoice = invoice_in.refund()
-        invoice_line = refund_invoice.mapped("invoice_line_ids")
-        invoice_line._onchange_product_id()
-        self.assertEqual(invoice_line.account_id.code, self.refund_in_account.code)
-        self.product.property_account_refund_in_id = False
-        self.product.property_account_refund_out_id = False
-        invoice_out = Invoice.create(
+        self.assertEqual(move.invoice_line_ids.account_id, self.refund_out_account)
+
+    def test_direct_vendor_credit_note_from_product(self):
+        """
+        Account from product takes precedence over category for vendor credit note.
+        """
+        move = self.env["account.move"].create(
             {
-                "partner_id": self.partner.id,
-                "type": "out_invoice",
+                "move_type": "in_refund",
+                "partner_id": self.partner_a.id,
+                "journal_id": self.company_data["default_journal_purchase"].id,
                 "invoice_line_ids": [
                     (
                         0,
                         0,
                         {
+                            "product_id": self.test_product_direct.id,
                             "quantity": 1.0,
-                            "name": "Great Product",
                             "price_unit": 10.0,
-                            "account_id": self.dummy_account.id,
-                            "product_id": self.product.id,
                         },
                     )
                 ],
             }
         )
-        refund_invoice = invoice_out.refund()
-        invoice_line = refund_invoice.mapped("invoice_line_ids")
-        invoice_line._onchange_product_id()
-        self.assertEqual(invoice_line.account_id.code, self.refund_out_account.code)
+        self.assertEqual(move.invoice_line_ids.account_id, self.refund_in_account)
+
+    def test_direct_customer_credit_note_from_product(self):
+        """
+        Account from product takes precedence over category for customer credit note.
+        """
+        move = self.env["account.move"].create(
+            {
+                "move_type": "out_refund",
+                "partner_id": self.partner_a.id,
+                "journal_id": self.company_data["default_journal_sale"].id,
+                "invoice_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": self.test_product_direct.id,
+                            "quantity": 1.0,
+                            "price_unit": 10.0,
+                        },
+                    )
+                ],
+            }
+        )
+        self.assertEqual(move.invoice_line_ids.account_id, self.refund_out_account)
+
+    def test_reversed_vendor_invoice(self):
+        """
+        Refund account is applied when reversing a vendor invoice.
+        """
+        invoice = self.env["account.move"].create(
+            {
+                "move_type": "in_invoice",
+                "partner_id": self.partner_a.id,
+                "journal_id": self.company_data["default_journal_purchase"].id,
+                "invoice_date": "2024-01-01",
+                "invoice_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": self.test_product.id,
+                            "quantity": 1.0,
+                            "price_unit": 10.0,
+                        },
+                    )
+                ],
+            }
+        )
+        invoice.action_post()
+        refund = invoice._reverse_moves()
+        self.assertEqual(refund.invoice_line_ids.account_id, self.refund_in_account)
+
+    def test_reversed_customer_invoice(self):
+        """
+        Refund account is applied when reversing a customer invoice.
+        """
+        invoice = self.env["account.move"].create(
+            {
+                "move_type": "out_invoice",
+                "partner_id": self.partner_a.id,
+                "journal_id": self.company_data["default_journal_sale"].id,
+                "invoice_date": "2024-01-01",
+                "invoice_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": self.test_product.id,
+                            "quantity": 1.0,
+                            "price_unit": 10.0,
+                        },
+                    )
+                ],
+            }
+        )
+        invoice.action_post()
+        refund = invoice._reverse_moves()
+        self.assertEqual(refund.invoice_line_ids.account_id, self.refund_out_account)

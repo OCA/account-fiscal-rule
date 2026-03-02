@@ -5,8 +5,14 @@
         <field name="inherit_id" ref="product.product_category_form_view" />
         <field name="arch" type="xml">
             <field name="property_account_expense_categ_id" position="after">
-                <field name="property_account_refund_in_categ_id" />
-                <field name="property_account_refund_out_categ_id" />
+                <field
+                    name="property_account_refund_in_categ_id"
+                    groups="account.group_account_readonly"
+                />
+                <field
+                    name="property_account_refund_out_categ_id"
+                    groups="account.group_account_readonly"
+                />
             </field>
         </field>
     </record>
