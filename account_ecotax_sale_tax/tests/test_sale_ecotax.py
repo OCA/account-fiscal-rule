@@ -58,3 +58,6 @@ class TestsaleEcotaxTax(TestInvoiceEcotaxTaxComon, TestsaleEcotaxCommon):
         self.assertEqual(sale_line2.subtotal_ecotax, 32)
         self.assertEqual(self.sale.amount_total, 1047.0)
         self.assertEqual(self.sale.amount_ecotax, 47.0)
+
+    def test_03_ecotax_by_country(self):
+        self._test_03_ecotax_by_country()

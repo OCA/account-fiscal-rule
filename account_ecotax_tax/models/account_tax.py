@@ -28,5 +28,8 @@ class AccountTax(models.Model):
 # partner: res.partner object or None
 # for weight based ecotax
 # result = quantity and  product.weight_based_ecotax * quantity or 0.0
-result = quantity and product.fixed_ecotax  * quantity or 0.0
+# for fix ecotax
+# result = quantity and product.fixed_ecotax  * quantity or 0.0
+# to manage both weight and fix with only one ecotax tax
+result = quantity and product.ecotax_amount  * quantity or 0.0
             """

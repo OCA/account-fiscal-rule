@@ -75,16 +75,34 @@ class ProductProduct(models.Model):
     )
     def _compute_product_ecotax(self):
         for product in self:
-            amount_ecotax = 0.0
-            weight_based_ecotax = 0.0
-            fixed_ecotax = 0.0
-            for ecotaxline_prod in product.all_ecotax_line_product_ids:
-                ecotax_cls = ecotaxline_prod.classification_id
-                if ecotax_cls.ecotax_type == "weight_based":
-                    weight_based_ecotax += ecotaxline_prod.amount
-                else:
-                    fixed_ecotax += ecotaxline_prod.amount
-                amount_ecotax += ecotaxline_prod.amount
+            (
+                fixed_ecotax,
+                weight_based_ecotax,
+                amount_ecotax,
+            ) = product._get_ecotax_amounts_from_classification(
+                product.all_ecotax_line_product_ids
+            )
             product.fixed_ecotax = fixed_ecotax
             product.weight_based_ecotax = weight_based_ecotax
             product.ecotax_amount = amount_ecotax
+
+    def _get_ecotax_amounts_from_classification(self, classifications):
+        self.ensure_one()
+        amount_ecotax = 0.0
+        weight_based_ecotax = 0.0
+        fixed_ecotax = 0.0
+        for ecotaxline_prod in classifications:
+            ecotax_cls = ecotaxline_prod.classification_id
+            if ecotax_cls.ecotax_type == "weight_based":
+                weight_based_ecotax += ecotaxline_prod.amount
+            else:
+                fixed_ecotax += ecotaxline_prod.amount
+            amount_ecotax += ecotaxline_prod.amount
+        return fixed_ecotax, weight_based_ecotax, amount_ecotax
+
+    def _get_country_eligible_classification(self, country):
+        self and self.ensure_one()
+        return self.all_ecotax_line_product_ids.filtered(
+            lambda line: not line.country_ids
+            or (country and country in line.country_ids)
+        )

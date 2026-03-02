@@ -22,6 +22,7 @@
                                 <field name="classification_id" />
                                 <field name="force_amount" />
                                 <field name="amount" />
+                                <field name="country_ids" widget="many2many_tags" />
                             </tree>
                         </field>
                     </div>

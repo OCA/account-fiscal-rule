@@ -82,6 +82,12 @@ class AccountEcotaxClassification(models.Model):
     )
     intrastat_code = fields.Char()
     scale_code = fields.Char()
+    country_ids = fields.Many2many(
+        "res.country",
+        string="Countries",
+        help="Ecotax will be applied when delivered in the listed countries (or all "
+        "countries if empty)",
+    )
 
     @api.depends("ecotax_type")
     def _compute_ecotax_vals(self):

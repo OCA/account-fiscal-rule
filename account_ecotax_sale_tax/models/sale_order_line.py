@@ -54,7 +54,12 @@ class SaleOrderLine(models.Model):
     def _compute_ecotax_line_ids(self):
         return super()._compute_ecotax_line_ids()
 
-    @api.depends("product_id", "company_id")
+    @api.depends(
+        "product_id",
+        "company_id",
+        "order_id.partner_id",
+        "order_id.partner_shipping_id",
+    )
     def _compute_tax_id(self):
         res = super()._compute_tax_id()
         for line in self:
@@ -63,10 +68,15 @@ class SaleOrderLine(models.Model):
 
     def _get_computed_ecotaxes(self):
         self.ensure_one()
-        sale_ecotaxes = self.product_id.all_ecotax_line_product_ids.mapped(
-            "classification_id"
-        ).mapped("sale_ecotax_ids")
-        ecotax_ids = sale_ecotaxes.filtered(
+        country = (
+            self.order_id.partner_shipping_id.country_id
+            or self.order_id.partner_id.country_id
+        )
+        eligible_classifications = self.product_id._get_country_eligible_classification(
+            country
+        )
+        sale_ecotaxs = eligible_classifications.classification_id.sale_ecotax_ids
+        ecotax_ids = sale_ecotaxs.filtered(
             lambda tax: tax.company_id == self.order_id.company_id
         )
 
