@@ -137,13 +137,21 @@ msgstr "Azienda"
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_product__all_ecotax_line_product_ids
 msgid ""
-"Contain all ecotaxs classification defined in product templateand the additionnal.\n"
-"ecotaxs defined in product variant. For more detailssee the product variant accounting tab"
+"Contain all ecotaxs classification defined in product templateand the "
+"additionnal.\n"
+"ecotaxs defined in product variant. For more detailssee the product variant "
+"accounting tab"
 msgstr ""
 "Contiene tutte le classificazioni imposte ecologiche definite nel modello di "
 "prodotto e le imposte ecologiche \n"
 "aggiuntive definite nella variante di prodotto. Per maggiori dettagli, "
 "vedere la scheda di contabilità delle varianti di prodotto"
+
+#. module: account_ecotax
+#: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__country_ids
+#: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__country_ids
+msgid "Countries"
+msgstr ""
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__create_uid
@@ -311,6 +319,14 @@ msgstr ""
 "peso prodotto * coef. della classificazione imposta ecologica"
 
 #. module: account_ecotax
+#: model:ir.model.fields,help:account_ecotax.field_account_ecotax_classification__country_ids
+#: model:ir.model.fields,help:account_ecotax.field_ecotax_line_product__country_ids
+msgid ""
+"Ecotax will be applied when delivered in the listed countries (or all "
+"countries if empty)"
+msgstr ""
+
+#. module: account_ecotax
 #: model:ir.actions.act_window,name:account_ecotax.action_ecotax_classification
 #: model:ir.ui.menu,name:account_ecotax.menu_ecotax_classification
 msgid "Ecotaxe Classification"
@@ -424,8 +440,8 @@ msgid ""
 "If ecotax is weight based,the ecotax coef must take into account\n"
 "the weight unit of measure (kg by default)"
 msgstr ""
-"Se l'imposta ecologica è basata sul peso, il coefficiente imposta ecologica "
-"\n"
+"Se l'imposta ecologica è basata sul peso, il coefficiente imposta "
+"ecologica \n"
 "deve tenere conto dell'unità di misura del peso (kg per impostazione "
 "predefinita)"
 
@@ -502,12 +518,20 @@ msgstr "Ultimo aggiornamento il"
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_account_ecotax_classification__supplier_status
 msgid ""
-"MAN ==> Manufacturer: is locally established in the country, and manufactures goods which are subject to ecotaxes\n"
-"under their own name and brand, or designs such goods, subcontracts the manufacturing and then sells them under their own name and brand\n"
-"RES ==> Reseller, under their own brand: is locally established in the country, and sells under their own name or brand goods subject to ecotax manufactured by others\n"
-"INT ==> Introducer: is locally established and sells on the local market goods subject to ecotax coming from other countries of the European Union\n"
-"IMP ==> Importer: is established in France, and sells on the local market goods subject to ecotax coming from countries outsidethe European Union\n"
-"REM ==> Remote vendor: is established in another country of the European Union or outside the EU, and remotely sells good subject to ecotaxes to customers in the country"
+"MAN ==> Manufacturer: is locally established in the country, and "
+"manufactures goods which are subject to ecotaxes\n"
+"under their own name and brand, or designs such goods, subcontracts the "
+"manufacturing and then sells them under their own name and brand\n"
+"RES ==> Reseller, under their own brand: is locally established in the "
+"country, and sells under their own name or brand goods subject to ecotax "
+"manufactured by others\n"
+"INT ==> Introducer: is locally established and sells on the local market "
+"goods subject to ecotax coming from other countries of the European Union\n"
+"IMP ==> Importer: is established in France, and sells on the local market "
+"goods subject to ecotax coming from countries outsidethe European Union\n"
+"REM ==> Remote vendor: is established in another country of the European "
+"Union or outside the EU, and remotely sells good subject to ecotaxes to "
+"customers in the country"
 msgstr ""
 "MAN ==> Produttore: è stabilito localmente nel paese e produce beni soggetti "
 "a imposte ecologiche con il proprio nome e marchio, \n"
@@ -696,7 +720,6 @@ msgstr "Tipo"
 
 #. module: account_ecotax
 #. odoo-python
-#: code:addons/account_ecotax/models/account_move.py:0
 #: code:addons/account_ecotax/models/account_move.py:0
 #, python-format
 msgid "Untaxed Amount"
