@@ -2,23 +2,31 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import fields, models
 
+from odoo.addons.account.models.product import ACCOUNT_DOMAIN
+
 
 class ProductCategory(models.Model):
     _inherit = "product.category"
 
     property_account_refund_in_categ_id = fields.Many2one(
-        comodel_name="account.account",
+        "account.account",
         company_dependent=True,
+        domain=ACCOUNT_DOMAIN,
         string="Refund In Account",
-        domain=[("deprecated", "=", False)],
-        help="Keep this field empty to use the default value from the product "
-        "category.",
+        help="Account used for vendor credit notes of products in this category. "
+        "Can be overridden per product. Leave empty to use the product's default "
+        "expense account.",
+        tracking=True,
+        ondelete="restrict",
     )
     property_account_refund_out_categ_id = fields.Many2one(
-        comodel_name="account.account",
+        "account.account",
         company_dependent=True,
+        domain=ACCOUNT_DOMAIN,
         string="Refund Out Account",
-        domain=[("deprecated", "=", False)],
-        help="Keep this field empty to use the default value from the product "
-        "category.",
+        help="Account used for customer credit notes of products in this category. "
+        "Can be overridden per product. Leave empty to use the product's default "
+        "income account.",
+        tracking=True,
+        ondelete="restrict",
     )
