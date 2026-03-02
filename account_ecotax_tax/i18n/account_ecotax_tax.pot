@@ -19,6 +19,15 @@ msgid "Account Ecotax Classification"
 msgstr ""
 
 #. module: account_ecotax_tax
+#. odoo-python
+#: code:addons/account_ecotax_tax/models/product_product.py:0
+#, python-format
+msgid ""
+"All ecotax classification for a product should have the same countries "
+"allowed. This is a restriction of the account_ecotax_tax module."
+msgstr ""
+
+#. module: account_ecotax_tax
 #: model:ir.model.fields,field_description:account_ecotax_tax.field_account_move_line__subtotal_ecotax
 #: model:ir.model.fields,field_description:account_ecotax_tax.field_account_tax__is_ecotax
 msgid "Ecotax"
@@ -37,6 +46,11 @@ msgstr ""
 #. module: account_ecotax_tax
 #: model:ir.model,name:account_ecotax_tax.model_account_move_line
 msgid "Journal Item"
+msgstr ""
+
+#. module: account_ecotax_tax
+#: model:ir.model,name:account_ecotax_tax.model_product_product
+msgid "Product Variant"
 msgstr ""
 
 #. module: account_ecotax_tax
