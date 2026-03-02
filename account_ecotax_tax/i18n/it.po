@@ -22,6 +22,15 @@ msgid "Account Ecotax Classification"
 msgstr "Classificazione conto imposta ecologica"
 
 #. module: account_ecotax_tax
+#. odoo-python
+#: code:addons/account_ecotax_tax/models/product_product.py:0
+#, python-format
+msgid ""
+"All ecotax classification for a product should have the same countries "
+"allowed. This is a restriction of the account_ecotax_tax module."
+msgstr ""
+
+#. module: account_ecotax_tax
 #: model:ir.model.fields,field_description:account_ecotax_tax.field_account_move_line__subtotal_ecotax
 #: model:ir.model.fields,field_description:account_ecotax_tax.field_account_tax__is_ecotax
 msgid "Ecotax"
@@ -41,6 +50,11 @@ msgstr "Imposte ecologiche"
 #: model:ir.model,name:account_ecotax_tax.model_account_move_line
 msgid "Journal Item"
 msgstr "Movimento contabile"
+
+#. module: account_ecotax_tax
+#: model:ir.model,name:account_ecotax_tax.model_product_product
+msgid "Product Variant"
+msgstr ""
 
 #. module: account_ecotax_tax
 #: model:ir.model.fields,field_description:account_ecotax_tax.field_account_ecotax_classification__purchase_ecotax_ids
@@ -67,5 +81,5 @@ msgstr ""
 "Attenzione: per includere l'imposta ecologica nell'imposta IVA, controllare "
 "quanto segue:\n"
 "1: seleziona \"incluso nell'importo base\"\n"
-"2: la sequenza dell'imposta ecologica deve essere inferiore all'imposta IVA ("
-"in vendita e acquisto)"
+"2: la sequenza dell'imposta ecologica deve essere inferiore all'imposta IVA "
+"(in vendita e acquisto)"
