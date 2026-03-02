@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-03-14 08:45+0000\n"
+"PO-Revision-Date: 2026-03-02 18:45+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.2\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.report_invoice_document
@@ -151,7 +151,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__country_ids
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__country_ids
 msgid "Countries"
-msgstr ""
+msgstr "Nazioni"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__create_uid
@@ -325,6 +325,8 @@ msgid ""
 "Ecotax will be applied when delivered in the listed countries (or all "
 "countries if empty)"
 msgstr ""
+"L'imposta ecologica verrà applicata quando consegnata nelle nazioni elencate "
+"(o tutte se vuota)"
 
 #. module: account_ecotax
 #: model:ir.actions.act_window,name:account_ecotax.action_ecotax_classification
