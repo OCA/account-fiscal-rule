@@ -14,6 +14,7 @@
     "data": [
         "views/sale_view.xml",
         "security/ir.model.access.csv",
+        "report/sale.xml",
     ],
     "installable": True,
     "pre_init_hook": "pre_init_hook",
