@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
+from odoo.tools.misc import formatLang
 
 
 class SaleOrder(models.Model):
@@ -22,3 +23,7 @@ class SaleOrder(models.Model):
             for line in order.order_line:
                 val_ecotax += line.subtotal_ecotax
             order.amount_ecotax = val_ecotax
+
+    def _get_formatted_ecotax_amount(self):
+        self.ensure_one()
+        return formatLang(self.env, self.amount_ecotax, currency_obj=self.currency_id)
