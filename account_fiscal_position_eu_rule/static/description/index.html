@@ -1,0 +1,579 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils: https://docutils.sourceforge.io/" />
+<title>README.rst</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 9511 2024-01-13 09:50:07Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+Despite the name, some widely supported CSS2 features are used.
+
+See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: gray; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic, pre.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<a class="reference external image-reference" href="https://odoo-community.org/get-involved?utm_source=readme">
+<img alt="Odoo Community Association" src="https://odoo-community.org/readme-banner-image" />
+</a>
+<div class="section" id="account-fiscal-position-eu-rule">
+<h1>Account Fiscal Position EU Rule</h1>
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! This file is generated by oca-gen-addon-readme !!
+!! changes will be overwritten.                   !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! source digest: sha256:af896f2f08608ea3b661cd627353483d18e74a462eebf7068ac371352ad40216
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Alpha" src="https://img.shields.io/badge/maturity-Alpha-red.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/license-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/account-fiscal-rule/tree/16.0/account_fiscal_position_eu_rule"><img alt="OCA/account-fiscal-rule" src="https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/account-fiscal-rule-16-0/account-fiscal-rule-16-0-account_fiscal_position_eu_rule"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&amp;target_branch=16.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>This module enriches Odoo’s fiscal position resolution by taking into account
+the full triplet of addresses involved in a transaction: the seller, the buyer,
+and the delivery address.</p>
+<p>Odoo’s native <tt class="docutils literal">_get_fiscal_position()</tt> method only considers the buyer and
+optionally the delivery address, which leads to incorrect VAT treatment in
+several cross-border scenarios involving EU companies.</p>
+<p>This module corrects the following cases for sellers established in the EU:</p>
+<ul class="simple">
+<li><strong>Buyer outside the EU</strong> (e.g. UK, US): the delivery address is irrelevant.
+The transaction is an export and must be invoiced at 0% VAT regardless of
+where the goods are delivered.</li>
+<li><strong>B2B buyer in the EU</strong> (valid VAT number): the transaction is an
+intra-Community supply (0% VAT + reverse charge) if goods are delivered to
+another Member State, or a domestic supply if delivered within the seller’s
+country.</li>
+<li><strong>B2C buyer in the EU</strong> (no valid VAT number): when goods are delivered to
+another Member State, the OSS regime applies and the VAT rate of the delivery
+country must be used. When goods are delivered within the seller’s country,
+the domestic fiscal position applies.</li>
+<li><strong>Services (B2B)</strong>: under Article 44 of Directive 2006/112/EC, the place of
+supply is the buyer’s country regardless of where the service is performed.
+The delivery address is therefore irrelevant.</li>
+<li><strong>Services (B2C)</strong>: under Article 45, the place of supply is the seller’s
+country regardless of where the buyer is located — even for buyers outside
+the EU. The domestic fiscal position of the seller always applies.</li>
+</ul>
+<p>This module requires no extra dependency beyond the <tt class="docutils literal">base</tt> module.
+EU membership is determined via the <tt class="docutils literal">base.europe</tt> country group, which is
+always present in Odoo. Note that <tt class="docutils literal">base.europe</tt> is an approximation of the
+VAT territory defined by Directive 2006/112/EC (arts. 6–7): a small number of
+territories are misclassified (see <em>Roadmap</em> below).</p>
+<div class="section" id="b2b-b2c-detection">
+<h2>B2B/B2C detection</h2>
+<p>The B2B/B2C qualification of a transaction is based exclusively on the
+<strong>buyer’s</strong> (preneur’s) status — never on the delivery address. The delivery
+address determines the place of supply (which OSS rate applies in B2C), but
+never the B2B/B2C nature of the transaction.</p>
+<p>Detection priority (highest to lowest):</p>
+<ol class="arabic simple">
+<li><strong>VIES validation</strong> (<tt class="docutils literal">base_vat_optional_vies</tt>, OCA): when VIES is
+activated on the company (<tt class="docutils literal">vat_check_vies=True</tt>), <tt class="docutils literal">vies_passed</tt> on
+the buyer’s partner is authoritative. When VIES is disabled,
+<tt class="docutils literal">vies_passed</tt> is always <tt class="docutils literal">False</tt> and is ignored.</li>
+<li><strong>Manual type</strong> (<tt class="docutils literal">account_fiscal_position_partner_type</tt>, OCA): the
+<tt class="docutils literal">fiscal_position_type</tt> field on the buyer’s partner record, set
+manually by the user. This covers cases where neither VAT presence nor
+VIES is sufficient (e.g. entities with a national tax number acting as
+B2C, or taxable persons not registered in VIES).</li>
+<li><strong>VAT number presence</strong>: fallback when neither of the above modules is
+installed or the fields are not set.</li>
+</ol>
+</div>
+<div class="section" id="compatibility-with-account-fiscal-position-partner-type">
+<h2>Compatibility with <tt class="docutils literal">account_fiscal_position_partner_type</tt></h2>
+<p><tt class="docutils literal">account_fiscal_position_partner_type</tt> overrides <tt class="docutils literal">_get_fiscal_position()</tt>
+to filter fiscal positions by <tt class="docutils literal">delivery.fiscal_position_type</tt>. Because the
+MRO order of these two modules is not guaranteed, this module takes an explicit
+compatibility step for B2C cross-border goods supplies (the only case where
+the conflict can occur): before calling <tt class="docutils literal">super()</tt>, it temporarily sets
+<tt class="docutils literal"><span class="pre">fiscal_position_type=&quot;b2c&quot;</span></tt> on both the partner and the delivery address
+records, and injects the same value into the context. The original values are
+restored immediately after. This ensures that <tt class="docutils literal">account_fiscal_position_partner_type</tt>
+always filters on B2C fiscal positions when our module has decided the buyer
+is B2C, regardless of which module is higher in the MRO.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">This is an alpha version, the data model and design can change at any time without warning.
+Only for development or testing purpose, do not use in production.
+<a class="reference external" href="https://odoo-community.org/page/development-status">More details on development status</a></p>
+</div>
+<p><strong>Table of contents</strong></p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#configuration" id="toc-entry-1">Configuration</a></li>
+<li><a class="reference internal" href="#usage" id="toc-entry-2">Usage</a></li>
+<li><a class="reference internal" href="#known-issues-roadmap" id="toc-entry-3">Known issues / Roadmap</a></li>
+</ul>
+</div>
+<div class="section" id="configuration">
+<h3><a class="toc-backref" href="#toc-entry-1">Configuration</a></h3>
+<p>No specific configuration is required for this module. It overrides
+<tt class="docutils literal">_get_fiscal_position()</tt> transparently and relies on the fiscal positions
+already configured in your Odoo instance.</p>
+<p>For correct results, ensure the following:</p>
+<ul class="simple">
+<li>Each EU member state has a fiscal position configured for intra-Community
+B2B supplies (0% VAT + reverse charge mapping).</li>
+<li>An export fiscal position (0% VAT) is configured for buyers outside the EU.</li>
+<li>OSS fiscal positions are configured per destination country for B2C supplies.</li>
+<li>Buyer partner records include their VAT number when applicable.</li>
+</ul>
+<p>Optional OCA modules improve B2B/B2C detection accuracy:</p>
+<ul class="simple">
+<li><tt class="docutils literal">base_vat_optional_vies</tt> (OCA/account-financial-tools): when installed
+and VIES is activated on the company (<tt class="docutils literal">vat_check_vies=True</tt>), the result
+of VIES validation is used as the authoritative B2B/B2C signal.</li>
+<li><tt class="docutils literal">account_fiscal_position_partner_type</tt> (OCA/account-fiscal-rule): allows
+manual B2B/B2C qualification per partner via the <tt class="docutils literal">fiscal_position_type</tt>
+field. This is useful for partners whose VAT status cannot be determined
+from their VAT number alone (e.g. entities with a national tax identifier
+acting as B2C, or taxable persons not registered in VIES).</li>
+</ul>
+</div>
+<div class="section" id="usage">
+<h3><a class="toc-backref" href="#toc-entry-2">Usage</a></h3>
+<p>This module acts automatically. Once installed, <tt class="docutils literal">_get_fiscal_position()</tt> uses
+the seller’s company country in addition to the buyer and delivery address to
+resolve the correct fiscal position.</p>
+<p>To benefit from the corrected resolution in sales orders, purchases orders and
+invoices, install the corresponding companion modules:</p>
+<ul class="simple">
+<li><tt class="docutils literal">sale_fiscal_position_eu_rule</tt> — for sale orders</li>
+<li><tt class="docutils literal">purchase_fiscal_position_eu_rule</tt> — for purchase orders</li>
+<li><tt class="docutils literal">account_move_fiscal_position_eu_rule</tt> — for invoices created without a
+sale or purchase order</li>
+</ul>
+<p>Each companion module patches the relevant onchange to pass the <tt class="docutils literal">seller</tt>
+parameter to <tt class="docutils literal">_get_fiscal_position()</tt>.</p>
+<p>For transactions involving services rather than physical goods, the caller is
+responsible for passing <tt class="docutils literal">is_service=True</tt> to <tt class="docutils literal">_get_fiscal_position()</tt> so
+that Article 44/45 rules are applied instead of the goods delivery rules.</p>
+</div>
+<div class="section" id="known-issues-roadmap">
+<h3><a class="toc-backref" href="#toc-entry-3">Known issues / Roadmap</a></h3>
+<ul class="simple">
+<li>Support for sellers established outside the EU (UK, US, CN). A companion
+module <tt class="docutils literal">account_fiscal_position_uk_rule</tt> is planned to cover post-Brexit
+UK VAT rules.</li>
+<li>Support for the €10,000 B2C threshold (Article 59c of Directive 2006/112/EC)
+below which the place of supply remains in the seller’s Member State.</li>
+<li>Automatic <tt class="docutils literal">is_service</tt> detection for mixed goods/services orders.</li>
+<li>Support for electronically supplied services (OSS mandatory above threshold).</li>
+<li>Interaction with <tt class="docutils literal">foreign_vat</tt> fiscal positions: when the selling company
+is locally registered for VAT in a destination EU country (<tt class="docutils literal">foreign_vat</tt>
+set on an existing fiscal position for that country), <tt class="docutils literal">l10n_eu_oss</tt> skips
+OSS for that country and the local-registration FP applies instead.  This
+module does not detect this situation and will resolve the FP using the
+standard EU rules regardless.  Correct handling requires inspecting
+<tt class="docutils literal">account.fiscal.position</tt> records with <tt class="docutils literal">foreign_vat != False</tt> before
+delegating to <tt class="docutils literal">super()</tt>.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="known-limitations-of-base-europe">
+<h2>Known limitations of <tt class="docutils literal">base.europe</tt></h2>
+<p>EU membership is currently detected via the <tt class="docutils literal">base.europe</tt> country group
+(<tt class="docutils literal">res.country.group</tt> xmlid <tt class="docutils literal">base.europe</tt>).  This group closely matches the
+27 Member States but does not perfectly reflect the VAT territory defined by
+Directive 2006/112/EC, arts. 6–7.  The following cases are <strong>not handled</strong>:</p>
+<p>EU territories <strong>excluded</strong> from the VAT directive scope (treated as EU by
+this module, should be treated as export):</p>
+<ul class="simple">
+<li>French overseas territories: Guadeloupe, Martinique, Réunion, Guyane,
+Mayotte (DOM — these are separate countries in Odoo, not part of FR)</li>
+<li>Canary Islands, Ceuta and Melilla (ES)</li>
+<li>Åland Islands (FI)</li>
+<li>Mount Athos / Ágion Óros (GR)</li>
+<li>Livigno and Campione d’Italia (IT)</li>
+<li>Helgoland and Büsingen am Hochrhein (DE)</li>
+</ul>
+<p>Non-EU territories <strong>included</strong> in the VAT directive scope (treated as
+non-EU by this module, should be treated as domestic/intra-Community):</p>
+<ul class="simple">
+<li>Monaco (MC) — follows French VAT rules</li>
+<li>Sovereign Base Areas of Akrotiri and Dhekelia (GB territory on Cyprus)</li>
+</ul>
+<div class="section" id="bug-tracker">
+<h3>Bug Tracker</h3>
+<p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/account-fiscal-rule/issues">GitHub Issues</a>.
+In case of trouble, please check there if your issue has already been reported.
+If you spotted it first, help us to smash it by providing a detailed and welcomed
+<a class="reference external" href="https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_fiscal_position_eu_rule%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<p>Do not contact contributors directly about support or help with technical issues.</p>
+</div>
+<div class="section" id="credits">
+<h3>Credits</h3>
+</div>
+</div>
+<div class="section" id="authors">
+<h2>Authors</h2>
+<ul class="simple">
+<li>Akretion</li>
+</ul>
+</div>
+<div class="section" id="maintainers">
+<h2>Maintainers</h2>
+<p>This module is maintained by the OCA.</p>
+<a class="reference external image-reference" href="https://odoo-community.org">
+<img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />
+</a>
+<p>OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.</p>
+<p>Current <a class="reference external" href="https://odoo-community.org/page/maintainer-role">maintainer</a>:</p>
+<p><a class="reference external image-reference" href="https://github.com/metaminux"><img alt="metaminux" src="https://github.com/metaminux.png?size=40px" /></a></p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/account-fiscal-rule/tree/16.0/account_fiscal_position_eu_rule">OCA/account-fiscal-rule</a> project on GitHub.</p>
+<p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
+</div>
+</div>
+</div>
+</body>
+</html>
