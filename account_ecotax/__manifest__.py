@@ -11,7 +11,7 @@
     "website": "https://github.com/OCA/account-fiscal-rule",
     "category": "Localization/Account Taxes",
     "license": "AGPL-3",
-    "maintainers": ["mourad-ehm", "florian-dacosta"],
+    "maintainers": ["mourad-ehm", "florian-dacosta", "cgorrieri"],
     "depends": [
         "account",
     ],
