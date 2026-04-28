@@ -1,7 +1,7 @@
 # Copyright 2025 Moduon Team S.L. <info@moduon.team>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -26,14 +26,12 @@ class AccountFiscalPosition(models.Model):
 
     def raise_vies_warning(self, partner_name):
         raise ValidationError(
-            _(
+            self.env._(
                 "You can't set the Fiscal Position to %(fiscal_pos)s, "
-                "%(partner_name)s doesn't pass VIES VAT number validation!"
+                "%(partner_name)s doesn't pass VIES VAT number validation!",
+                fiscal_pos=self.name,
+                partner_name=partner_name,
             )
-            % {
-                "fiscal_pos": self.name,
-                "partner_name": partner_name,
-            }
         )
 
     @api.depends("auto_apply", "vat_required", "company_id.vat_check_vies")
