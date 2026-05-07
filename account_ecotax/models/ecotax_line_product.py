@@ -22,8 +22,7 @@ class EcotaxLineProduct(models.Model):
     )
     force_amount = fields.Float(
         digits="Ecotax",
-        help="Force ecotax amount.\n"
-        "Allow to substitute default Ecotax Classification",
+        help="Force ecotax amount.\nAllow to substitute default Ecotax Classification",
     )
     amount = fields.Float(
         digits="Ecotax",
