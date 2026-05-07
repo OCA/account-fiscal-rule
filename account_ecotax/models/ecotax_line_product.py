@@ -63,15 +63,11 @@ class EcotaxLineProduct(models.Model):
                 amount = ecotaxline.force_amount
             ecotaxline.amount = amount
 
-    _sql_constraints = [
-        (
-            "unique_classification_id_by_product",
-            "UNIQUE(classification_id, product_id)",
-            "Only one ecotax classification occurrence by product",
-        ),
-        (
-            "unique_classification_id_by_product_tmpl",
-            "UNIQUE(classification_id, product_tmpl_id)",
-            "Only one ecotax classification occurrence by product Template",
-        ),
-    ]
+    _unique_classification_id_by_product = models.Constraint(
+        "UNIQUE(classification_id, product_id)",
+        "Only one ecotax classification occurrence by product",
+    )
+    _unique_classification_id_by_product_tmpl = models.Constraint(
+        "UNIQUE(classification_id, product_tmpl_id)",
+        "Only one ecotax classification occurrence by product Template",
+    )

@@ -85,14 +85,12 @@
                     domain="[('ecotax_type','=','weight_based')]"
                     icon="terp-dialog-close"
                 />
-                <group expand="0" string="Group By">
-                    <filter
-                        name="type"
-                        string="Type"
-                        context="{'group_by': 'ecotax_type'}"
-                        icon="terp-stock_effects-object-colorize"
-                    />
-                </group>
+                <filter
+                    name="type"
+                    string="Type"
+                    context="{'group_by': 'ecotax_type'}"
+                    icon="terp-stock_effects-object-colorize"
+                />
             </search>
         </field>
     </record>

@@ -79,7 +79,6 @@
         <field name="arch" type="xml">
             <form create="false">
                 <sheet>
-                    <field name="product_uom_category_id" invisible="1" />
                     <field name="display_type" invisible="1" />
                     <field name="parent_state" invisible="1" />
                     <group>

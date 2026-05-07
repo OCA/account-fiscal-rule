@@ -5,7 +5,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
-from odoo.osv import expression
+from odoo.fields import Domain
 
 
 class ProductProduct(models.Model):
@@ -54,7 +54,7 @@ class ProductProduct(models.Model):
             )
 
     def _search_all_ecotax_line_product_ids(self, operator, operand):
-        if operator in expression.NEGATIVE_TERM_OPERATORS and operand:
+        if operator in Domain.NEGATIVE_OPERATORS and operand:
             return [
                 ("ecotax_line_product_ids", operator, operand),
                 ("additional_ecotax_line_product_ids", operator, operand),
