@@ -42,7 +42,7 @@ class ProductProduct(models.Model):
     weight_based_ecotax = fields.Float(
         compute="_compute_product_ecotax",
         store=True,
-        help="Ecotax value :\n" "product weight * ecotax coef of Ecotax Classification",
+        help="Ecotax value :\nproduct weight * ecotax coef of Ecotax Classification",
     )
 
     @api.depends("ecotax_line_product_ids", "additional_ecotax_line_product_ids")
