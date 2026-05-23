@@ -32,11 +32,11 @@ class TestAccountAvalaraInternal(TestAvataxCommon):
             )
             self.assertEqual(
                 self.invoice_1_response["lines"][0]["lineNumber"],
-                first_line_id.id,
+                str(first_line_id.id),
             )
             self.assertEqual(
                 mock_response.json()["lines"][0]["lineNumber"],
-                first_line_id.id,
+                str(first_line_id.id),
             )
 
     def test_ping(self):

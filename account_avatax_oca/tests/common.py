@@ -1,3 +1,4 @@
+import copy
 import socket
 from contextlib import contextmanager
 from unittest.mock import Mock, patch
@@ -102,7 +103,7 @@ class TestAvataxCommon(TransactionCase):
                 if return_value is NOTHING:
                     cls.mock_response.json.return_value = return_func(model)
                 else:
-                    cls.mock_response.json.return_value = return_value
+                    cls.mock_response.json.return_value = copy.deepcopy(return_value)
                 if apply_args:
                     # Apply the real passed args and return them in the mocked response
                     cls.mock_response.json()["description"] = model[

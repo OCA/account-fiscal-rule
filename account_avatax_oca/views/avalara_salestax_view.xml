@@ -55,6 +55,7 @@
                                         colspan="2"
                                         href="https://admin.avalara.com/"
                                         target="_blank"
+                                        rel="noopener noreferrer"
                                     >Visit the AvaTax Admin webpage</a>
                                 </group>
                             </group>
