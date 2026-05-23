@@ -17,6 +17,7 @@ class TestAvataxCommon(TransactionCase):
     @classmethod
     def setUpClass(cls):
         res = super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.appname = "Odoo 17 - Open Source Integrators/OCA"
         cls.version = "a0o5a000007SPdsAAG"
         cls.hostname = socket.gethostname()
@@ -82,7 +83,16 @@ class TestAvataxCommon(TransactionCase):
                 ],
             }
         )
-        cls.avatax = cls.env.ref("account_avatax_oca.avatax_api_configuraation")
+        try:
+            cls.avatax = cls.env.ref("account_avatax_oca.avatax_api_configuraation")
+        except ValueError:
+            cls.avatax = cls.env["avalara.salestax"].create(
+                {
+                    "company_id": cls.env.user.company_id.id,
+                    "account_number": "123456789",
+                    "license_key": "avatax_key",
+                }
+            )
         cls.invoice_1_response = dict(
             generate_response_invoice_1(cls.invoice.invoice_line_ids)
         )

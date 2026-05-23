@@ -42,7 +42,7 @@ class ProductTemplate(models.Model):
     applicable_tax_code_id = fields.Many2one(
         "product.tax.code",
         "Applicable AvaTax Code",
-        compute=_compute_applicable_tax_code,
+        compute="_compute_applicable_tax_code",
     )
 
 
@@ -60,5 +60,5 @@ class ProductCategory(models.Model):
     applicable_tax_code_id = fields.Many2one(
         "product.tax.code",
         "Applicable AvaTax Code",
-        compute=_compute_applicable_tax_code,
+        compute="_compute_applicable_tax_code",
     )

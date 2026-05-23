@@ -78,7 +78,7 @@ class AccountMove(models.Model):
     )
     exemption_code = fields.Char(
         "Exemption Number",
-        compute=_compute_onchange_exemption,
+        compute="_compute_onchange_exemption",
         readonly=False,  # New computed writeable fields
         store=True,
         help="It show the customer exemption number",
@@ -86,7 +86,7 @@ class AccountMove(models.Model):
     exemption_code_id = fields.Many2one(
         "exemption.code",
         "Exemption Code",
-        compute=_compute_onchange_exemption,
+        compute="_compute_onchange_exemption",
         readonly=False,  # New computed writeable fields
         store=True,
         help="It show the customer exemption code",
@@ -122,7 +122,7 @@ class AccountMove(models.Model):
 
     hide_exemption = fields.Boolean(
         "Hide Exemption & Tax Based on shipping address",
-        compute=_compute_hide_exemption,  # For past transactions visibility
+        compute="_compute_hide_exemption",  # For past transactions visibility
         default=lambda self: self.env.company.get_avatax_config_company,
         help="Uncheck the this field to show exemption fields on SO/Invoice form view. "
         "Also, it will show Tax based on shipping address button",
@@ -431,7 +431,7 @@ class AccountMove(models.Model):
                 avatax_config.invoice_calculate_tax
                 and record.calculate_tax_on_save
                 and record.state == "draft"
-                and not self._context.get("skip_second_write", False)
+                and not self.env.context.get("skip_second_write", False)
             ):
                 record.with_context(skip_second_write=True).write(
                     {"calculate_tax_on_save": False}
@@ -447,7 +447,7 @@ class AccountMove(models.Model):
             if (
                 avatax_config.invoice_calculate_tax
                 and move.calculate_tax_on_save
-                and not self._context.get("skip_second_write", False)
+                and not self.env.context.get("skip_second_write", False)
             ):
                 move.with_context(skip_second_write=True).write(
                     {"calculate_tax_on_save": False}
@@ -506,9 +506,9 @@ class AccountMoveLine(models.Model):
         avatax_config = line.company_id.get_avatax_config_company()
         product = line.product_id
         if product.barcode and avatax_config.upc_enable:
-            item_code = "UPC:%d" % product.barcode
+            item_code = f"UPC:{product.barcode}"
         else:
-            item_code = product.default_code or ("ID:%d" % product.id)
+            item_code = product.default_code or f"ID:{product.id or 0}"
         tax_code = line.product_id.applicable_tax_code_id.name
         amount = sign * line._get_avatax_amount()
         if line.quantity < 0:

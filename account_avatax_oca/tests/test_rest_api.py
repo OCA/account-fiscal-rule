@@ -10,7 +10,9 @@ class TestAvatax(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.API = AvaTaxRESTService()
+        cls.API.env = cls.env
 
     def test_enrich_result_lines_with_tax_rate(self):
         avatax_result = {

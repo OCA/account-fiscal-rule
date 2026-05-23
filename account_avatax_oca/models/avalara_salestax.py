@@ -109,7 +109,7 @@ class AvalaraSalestax(models.Model):
         "avalara_salestax_id",
         "country_id",
         "Countries",
-        default=_get_avatax_supported_countries,
+        default=lambda self: self._get_avatax_supported_countries(),
         help="Countries where address validation will be used",
     )
     active = fields.Boolean(
@@ -154,18 +154,14 @@ class AvalaraSalestax(models.Model):
     # Enabled the tax inclusive flag in the GetTax Request.
 
     # constraints on uniq records creation with account_number and company_id
-    _sql_constraints = [
-        (
-            "code_company_uniq",
-            "unique (company_code)",
-            "Avalara setting is already available for this company code",
-        ),
-        (
-            "account_number_company_uniq",
-            "unique (account_number, company_id)",
-            "The account number must be unique per company!",
-        ),
-    ]
+    _code_company_uniq = models.Constraint(
+        "unique(company_code)",
+        "Avalara setting is already available for this company code",
+    )
+    _account_number_company_uniq = models.Constraint(
+        "unique(account_number, company_id)",
+        "The account number must be unique per company!",
+    )
 
     def get_avatax_rest_service(self):
         self.ensure_one()
@@ -225,12 +221,10 @@ class AvalaraSalestax(models.Model):
                 partner.generate_cust_code()
 
         if not shipping_address:
-            raise UserError(
-                self.env._(
-                    "There is no source shipping address defined for partner %s."
-                )
-                % partner.name
+            msg = self.env._(
+                "There is no source shipping address defined for partner %s."
             )
+            raise UserError(msg % partner.name)
 
         if not ship_from_address:
             raise UserError(self.env._("There is no Company address defined."))
@@ -262,7 +256,7 @@ class AvalaraSalestax(models.Model):
 
         if avatax_config.disable_tax_calculation:
             _logger.info(
-                self.env._("Avatax tax calculation is disabled. Skipping %s %s."),
+                "Avatax tax calculation is disabled. Skipping %s %s.",
                 doc_code,
                 doc_type,
             )

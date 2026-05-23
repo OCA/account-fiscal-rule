@@ -53,7 +53,7 @@
                 </page>
             </xpath>
             <xpath
-                expr="//field[@name='child_ids']/form/sheet/group/group[2]"
+                expr="//field[@name='child_ids']//form//field[@name='email']/.."
                 position="after"
             >
                 <group

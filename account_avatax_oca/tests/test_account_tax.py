@@ -10,6 +10,7 @@ class TestAvatax(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.Tax = cls.env["account.tax"]
         cls.company1 = cls.env.ref("base.main_company")
         cls.company2 = cls.env["res.company"].create({"name": "Company Avatax 2"})

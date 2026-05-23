@@ -25,7 +25,8 @@ class AccountTax(models.Model):
 
     @api.model
     def _get_avalara_tax_name(self, tax_rate, doc_type=None):
-        return self.env._("{}%*").format(str(tax_rate))
+        msg = self.env._("%s%%*")
+        return msg % str(tax_rate)
 
     @api.model
     def get_avalara_tax(self, tax_rate, doc_type):
@@ -37,10 +38,8 @@ class AccountTax(models.Model):
             domain = self._get_avalara_tax_domain(0, doc_type)
             tax_template = self.search(domain, limit=1)
             if not tax_template:
-                raise exceptions.UserError(
-                    self.env._("Please configure Avatax Tax for Company %s:")
-                    % self.env.company.name
-                )
+                msg = self.env._("Please configure Avatax Tax for Company %s:")
+                raise exceptions.UserError(msg % self.env.company.name)
             # If you get a unique constraint error here,
             # check the data for your existing Avatax taxes.
             vals = {

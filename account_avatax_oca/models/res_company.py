@@ -22,7 +22,7 @@ class Company(models.Model):
                     self.display_name,
                 )
             if len(res) < 1:
-                _LOGGER.warning(
+                _LOGGER.info(
                     self.env._("Company %s has no Avatax configuration."),
                     self.display_name,
                 )

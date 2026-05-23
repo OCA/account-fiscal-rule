@@ -87,9 +87,10 @@ class ResPartner(models.Model):
         help="The type of exemption granted",
     )
 
-    _sql_constraints = [
-        ("name_uniq", "unique(customer_code)", "Customer Code must be unique!"),
-    ]
+    _name_uniq = models.Constraint(
+        "unique(customer_code)",
+        "Customer Code must be unique!",
+    )
 
     @api.depends(
         "property_tax_exempt", "property_exemption_code_id", "property_exemption_number"
@@ -112,11 +113,7 @@ class ResPartner(models.Model):
 
     def _get_avatax_customer_code(self):
         self.ensure_one()
-        return "%d-%d-Cust-%d" % (
-            int(time.time()),
-            int(random() * 10),
-            self.id,
-        )
+        return f"{int(time.time())}-{int(random() * 10)}-Cust-{self.id}"
 
     def generate_cust_code(self):
         "Auto populate customer code"

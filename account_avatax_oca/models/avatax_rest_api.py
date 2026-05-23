@@ -4,7 +4,7 @@ import logging
 import pprint
 import socket
 
-from odoo import _, fields
+from odoo import fields
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -46,7 +46,7 @@ class AvaTaxRESTService:
                 )
             except NameError as exc:
                 raise UserError(
-                    _(
+                    self.env._(
                         "AvataxClient is not available in your system. "
                         "Please contact your system administrator "
                         "to 'pip3 install Avalara'"
@@ -75,28 +75,28 @@ class AvaTaxRESTService:
             for w_message in messages:
                 if w_message.get("severity") in ("Error", "Exception"):
                     if w_message.get("refersTo", "").startswith("Address"):
+                        msg = self.env._(
+                            "AvaTax: Warning AvaTax could not validate the"
+                            " address:\n%s\n\n"
+                            "You can save the address and AvaTax will make an"
+                            " attempt to "
+                            "compute taxes based on the zip code if"
+                            ' "Force Address Validation" is disabled '
+                            "in the Avatax connector configuration.  \n\n "
+                            "Also please ensure that the company address is"
+                            " set and Validated.  "
+                            "You can get there by going to Sales->Customers "
+                            'and removing "Customers" filter from the search'
+                            " at the top.  "
+                            "Then go to your company contact info and validate"
+                            " your address in the Avatax Tab"
+                        )
                         raise UserError(
-                            _(
-                                "AvaTax: Warning AvaTax could not validate the"
-                                " address:\n%s\n\n"
-                                "You can save the address and AvaTax will make an"
-                                " attempt to "
-                                "compute taxes based on the zip code if"
-                                ' "Force Address Validation" is disabled '
-                                "in the Avatax connector configuration.  \n\n "
-                                "Also please ensure that the company address is"
-                                " set and Validated.  "
-                                "You can get there by going to Sales->Customers "
-                                'and removing "Customers" filter from the search'
-                                " at the top.  "
-                                "Then go to your company contact info and validate"
-                                " your address in the Avatax Tab"
-                            )
-                            % str(", ".join(result.get("address", {}).values()))
+                            msg % str(", ".join(result.get("address", {}).values()))
                         )
                     elif w_message.get("refersTo") == "Country":
                         raise UserError(
-                            _(
+                            self.env._(
                                 "AvaTax: Notice\n\n Address Validation for this"
                                 " country not supported. "
                                 "But, Avalara will still calculate global tax"
@@ -122,7 +122,7 @@ class AvaTaxRESTService:
                                 w_message.get("description", "")
                             )
                         message += "\n Severity: " + str(w_message.get("severity"))
-                        raise UserError(_(message))
+                        raise UserError(self.env._(message))
         return result
 
     def ping(self):
@@ -131,7 +131,9 @@ class AvaTaxRESTService:
         if self.is_log_enabled:
             _logger.info(pprint.pformat(res, indent=1))
         if not res.get("authenticated"):
-            raise UserError(_("The user or account could not be authenticated"))
+            raise UserError(
+                self.env._("The user or account could not be authenticated")
+            )
         return res
 
     def validate_rest_address(
@@ -139,7 +141,7 @@ class AvaTaxRESTService:
     ):
         if self.config.disable_address_validation:
             raise UserError(
-                _(
+                self.env._(
                     "The AvaTax Address Validation Service"
                     " is disabled by the administrator."
                     " Please make sure it's enabled for the address validation"
@@ -148,7 +150,7 @@ class AvaTaxRESTService:
         supported_countries = [x.code for x in self.config.country_ids]
         if country_code and country_code not in supported_countries:
             raise UserError(
-                _(
+                self.env._(
                     "The AvaTax Address Validation Service does not support"
                     " this country in the configuration,"
                     " please continue with your normal process."
@@ -235,7 +237,7 @@ class AvaTaxRESTService:
         """
         if not origin.street:
             raise UserError(
-                _(
+                self.env._(
                     "Please set the Company Address "
                     "in the partner information and validate.  "
                     "We are checking against the first line of the address "

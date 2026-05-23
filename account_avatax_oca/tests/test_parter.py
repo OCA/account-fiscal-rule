@@ -5,6 +5,11 @@ from odoo.tests import common
 
 
 class TestAvatax(common.TransactionCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
+
     def test_customer_existing_code(self):
         "Create Customer with an already existing code (data import)"
         val_customer = {"name": "New Customer", "customer_code": "ABC"}

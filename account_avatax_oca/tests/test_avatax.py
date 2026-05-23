@@ -14,6 +14,7 @@ class TestAvatax(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         logging.getLogger("odoo.addons.account_avatax_oca.models.res_company").setLevel(
             logging.ERROR
         )
@@ -80,7 +81,7 @@ class TestAvatax(common.TransactionCase):
         "odoo.addons.account_avatax_oca.models.res_company.Company.get_avatax_config_company"
     )
     @patch(
-        "odoo.addons.account_avatax_oca.models.avalara_salestax.AvalaraSalestax.create_transaction"  # noqa: B950
+        "odoo.addons.account_avatax_oca.models.avalara_salestax.AvalaraSalestax.create_transaction"
     )
     @patch(
         "odoo.addons.account_avatax_oca.models.avalara_salestax.AvalaraSalestax.void_transaction"
