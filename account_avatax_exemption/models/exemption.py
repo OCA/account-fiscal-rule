@@ -177,7 +177,7 @@ class ResPartner(models.Model):
 
     @api.model
     def _search(self, domain, offset=0, limit=None, order=None):
-        if self._context.get("partner_exemption", False):
+        if self.env.context.get("partner_exemption", False):
             domain = domain or []
             avalara_salestax = (
                 self.env["avalara.salestax"]

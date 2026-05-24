@@ -51,7 +51,7 @@ class ProductProduct(models.Model):
             .search([("tax_item_export", "=", True)], limit=1)
         )
         queue_job_sudo = self.env["queue.job"].sudo()
-        if not avalara_salestax or self._context.get("skip_job_creation", False):
+        if not avalara_salestax or self.env.context.get("skip_job_creation", False):
             return
         self = self.with_context(skip_job_creation=True)
         for product in self.filtered(lambda p: p.default_code):
