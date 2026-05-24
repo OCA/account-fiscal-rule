@@ -1,0 +1,2 @@
+# DO NOT MERGE — temporary pin until OCA/account-fiscal-rule#591 lands.
+odoo-addon-account_avatax_oca @ git+https://github.com/OCA/account-fiscal-rule.git@refs/pull/591/head#subdirectory=account_avatax_oca
