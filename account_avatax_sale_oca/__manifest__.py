@@ -1,6 +1,6 @@
 {
     "name": "Avalara Avatax Certified Connector for Sales Orders",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "author": "Open Source Integrators, Fabrice Henrion,"
     "Sodexis, Odoo Community Association (OCA)",
     "summary": "Sales Orders with automatic Tax application using Avatax",
