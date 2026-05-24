@@ -5,7 +5,7 @@ from ast import literal_eval
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class AvataxLog(models.Model):
@@ -23,12 +23,10 @@ class AvataxLog(models.Model):
         ]
     )
 
-    def name_get(self):
-        result = []
+    @api.depends("avatax_type", "create_date")
+    def _compute_display_name(self):
         for log in self:
-            name = "Avatax Log" + " " + str(log.id)
-            result.append((log.id, name))
-        return result
+            log.display_name = f"Avatax Log {log.id}"
 
     def avatax_api_call_counter(self):
         call_counter_config_values = (
@@ -63,9 +61,9 @@ class AvataxLog(models.Model):
             user_email = self.env["res.users"].browse(user_ids).mapped("login")
             email = ",".join(user_email)
             self.env.ref(
-                "account_avatax_oca.reaching_limit_avatax_api_call_email"
+                "account_avatax_oca_log.reaching_limit_avatax_api_call_email"
             ).with_context(
                 sales_call_count=sales_call_count,
                 invoices_call_count=invoices_call_count,
-                email=email,
+                email_to=email,
             ).send_mail(self.env.company.id, force_send=True)
