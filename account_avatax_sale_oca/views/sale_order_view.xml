@@ -93,7 +93,7 @@
         <field name="inherit_id" ref="sale_order_update_form_view" />
         <field name="mode">primary</field>
         <field
-            name="groups_id"
+            name="group_ids"
             eval="[(6, 0, [ref('account.group_account_manager') ])]"
         />
         <field name="arch" type="xml">

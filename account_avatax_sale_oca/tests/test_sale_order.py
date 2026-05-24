@@ -15,6 +15,7 @@ class TestAvataxSaleOrder(TestAvataxCommon):
     @classmethod
     def setUpClass(cls):
         res = super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
 
         cls.company = cls.env.user.company_id
         cls.company.write(
@@ -96,7 +97,7 @@ class TestAvataxSaleOrder(TestAvataxCommon):
                         {
                             "product_id": cls.product_A.id,
                             "name": "1 Product A",
-                            "product_uom": cls.uom_unit.id,
+                            "product_uom_id": cls.uom_unit.id,
                             "product_uom_qty": 1.0,
                         },
                     ),
@@ -106,7 +107,7 @@ class TestAvataxSaleOrder(TestAvataxCommon):
                         {
                             "product_id": cls.product_B.id,
                             "name": "2 Product B",
-                            "product_uom": cls.uom_unit.id,
+                            "product_uom_id": cls.uom_unit.id,
                             "product_uom_qty": 1.0,
                         },
                     ),
@@ -127,3 +128,95 @@ class TestAvataxSaleOrder(TestAvataxCommon):
         self.order.company_id = self.company.id
         self.assertEqual(self.order.exemption_code, "1234")
         self.assertTrue(self.order.exemption_code_id)
+
+    def test_sale_order_tax_calculation(self):
+        # Create an Avatax template tax (0%) for the company
+        self.env["account.tax"].create(
+            {
+                "name": "Avatax 0%",
+                "amount": 0.0,
+                "is_avatax": True,
+                "company_id": self.company.id,
+                "amount_type": "percent",
+                "type_tax_use": "sale",
+            }
+        )
+        # Configure AvaTax on the company
+        self.avatax.write(
+            {
+                "sale_calculate_tax": True,
+            }
+        )
+        # Use our mock response
+        mock_response = {
+            "totalTax": 15.0,
+            "lines": [
+                {
+                    "lineNumber": int(self.order.order_line[0].id),
+                    "taxCalculated": 10.0,
+                    "taxableAmount": 100.0,
+                    "rate": 10.0,
+                    "tax": 10.0,
+                    "details": [
+                        {
+                            "rate": 0.1,
+                            "tax": 10.0,
+                        }
+                    ],
+                },
+                {
+                    "lineNumber": int(self.order.order_line[1].id),
+                    "taxCalculated": 5.0,
+                    "taxableAmount": 50.0,
+                    "rate": 10.0,
+                    "tax": 5.0,
+                    "details": [
+                        {
+                            "rate": 0.1,
+                            "tax": 5.0,
+                        }
+                    ],
+                },
+            ],
+        }
+        with self._capture_create_or_adjust_transaction(return_value=mock_response):
+            self.order.avalara_compute_taxes()
+
+        # Verify the taxes are correctly calculated/assigned
+        self.assertEqual(self.order.tax_amount, 15.0)
+        self.assertEqual(self.order.order_line[0].tax_amt, 10.0)
+        self.assertEqual(self.order.order_line[1].tax_amt, 5.0)
+
+    def test_compute_hide_exemption(self):
+        self.avatax.hide_exemption = False
+        self.order.invalidate_recordset(["hide_exemption"])
+        self.assertFalse(self.order.hide_exemption)
+
+        self.avatax.hide_exemption = True
+        self.order.invalidate_recordset(["hide_exemption"])
+        self.assertTrue(self.order.hide_exemption)
+
+    def test_compute_onchange_exemption_non_exempt_partner(self):
+        order = self.env["sale.order"].create(
+            {
+                "company_id": self.company.id,
+                "partner_id": self.partner.id,
+            }
+        )
+        self.assertFalse(order.exemption_code)
+        self.assertFalse(order.exemption_code_id)
+
+    def test_account_move_onchange_shipping_address(self):
+        move = self.env["account.move"].new(
+            {
+                "move_type": "out_invoice",
+                "partner_id": self.partner.id,
+            }
+        )
+        move.partner_shipping_id = self.partner
+        move._onchange_partner_shipping_id()
+        self.assertTrue(move.tax_on_shipping_address)
+
+        move.partner_shipping_id = False
+        move._onchange_partner_shipping_id()
+        self.assertFalse(move.tax_on_shipping_address)

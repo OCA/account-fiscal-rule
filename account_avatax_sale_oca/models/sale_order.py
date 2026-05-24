@@ -5,7 +5,7 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     @api.depends(
-        "order_line.tax_id", "order_line.price_unit", "amount_total", "amount_untaxed"
+        "order_line.tax_ids", "order_line.price_unit", "amount_total", "amount_untaxed"
     )
     def _compute_tax_totals(self):
         # Make the Sales Order data available to the AccountTax.compute_all() method
@@ -13,7 +13,6 @@ class SaleOrder(models.Model):
         enriched_self = self.with_context(for_avatax_object=self)
         return super(SaleOrder, enriched_self)._compute_tax_totals()
 
-    @api.model
     @api.depends("company_id", "partner_id", "partner_invoice_id", "state")
     def _compute_hide_exemption(self):
         avatax_config = self.env.company.get_avatax_config_company()
@@ -22,8 +21,7 @@ class SaleOrder(models.Model):
 
     hide_exemption = fields.Boolean(
         "Hide Exemption & Tax Based on shipping address",
-        compute="_compute_hide_exemption",  # For past transactions visibility
-        default=lambda self: self.env.company.get_avatax_config_company,
+        compute="_compute_hide_exemption",
         help="Uncheck this field to show exemption fields on SO/Invoice form view. "
         "Also, it will show Tax based on shipping address button",
     )
@@ -124,7 +122,7 @@ class SaleOrder(models.Model):
     is_avatax = fields.Boolean(related="fiscal_position_id.is_avatax")
     exemption_code = fields.Char(
         "Exemption Number",
-        compute=_compute_onchange_exemption,
+        compute="_compute_onchange_exemption",
         readonly=False,  # New computed writeable fields
         store=True,
         help="It show the customer exemption number",
@@ -132,7 +130,7 @@ class SaleOrder(models.Model):
     exemption_code_id = fields.Many2one(
         "exemption.code",
         "Exemption Code",
-        compute=_compute_onchange_exemption,
+        compute="_compute_onchange_exemption",
         readonly=False,  # New computed writeable fields
         store=True,
         help="It show the customer exemption code",
@@ -213,13 +211,13 @@ class SaleOrder(models.Model):
                     )
                 rate = round(tax_calculation * 100, 4)
                 tax = Tax.get_avalara_tax(rate, doc_type)
-                if tax not in line.tax_id:
+                if tax not in line.tax_ids:
                     line_taxes = (
                         tax
                         if avatax_config.override_line_taxes
-                        else tax | line.tax_id.filtered(lambda x: not x.is_avatax)
+                        else tax | line.tax_ids.filtered(lambda x: not x.is_avatax)
                     )
-                    line.tax_id = line_taxes
+                    line.tax_ids = line_taxes
                 line.tax_amt = tax_result_line["tax"]
         self.tax_amount = tax_result.get("totalTax")
         return True
@@ -326,9 +324,9 @@ class SaleOrderLine(models.Model):
         avatax_config = line.company_id.get_avatax_config_company()
         product = line.product_id
         if product.barcode and avatax_config.upc_enable:
-            item_code = "UPC:%d" % product.barcode
+            item_code = f"UPC:{product.barcode}"
         else:
-            item_code = product.default_code or ("ID:%d" % product.id)
+            item_code = product.default_code or f"ID:{product.id or 0}"
         tax_code = line.product_id.applicable_tax_code_id.name
         amount = (
             sign * line.price_unit * line.product_uom_qty * (1 - line.discount / 100.0)
@@ -350,11 +348,11 @@ class SaleOrderLine(models.Model):
             "amount": amount,
             "tax_code": tax_code,
             "id": line,
-            "tax_id": line.tax_id,
+            "tax_id": line.tax_ids,
         }
         return res
 
-    @api.onchange("product_uom_qty", "discount", "price_unit", "tax_id")
+    @api.onchange("product_uom_qty", "discount", "price_unit", "tax_ids")
     def onchange_reset_avatax_amount(self):
         """
         When changing quantities or prices, reset the Avatax computed amount.
@@ -365,7 +363,7 @@ class SaleOrderLine(models.Model):
             line.tax_amt = 0
             line.order_id.tax_amount = 0
 
-    @api.depends("product_uom_qty", "discount", "price_unit", "tax_id", "tax_amt")
+    @api.depends("product_uom_qty", "discount", "price_unit", "tax_ids", "tax_amt")
     def _compute_amount(self):
         """
         If we have a Avatax computed amount, use it instead of the Odoo computed one
