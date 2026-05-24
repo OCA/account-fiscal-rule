@@ -27,10 +27,7 @@ class OssTaxRate(models.Model):
             self.second_superreduced_rate,
         ]
 
-    _sql_constraints = [
-        (
-            "oss_country_id_uniq",
-            "unique(oss_country_id)",
-            "The Country must be unique !",
-        ),
-    ]
+    _oss_country_id_uniq = models.Constraint(
+        'unique(oss_country_id)',
+        "The Country must be unique !",
+    )
