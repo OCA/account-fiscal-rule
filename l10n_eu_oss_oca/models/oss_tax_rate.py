@@ -28,6 +28,6 @@ class OssTaxRate(models.Model):
         ]
 
     _oss_country_id_uniq = models.Constraint(
-        'unique(oss_country_id)',
+        "unique(oss_country_id)",
         "The Country must be unique !",
     )
