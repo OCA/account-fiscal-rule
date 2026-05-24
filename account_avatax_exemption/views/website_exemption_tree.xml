@@ -13,7 +13,7 @@
             </t>
             <div class="row mt16 mb16">
                 <t t-if="exemptions">
-                    <div class="col-xs-12 table-responsive mt8">
+                    <div class="col-12 table-responsive mt8">
                         <t t-call="account_avatax_exemption.exemptions_table" />
                     </div>
                 </t>
@@ -24,7 +24,7 @@
     <template id="exemptions_table" name="Exemptions table">
         <table class="table table-hover table-striped">
             <thead>
-                <tr class="active">
+                <tr>
                     <th>Entity Use Code</th>
                     <th>Effective Date</th>
                     <th>Expiry Date</th>

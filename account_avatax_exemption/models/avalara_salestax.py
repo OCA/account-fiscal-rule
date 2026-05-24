@@ -65,7 +65,7 @@ class AvalaraSalestax(models.Model):
 
     def set_tax_item_info_to_product(self, record, product):
         vals = {}
-        product_tax_codes = self.env["product.tax.code"].search([])
+        product_tax_codes = self.env["product.tax.code"].search([])  # pylint: disable=no-search-all
         if product:
             tax_code = product_tax_codes.filtered(lambda x: x.name == record["taxCode"])
             if not tax_code:
@@ -171,7 +171,7 @@ class AvalaraSalestax(models.Model):
 
         exemption_rule_obj = self.env["exemption.code.rule"]
         states = state_obj.search([("avatax_nexus", "=", True)])
-        entity_use_codes = self.env["exemption.code"].search([])
+        entity_use_codes = self.env["exemption.code"].search([])  # pylint: disable=no-search-all
         for state in states:
             for use_code in entity_use_codes.filtered(lambda x: x.flag):
                 exemption_rule = exemption_rule_obj.search(

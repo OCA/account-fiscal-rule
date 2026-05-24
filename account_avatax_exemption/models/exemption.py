@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 
@@ -6,7 +6,7 @@ class ExemptionRule(models.Model):
     _name = "exemption.code.rule"
     _description = "Avatax Custom Rules"
 
-    name = fields.Char(index="trigram", default=lambda self: _("New"))
+    name = fields.Char(index="trigram", default=lambda self: self.env._("New"))
     state = fields.Selection(
         [
             ("draft", "Draft"),
@@ -41,10 +41,10 @@ class ExemptionRule(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            if vals.get("name", _("New")) == _("New"):
+            if vals.get("name", self.env._("New")) == self.env._("New"):
                 vals["name"] = self.env["ir.sequence"].next_by_code(
                     "exemption.line.sequence"
-                ) or _("New")
+                ) or self.env._("New")
         return super().create(vals_list)
 
     def export_exemption_rule(self):
@@ -72,7 +72,9 @@ class ExemptionRule(models.Model):
     def cancel_exemption_rule(self):
         self.ensure_one()
         if self.state != "done":
-            raise UserError(_("Rule is not in Done state to Cancel Custom Rule"))
+            raise UserError(
+                self.env._("Rule is not in Done state to Cancel Custom Rule")
+            )
         self.write({"state": "progress"})
         avalara_salestax = (
             self.env["avalara.salestax"]
@@ -176,7 +178,7 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     @api.model
-    def _search(self, domain, offset=0, limit=None, order=None):
+    def _search(self, domain, *args, **kwargs):
         if self.env.context.get("partner_exemption", False):
             domain = domain or []
             avalara_salestax = (
@@ -186,7 +188,7 @@ class ResPartner(models.Model):
             )
             if avalara_salestax.use_commercial_entity:
                 domain += [("parent_id", "=", False)]
-        return super()._search(domain, offset, limit, order)
+        return super()._search(domain, *args, **kwargs)
 
 
 class ResPartnerExemption(models.Model):

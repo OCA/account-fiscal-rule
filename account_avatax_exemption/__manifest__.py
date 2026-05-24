@@ -2,9 +2,7 @@
     "name": "Avatax Exemptions",
     "version": "19.0.1.0.0",
     "category": "Sales",
-    "summary": """
-        This application allows you to add exemptions to Avatax
-    """,
+    "summary": "Manage Avatax Exemption Certificates with Avalara API integration",
     "website": "https://github.com/OCA/account-fiscal-rule",
     "author": "Sodexis, Odoo Community Association (OCA)",
     "license": "AGPL-3",
