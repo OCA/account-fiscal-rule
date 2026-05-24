@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from odoo import Command, _, api, fields, models
+from odoo import Command, api, fields, models
 
 
 class ResPartnerGroupState(models.Model):
@@ -18,7 +18,7 @@ class ResPartnerExemptionLine(models.Model):
     _name = "res.partner.exemption.line"
     _description = "Avatax Exemption Line"
 
-    name = fields.Char(index=True, default=lambda self: _("New"))
+    name = fields.Char(index=True, default=lambda self: self.env._("New"))
     exemption_id = fields.Many2one("res.partner.exemption", required=True)
     partner_id = fields.Many2one(related="exemption_id.partner_id", store=True)
     state_id = fields.Many2one("res.country.state")
@@ -31,10 +31,10 @@ class ResPartnerExemptionLine(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            if vals.get("name", _("New")) == _("New"):
+            if vals.get("name", self.env._("New")) == self.env._("New"):
                 vals["name"] = self.env["ir.sequence"].next_by_code(
                     "exemption.line.sequence"
-                ) or _("New")
+                ) or self.env._("New")
         return super().create(vals_list)
 
 
@@ -115,7 +115,7 @@ class ResPartnerExemption(models.Model):
             and super()._check_create_documents()
         )
 
-    @api.depends("exemption_number", "partner_id", "exemption_type")
+    @api.depends("exemption_number", "partner_id.display_name", "exemption_type.name")
     def _compute_display_name(self):
         for record in self:
             if record.exemption_number:
@@ -139,7 +139,7 @@ class ResPartnerExemption(models.Model):
                 state_ids += self.exemption_type.state_ids.ids
             if self.group_of_state.state_ids:
                 state_ids += self.group_of_state.state_ids.ids
-            self.state_ids = [Command.set(self.group_of_state.state_ids.ids)]
+            self.state_ids = [Command.set(state_ids)]
 
     @api.onchange("exemption_type", "effective_date")
     def onchange_effective_date(self):
