@@ -1,4 +1,6 @@
 import logging
+import os
+import unittest
 
 from odoo.exceptions import UserError
 from odoo.tests.common import tagged
@@ -7,6 +9,9 @@ from .common import TestAvataxCommon
 from .mocked_invoice_1_response import response as response_invoice_1
 
 _logger = logging.getLogger(__name__)
+
+
+_AVATAX_LIVE_REASON = "AVATAX_API_KEY env var not set — skipping Avalara live-API test"
 
 
 @tagged("-at_install", "post_install")
@@ -63,6 +68,7 @@ class TestAccountAvalaraInternal(TestAvataxCommon):
             # inserted return value is equal to returned value from mocked method
             self.assertDictEqual(response, captured.mock_response.json())
 
+    @unittest.skipUnless(os.environ.get("AVATAX_API_KEY"), _AVATAX_LIVE_REASON)
     def test__avatax_compute_tax(self):
         first_line_id = self.invoice.invoice_line_ids[:1]
         # test no tax records yet for invoice lines
@@ -116,6 +122,7 @@ class TestAccountAvalaraInternal(TestAvataxCommon):
             self.assertEqual(tax_result["totalTaxable"], 90.0)
             self.assertEqual(self.invoice_1_response["totalTaxable"], 90.0)
 
+    @unittest.skipUnless(os.environ.get("AVATAX_API_KEY"), _AVATAX_LIVE_REASON)
     def test_avatax_compute_taxes(self):
         with self._capture_create_or_adjust_transaction(
             return_value=self.invoice_1_response
