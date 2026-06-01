@@ -2,6 +2,7 @@
 #   @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from odoo.fields import Command
 from odoo.tests import Form
 
 from odoo.addons.account_ecotax.tests.test_ecotax import TestInvoiceEcotaxCommon
@@ -11,6 +12,7 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.partner = cls.env["res.partner"].create({"name": "Test Partner"})
         cls.product_a = cls.env["product.product"].create(
             {
                 "name": "product_a",
@@ -29,9 +31,7 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
         )
 
         cls.product_a.ecotax_line_product_ids = [
-            (
-                0,
-                0,
+            Command.create(
                 {
                     # 2.4
                     "classification_id": cls.ecotax_fixed.id,
@@ -39,9 +39,7 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
             )
         ]
         cls.product_b.ecotax_line_product_ids = [
-            (
-                0,
-                0,
+            Command.create(
                 {
                     "classification_id": cls.ecotax_weight.id,
                 },
@@ -65,9 +63,8 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
         """Tests  with weight based ecotaxs"""
         # in order to test the correct assignment of weight ecotax
         # I create a customer sale.
-        partner12 = self.env.ref("base.res_partner_12")
         self.sale = self.create_sale_partner(
-            partner_id=partner12, products_and_qty=[(self.product_b, 1.0)]
+            partner_id=self.partner, products_and_qty=[(self.product_b, 1.0)]
         )
         self.assertEqual(self.product_b.ecotax_amount, 16)
         so_form = Form(self.sale)
@@ -84,9 +81,8 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
         """Tests multiple lines with mixed ecotaxs"""
         # in order to test the correct assignment of fixed ecotax and weight ecotax
         # I create a customer sale.
-        partner12 = self.env.ref("base.res_partner_12")
         self.sale = self.create_sale_partner(
-            partner_id=partner12,
+            partner_id=self.partner,
             products_and_qty=[(self.product_a, 1.0), (self.product_b, 2.0)],
         )
         # I assign a product with fixed ecotaxte to sale line

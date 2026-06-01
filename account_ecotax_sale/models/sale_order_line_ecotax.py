@@ -16,7 +16,7 @@ class SaleOrderLineEcotaxe(models.Model):
         required=True,
         readonly=True,
         index=True,
-        auto_join=True,
+        bypass_search_access=True,
         ondelete="cascade",
     )
     product_id = fields.Many2one(
