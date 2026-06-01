@@ -2,7 +2,8 @@
 #   @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import Command, api, fields, models
+from odoo import api, fields, models
+from odoo.fields import Command
 
 
 class SaleOrderLine(models.Model):
@@ -72,7 +73,7 @@ class SaleOrderLine(models.Model):
 
     def edit_ecotax_lines(self):
         view = {
-            "name": ("Ecotax classification"),
+            "name": "Ecotax classification",
             "view_type": "form",
             "view_mode": "form",
             "res_model": "sale.order.line",
@@ -93,9 +94,7 @@ class SaleOrderLine(models.Model):
         ecotax_cls_vals = []
         for ecotaxline in self.ecotax_line_ids:
             ecotax_cls_vals.append(
-                (
-                    0,
-                    0,
+                Command.create(
                     {
                         "classification_id": ecotaxline.classification_id.id,
                         "force_amount_unit": ecotaxline.force_amount_unit,

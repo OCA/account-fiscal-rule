@@ -18,7 +18,7 @@
                 />
             </field>
             <xpath
-                expr="//field[@name='order_line']/form//field[@name='tax_id']"
+                expr="//field[@name='order_line']/form//field[@name='tax_ids']"
                 position="after"
             >
                 <field name="ecotax_line_ids" colspan="2">
@@ -67,7 +67,6 @@
                         TODO: at some point we want to fix this in the framework so that an invisible field is not required.
                     -->
                     <field name="sequence" invisible="1" />
-                    <field name="product_uom_category_id" invisible="1" />
                     <group>
                         <group invisible="display_type">
                             <field
@@ -91,19 +90,9 @@
                             <div name="invoiced_qty" invisible="1">
                                 <field name="qty_invoiced" />
                             </div>
-                            <field
-                                name="product_packaging_qty"
-                                invisible="1"
-                                groups="product.group_stock_packaging"
-                            />
-                            <field
-                                name="product_packaging_id"
-                                invisible="1"
-                                groups="product.group_stock_packaging"
-                            />
                             <field name="price_unit" />
                             <field
-                                name="tax_id"
+                                name="tax_ids"
                                 widget="many2many_tags"
                                 options="{'no_create': True}"
                                 readonly="1"
