@@ -5,7 +5,7 @@
 {
     "name": "Account Fiscal Position - Type",
     "summary": "Add sale / purchase type on fiscal position",
-    "version": "16.0.1.0.4",
+    "version": "18.0.1.0.0",
     "category": "Accounting",
     "author": "GRAP,Odoo Community Association (OCA)",
     "legalsylvain": ["legalsylvain"],
@@ -18,12 +18,5 @@
     "data": [
         "views/view_account_move.xml",
         "views/view_account_fiscal_position.xml",
-        "views/view_account_fiscal_position_template.xml",
-    ],
-    "demo": [
-        "demo/res_groups.xml",
-        "demo/account_fiscal_position.xml",
-        "demo/account_chart_template.xml",
-        "demo/account_fiscal_position_template.xml",
     ],
 }
