@@ -17,13 +17,13 @@ Account Fiscal Position - Type
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-fiscal-rule/tree/16.0/account_fiscal_position_type
+    :target: https://github.com/OCA/account-fiscal-rule/tree/18.0/account_fiscal_position_type
     :alt: OCA/account-fiscal-rule
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-16-0/account-fiscal-rule-16-0-account_fiscal_position_type
+    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-18-0/account-fiscal-rule-18-0-account_fiscal_position_type
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -32,11 +32,11 @@ This module extends the functionality of account to add a use type on
 fiscal position. (``sale``, ``purchase`` or ``all``) to restrict the
 usage of fiscal position for out or in invoices.
 
-* If a fiscal position is configured for sale, it will not be possible to use it
-  on Vendor Bills, Refunds and Purchase Receipts.
-
-* If a fiscal position is configured for purchase, it will not be possible to use it
-  on Customer Invoices, Credit Notes and Sales Receipts.
+- If a fiscal position is configured for sale, it will not be possible
+  to use it on Vendor Bills, Refunds and Purchase Receipts.
+- If a fiscal position is configured for purchase, it will not be
+  possible to use it on Customer Invoices, Credit Notes and Sales
+  Receipts.
 
 **Table of contents**
 
@@ -48,17 +48,18 @@ Configuration
 
 To configure this module, you need to:
 
-* Go to Invoicing / Configuration / Taxes / Fiscal Positions
+- Go to Invoicing / Configuration / Taxes / Fiscal Positions
+- On a fiscal position, set the correct settings.
 
-* On a fiscal position, set the correct settings.
-
-.. figure:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/16.0/account_fiscal_position_type/static/description/fiscal_position_form.png
+|image1|
 
 **Note**
 
-It is possible to set the value on the fiscal position templates. In that
-case, installing a new chart of account will configure correctly the fiscal
-positions.
+It is possible to set the value on the fiscal position templates. In
+that case, installing a new chart of account will configure correctly
+the fiscal positions.
+
+.. |image1| image:: https://raw.githubusercontent.com/OCA/account-fiscal-rule/18.0/account_fiscal_position_type/static/description/fiscal_position_form.png
 
 Bug Tracker
 ===========
@@ -66,7 +67,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-fiscal-rule/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_fiscal_position_type%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_fiscal_position_type%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -74,12 +75,12 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * GRAP
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -91,6 +92,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/16.0/account_fiscal_position_type>`_ project on GitHub.
+This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/18.0/account_fiscal_position_type>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

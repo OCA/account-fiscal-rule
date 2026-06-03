@@ -10,7 +10,7 @@ class Tests(TransactionCase):
     post_install = True
 
     def setUp(self):
-        super(Tests, self).setUp()
+        super().setUp()
         self.ResPartner = self.env["res.partner"]
         self.AccountFiscalPosition = self.env["account.fiscal.position"]
         self.company = self.env.ref("base.main_company")
@@ -29,7 +29,6 @@ class Tests(TransactionCase):
 
     # Test Section
     def test_chart_template_generation(self):
-
         # Generate new CoA based on template
         self.chart_template.generate_fiscal_position(False, False, self.company)
 
