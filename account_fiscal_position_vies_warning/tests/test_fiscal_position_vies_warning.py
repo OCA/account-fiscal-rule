@@ -13,12 +13,37 @@ class TestFiscalPositionViesWarning(BaseCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.env.company.vat_check_vies = True
+        cls.income_account = cls.env["account.account"].create(
+            {
+                "name": "Test Income",
+                "code": "TESTINC",
+                "account_type": "income",
+                "company_ids": [Command.link(cls.env.company.id)],
+            }
+        )
+        cls.receivable_account = cls.env["account.account"].create(
+            {
+                "name": "Test Receivable",
+                "code": "TESTREC",
+                "account_type": "asset_receivable",
+                "company_ids": [Command.link(cls.env.company.id)],
+            }
+        )
+        cls.sale_journal = cls.env["account.journal"].create(
+            {
+                "name": "Test Sale Journal",
+                "code": "TSJ",
+                "type": "sale",
+                "company_id": cls.env.company.id,
+            }
+        )
         cls.partner_vies = cls.env["res.partner"].create(
             {
                 "name": "Belgium Partner",
                 "country_id": cls.env.ref("base.be").id,
                 "vat": "BE0477472701",
                 "vies_valid": True,
+                "property_account_receivable_id": cls.receivable_account.id,
             }
         )
         cls.partner_not_vies = cls.env["res.partner"].create(
@@ -27,6 +52,7 @@ class TestFiscalPositionViesWarning(BaseCommon):
                 "country_id": cls.env.ref("base.nl").id,
                 "vat": "NL946186650B01",
                 "vies_valid": False,
+                "property_account_receivable_id": cls.receivable_account.id,
             }
         )
         cls.fp_intra_community = cls.env["account.fiscal.position"].create(
@@ -48,11 +74,18 @@ class TestFiscalPositionViesWarning(BaseCommon):
             {
                 "move_type": "out_invoice",
                 "partner_id": partner.id,
+                "journal_id": self.sale_journal.id,
                 "invoice_date": "2025-09-04",
                 "date": "2025-09-04",
                 "fiscal_position_id": fiscal_position.id,
                 "invoice_line_ids": [
-                    Command.create({"name": "line1", "price_unit": 110.0}),
+                    Command.create(
+                        {
+                            "name": "line1",
+                            "price_unit": 110.0,
+                            "account_id": self.income_account.id,
+                        }
+                    ),
                 ],
             }
         )
