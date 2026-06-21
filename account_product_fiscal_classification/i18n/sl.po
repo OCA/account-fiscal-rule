@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-17 00:24+0000\n"
-"PO-Revision-Date: 2026-06-09 06:46+0000\n"
+"PO-Revision-Date: 2026-06-21 07:46+0000\n"
 "Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "Language: sl\n"
@@ -93,7 +93,7 @@ msgstr "Ustvarjeno"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__taxes_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__taxes_id
 msgid "Customer Taxes"
-msgstr "Davki za stranke"
+msgstr "Prodajni davki"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product__supplier_taxes_id
@@ -390,7 +390,7 @@ msgstr "Davki"
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__supplier_taxes_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__supplier_taxes_id
 msgid "Vendor Taxes"
-msgstr "Davki dobavitelja"
+msgstr "Nabavni davki"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_wizard_change_fiscal_classification
