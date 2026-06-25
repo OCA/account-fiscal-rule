@@ -13,17 +13,16 @@ class ResPartner(models.Model):
     )
     has_vat = fields.Boolean(compute="_compute_has_vat", readonly=True, store=False)
 
+    @api.depends("vat", "id_numbers", "id_numbers.category_id")
     def _compute_has_vat(self):
         partner_id_vat_category = self.env.ref(
             "account_multi_vat.partner_id_category_vat", raise_if_not_found=False
         )
         for rec in self:
-            rec.has_vat = (
+            rec.has_vat = bool(
                 partner_id_vat_category
                 and rec.vat
-                or any(
-                    n.category_id == partner_id_vat_category for n in self.id_numbers
-                )
+                or any(n.category_id == partner_id_vat_category for n in rec.id_numbers)
             )
 
     @api.model

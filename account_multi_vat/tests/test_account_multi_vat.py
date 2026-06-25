@@ -2,6 +2,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo.exceptions import ValidationError
+from odoo.tests import tagged
+
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 from . import common
 
@@ -329,3 +332,169 @@ class TestAccountMultiVat(common.CommonAccountMultiVat):
         tax.invoice_repartition_line_ids.write({"tag_ids": [(5,)]})
         tax.vat_partner_id = self.vat_partner_lu
         self.assertEqual(tax.country_id, self.vat_partner_lu.country_id)
+
+    def test_13(self):
+        """
+        Data:
+            - A partner with no VAT
+        Test case:
+            - Set a direct VAT number on the partner (not via partner identification)
+        Expected result:
+            - has_vat is True (the VAT id category exists and the partner has a vat)
+        """
+        self.assertFalse(self.partner_01.has_vat)
+        self.partner_01.vat = self.valid_vat
+        self.assertTrue(self.partner_01.has_vat)
+
+    def test_14(self):
+        """
+        Data:
+            - A tax administration partner for LU
+        Test case:
+            - Set the tax administration back to a regular partner, then create a
+              second tax administration for the same country
+        Expected result:
+            - No ValidationError is raised once the first one is no longer a tax
+              administration
+        """
+        self.vat_partner_lu.is_tax_administration = False
+        # Now there is no LU tax administration anymore, creating one must work
+        new_lu_admin = self.partner_model.create(
+            {
+                "name": "LU Tax Administration 2",
+                "is_tax_administration": True,
+                "country_id": self.country_lu.id,
+            }
+        )
+        self.assertTrue(new_lu_admin.is_tax_administration)
+
+
+@tagged("post_install", "-at_install")
+class TestAccountMultiVatInvoice(AccountTestInvoicingCommon):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.country_lu = cls.env.ref("base.lu")
+        cls.country_be = cls.env.ref("base.be")
+        cls.valid_vat = "LU11180925"
+        cls.valid_vat_be = "BE0477472701"
+        cls.partner_id_category_vat = cls.env.ref(
+            "account_multi_vat.partner_id_category_vat"
+        )
+        cls.vat_partner_lu = cls.env["res.partner"].create(
+            {
+                "name": "LU Tax Administration",
+                "is_tax_administration": True,
+                "country_id": cls.country_lu.id,
+            }
+        )
+        cls.vat_partner_be = cls.env["res.partner"].create(
+            {
+                "name": "BE Tax Administration",
+                "is_tax_administration": True,
+                "country_id": cls.country_be.id,
+            }
+        )
+        # Give the invoiced partner a LU VAT number issued by the LU administration
+        cls.partner_a.id_numbers = [
+            (
+                0,
+                0,
+                {
+                    "name": cls.valid_vat,
+                    "category_id": cls.partner_id_category_vat.id,
+                    "partner_issued_id": cls.vat_partner_lu.id,
+                },
+            )
+        ]
+
+    def test_customer_vat_on_customer_invoice(self):
+        """
+        Data:
+            - A customer with a LU VAT number issued by the LU tax administration
+        Test case:
+            - Create a customer invoice with the LU tax administration set
+        Expected result:
+            - customer_vat is the LU VAT number of the customer
+        """
+        invoice = self._create_invoice(
+            move_type="out_invoice",
+            partner_id=self.partner_a.id,
+            customer_vat_partner_id=self.vat_partner_lu.id,
+        )
+        self.assertEqual(invoice.customer_vat, self.valid_vat)
+
+    def test_customer_vat_without_matching_number(self):
+        """
+        Data:
+            - A customer with a LU VAT number only
+        Test case:
+            - Create a customer invoice with the BE tax administration set (no BE
+              number on the customer)
+        Expected result:
+            - customer_vat falls back on the partner's own vat
+        """
+        invoice = self._create_invoice(
+            move_type="out_invoice",
+            partner_id=self.partner_a.id,
+            customer_vat_partner_id=self.vat_partner_be.id,
+        )
+        self.assertEqual(invoice.customer_vat, self.partner_a.vat or False)
+
+    def test_customer_vat_on_vendor_bill_is_false(self):
+        """
+        Data:
+            - A partner with a LU VAT number
+        Test case:
+            - Create a vendor bill with the LU tax administration set
+        Expected result:
+            - customer_vat is not computed on non-customer documents
+        """
+        bill = self._create_invoice(
+            move_type="in_invoice",
+            partner_id=self.partner_a.id,
+            customer_vat_partner_id=self.vat_partner_lu.id,
+        )
+        self.assertFalse(bill.customer_vat)
+
+    def test_customer_vat_recomputed_on_administration_change(self):
+        """
+        Data:
+            - A customer invoice without tax administration
+        Test case:
+            - Set the LU tax administration on the invoice
+        Expected result:
+            - customer_vat is recomputed to the LU VAT number
+        """
+        invoice = self._create_invoice(
+            move_type="out_invoice",
+            partner_id=self.partner_a.id,
+        )
+        invoice.customer_vat_partner_id = self.vat_partner_lu
+        self.assertEqual(invoice.customer_vat, self.valid_vat)
+
+    def test_reversal_copies_customer_vat(self):
+        """
+        Data:
+            - A posted customer invoice with a LU tax administration and customer_vat
+        Test case:
+            - Reverse the invoice through the reversal wizard
+        Expected result:
+            - The reversal move keeps the customer tax administration and customer_vat
+        """
+        invoice = self._create_invoice(
+            move_type="out_invoice",
+            partner_id=self.partner_a.id,
+            customer_vat_partner_id=self.vat_partner_lu.id,
+            post=True,
+        )
+        self.assertEqual(invoice.customer_vat, self.valid_vat)
+        reversal_wizard = (
+            self.env["account.move.reversal"]
+            .with_context(active_model="account.move", active_ids=invoice.ids)
+            .create({"journal_id": invoice.journal_id.id})
+        )
+        reversal_wizard.reverse_moves()
+        reversal_move = reversal_wizard.new_move_ids
+        self.assertEqual(reversal_move.customer_vat_partner_id, self.vat_partner_lu)
+        self.assertEqual(reversal_move.customer_vat, self.valid_vat)
