@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 =================
 Account Multi Vat
 =================
@@ -13,23 +17,24 @@ Account Multi Vat
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--fiscal--rule-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-fiscal-rule/tree/15.0/account_multi_vat
+    :target: https://github.com/OCA/account-fiscal-rule/tree/19.0/account_multi_vat
     :alt: OCA/account-fiscal-rule
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-15-0/account-fiscal-rule-15-0-account_multi_vat
+    :target: https://translation.odoo-community.org/projects/account-fiscal-rule-19-0/account-fiscal-rule-19-0-account_multi_vat
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=15.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-fiscal-rule&target_branch=19.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-Allows setting multiple VAT numbers on any partner and select the right one
-depending on the fiscal position and delivery address of the invoice.
+Allows setting multiple VAT numbers on any partner and select the right
+one depending on the fiscal position and delivery address of the
+invoice.
 
 **Table of contents**
 
@@ -39,17 +44,21 @@ depending on the fiscal position and delivery address of the invoice.
 Usage
 =====
 
-When printing the invoice report, the company VAT number will be seeked in the following way:
+When printing the invoice report, the company VAT number will be seeked
+in the following way:
 
-#. **If there is a fiscal position which has a tax administration:** try to find a VAT number
-   matching the tax administration.
-#. **If there is no fiscal position on the invoice or no tax administration on
-   the fiscal position:** try to find a VAT number matching the country of the company.
-#. **If nothing found:** the standard VAT number on the company is used.
+1. **If there is a fiscal position which has a tax administration:** try
+   to find a VAT number matching the tax administration.
+2. **If there is no fiscal position on the invoice or no tax
+   administration on the fiscal position:** try to find a VAT number
+   matching the country of the company.
+3. **If nothing found:** the standard VAT number on the company is used.
 
-and the customer VAT number:
-#. **If there is a delivery address:** try to find a tax administration matching the country of the address.
-#. **If there is no delivery address on the invoice or no tax administration found or no VAT number found:** the standard VAT number on the customer is used.
+and the customer VAT number: #. **If there is a delivery address:** try
+to find a tax administration matching the country of the address. #.
+**If there is no delivery address on the invoice or no tax
+administration found or no VAT number found:** the standard VAT number
+on the customer is used.
 
 Bug Tracker
 ===========
@@ -57,7 +66,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-fiscal-rule/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_multi_vat%0Aversion:%2015.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-fiscal-rule/issues/new?body=module:%20account_multi_vat%0Aversion:%2019.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -65,18 +74,18 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * ACSONE SA/NV
 
 Contributors
-~~~~~~~~~~~~
+------------
 
 Thomas Binsfeld <thomas.binsfeld@acsone.eu> (https://www.acsone.eu/)
 Omar Castiñeira <omar@comunitea.com>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -96,6 +105,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-ThomasBinsfeld| 
 
-This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/15.0/account_multi_vat>`_ project on GitHub.
+This module is part of the `OCA/account-fiscal-rule <https://github.com/OCA/account-fiscal-rule/tree/19.0/account_multi_vat>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

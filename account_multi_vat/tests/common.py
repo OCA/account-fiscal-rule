@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase
 class CommonAccountMultiVat(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(CommonAccountMultiVat, cls).setUpClass()
+        super().setUpClass()
 
         # MODELS
         cls.account_tag_model = cls.env["account.account.tag"]

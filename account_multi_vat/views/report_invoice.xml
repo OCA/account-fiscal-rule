@@ -10,10 +10,10 @@
         <xpath expr="//div[@t-if='o.partner_id.vat']" position="replace">
             <div t-if="o.partner_id.has_vat" class="mt16">
                 <t
-                    t-if="o.company_id.country_id.vat_label"
-                    t-out="o.company_id.country_id.vat_label"
-                    id="inv_tax_id_label"
-                />
+                t-if="o.company_id.country_id.vat_label"
+                t-out="o.company_id.country_id.vat_label"
+                id="inv_tax_id_label"
+            />
                 <t t-else="">Tax ID</t>: <span t-field="o.customer_vat" />
             </div>
         </xpath>
