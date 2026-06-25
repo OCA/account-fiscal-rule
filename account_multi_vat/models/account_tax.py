@@ -1,7 +1,7 @@
 # Copyright 2020 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -28,10 +28,8 @@ class AccountTax(models.Model):
         Invalidate the cache on repartition lines to update the domain of the tags field
         """
         self.ensure_one()
-        self.invoice_repartition_line_ids.invalidate_cache(fnames=["country_id"])
-        self.refund_repartition_line_ids.invalidate_cache(
-            fnames=["tax_id", "country_id"]
-        )
+        self.invoice_repartition_line_ids.invalidate_recordset(["country_id"])
+        self.refund_repartition_line_ids.invalidate_recordset(["tax_id", "country_id"])
 
     @api.constrains("vat_partner_id")
     def _check_vat_partner_tags(self):
@@ -44,7 +42,9 @@ class AccountTax(models.Model):
                 for tag in repartition_line.tag_ids
             ):
                 raise ValidationError(
-                    _("The country of the tax must match the one of the tax grids.")
+                    self.env._(
+                        "The country of the tax must match the one of the tax grids."
+                    )
                 )
 
     @api.depends("company_id", "vat_partner_id")

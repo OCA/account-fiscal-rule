@@ -15,6 +15,7 @@ class CommonAccountMultiVat(TransactionCase):
         cls.partner_id_category_model = cls.env["res.partner.id_category"]
         cls.partner_id_number_model = cls.env["res.partner.id_number"]
         cls.tax_model = cls.env["account.tax"]
+        cls.tax_group_model = cls.env["account.tax.group"]
 
         # INSTANCES
         cls.partner_01 = cls.partner_model.search([("vat", "=", False)], limit=1)
@@ -24,6 +25,12 @@ class CommonAccountMultiVat(TransactionCase):
         cls.country_lu = cls.env.ref("base.lu")
         cls.country_be = cls.env.ref("base.be")
         cls.country_it = cls.env.ref("base.it")
+        cls.tax_group_be = cls.tax_group_model.create(
+            {"name": "Tax Group BE", "country_id": cls.country_be.id}
+        )
+        cls.tax_group_lu = cls.tax_group_model.create(
+            {"name": "Tax Group LU", "country_id": cls.country_lu.id}
+        )
         cls.vat_partner_lu = cls.partner_model.create(
             {
                 "name": "LU Tax Administration",

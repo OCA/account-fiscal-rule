@@ -1,7 +1,7 @@
 # Copyright 2020 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -58,9 +58,8 @@ class ResPartner(models.Model):
     def _check_is_tax_administration(self):
         if any(rec.is_tax_administration and not rec.country_id for rec in self):
             raise ValidationError(
-                _("The country is mandatory for tax administrations.")
+                self.env._("The country is mandatory for tax administrations.")
             )
-        country_model = self.env["res.country"]
         partner_model = self.env["res.partner"]
         read_group_res = partner_model.sudo()._read_group(
             domain=[
@@ -68,14 +67,14 @@ class ResPartner(models.Model):
                 ("country_id", "in", self.mapped("country_id").ids),
                 ("is_tax_administration", "=", True),
             ],
-            groupby=['country_id'],
-            aggregates=['__count'],
+            groupby=["country_id"],
+            aggregates=["__count"],
         )
-        for read_group_dic in read_group_res:
-            if read_group_dic.get("country_id_count", 0) > 1:
-                country = country_model.sudo().browse(read_group_dic["country_id"][0])
+        for country, count in read_group_res:
+            if count > 1:
                 raise ValidationError(
-                    _("There's already a tax administration for {country_name}").format(
-                        country_name=country.name
+                    self.env._(
+                        "There's already a tax administration for %(country_name)s",
+                        country_name=country.name,
                     )
                 )

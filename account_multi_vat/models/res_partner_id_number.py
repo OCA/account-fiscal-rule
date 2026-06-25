@@ -1,7 +1,7 @@
 # Copyright 2020 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, models
+from odoo import api, models
 from odoo.exceptions import ValidationError
 
 
@@ -20,11 +20,13 @@ class ResPartnerIdNumber(models.Model):
                 continue
             if not rec.partner_issued_id:
                 raise ValidationError(
-                    _("Please specify a tax administration in the 'Issued by' field.")
+                    self.env._(
+                        "Please specify a tax administration in the 'Issued by' field."
+                    )
                 )
             if not rec.partner_issued_id.is_tax_administration:
                 raise ValidationError(
-                    _("The VAT number must be issued by a tax administration.")
+                    self.env._("The VAT number must be issued by a tax administration.")
                 )
         # Check if there is max. one VAT number by administration by partner
         domain = [
@@ -33,21 +35,17 @@ class ResPartnerIdNumber(models.Model):
         ]
         read_group_res = self._read_group(
             domain=domain,
-            groupby=['partner_id', 'partner_issued_id'],
-            aggregates=['__count'],
+            groupby=["partner_id", "partner_issued_id"],
+            aggregates=["__count"],
         )
-        partner_model = self.env["res.partner"]
-        for dic in read_group_res:
-            if dic["__count"] > 1:
-                tax_administration_partner_id = dic["partner_issued_id"][0]
-                tax_administration_partner = partner_model.browse(
-                    tax_administration_partner_id
-                )
+        for __partner, partner_issued, count in read_group_res:
+            if count > 1:
                 raise ValidationError(
-                    _(
+                    self.env._(
                         "There is already a VAT number for the tax administration "
-                        "'{tax_administration}' on this contact."
-                    ).format(tax_administration=tax_administration_partner.display_name)
+                        "'%(tax_administration)s' on this contact.",
+                        tax_administration=partner_issued.display_name,
+                    )
                 )
 
     @api.onchange("category_id")

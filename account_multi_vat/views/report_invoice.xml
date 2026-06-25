@@ -18,4 +18,25 @@
             </div>
         </xpath>
     </template>
+    <template
+        id="external_layout_multi_vat"
+        inherit_id="web.external_layout_standard"
+        priority="99"
+    >
+        <xpath
+            expr="//li[@t-if='not forced_vat']/t[@t-if='company.vat']/span[@t-esc='company.vat']"
+            position="replace"
+        >
+            <t
+                t-if="'fiscal_position_id' in o._fields and o._name == 'account.move' and o.move_type in ['out_invoice', 'out_refund']"
+            >
+                <span
+                    t-esc="company.partner_id._get_vat_number_for_administration(o.fiscal_position_id.vat_partner_id)"
+                />
+            </t>
+            <t t-else="else">
+                <span t-esc="company.vat" />
+            </t>
+        </xpath>
+    </template>
 </odoo>
