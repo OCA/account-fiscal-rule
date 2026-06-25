@@ -31,11 +31,10 @@ class ResPartnerIdNumber(models.Model):
             ("category_id", "=", partner_id_category_vat.id),
             ("partner_id", "in", self.mapped("partner_id").ids),
         ]
-        read_group_res = self.read_group(
+        read_group_res = self._read_group(
             domain=domain,
-            fields=["partner_id", "partner_issued_id"],
-            groupby=["partner_id", "partner_issued_id"],
-            lazy=False,
+            groupby=['partner_id', 'partner_issued_id'],
+            aggregates=['__count'],
         )
         partner_model = self.env["res.partner"]
         for dic in read_group_res:

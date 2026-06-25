@@ -62,14 +62,14 @@ class ResPartner(models.Model):
             )
         country_model = self.env["res.country"]
         partner_model = self.env["res.partner"]
-        read_group_res = partner_model.sudo().read_group(
+        read_group_res = partner_model.sudo()._read_group(
             domain=[
                 ("country_id", "!=", False),
                 ("country_id", "in", self.mapped("country_id").ids),
                 ("is_tax_administration", "=", True),
             ],
-            fields=["country_id"],
-            groupby=["country_id"],
+            groupby=['country_id'],
+            aggregates=['__count'],
         )
         for read_group_dic in read_group_res:
             if read_group_dic.get("country_id_count", 0) > 1:
