@@ -22,11 +22,10 @@ class AccountTax(models.Model):
         if self.is_ecotax:
             self.amount_type = "code"
             self.include_base_amount = True
-            self.python_compute = """
-# price_unit
-# product: product.product object or None
-# partner: res.partner object or None
-# for weight based ecotax
-# result = quantity and  product.weight_based_ecotax * quantity or 0.0
-result = quantity and product.fixed_ecotax  * quantity or 0.0
-            """
+            # En v19, account_tax_python utilise le champ "formula" qui attend
+            # une expression Python (et non plus "result = ..."). Les variables
+            # disponibles sont price_unit, quantity, product, uom, base ; product
+            # est un dict sérialisé, d'où l'accès product['fixed_ecotax'].
+            # Pour l'écotaxe au poids :
+            # quantity and product['weight_based_ecotax'] * quantity or 0.0
+            self.formula = "quantity and product['fixed_ecotax'] * quantity or 0.0"

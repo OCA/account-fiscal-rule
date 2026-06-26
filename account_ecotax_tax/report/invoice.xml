@@ -18,7 +18,6 @@
         inherit_id="account.document_tax_totals"
         priority="150"
     >
-        <xpath expr="//tr[@name='ecotax_line']" position="replace">
-        </xpath>
+        <xpath expr="//tr[@name='ecotax_line']" position="replace" />
     </template>
 </odoo>

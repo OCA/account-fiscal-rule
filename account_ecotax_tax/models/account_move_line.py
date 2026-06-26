@@ -8,12 +8,15 @@ from odoo import api, fields, models
 class AcountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    # replace compute method because we want to change the invalidation fields
-    # (api.depends) and not add some. (we want to remove the ones on ecotax_line_ids)
-    # because ecotax_line_ids now depends on the 2 next fields.
-    subtotal_ecotax = fields.Float(compute="_compute_ecotax_tax")
+    # On remplace la méthode de calcul pour changer les champs d'invalidation
+    # (api.depends) sans en ajouter : ici les montants d'écotaxe proviennent de
+    # la vraie taxe Odoo (compute_all) et non plus des ecotax_line_ids.
+    # On conserve store=True / digits="Ecotax" comme la base account_ecotax 19.0.
+    subtotal_ecotax = fields.Float(
+        digits="Ecotax", store=True, compute="_compute_ecotax_tax"
+    )
     ecotax_amount_unit = fields.Float(
-        compute="_compute_ecotax_tax",
+        digits="Ecotax", store=True, compute="_compute_ecotax_tax"
     )
 
     def _get_ecotax_amounts(self):
@@ -57,6 +60,7 @@ class AcountMoveLine(models.Model):
         return self._compute_ecotax()
 
     def _get_new_vals_list(self):
+        self.ensure_one()
         if not self.subtotal_ecotax:
             return []
         return super()._get_new_vals_list()
