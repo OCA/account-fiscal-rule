@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-07-06 16:46+0000\n"
+"Last-Translator: Thibault REY <rey.thibault@gmail.com>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.report_invoice_document
@@ -56,24 +58,24 @@ msgstr ""
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_product__all_ecotax_line_product_ids
 msgid "All Ecotax Lines"
-msgstr ""
+msgstr "Toutes les lignes d'écotaxe"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__amount
 msgid "Amount"
-msgstr ""
+msgstr "Total"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__amount_total
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_mixin__amount_total
 msgid "Amount Total"
-msgstr ""
+msgstr "Montant Total"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__amount_unit
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_mixin__amount_unit
 msgid "Amount Unit"
-msgstr ""
+msgstr "Montant unitaire"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_category_form
@@ -81,12 +83,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_collector_form
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_sector_form
 msgid "Archived"
-msgstr ""
+msgstr "Archivé"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__categ_id
 msgid "Category"
-msgstr ""
+msgstr "Catégorie"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__classification_id
@@ -94,12 +96,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__classification_id
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_classification_search
 msgid "Classification"
-msgstr ""
+msgstr "Classification"
 
 #. module: account_ecotax
 #: model_terms:ir.actions.act_window,help:account_ecotax.action_ecotax_classification
 msgid "Click to start a new Ecotaxe Classification."
-msgstr ""
+msgstr "Cliquer pour démarrer une nouvelle classification d'écotaxe."
 
 #. module: account_ecotax
 #: model_terms:ir.actions.act_window,help:account_ecotax.action_ecotax_category
@@ -120,12 +122,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__code
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__code
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__company_id
 msgid "Company"
-msgstr ""
+msgstr "Société"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_product__all_ecotax_line_product_ids
