@@ -159,4 +159,12 @@
             </form>
         </field>
     </record>
+
+    <template
+        id="document_tax_totals_ecotax"
+        inherit_id="sale.document_tax_totals"
+        priority="200"
+    >
+        <xpath expr="//tr[@name='ecotax_line']" position="replace" />
+    </template>
 </odoo>
