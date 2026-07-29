@@ -334,9 +334,12 @@ class SaleOrderLine(models.Model):
         else:
             item_code = product.default_code or ("ID:%d" % product.id)
         tax_code = line.product_id.applicable_tax_code_id.name
-        amount = (
-            sign * line.price_unit * line.product_uom_qty * (1 - line.discount / 100.0)
-        )
+        # Taxes flagged as price included are embedded in price_unit, so the raw
+        # line amount is gross and must not be reported as a taxable base.
+        # price_subtotal is the net line total Odoo already computes, and it
+        # equals price_unit * product_uom_qty * (1 - discount / 100) when none of
+        # the line taxes is price included.
+        amount = sign * line.price_subtotal
         # Calculate discount amount
         discount_amount = 0.0
         is_discounted = False
