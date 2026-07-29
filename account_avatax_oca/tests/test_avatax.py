@@ -63,6 +63,11 @@ class TestAvatax(common.TransactionCase):
                 "company_code": "DEFAULT",
                 "disable_tax_calculation": False,
                 "invoice_calculate_tax": False,
+                # Credentials are placeholders and service_url defaults to the
+                # production endpoint, so document recording must stay off:
+                # button_draft() would otherwise reach the real service through
+                # void_transaction, which is not mocked here.
+                "disable_tax_reporting": True,
             }
         )
         mock_get_avatax_config_company.return_value = avatax_config
@@ -133,6 +138,11 @@ class TestAvatax(common.TransactionCase):
         mock_get_avatax_config_company.assert_called()
         mock_create_transaction.assert_called()
 
+        # Document recording is disabled in this configuration, so the document
+        # type stays provisional and button_draft() voids nothing through the
+        # service. Asserted rather than left implicit, because the document type
+        # is what tells the two scenarios apart.
+        self.assertEqual(self.invoice._get_avatax_doc_type(commit=True), "SalesOrder")
         self.invoice.button_draft()
 
         avatax_config.write(
