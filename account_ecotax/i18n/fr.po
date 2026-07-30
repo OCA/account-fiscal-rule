@@ -4,15 +4,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: fr\n"
+"POT-Creation-Date: 2026-07-30 14:35+0000\n"
+"PO-Revision-Date: 2026-07-30 14:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Plural-Forms: \n"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.report_invoice_document
@@ -44,6 +45,7 @@ msgstr ""
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_product__additional_ecotax_line_product_ids
+#: model:ir.model.fields,field_description:account_ecotax.field_product_product_binding__additional_ecotax_line_product_ids
 msgid "Additional Ecotax Lines"
 msgstr ""
 
@@ -55,6 +57,7 @@ msgstr ""
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_product__all_ecotax_line_product_ids
+#: model:ir.model.fields,field_description:account_ecotax.field_product_product_binding__all_ecotax_line_product_ids
 msgid "All Ecotax Lines"
 msgstr ""
 
@@ -85,6 +88,7 @@ msgstr ""
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__categ_id
+#: model:ir.ui.menu,name:account_ecotax.menu_ecotax_category
 msgid "Category"
 msgstr ""
 
@@ -92,6 +96,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__classification_id
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_mixin__classification_id
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__classification_id
+#: model:ir.ui.menu,name:account_ecotax.menu_ecotax_classification
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_classification_search
 msgid "Classification"
 msgstr ""
@@ -123,12 +128,18 @@ msgid "Code"
 msgstr ""
 
 #. module: account_ecotax
+#: model:ir.ui.menu,name:account_ecotax.menu_ecotax_collector
+msgid "Collector"
+msgstr ""
+
+#. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__company_id
 msgid "Company"
 msgstr ""
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_product__all_ecotax_line_product_ids
+#: model:ir.model.fields,help:account_ecotax.field_product_product_binding__all_ecotax_line_product_ids
 msgid ""
 "Contain all ecotaxs classification defined in product templateand the additionnal.\n"
 "ecotaxs defined in product variant. For more detailssee the product variant accounting tab"
@@ -186,12 +197,17 @@ msgstr ""
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__display_name
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__display_name
+#: model:ir.model.fields,field_description:account_ecotax.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_ecotax.field_account_move_line__display_name
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__display_name
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_collector__display_name
+#: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_mixin__display_name
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__display_name
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_sector__display_name
+#: model:ir.model.fields,field_description:account_ecotax.field_product_product__display_name
+#: model:ir.model.fields,field_description:account_ecotax.field_product_template__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nom d'affichage"
 
 #. module: account_ecotax
 #: model:ir.model.fields.selection,name:account_ecotax.selection__account_ecotax_classification__product_status__m
@@ -200,13 +216,16 @@ msgstr ""
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line__subtotal_ecotax
+#: model:ir.ui.menu,name:account_ecotax.menu_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.view_move_form_inherit
 msgid "Ecotax"
 msgstr ""
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_product__ecotax_amount
+#: model:ir.model.fields,field_description:account_ecotax.field_product_product_binding__ecotax_amount
 #: model:ir.model.fields,field_description:account_ecotax.field_product_template__ecotax_amount
+#: model:ir.model.fields,field_description:account_ecotax.field_product_template_binding__ecotax_amount
 msgid "Ecotax Amount"
 msgstr ""
 
@@ -217,11 +236,13 @@ msgstr ""
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_product__ecotax_amount
+#: model:ir.model.fields,help:account_ecotax.field_product_product_binding__ecotax_amount
 msgid "Ecotax Amount computed form all ecotax line classification"
 msgstr ""
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_template__ecotax_amount
+#: model:ir.model.fields,help:account_ecotax.field_product_template_binding__ecotax_amount
 msgid "Ecotax Amount computed from Classification"
 msgstr ""
 
@@ -236,6 +257,11 @@ msgstr ""
 #: model:ir.model.fields,help:account_ecotax.field_ecotax_line_mixin__amount_total
 msgid ""
 "Ecotax Amount total computed from Classification or forced ecotax amount"
+msgstr ""
+
+#. module: account_ecotax
+#: model:ir.actions.act_window,name:account_ecotax.action_ecotax_classification
+msgid "Ecotax Classification"
 msgstr ""
 
 #. module: account_ecotax
@@ -256,7 +282,9 @@ msgstr ""
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line__ecotax_line_ids
 #: model:ir.model.fields,field_description:account_ecotax.field_product_product__ecotax_line_product_ids
+#: model:ir.model.fields,field_description:account_ecotax.field_product_product_binding__ecotax_line_product_ids
 #: model:ir.model.fields,field_description:account_ecotax.field_product_template__ecotax_line_product_ids
+#: model:ir.model.fields,field_description:account_ecotax.field_product_template_binding__ecotax_line_product_ids
 msgid "Ecotax Lines"
 msgstr ""
 
@@ -276,34 +304,31 @@ msgid "Ecotax Unit"
 msgstr ""
 
 #. module: account_ecotax
+#: model:ir.actions.act_window,name:account_ecotax.action_ecotax_category
+msgid "Ecotax category"
+msgstr ""
+
+#. module: account_ecotax
+#: model:ir.actions.act_window,name:account_ecotax.action_ecotax_collector
 #: model:ir.model,name:account_ecotax.model_ecotax_collector
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__collector_id
 msgid "Ecotax collector"
 msgstr ""
 
 #. module: account_ecotax
+#: model:ir.actions.act_window,name:account_ecotax.action_ecotax_sector
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__sector_id
 msgid "Ecotax sector"
 msgstr ""
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_product__weight_based_ecotax
+#: model:ir.model.fields,help:account_ecotax.field_product_product_binding__weight_based_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_template__weight_based_ecotax
+#: model:ir.model.fields,help:account_ecotax.field_product_template_binding__weight_based_ecotax
 msgid ""
 "Ecotax value :\n"
 "product weight * ecotax coef of Ecotax Classification"
-msgstr ""
-
-#. module: account_ecotax
-#: model:ir.actions.act_window,name:account_ecotax.action_ecotax_classification
-#: model:ir.ui.menu,name:account_ecotax.menu_ecotax_classification
-msgid "Ecotaxe Classification"
-msgstr ""
-
-#. module: account_ecotax
-#: model:ir.actions.act_window,name:account_ecotax.action_ecotax_category
-#: model:ir.ui.menu,name:account_ecotax.menu_ecotax_category
-msgid "Ecotaxe category"
 msgstr ""
 
 #. module: account_ecotax
@@ -317,20 +342,8 @@ msgid "Ecotaxe classification"
 msgstr ""
 
 #. module: account_ecotax
-#: model:ir.actions.act_window,name:account_ecotax.action_ecotax_collector
-#: model:ir.ui.menu,name:account_ecotax.menu_ecotax_collector
-msgid "Ecotaxe collector"
-msgstr ""
-
-#. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.view_move_line_ecotax_form
 msgid "Ecotaxe lines"
-msgstr ""
-
-#. module: account_ecotax
-#: model:ir.actions.act_window,name:account_ecotax.action_ecotax_sector
-#: model:ir.ui.menu,name:account_ecotax.menu_ecotax_sector
-msgid "Ecotaxe sector"
 msgstr ""
 
 #. module: account_ecotax
@@ -346,13 +359,17 @@ msgstr ""
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_product__fixed_ecotax
+#: model:ir.model.fields,field_description:account_ecotax.field_product_product_binding__fixed_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_template__fixed_ecotax
+#: model:ir.model.fields,field_description:account_ecotax.field_product_template_binding__fixed_ecotax
 msgid "Fixed Ecotax"
 msgstr ""
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_product__fixed_ecotax
+#: model:ir.model.fields,help:account_ecotax.field_product_product_binding__fixed_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_template__fixed_ecotax
+#: model:ir.model.fields,help:account_ecotax.field_product_template_binding__fixed_ecotax
 msgid "Fixed ecotax of the Ecotax Classification"
 msgstr ""
 
@@ -383,17 +400,17 @@ msgid ""
 msgstr ""
 
 #. module: account_ecotax
-#: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_classification_search
-msgid "Group By"
-msgstr ""
-
-#. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__id
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__id
+#: model:ir.model.fields,field_description:account_ecotax.field_account_move__id
+#: model:ir.model.fields,field_description:account_ecotax.field_account_move_line__id
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__id
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_collector__id
+#: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_mixin__id
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__id
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_sector__id
+#: model:ir.model.fields,field_description:account_ecotax.field_product_product__id
+#: model:ir.model.fields,field_description:account_ecotax.field_product_template__id
 msgid "ID"
 msgstr ""
 
@@ -414,15 +431,13 @@ msgstr ""
 #: code:addons/account_ecotax/models/account_move.py:0
 #: model:ir.model.fields,field_description:account_ecotax.field_account_bank_statement_line__amount_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move__amount_ecotax
-#: model:ir.model.fields,field_description:account_ecotax.field_account_payment__amount_ecotax
-#, python-format
 msgid "Included Ecotax"
 msgstr ""
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.document_tax_totals
 msgid "Including Eco Part"
-msgstr ""
+msgstr "Dont Éco-Participation"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__intrastat_code
@@ -437,13 +452,13 @@ msgstr ""
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Pièce comptable"
 
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_account_move_line
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__account_move_line_id
 msgid "Journal Item"
-msgstr ""
+msgstr "Écriture comptable"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__write_uid
@@ -519,7 +534,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_mixin__product_id
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__product_id
 msgid "Product"
-msgstr ""
+msgstr "Produit"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__product_status
@@ -540,7 +555,7 @@ msgstr ""
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_product_product
 msgid "Product Variant"
-msgstr ""
+msgstr "Variante de produit"
 
 #. module: account_ecotax
 #: model:ir.model.fields.selection,name:account_ecotax.selection__account_ecotax_classification__product_status__p
@@ -594,6 +609,11 @@ msgid "Section"
 msgstr ""
 
 #. module: account_ecotax
+#: model:ir.ui.menu,name:account_ecotax.menu_ecotax_sector
+msgid "Sector"
+msgstr ""
+
+#. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_account_ecotax_classification__company_id
 msgid ""
 "Specify a company if you want to define this Ecotax Classification only for "
@@ -636,14 +656,14 @@ msgstr ""
 #. module: account_ecotax
 #. odoo-python
 #: code:addons/account_ecotax/models/account_move.py:0
-#: code:addons/account_ecotax/models/account_move.py:0
-#, python-format
 msgid "Untaxed Amount"
 msgstr ""
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_product__weight_based_ecotax
+#: model:ir.model.fields,field_description:account_ecotax.field_product_product_binding__weight_based_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_template__weight_based_ecotax
+#: model:ir.model.fields,field_description:account_ecotax.field_product_template_binding__weight_based_ecotax
 msgid "Weight Based Ecotax"
 msgstr ""
 
