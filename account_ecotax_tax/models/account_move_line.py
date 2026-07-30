@@ -17,34 +17,40 @@ class AcountMoveLine(models.Model):
     )
 
     def _get_ecotax_amounts(self):
-        self.ensure_one()
-        ecotax_ids = self.tax_ids.filtered(lambda tax: tax.is_ecotax)
+        """Estimate the ecotax amounts from the product eligible ecotax lines.
 
-        if self.display_type == "tax" or not ecotax_ids:
+        The ecotax lines of the move line are not used here on purpose:
+        ``subtotal_ecotax``/``ecotax_amount_unit`` are the pre-creation
+        estimate used to decide if ecotax lines should be generated
+        (see ``_get_new_vals_list``). The definitive tax amount is computed
+        from the move line ecotax lines by the tax engine itself
+        (see account.tax._add_tax_details_in_base_line).
+        """
+        self.ensure_one()
+        country = (
+            self.move_id.partner_shipping_id.country_id
+            or self.move_id.partner_id.country_id
+        )
+        eligible_lines = self.product_id._get_country_eligible_classification(country)
+        if self.display_type == "tax" or not eligible_lines:
             return 0.0, 0.0
+        # product ecotax amounts are expressed in the company currency
+        company_currency = self.company_id.currency_id
+        amount_unit = sum(eligible_lines.mapped("amount"))
+        if self.currency_id and self.currency_id != company_currency:
+            amount_unit = company_currency._convert(
+                amount_unit,
+                self.currency_id,
+                self.company_id,
+                self.move_id.date or fields.Date.context_today(self),
+            )
         if self.display_type == "product" and self.move_id.is_invoice(True):
-            amount_currency = self.price_unit * (1 - self.discount / 100)
-            handle_price_include = True
             quantity = self.quantity
         else:
-            amount_currency = self.amount_currency
-            handle_price_include = False
             quantity = 1
-        compute_all_currency = ecotax_ids.compute_all(
-            amount_currency,
-            currency=self.currency_id,
-            quantity=quantity,
-            product=self.product_id,
-            partner=self.move_id.partner_id or self.partner_id,
-            is_refund=self.is_refund,
-            handle_price_include=handle_price_include,
-            include_caba_tags=self.move_id.always_tax_exigible,
-        )
-        subtotal_ecotax = 0.0
-        for tax in compute_all_currency["taxes"]:
-            subtotal_ecotax += tax["amount"]
-
-        amount_unit = subtotal_ecotax / quantity if quantity else subtotal_ecotax
+        subtotal_ecotax = amount_unit * quantity
+        if self.currency_id:
+            subtotal_ecotax = self.currency_id.round(subtotal_ecotax)
         return amount_unit, subtotal_ecotax
 
     @api.depends(
@@ -55,6 +61,13 @@ class AcountMoveLine(models.Model):
     )
     def _compute_ecotax_tax(self):
         return self._compute_ecotax()
+
+    # the ecotax tax amount is injected from the line ecotax lines by the
+    # tax engine: recompute the line totals when they change (e.g. forced
+    # amount edited after the line creation)
+    @api.depends("ecotax_line_ids.amount_total")
+    def _compute_totals(self):
+        return super()._compute_totals()
 
     def _get_new_vals_list(self):
         if not self.subtotal_ecotax:

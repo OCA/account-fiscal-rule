@@ -8,11 +8,9 @@
     <record id="tax_ecotax" model="account.tax">
         <field name="name">EcoTax</field>
         <field name="type_tax_use">sale</field>
-        <field name="amount_type">code</field>
+        <field name="amount_type">fixed</field>
+        <field name="amount" eval="0.0" />
         <field name="is_ecotax" eval="True" />
-        <field
-            name="formula"
-        >quantity and product.fixed_ecotax * quantity or 0.0</field>
         <field name="price_include_override">tax_excluded</field>
         <field name="include_base_amount" eval="True" />
         <field name="sequence" eval="0" />

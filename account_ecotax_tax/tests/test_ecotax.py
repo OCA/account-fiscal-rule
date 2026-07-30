@@ -29,11 +29,11 @@ class TestInvoiceEcotaxTaxComon(TestInvoiceEcotaxCommon):
                 "type_tax_use": "sale",
                 "company_id": cls.env.user.company_id.id,
                 "price_include_override": "tax_excluded",
-                "amount_type": "code",
+                "amount_type": "fixed",
+                "amount": 0.0,
                 "include_base_amount": True,
                 "sequence": 0,
                 "is_ecotax": True,
-                "formula": "quantity and product.fixed_ecotax * quantity or 0.0",
                 "tax_exigibility": "on_invoice",
                 "invoice_repartition_line_ids": [
                     (
@@ -80,12 +80,12 @@ class TestInvoiceEcotaxTaxComon(TestInvoiceEcotaxCommon):
                 "name": "Weight Based Ecotax",
                 "type_tax_use": "sale",
                 "company_id": cls.env.user.company_id.id,
-                "amount_type": "code",
+                "amount_type": "fixed",
+                "amount": 0.0,
                 "include_base_amount": True,
                 "price_include_override": "tax_excluded",
                 "sequence": 0,
                 "is_ecotax": True,
-                "formula": "quantity and product.weight_based_ecotax * quantity or 0.0",
                 "tax_exigibility": "on_invoice",
                 "invoice_repartition_line_ids": [
                     (

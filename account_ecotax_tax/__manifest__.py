@@ -12,7 +12,6 @@
     "maintainers": ["mourad-ehm", "florian-dacosta"],
     "depends": [
         "account_ecotax",
-        "account_tax_python",
     ],
     "data": [
         "data/account_tax_data.xml",
