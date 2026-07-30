@@ -14,26 +14,37 @@ class SaleOrderLine(models.Model):
     )
 
     def _get_ecotax_amounts(self):
-        self.ensure_one()
-        # do not call super as we completly change the way to compute it
-        ecotax_ids = self.tax_id.filtered(lambda tax: tax.is_ecotax)
-        if (self.display_type and self.display_type != "product") or not ecotax_ids:
-            return 0.0, 0.0
-        amount_currency = self.price_unit * (1 - self.discount / 100)
-        quantity = self.product_uom_qty
-        compute_all_currency = ecotax_ids.compute_all(
-            amount_currency,
-            currency=self.currency_id,
-            quantity=quantity,
-            product=self.product_id,
-            partner=self.order_id.partner_shipping_id,
-        )
-        subtotal_ecotax = 0.0
-        for tax in compute_all_currency["taxes"]:
-            subtotal_ecotax += tax["amount"]
+        """Estimate the ecotax amounts from the product eligible ecotax lines.
 
-        unit = quantity and subtotal_ecotax / quantity or subtotal_ecotax
-        return unit, subtotal_ecotax
+        Do not call super: as with account_ecotax_tax on invoices, the
+        definitive ecotax tax amount is computed from the sale line ecotax
+        lines by the tax engine, while these fields are the pre-creation
+        estimate used to decide if ecotax lines should be generated.
+        """
+        self.ensure_one()
+        if self.display_type and self.display_type != "product":
+            return 0.0, 0.0
+        country = (
+            self.order_id.partner_shipping_id.country_id
+            or self.order_id.partner_id.country_id
+        )
+        eligible_lines = self.product_id._get_country_eligible_classification(country)
+        if not eligible_lines:
+            return 0.0, 0.0
+        # product ecotax amounts are expressed in the company currency
+        company_currency = self.company_id.currency_id
+        amount_unit = sum(eligible_lines.mapped("amount"))
+        if self.currency_id and self.currency_id != company_currency:
+            amount_unit = company_currency._convert(
+                amount_unit,
+                self.currency_id,
+                self.company_id,
+                self.order_id.date_order or fields.Date.context_today(self),
+            )
+        subtotal_ecotax = amount_unit * self.product_uom_qty
+        if self.currency_id:
+            subtotal_ecotax = self.currency_id.round(subtotal_ecotax)
+        return amount_unit, subtotal_ecotax
 
     @api.depends(
         "tax_id",
@@ -42,6 +53,13 @@ class SaleOrderLine(models.Model):
     )
     def _compute_ecotax_tax(self):
         return self._compute_ecotax()
+
+    # the ecotax tax amount is injected from the line ecotax lines by the
+    # tax engine: recompute the line amounts when they change (e.g. forced
+    # amount edited after the line creation)
+    @api.depends("ecotax_line_ids.amount_total")
+    def _compute_amount(self):
+        return super()._compute_amount()
 
     def _get_new_vals_list(self):
         if not self.subtotal_ecotax:

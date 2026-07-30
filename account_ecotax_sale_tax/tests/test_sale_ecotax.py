@@ -31,6 +31,9 @@ class TestsaleEcotaxTax(TestInvoiceEcotaxTaxComon, TestsaleEcotaxCommon):
         with so_form.order_line.edit(0) as line:
             line.product_uom_qty = 3.0
         so_form.save()
+        # test Form save does not persist computed o2m properly
+        # (classification_id is lost), regenerate the ecotax lines
+        self.sale.order_line._compute_ecotax_line_ids()
         self.assertEqual(self.sale.order_line.ecotax_amount_unit, 16)
         self.assertEqual(self.sale.order_line.subtotal_ecotax, 48)
         self.assertEqual(self.sale.amount_total, 648)
@@ -55,6 +58,9 @@ class TestsaleEcotaxTax(TestInvoiceEcotaxTaxComon, TestsaleEcotaxCommon):
         with so_form.order_line.edit(0) as line:
             line.product_uom_qty = 3.0
         so_form.save()
+        # test Form save does not persist computed o2m properly
+        # (classification_id is lost), regenerate the ecotax lines
+        (sale_line1 | sale_line2)._compute_ecotax_line_ids()
 
         self.assertEqual(sale_line1.ecotax_amount_unit, 5.0)
         self.assertAlmostEqual(sale_line1.subtotal_ecotax, 15.0)
