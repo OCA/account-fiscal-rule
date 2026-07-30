@@ -324,3 +324,6 @@ class TestInvoiceEcotaxTax(TestInvoiceEcotaxTaxComon):
             variant_2.all_ecotax_line_product_ids,
             variant_2.product_tmpl_id.ecotax_line_product_ids,
         )
+
+    def test_06_ecotax_by_country(self):
+        self._test_06_ecotax_by_country()
