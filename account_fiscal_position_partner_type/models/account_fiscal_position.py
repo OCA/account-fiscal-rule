@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
-from odoo.osv import expression
+from odoo.fields import Domain
 
 
 class AccountFiscalPosition(models.Model):
@@ -17,7 +17,7 @@ class AccountFiscalPosition(models.Model):
     @api.model
     def search(self, domain, offset=0, limit=None, order=None):
         if self.env.context.get("fiscal_position_type"):
-            domain = expression.AND(
+            domain = Domain.AND(
                 (
                     domain,
                     [
