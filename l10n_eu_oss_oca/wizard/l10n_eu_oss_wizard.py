@@ -63,18 +63,21 @@ class L10nEuOssWizard(models.TransientModel):
         )
 
     company_id = fields.Many2one(
-        "res.company", string="Company", required=True, default=_get_default_company_id
+        "res.company",
+        string="Company",
+        required=True,
+        default=lambda self: self._get_default_company_id(),
     )
     done_country_ids = fields.Many2many(
         "res.country",
         "l10n_eu_oss_country_rel_done",
-        default=_default_done_country_ids,
+        default=lambda self: self._default_done_country_ids(),
         string="Already Supported",
     )
     todo_country_ids = fields.Many2many(
         "res.country",
         "l10n_eu_oss_country_rel_todo",
-        default=_default_todo_country_ids,
+        default=lambda self: self._default_todo_country_ids(),
         string="EU Customers From",
         required=True,
     )
@@ -93,7 +96,7 @@ class L10nEuOssWizard(models.TransientModel):
 
     def _prepare_tax_group_vals(self, rate):
         return {
-            "name": self.env._("OSS VAT %s%%") % rate,
+            "name": self.env._("OSS VAT %s%%", rate),
             "country_id": self.company_id.account_fiscal_country_id.id,
         }
 
@@ -115,8 +118,7 @@ class L10nEuOssWizard(models.TransientModel):
 
     def _prepare_tax_vals(self, country_id, tax_id, rate, tax_group):
         return {
-            "name": self.env._("OSS for EU to %(country_name)s: %(rate)s")
-            % {"country_name": country_id.name, "rate": rate},
+            "name": self.env._("OSS for EU to %s: %s", country_id.name, rate),
             "country_id": self.company_id.account_fiscal_country_id.id,
             "amount": rate,
             "invoice_repartition_line_ids": self._prepare_repartition_line_vals(
@@ -145,9 +147,7 @@ class L10nEuOssWizard(models.TransientModel):
         return dict_taxes
 
     def _prepare_fiscal_position_vals(self, country, taxes_data):
-        fiscal_pos_name = self.env._("Intra-EU B2C in %(country_name)s") % {
-            "country_name": country.name
-        }
+        fiscal_pos_name = self.env._("Intra-EU B2C in %s", country.name)
         fiscal_pos_name += f" (EU-OSS-{country.code})"
         return {
             "name": fiscal_pos_name,
