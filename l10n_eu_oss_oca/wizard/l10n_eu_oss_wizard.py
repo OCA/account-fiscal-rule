@@ -23,43 +23,29 @@ class L10nEuOssWizard(models.TransientModel):
             )
         return eu_group
 
-    def _default_fiscal_position_id(self):
-        user = self.env.user
-        eu_country_group = self._get_eu_res_country_group()
-        return self.env["account.fiscal.position"].search(
-            [
-                ("company_id", "=", user.company_id.id),
-                ("vat_required", "=", True),
-                ("country_group_id", "=", eu_country_group.id),
-            ],
-            limit=1,
-        )
-
     def _default_done_country_ids(self):
-        user = self.env.user
         eu_country_group = self._get_eu_res_country_group()
         return (
             eu_country_group.country_ids
             - self._default_todo_country_ids()
-            - user.company_id.country_id
+            - self.env.company.country_id
         )
 
     def _default_todo_country_ids(self):
-        user = self.env.user
         eu_country_group = self._get_eu_res_country_group()
         eu_fiscal = self.env["account.fiscal.position"].search(
             [
                 ("country_id", "in", eu_country_group.country_ids.ids),
                 ("vat_required", "=", False),
                 ("auto_apply", "=", True),
-                ("company_id", "=", user.company_id.id),
+                ("company_id", "=", self.env.company.id),
                 ("fiscal_position_type", "=", "b2c"),
             ]
         )
         return (
             eu_country_group.country_ids
             - eu_fiscal.mapped("country_id")
-            - user.company_id.country_id
+            - self.env.company.country_id
         )
 
     company_id = fields.Many2one(
@@ -98,6 +84,7 @@ class L10nEuOssWizard(models.TransientModel):
         return {
             "name": self.env._("OSS VAT %s%%", rate),
             "country_id": self.company_id.account_fiscal_country_id.id,
+            "company_id": self.company_id.id,
         }
 
     def _prepare_repartition_line_vals(self, original_rep_lines):
@@ -118,7 +105,11 @@ class L10nEuOssWizard(models.TransientModel):
 
     def _prepare_tax_vals(self, country_id, tax_id, rate, tax_group):
         return {
-            "name": self.env._("OSS for EU to %s: %s", country_id.name, rate),
+            "name": self.env._(
+                "OSS for EU to %(country_name)s: %(rate)s",
+                country_name=country_id.name,
+                rate=rate,
+            ),
             "country_id": self.company_id.account_fiscal_country_id.id,
             "amount": rate,
             "invoice_repartition_line_ids": self._prepare_repartition_line_vals(
@@ -131,7 +122,9 @@ class L10nEuOssWizard(models.TransientModel):
             "description": f"EU-OSS-VAT-{country_id.code}-{rate}",
             "oss_country_id": country_id.id,
             "company_id": self.company_id.id,
-            "price_include": self.price_include_tax,
+            "price_include_override": (
+                "tax_included" if self.price_include_tax else "tax_excluded"
+            ),
             "tax_group_id": tax_group.id,
             "sequence": 1000,
         }
@@ -147,7 +140,10 @@ class L10nEuOssWizard(models.TransientModel):
         return dict_taxes
 
     def _prepare_fiscal_position_vals(self, country, taxes_data):
-        fiscal_pos_name = self.env._("Intra-EU B2C in %s", country.name)
+        fiscal_pos_name = self.env._(
+            "Intra-EU B2C in %(country_name)s",
+            country_name=country.name,
+        )
         fiscal_pos_name += f" (EU-OSS-{country.code})"
         return {
             "name": fiscal_pos_name,
@@ -156,15 +152,20 @@ class L10nEuOssWizard(models.TransientModel):
             "auto_apply": True,
             "country_id": country.id,
             "fiscal_position_type": "b2c",
-            "tax_ids": [(0, 0, tax_data) for tax_data in taxes_data],
+            "tax_ids": [
+                Command.link(tax_data["tax_dest_id"].id) for tax_data in taxes_data
+            ],
             "oss_oca": True,
         }
 
     def update_fpos(self, fpos_id, taxes_data):
-        fpos_id.mapped("tax_ids").filtered(
-            lambda x: x.tax_dest_id.oss_country_id
-        ).unlink()
-        fpos_id.write({"tax_ids": [(0, 0, tax_data) for tax_data in taxes_data]})
+        taxes = fpos_id.tax_ids.filtered(lambda tax: tax.oss_country_id)
+        fpos_id.write(
+            {
+                "tax_ids": [Command.unlink(tax.id) for tax in taxes]
+                + [Command.link(tax_data["tax_dest_id"].id) for tax_data in taxes_data]
+            }
+        )
 
     def generate_eu_oss_taxes(self):
         oss_rate = self.env["oss.tax.rate"]
@@ -203,18 +204,22 @@ class L10nEuOssWizard(models.TransientModel):
                         limit=1,
                     )
                     if not tax_dest_id:
+                        tax_group_vals = self._prepare_tax_group_vals(rate)
                         tax_group = account_tax_group.search(
-                            [("name", "=", self._prepare_tax_group_vals(rate)["name"])],
+                            [
+                                ("name", "=", tax_group_vals["name"]),
+                                ("country_id", "=", tax_group_vals["country_id"]),
+                                ("company_id", "=", tax_group_vals["company_id"]),
+                            ],
                             limit=1,
                         )
                         if not tax_group:
-                            tax_group = account_tax_group.create(
-                                self._prepare_tax_group_vals(rate)
-                            )
+                            tax_group = account_tax_group.create(tax_group_vals)
                         tax_dest_id = account_tax.create(
                             self._prepare_tax_vals(country, tax, rate, tax_group)
                         )
-                taxes_data.append({"tax_src_id": tax.id, "tax_dest_id": tax_dest_id.id})
+                    taxes_data.append({"tax_dest_id": tax_dest_id})
+                tax_dest_id.write({"original_tax_ids": [Command.link(tax.id)]})
                 last_rate = rate
             # Create a fiscal position for the country
             fpos = self.env["account.fiscal.position"].search(

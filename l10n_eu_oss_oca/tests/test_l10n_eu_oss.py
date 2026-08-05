@@ -1,6 +1,8 @@
 # Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from odoo import Command
+
 from odoo.addons.base.tests.common import BaseCommon
 
 
@@ -16,6 +18,7 @@ class TestL10nEuOss(BaseCommon):
         # INSTANCES
         # Company
         cls.company_main = cls.env.ref("base.main_company")
+        cls.company_main.account_fiscal_country_id = cls.env.ref("base.es")
         # Oss tax rate
         cls.oss_tax_rate_fr = cls.env.ref("l10n_eu_oss_oca.oss_eu_rate_fr")
         # Country
@@ -45,6 +48,24 @@ class TestL10nEuOss(BaseCommon):
         cls.superreduced_tax = cls.account_tax.create(tax_vals)
         tax_vals.update({"name": "second superreduced tax", "amount": 2.0})
         cls.second_superreduced_tax = cls.account_tax.create(tax_vals)
+
+        cls.account = cls.env["account.account"].create(
+            {
+                "name": "Test Account",
+                "code": "TEST",
+                "account_type": "income",
+                "company_ids": [Command.set([cls.company_main.id])],
+            }
+        )
+        cls.journal = cls.env["account.journal"].create(
+            {
+                "name": "Test Journal",
+                "type": "sale",
+                "code": "TEST",
+                "company_id": cls.company_main.id,
+                "default_account_id": cls.account.id,
+            }
+        )
 
     def _default_todo_country_ids(self):
         eu_country_group = self.env.ref("base.europe", raise_if_not_found=False)
@@ -95,17 +116,27 @@ class TestL10nEuOss(BaseCommon):
         wizard_vals = {
             "company_id": self.company_main.id,
             "general_tax": self.general_tax.id,
+            "reduced_tax": self.reduced_tax.id,
+            "superreduced_tax": self.superreduced_tax.id,
+            "second_superreduced_tax": self.second_superreduced_tax.id,
+            "price_include_tax": True,
         }
         wizard = self._oss_wizard_create(wizard_vals)
         self.assertEqual(wizard.todo_country_ids, self._default_todo_country_ids())
         self.assertEqual(wizard.done_country_ids, self.res_country)
-        wizard.todo_country_ids = [(6, 0, [self.country_fr.id])]
+        wizard.todo_country_ids = [Command.set([self.country_fr.id])]
         wizard.generate_eu_oss_taxes()
         fpos_id = self._fpos_search(self.country_fr.id)
-        self.assertEqual(len(fpos_id.tax_ids), 1)
-        self.assertEqual(fpos_id.tax_ids[0].tax_src_id.id, self.general_tax.id)
+        dest_tax = fpos_id.tax_ids[0]
+        self.assertEqual(len(fpos_id.tax_ids), 4)
+        self.assertTrue(dest_tax.price_include)
         self.assertEqual(
-            fpos_id.tax_ids[0].tax_dest_id.amount, self.oss_tax_rate_fr.general_rate
+            fpos_id.tax_map[self.general_tax.id],
+            [dest_tax.id],
+        )
+        self.assertEqual(
+            fpos_id.tax_ids[0].amount,
+            self.oss_tax_rate_fr.general_rate,
         )
         # Change amount in one tax and relaunch wizard
         original_amount = self.oss_tax_rate_fr.general_rate
@@ -115,10 +146,11 @@ class TestL10nEuOss(BaseCommon):
             wizard.todo_country_ids, self._default_todo_country_ids() - self.country_fr
         )
         self.assertEqual(wizard.done_country_ids, self.country_fr)
-        wizard.todo_country_ids = [(6, 0, [self.country_fr.id])]
+        wizard.todo_country_ids = [Command.set([self.country_fr.id])]
         wizard.generate_eu_oss_taxes()
-        self.assertEqual(len(fpos_id.tax_ids), 1)
-        self.assertEqual(fpos_id.tax_ids[0].tax_dest_id.amount, 19.9)
+        self.assertEqual(len(fpos_id.tax_ids), 4)
+        self.assertIn(19.9, fpos_id.tax_ids.mapped("amount"))
+        self.assertEqual(fpos_id.tax_ids[0].amount, 19.9)
         original_tax = self._tax_search(self.country_fr.id, original_amount)
         self.assertTrue(original_tax)
 
@@ -130,7 +162,7 @@ class TestL10nEuOss(BaseCommon):
         wizard = self._oss_wizard_create(wizard_vals)
         self.assertEqual(wizard.todo_country_ids, self._default_todo_country_ids())
         self.assertEqual(wizard.done_country_ids, self.res_country)
-        wizard.todo_country_ids = [(6, 0, [self.country_fr.id])]
+        wizard.todo_country_ids = [Command.set([self.country_fr.id])]
         wizard.generate_eu_oss_taxes()
         partner = self.env["res.partner"].create(
             {"name": "Customer", "country_id": self.country_fr.id}
