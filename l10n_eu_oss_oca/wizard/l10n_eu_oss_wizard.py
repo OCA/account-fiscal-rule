@@ -118,7 +118,11 @@ class L10nEuOssWizard(models.TransientModel):
 
     def _prepare_tax_vals(self, country_id, tax_id, rate, tax_group):
         return {
-            "name": self.env._("OSS for EU to %s: %s", country_id.name, rate),
+            "name": self.env._(
+                "OSS for EU to %(country)s: %(rate)s",
+                country=country_id.name,
+                rate=rate,
+            ),
             "country_id": self.company_id.account_fiscal_country_id.id,
             "amount": rate,
             "invoice_repartition_line_ids": self._prepare_repartition_line_vals(
@@ -156,15 +160,22 @@ class L10nEuOssWizard(models.TransientModel):
             "auto_apply": True,
             "country_id": country.id,
             "fiscal_position_type": "b2c",
-            "tax_ids": [(0, 0, tax_data) for tax_data in taxes_data],
+            "tax_ids": [
+                Command.link(tax_data["tax_dest_id"].id) for tax_data in taxes_data
+            ],
             "oss_oca": True,
         }
 
     def update_fpos(self, fpos_id, taxes_data):
-        fpos_id.mapped("tax_ids").filtered(
-            lambda x: x.tax_dest_id.oss_country_id
-        ).unlink()
-        fpos_id.write({"tax_ids": [(0, 0, tax_data) for tax_data in taxes_data]})
+        taxes = fpos_id.tax_ids.filtered(lambda tax: tax.oss_country_id)
+        fpos_id.write({"tax_ids": [Command.unlink(tax.id) for tax in taxes]})
+        fpos_id.write(
+            {
+                "tax_ids": [
+                    Command.link(tax_data["tax_dest_id"].id) for tax_data in taxes_data
+                ]
+            }
+        )
 
     def generate_eu_oss_taxes(self):
         oss_rate = self.env["oss.tax.rate"]
@@ -214,7 +225,8 @@ class L10nEuOssWizard(models.TransientModel):
                         tax_dest_id = account_tax.create(
                             self._prepare_tax_vals(country, tax, rate, tax_group)
                         )
-                taxes_data.append({"tax_src_id": tax.id, "tax_dest_id": tax_dest_id.id})
+                tax_dest_id.write({"original_tax_ids": [Command.link(tax.id)]})
+                taxes_data.append({"tax_dest_id": tax_dest_id})
                 last_rate = rate
             # Create a fiscal position for the country
             fpos = self.env["account.fiscal.position"].search(
