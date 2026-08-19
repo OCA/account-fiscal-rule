@@ -1,0 +1,72 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_fiscal_position_product_domain
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-03 11:39+0000\n"
+"PO-Revision-Date: 2026-06-03 11:39+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_fiscal_position_product_domain
+#: model:ir.model.fields,field_description:account_fiscal_position_product_domain.field_account_fiscal_position_tax__apply_product_domain
+msgid "Apply product filter"
+msgstr ""
+
+#. module: account_fiscal_position_product_domain
+#: model:ir.model.fields.selection,name:account_fiscal_position_product_domain.selection__account_fiscal_position_tax__apply_product_domain__excluded
+msgid "Excluded Products"
+msgstr ""
+
+#. module: account_fiscal_position_product_domain
+#: model_terms:ir.ui.view,arch_db:account_fiscal_position_product_domain.view_account_position_form
+msgid "Filter by product"
+msgstr ""
+
+#. module: account_fiscal_position_product_domain
+#: model:ir.model,name:account_fiscal_position_product_domain.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr ""
+
+#. module: account_fiscal_position_product_domain
+#: model:ir.model.fields.selection,name:account_fiscal_position_product_domain.selection__account_fiscal_position_tax__apply_product_domain__included
+msgid "Included Products"
+msgstr ""
+
+#. module: account_fiscal_position_product_domain
+#: model:ir.model,name:account_fiscal_position_product_domain.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_fiscal_position_product_domain
+#: model:ir.model.fields,help:account_fiscal_position_product_domain.field_account_fiscal_position_tax__apply_product_domain
+msgid ""
+"Leave empty to ignore the fiscal position product domain. Select Included "
+"Products to apply this tax mapping line when the product matches the domain,"
+" or Excluded Products to apply it when the product does not match the "
+"domain."
+msgstr ""
+
+#. module: account_fiscal_position_product_domain
+#: model:ir.model.fields,field_description:account_fiscal_position_product_domain.field_account_fiscal_position__product_domain
+msgid "Product filter"
+msgstr ""
+
+#. module: account_fiscal_position_product_domain
+#: model:ir.model.fields,help:account_fiscal_position_product_domain.field_account_fiscal_position__product_domain
+msgid ""
+"Select the product domain for applying the fiscal position. Keep empty for "
+"all."
+msgstr ""
+
+#. module: account_fiscal_position_product_domain
+#: model:ir.model,name:account_fiscal_position_product_domain.model_account_fiscal_position_tax
+msgid "Tax Mapping of Fiscal Position"
+msgstr ""
