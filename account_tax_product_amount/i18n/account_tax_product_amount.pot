@@ -1,0 +1,140 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_tax_product_amount
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_tax_product_amount
+#: model:ir.model,name:account_tax_product_amount.model_account_tax_product_amount
+msgid "Account Tax Product Amounts (ie: usefull to manage ecotax)"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.fields,field_description:account_tax_product_amount.field_account_tax_product_amount__amount
+msgid "Amount"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.fields,field_description:account_tax_product_amount.field_account_tax_product_amount__company_id
+msgid "Company"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model_terms:ir.actions.act_window,help:account_tax_product_amount.action_tax_product_amount
+msgid "Create a new tax amount for a product variant"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.fields,field_description:account_tax_product_amount.field_account_tax_product_amount__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.fields,field_description:account_tax_product_amount.field_account_tax_product_amount__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.fields,help:account_tax_product_amount.field_product_product__tax_amount_ids
+msgid "Define specific tax fixed amounts for this variant."
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.fields,help:account_tax_product_amount.field_account_tax_product_amount__type_tax_use
+msgid ""
+"Determines where the tax is selectable. Note: 'None' means a tax can't be "
+"used by itself, however it can still be used in a group. 'adjustment' is "
+"used to perform tax adjustment."
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.fields,field_description:account_tax_product_amount.field_account_tax_product_amount__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model_terms:ir.ui.view,arch_db:account_tax_product_amount.product_normal_form_view
+msgid "Fixed Tax Amount"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.fields,field_description:account_tax_product_amount.field_account_tax_product_amount__id
+msgid "ID"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.fields,help:account_tax_product_amount.field_account_tax__use_product_amount
+msgid ""
+"If checked, the tax amount is taken from the product variant (with a "
+"fallback to the tax amount)."
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.fields,field_description:account_tax_product_amount.field_account_tax_product_amount__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.fields,field_description:account_tax_product_amount.field_account_tax_product_amount__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model,name:account_tax_product_amount.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model,name:account_tax_product_amount.model_product_product
+#: model:ir.model.fields,field_description:account_tax_product_amount.field_account_tax_product_amount__product_id
+msgid "Product Variant"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model,name:account_tax_product_amount.model_account_tax
+#: model:ir.model.fields,field_description:account_tax_product_amount.field_account_tax_product_amount__tax_id
+msgid "Tax"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.actions.act_window,name:account_tax_product_amount.action_tax_product_amount
+#: model:ir.ui.menu,name:account_tax_product_amount.menu_tax_product_amount
+msgid "Tax Product Amount"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.fields,field_description:account_tax_product_amount.field_account_tax_product_amount__type_tax_use
+msgid "Tax Type"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.fields,field_description:account_tax_product_amount.field_product_product__tax_amount_ids
+msgid "Tax fixed amounts"
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.constraint,message:account_tax_product_amount.constraint_account_tax_product_amount_product_tax_unique
+msgid "The tax amount must be unique per product variant and tax."
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model_terms:ir.ui.view,arch_db:account_tax_product_amount.product_normal_form_view
+#: model_terms:ir.ui.view,arch_db:account_tax_product_amount.product_variant_easy_edit_view
+msgid ""
+"To add / remove tax amount line, please use\n"
+"                        Sales/Purchase Taxes field on product template."
+msgstr ""
+
+#. module: account_tax_product_amount
+#: model:ir.model.fields,field_description:account_tax_product_amount.field_account_tax__use_product_amount
+msgid "Use Product Amount"
+msgstr ""

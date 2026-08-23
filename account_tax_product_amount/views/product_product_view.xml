@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_variant_easy_edit_view" model="ir.ui.view">
+        <field name="name">product.product.form.tax_amount</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='pricing']" position="inside">
+                <label for="tax_amount_ids" />
+                <p class="text-muted">
+                        To add / remove tax amount line, please use
+                        Sales/Purchase Taxes field on product template.
+                    </p>
+                <field name="tax_amount_ids" nolabel="1">
+                    <list editable="bottom">
+                        <field name="company_id" optional="hide" />
+                        <field name="tax_id" />
+                        <field name="type_tax_use" optional="show" />
+                        <field name="amount" />
+                    </list>
+                </field>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="name">product.product.form.tax_amount</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Fixed Tax Amount" name="tax_amount">
+                    <label for="tax_amount_ids" />
+                    <p class="text-muted">
+                        To add / remove tax amount line, please use
+                        Sales/Purchase Taxes field on product template.
+                    </p>
+                    <field name="tax_amount_ids" nolabel="1">
+                        <list editable="bottom">
+                            <field name="company_id" optional="hide" />
+                            <field name="tax_id" />
+                            <field name="type_tax_use" optional="show" />
+                            <field name="amount" />
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
