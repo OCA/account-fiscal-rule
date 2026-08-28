@@ -1,8 +1,9 @@
 [project]
 name = "odoo-addons-oca-account-fiscal-rule"
-version = "19.0.20260518.0"
+version = "19.0.20260828.0"
 dependencies = [
     "odoo-addon-account_fiscal_position_vies_warning==19.0.*",
+    "odoo-addon-product_refund_account==19.0.*",
 ]
 classifiers=[
     "Programming Language :: Python",
