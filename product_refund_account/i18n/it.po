@@ -1,0 +1,90 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_refund_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: product_refund_account
+#: model:ir.model.fields,help:product_refund_account.field_product_category__property_account_refund_out_categ_id
+msgid ""
+"Account used for customer credit notes of products in this category. Can be "
+"overridden per product. Leave empty to use the product's default income "
+"account."
+msgstr ""
+
+#. module: product_refund_account
+#: model:ir.model.fields,help:product_refund_account.field_product_category__property_account_refund_in_categ_id
+msgid ""
+"Account used for vendor credit notes of products in this category. Can be "
+"overridden per product. Leave empty to use the product's default expense "
+"account."
+msgstr ""
+
+#. module: product_refund_account
+#: model:ir.model.fields,field_description:product_refund_account.field_account_move__display_name
+#: model:ir.model.fields,field_description:product_refund_account.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:product_refund_account.field_product_category__display_name
+#: model:ir.model.fields,field_description:product_refund_account.field_product_template__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: product_refund_account
+#: model:ir.model.fields,field_description:product_refund_account.field_account_move__id
+#: model:ir.model.fields,field_description:product_refund_account.field_account_move_line__id
+#: model:ir.model.fields,field_description:product_refund_account.field_product_category__id
+#: model:ir.model.fields,field_description:product_refund_account.field_product_template__id
+msgid "ID"
+msgstr ""
+
+#. module: product_refund_account
+#: model:ir.model,name:product_refund_account.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: product_refund_account
+#: model:ir.model,name:product_refund_account.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: product_refund_account
+#: model:ir.model.fields,help:product_refund_account.field_product_product__property_account_refund_in_id
+#: model:ir.model.fields,help:product_refund_account.field_product_product__property_account_refund_out_id
+#: model:ir.model.fields,help:product_refund_account.field_product_template__property_account_refund_in_id
+#: model:ir.model.fields,help:product_refund_account.field_product_template__property_account_refund_out_id
+msgid ""
+"Keep this field empty to use the default value from the product category."
+msgstr ""
+
+#. module: product_refund_account
+#: model:ir.model,name:product_refund_account.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: product_refund_account
+#: model:ir.model,name:product_refund_account.model_product_category
+msgid "Product Category"
+msgstr ""
+
+#. module: product_refund_account
+#: model:ir.model.fields,field_description:product_refund_account.field_product_category__property_account_refund_in_categ_id
+#: model:ir.model.fields,field_description:product_refund_account.field_product_product__property_account_refund_in_id
+#: model:ir.model.fields,field_description:product_refund_account.field_product_template__property_account_refund_in_id
+msgid "Refund In Account"
+msgstr ""
+
+#. module: product_refund_account
+#: model:ir.model.fields,field_description:product_refund_account.field_product_category__property_account_refund_out_categ_id
+#: model:ir.model.fields,field_description:product_refund_account.field_product_product__property_account_refund_out_id
+#: model:ir.model.fields,field_description:product_refund_account.field_product_template__property_account_refund_out_id
+msgid "Refund Out Account"
+msgstr ""
