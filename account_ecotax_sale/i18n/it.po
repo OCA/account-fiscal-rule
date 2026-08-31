@@ -1,0 +1,193 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_ecotax_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-03-19 13:06+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.2\n"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__amount_total
+msgid "Amount Total"
+msgstr "Importo totale"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__amount_unit
+msgid "Amount Unit"
+msgstr "Unità valore"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__classification_id
+msgid "Classification"
+msgstr "Classificazione"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__currency_id
+msgid "Currency"
+msgstr "Valuta"
+
+#. module: account_ecotax_sale
+#: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
+msgid "Delivered"
+msgstr "Consegnato"
+
+#. module: account_ecotax_sale
+#: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
+msgid "Description"
+msgstr "Descrizione"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line__subtotal_ecotax
+#: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_order_form
+msgid "Ecotax"
+msgstr "Imposta ecologica"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,help:account_ecotax_sale.field_sale_order_line_ecotax__amount_unit
+msgid "Ecotax Amount computed from Classification or Manual ecotax"
+msgstr ""
+"Valore imposte ecologica calcolato dalla classificazione o imposta ecologica "
+"manuale"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,help:account_ecotax_sale.field_sale_order_line_ecotax__amount_total
+msgid ""
+"Ecotax Amount total computed from Classification or forced ecotax amount"
+msgstr ""
+"Totale valore imposte ecologica calcolato dalla classificazione o valore "
+"imposte ecologica forzato"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line__ecotax_line_ids
+msgid "Ecotax Lines"
+msgstr "Righe imposte ecologica"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line__ecotax_amount_unit
+msgid "Ecotax Unit"
+msgstr "Unità imposta ecologica"
+
+#. module: account_ecotax_sale
+#: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
+msgid "Ecotax lines"
+msgstr "Righe imposte ecologica"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__force_amount_unit
+msgid "Force Amount Unit"
+msgstr "Forza unità valore"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,help:account_ecotax_sale.field_sale_order_line_ecotax__force_amount_unit
+msgid ""
+"Force ecotax.\n"
+"Allow to add a subtitle to the default Ecotax Classification"
+msgstr ""
+"Forza imposta ecologica.\n"
+"Consente di aggiungere un sotto titolo alla classificazione imposta "
+"ecologica predefinita"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order__amount_ecotax
+msgid "Included Ecotaxe"
+msgstr "Inclusa tassa ecologica"
+
+#. module: account_ecotax_sale
+#: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
+msgid "Invoiced"
+msgstr "Fatturato"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: account_ecotax_sale
+#: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
+msgid "Note"
+msgstr "Nota"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__product_id
+msgid "Product"
+msgstr "Prodotto"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__quantity
+msgid "Quantity"
+msgstr "Quantità"
+
+#. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__sale_order_line_id
+msgid "Sale Line"
+msgstr "Riga di vendita"
+
+#. module: account_ecotax_sale
+#: model:ir.model,name:account_ecotax_sale.model_sale_order_line_ecotax
+msgid "Sale order line ecotax"
+msgstr "Tassa ecologica riga ordine di vendita"
+
+#. module: account_ecotax_sale
+#: model:ir.model,name:account_ecotax_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Ordine di vendita"
+
+#. module: account_ecotax_sale
+#: model:ir.model,name:account_ecotax_sale.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Riga ordine di vendita"
+
+#. module: account_ecotax_sale
+#: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
+msgid "Section Name (eg. Products, Services)"
+msgstr "Nome sezione (es. prodotti, servizi)"
+
+#. module: account_ecotax_sale
+#: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
+msgid "Subtotal"
+msgstr "Subtotale"
+
+#. module: account_ecotax_sale
+#: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
+msgid "Total"
+msgstr "Totale"
+
+#. module: account_ecotax_sale
+#: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
+msgid "Total Ecotax"
+msgstr "Totale imposta ecologica"
