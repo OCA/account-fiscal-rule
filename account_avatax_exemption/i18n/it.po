@@ -1,0 +1,495 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_avatax_exemption
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-03-19 12:06+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.2\n"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.form_breadcrumb
+msgid "/ My Exemptions"
+msgstr "/ Mie esenzioni"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_rule_form_view
+msgid "Are you sure you want to Cancel the Custom Rule?"
+msgstr "Si è sicuri di voler annullare la regola personalizzata?"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_rule_form_view
+msgid "Are you sure you want to Enable the Custom Rule?"
+msgstr "Si è sicuri di voler abilitare la regola personalizzata?"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_form_view
+msgid "Are you sure you want to Enable the Exemptions?"
+msgstr "Si è sicuri di voler abilitare le esenzioni?"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_rule_form_view
+msgid "Are you sure you want to cancel the Custom Rules?"
+msgstr "Si è sicuri di voler annullare le regole personalizzate?"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_form_view
+msgid "Are you sure you want to cancel the Exemptions?"
+msgstr "Si è sicuri di voler annullare le esenzioni?"
+
+#. module: account_avatax_exemption
+#: model:ir.model,name:account_avatax_exemption.model_product_tax_code
+msgid "AvaTax Code"
+msgstr "Codice AvaTax"
+
+#. module: account_avatax_exemption
+#: model:ir.model,name:account_avatax_exemption.model_avalara_salestax
+msgid "AvaTax Configuration"
+msgstr "Configurazione AvaTax"
+
+#. module: account_avatax_exemption
+#: model:ir.actions.act_window,name:account_avatax_exemption.exemption_rule_act_window
+#: model:ir.model,name:account_avatax_exemption.model_exemption_code_rule
+#: model:ir.ui.menu,name:account_avatax_exemption.menu_exemption_rule
+msgid "Avatax Custom Rules"
+msgstr "Regole personalizzate AvaTax"
+
+#. module: account_avatax_exemption
+#: model:ir.model,name:account_avatax_exemption.model_res_partner_exemption
+msgid "Avatax Exemption"
+msgstr "Esenzione AvaTax"
+
+#. module: account_avatax_exemption
+#: model:ir.actions.server,name:account_avatax_exemption.ir_cron_download_exemption_ir_actions_server
+msgid "Avatax Exemption Download"
+msgstr "Scaricamento esenzione AvaTax"
+
+#. module: account_avatax_exemption
+#. odoo-python
+#: code:addons/account_avatax_exemption/models/exemption.py:0
+msgid "Avatax Exemption Rule export is disabled in Avatax configuration"
+msgstr ""
+"L'esportazione della regola esenzione AvaTax è disabilitata nella "
+"configurazione AvaTax"
+
+#. module: account_avatax_exemption
+#: model:ir.model,name:account_avatax_exemption.model_res_partner_exemption_type
+msgid "Avatax Exemption Type"
+msgstr "Tipo esenzione AvaTax"
+
+#. module: account_avatax_exemption
+#. odoo-python
+#: code:addons/account_avatax_exemption/models/avalara_salestax.py:0
+#: code:addons/account_avatax_exemption/models/exemption.py:0
+msgid "Avatax Exemption export is disabled in Avatax configuration"
+msgstr ""
+"L'esportazione dell'esenzione AvaTax è disabilitata nella configurazione "
+"AvaTax"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.view_partner_details_form_inherit1_exemption
+msgid "Avatax Exemption related settings are managed on"
+msgstr "Le impostazioni relative all'esenzione AvaTax sono gestite in"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__avatax_rate
+msgid "Avatax Rate"
+msgstr "Tariffa AvaTax"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__avatax_id
+msgid "Avatax Rule ID"
+msgstr "ID regola AvaTax"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_product_tax_code__rule_ids
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_res_country_state__rule_ids
+msgid "Avatax Rules"
+msgstr "Regole AvaTax"
+
+#. module: account_avatax_exemption
+#: model:ir.actions.server,name:account_avatax_exemption.ir_cron_export_exemption_rule_ir_actions_server
+msgid "Avatax Rules: Export New Rules"
+msgstr "Regole AvaTax: esporta nuove regole"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__avatax_tax_code
+msgid "Avatax Tax Code"
+msgstr "Codice tassa AvaTax"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_product_product__avatax_item_id
+msgid "Avatax TaxItem"
+msgstr "Elemento imposta AvaTax"
+
+#. module: account_avatax_exemption
+#: model:ir.actions.server,name:account_avatax_exemption.ir_cron_export_new_tax_item_ir_actions_server
+msgid "Avatax TaxItem: Export New Items"
+msgstr "Elemento imposta AvaTax: esporta nuovi elementi"
+
+#. module: account_avatax_exemption
+#. odoo-python
+#: code:addons/account_avatax_exemption/models/exemption.py:0
+msgid "Avatax rate range is from 0 to 100"
+msgstr "L'intervallo della tariffa AvaTax va da 0 a 100"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_form_view
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_rule_form_view
+msgid "Cancel"
+msgstr "Annulla"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_rule_form_view
+msgid "Cancel Failed Job"
+msgstr "Annulla lavoro fallito"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields.selection,name:account_avatax_exemption.selection__exemption_code_rule__state__cancel
+msgid "Cancelled"
+msgstr "Annullata"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_avalara_salestax__avatax_company_id
+msgid "Company ID"
+msgstr "ID azienda"
+
+#. module: account_avatax_exemption
+#: model:ir.model,name:account_avatax_exemption.model_res_partner
+msgid "Contact"
+msgstr "Contatto"
+
+#. module: account_avatax_exemption
+#: model:ir.model,name:account_avatax_exemption.model_res_country_state
+msgid "Country state"
+msgstr "Nazione"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_code_form_view
+msgid "Create Custom Rules"
+msgstr "Crea regole personalizzate"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_rule_form_view
+msgid "Custom Rules"
+msgstr "Regole personalizzate"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields.selection,name:account_avatax_exemption.selection__exemption_code_rule__state__done
+msgid "Done"
+msgstr "Evasa"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields.selection,name:account_avatax_exemption.selection__exemption_code_rule__state__draft
+msgid "Draft"
+msgstr "Bozza"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemptions_table
+msgid "Effective Date"
+msgstr "Data effettiva"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_rule_form_view
+msgid "Enable Custom Rule"
+msgstr "Abilita regola personalizzata"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_form_view
+msgid "Enable Exemptions"
+msgstr "Abilita esenzioni"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__exemption_code_id
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption__exemption_code_id
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption_business_type__exemption_code_id
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_res_partner_exemption_type__exemption_code_id
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_code_form_view
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemptions_table
+msgid "Entity Use Code"
+msgstr "Codice utilizzo entità"
+
+#. module: account_avatax_exemption
+#: model:ir.model,name:account_avatax_exemption.model_res_partner_exemption_business_type
+msgid "Exemption Activity Type"
+msgstr "Tipo attività esenzione"
+
+#. module: account_avatax_exemption
+#: model:ir.model,name:account_avatax_exemption.model_exemption_code
+msgid "Exemption Code"
+msgstr "Codice esenzione"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_avalara_salestax__exemption_export
+msgid "Exemption Export"
+msgstr "Esportazione esenzione"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_avalara_salestax__exemption_rule_export
+msgid "Exemption Rule Export"
+msgstr "Esportazione regola esenzione"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_code_form_view
+msgid "Exemption Rules"
+msgstr "Regole esenzione"
+
+#. module: account_avatax_exemption
+#. odoo-python
+#: code:addons/account_avatax_exemption/models/exemption.py:0
+msgid "Exemption status needs to be in Cancel status to enable"
+msgstr "Gli stati esenzione devono essere in stato Annulla per abilitare"
+
+#. module: account_avatax_exemption
+#. odoo-python
+#: code:addons/account_avatax_exemption/models/exemption.py:0
+msgid "Exemption status needs to be in Done status to cancel"
+msgstr "Gli stati esenzione devono essere in stato Eseguita per annullare"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.portal_layout
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.portal_my_home_exemptions
+msgid "Exemptions"
+msgstr "Esenzioni"
+
+#. module: account_avatax_exemption
+#. odoo-python
+#: code:addons/account_avatax_exemption/controller/main.py:0
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemptions_table
+msgid "Expiry Date"
+msgstr "Data scadenza"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_form_view
+msgid "Export Exemptions"
+msgstr "Esporta esenzioni"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.view_avalara_salestax_form
+msgid "Export New TaxItems"
+msgstr "Esporta nuovo elemento imposta"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_rule_form_view
+msgid "Export Rules"
+msgstr "Esporta regole"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemptions_followup
+msgid "History"
+msgstr "Storico"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.view_avalara_salestax_form
+msgid "Import Exemption Activity Type"
+msgstr "Importa tipo attività esenzione"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.view_avalara_salestax_form
+msgid "Import Exemptions"
+msgstr "Importa esenzioni"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.view_avalara_salestax_form
+msgid "Import Nexus Fed State Info"
+msgstr "Importa informazioni stato Nexus Fed"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.view_avalara_salestax_form
+msgid "Import TaxItems"
+msgstr "Importa elementi imposte"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields.selection,name:account_avatax_exemption.selection__exemption_code_rule__state__progress
+msgid "In Progress"
+msgstr "In corso"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__is_all_juris
+msgid "Is All Juris"
+msgstr "È tutto Juris"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__name
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemptions_followup
+msgid "Name"
+msgstr "Nome"
+
+#. module: account_avatax_exemption
+#. odoo-python
+#: code:addons/account_avatax_exemption/models/exemption.py:0
+msgid "New"
+msgstr "Nuova"
+
+#. module: account_avatax_exemption
+#. odoo-python
+#: code:addons/account_avatax_exemption/controller/main.py:0
+msgid "Newest"
+msgstr "La più recente"
+
+#. module: account_avatax_exemption
+#. odoo-python
+#: code:addons/account_avatax_exemption/models/exemption.py:0
+msgid "No Customer code added in Partner"
+msgstr "Nessun codice cliente aggiunto nei partner"
+
+#. module: account_avatax_exemption
+#. odoo-python
+#: code:addons/account_avatax_exemption/models/exemption.py:0
+msgid "No Exemption Lines added"
+msgstr "Nessuna riga esenzione aggiunta"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.portal_my_exemptions
+msgid "No exemptions found."
+msgstr "Nessuna esenzione trovata."
+
+#. module: account_avatax_exemption
+#: model:ir.model,name:account_avatax_exemption.model_product_template
+msgid "Product"
+msgstr "Prodotto"
+
+#. module: account_avatax_exemption
+#: model:ir.model,name:account_avatax_exemption.model_product_category
+msgid "Product Category"
+msgstr "Categoria prodotto"
+
+#. module: account_avatax_exemption
+#: model:ir.model,name:account_avatax_exemption.model_product_product
+msgid "Product Variant"
+msgstr "Variante prodotto"
+
+#. module: account_avatax_exemption
+#: model:ir.model,name:account_avatax_exemption.model_queue_job
+msgid "Queue Job"
+msgstr "Lavoro in coda"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__state_id
+msgid "Region"
+msgstr "Regione"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemption_rule_form_view
+msgid "Reset to Draft"
+msgstr "Reimposta a bozza"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code__rule_ids
+msgid "Rule"
+msgstr "Regola"
+
+#. module: account_avatax_exemption
+#. odoo-python
+#: code:addons/account_avatax_exemption/models/exemption.py:0
+msgid "Rule is not in Cancelled state to Re-Export Custom Rule"
+msgstr ""
+"La regola non è in stato annullata per riesportare la regola personalizzata"
+
+#. module: account_avatax_exemption
+#. odoo-python
+#: code:addons/account_avatax_exemption/models/exemption.py:0
+msgid "Rule is not in Done state to Cancel Custom Rule"
+msgstr "La regola non è in stato evasa per annullare la regola personalizzata"
+
+#. module: account_avatax_exemption
+#. odoo-python
+#: code:addons/account_avatax_exemption/models/exemption.py:0
+msgid "Rule is not in Draft state to Export Custom Rule"
+msgstr "La regola non p in stato bozza per esportare la regola personalizzata"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__state
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemptions_followup
+msgid "State"
+msgstr "Stato"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemptions_followup
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemptions_table
+msgid "Status"
+msgstr "Stato"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_avalara_salestax__tax_item_export
+msgid "Tax Item Export"
+msgstr "Esportazione elemento imposta"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code_rule__taxable
+msgid "Taxable"
+msgstr "Imponibile"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_exemption_code__flag
+msgid "Taxed by default"
+msgstr "Tassato in modo predefinito"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,help:account_avatax_exemption.field_avalara_salestax__avatax_company_id
+msgid "The company ID as defined in the Admin Console of AvaTax"
+msgstr "L'ID azienda come definito nella console amministrazione di AvaTax"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,field_description:account_avatax_exemption.field_avalara_salestax__use_commercial_entity
+msgid "Use Commercial Entity"
+msgstr "Utilizza entità commerciale"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.exemptions_followup
+msgid "View Exemption:"
+msgstr "Visualizza esenzioni:"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.portal_my_exemptions
+msgid "Your Exemptions"
+msgstr "Le vostre esenzioni"
+
+#. module: account_avatax_exemption
+#: model:ir.model.fields,help:account_avatax_exemption.field_exemption_code__flag
+msgid "helps to add custom rules for the nexus Avatax states"
+msgstr "aiuta ad aggiungere le regole personalizzate per gli stati AvaTax Nexus"
+
+#. module: account_avatax_exemption
+#: model_terms:ir.ui.view,arch_db:account_avatax_exemption.view_partner_details_form_inherit1_exemption
+msgid "the parent company"
+msgstr "l'azienda madre"
