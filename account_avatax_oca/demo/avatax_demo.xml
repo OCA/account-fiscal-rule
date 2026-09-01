@@ -1,0 +1,49 @@
+<odoo>
+    <!-- fake avatax API configuraation -->
+    <record id="avatax_api_configuraation" model="avalara.salestax">
+        <field name="company_id" ref="base.main_company" />
+        <field name="account_number">123456789</field>
+        <field name="license_key">avatax_key</field>
+    </record>
+
+    <record id="avatax_customer" model="res.partner">
+        <field name="name">Washington Customer</field>
+        <field name="street">100 Ravine Ln Ne</field>
+        <field name="city">Bainbridge Island</field>
+        <field name="state_id" ref="base.state_us_48" />
+        <field name="country_id" ref="base.us" />
+        <field name="zip">98110-2687</field>
+    </record>
+
+    <record id="avatax_product_taxcodeP" model="product.tax.code">
+        <field name="name">P0000000</field>
+        <field name="type">product</field>
+    </record>
+    <record id="avatax_product_taxcodeNT" model="product.tax.code">
+        <field name="name">NT</field>
+        <field name="type">product</field>
+    </record>
+    <record id="avatax_product_taxcodeF" model="product.tax.code">
+        <field name="name">FR020100</field>
+        <field name="type">freight</field>
+    </record>
+
+    <record id="avatax_product_sku1" model="product.product">
+        <field name="name">Test Item P0000000</field>
+        <field name="type">consu</field>
+        <field name="list_price">100.0</field>
+        <field name="tax_code_id" ref="account_avatax_oca.avatax_product_taxcodeP" />
+    </record>
+    <record id="avatax_product_sku2" model="product.product">
+        <field name="name">Test Item NT</field>
+        <field name="type">consu</field>
+        <field name="list_price">100.0</field>
+        <field name="tax_code_id" ref="account_avatax_oca.avatax_product_taxcodeNT" />
+    </record>
+    <record id="avatax_product_freight" model="product.product">
+        <field name="name">Common Carrier FR020100</field>
+        <field name="type">service</field>
+        <field name="list_price">50.0</field>
+        <field name="tax_code_id" ref="account_avatax_oca.avatax_product_taxcodeF" />
+    </record>
+</odoo>
