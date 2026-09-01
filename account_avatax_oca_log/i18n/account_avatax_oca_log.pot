@@ -1,0 +1,160 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_avatax_oca_log
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_avatax_oca_log
+#: model:mail.template,body_html:account_avatax_oca_log.reaching_limit_avatax_api_call_email
+msgid ""
+"<p>Hello.</p>\n"
+"            <br/>\n"
+"            <p>\n"
+"                The number of Avatax API calls was over the limit yesterday.\n"
+"            </p>\n"
+"            <p style=\"font-family: arial, sans-serif; font-size: 12.8px;\">Sale Transactions : <t t-out=\"ctx.get('sales_call_count')\"/></p>\n"
+"            <p style=\"font-family: arial, sans-serif; font-size: 12.8px;\">Invoice Transactions : <t t-out=\"ctx.get('invoices_call_count')\"/></p>\n"
+"            <br/>\n"
+"            <p style=\"font-family: arial, sans-serif; font-size: 12.8px;\">Thank you for your cooperation.</p>\n"
+"            <p style=\"font-family: arial, sans-serif; font-size: 12.8px;\">Kind regards,</p>\n"
+"            <p style=\"font-family: arial, sans-serif; font-size: 12.8px;\">Support Team.</p>\n"
+"        "
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model_terms:ir.ui.view,arch_db:account_avatax_oca_log.res_config_settings_view_form
+msgid "API Call Counter"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model,name:account_avatax_oca_log.model_avalara_salestax
+msgid "AvaTax Configuration"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.actions.server,name:account_avatax_oca_log.ir_cron_avatax_api_call_counter_ir_actions_server
+msgid "Avatax API Call Counter"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:mail.template,name:account_avatax_oca_log.reaching_limit_avatax_api_call_email
+#: model:mail.template,subject:account_avatax_oca_log.reaching_limit_avatax_api_call_email
+msgid "Avatax API Call Reaching Limit"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model,name:account_avatax_oca_log.model_avatax_log
+msgid "Avatax API call counter"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model_terms:ir.ui.view,arch_db:account_avatax_oca_log.res_config_settings_view_form
+msgid "Avatax API call counter limit."
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model_terms:ir.ui.view,arch_db:account_avatax_oca_log.res_config_settings_view_form
+msgid "Avatax API call counter send notification email on this email."
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields,field_description:account_avatax_oca_log.field_res_config_settings__avatax_api_call_notification_ids
+msgid "Avatax Api Call Notification"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields,field_description:account_avatax_oca_log.field_avatax_log__avatax_request
+msgid "Avatax Request"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields,field_description:account_avatax_oca_log.field_avatax_log__avatax_response
+msgid "Avatax Response"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields,field_description:account_avatax_oca_log.field_avatax_log__avatax_type
+#: model_terms:ir.ui.view,arch_db:account_avatax_oca_log.avatax_log_form_view
+msgid "Avatax Type"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.actions.act_window,name:account_avatax_oca_log.avatax_log_act_window
+#: model:ir.ui.menu,name:account_avatax_oca_log.menu_avatax_log
+msgid "Avatax log"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields,field_description:account_avatax_oca_log.field_res_config_settings__call_counter_limit
+#: model_terms:ir.ui.view,arch_db:account_avatax_oca_log.res_config_settings_view_form
+msgid "Call Counter Limit"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields.selection,name:account_avatax_oca_log.selection__avatax_log__avatax_type__cancel
+msgid "Cancel / Void"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model,name:account_avatax_oca_log.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields,field_description:account_avatax_oca_log.field_avatax_log__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields,field_description:account_avatax_oca_log.field_avatax_log__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields,field_description:account_avatax_oca_log.field_avatax_log__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields,field_description:account_avatax_oca_log.field_avatax_log__id
+msgid "ID"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields.selection,name:account_avatax_oca_log.selection__avatax_log__avatax_type__salesinvoice
+msgid "Invoice Transaction"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields,field_description:account_avatax_oca_log.field_avatax_log__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields,field_description:account_avatax_oca_log.field_avatax_log__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model_terms:ir.ui.view,arch_db:account_avatax_oca_log.res_config_settings_view_form
+msgid "Notification"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields.selection,name:account_avatax_oca_log.selection__avatax_log__avatax_type__others
+msgid "Others"
+msgstr ""
+
+#. module: account_avatax_oca_log
+#: model:ir.model.fields.selection,name:account_avatax_oca_log.selection__avatax_log__avatax_type__salesorder
+msgid "Sale Transaction"
+msgstr ""
