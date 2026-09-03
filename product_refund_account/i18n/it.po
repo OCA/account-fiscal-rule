@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-09-03 10:46+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: product_refund_account
 #: model:ir.model.fields,help:product_refund_account.field_product_category__property_account_refund_out_categ_id
@@ -21,6 +23,9 @@ msgid ""
 "overridden per product. Leave empty to use the product's default income "
 "account."
 msgstr ""
+"Conto utilizzato per le note di credito dei clienti relative ai prodotti di "
+"questa categoria. Può essere modificato per ogni singolo prodotto. Lasciare "
+"vuoto per utilizzare il conto ricavi predefinito del prodotto."
 
 #. module: product_refund_account
 #: model:ir.model.fields,help:product_refund_account.field_product_category__property_account_refund_in_categ_id
@@ -29,6 +34,9 @@ msgid ""
 "overridden per product. Leave empty to use the product's default expense "
 "account."
 msgstr ""
+"Conto utilizzato per le note di credito fornitore relative ai prodotti di "
+"questa categoria. Può essere modificato per ogni singolo prodotto. Lasciare "
+"vuoto per utilizzare il conto spese predefinito del prodotto."
 
 #. module: product_refund_account
 #: model:ir.model.fields,field_description:product_refund_account.field_account_move__display_name
@@ -36,7 +44,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_refund_account.field_product_category__display_name
 #: model:ir.model.fields,field_description:product_refund_account.field_product_template__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: product_refund_account
 #: model:ir.model.fields,field_description:product_refund_account.field_account_move__id
@@ -44,17 +52,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_refund_account.field_product_category__id
 #: model:ir.model.fields,field_description:product_refund_account.field_product_template__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: product_refund_account
 #: model:ir.model,name:product_refund_account.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: product_refund_account
 #: model:ir.model,name:product_refund_account.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Movimento contabile"
 
 #. module: product_refund_account
 #: model:ir.model.fields,help:product_refund_account.field_product_product__property_account_refund_in_id
@@ -64,27 +72,29 @@ msgstr ""
 msgid ""
 "Keep this field empty to use the default value from the product category."
 msgstr ""
+"Lasciare il campo vuoto per utilizzare il valore predefinito della categoria "
+"prodotto."
 
 #. module: product_refund_account
 #: model:ir.model,name:product_refund_account.model_product_template
 msgid "Product"
-msgstr ""
+msgstr "Prodotto"
 
 #. module: product_refund_account
 #: model:ir.model,name:product_refund_account.model_product_category
 msgid "Product Category"
-msgstr ""
+msgstr "Categoria prodotto"
 
 #. module: product_refund_account
 #: model:ir.model.fields,field_description:product_refund_account.field_product_category__property_account_refund_in_categ_id
 #: model:ir.model.fields,field_description:product_refund_account.field_product_product__property_account_refund_in_id
 #: model:ir.model.fields,field_description:product_refund_account.field_product_template__property_account_refund_in_id
 msgid "Refund In Account"
-msgstr ""
+msgstr "Conto ingresso rimborso"
 
 #. module: product_refund_account
 #: model:ir.model.fields,field_description:product_refund_account.field_product_category__property_account_refund_out_categ_id
 #: model:ir.model.fields,field_description:product_refund_account.field_product_product__property_account_refund_out_id
 #: model:ir.model.fields,field_description:product_refund_account.field_product_template__property_account_refund_out_id
 msgid "Refund Out Account"
-msgstr ""
+msgstr "Conto uscita rimborso"
