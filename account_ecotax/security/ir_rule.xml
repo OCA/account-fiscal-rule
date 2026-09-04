@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- ********************************************************************** -->
+<!--    Account Product - France Ecotax localisation module for Odoo       -->
+<!--    Copyright (C) 2015 Akretion (http://www.akretion.com).              -->
+<!--   @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>  -->
+<!--You should have received a copy of the GNU Affero General Public License-->
+<!--along with this program.  If not, see <http://www.gnu.org/licenses/>.   -->
+<!-- ********************************************************************** -->
+<odoo>
+    <record id="ir_rule_tax_group" model="ir.rule">
+        <field name="name">Ecotax Classification</field>
+        <field name="model_id" ref="model_account_ecotax_classification" />
+        <field name="global" eval="True" />
+        <field name="domain_force">
+            ['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]
+        </field>
+    </record>
+</odoo>
