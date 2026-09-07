@@ -1,0 +1,41 @@
+<!--
+   Copyright (C) 2023 Akretion (http://www.akretion.com/)
+   @author: Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
+-->
+<odoo>
+    <menuitem
+        name="Ecotax"
+        id="menu_ecotax"
+        parent="account.menu_finance_configuration"
+        sequence="18"
+    />
+
+    <menuitem
+        id="menu_ecotax_category"
+        parent="menu_ecotax"
+        name="Category"
+        action="action_ecotax_category"
+        sequence="16"
+    />
+    <menuitem
+        id="menu_ecotax_classification"
+        parent="menu_ecotax"
+        name="Classification"
+        action="action_ecotax_classification"
+        sequence="15"
+    />
+    <menuitem
+        id="menu_ecotax_sector"
+        parent="menu_ecotax"
+        name="Sector"
+        action="action_ecotax_sector"
+        sequence="17"
+    />
+    <menuitem
+        id="menu_ecotax_collector"
+        parent="menu_ecotax"
+        name="Collector"
+        action="action_ecotax_collector"
+        sequence="18"
+    />
+</odoo>
