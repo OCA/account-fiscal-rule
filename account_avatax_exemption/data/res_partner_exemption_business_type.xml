@@ -1,0 +1,313 @@
+<data noupdate="1">
+    <!--
+   Exemption Activity Type
+   -->
+    <record id="56" model="res.partner.exemption.business.type">
+        <field name="name">AGRICULTURE</field>
+        <field
+            name="exemption_code_id"
+            ref="account_avatax_oca.commercial_agriculture_production_type"
+        />
+        <field name="avatax_id">56</field>
+    </record>
+
+    <record id="75" model="res.partner.exemption.business.type">
+        <field name="name">BANKING ONLY</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">75</field>
+    </record>
+
+    <record id="76" model="res.partner.exemption.business.type">
+        <field name="name">CAPITAL IMPROVEMENT</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">76</field>
+    </record>
+
+    <record id="56" model="res.partner.exemption.business.type">
+        <field name="name">CHARITABLE/EXEMPT ORG</field>
+        <field
+            name="exemption_code_id"
+            ref="account_avatax_oca.federal_government_type"
+        />
+        <field name="avatax_id">57</field>
+    </record>
+
+    <record id="58" model="res.partner.exemption.business.type">
+        <field name="name">COMMERCIAL AQUACULTURE (CN)</field>
+        <field
+            name="exemption_code_id"
+            ref="account_avatax_oca.commercial_aquaculture_type"
+        />
+        <field name="avatax_id">57</field>
+    </record>
+
+    <record id="59" model="res.partner.exemption.business.type">
+        <field name="name">COMMERCIAL FISHERY (CN)</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">59</field>
+    </record>
+
+    <record id="77" model="res.partner.exemption.business.type">
+        <field name="name">COMMON CARRIER</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">77</field>
+    </record>
+
+    <record id="60" model="res.partner.exemption.business.type">
+        <field name="name">DIRECT MAIL</field>
+        <field name="exemption_code_id" ref="account_avatax_oca.direct_mail_type" />
+        <field name="avatax_id">60</field>
+    </record>
+
+    <record id="61" model="res.partner.exemption.business.type">
+        <field name="name">DIRECT PAY</field>
+        <field
+            name="exemption_code_id"
+            ref="account_avatax_oca.direct_pay_permit_type"
+        />
+        <field name="avatax_id">61</field>
+    </record>
+
+    <record id="97" model="res.partner.exemption.business.type">
+        <field name="name">EDUCATIONAL ORG</field>
+        <field
+            name="exemption_code_id"
+            ref="account_avatax_oca.religious_eductional_org_type"
+        />
+        <field name="avatax_id">97</field>
+    </record>
+
+    <record id="78" model="res.partner.exemption.business.type">
+        <field name="name">ENTERPRISE ZONE</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">78</field>
+    </record>
+
+    <record id="79" model="res.partner.exemption.business.type">
+        <field name="name">EXEMPT BY CLIENT</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">79</field>
+    </record>
+
+    <record id="80" model="res.partner.exemption.business.type">
+        <field name="name">EXEMPT BY STATUTE</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">80</field>
+    </record>
+
+    <record id="81" model="res.partner.exemption.business.type">
+        <field name="name">EXPORTERS</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">81</field>
+    </record>
+
+    <record id="16" model="res.partner.exemption.business.type">
+        <field name="name">EXPOSURE</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">16</field>
+    </record>
+
+    <record id="19" model="res.partner.exemption.business.type">
+        <field name="name">EXPOSURE: EXPIRED CERT</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">19</field>
+    </record>
+
+    <record id="21" model="res.partner.exemption.business.type">
+        <field name="name">EXPOSURE: INDIRECT CERT</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">21</field>
+    </record>
+
+    <record id="20" model="res.partner.exemption.business.type">
+        <field name="name">EXPOSURE: INVALID CERT</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">20</field>
+    </record>
+
+    <record id="18" model="res.partner.exemption.business.type">
+        <field name="name">EXPOSURE: MISSING CERT</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">18</field>
+    </record>
+
+    <record id="1" model="res.partner.exemption.business.type">
+        <field name="name">EXPOSURE: NON-DELIVERABLE</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">1</field>
+    </record>
+
+    <record id="62" model="res.partner.exemption.business.type">
+        <field name="name">FEDERAL GOV</field>
+        <field
+            name="exemption_code_id"
+            ref="account_avatax_oca.federal_government_type"
+        />
+        <field name="avatax_id">62</field>
+    </record>
+
+    <record id="63" model="res.partner.exemption.business.type">
+        <field name="name">FOREIGN DIPLOMAT</field>
+        <field
+            name="exemption_code_id"
+            ref="account_avatax_oca.foreign_diplomat_type"
+        />
+        <field name="avatax_id">63</field>
+    </record>
+
+    <record id="64" model="res.partner.exemption.business.type">
+        <field name="name">INDUSTRIAL PROD/MANUFACTURERS</field>
+        <field
+            name="exemption_code_id"
+            ref="account_avatax_oca.industrial_manufacturer_type"
+        />
+        <field name="avatax_id">64</field>
+    </record>
+
+    <record id="65" model="res.partner.exemption.business.type">
+        <field name="name">LOCAL GOVERNMENT</field>
+        <field
+            name="exemption_code_id"
+            ref="account_avatax_oca.local_government_type"
+        />
+        <field name="avatax_id">65</field>
+    </record>
+
+    <record id="94" model="res.partner.exemption.business.type">
+        <field name="name">LONG-TERM RENTAL</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">94</field>
+    </record>
+
+    <record id="82" model="res.partner.exemption.business.type">
+        <field name="name">MATERIAL PURCHASE</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">82</field>
+    </record>
+
+    <record id="66" model="res.partner.exemption.business.type">
+        <field name="name">MEDICAL</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">66</field>
+    </record>
+
+    <record id="67" model="res.partner.exemption.business.type">
+        <field name="name">NON-DELIVERABLE</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">67</field>
+    </record>
+
+    <record id="25" model="res.partner.exemption.business.type">
+        <field name="name">NON-NEXUS: EXPIRED CERT</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">25</field>
+    </record>
+
+    <record id="22" model="res.partner.exemption.business.type">
+        <field name="name">NON-NEXUS: EXPOSURE</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">22</field>
+    </record>
+
+    <record id="27" model="res.partner.exemption.business.type">
+        <field name="name">NON-NEXUS: INDIRECT CERT</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">27</field>
+    </record>
+
+    <record id="26" model="res.partner.exemption.business.type">
+        <field name="name">NON-NEXUS: INVALID CERT</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">26</field>
+    </record>
+
+    <record id="24" model="res.partner.exemption.business.type">
+        <field name="name">NON-NEXUS: MISSING CERT</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">24</field>
+    </record>
+
+    <record id="23" model="res.partner.exemption.business.type">
+        <field name="name">NON-NEXUS: NON-DELIVERABLE</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">23</field>
+    </record>
+
+    <record id="68" model="res.partner.exemption.business.type">
+        <field name="name">NON-RESIDENT</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">68</field>
+    </record>
+
+    <record id="69" model="res.partner.exemption.business.type">
+        <field name="name">OTHER/CUSTOM</field>
+        <field name="exemption_code_id" ref="account_avatax_oca.other_type" />
+        <field name="avatax_id">69</field>
+    </record>
+
+    <record id="83" model="res.partner.exemption.business.type">
+        <field name="name">POLLUTION CONTROL</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">83</field>
+    </record>
+
+    <record id="84" model="res.partner.exemption.business.type">
+        <field name="name">PRIME CONTRACTOR</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">84</field>
+    </record>
+
+    <record id="85" model="res.partner.exemption.business.type">
+        <field name="name">R&amp;D</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">85</field>
+    </record>
+
+    <record id="98" model="res.partner.exemption.business.type">
+        <field name="name">RELIGIOUS/EDUCATIONAL ORG</field>
+        <field
+            name="exemption_code_id"
+            ref="account_avatax_oca.religious_eductional_org_type"
+        />
+        <field name="avatax_id">98</field>
+    </record>
+
+    <record id="99" model="res.partner.exemption.business.type">
+        <field name="name">RELIGIOUS ORG</field>
+        <field
+            name="exemption_code_id"
+            ref="account_avatax_oca.religious_eductional_org_type"
+        />
+        <field name="avatax_id">99</field>
+    </record>
+
+    <record id="71" model="res.partner.exemption.business.type">
+        <field name="name">RESALE</field>
+        <field name="exemption_code_id" ref="account_avatax_oca.resale_type" />
+        <field name="avatax_id">71</field>
+    </record>
+
+    <record id="100" model="res.partner.exemption.business.type">
+        <field name="name">STATE GOV</field>
+        <field
+            name="exemption_code_id"
+            ref="account_avatax_oca.state_government_type"
+        />
+        <field name="avatax_id">100</field>
+    </record>
+
+    <record id="73" model="res.partner.exemption.business.type">
+        <field name="name">TAXABLE</field>
+        <field name="exemption_code_id" />
+        <field name="avatax_id">73</field>
+    </record>
+
+    <record id="74" model="res.partner.exemption.business.type">
+        <field name="name">TRIBAL GOVERNMENT</field>
+        <field
+            name="exemption_code_id"
+            ref="account_avatax_oca.tribe_indian_band_type"
+        />
+        <field name="avatax_id">74</field>
+    </record>
+</data>
