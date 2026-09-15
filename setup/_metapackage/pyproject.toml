@@ -1,6 +1,6 @@
 [project]
 name = "odoo-addons-oca-account-fiscal-rule"
-version = "18.0.20260608.0"
+version = "18.0.20260915.0"
 dependencies = [
     "odoo-addon-account_avatax_exemption==18.0.*",
     "odoo-addon-account_avatax_exemption_base==18.0.*",
@@ -10,6 +10,7 @@ dependencies = [
     "odoo-addon-account_avatax_website_sale==18.0.*",
     "odoo-addon-account_ecotax==18.0.*",
     "odoo-addon-account_ecotax_sale==18.0.*",
+    "odoo-addon-account_ecotax_tax==18.0.*",
     "odoo-addon-account_fiscal_position_partner_type==18.0.*",
     "odoo-addon-account_fiscal_position_vies_warning==18.0.*",
     "odoo-addon-account_product_fiscal_classification==18.0.*",
