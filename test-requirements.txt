@@ -1,0 +1,3 @@
+odoo-addon-account_ecotax_sale @ git+https://github.com/OCA/account-fiscal-rule.git@refs/pull/535/head#subdirectory=account_ecotax_sale
+odoo-addon-account_avatax_sale_oca @ git+https://github.com/OCA/account-fiscal-rule.git@refs/pull/535/head#subdirectory=account_avatax_sale_oca
+odoo-addon-account_ecotax_tax @ git+https://github.com/OCA/account-fiscal-rule.git@refs/pull/562/head#subdirectory=account_ecotax_tax
