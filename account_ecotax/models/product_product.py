@@ -42,7 +42,7 @@ class ProductProduct(models.Model):
     weight_based_ecotax = fields.Float(
         compute="_compute_product_ecotax",
         store=True,
-        help="Ecotax value :\n" "product weight * ecotax coef of Ecotax Classification",
+        help="Ecotax value :\nproduct weight * ecotax coef of Ecotax Classification",
     )
 
     @api.depends("ecotax_line_product_ids", "additional_ecotax_line_product_ids")
@@ -75,21 +75,39 @@ class ProductProduct(models.Model):
     )
     def _compute_product_ecotax(self):
         for product in self:
-            weight_based_ecotax = 0.0
-            fixed_ecotax = 0.0
-            for ecotaxline_prod in product.all_ecotax_line_product_ids:
-                ecotax_cls = ecotaxline_prod.classification_id
-                if ecotax_cls.ecotax_type == "weight_based":
-                    # Recompute ecotaxe amount
-                    # because product weight can be different for variant
-                    amount = ecotax_cls.ecotax_coef * (
-                        product.weight or product.product_tmpl_id.weight or 0.0
-                    )
-                    if ecotaxline_prod.force_amount:
-                        amount = ecotaxline_prod.force_amount
-                    weight_based_ecotax += amount
-                else:
-                    fixed_ecotax += ecotaxline_prod.amount
+            (
+                fixed_ecotax,
+                weight_based_ecotax,
+            ) = product._get_ecotax_amounts_from_classification(
+                product.all_ecotax_line_product_ids
+            )
             product.fixed_ecotax = fixed_ecotax
             product.weight_based_ecotax = weight_based_ecotax
             product.ecotax_amount = fixed_ecotax + weight_based_ecotax
+
+    def _get_ecotax_amounts_from_classification(self, ecotax_lines):
+        self.ensure_one()
+        weight_based_ecotax = 0.0
+        fixed_ecotax = 0.0
+        for ecotaxline_prod in ecotax_lines:
+            ecotax_cls = ecotaxline_prod.classification_id
+            if ecotax_cls.ecotax_type == "weight_based":
+                # Recompute ecotaxe amount
+                # because product weight can be different for variant
+                amount = ecotax_cls.ecotax_coef * (
+                    self.weight or self.product_tmpl_id.weight or 0.0
+                )
+                if ecotaxline_prod.force_amount:
+                    amount = ecotaxline_prod.force_amount
+                weight_based_ecotax += amount
+            else:
+                fixed_ecotax += ecotaxline_prod.amount
+        return fixed_ecotax, weight_based_ecotax
+
+    def _get_country_eligible_classification(self, country):
+        self and self.ensure_one()
+        return self.all_ecotax_line_product_ids.filtered(
+            lambda line: (
+                not line.country_ids or (country and country in line.country_ids)
+            )
+        )
