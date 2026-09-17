@@ -1,0 +1,230 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_eu_oss_oca
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-03-26 14:35+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: l10n_eu_oss_oca
+#: model_terms:ir.ui.view,arch_db:l10n_eu_oss_oca.res_config_settings_view_form_l10n_eu_oss_oca
+msgid "<span class=\"o_form_label\">EU OSS OCA</span>"
+msgstr "<span class=\"o_form_label\">EU OSS OCA</span>"
+
+#. module: l10n_eu_oss_oca
+#: model_terms:ir.ui.view,arch_db:l10n_eu_oss_oca.res_config_settings_view_form_l10n_eu_oss_oca
+msgid "Add new taxes"
+msgstr "Aggiungere nuove imposte"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard__done_country_ids
+msgid "Already Supported"
+msgstr "Già supportate"
+
+#. module: l10n_eu_oss_oca
+#: model_terms:ir.ui.view,arch_db:l10n_eu_oss_oca.res_config_settings_view_form_l10n_eu_oss_oca
+msgid "Apply EU taxes regarding OSS"
+msgstr "Applicare imposte EU relative a OSS"
+
+#. module: l10n_eu_oss_oca
+#: model_terms:ir.ui.view,arch_db:l10n_eu_oss_oca.l10n_eu_oss_oca_wizard_form_view
+msgid "Cancel"
+msgstr "Annulla"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard__company_id
+msgid "Company"
+msgstr "Azienda"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__oss_country_id
+msgid "Country"
+msgstr "Nazione"
+
+#. module: l10n_eu_oss_oca
+#: model_terms:ir.ui.view,arch_db:l10n_eu_oss_oca.l10n_eu_oss_oca_wizard_form_view
+msgid "Create Fiscal Positions and Taxes"
+msgstr "Creare posizioni fiscali e imposte"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard__todo_country_ids
+msgid "EU Customers From"
+msgstr "Clienti EU da"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model,name:l10n_eu_oss_oca.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Posizione fiscale"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__general_rate
+msgid "General Rate"
+msgstr "Aliquota generica"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard__general_tax
+msgid "General Tax"
+msgstr "Imposta generica"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard__id
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_eu_oss_oca
+#. odoo-python
+#: code:addons/l10n_eu_oss_oca/wizard/l10n_eu_oss_wizard.py:0
+#, python-format
+msgid "Intra-EU B2C in %(country_name)s"
+msgstr "Intra-EU B2C in %(country_name)s"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard____last_update
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_account_fiscal_position__oss_oca
+msgid "OSS OCA"
+msgstr "OSS OCA"
+
+#. module: l10n_eu_oss_oca
+#. odoo-python
+#: code:addons/l10n_eu_oss_oca/wizard/l10n_eu_oss_wizard.py:0
+#, python-format
+msgid "OSS VAT %s%%"
+msgstr "IVA OSS %s%%"
+
+#. module: l10n_eu_oss_oca
+#. odoo-python
+#: code:addons/l10n_eu_oss_oca/wizard/l10n_eu_oss_wizard.py:0
+#, python-format
+msgid "OSS for EU to %(country_name)s: %(rate)s"
+msgstr "OSS per EU a %(country_name)s: %(rate)s"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_account_tax__oss_country_id
+msgid "Oss Country"
+msgstr "Nazione OSS"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard__price_include_tax
+msgid "Price Include Tax"
+msgstr "Imposta inclusa nel prezzo"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__reduced_rate
+msgid "Reduced Rate"
+msgstr "Aliquota ridotta"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard__reduced_tax
+msgid "Reduced Tax"
+msgstr "Imposta ridotta"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__second_superreduced_rate
+msgid "Second Super Reduced Rate"
+msgstr "Seconda aliquota super ridotta"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard__second_superreduced_tax
+msgid "Second Super Reduced Tax"
+msgstr "Seconda imposta super ridotta"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.actions.act_window,name:l10n_eu_oss_oca.l10n_eu_oss_oca_wizard_action
+#: model_terms:ir.ui.view,arch_db:l10n_eu_oss_oca.l10n_eu_oss_oca_wizard_form_view
+msgid "Setup EU OSS OCA Taxes"
+msgstr "Impostazione Imposte EU OSS OCA"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_oss_tax_rate__superreduced_rate
+msgid "Super Reduced Rate"
+msgstr "Aliquota super ridotta"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.fields,field_description:l10n_eu_oss_oca.field_l10n_eu_oss_wizard__superreduced_tax
+msgid "Super Reduced Tax"
+msgstr "Imposta super ridotta"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model,name:l10n_eu_oss_oca.model_account_tax
+msgid "Tax"
+msgstr "Imposta"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model.constraint,message:l10n_eu_oss_oca.constraint_oss_tax_rate_oss_country_id_uniq
+msgid "The Country must be unique !"
+msgstr "La nazione deve essere unica!"
+
+#. module: l10n_eu_oss_oca
+#. odoo-python
+#: code:addons/l10n_eu_oss_oca/wizard/l10n_eu_oss_wizard.py:0
+#, python-format
+msgid ""
+"The Europe country group cannot be found. Please update the base module."
+msgstr ""
+"Il gruppo di nazione Europa non può essere trovato. Aggiornare il modulo "
+"base."
+
+#. module: l10n_eu_oss_oca
+#: model_terms:ir.ui.view,arch_db:l10n_eu_oss_oca.l10n_eu_oss_oca_wizard_form_view
+msgid ""
+"You should only choose the taxes of the current accounting plan,\n"
+"                if you don't have the type of tax, do not configure it."
+msgstr ""
+"Si dovrebbe scegliere solamente le imposte del piano contabile corrente,\n"
+"                se non si ha il tipo di imposta, non configurarla."
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model,name:l10n_eu_oss_oca.model_l10n_eu_oss_wizard
+msgid "l10n.eu.oss.wizard"
+msgstr "l10n.eu.oss.wizard"
+
+#. module: l10n_eu_oss_oca
+#: model:ir.model,name:l10n_eu_oss_oca.model_oss_tax_rate
+msgid "oss tax rate"
+msgstr "aliquota imposta OSS"
