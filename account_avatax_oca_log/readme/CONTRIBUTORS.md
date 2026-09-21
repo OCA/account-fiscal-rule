@@ -1,0 +1,5 @@
+- Open Source Integrators (<https://opensourceintegrators.com>)
+- ForgeFlow (<https://www.forgeflow.com>)
+  - Jordi Ballester Alomar \<<jordi.ballester@forgeflow.com>\>
+- Kencove (<https://www.kencove.com>)
+  - Mohamed Alkobrosli \<<malkobrosly@kencove.com>\>
