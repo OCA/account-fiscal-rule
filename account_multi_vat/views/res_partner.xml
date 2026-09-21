@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="res_partner_form_view">
+        <field name="name">res.partner.form (in account_multi_vat)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <group name="fiscal_information" position="inside">
+                <field name="is_tax_administration" />
+            </group>
+            <field name="country_id" position="attributes">
+                <attribute name="required">is_tax_administration</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

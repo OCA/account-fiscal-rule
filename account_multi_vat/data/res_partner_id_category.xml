@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="res.partner.id_category" id="partner_id_category_vat">
+        <field name="code">VAT</field>
+        <field name="name">VAT number</field>
+        <field
+            name="validation_code"
+        >failed = not self._is_vat_code_valid(id_number)</field>
+    </record>
+</odoo>
