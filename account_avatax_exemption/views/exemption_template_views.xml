@@ -1,0 +1,9 @@
+<odoo>
+    <template id="exemption_page" name="Exemptions">
+        <t t-call="website.layout">
+            <div class="container">
+                <t t-out="message" />
+            </div>
+        </t>
+    </template>
+</odoo>
