@@ -3,7 +3,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import Command
 from odoo.exceptions import AccessError, ValidationError
+from odoo.tests import Form
 from odoo.tests.common import TransactionCase
+from odoo.tools.safe_eval import safe_eval
 
 
 class Tests(TransactionCase):
@@ -14,6 +16,7 @@ class Tests(TransactionCase):
         cls.ResCompany = cls.env["res.company"]
         cls.FiscalClassification = cls.env["account.product.fiscal.classification"]
         cls.WizardChange = cls.env["wizard.change.fiscal.classification"]
+        cls.AccountTax = cls.env["account.tax"]
 
         cls.main_company = cls.env.ref("base.main_company")
         cls.group_accountant = cls.env.ref("account.group_account_manager")
@@ -70,6 +73,11 @@ class Tests(TransactionCase):
         }
         vals.update(extra_vals)
         return self.ProductTemplate.with_user(user).create(vals)
+
+    def _get_domain_records(self, form, field_name, model):
+        domain_str = form._view["fields"][field_name].get("domain", "[]")
+        domain = safe_eval(domain_str, form._values, nocopy=True)
+        return self.env[model].search(domain)
 
     # # Test Section
     def test_01_change_classification(self):
@@ -227,3 +235,28 @@ class Tests(TransactionCase):
         classif = product.fiscal_classification_id
         self.assertEqual(classif.purchase_tax_ids.ids, [])
         self.assertEqual(classif.sale_tax_ids.ids, [])
+
+    def test_product_tax_scope_domain(self):
+        product = self._create_product({"type": "consu"})
+        self.classification_A_company_1.tax_scope = "service"
+        self.classification_B_company_1.tax_scope = "consu"
+
+        form = Form(product)
+        fiscal_class = self._get_domain_records(
+            form, "fiscal_classification_id", "account.product.fiscal.classification"
+        )
+
+        self.assertNotIn(self.classification_A_company_1, fiscal_class)
+        self.assertIn(self.classification_B_company_1, fiscal_class)
+
+    def test_classification_tax_scope_domain(self):
+        self.classification_A_company_1.tax_scope = "service"
+        self.account_tax_purchase_20_company_1.tax_scope = "service"
+        self.account_tax_sale_5_company_1.tax_scope = "consu"
+
+        form = Form(self.classification_A_company_1)
+        purch_taxes = self._get_domain_records(form, "purchase_tax_ids", "account.tax")
+        sale_taxes = self._get_domain_records(form, "sale_tax_ids", "account.tax")
+
+        self.assertIn(self.account_tax_purchase_20_company_1, purch_taxes)
+        self.assertNotIn(self.account_tax_sale_5_company_1, sale_taxes)
