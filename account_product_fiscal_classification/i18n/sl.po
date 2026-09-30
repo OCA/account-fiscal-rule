@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-17 00:24+0000\n"
-"PO-Revision-Date: 2026-06-21 07:46+0000\n"
+"PO-Revision-Date: 2026-09-30 09:48+0000\n"
 "Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "Language: sl\n"
@@ -80,13 +80,13 @@ msgstr "Ustvarjeno"
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product__supplier_taxes_id
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_template__supplier_taxes_id
 msgid "Default taxes used when buying the product"
-msgstr ""
+msgstr "Privzeti davki pri nakupu izdelka"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product__taxes_id
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_template__taxes_id
 msgid "Default taxes used when selling the product"
-msgstr ""
+msgstr "Privzeti davki pri prodaji izdelka"
 
 #. module: account_product_fiscal_classification
 #: model:product.template,name:account_product_fiscal_classification.product_template_A_company_1
@@ -96,42 +96,42 @@ msgstr "Demo proizvod s fiskalno klasifikacijo (vaša družba)"
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_purchase_20_company_1
 msgid "Demo Purchase Tax 20% (Your Company)"
-msgstr ""
+msgstr "Demo nabavni davek 20% (vaša družba)"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_purchase_30_company_2
 msgid "Demo Purchase Tax 30% (Company 2)"
-msgstr ""
+msgstr "Demo nabavni davek 30% (družba 2)"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_purchase_7_company_2
 msgid "Demo Purchase Tax 7% (Company 2)"
-msgstr ""
+msgstr "Demo nabavni davek 7% (družba 2)"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_sale_20_company_1
 msgid "Demo Sale Tax 20% (Your Company)"
-msgstr ""
+msgstr "Demo prodajni davek 20% (vaša družba)"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_sale_30_company_2
 msgid "Demo Sale Tax 30% (Company 2)"
-msgstr ""
+msgstr "Demo prodajni davek 30% (družba 2)"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_sale_5_company_1
 msgid "Demo Sale Tax 5% (Your Company)"
-msgstr ""
+msgstr "Demo prodajni davek 5% (vaša družba)"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_sale_7_company_2
 msgid "Demo Sale Tax 7% (Company 2)"
-msgstr ""
+msgstr "Demo prodajni davek 7% (družba 2)"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax.group,name:account_product_fiscal_classification.demo_account_tax_group
 msgid "Demo Tax Group A"
-msgstr ""
+msgstr "Demo skupina davkov A"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__description
@@ -184,7 +184,7 @@ msgstr "Splošne informacije"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields.selection,name:account_product_fiscal_classification.selection__account_product_fiscal_classification__tax_scope__consu
 msgid "Goods"
-msgstr ""
+msgstr "Blago"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__id
@@ -316,7 +316,7 @@ msgstr "Nabavni davki: "
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__tax_scope
 msgid "Restrict the use of taxes to a type of product."
-msgstr ""
+msgstr "Uporabo davkov omejite na določeno vrsto izdelka."
 
 #. module: account_product_fiscal_classification
 #. odoo-python
@@ -339,7 +339,7 @@ msgstr "Prodajni davki: "
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__taxes_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__taxes_id
 msgid "Sales Taxes"
-msgstr ""
+msgstr "Prodajni davki"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__sequence
@@ -349,7 +349,7 @@ msgstr "Zaporedje"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields.selection,name:account_product_fiscal_classification.selection__account_product_fiscal_classification__tax_scope__service
 msgid "Services"
-msgstr ""
+msgstr "Storitve"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__company_id
@@ -377,7 +377,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__tax_scope
 msgid "Tax Scope"
-msgstr ""
+msgstr "Področje uporabe davka"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_wizard_change_fiscal_classification
