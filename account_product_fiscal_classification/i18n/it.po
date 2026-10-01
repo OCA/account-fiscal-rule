@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: account-fiscal-rule (9.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-16 16:33+0000\n"
-"PO-Revision-Date: 2026-08-19 09:46+0000\n"
+"PO-Revision-Date: 2026-10-01 15:46+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
-"Language-Team: Italian (http://www.transifex.com/oca/OCA-account-fiscal-"
-"rule-9-0/language/it/)\n"
+"Language-Team: Italian (http://www.transifex.com/oca/OCA-account-fiscal-rule-"
+"9-0/language/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -78,13 +78,13 @@ msgstr "Creato il"
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product__supplier_taxes_id
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_template__supplier_taxes_id
 msgid "Default taxes used when buying the product"
-msgstr ""
+msgstr "Imposte predefinite nell'acquisto del prodotto"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_product__taxes_id
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_product_template__taxes_id
 msgid "Default taxes used when selling the product"
-msgstr ""
+msgstr "Imposte predefinite nella vendita del prodotto"
 
 #. module: account_product_fiscal_classification
 #: model:product.template,name:account_product_fiscal_classification.product_template_A_company_1
@@ -94,42 +94,42 @@ msgstr "Prodotto demo con classificazione fiscale (La tua azienda)"
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_purchase_20_company_1
 msgid "Demo Purchase Tax 20% (Your Company)"
-msgstr ""
+msgstr "Imposta acquisti demo 20% (La tua azienda)"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_purchase_30_company_2
 msgid "Demo Purchase Tax 30% (Company 2)"
-msgstr ""
+msgstr "Imposta acquisti demo 30% (Azienda 2)"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_purchase_7_company_2
 msgid "Demo Purchase Tax 7% (Company 2)"
-msgstr ""
+msgstr "Imposta acquisti demo 7% (Azienda 2)"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_sale_20_company_1
 msgid "Demo Sale Tax 20% (Your Company)"
-msgstr ""
+msgstr "Imposta vendite demo 20% (La tua azienda)"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_sale_30_company_2
 msgid "Demo Sale Tax 30% (Company 2)"
-msgstr ""
+msgstr "Imposta vendite demo 30% (Azienda 2)"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_sale_5_company_1
 msgid "Demo Sale Tax 5% (Your Company)"
-msgstr ""
+msgstr "Imposta vendite demo 5% (Azienda 2)"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax,name:account_product_fiscal_classification.account_tax_sale_7_company_2
 msgid "Demo Sale Tax 7% (Company 2)"
-msgstr ""
+msgstr "Imposta vendite demo 7% (Azienda 2)"
 
 #. module: account_product_fiscal_classification
 #: model:account.tax.group,name:account_product_fiscal_classification.demo_account_tax_group
 msgid "Demo Tax Group A"
-msgstr ""
+msgstr "Gruppo imposta demo A"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__description
@@ -182,7 +182,7 @@ msgstr "Informazioni generali"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields.selection,name:account_product_fiscal_classification.selection__account_product_fiscal_classification__tax_scope__consu
 msgid "Goods"
-msgstr ""
+msgstr "Beni"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__id
@@ -314,7 +314,7 @@ msgstr "Imposte acquisti: "
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__tax_scope
 msgid "Restrict the use of taxes to a type of product."
-msgstr ""
+msgstr "Limita l'uso delle imposte ad un tipo di prodotto."
 
 #. module: account_product_fiscal_classification
 #. odoo-python
@@ -337,7 +337,7 @@ msgstr "Imposte vendite: "
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__taxes_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__taxes_id
 msgid "Sales Taxes"
-msgstr ""
+msgstr "Imposte sulle vendite"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_rule__sequence
@@ -347,7 +347,7 @@ msgstr "Sequenza"
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields.selection,name:account_product_fiscal_classification.selection__account_product_fiscal_classification__tax_scope__service
 msgid "Services"
-msgstr ""
+msgstr "Servizi"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__company_id
@@ -375,7 +375,7 @@ msgstr ""
 #. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__tax_scope
 msgid "Tax Scope"
-msgstr ""
+msgstr "Ambito imposta"
 
 #. module: account_product_fiscal_classification
 #: model:ir.model,name:account_product_fiscal_classification.model_wizard_change_fiscal_classification
