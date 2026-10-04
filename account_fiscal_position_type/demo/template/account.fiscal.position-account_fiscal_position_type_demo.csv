@@ -1,0 +1,4 @@
+id,name,type_position_use
+fiscal_position_purchase,Fiscal Position (Purchase Use),purchase
+fiscal_position_sale,Fiscal Position (Sale Use),sale
+fiscal_position_all,Fiscal Position (Both Use),all
