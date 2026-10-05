@@ -139,7 +139,7 @@ class ResPartnerExemption(models.Model):
                 state_ids += self.exemption_type.state_ids.ids
             if self.group_of_state.state_ids:
                 state_ids += self.group_of_state.state_ids.ids
-            self.state_ids = [Command.set(self.group_of_state.state_ids.ids)]
+            self.state_ids = [Command.set(state_ids)]
 
     @api.onchange("exemption_type", "effective_date")
     def onchange_effective_date(self):
