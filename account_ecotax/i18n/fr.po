@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-10-05 19:12+0000\n"
+"PO-Revision-Date: 2026-10-19 17:46+0000\n"
 "Last-Translator: Maksym Yankin <maksym.yankin@camptocamp.com>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -19,22 +19,22 @@ msgstr ""
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.report_invoice_document
 msgid "<span name=\"ecotax_line_label\">Eco Part Unit</span>"
-msgstr ""
+msgstr "<span name=\"ecotax_line_label\">Éco-participation unitaire</span>"
 
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_account_ecotax_category
 msgid "Account Ecotax Category"
-msgstr ""
+msgstr "Catégorie d'écotaxe comptable"
 
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_account_ecotax_classification
 msgid "Account Ecotax Classification"
-msgstr ""
+msgstr "Classification d'écotaxe comptable"
 
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_account_move_line_ecotax
 msgid "Account move line ecotax"
-msgstr ""
+msgstr "Ligne d'écotaxe d'écriture comptable"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__active
@@ -42,40 +42,40 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_collector__active
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_sector__active
 msgid "Active"
-msgstr ""
+msgstr "Actif"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_product__additional_ecotax_line_product_ids
 msgid "Additional Ecotax Lines"
-msgstr ""
+msgstr "Lignes d'écotaxe supplémentaires"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.product_normal_form_view
 #: model_terms:ir.ui.view,arch_db:account_ecotax.product_variant_easy_edit_view
 msgid "Additional Ecotaxe classif"
-msgstr ""
+msgstr "Classifications d'écotaxe supplémentaires"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_product__all_ecotax_line_product_ids
 msgid "All Ecotax Lines"
-msgstr ""
+msgstr "Toutes les lignes d'écotaxe"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__amount
 msgid "Amount"
-msgstr ""
+msgstr "Montant"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__amount_total
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_mixin__amount_total
 msgid "Amount Total"
-msgstr ""
+msgstr "Montant total"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__amount_unit
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_mixin__amount_unit
 msgid "Amount Unit"
-msgstr ""
+msgstr "Montant unitaire"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_category_form
@@ -83,12 +83,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_collector_form
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_sector_form
 msgid "Archived"
-msgstr ""
+msgstr "Archivé"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__categ_id
 msgid "Category"
-msgstr ""
+msgstr "Catégorie"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__classification_id
@@ -96,38 +96,38 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__classification_id
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_classification_search
 msgid "Classification"
-msgstr ""
+msgstr "Classification"
 
 #. module: account_ecotax
 #: model_terms:ir.actions.act_window,help:account_ecotax.action_ecotax_classification
 msgid "Click to start a new Ecotaxe Classification."
-msgstr ""
+msgstr "Cliquez pour créer une classification d'écotaxe."
 
 #. module: account_ecotax
 #: model_terms:ir.actions.act_window,help:account_ecotax.action_ecotax_category
 msgid "Click to start a new Ecotaxe category."
-msgstr ""
+msgstr "Cliquez pour créer une catégorie d'écotaxe."
 
 #. module: account_ecotax
 #: model_terms:ir.actions.act_window,help:account_ecotax.action_ecotax_collector
 msgid "Click to start a new Ecotaxe collector."
-msgstr ""
+msgstr "Cliquez pour créer un éco-organisme."
 
 #. module: account_ecotax
 #: model_terms:ir.actions.act_window,help:account_ecotax.action_ecotax_sector
 msgid "Click to start a new Ecotaxe sector."
-msgstr ""
+msgstr "Cliquez pour créer une filière d'écotaxe."
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__code
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__code
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__company_id
 msgid "Company"
-msgstr ""
+msgstr "Société"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_product__all_ecotax_line_product_ids
@@ -135,6 +135,10 @@ msgid ""
 "Contain all ecotaxs classification defined in product templateand the additionnal.\n"
 "ecotaxs defined in product variant. For more detailssee the product variant accounting tab"
 msgstr ""
+"Contient toutes les classifications d'écotaxe définies sur le modèle de "
+"produit ainsi que les écotaxes supplémentaires\n"
+"définies sur la variante de produit. Pour plus de détails, consultez "
+"l'onglet Comptabilité de la variante de produit"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__create_uid
@@ -144,7 +148,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__create_uid
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_sector__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__create_date
@@ -154,36 +158,36 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__create_date
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_sector__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Créé le"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__currency_id
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_mixin__currency_id
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__currency_id
 msgid "Currency"
-msgstr ""
+msgstr "Devise"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__default_fixed_ecotax
 msgid "Default Fixed Ecotax"
-msgstr ""
+msgstr "Écotaxe fixe par défaut"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_account_ecotax_classification__default_fixed_ecotax
 msgid "Default fixed ecotax amount."
-msgstr ""
+msgstr "Montant fixe de l'écotaxe par défaut."
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__description
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_sector__description
 #: model_terms:ir.ui.view,arch_db:account_ecotax.view_move_line_ecotax_form
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.view_move_line_ecotax_form
 msgid "Disc.%"
-msgstr ""
+msgstr "Rem.%"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__display_name
@@ -193,45 +197,51 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__display_name
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_sector__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nom affiché"
 
 #. module: account_ecotax
 #: model:ir.model.fields.selection,name:account_ecotax.selection__account_ecotax_classification__product_status__m
 msgid "Domestic"
-msgstr ""
+msgstr "Ménager"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line__subtotal_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.view_move_form_inherit
 msgid "Ecotax"
-msgstr ""
+msgstr "Écotaxe"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_product__ecotax_amount
 #: model:ir.model.fields,field_description:account_ecotax.field_product_template__ecotax_amount
 msgid "Ecotax Amount"
-msgstr ""
+msgstr "Montant de l'écotaxe"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_ecotax_line_product__amount
 msgid "Ecotax Amount computed form Classification or forced ecotax amount"
 msgstr ""
+"Montant de l'écotaxe calculé à partir de la classification ou du montant "
+"d'écotaxe forcé"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_product__ecotax_amount
 msgid "Ecotax Amount computed form all ecotax line classification"
 msgstr ""
+"Montant de l'écotaxe calculé à partir de toutes les classifications des "
+"lignes d'écotaxe"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_template__ecotax_amount
 msgid "Ecotax Amount computed from Classification"
-msgstr ""
+msgstr "Montant de l'écotaxe calculé à partir de la classification"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_account_move_line_ecotax__amount_unit
 #: model:ir.model.fields,help:account_ecotax.field_ecotax_line_mixin__amount_unit
 msgid "Ecotax Amount computed from Classification or Manual ecotax"
 msgstr ""
+"Montant de l'écotaxe calculé à partir de la classification ou de l'écotaxe "
+"manuelle"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_account_move_line_ecotax__amount_total
@@ -239,54 +249,56 @@ msgstr ""
 msgid ""
 "Ecotax Amount total computed from Classification or forced ecotax amount"
 msgstr ""
+"Montant total de l'écotaxe calculé à partir de la classification ou du "
+"montant d'écotaxe forcé"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__ecotax_coef
 msgid "Ecotax Coef"
-msgstr ""
+msgstr "Coefficient d'écotaxe"
 
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_ecotax_line_mixin
 msgid "Ecotax Line Mixin"
-msgstr ""
+msgstr "Mixin de ligne d'écotaxe"
 
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_ecotax_line_product
 msgid "Ecotax Line product"
-msgstr ""
+msgstr "Ligne d'écotaxe du produit"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line__ecotax_line_ids
 #: model:ir.model.fields,field_description:account_ecotax.field_product_product__ecotax_line_product_ids
 #: model:ir.model.fields,field_description:account_ecotax.field_product_template__ecotax_line_product_ids
 msgid "Ecotax Lines"
-msgstr ""
+msgstr "Lignes d'écotaxe"
 
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_ecotax_sector
 msgid "Ecotax Sector"
-msgstr ""
+msgstr "Filière d'écotaxe"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__ecotax_type
 msgid "Ecotax Type"
-msgstr ""
+msgstr "Type d'écotaxe"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line__ecotax_amount_unit
 msgid "Ecotax Unit"
-msgstr ""
+msgstr "Écotaxe unitaire"
 
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_ecotax_collector
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__collector_id
 msgid "Ecotax collector"
-msgstr ""
+msgstr "Éco-organisme"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__sector_id
 msgid "Ecotax sector"
-msgstr ""
+msgstr "Filière d'écotaxe"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_product__weight_based_ecotax
@@ -295,79 +307,81 @@ msgid ""
 "Ecotax value :\n"
 "product weight * ecotax coef of Ecotax Classification"
 msgstr ""
+"Montant de l'écotaxe :\n"
+"poids du produit × coefficient d'écotaxe de la classification"
 
 #. module: account_ecotax
 #: model:ir.actions.act_window,name:account_ecotax.action_ecotax_classification
 #: model:ir.ui.menu,name:account_ecotax.menu_ecotax_classification
 msgid "Ecotaxe Classification"
-msgstr ""
+msgstr "Classification d'écotaxe"
 
 #. module: account_ecotax
 #: model:ir.actions.act_window,name:account_ecotax.action_ecotax_category
 #: model:ir.ui.menu,name:account_ecotax.menu_ecotax_category
 msgid "Ecotaxe category"
-msgstr ""
+msgstr "Catégorie d'écotaxe"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.product_normal_form_view
 msgid "Ecotaxe classif"
-msgstr ""
+msgstr "Classification d'écotaxe"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.product_variant_easy_edit_view
 msgid "Ecotaxe classification"
-msgstr ""
+msgstr "Classification d'écotaxe"
 
 #. module: account_ecotax
 #: model:ir.actions.act_window,name:account_ecotax.action_ecotax_collector
 #: model:ir.ui.menu,name:account_ecotax.menu_ecotax_collector
 msgid "Ecotaxe collector"
-msgstr ""
+msgstr "Éco-organisme"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.view_move_line_ecotax_form
 msgid "Ecotaxe lines"
-msgstr ""
+msgstr "Lignes d'écotaxe"
 
 #. module: account_ecotax
 #: model:ir.actions.act_window,name:account_ecotax.action_ecotax_sector
 #: model:ir.ui.menu,name:account_ecotax.menu_ecotax_sector
 msgid "Ecotaxe sector"
-msgstr ""
+msgstr "Filière d'écotaxe"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_classification_form
 msgid "Ecotaxes settings"
-msgstr ""
+msgstr "Paramètres des écotaxes"
 
 #. module: account_ecotax
 #: model:ir.model.fields.selection,name:account_ecotax.selection__account_ecotax_classification__ecotax_type__fixed
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_classification_search
 msgid "Fixed"
-msgstr ""
+msgstr "Fixe"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_product__fixed_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_template__fixed_ecotax
 msgid "Fixed Ecotax"
-msgstr ""
+msgstr "Écotaxe fixe"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_product__fixed_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_product_template__fixed_ecotax
 msgid "Fixed ecotax of the Ecotax Classification"
-msgstr ""
+msgstr "Montant fixe de l'écotaxe de la classification"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__force_amount
 msgid "Force Amount"
-msgstr ""
+msgstr "Montant forcé"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__force_amount_unit
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_mixin__force_amount_unit
 msgid "Force Amount Unit"
-msgstr ""
+msgstr "Montant unitaire forcé"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_ecotax_line_product__force_amount
@@ -375,6 +389,9 @@ msgid ""
 "Force ecotax amount.\n"
 "Allow to substitute default Ecotax Classification"
 msgstr ""
+"Forcer le montant de l'écotaxe.\n"
+"Permet de remplacer le montant défini par la classification d'écotaxe par "
+"défaut"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_account_move_line_ecotax__force_amount_unit
@@ -383,11 +400,13 @@ msgid ""
 "Force ecotax.\n"
 "Allow to add a subtitle to the default Ecotax Classification"
 msgstr ""
+"Forcer l'écotaxe.\n"
+"Permet d'ajouter un sous-titre à la classification d'écotaxe par défaut"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_classification_search
 msgid "Group By"
-msgstr ""
+msgstr "Regrouper par"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__id
@@ -397,7 +416,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__id
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_sector__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_account_ecotax_classification__ecotax_type
@@ -405,11 +424,13 @@ msgid ""
 "If ecotax is weight based,the ecotax coef must take into account\n"
 "the weight unit of measure (kg by default)"
 msgstr ""
+"Si l'écotaxe est calculée selon le poids, son coefficient doit tenir compte\n"
+"de l'unité de mesure du poids (kg par défaut)"
 
 #. module: account_ecotax
 #: model:ir.model.fields.selection,name:account_ecotax.selection__account_ecotax_classification__supplier_status__imp
 msgid "Importer"
-msgstr ""
+msgstr "Importateur"
 
 #. module: account_ecotax
 #. odoo-python
@@ -419,7 +440,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_account_payment__amount_ecotax
 #, python-format
 msgid "Included Ecotax"
-msgstr ""
+msgstr "Écotaxe incluse"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.document_tax_totals
@@ -429,23 +450,23 @@ msgstr "Dont Éco-Participation"
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__intrastat_code
 msgid "Intrastat Code"
-msgstr ""
+msgstr "Code Intrastat"
 
 #. module: account_ecotax
 #: model:ir.model.fields.selection,name:account_ecotax.selection__account_ecotax_classification__supplier_status__int
 msgid "Introducer"
-msgstr ""
+msgstr "Introducteur"
 
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Écriture comptable"
 
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_account_move_line
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__account_move_line_id
 msgid "Journal Item"
-msgstr ""
+msgstr "Écriture comptable détaillée"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__write_uid
@@ -455,7 +476,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__write_uid
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_sector__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Mis à jour par"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__write_date
@@ -465,7 +486,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__write_date
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_sector__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Mis à jour le"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_account_ecotax_classification__supplier_status
@@ -477,11 +498,25 @@ msgid ""
 "IMP ==> Importer: is established in France, and sells on the local market goods subject to ecotax coming from countries outsidethe European Union\n"
 "REM ==> Remote vendor: is established in another country of the European Union or outside the EU, and remotely sells good subject to ecotaxes to customers in the country"
 msgstr ""
+"MAN ==> Fabricant : établi dans le pays, il fabrique des biens soumis aux "
+"écotaxes\n"
+"sous son propre nom et sa propre marque, ou conçoit ces biens, en sous-"
+"traite la fabrication puis les vend sous son propre nom et sa propre marque\n"
+"RES ==> Revendeur sous sa propre marque : établi dans le pays, il vend sous "
+"son propre nom ou sa propre marque des biens soumis à l'écotaxe fabriqués "
+"par des tiers\n"
+"INT ==> Introducteur : établi dans le pays, il vend sur le marché local des "
+"biens soumis à l'écotaxe provenant d'autres pays de l'Union européenne\n"
+"IMP ==> Importateur : établi en France, il vend sur le marché local des "
+"biens soumis à l'écotaxe provenant de pays hors de l'Union européenne\n"
+"REM ==> Vendeur à distance : établi dans un autre pays de l'Union européenne "
+"ou hors de l'UE, il vend à distance des biens soumis aux écotaxes à des "
+"clients du pays"
 
 #. module: account_ecotax
 #: model:ir.model.fields.selection,name:account_ecotax.selection__account_ecotax_classification__supplier_status__man
 msgid "Manufacturer"
-msgstr ""
+msgstr "Fabricant"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_category__name
@@ -493,27 +528,31 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_collector_form
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_sector_form
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.view_move_line_ecotax_form
 msgid "Note"
-msgstr ""
+msgstr "Note"
 
 #. module: account_ecotax
 #: model:ir.model.constraint,message:account_ecotax.constraint_ecotax_line_product_unique_classification_id_by_product
 msgid "Only one ecotax classification occurrence by product"
 msgstr ""
+"Une seule occurrence de chaque classification d'écotaxe est autorisée par "
+"produit"
 
 #. module: account_ecotax
 #: model:ir.model.constraint,message:account_ecotax.constraint_ecotax_line_product_unique_classification_id_by_product_tmpl
 msgid "Only one ecotax classification occurrence by product Template"
 msgstr ""
+"Une seule occurrence de chaque classification d'écotaxe est autorisée par "
+"modèle de produit"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_collector__partner_id
 msgid "Partner"
-msgstr ""
+msgstr "Partenaire"
 
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_product_template
@@ -521,79 +560,79 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_mixin__product_id
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__product_id
 msgid "Product"
-msgstr ""
+msgstr "Produit"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__product_status
 msgid "Product Status"
-msgstr ""
+msgstr "Statut du produit"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_product__product_tmpl_id
 msgid "Product Template"
-msgstr ""
+msgstr "Modèle de produit"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.product_template_form_view
 #: model_terms:ir.ui.view,arch_db:account_ecotax.product_variant_easy_edit_view
 msgid "Product Template Ecotaxe classif"
-msgstr ""
+msgstr "Classification d'écotaxe du modèle de produit"
 
 #. module: account_ecotax
 #: model:ir.model,name:account_ecotax.model_product_product
 msgid "Product Variant"
-msgstr ""
+msgstr "Variante de produit"
 
 #. module: account_ecotax
 #: model:ir.model.fields.selection,name:account_ecotax.selection__account_ecotax_classification__product_status__p
 msgid "Professional"
-msgstr ""
+msgstr "Professionnel"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_move_line_ecotax__quantity
 #: model:ir.model.fields,field_description:account_ecotax.field_ecotax_line_mixin__quantity
 msgid "Quantity"
-msgstr ""
+msgstr "Quantité"
 
 #. module: account_ecotax
 #: model:ir.model.fields.selection,name:account_ecotax.selection__account_ecotax_classification__supplier_status__rem
 msgid "Remote vendor"
-msgstr ""
+msgstr "Vendeur à distance"
 
 #. module: account_ecotax
 #: model:ir.model.fields.selection,name:account_ecotax.selection__account_ecotax_classification__supplier_status__res
 msgid "Reseller, under their own brand"
-msgstr ""
+msgstr "Revendeur sous sa propre marque"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__scale_code
 msgid "Scale Code"
-msgstr ""
+msgstr "Code du barème"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_classification_search
 msgid "Search Ecotaxe Classification"
-msgstr ""
+msgstr "Rechercher une classification d'écotaxe"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_category_search
 msgid "Search Ecotaxe category"
-msgstr ""
+msgstr "Rechercher une catégorie d'écotaxe"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_collector_search
 msgid "Search Ecotaxe collector"
-msgstr ""
+msgstr "Rechercher un éco-organisme"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_sector_search
 msgid "Search Ecotaxe sector"
-msgstr ""
+msgstr "Rechercher une filière d'écotaxe"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.view_move_line_ecotax_form
 msgid "Section"
-msgstr ""
+msgstr "Section"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_account_ecotax_classification__company_id
@@ -602,16 +641,19 @@ msgid ""
 "specific company. Otherwise, this Fiscal Classification will be available "
 "for all companies."
 msgstr ""
+"Indiquez une société pour réserver cette classification d'écotaxe à cette "
+"société. Sinon, cette classification sera disponible pour toutes les "
+"sociétés."
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.view_move_line_ecotax_form
 msgid "Subtotal"
-msgstr ""
+msgstr "Sous-total"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_account_ecotax_classification__supplier_status
 msgid "Supplier Status"
-msgstr ""
+msgstr "Statut du fournisseur"
 
 #. module: account_ecotax
 #: model:ir.model.fields,help:account_ecotax.field_account_move_line_ecotax__quantity
@@ -619,21 +661,24 @@ msgid ""
 "The optional quantity expressed by this line, eg: number of product sold. "
 "The quantity is not a legal requirement but is very useful for some reports."
 msgstr ""
+"Quantité facultative indiquée sur cette ligne, par exemple le nombre de "
+"produits vendus. La quantité n'est pas une obligation légale, mais elle est "
+"très utile pour certains rapports."
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.view_move_line_ecotax_form
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.view_move_line_ecotax_form
 msgid "Total Ecotaxe"
-msgstr ""
+msgstr "Total de l'écotaxe"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_classification_search
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #. module: account_ecotax
 #. odoo-python
@@ -641,31 +686,31 @@ msgstr ""
 #: code:addons/account_ecotax/models/account_move.py:0
 #, python-format
 msgid "Untaxed Amount"
-msgstr ""
+msgstr "Montant hors taxes"
 
 #. module: account_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_product__weight_based_ecotax
 #: model:ir.model.fields,field_description:account_ecotax.field_product_template__weight_based_ecotax
 msgid "Weight Based Ecotax"
-msgstr ""
+msgstr "Écotaxe calculée selon le poids"
 
 #. module: account_ecotax
 #: model:ir.model.fields.selection,name:account_ecotax.selection__account_ecotax_classification__ecotax_type__weight_based
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_classification_search
 msgid "Weight based"
-msgstr ""
+msgstr "Selon le poids"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_category_search
 msgid "category"
-msgstr ""
+msgstr "catégorie"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_collector_search
 msgid "collector"
-msgstr ""
+msgstr "éco-organisme"
 
 #. module: account_ecotax
 #: model_terms:ir.ui.view,arch_db:account_ecotax.ecotax_sector_search
 msgid "sector"
-msgstr ""
+msgstr "filière"
