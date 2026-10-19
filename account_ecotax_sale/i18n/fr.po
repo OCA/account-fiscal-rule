@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-01 13:01+0000\n"
-"PO-Revision-Date: 2025-04-14 18:24+0000\n"
-"Last-Translator: epanisset <emeric.panisset@camptocamp.com>\n"
+"PO-Revision-Date: 2026-10-19 17:46+0000\n"
+"Last-Translator: Maksym Yankin <maksym.yankin@camptocamp.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_ecotax_sale
 #: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__amount_total
@@ -67,7 +67,7 @@ msgstr "Nom Affiché"
 #. module: account_ecotax_sale
 #: model_terms:ir.ui.view,arch_db:account_ecotax_sale.report_saleorder_document
 msgid "Eco Part Unit"
-msgstr ""
+msgstr "Éco-participation unitaire"
 
 #. module: account_ecotax_sale
 #: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line__subtotal_ecotax
@@ -97,9 +97,8 @@ msgstr "Lignes d'Ecotaxe"
 
 #. module: account_ecotax_sale
 #: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line__ecotax_amount_unit
-#, fuzzy
 msgid "Ecotax Unit"
-msgstr "Ecotaxe par Unité"
+msgstr "Écotaxe unitaire"
 
 #. module: account_ecotax_sale
 #: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
@@ -135,7 +134,7 @@ msgstr "Ecotaxe Incluse"
 #. module: account_ecotax_sale
 #: model_terms:ir.ui.view,arch_db:account_ecotax_sale.document_tax_totals
 msgid "Including Eco Part"
-msgstr ""
+msgstr "Dont Éco-Participation"
 
 #. module: account_ecotax_sale
 #: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
@@ -169,9 +168,8 @@ msgstr "Quantité"
 
 #. module: account_ecotax_sale
 #: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__sale_order_line_id
-#, fuzzy
 msgid "Sale Line"
-msgstr "Ligne de bons de commande"
+msgstr "Ligne de commande client"
 
 #. module: account_ecotax_sale
 #: model:ir.model,name:account_ecotax_sale.model_sale_order_line_ecotax
@@ -195,9 +193,8 @@ msgstr "Nom de section (ex. Produits, Services)"
 
 #. module: account_ecotax_sale
 #: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
-#, fuzzy
 msgid "Subtotal"
-msgstr "Sous-total Ecotaxe"
+msgstr "Sous-total"
 
 #. module: account_ecotax_sale
 #: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
@@ -206,6 +203,5 @@ msgstr "Total"
 
 #. module: account_ecotax_sale
 #: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
-#, fuzzy
 msgid "Total Ecotax"
-msgstr "Sous-total Ecotaxe"
+msgstr "Total de l'écotaxe"
