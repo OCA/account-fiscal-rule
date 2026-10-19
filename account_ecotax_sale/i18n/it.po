@@ -57,9 +57,16 @@ msgid "Description"
 msgstr "Descrizione"
 
 #. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order__display_name
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line__display_name
 #: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__display_name
 msgid "Display Name"
 msgstr "Nome visualizzato"
+
+#. module: account_ecotax_sale
+#: model_terms:ir.ui.view,arch_db:account_ecotax_sale.report_saleorder_document
+msgid "Eco Part Unit"
+msgstr ""
 
 #. module: account_ecotax_sale
 #: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line__subtotal_ecotax
@@ -113,6 +120,8 @@ msgstr ""
 "ecologica predefinita"
 
 #. module: account_ecotax_sale
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order__id
+#: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line__id
 #: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__id
 msgid "ID"
 msgstr "ID"
@@ -121,6 +130,11 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order__amount_ecotax
 msgid "Included Ecotaxe"
 msgstr "Inclusa tassa ecologica"
+
+#. module: account_ecotax_sale
+#: model_terms:ir.ui.view,arch_db:account_ecotax_sale.document_tax_totals
+msgid "Including Eco Part"
+msgstr ""
 
 #. module: account_ecotax_sale
 #: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
