@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-03-19 13:06+0000\n"
+"PO-Revision-Date: 2026-10-21 15:46+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.2\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_ecotax_sale
 #: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line_ecotax__amount_total
@@ -66,7 +66,7 @@ msgstr "Nome visualizzato"
 #. module: account_ecotax_sale
 #: model_terms:ir.ui.view,arch_db:account_ecotax_sale.report_saleorder_document
 msgid "Eco Part Unit"
-msgstr ""
+msgstr "Unità parte eco"
 
 #. module: account_ecotax_sale
 #: model:ir.model.fields,field_description:account_ecotax_sale.field_sale_order_line__subtotal_ecotax
@@ -134,7 +134,7 @@ msgstr "Inclusa tassa ecologica"
 #. module: account_ecotax_sale
 #: model_terms:ir.ui.view,arch_db:account_ecotax_sale.document_tax_totals
 msgid "Including Eco Part"
-msgstr ""
+msgstr "Include parte ecologica"
 
 #. module: account_ecotax_sale
 #: model_terms:ir.ui.view,arch_db:account_ecotax_sale.view_sale_line_ecotax_form
