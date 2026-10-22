@@ -1,0 +1,30 @@
+<odoo noupdate="1">
+    <!-- Ensure old deprecated buggy rule is removed -->
+    <delete
+        model="ir.rule"
+        search="[
+        ('model_id', '=', ref('model_avalara_salestax')),
+        '|',
+            ('domain_force', 'like', 'user.company_id.id'),
+            ('domain_force', '=', '[\'|\',(\'company_id\',\'=\',False),(\'company_id\',\'in\',company_ids])]')
+        ]"
+    />
+    <!-- Rule for multi-company -->
+    <record id="account_salestax_avatax_comp_rule" model="ir.rule">
+        <field name="name">AvaTax multi-company</field>
+        <field name="model_id" ref="model_avalara_salestax" />
+        <field name="global" eval="True" />
+        <field
+            name="domain_force"
+        >['|',('company_id','=',False),('company_id','in',company_ids)]</field>
+    </record>
+    <!--
+    company_id field was removed from Product Tax Codes,
+    and the corresponding record rule also.
+    This ensures the old record rule is removed from the database.
+    -->
+    <delete
+        model="ir.rule"
+        search="[('model_id', '=', ref('model_product_tax_code'))]"
+    />
+</odoo>
