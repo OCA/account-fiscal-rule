@@ -1,0 +1,140 @@
+<odoo>
+    <template id="exemptions_followup" name="Portal Exemption Form">
+        <t t-call="portal.portal_layout">
+            <div class="container mt16">
+                <div id="wrap" class="pb-2 pt-3 card-header bg-white">
+                    <t t-set="breadcrumbs_searchbar" t-value="True" />
+                    <t name="placeholder1" />
+                    <section id="exemption_title" class="row card-header bg-white">
+                        <div class="col-12">
+                            <h1>
+                                View Exemption:
+                                <span t-out="exemption.display_name" />
+                            </h1>
+                        </div>
+                    </section>
+                    <t name="placeholder2" />
+                    <t name="placeholder3" />
+                    <div class="mt16">
+                        <t t-call="account_avatax_exemption.form_field" />
+                        <table
+                            class="table table-hover table-striped mt32"
+                            t-if="exemption.exemption_line_ids"
+                        >
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>State</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    t-foreach="exemption.exemption_line_ids"
+                                    t-as="exemption_line"
+                                >
+                                    <td>
+                                        <t t-out="exemption_line.name" />
+                                    </td>
+                                    <td>
+                                        <t
+                                            t-out="exemption_line.state_id.display_name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <t
+                                            t-if="exemption_line.avatax_id and exemption_line.avatax_status"
+                                        >
+                                            <span class="fa fa-check text-success" />
+                                        </t>
+                                        <t t-else="">
+                                            <span class="fa fa-times text-danger" />
+                                        </t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <t name="placeholder4" />
+                </div>
+            </div>
+            <div id="exemption_communication" class="mt-4">
+                <h2>History</h2>
+                <t t-call="portal.message_thread">
+                    <t t-set="object" t-value="exemption" />
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="form_field" name="Portal Exemption Form Field">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-3">
+                    <span class="fw-bold">Business Type:</span>
+                </div>
+                <div class="col-9 text-start">
+                    <span t-field="exemption.business_type" />
+                </div>
+            </div>
+            <div class="row mt16">
+                <div class="col-3">
+                    <span class="fw-bold">Entity Use Code:</span>
+                </div>
+                <div class="col-9 text-start">
+                    <span t-field="exemption.exemption_code_id" />
+                </div>
+            </div>
+            <div class="row mt16">
+                <div class="col-3">
+                    <span class="fw-bold">Exemption Number:</span>
+                </div>
+                <div class="col-9 text-start">
+                    <span t-field="exemption.exemption_number" />
+                </div>
+            </div>
+            <div class="row mt16">
+                <div class="col-3">
+                    <span class="fw-bold">Exemption Number Type:</span>
+                </div>
+                <div class="col-9 text-start">
+                    <span t-field="exemption.exemption_number_type" />
+                </div>
+            </div>
+            <div class="row mt16">
+                <div class="col-3">
+                    <span class="fw-bold">Effective Date:</span>
+                </div>
+                <div class="col-9 text-start">
+                    <span t-field="exemption.effective_date" />
+                </div>
+            </div>
+            <div class="row mt16">
+                <div class="col-3">
+                    <span class="fw-bold">Expiry Date:</span>
+                </div>
+                <div class="col-9 text-start">
+                    <span t-field="exemption.expiry_date" />
+                </div>
+            </div>
+        </div>
+    </template>
+    <!-- Store customizations in separate template to avoid breaking updates -->
+    <template
+        id="form_custom"
+        inherit_id="exemptions_followup"
+        name="Portal Exemption Form Customizations"
+    >
+        <xpath expr="//t[@name='placeholder1']">
+            <div class="oe_empty" />
+        </xpath>
+        <xpath expr="//t[@name='placeholder2']">
+            <div class="oe_empty" />
+        </xpath>
+        <xpath expr="//t[@name='placeholder3']">
+            <div class="oe_empty" />
+        </xpath>
+        <xpath expr="//t[@name='placeholder4']">
+            <div class="oe_empty" />
+        </xpath>
+    </template>
+</odoo>

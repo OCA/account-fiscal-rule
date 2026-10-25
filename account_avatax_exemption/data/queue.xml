@@ -1,0 +1,102 @@
+<odoo>
+    <record id="channel_avatax" model="queue.job.channel">
+        <field name="name">avatax</field>
+        <field name="parent_id" ref="queue_job.channel_root" />
+    </record>
+    <!-- Custom Tax rule Job Function -->
+    <record id="job_function_export_base_rule_based_on_type" model="queue.job.function">
+        <field name="model_id" ref="account_avatax_oca.model_avalara_salestax" />
+        <field name="method">_export_base_rule_based_on_type</field>
+        <field name="channel_id" ref="channel_avatax" />
+        <field
+            name="related_action"
+            eval='{"func_name": "_related_action_avatax_rule"}'
+        />
+    </record>
+    <record id="job_function_cancel_custom_rule" model="queue.job.function">
+        <field name="model_id" ref="account_avatax_oca.model_avalara_salestax" />
+        <field name="method">_cancel_custom_rule</field>
+        <field name="channel_id" ref="channel_avatax" />
+        <field
+            name="related_action"
+            eval='{"func_name": "_related_action_avatax_rule"}'
+        />
+    </record>
+    <!-- Tax Item Job Function -->
+    <record id="job_function_export_tax_item" model="queue.job.function">
+        <field name="model_id" ref="account_avatax_oca.model_avalara_salestax" />
+        <field name="method">_export_tax_item</field>
+        <field name="channel_id" ref="channel_avatax" />
+        <field
+            name="related_action"
+            eval='{"func_name": "_related_action_avatax_tax_item"}'
+        />
+    </record>
+    <record id="job_function_delete_tax_item" model="queue.job.function">
+        <field name="model_id" ref="account_avatax_oca.model_avalara_salestax" />
+        <field name="method">_delete_tax_item</field>
+        <field name="channel_id" ref="channel_avatax" />
+        <field
+            name="related_action"
+            eval='{"func_name": "_related_action_avatax_tax_item"}'
+        />
+    </record>
+    <record id="job_function_update_tax_item" model="queue.job.function">
+        <field name="model_id" ref="account_avatax_oca.model_avalara_salestax" />
+        <field name="method">_update_tax_item</field>
+        <field name="channel_id" ref="channel_avatax" />
+        <field
+            name="related_action"
+            eval='{"func_name": "_related_action_avatax_tax_item"}'
+        />
+    </record>
+    <!-- Exemption Job Function -->
+    <record id="job_function_export_avatax_customer" model="queue.job.function">
+        <field name="model_id" ref="account_avatax_oca.model_avalara_salestax" />
+        <field name="method">_export_avatax_customer</field>
+        <field name="channel_id" ref="channel_avatax" />
+        <field
+            name="related_action"
+            eval='{"func_name": "_related_action_avatax_customer"}'
+        />
+    </record>
+    <record id="job_function_export_avatax_exemption_line" model="queue.job.function">
+        <field name="model_id" ref="account_avatax_oca.model_avalara_salestax" />
+        <field name="method">_export_avatax_exemption_line</field>
+        <field name="channel_id" ref="channel_avatax" />
+        <field
+            name="related_action"
+            eval='{"func_name": "_related_action_avatax_customer"}'
+        />
+    </record>
+    <record id="job_function_link_certificates_to_customer" model="queue.job.function">
+        <field name="model_id" ref="account_avatax_oca.model_avalara_salestax" />
+        <field name="method">link_certificates_to_customer</field>
+        <field name="channel_id" ref="channel_avatax" />
+        <field
+            name="related_action"
+            eval='{"func_name": "_related_action_avatax_customer"}'
+        />
+    </record>
+    <record
+        id="job_function_update_avatax_exemption_line_status"
+        model="queue.job.function"
+    >
+        <field name="model_id" ref="account_avatax_oca.model_avalara_salestax" />
+        <field name="method">_update_avatax_exemption_line_status</field>
+        <field name="channel_id" ref="channel_avatax" />
+        <field
+            name="related_action"
+            eval='{"func_name": "_related_action_avatax_customer"}'
+        />
+    </record>
+    <record id="job_function_search_create_exemption_line" model="queue.job.function">
+        <field name="model_id" ref="account_avatax_oca.model_avalara_salestax" />
+        <field name="method">_search_create_exemption_line</field>
+        <field name="channel_id" ref="channel_avatax" />
+        <field
+            name="related_action"
+            eval='{"func_name": "_related_action_avatax_customer"}'
+        />
+    </record>
+</odoo>
