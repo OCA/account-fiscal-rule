@@ -11,7 +11,7 @@
     "pre_init_hook": "pre_init_hook",
     "data": [
         "security/avalara_salestax_security.xml",
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
         "data/avalara_salestax_data.xml",
         "data/avalara_salestax_exemptions.xml",
         "wizard/avalara_get_company_code_view.xml",
