@@ -1,0 +1,9 @@
+<odoo>
+    <record model="ir.actions.server" id="action_account_invoice_compute_taxes">
+        <field name="name">Update taxes with AvaTax</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="binding_model_id" ref="account.model_account_move" />
+        <field name="state">code</field>
+        <field name="code">records.avatax_compute_taxes()</field>
+    </record>
+</odoo>

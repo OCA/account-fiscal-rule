@@ -1,0 +1,34 @@
+<odoo>
+    <record id="view_avalara_salestax_getcompany" model="ir.ui.view">
+        <field name="model">avalara.salestax.getcompany</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="company_code" widget="radio" />
+                </group>
+                <footer>
+                    <button
+                        name="action_set_code"
+                        string="Select"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button special="cancel" class="btn-default" string="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_avalara_salestax_getcompany" model="ir.actions.act_window">
+        <field name="name">Select Avatax Company Code</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">avalara.salestax.getcompany</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_avalara_salestax_getcompany" />
+        <field
+            name="context"
+        >{'record_id': active_id, 'active_id_view_ref': active_id}</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
