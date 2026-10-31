@@ -25,3 +25,10 @@ class TestAvatax(common.TransactionCase):
     def test_get_avatax_template_missing(self):
         with self.assertRaises(exceptions.UserError):
             self.Tax.with_company(self.company2).get_avalara_tax(0, "out_invoice")
+
+    def test_compute_all_rounding_method(self):
+        """Purchase calls compute_all() with rounding_method (gross price unit)"""
+        tax = self.Tax.create({"name": "Tax 10", "amount": 10.0})
+        res = tax.compute_all(100.0, quantity=2, rounding_method="round_globally")
+        self.assertEqual(res["total_excluded"], 200.0)
+        self.assertEqual(res["total_included"], 220.0)
