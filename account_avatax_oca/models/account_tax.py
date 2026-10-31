@@ -61,7 +61,7 @@ class AccountTax(models.Model):
         is_refund=False,
         handle_price_include=True,
         include_caba_tags=False,
-        fixed_multiplicator=1,
+        rounding_method=None,
     ):
         """
         Adopted as the central point to inject custom tax computations.
@@ -71,14 +71,14 @@ class AccountTax(models.Model):
         """
         res = super().compute_all(
             price_unit,
-            currency,
-            quantity,
-            product,
-            partner,
-            is_refund,
-            handle_price_include,
-            include_caba_tags,
-            fixed_multiplicator,
+            currency=currency,
+            quantity=quantity,
+            product=product,
+            partner=partner,
+            is_refund=is_refund,
+            handle_price_include=handle_price_include,
+            include_caba_tags=include_caba_tags,
+            rounding_method=rounding_method,
         )
         avatax_invoice = self.env.context.get("avatax_invoice")
         if avatax_invoice:
