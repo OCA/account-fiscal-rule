@@ -9,6 +9,8 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestFiscalPositionViesWarning(BaseCommon):
+    _test_user_groups = ("account.group_account_manager", "base.group_system")
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -91,10 +93,9 @@ class TestFiscalPositionViesWarning(BaseCommon):
         )
 
     def test_show_vies_warning(self):
-        with self.assertRaises(ValidationError):
-            with Form(self.partner_not_vies) as form:
-                form.property_account_position_id = self.fp_intra_community
-                form.save()
+        with self.assertRaises(ValidationError), Form(self.partner_not_vies) as form:
+            form.property_account_position_id = self.fp_intra_community
+            form.save()
         with Form(self.partner_not_vies) as form:
             form.property_account_position_id = self.fp_other
             form.save()
