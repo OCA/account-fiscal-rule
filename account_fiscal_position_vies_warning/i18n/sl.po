@@ -1,0 +1,79 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_fiscal_position_vies_warning
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2026-07-01 12:46+0000\n"
+"Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
+"Language-Team: none\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 5.15.2\n"
+
+#. module: account_fiscal_position_vies_warning
+#: model:ir.model,name:account_fiscal_position_vies_warning.model_res_partner
+msgid "Contact"
+msgstr "Stik"
+
+#. module: account_fiscal_position_vies_warning
+#: model:ir.model.fields,field_description:account_fiscal_position_vies_warning.field_account_fiscal_position__display_name
+#: model:ir.model.fields,field_description:account_fiscal_position_vies_warning.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_fiscal_position_vies_warning.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Prikazani naziv"
+
+#. module: account_fiscal_position_vies_warning
+#: model:ir.model,name:account_fiscal_position_vies_warning.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Fiskalni položaj"
+
+#. module: account_fiscal_position_vies_warning
+#: model:ir.model.fields,field_description:account_fiscal_position_vies_warning.field_account_fiscal_position__id
+#: model:ir.model.fields,field_description:account_fiscal_position_vies_warning.field_account_move__id
+#: model:ir.model.fields,field_description:account_fiscal_position_vies_warning.field_res_partner__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_fiscal_position_vies_warning
+#: model:ir.model.fields,help:account_fiscal_position_vies_warning.field_account_fiscal_position__is_show_vies_warning
+msgid ""
+"If this field is checked and the partner does not pass VIES validation, the "
+"partner record cannot be saved, and any invoices for this partner cannot be "
+"confirmed if this fiscal position is selected in the Partner form or on an "
+"Invoice"
+msgstr ""
+"Če je to polje označeno in partner ne opravi validacije VIES, zapisa "
+"partnerja ni mogoče shraniti in računov za tega partnerja ni mogoče "
+"potrditi, če je ta fiskalni položaj izbran v obrazcu Partner ali na računu"
+
+#. module: account_fiscal_position_vies_warning
+#: model:ir.model,name:account_fiscal_position_vies_warning.model_account_move
+msgid "Journal Entry"
+msgstr "Temeljnica"
+
+#. module: account_fiscal_position_vies_warning
+#: model:ir.model.fields,field_description:account_fiscal_position_vies_warning.field_account_fiscal_position__is_show_vies_warning
+msgid "Show Vies Warning"
+msgstr "Opozorilo o prikazu Vies"
+
+#. module: account_fiscal_position_vies_warning
+#: model:ir.model.fields,field_description:account_fiscal_position_vies_warning.field_account_fiscal_position__is_visible_show_vies_warning
+msgid "Visible Show Vies Warning"
+msgstr "Vidno opozorilo o prikazu Vies"
+
+#. module: account_fiscal_position_vies_warning
+#. odoo-python
+#: code:addons/account_fiscal_position_vies_warning/models/account_fiscal_position.py:0
+msgid ""
+"You can't set the Fiscal Position to %(fiscal_pos)s, %(partner_name)s "
+"doesn't pass VIES VAT number validation!"
+msgstr ""
+"Fiskalnega položaja ne morete nastaviti na %(fiscal_pos)s, %(partner_name)s "
+"ne opravi preverjanja veljavnosti številke DDV VIES!"
