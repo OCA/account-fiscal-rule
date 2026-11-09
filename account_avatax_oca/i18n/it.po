@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-10-17 16:06+0000\n"
+"PO-Revision-Date: 2026-11-09 14:47+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_avatax_oca
 #: model:account.tax,name:account_avatax_oca.avatax
@@ -488,7 +488,7 @@ msgstr "Abilita la tassabilità UPC"
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__logging
 msgid "Enables detailed AvaTax transaction logging within application"
 msgstr ""
-"Abilita la registrazione dettagliata della transizione AvaTax all'interno "
+"Abilita la registrazione dettagliata della transazione AvaTax all'interno "
 "dell'applicazione"
 
 #. module: account_avatax_oca
@@ -508,7 +508,7 @@ msgstr ""
 "\n"
 "Assicurarsi che il consulente fiscale sia stato interpellato e sia stata "
 "ottenuta la necessaria documentazione di esenzione per ogni nazione nella "
-"quale questo parnter può avere transizioni."
+"quale questo parnter può avere transazioni."
 
 #. module: account_avatax_oca
 #: model:ir.model.fields,field_description:account_avatax_oca.field_res_partner__property_exemption_country_wide
@@ -743,7 +743,7 @@ msgstr ""
 #. module: account_avatax_oca
 #: model:ir.model.fields,help:account_avatax_oca.field_avalara_salestax__disable_tax_reporting
 msgid "No transactions will be recorded (commited) to the Avatax service."
-msgstr "Nessuna transizione verrà registrata (affidata) al servizio AvaTax."
+msgstr "Nessuna transazione verrà registrata (affidata) al servizio AvaTax."
 
 #. module: account_avatax_oca
 #: model_terms:ir.ui.view,arch_db:account_avatax_oca.view_avalara_salestax_ping
@@ -1138,7 +1138,7 @@ msgid ""
 "generate their customer code.  This is required for Avatax and is only "
 "generated one time."
 msgstr ""
-"Questo genererà il codice cliente per l'utente utilizzato nella transizione, "
+"Questo genererà il codice cliente per l'utente utilizzato nella transazione, "
 "se non ne ha già uno. Ogni codice è univoco per cliente. Quando è "
 "disabilitato, bisognerà accedere ad ogni cliente e generare manualmente il "
 "suo codice. Questo è richiesto da AvaTax ed è generato una sola volta."
