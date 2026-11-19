@@ -75,7 +75,6 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
         with so_form.order_line.edit(0) as line:
             line.product_uom_qty = 3.0
         so_form.save()
-        self.sale.order_line._compute_ecotax_line_ids()
         self.assertEqual(self.sale.order_line.ecotax_amount_unit, 16)
         self.assertEqual(self.sale.order_line.subtotal_ecotax, 48)
         self.assertEqual(self.sale.amount_untaxed, 600)
@@ -100,7 +99,6 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
         with so_form.order_line.edit(0) as line:
             line.product_uom_qty = 3.0
         so_form.save()
-        self.sale.order_line._compute_ecotax_line_ids()
         self.assertEqual(sale_line1.ecotax_amount_unit, 5.0)
         self.assertAlmostEqual(sale_line1.subtotal_ecotax, 15.0)
         self.assertEqual(sale_line2.ecotax_amount_unit, 16)
@@ -117,9 +115,6 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
         sale = self.create_sale_partner(
             partner_id=partner12, products_and_qty=[(self.product_a, 1.0)]
         )
-        # computed ecotax lines are not persisted through the Form in 18.0,
-        # trigger the compute explicitly (same pattern as test_01/test_02)
-        sale.order_line._compute_ecotax_line_ids()
         # no country ecotax classification is set, ecotax is taken by default
         self.assertEqual(
             sale.order_line.ecotax_line_ids.classification_id, self.ecotax_fixed
