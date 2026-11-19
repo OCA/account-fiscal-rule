@@ -9,9 +9,11 @@ class AccountMoveLine(models.Model):
     def _compute_account_id(self):
         res = super()._compute_account_id()
         refund_lines = self.filtered(
-            lambda ml: ml.display_type == "product"
-            and ml.product_id
-            and ml.move_id.move_type in ("in_refund", "out_refund")
+            lambda ml: (
+                ml.display_type == "product"
+                and ml.product_id
+                and ml.move_id.move_type in ("in_refund", "out_refund")
+            )
         )
         for line in refund_lines:
             product = line.with_company(line.company_id).product_id.product_tmpl_id
