@@ -1,0 +1,58 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_fiscal_position_partner_type
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2023-05-31 17:08+0000\n"
+"Last-Translator: \"Sandrine (ACSONE)\" <sandrine.ravet@acsone.eu>\n"
+"Language-Team: none\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: account_fiscal_position_partner_type
+#: model:ir.model,name:account_fiscal_position_partner_type.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: account_fiscal_position_partner_type
+#: model:ir.model.fields.selection,name:account_fiscal_position_partner_type.selection__account_fiscal_position__fiscal_position_type__b2b
+msgid "Company (B2B)"
+msgstr "Société (B2B)"
+
+#. module: account_fiscal_position_partner_type
+#: model:ir.model,name:account_fiscal_position_partner_type.model_res_partner
+msgid "Contact"
+msgstr "Contact"
+
+#. module: account_fiscal_position_partner_type
+#: model:ir.model.fields,field_description:account_fiscal_position_partner_type.field_res_company__default_fiscal_position_type
+msgid "Default Partner Fiscal Position Type"
+msgstr "Type de position fiscale par défaut"
+
+#. module: account_fiscal_position_partner_type
+#: model:ir.model.fields.selection,name:account_fiscal_position_partner_type.selection__account_fiscal_position__fiscal_position_type__b2c
+msgid "End customer (B2C)"
+msgstr "Client final (B2C)"
+
+#. module: account_fiscal_position_partner_type
+#: model:ir.model,name:account_fiscal_position_partner_type.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Position fiscale"
+
+#. module: account_fiscal_position_partner_type
+#: model:ir.model.fields,field_description:account_fiscal_position_partner_type.field_res_partner__fiscal_position_type
+#: model:ir.model.fields,field_description:account_fiscal_position_partner_type.field_res_users__fiscal_position_type
+msgid "Fiscal Position Type"
+msgstr "Type de position fiscale"
+
+#. module: account_fiscal_position_partner_type
+#: model:ir.model.fields,field_description:account_fiscal_position_partner_type.field_account_fiscal_position__fiscal_position_type
+msgid "Type"
+msgstr "Type"
