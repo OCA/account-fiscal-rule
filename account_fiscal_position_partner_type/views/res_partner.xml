@@ -9,7 +9,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="account.partner_view_buttons" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='partner_vat_placeholder']" position="before">
+            <xpath expr="//div[@name='identifiers']" position="after">
                 <field name="fiscal_position_type" invisible="parent_id != False" />
             </xpath>
         </field>

@@ -8,6 +8,11 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestAccountFiscalPositionPartnerType(BaseCommon):
+    _test_user_groups = (
+        "account.group_account_manager",
+        "base.group_partner_manager",
+    )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
