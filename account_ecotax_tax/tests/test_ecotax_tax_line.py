@@ -19,9 +19,7 @@ class TestEcotaxTaxLine(TestInvoiceEcotaxTaxComon):
         native engine silently drops the zero-amount tax line while
         subtotal_ecotax still displays the amount.
         """
-        invoice = self._make_invoice(
-            products=self._make_product(self.ecotax_fixed)
-        )
+        invoice = self._make_invoice(products=self._make_product(self.ecotax_fixed))
         ecotax_tax_lines = invoice.line_ids.filtered(
             lambda line: line.tax_line_id.is_ecotax
         )
@@ -56,3 +54,46 @@ class TestEcotaxTaxLine(TestInvoiceEcotaxTaxComon):
         self.assertAlmostEqual(invoice.amount_ecotax, 20.0)  # display still ok
         self.assertAlmostEqual(invoice.amount_tax, 40.0)  # 10% x (4 x 100)
         self.assertAlmostEqual(invoice.amount_total, 440.0)
+
+    def test_ecotax_tax_line_follows_forced_amount(self):
+        """Forcing the ecotax amount of a line after its creation must update
+        the ecotax tax line, and the VAT computed on top of it.
+
+        Regression test: the ecotax lines live in a dedicated model, so
+        editing them changes none of the fields ``_sync_tax_lines`` tracks
+        and the tax lines were left on the previous amount.
+        """
+        invoice = self._make_invoice(products=self._make_product(self.ecotax_fixed))
+        invoice.invoice_line_ids.ecotax_line_ids.force_amount_unit = 7.0
+        ecotax_tax_lines = invoice.line_ids.filtered(
+            lambda line: line.tax_line_id.is_ecotax
+        )
+        self.assertEqual(len(ecotax_tax_lines), 1)
+        self.assertAlmostEqual(ecotax_tax_lines.amount_currency, -7.0)
+        # the ecotax is part of the VAT base: 10% x (100 + 7) = 10.7
+        vat_tax_lines = invoice.line_ids.filtered(
+            lambda line: line.tax_line_id == self.invoice_tax
+        )
+        self.assertAlmostEqual(vat_tax_lines.amount_currency, -10.7)
+        self.assertAlmostEqual(invoice.amount_tax, 17.7)
+        self.assertAlmostEqual(invoice.amount_total, 117.7)
+
+    def test_ecotax_tax_line_on_refund(self):
+        """Reversing an invoice must keep the ecotax tax lines.
+
+        Regression test: the refund is created by copying the invoice, the
+        ecotax lines are part of the copy; recomputing the tax lines while
+        the copy is running breaks it.
+        """
+        invoice = self._make_invoice(products=self._make_product(self.ecotax_fixed))
+        invoice.action_post()
+        refund = invoice._reverse_moves(
+            default_values_list=[{"invoice_date": invoice.invoice_date}]
+        )
+        ecotax_tax_lines = refund.line_ids.filtered(
+            lambda line: line.tax_line_id.is_ecotax
+        )
+        self.assertEqual(len(ecotax_tax_lines), 1)
+        self.assertAlmostEqual(ecotax_tax_lines.balance, 5.0)
+        self.assertAlmostEqual(refund.amount_ecotax, 5.0)
+        self.assertAlmostEqual(refund.amount_total, 115.5)
