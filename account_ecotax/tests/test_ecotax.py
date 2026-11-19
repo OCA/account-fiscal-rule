@@ -7,6 +7,7 @@
 from random import choice
 
 from odoo import Command
+from odoo.exceptions import UserError
 from odoo.tests import Form
 
 from odoo.addons.base.tests.common import BaseCommon
@@ -453,3 +454,19 @@ class TestInvoiceEcotax(TestInvoiceEcotaxCommon):
 
     def test_06_ecotax_by_country(self):
         self._test_06_ecotax_by_country()
+
+    def test_07_ecotax_lines_frozen_on_posted_invoice(self):
+        """The ecotax lines of a posted document must not move anymore: the
+        tax lines, the VAT and the collector reports are built on them.
+        """
+        invoice = self._make_invoice(products=self._make_product(self.ecotax_fixed))
+        invoice.action_post()
+        ecotax_line = invoice.invoice_line_ids.ecotax_line_ids
+        with self.assertRaises(UserError):
+            ecotax_line.force_amount_unit = 7.0
+        with self.assertRaises(UserError):
+            # the guard is not limited to the fields the user can edit
+            ecotax_line.write({"amount_total": 42.0})
+        with self.assertRaises(UserError):
+            ecotax_line.unlink()
+        self.assertAlmostEqual(ecotax_line.amount_total, 5.0)
