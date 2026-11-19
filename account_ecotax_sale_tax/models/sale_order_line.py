@@ -2,11 +2,21 @@
 #   @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
+
+    # The line totals depend on the ecotax lines, which is a one2many and can
+    # never be precomputed: the ORM would downgrade these fields at runtime
+    # with a warning (see fields.Field.resolve_depends). Declared explicitly
+    # so that the intent is in the code and the warning is not raised.
+    price_subtotal = fields.Monetary(precompute=False)
+    price_tax = fields.Float(precompute=False)
+    price_total = fields.Monetary(precompute=False)
+    price_reduce_taxexcl = fields.Monetary(precompute=False)
+    price_reduce_taxinc = fields.Monetary(precompute=False)
 
     # the ecotax tax amount is injected from the line ecotax lines by the
     # tax engine: recompute the line amounts when they change (e.g. forced
