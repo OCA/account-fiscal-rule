@@ -214,3 +214,31 @@ class TestAvatax(common.TransactionCase):
             self.invoice.amount_tax + self.invoice.amount_untaxed,
             self.invoice.amount_residual,
         )
+
+    @patch(
+        "odoo.addons.account_avatax_oca.models.res_company.Company.get_avatax_config_company"
+    )
+    @patch(
+        "odoo.addons.account_avatax_oca.models.account_move.AccountMove.avatax_compute_taxes"
+    )
+    def test_post_invoices_of_several_customers(
+        self, mock_avatax_compute_taxes, mock_get_avatax_config_company
+    ):
+        """Invoices of several customers are posted at once when the address
+        validation is forced"""
+        mock_get_avatax_config_company.return_value = self.env[
+            "avalara.salestax"
+        ].create(
+            {
+                "account_number": "123456",
+                "license_key": "123456",
+                "company_code": "DEFAULT2",
+                "force_address_validation": True,
+            }
+        )
+        other_customer = self.customer.copy({"name": "Other Customer"})
+        (self.customer | other_customer).date_validation = "2024-01-01"
+        invoices = self.invoice | self.invoice.copy({"partner_id": other_customer.id})
+        invoices.invoice_date = "2024-01-01"
+        invoices.action_post()
+        self.assertEqual(set(invoices.mapped("state")), {"posted"})
