@@ -27,6 +27,20 @@ class AcountMoveLine(models.Model):
         compute="_compute_ecotax",
     )
 
+    def _get_ecotax_eligible_classification(self):
+        """Return the ecotax classification lines applicable to this line.
+
+        This is the single entry point where the ecotax eligibility of a
+        document line is decided: the ecotax lines are generated from it and
+        the modules plugged on the ecotax taxes select the taxes of the line
+        from it. Adding an eligibility rule only requires overriding this method.
+        """
+        self.ensure_one()
+        if not self.product_id:
+            return self.env["ecotax.line.product"]
+        country = self.move_id.partner_shipping_id.country_id
+        return self.product_id._get_country_eligible_classification(country)
+
     def _get_ecotax_amounts(self):
         self.ensure_one()
         amount_unit = sum(self.ecotax_line_ids.mapped("amount_unit"))
@@ -46,30 +60,21 @@ class AcountMoveLine(models.Model):
 
     def _get_new_vals_list(self):
         self.ensure_one()
-        if not self.product_id:
-            return []
-        country = (
-            self.move_id.partner_shipping_id.country_id
-            or self.move_id.partner_id.country_id
-        )
-        new_vals_list = [
+        return [
             Command.create(
                 {
                     "classification_id": ecotaxline_prod.classification_id.id,
                     "force_amount_unit": ecotaxline_prod.force_amount,
                 }
             )
-            for ecotaxline_prod in self.product_id._get_country_eligible_classification(
-                country
-            )
+            for ecotaxline_prod in self._get_ecotax_eligible_classification()
         ]
-        return new_vals_list
 
     @api.depends("product_id", "move_id.partner_shipping_id")
     def _compute_ecotax_line_ids(self):
         """Unlink and recreate ecotax_lines when modifying the product_id."""
         for line in self:
-            if line.move_id.move_type not in ("out_invoice", "out_refund"):
+            if not line.move_id.is_sale_document(include_receipts=True):
                 continue
             delete_vals_list = [
                 Command.delete(taxline.id) for taxline in line.ecotax_line_ids
