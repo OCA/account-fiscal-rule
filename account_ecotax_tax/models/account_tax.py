@@ -31,7 +31,8 @@ class AccountTax(models.Model):
         never its static ``amount`` field (kept at 0) but the sum of the
         ecotax lines of the document line, which is the single source of
         truth (fixed, weight-based and forced amounts, filtered by delivery
-        country). This avoids generating one account.tax per ecotax amount.
+        country and by any other eligibility rule). This avoids generating
+        one account.tax per ecotax amount.
 
         The amounts are injected through the native ``manual_tax_amounts``
         mechanism before the standard computation, so the sequential engine
@@ -60,52 +61,22 @@ class AccountTax(models.Model):
     def _get_ecotax_tax_amount_currency(self, base_line):
         """Return the ecotax amount for this tax, in the base line currency.
 
-        Source of truth: the ecotax lines of the document line (covering
-        fixed, weight-based and manually forced amounts). Fallback when the
-        document line has no ecotax lines: the eligible ecotax lines of the
-        product.
+        The ecotax lines of the document line are the single source of truth.
+        A document line without ecotax line carries no ecotax at all: the
+        amount is zero even if the product is ecotax eligible.
+
+        When the computation is not made on a stored document line (e.g. the
+        legacy ``compute_all`` API, used by the point of sale or by other
+        modules), there is no ecotax line to read: ``None`` is returned and
+        no amount is injected, so the tax keeps its static amount.
         """
         self.ensure_one()
         record = base_line.get("record")
-        ecotax_lines = (
-            record is not None
-            and hasattr(record, "ecotax_line_ids")
-            and record.ecotax_line_ids
-        )
-        if ecotax_lines:
-            # amount_total is expressed in the document line currency
-            return sum(
-                ecotax_lines.filtered(
-                    lambda line: (self in line.classification_id._get_ecotax_taxes())
-                ).mapped("amount_total")
-            )
-        product = base_line.get("product_id")
-        if not product:
+        if record is None or not hasattr(record, "ecotax_line_ids"):
             return None
-        country = self._get_ecotax_base_line_country(record)
-        eligible_lines = product._get_country_eligible_classification(country)
-        eligible_lines = eligible_lines.filtered(
-            lambda line: (self in line.classification_id._get_ecotax_taxes())
+        # amount_total is expressed in the document line currency
+        return sum(
+            record.ecotax_line_ids.filtered(
+                lambda line: self in line.classification_id._get_ecotax_taxes()
+            ).mapped("amount_total")
         )
-        if not eligible_lines:
-            return 0.0
-        # product ecotax amounts are expressed in the company currency
-        rate = base_line.get("rate", 1.0)
-        amount_currency = (
-            sum(eligible_lines.mapped("amount")) * base_line["quantity"] * (rate or 1.0)
-        )
-        currency = base_line.get("currency_id")
-        return currency.round(amount_currency) if currency else amount_currency
-
-    def _get_ecotax_base_line_country(self, record):
-        """Delivery country of the document owning the base line record."""
-        if not record:
-            return False
-        document = getattr(record, "move_id", None) or getattr(record, "order_id", None)
-        if not document:
-            return False
-        shipping = getattr(document, "partner_shipping_id", None)
-        partner = getattr(document, "partner_id", None)
-        if shipping and shipping.country_id:
-            return shipping.country_id
-        return partner and partner.country_id or False

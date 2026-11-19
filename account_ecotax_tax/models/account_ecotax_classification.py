@@ -18,6 +18,10 @@ class AccountEcotaxClassification(models.Model):
     )
 
     def _get_ecotax_taxes(self):
-        """Return the ecotax taxes of this classification."""
-        self.ensure_one()
+        """Return the ecotax taxes of these classifications.
+
+        No ``ensure_one``: the method is also called on the ecotax lines of
+        a document being edited, which may have no classification yet (the
+        web client materializes placeholder lines during an onchange).
+        """
         return self.sale_ecotax_ids
