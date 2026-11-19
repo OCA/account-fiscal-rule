@@ -2,57 +2,11 @@
 #   @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import api, models
 
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
-
-    subtotal_ecotax = fields.Float(compute="_compute_ecotax_tax")
-    ecotax_amount_unit = fields.Float(
-        compute="_compute_ecotax_tax",
-    )
-
-    def _get_ecotax_amounts(self):
-        """Estimate the ecotax amounts from the product eligible ecotax lines.
-
-        Do not call super: as with account_ecotax_tax on invoices, the
-        definitive ecotax tax amount is computed from the sale line ecotax
-        lines by the tax engine, while these fields are the pre-creation
-        estimate used to decide if ecotax lines should be generated.
-        """
-        self.ensure_one()
-        if self.display_type and self.display_type != "product":
-            return 0.0, 0.0
-        country = (
-            self.order_id.partner_shipping_id.country_id
-            or self.order_id.partner_id.country_id
-        )
-        eligible_lines = self.product_id._get_country_eligible_classification(country)
-        if not eligible_lines:
-            return 0.0, 0.0
-        # product ecotax amounts are expressed in the company currency
-        company_currency = self.company_id.currency_id
-        amount_unit = sum(eligible_lines.mapped("amount"))
-        if self.currency_id and self.currency_id != company_currency:
-            amount_unit = company_currency._convert(
-                amount_unit,
-                self.currency_id,
-                self.company_id,
-                self.order_id.date_order or fields.Date.context_today(self),
-            )
-        subtotal_ecotax = amount_unit * self.product_uom_qty
-        if self.currency_id:
-            subtotal_ecotax = self.currency_id.round(subtotal_ecotax)
-        return amount_unit, subtotal_ecotax
-
-    @api.depends(
-        "tax_id",
-        "product_uom_qty",
-        "product_id",
-    )
-    def _compute_ecotax_tax(self):
-        return self._compute_ecotax()
 
     # the ecotax tax amount is injected from the line ecotax lines by the
     # tax engine: recompute the line amounts when they change (e.g. forced
@@ -61,17 +15,8 @@ class SaleOrderLine(models.Model):
     def _compute_amount(self):
         return super()._compute_amount()
 
-    def _get_new_vals_list(self):
-        if not self.subtotal_ecotax:
-            return []
-        return super()._get_new_vals_list()
-
-    # ensure lines are re-generated in case ecotax_amount_unit of invoice line change
-    # without changing the product
-    @api.depends("ecotax_amount_unit", "subtotal_ecotax")
-    def _compute_ecotax_line_ids(self):
-        return super()._compute_ecotax_line_ids()
-
+    # the ecotax tax is added according to the delivery country of the
+    # document, which is not part of the standard dependencies
     @api.depends(
         "product_id",
         "company_id",
@@ -85,19 +30,13 @@ class SaleOrderLine(models.Model):
         return res
 
     def _get_computed_ecotaxes(self):
+        """Return the ecotax taxes of the eligible ecotax classifications."""
         self.ensure_one()
-        country = (
-            self.order_id.partner_shipping_id.country_id
-            or self.order_id.partner_id.country_id
-        )
-        eligible_classifications = self.product_id._get_country_eligible_classification(
-            country
-        )
-        sale_ecotaxs = eligible_classifications.classification_id.sale_ecotax_ids
-        ecotax_ids = sale_ecotaxs.filtered(
+        eligible_classifications = self._get_ecotax_eligible_classification()
+        classifications = eligible_classifications.classification_id
+        ecotax_ids = classifications.sale_ecotax_ids.filtered(
             lambda tax: tax.company_id == self.order_id.company_id
         )
-
         if ecotax_ids and self.order_id.fiscal_position_id:
             ecotax_ids = self.order_id.fiscal_position_id.map_tax(ecotax_ids)
         return ecotax_ids
