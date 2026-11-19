@@ -91,36 +91,21 @@ class AcountMoveLine(models.Model):
 
     def _get_computed_taxes(self):
         tax_ids = super()._get_computed_taxes()
-        ecotax_ids = self.env["account.tax"]
+        if not self.move_id.is_sale_document(include_receipts=True):
+            # Purchase documents are not supported.
+            return tax_ids
         country = (
             self.move_id.partner_shipping_id.country_id
             or self.move_id.partner_id.country_id
         )
-        if self.move_id.is_sale_document(include_receipts=True):
-            # Out invoice.
-            eligible_classifications = (
-                self.product_id._get_country_eligible_classification(country)
-            )
-            sale_ecotaxs = eligible_classifications.classification_id.sale_ecotax_ids
-            ecotax_ids = sale_ecotaxs.filtered(
+        eligible_classifications = self.product_id._get_country_eligible_classification(
+            country
+        )
+        ecotax_ids = (
+            eligible_classifications.classification_id.sale_ecotax_ids.filtered(
                 lambda tax: tax.company_id == self.move_id.company_id
             )
-
-        elif self.move_id.is_purchase_document(include_receipts=True):
-            # In invoice.
-            eligible_classifications = (
-                self.product_id._get_country_eligible_classification(country)
-            )
-            purchase_ecotaxs = (
-                eligible_classifications.classification_id.purchase_ecotax_ids
-            )
-            ecotax_ids = purchase_ecotaxs.filtered(
-                lambda tax: tax.company_id == self.move_id.company_id
-            )
-
+        )
         if ecotax_ids and self.move_id.fiscal_position_id:
             ecotax_ids = self.move_id.fiscal_position_id.map_tax(ecotax_ids)
-        if ecotax_ids:
-            tax_ids |= ecotax_ids
-
-        return tax_ids
+        return tax_ids | ecotax_ids
