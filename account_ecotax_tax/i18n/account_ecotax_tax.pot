@@ -55,11 +55,6 @@ msgid "Journal Item"
 msgstr ""
 
 #. module: account_ecotax_tax
-#: model:ir.model.fields,field_description:account_ecotax_tax.field_account_ecotax_classification__purchase_ecotax_ids
-msgid "Purchase EcoTax"
-msgstr ""
-
-#. module: account_ecotax_tax
 #: model:ir.model.fields,field_description:account_ecotax_tax.field_account_ecotax_classification__sale_ecotax_ids
 msgid "Sale EcoTax"
 msgstr ""
@@ -74,5 +69,5 @@ msgstr ""
 msgid ""
 "Warning : To include Ecotax in the VAT tax check this :\n"
 "1: check  \"included in base amount \"\n"
-"2: The Ecotax sequence must be less then VAT tax (in sale and purchase)"
+"2: The Ecotax sequence must be less then VAT tax (in sale)"
 msgstr ""

@@ -14,7 +14,7 @@ class AccountTax(models.Model):
         "in the VAT tax check this :\n"
         '1: check  "included in base amount "\n'
         "2: The Ecotax sequence must be less then "
-        "VAT tax (in sale and purchase)",
+        "VAT tax (in sale)",
     )
 
     @api.onchange("is_ecotax")
@@ -62,8 +62,8 @@ class AccountTax(models.Model):
 
         Source of truth: the ecotax lines of the document line (covering
         fixed, weight-based and manually forced amounts). Fallback when the
-        document line has no ecotax lines (e.g. vendor bills, purchase
-        orders): the eligible ecotax lines of the product.
+        document line has no ecotax lines: the eligible ecotax lines of the
+        product.
         """
         self.ensure_one()
         record = base_line.get("record")
@@ -76,10 +76,7 @@ class AccountTax(models.Model):
             # amount_total is expressed in the document line currency
             return sum(
                 ecotax_lines.filtered(
-                    lambda line: (
-                        self
-                        in line.classification_id._get_ecotax_taxes(self.type_tax_use)
-                    )
+                    lambda line: (self in line.classification_id._get_ecotax_taxes())
                 ).mapped("amount_total")
             )
         product = base_line.get("product_id")
@@ -88,9 +85,7 @@ class AccountTax(models.Model):
         country = self._get_ecotax_base_line_country(record)
         eligible_lines = product._get_country_eligible_classification(country)
         eligible_lines = eligible_lines.filtered(
-            lambda line: (
-                self in line.classification_id._get_ecotax_taxes(self.type_tax_use)
-            )
+            lambda line: (self in line.classification_id._get_ecotax_taxes())
         )
         if not eligible_lines:
             return 0.0

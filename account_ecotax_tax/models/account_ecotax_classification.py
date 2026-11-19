@@ -16,17 +16,8 @@ class AccountEcotaxClassification(models.Model):
         string="Sale EcoTax",
         domain=[("is_ecotax", "=", True), ("type_tax_use", "=", "sale")],
     )
-    purchase_ecotax_ids = fields.Many2many(
-        "account.tax",
-        "ecotax_classif_purchase_taxes_rel",
-        "ecotax_classif_id",
-        "tax_id",
-        string="Purchase EcoTax",
-        domain=[("is_ecotax", "=", True), ("type_tax_use", "=", "purchase")],
-    )
 
-    def _get_ecotax_taxes(self, type_tax_use="sale"):
-        """Return the ecotax taxes of this classification for the given use."""
-        if type_tax_use == "purchase":
-            return self.purchase_ecotax_ids
+    def _get_ecotax_taxes(self):
+        """Return the ecotax taxes of this classification."""
+        self.ensure_one()
         return self.sale_ecotax_ids
