@@ -16,11 +16,12 @@ class AccountEcotaxClassification(models.Model):
         string="Sale EcoTax",
         domain=[("is_ecotax", "=", True), ("type_tax_use", "=", "sale")],
     )
-    purchase_ecotax_ids = fields.Many2many(
-        "account.tax",
-        "ecotax_classif_purchase_taxes_rel",
-        "ecotax_classif_id",
-        "tax_id",
-        string="Purchase EcoTax",
-        domain=[("is_ecotax", "=", True), ("type_tax_use", "=", "purchase")],
-    )
+
+    def _get_ecotax_taxes(self):
+        """Return the ecotax taxes of these classifications.
+
+        No ``ensure_one``: the method is also called on the ecotax lines of
+        a document being edited, which may have no classification yet (the
+        web client materializes placeholder lines during an onchange).
+        """
+        return self.sale_ecotax_ids

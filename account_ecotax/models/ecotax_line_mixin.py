@@ -38,6 +38,10 @@ class EcotaxLineMixin(models.AbstractModel):
     )
     quantity = fields.Float(digits="Product Unit of Measure", readonly=True)
 
+    def _is_frozen(self):
+        """Hook: the ecotax amounts of this line must not move anymore."""
+        return False
+
     @api.depends(
         "classification_id",
         "force_amount_unit",
@@ -46,6 +50,9 @@ class EcotaxLineMixin(models.AbstractModel):
     )
     def _compute_ecotax(self):
         for ecotaxline in self:
+            if ecotaxline._is_frozen():
+                # keep the amount stored on the document validation
+                continue
             ecotax_classif = ecotaxline.classification_id
 
             if ecotaxline.force_amount_unit:

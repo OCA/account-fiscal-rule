@@ -17,12 +17,6 @@
                         widget="many2many_tags"
                         context="{'default_type_tax_use':'sale', 'search_default_sale': 1}"
                     />
-                    <field
-                        name="purchase_ecotax_ids"
-                        quick_create="false"
-                        widget="many2many_tags"
-                        context="{'default_type_tax_use':'purchase', 'search_default_purchase': 1}"
-                    />
                 </group>
             </xpath>
         </field>

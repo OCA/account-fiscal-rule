@@ -12,13 +12,12 @@
     "maintainers": ["mourad-ehm", "florian-dacosta"],
     "depends": [
         "account_ecotax",
-        "account_tax_python",
     ],
     "data": [
         "data/account_tax_data.xml",
         "views/account_ecotax_classification_view.xml",
         "views/account_tax_view.xml",
-        "views/account_move_view.xml",
+        "views/res_company_view.xml",
         "report/invoice.xml",
     ],
     "installable": True,

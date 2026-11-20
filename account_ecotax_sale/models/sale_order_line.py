@@ -46,20 +46,34 @@ class SaleOrderLine(models.Model):
             line.subtotal_ecotax = subtotal
             line.ecotax_amount_unit = amount_unit
 
+    def _get_ecotax_eligible_classification(self):
+        """Return the ecotax classification lines applicable to this line.
+
+        Single entry point where the ecotax eligibility of a document line is
+        decided (see account_ecotax on account.move.line).
+        """
+        self.ensure_one()
+        if not self.product_id:
+            return self.env["ecotax.line.product"]
+        country = (
+            self.order_id.partner_shipping_id.country_id
+            or self.order_id.partner_id.country_id
+        )
+        return self.product_id._get_country_eligible_classification(country)
+
     def _get_new_vals_list(self):
         self.ensure_one()
-        new_vals_list = [
+        return [
             Command.create(
                 {
                     "classification_id": ecotaxline_prod.classification_id.id,
                     "force_amount_unit": ecotaxline_prod.force_amount,
                 }
             )
-            for ecotaxline_prod in self.product_id.all_ecotax_line_product_ids
+            for ecotaxline_prod in self._get_ecotax_eligible_classification()
         ]
-        return new_vals_list
 
-    @api.depends("product_id")
+    @api.depends("product_id", "order_id.partner_id", "order_id.partner_shipping_id")
     def _compute_ecotax_line_ids(self):
         """Unlink and recreate ecotax_lines when modifying the product_id."""
         for line in self:

@@ -22,14 +22,18 @@ class EcotaxLineProduct(models.Model):
     )
     force_amount = fields.Float(
         digits="Ecotax",
-        help="Force ecotax amount.\n"
-        "Allow to substitute default Ecotax Classification",
+        help="Force ecotax amount.\nAllow to substitute default Ecotax Classification",
     )
     amount = fields.Float(
         digits="Ecotax",
         compute="_compute_ecotax",
         help="Ecotax Amount computed form Classification or forced ecotax amount",
         store=True,
+    )
+    country_ids = fields.Many2many(
+        "res.country",
+        string="Countries",
+        related="classification_id.country_ids",
     )
     display_name = fields.Char(compute="_compute_display_name")
 
@@ -42,6 +46,7 @@ class EcotaxLineProduct(models.Model):
         "classification_id",
         "classification_id.ecotax_type",
         "classification_id.ecotax_coef",
+        "classification_id.default_fixed_ecotax",
         "product_tmpl_id",
         "product_tmpl_id.weight",
         "product_id",

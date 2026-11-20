@@ -8,53 +8,31 @@ from odoo import api, fields, models
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    subtotal_ecotax = fields.Float(compute="_compute_ecotax_tax")
-    ecotax_amount_unit = fields.Float(
-        compute="_compute_ecotax_tax",
-    )
+    # The line totals depend on the ecotax lines, which is a one2many and can
+    # never be precomputed: the ORM would downgrade these fields at runtime
+    # with a warning (see fields.Field.resolve_depends). Declared explicitly
+    # so that the intent is in the code and the warning is not raised.
+    price_subtotal = fields.Monetary(precompute=False)
+    price_tax = fields.Float(precompute=False)
+    price_total = fields.Monetary(precompute=False)
+    price_reduce_taxexcl = fields.Monetary(precompute=False)
+    price_reduce_taxinc = fields.Monetary(precompute=False)
 
-    def _get_ecotax_amounts(self):
-        self.ensure_one()
-        # do not call super as we completly change the way to compute it
-        ecotax_ids = self.tax_id.filtered(lambda tax: tax.is_ecotax)
-        if (self.display_type and self.display_type != "product") or not ecotax_ids:
-            return 0.0, 0.0
-        amount_currency = self.price_unit * (1 - self.discount / 100)
-        quantity = self.product_uom_qty
-        compute_all_currency = ecotax_ids.compute_all(
-            amount_currency,
-            currency=self.currency_id,
-            quantity=quantity,
-            product=self.product_id,
-            partner=self.order_id.partner_shipping_id,
-        )
-        subtotal_ecotax = 0.0
-        for tax in compute_all_currency["taxes"]:
-            subtotal_ecotax += tax["amount"]
+    # the ecotax tax amount is injected from the line ecotax lines by the
+    # tax engine: recompute the line amounts when they change (e.g. forced
+    # amount edited after the line creation)
+    @api.depends("ecotax_line_ids.amount_total")
+    def _compute_amount(self):
+        return super()._compute_amount()
 
-        unit = quantity and subtotal_ecotax / quantity or subtotal_ecotax
-        return unit, subtotal_ecotax
-
+    # the ecotax tax is added according to the delivery country of the
+    # document, which is not part of the standard dependencies
     @api.depends(
-        "tax_id",
-        "product_uom_qty",
         "product_id",
+        "company_id",
+        "order_id.partner_id",
+        "order_id.partner_shipping_id",
     )
-    def _compute_ecotax_tax(self):
-        return self._compute_ecotax()
-
-    def _get_new_vals_list(self):
-        if not self.subtotal_ecotax:
-            return []
-        return super()._get_new_vals_list()
-
-    # ensure lines are re-generated in case ecotax_amount_unit of invoice line change
-    # without changing the product
-    @api.depends("ecotax_amount_unit", "subtotal_ecotax")
-    def _compute_ecotax_line_ids(self):
-        return super()._compute_ecotax_line_ids()
-
-    @api.depends("product_id", "company_id")
     def _compute_tax_id(self):
         res = super()._compute_tax_id()
         for line in self:
@@ -62,14 +40,13 @@ class SaleOrderLine(models.Model):
         return res
 
     def _get_computed_ecotaxes(self):
+        """Return the ecotax taxes of the eligible ecotax classifications."""
         self.ensure_one()
-        sale_ecotaxes = self.product_id.all_ecotax_line_product_ids.mapped(
-            "classification_id"
-        ).mapped("sale_ecotax_ids")
-        ecotax_ids = sale_ecotaxes.filtered(
+        eligible_classifications = self._get_ecotax_eligible_classification()
+        classifications = eligible_classifications.classification_id
+        ecotax_ids = classifications.sale_ecotax_ids.filtered(
             lambda tax: tax.company_id == self.order_id.company_id
         )
-
         if ecotax_ids and self.order_id.fiscal_position_id:
             ecotax_ids = self.order_id.fiscal_position_id.map_tax(ecotax_ids)
         return ecotax_ids
