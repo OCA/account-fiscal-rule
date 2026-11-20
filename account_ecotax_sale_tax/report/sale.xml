@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- The ecotax is computed as a regular tax, so it is already displayed in
+    the tax totals of the sale order report (see account_ecotax_tax): remove
+    the informative line added by account_ecotax_sale to avoid showing it
+    twice. This mirrors what account_ecotax_tax does on the invoice report. -->
+    <template
+        id="document_tax_totals_ecotax"
+        inherit_id="sale.document_tax_totals"
+        priority="200"
+    >
+        <xpath expr="//tr[@name='ecotax_line']" position="replace" />
+    </template>
+</odoo>
