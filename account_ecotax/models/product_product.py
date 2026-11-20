@@ -70,6 +70,8 @@ class ProductProduct(models.Model):
         "all_ecotax_line_product_ids.classification_id",
         "all_ecotax_line_product_ids.classification_id.ecotax_type",
         "all_ecotax_line_product_ids.classification_id.ecotax_coef",
+        "all_ecotax_line_product_ids.classification_id.default_fixed_ecotax",
+        "all_ecotax_line_product_ids.amount",
         "all_ecotax_line_product_ids.force_amount",
         "weight",
     )

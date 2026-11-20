@@ -470,3 +470,15 @@ class TestInvoiceEcotax(TestInvoiceEcotaxCommon):
         with self.assertRaises(UserError):
             ecotax_line.unlink()
         self.assertAlmostEqual(ecotax_line.amount_total, 5.0)
+
+    def test_08_ecotax_amount_follows_classification(self):
+        """The ecotax amount of the product follows the classification amount.
+
+        ``@api.depends("classification_id")`` only reacts to a change of the
+        link: the amount fields of the classification must be declared too.
+        """
+        product = self._make_product(self.ecotax_fixed)
+        self.assertAlmostEqual(product.ecotax_line_product_ids.amount, 5.0)
+        self.ecotax_fixed.default_fixed_ecotax = 8.0
+        self.assertAlmostEqual(product.ecotax_line_product_ids.amount, 8.0)
+        self.assertAlmostEqual(product.ecotax_amount, 8.0)

@@ -46,6 +46,7 @@ class EcotaxLineProduct(models.Model):
         "classification_id",
         "classification_id.ecotax_type",
         "classification_id.ecotax_coef",
+        "classification_id.default_fixed_ecotax",
         "product_tmpl_id",
         "product_tmpl_id.weight",
         "product_id",

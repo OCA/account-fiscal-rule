@@ -36,6 +36,8 @@ class ProductTemplate(models.Model):
         "ecotax_line_product_ids.classification_id",
         "ecotax_line_product_ids.classification_id.ecotax_type",
         "ecotax_line_product_ids.classification_id.ecotax_coef",
+        "ecotax_line_product_ids.classification_id.default_fixed_ecotax",
+        "ecotax_line_product_ids.amount",
         "ecotax_line_product_ids.force_amount",
         "weight",
     )
