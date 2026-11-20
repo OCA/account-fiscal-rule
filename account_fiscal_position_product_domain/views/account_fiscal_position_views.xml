@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_position_form" model="ir.ui.view">
+        <field name="name">account.fiscal.position.form.product.domain</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form" />
+        <field name="arch" type="xml">
+            <page name="account_mapping" position="after">
+                <page name="filter_by_product" string="Filter by product">
+                    <field
+                        name="product_domain"
+                        widget="domain"
+                        options='{"model": "product.template"}'
+                    />
+                </page>
+            </page>
+            <xpath
+                expr="//page[@name='tax_mapping']//list//field[@name='tax_dest_id']"
+                position="after"
+            >
+                <field
+                    name="apply_product_domain"
+                    column_invisible="
+                        not parent.product_domain or parent.product_domain == '[]'
+                    "
+                />
+            </xpath>
+            <xpath
+                expr="//page[@name='tax_mapping']//form//field[@name='tax_dest_id']"
+                position="after"
+            >
+                <field
+                    name="apply_product_domain"
+                    invisible="
+                        not parent.product_domain or parent.product_domain == '[]'
+                    "
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
