@@ -1,0 +1,15 @@
+- Odoo SA
+  - Fabrice Henrion
+- Open Source Integrators (<https://opensourceintegrators.com>)
+  - Daniel Reis \<<dreis@opensourceintegrators.com>\>
+  - Bhavesh Odedra \<<bodedra@opensourceintegrators.com>\>
+  - Sandip Mangukiya \<<smangukiya@opensourceintegrators.com>\>
+  - Nikul Chaudhary \<<nchaudhary@opensourceintegrators.com>\>
+- Serpent CS
+  - Murtuza Saleh
+- Sodexis
+  - Atchuthan Ubendran
+- Kencove (<https://kencove.com>)
+  - Don Kendall \<<kendall@donkendall.com>\>
+  - Mohamed Alkobrosli \<<malkobrosly@kencove.com>\>
+  - Wai-Lun Lin \<<wlin@kencove.com>\>
