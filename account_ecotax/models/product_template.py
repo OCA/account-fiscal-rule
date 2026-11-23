@@ -36,6 +36,8 @@ class ProductTemplate(models.Model):
         "ecotax_line_product_ids.classification_id",
         "ecotax_line_product_ids.classification_id.ecotax_type",
         "ecotax_line_product_ids.classification_id.ecotax_coef",
+        "ecotax_line_product_ids.classification_id.default_fixed_ecotax",
+        "ecotax_line_product_ids.amount",
         "ecotax_line_product_ids.force_amount",
         "weight",
     )
@@ -54,3 +56,11 @@ class ProductTemplate(models.Model):
             tmpl.fixed_ecotax = fixed_ecotax
             tmpl.weight_based_ecotax = weight_based_ecotax
             tmpl.ecotax_amount = amount_ecotax
+
+    def _get_country_eligible_classification(self, country):
+        self and self.ensure_one()
+        return self.ecotax_line_product_ids.filtered(
+            lambda line: (
+                not line.country_ids or (country and country in line.country_ids)
+            )
+        )

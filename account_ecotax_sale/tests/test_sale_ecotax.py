@@ -2,6 +2,7 @@
 #   @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from odoo import Command
 from odoo.tests import Form
 
 from odoo.addons.account_ecotax.tests.test_ecotax import TestInvoiceEcotaxCommon
@@ -74,7 +75,6 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
         with so_form.order_line.edit(0) as line:
             line.product_uom_qty = 3.0
         so_form.save()
-        self.sale.order_line._compute_ecotax_line_ids()
         self.assertEqual(self.sale.order_line.ecotax_amount_unit, 16)
         self.assertEqual(self.sale.order_line.subtotal_ecotax, 48)
         self.assertEqual(self.sale.amount_untaxed, 600)
@@ -99,13 +99,40 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
         with so_form.order_line.edit(0) as line:
             line.product_uom_qty = 3.0
         so_form.save()
-        self.sale.order_line._compute_ecotax_line_ids()
         self.assertEqual(sale_line1.ecotax_amount_unit, 5.0)
         self.assertAlmostEqual(sale_line1.subtotal_ecotax, 15.0)
         self.assertEqual(sale_line2.ecotax_amount_unit, 16)
         self.assertEqual(sale_line2.subtotal_ecotax, 32)
         self.assertEqual(self.sale.amount_untaxed, 1000.0)
         self.assertEqual(self.sale.amount_ecotax, 47.0)
+
+    def _test_03_ecotax_by_country(self):
+        """
+        Test default ecotax by country
+        """
+        partner12 = self.env.ref("base.res_partner_12")
+        partner12.write({"country_id": self.env.ref("base.fr").id})
+        sale = self.create_sale_partner(
+            partner_id=partner12, products_and_qty=[(self.product_a, 1.0)]
+        )
+        # no country ecotax classification is set, ecotax is taken by default
+        self.assertEqual(
+            sale.order_line.ecotax_line_ids.classification_id, self.ecotax_fixed
+        )
+        # in case of wrong country, the ecotax is not set
+        self.ecotax_fixed.write(
+            {"country_ids": [Command.link(self.env.ref("base.de").id)]}
+        )
+        sale.write({"partner_id": partner12.id})
+        self.assertFalse(sale.order_line.ecotax_line_ids.classification_id)
+        # in case the same country is set, the ecotax is set as well
+        self.ecotax_fixed.write(
+            {"country_ids": [Command.link(self.env.ref("base.fr").id)]}
+        )
+        sale.write({"partner_id": sale.partner_id.id})
+        self.assertEqual(
+            sale.order_line.ecotax_line_ids.classification_id, self.ecotax_fixed
+        )
 
 
 class TestsaleEcotax(TestsaleEcotaxCommon):
@@ -114,3 +141,6 @@ class TestsaleEcotax(TestsaleEcotaxCommon):
 
     def test_02_classification_ecotax(self):
         self._test_02_classification_ecotax()
+
+    def test_03_ecotax_by_country(self):
+        self._test_03_ecotax_by_country()

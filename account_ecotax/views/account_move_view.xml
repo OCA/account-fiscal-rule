@@ -28,7 +28,7 @@
                     string="Ecotax"
                     invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
                 />
-                <field name="ecotax_line_ids" invisible="1">
+                <field name="ecotax_line_ids" column_invisible="1">
                     <list editable="bottom">
                         <field name="classification_id" />
                         <field name="force_amount_unit" />
@@ -44,6 +44,7 @@
                 <field
                     name="ecotax_line_ids"
                     colspan="2"
+                    readonly="parent.state != 'draft'"
                     invisible="parent.move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
                 >
                     <list editable="bottom">
@@ -144,7 +145,7 @@
                             <field
                                 name="ecotax_line_ids"
                                 nolabel="1"
-                                invisible="parent_state != 'draft'"
+                                readonly="parent_state != 'draft'"
                             >
                                 <list editable="bottom">
                                     <field name="classification_id" />

@@ -55,10 +55,12 @@ class TestsaleEcotaxTax(TestInvoiceEcotaxTaxComon, TestsaleEcotaxCommon):
         with so_form.order_line.edit(0) as line:
             line.product_uom_qty = 3.0
         so_form.save()
-
         self.assertEqual(sale_line1.ecotax_amount_unit, 5.0)
         self.assertAlmostEqual(sale_line1.subtotal_ecotax, 15.0)
         self.assertEqual(sale_line2.ecotax_amount_unit, 16)
         self.assertEqual(sale_line2.subtotal_ecotax, 32)
         self.assertEqual(self.sale.amount_total, 1047.0)
         self.assertEqual(self.sale.amount_ecotax, 47.0)
+
+    def test_03_ecotax_by_country(self):
+        self._test_03_ecotax_by_country()

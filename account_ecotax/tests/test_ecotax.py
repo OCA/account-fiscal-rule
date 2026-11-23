@@ -7,6 +7,7 @@
 from random import choice
 
 from odoo import Command
+from odoo.exceptions import UserError
 from odoo.tests import Form
 
 from odoo.addons.base.tests.common import BaseCommon
@@ -407,6 +408,33 @@ class TestInvoiceEcotaxCommon(BaseCommon):
             variant_2.product_tmpl_id.ecotax_line_product_ids,
         )
 
+    def _test_06_ecotax_by_country(self):
+        """
+        Test default ecotax by country
+        """
+        self.invoice_partner.write({"country_id": self.env.ref("base.fr").id})
+        invoice = self._make_invoice(products=self._make_product(self.ecotax_fixed))
+        # no country ecotax classification is set
+        self.assertEqual(
+            invoice.invoice_line_ids.ecotax_line_ids.classification_id,
+            self.ecotax_fixed,
+        )
+        # in case of wrong country, the ecotax is not set
+        self.ecotax_fixed.write(
+            {"country_ids": [Command.link(self.env.ref("base.de").id)]}
+        )
+        invoice.write({"partner_id": self.invoice_partner.id})
+        self.assertFalse(invoice.invoice_line_ids.ecotax_line_ids.classification_id)
+        # in case the same country is set, the ecotax is set as well
+        self.ecotax_fixed.write(
+            {"country_ids": [Command.link(self.env.ref("base.fr").id)]}
+        )
+        invoice.write({"partner_id": self.invoice_partner.id})
+        self.assertEqual(
+            invoice.invoice_line_ids.ecotax_line_ids.classification_id,
+            self.ecotax_fixed,
+        )
+
 
 class TestInvoiceEcotax(TestInvoiceEcotaxCommon):
     def test_01_default_fixed_ecotax(self):
@@ -423,3 +451,34 @@ class TestInvoiceEcotax(TestInvoiceEcotaxCommon):
 
     def test_05_product_variants(self):
         self._test_05_product_variants()
+
+    def test_06_ecotax_by_country(self):
+        self._test_06_ecotax_by_country()
+
+    def test_07_ecotax_lines_frozen_on_posted_invoice(self):
+        """The ecotax lines of a posted document must not move anymore: the
+        tax lines, the VAT and the collector reports are built on them.
+        """
+        invoice = self._make_invoice(products=self._make_product(self.ecotax_fixed))
+        invoice.action_post()
+        ecotax_line = invoice.invoice_line_ids.ecotax_line_ids
+        with self.assertRaises(UserError):
+            ecotax_line.force_amount_unit = 7.0
+        with self.assertRaises(UserError):
+            # the guard is not limited to the fields the user can edit
+            ecotax_line.write({"amount_total": 42.0})
+        with self.assertRaises(UserError):
+            ecotax_line.unlink()
+        self.assertAlmostEqual(ecotax_line.amount_total, 5.0)
+
+    def test_08_ecotax_amount_follows_classification(self):
+        """The ecotax amount of the product follows the classification amount.
+
+        ``@api.depends("classification_id")`` only reacts to a change of the
+        link: the amount fields of the classification must be declared too.
+        """
+        product = self._make_product(self.ecotax_fixed)
+        self.assertAlmostEqual(product.ecotax_line_product_ids.amount, 5.0)
+        self.ecotax_fixed.default_fixed_ecotax = 8.0
+        self.assertAlmostEqual(product.ecotax_line_product_ids.amount, 8.0)
+        self.assertAlmostEqual(product.ecotax_amount, 8.0)
