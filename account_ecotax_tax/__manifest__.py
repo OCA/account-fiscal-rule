@@ -18,6 +18,7 @@
         "views/account_ecotax_classification_view.xml",
         "views/account_tax_view.xml",
         "views/res_company_view.xml",
+        "views/account_move_view.xml",
         "report/invoice.xml",
     ],
     "installable": True,

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    The ecotax is displayed by its own tax group in the tax totals, so the
+    dedicated ecotax total displayed below the totals would be a duplicate.
+-->
+<odoo>
+    <record id="view_move_form_hide_ecotax_amount" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account_ecotax.view_move_form_inherit" />
+        <field name="arch" type="xml">
+            <field name="amount_ecotax" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
