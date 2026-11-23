@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo.fields import Command
-from odoo.tests import Form
+from odoo.tests import Form, new_test_user
 
 from odoo.addons.account_ecotax.tests.test_ecotax import TestInvoiceEcotaxCommon
 
@@ -110,3 +110,14 @@ class TestsaleEcotax(TestsaleEcotaxCommon):
 
     def test_02_classification_ecotax(self):
         self._test_02_classification_ecotax()
+
+    def test_03_salesman_reads_classification(self):
+        salesman = new_test_user(
+            self.env, login="ecotax_salesman", groups="sales_team.group_sale_salesman"
+        )
+        Classification = self.env["account.ecotax.classification"].with_user(salesman)
+        self.assertIn(self.ecotax_weight, Classification.search([]))
+        self.assertEqual(
+            self.ecotax_weight.with_user(salesman).ecotax_coef,
+            self.ecotax_weight.ecotax_coef,
+        )
