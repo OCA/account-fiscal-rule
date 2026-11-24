@@ -62,7 +62,7 @@ class AccountTax(models.Model):
         is_refund=False,
         handle_price_include=True,
         include_caba_tags=False,
-        fixed_multiplicator=1,
+        rounding_method=None,
     ):
         """
         Adopted as the central point to inject custom tax computations.
@@ -79,7 +79,7 @@ class AccountTax(models.Model):
             is_refund,
             handle_price_include,
             include_caba_tags,
-            fixed_multiplicator,
+            rounding_method,
         )
         avatax_invoice = self.env.context.get("avatax_invoice")
         if avatax_invoice:

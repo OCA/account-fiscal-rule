@@ -127,3 +127,10 @@ class TestAvataxSaleOrder(TestAvataxCommon):
         self.order.company_id = self.company.id
         self.assertEqual(self.order.exemption_code, "1234")
         self.assertTrue(self.order.exemption_code_id)
+
+    def test_compute_all_rounding_method(self):
+        """Purchase calls compute_all() with rounding_method (gross price unit)"""
+        tax = self.env["account.tax"].create({"name": "Tax 10", "amount": 10.0})
+        res = tax.compute_all(100.0, quantity=2, rounding_method="round_globally")
+        self.assertEqual(res["total_excluded"], 200.0)
+        self.assertEqual(res["total_included"], 220.0)
