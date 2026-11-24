@@ -451,3 +451,37 @@ class TestInvoiceEcotax(TestInvoiceEcotaxCommon):
 
     def test_06_ecotax_by_country(self):
         self._test_06_ecotax_by_country()
+
+    def test_07_additional_ecotax_from_variants_action(self):
+        """An additional ecotax line added on a variant opened from its template
+        (the "Variants" action sets default_product_tmpl_id) stays on that variant
+        """
+        variants = self._make_product_variants(self.ecotax_fixed)
+        variant_1, variant_2 = variants
+        tmpl = variants.product_tmpl_id
+        variant_1.with_context(default_product_tmpl_id=tmpl.id).write(
+            {
+                "additional_ecotax_line_product_ids": [
+                    Command.create({"classification_id": self.ecotax_weight.id})
+                ]
+            }
+        )
+        self.assertFalse(variant_1.additional_ecotax_line_product_ids.product_tmpl_id)
+        self.assertEqual(
+            tmpl.ecotax_line_product_ids.classification_id, self.ecotax_fixed
+        )
+        self.assertEqual(
+            variant_2.all_ecotax_line_product_ids.classification_id, self.ecotax_fixed
+        )
+        # the same classification can be added on the other variant
+        variant_2.with_context(default_product_tmpl_id=tmpl.id).write(
+            {
+                "additional_ecotax_line_product_ids": [
+                    Command.create({"classification_id": self.ecotax_weight.id})
+                ]
+            }
+        )
+        self.assertEqual(
+            variant_2.all_ecotax_line_product_ids.classification_id,
+            self.ecotax_fixed | self.ecotax_weight,
+        )

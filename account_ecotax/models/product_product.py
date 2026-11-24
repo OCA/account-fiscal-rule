@@ -17,6 +17,9 @@ class ProductProduct(models.Model):
         string="Additional ecotax lines",
         copy=True,
         domain="[('id', 'not in', ecotax_line_product_ids)]",
+        # the "Variants" action of the template sets default_product_tmpl_id: a
+        # line of the variant must not be linked to the template too
+        context={"default_product_tmpl_id": False},
     )
     all_ecotax_line_product_ids = fields.One2many(
         "ecotax.line.product",
