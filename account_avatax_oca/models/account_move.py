@@ -461,32 +461,45 @@ class AccountMoveLine(models.Model):
         Return the company currency line amount, after discounts,
         to use for Tax calculation.
 
-        Can be used to compute unit price only, using qty=1.
+        Taxes flagged as price included are embedded in ``price_unit``, so the
+        raw line amount is gross and must not be reported as a taxable base.
+        ``price_subtotal`` is the net line total Odoo already computes, and it
+        equals ``price_unit * quantity * (1 - discount / 100)`` when none of the
+        line taxes is price included.
 
-        Code extracted from account/models/account_move.py,
-        from the compute_base_line_taxes() nested function,
-        adjusted to compute line amount instead of unit price.
+        Can be used to compute unit price only, using qty=1.
         """
         self.ensure_one()
         base_line = self
         move = base_line.move_id
         sign = -1 if move.is_inbound() else 1
-        quantity = qty or base_line.quantity
-        base_amount = base_line.price_unit * quantity
-        if base_line.currency_id:
-            price_unit_foreign_curr = (
-                sign * base_amount * (1 - (base_line.discount / 100.0))
+        if not qty:
+            base_amount = base_line.price_subtotal
+        else:
+            discounted_price_unit = base_line.price_unit * (
+                1 - (base_line.discount / 100.0)
             )
+            if base_line.tax_ids:
+                base_amount = base_line.tax_ids.compute_all(
+                    discounted_price_unit,
+                    currency=base_line.currency_id,
+                    quantity=qty,
+                    product=base_line.product_id,
+                    partner=base_line.partner_id,
+                    is_refund=base_line.is_refund,
+                )["total_excluded"]
+            else:
+                base_amount = discounted_price_unit * qty
+        base_amount = sign * base_amount
+        if base_line.currency_id:
             price_unit_comp_curr = base_line.currency_id._convert(
-                price_unit_foreign_curr,
+                base_amount,
                 move.company_id.currency_id,
                 move.company_id,
                 move.date,
             )
         else:
-            price_unit_comp_curr = (
-                sign * base_amount * (1 - (base_line.discount / 100.0))
-            )
+            price_unit_comp_curr = base_amount
         return -price_unit_comp_curr
 
     # Same in v12
